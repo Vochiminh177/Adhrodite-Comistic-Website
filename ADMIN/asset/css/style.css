@@ -1,0 +1,148 @@
+:root{
+    --color-menu: #92244a;  
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration:none;
+    color: unset;
+}
+
+.row-grid {
+    display: flex;
+    
+}
+
+/*****************SIDE MENU*****************/
+
+.admin-sidemenu{
+    height: 110vh;
+    background-color: var(--color-menu);
+    width: 250px;
+}
+
+.admin-sidemenu-top{
+    text-align: center ;
+    height: 70px;
+    border-bottom: solid 5px rgb(241, 201, 221);
+}
+
+.admin-sidemenu-top img {
+    width: 70px;
+}
+
+.admin-sidemenu-content {
+    padding: 8px 8px 8px 8px;
+}
+
+.admin-sidemenu-content ul li a i {
+    margin-right: 6px;
+}
+
+.admin-sidemenu-content ul li {
+    list-style-type: none;
+    padding: 6px;
+    transition: all 0.2 ease;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: rgb(241, 201, 221);
+}
+
+.admin-sidemenu-content ul li:hover {
+    background-color: rgb(211, 152, 171) ;
+    color:rgb(75, 3, 31);
+}
+
+.sub-menu {
+    display: none;
+    overflow: hidden;
+    transition: all 0.2 ease;
+}
+
+.sub-menu li:hover a{
+    color: rgb(75, 3, 31);
+}
+
+.sub-menu.active{
+    display: block;
+}
+
+/*****************CONTENT******************/
+
+.admin-content {
+    width: 100%;
+
+}
+
+.admin-content-top {
+    display: flex;
+    height: 70px;
+    background-color: var(--color-menu);
+    border-bottom: solid 5px rgb(241, 201, 221);
+    justify-content: space-between;
+}
+
+#admin-content-top-name {
+    text-align: center;
+    padding: 20px 0 0 20px;
+    color: #1A2737;
+    font-size: 20px;
+    font-weight:  500;
+}
+
+.admin-content-top-menu{
+    color: #1A2737;
+    padding: 18px;
+}
+
+.admin-content-top-menu ul li {
+    list-style-type: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    width: 100px;
+}
+.admin-content-top-menu ul li a i {
+    margin-right: 6px;
+}
+
+.admin-content-main {
+    height:100vh;
+    background-color:rgb(224, 153, 189); 
+    border-left: solid 5px rgb(241, 201, 221);
+}
+
+.admin-content-main-title {
+    background-color: rgb(241, 201, 221);
+}
+
+.admin-content-main-title h1  {
+    padding: 12px;
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    font-weight: 550;
+    font-style: normal;
+    font-size: 20px;
+    color: #1A2737;
+}
+
+.admin-content-main-title h1::before {
+    position: absolute;
+    display: block;
+    height: 4px;
+    content: "";
+    width: 150px;
+    background-color: #1A2737;
+    bottom: 6px;
+    left: 12px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
