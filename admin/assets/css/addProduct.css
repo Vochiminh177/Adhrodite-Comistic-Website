@@ -1,0 +1,24 @@
+/*them san pham*/
+:root {
+    --main-border-radius: 5px;
+}
+.content {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    padding: 12px;
+}
+#left-input input {
+    height: 30px;
+    border: none;
+    background-color: pink;
+    margin-bottom: 20px;
+    outline: none;
+    border-radius: var(--main-border-radius);
+    padding-left: 6px;
+}
+.content-two-input input {
+    width: 300px;
+} 
+.content-one-input input {
+    width: 600px;
+}

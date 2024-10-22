@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="asset/css/style2.css">
+    
+    <!--STYLE-->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style2.css">
+    <link rel="stylesheet" href="assets/css/addProduct.css">
 
     <!--ICON-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -73,17 +76,32 @@
             </a>
         </nav>
 
-		<main>
-			<div class="head-title">
-				<h1>Thống kê</h1>
-				<!--<li><i class="ri-square-fill" style="margin-right: 10px"></i>Thống kê</li>-->
+		<main id="main-content">
+			<div class="title">
+				<h1>Thêm sản phẩm</h1>
 			</div>
-			<div class="admin-content-main-content">
+			<div class="content">
 				<!-- Nội dung nằm ở đây -->
-				 
+				<div id="left-input">
+                    <div class="content-two-input">
+                        <input type="text" placeholder="Mã sản phẩm">
+                        <input type="text" placeholder="Thương hiệu">
+                    </div>
+                    <div class="content-one-input">
+                        <input type="text" placeholder="Tên sản phẩm">
+                    </div>
+                    <div class="content-two-input">
+                        <input type="text" placeholder="Loại sản phẩm">
+                        <input type="text" placeholder="Giá bán">
+                    </div>
+                    <textarea name="" id="">Mô tả sản phẩm</textarea>
+                </div>
+                <div id="right-input">
+
+                </div>
 			</div>
 		</main>
     </section>
-    <script src="asset/js/script2.js"></script>
+    <script src="js/script2.js"></script>
 </body>
 </html>
