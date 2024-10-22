@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Roboto Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="./assets/styles/reset.css" />
+    <!-- Styles CSS -->
+    <link rel="stylesheet" href="./assets/styles/home.css" />
+    <link rel="stylesheet" href="./assets/styles/about.css" />
+    <link rel="stylesheet" href="./assets/styles/products.css" />
+    <link rel="stylesheet" href="./assets/styles/contact.css" />
+    <link rel="stylesheet" href="./assets/styles/shopping.css" />
+    <link rel="stylesheet" href="./assets/styles/bill.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header sticky">
+      <div class="main-content">
+        <navbar class="header__menu">
+          <a href="" class="header__main-icon">
+            <strong class="main-icon">APHRODITE</strong>
+          </a>
+          <ul class="header__navbar navbar">
+            <li href="#!" class="header-navbar__item">
+              <a
+                href="#!"
+                id="home"
+                class="header-navbar__action"
+                data-main-content="home"
+              >
+                Trang&nbsp;chủ
+              </a>
+            </li>
+            <li href="#!" class="header-navbar__item">
+              <a
+                href="#!"
+                id="about"
+                class="header-navbar__action"
+                data-main-content="about"
+              >
+                Giới&nbsp;thiệu
+              </a>
+            </li>
+            <li
+              href="#!"
+              class="header-navbar__item"
+              data-main-content="products"
+            >
+              <a
+                href="#!"
+                id="products"
+                class="header-navbar__action"
+                data-main-content="products"
+              >
+                Sản&nbsp;phẩm
+              </a>
+            </li>
+            <li href="#!" class="header-navbar__item">
+              <a
+                href="#!"
+                id="contact"
+                class="header-navbar__action"
+                data-main-content="contact"
+              >
+                Liên&nbsp;hệ
+              </a>
+            </li>
+          </ul>
+          <div class="header__icons">
+            <div class="header__find-icon">
+              <a href="#!" class="header__find-click" id="find-click">
+                <i class="fa-solid fa-magnifying-glass header__icon"></i>
+              </a>
+              <div class="header__find-block" id="find-block">
+                <input
+                  type="text"
+                  name="find-header"
+                  id="find-header"
+                  class="header__find-input"
+                  placeholder="Thông tin"
+                />
+                <a href="#!" class="header__find-action"> Tìm&nbsp;kiếm </a>
+              </div>
+            </div>
+            <div class="header__shopping-cart-icon">
+              <a href="#!" class="header__action" id="shopping-cart-click">
+                <i class="fa-solid fa-cart-shopping header__icon"></i>
+              </a>
+            </div>
+            <div class="header__user-icon">
+              <a href="#!" class="header__action" id="user-click">
+                <i class="fa-solid fa-user header__icon"></i>
+              </a>
+              <div class="header__modal" id="user-modal">
+                <div class="header__user-block" id="user-block">
+                  <button class="header__exit" id="user-exit">x</button>
+                  <div class="header__user-actions main-user-form-body">
+                    <a
+                      href="#!"
+                      class="header__user-action"
+                      id="login"
+                      data-user-form="login"
+                    >
+                      Đăng nhập
+                    </a>
+                    <a
+                      href="#!"
+                      class="header__user-action"
+                      id="register"
+                      data-user-form="register"
+                    >
+                      Đăng ký
+                    </a>
+                  </div>
+                  <div class="header__user-body" id="user-form">
+                    <form
+                      action=""
+                      autocomplete="off"
+                      class="header__user-form"
+                    >
+                      <div class="header__form-group">
+                        <label for="username">Tên tài khoản</label>
+                        <input
+                          type="text"
+                          id="username"
+                          placeholder="Nhập tên tài khoản"
+                        />
+                      </div>
+                      <div class="header__form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input
+                          type="password"
+                          id="password"
+                          placeholder="Nhập mật khẩu"
+                        />
+                      </div>
+                      <div class="header__form-group">
+                        <input
+                          type="checkbox"
+                          id="remember-user-account"
+                          hidden
+                        />
+                        <label for="remember-user-account"
+                          >Ghi nhớ mật khẩu</label
+                        >
+                      </div>
+                      <div class="header__form-group">
+                        <input type="submit" value="Đăng nhập" />
+                      </div>
+                    </form>
+                    <div class="header__user-contacts">
+                      <p class="header__user-contacts-title">Hoặc</p>
+                      <div class="header__user-contacts-block">
+                        <a href="#!" class="header__user-contact">
+                          <i
+                            class="fa-brands fa-facebook-f header__user-contact-icon"
+                          ></i>
+                          <p class="header__user-contact-sub-title">Facebook</p>
+                        </a>
+                        <a href="#!" class="header__user-contact">
+                          <i
+                            class="fa-brands fa-google header__user-contact-icon"
+                          ></i>
+                          <p class="header__user-contact-sub-title">Google</p>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </navbar>
+      </div>
+    </header>
+    <!-- Body -->
+    <main class="body">
+      <div class="main-content" id="main-content">
+        <!-- <div class="body__home">
+          <div class="home__hero">
+            <div class="hero__rectangle">
+              <h1 class="hero__title heading-lv1">
+                Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
+              </h1>
+              <p class="hero__desc desc-lv1">
+                Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
+                lựa chọn được phong cách sống cho riêng mình.
+              </p>
+            </div>
+          </div>
+          <div class="home__popular-menu">
+            <h2 class="popular-menu__title heading-lv2">
+              Các danh mục nổi bật
+            </h2>
+            <div class="popular-menu__body">
+              <ul class="popular-menu__list">
+                <li class="popular-menu__item">
+                  <figure class="popular-menu__media">
+                    <img
+                      src="./assets/images/popular-menu_image-1.jpg"
+                      alt=""
+                      class="popular-menu__image"
+                    />
+                  </figure>
+                  <p class="popular-menu__label">SỮA&nbsp;RỬA&nbsp;MẶT</p>
+                </li>
+                <li class="popular-menu__item">
+                  <figure class="popular-menu__media">
+                    <img
+                      src="./assets/images/popular-menu_image-2.jpg"
+                      alt=""
+                      class="popular-menu__image"
+                    />
+                  </figure>
+                  <p class="popular-menu__label">TONER</p>
+                </li>
+                <li class="popular-menu__item">
+                  <figure class="popular-menu__media">
+                    <img
+                      src="./assets/images/popular-menu_image-3.jpg"
+                      alt=""
+                      class="popular-menu__image"
+                    />
+                  </figure>
+                  <p class="popular-menu__label">SERUM</p>
+                </li>
+                <li class="popular-menu__item">
+                  <figure class="popular-menu__media">
+                    <img
+                      src="./assets/images/popular-menu_image-4.jpg"
+                      alt=""
+                      class="popular-menu__image"
+                    />
+                  </figure>
+                  <p class="popular-menu__label">KEM&nbsp;DƯỠNG&nbsp;ẨM</p>
+                </li>
+                <li class="popular-menu__item">
+                  <figure class="popular-menu__media">
+                    <img
+                      src="./assets/images/popular-menu_image-5.jpg"
+                      alt=""
+                      class="popular-menu__image"
+                    />
+                  </figure>
+                  <p class="popular-menu__label">SON</p>
+                </li>
+                <li class="popular-menu__item">
+                  <figure class="popular-menu__media">
+                    <img
+                      src="./assets/images/popular-menu_image-6.jpg"
+                      alt=""
+                      class="popular-menu__image"
+                    />
+                  </figure>
+                  <p class="popular-menu__label">PHẤN</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="home__popular-product">
+            <h2 class="popular-product__title heading-lv2">
+              Các sản phẩm nổi bật
+            </h2>
+            <div class="popular-product__list">
+              <div class="popular-product__item">
+                <div class="popular-product__color"></div>
+                <figure class="popular-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="popular-product__image"
+                  />
+                </figure>
+                <div class="popular-product__info">
+                  <h3 class="popular-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+                  <p class="popular-product__detail">
+                    Danh mục: <b>Sửa rửa mặt</b>
+                  </p>
+                  <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+                  <div class="popular-product__actions">
+                    <a href="#!" class="popular-p roduct__action">Mua</a>
+                    <a href="#!" class="popular-product__action">
+                      Thêm giỏ hàng
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="popular-product__item">
+                <div class="popular-product__color"></div>
+                <figure class="popular-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="popular-product__image"
+                  />
+                </figure>
+                <div class="popular-product__info">
+                  <h3 class="popular-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+                  <p class="popular-product__detail">
+                    Danh mục: <b>Sửa rửa mặt</b>
+                  </p>
+                  <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+                  <div class="popular-product__actions">
+                    <a href="#!" class="popular-product__action">Mua</a>
+                    <a href="#!" class="popular-product__action">
+                      Thêm giỏ hàng
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="popular-product__item">
+                <div class="popular-product__color"></div>
+                <figure class="popular-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="popular-product__image"
+                  />
+                </figure>
+                <div class="popular-product__info">
+                  <h3 class="popular-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+                  <p class="popular-product__detail">
+                    Danh mục: <b>Sửa rửa mặt</b>
+                  </p>
+                  <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+                  <div class="popular-product__actions">
+                    <a href="#!" class="popular-product__action">Mua</a>
+                    <a href="#!" class="popular-product__action">
+                      Thêm giỏ hàng
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="popular-product__item">
+                <div class="popular-product__color"></div>
+                <figure class="popular-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="popular-product__image"
+                  />
+                </figure>
+                <div class="popular-product__info">
+                  <h3 class="popular-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+                  <p class="popular-product__detail">
+                    Danh mục: <b>Sửa rửa mặt</b>
+                  </p>
+                  <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+                  <div class="popular-product__actions">
+                    <a href="#!" class="popular-product__action">Mua</a>
+                    <a href="#!" class="popular-product__action">
+                      Thêm giỏ hàng
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="popular-product__item">
+                <div class="popular-product__color"></div>
+                <figure class="popular-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="popular-product__image"
+                  />
+                </figure>
+                <div class="popular-product__info">
+                  <h3 class="popular-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+                  <p class="popular-product__detail">
+                    Danh mục: <b>Sửa rửa mặt</b>
+                  </p>
+                  <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+                  <div class="popular-product__actions">
+                    <a href="#!" class="popular-product__action">Mua</a>
+                    <a href="#!" class="popular-product__action">
+                      Thêm giỏ hàng
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="popular-product__item">
+                <div class="popular-product__color"></div>
+                <figure class="popular-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="popular-product__image"
+                  />
+                </figure>
+                <div class="popular-product__info">
+                  <h3 class="popular-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+                  <p class="popular-product__detail">
+                    Danh mục: <b>Sửa rửa mặt</b>
+                  </p>
+                  <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+                  <div class="popular-product__actions">
+                    <a href="#!" class="popular-product__action">Mua</a>
+                    <a href="#!" class="popular-product__action">
+                      Thêm giỏ hàng
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="home__sale-product">
+            <h2 class="sale-product__title">Khuyến mãi</h2>
+            <div class="sale-product__list">
+              <div class="sale-product__item">
+                <div class="sale-product__color"></div>
+                <figure class="sale-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="sale-product__image"
+                  />
+                </figure>
+                <div class="sale-product__info">
+                  <h3 class="sale-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="sale-product__price">
+                    <b class="old">xxx.000đ</b>
+                    <b class="new">xxx.000đ</b>
+                  </p>
+                </div>
+              </div>
+              <div class="sale-product__item">
+                <div class="sale-product__color"></div>
+                <figure class="sale-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="sale-product__image"
+                  />
+                </figure>
+                <div class="sale-product__info">
+                  <h3 class="sale-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="sale-product__price">
+                    <b class="old">xxx.000đ</b>
+                    <b class="new">xxx.000đ</b>
+                  </p>
+                </div>
+              </div>
+              <div class="sale-product__item">
+                <div class="sale-product__color"></div>
+                <figure class="sale-product__media">
+                  <img
+                    src="./assets/images/facewash-image-1.jpg "
+                    alt=""
+                    class="sale-product__image"
+                  />
+                </figure>
+                <div class="sale-product__info">
+                  <h3 class="sale-product__name">
+                    Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                  </h3>
+                  <p class="sale-product__price">
+                    <b class="old">xxx.000đ</b>
+                    <b class="new">xxx.000đ</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="home__useful">
+            <div class="useful__media">
+              <img
+                src="./assets/images/useful-image.jpg"
+                alt=""
+                class="useful__model"
+              />
+            </div>
+            <div class="useful__content">
+              <h2 class="useful__title heading-lv2">
+                Lợi ích khi mua sản phẩm từ chúng tôi
+              </h2>
+              <ul class="useful__list">
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Sản phẩm chính hãng:</b> Cam kết cung cấp các sản phẩm mỹ
+                    phẩm từ các thương hiệu uy tín và có nguồn gốc rõ ràng.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Đa dạng sản phẩm:</b> Cửa hàng có đầy đủ các sản phẩm từ
+                    skincare đến trang điểm, đáp ứng mọi nhu cầu làm đẹp của
+                    khách hàng.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Tư vấn chuyên nghiệp:</b> Đội ngũ nhân viên có kiến thức
+                    chuyên sâu sẽ hỗ trợ tư vấn sản phẩm phù hợp với loại da và
+                    nhu cầu cá nhân.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Ưu đãi hấp dẫn:</b> Luôn có các chương trình khuyến mãi
+                    và quà tặng kèm cho những đơn hàng lớn.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Tư vấn chăm sóc da miễn phí:</b> Khách hàng có thể được
+                    tư vấn cách sử dụng mỹ phẩm và chăm sóc da hàng ngày hoàn
+                    toàn miễn phí.
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="main-content">
+        <div class="footer__content">
+          <div class="footer__info">
+            <h2 class="footer__icon--strong">
+              <strong class="main-icon">APHRODITE</strong>
+            </h2>
+            <p class="footer__desc">
+              Vẻ đẹp của bạn là ưu tiên hàng đầu của chúng tôi. Liên hệ ngay để
+              được tư vấn và chọn sản phẩm phù hợp với phong cách sống của bạn.
+            </p>
+            <div class="footer__icons">
+              <a href="#!" class="footer__icon">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+              <a href="#!" class="footer__icon">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="#!" class="footer__icon">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="#!" class="footer__icon">
+                <i class="fa-brands fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+          <div class="footer__help">
+            <h2 class="help__title">Trợ giúp</h2>
+            <ul class="help__menu">
+              <li class="help__item">
+                <a href="#!" class="help__action">Chính sách sử dụng website</a>
+              </li>
+              <li class="help__item">
+                <a href="#!" class="help__action"> Phương thức thanh toán </a>
+              </li>
+              <li class="help__item">
+                <a href="#!" class="help__action">Chính sách đổi trả</a>
+              </li>
+              <li class="help__item">
+                <a href="#!" class="help__action">Chính sách giao hàng</a>
+              </li>
+              <li class="help__item">
+                <a href="#!" class="help__action">Điều khoản dịch vụ</a>
+              </li>
+              <li class="help__item">
+                <a href="#!" class="help__action">Hướng dẫn mua hàng</a>
+              </li>
+              <li class="help__item">
+                <a href="#!" class="help__action">Chính sách bảo mật</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__contacts">
+            <p class="contacts__title">Liên hệ</p>
+            <p class="contacts__location">
+              <b>Địa chỉ: </b>
+              <a
+                href="https://www.google.com/maps/place/Trường+Đại+h%E1%BB%8Dc+Sài+Gòn/@10.7493319,106.6910244,21z/data=!4m6!3m5!1s0x31752f1b7c3ed289:0xa06651894598e488!8m2!3d10.7599171!4d106.6822583!16s%2Fm%2F02qvnkv?entry=ttu&g_ep=EgoyMDI0MTAwMi4xIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+              >
+                273 Đường An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí
+                Minh
+              </a>
+            </p>
+            <p class="contacts__email">
+              <b>Email: </b>
+              <a href="mailto:nhom1SGU@gmail.com">nhom1SGU@gmail.com</a>
+            </p>
+            <p class="contacts__phone">
+              <b>Số điện thoại: </b>
+              <a href="tel:+84 0123456789">+84 0123456789</a>
+            </p>
+          </div>
+        </div>
+        <div class="footer__copyright">
+          <div class="copyright__line"></div>
+          <p class="copyright__info">
+            Copyright © 2024 Lập trình Web và Ứng dụng 1 Design by: Nhóm 1
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="./js/home-js/changeMainContent.js" type="module"></script>
+    <script src="./js/home-js/headerActions.js" type="module"></script>
+  </body>
+</html>

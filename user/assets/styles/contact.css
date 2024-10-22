@@ -1,0 +1,114 @@
+/* <===== Contact =====> */
+.contact {
+  padding: 32px 0;
+}
+/* <=== Info ===> */
+.contact .body__info {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+}
+.contact .body__info > * {
+  width: 50%;
+}
+.contact .info__detail {
+  padding: 0 42px;
+}
+.contact .detail__title {
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.contact .info__detail p {
+  font-size: 2.2rem;
+  line-height: 1.33;
+}
+.contact .info__detail p + p {
+  margin-top: 8px;
+}
+.contact .info__detail p b {
+  font-weight: 600;
+}
+/* <=== Request ===> */
+.contact .body__request {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin-top: 32px;
+  border-radius: 8px;
+}
+.contact .body__request > * {
+  width: 50%;
+}
+.contact .request__logo {
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  background: #ffc1cc;
+  height: 440px;
+  border-radius: 8px 0 0 8px;
+}
+.contact .logo__title {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 4.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+.contact .logo__slogan {
+  width: 92.55%;
+  margin-top: 12px;
+  color: #fff;
+  font-size: 2.4rem;
+  font-style: italic;
+  line-height: 1.38;
+  text-align: center;
+}
+.contact .send-request__form {
+  /* Khúc này người viết cũng chưa hiểu */
+  text-align: center;
+}
+.contact .send-request__title {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+.contact .send-request__form-group :is(input, textarea) {
+  color: #ccc;
+  width: 78%;
+  height: 40px;
+  padding-left: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /* margin-left: 32px; */
+}
+.contact
+  .send-request__form-group
+  :is(input, textarea):not(:placeholder-shown) {
+  color: #000000;
+  border-color: #000000;
+}
+.contact .send-request__form-group textarea {
+  height: 100px;
+}
+.contact .send-request__form-group:not(:first-of-type) {
+  margin-top: 8px;
+}
+.contact .send-request__form-group:first-of-type {
+  margin-top: 16px;
+}
+.contact .send-request__form-group:last-of-type {
+  margin-top: 24px;
+}
+.contact .send-request__form-group input[type="submit"] {
+  color: #fff;
+  font-weight: 600;
+  background: #000000;
+  border-radius: 0;
+  transition: 0.2s;
+}
+.contact .send-request__form-group input[type="submit"]:hover {
+  background: #fc8eac;
+  border-color: #fc8eac;
+}

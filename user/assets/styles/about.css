@@ -1,0 +1,31 @@
+/* <===== About =====> */
+.about {
+  padding: 32px 0;
+}
+.about .body__story {
+  background: #fff;
+  padding: 26px 28px 32px;
+  border-radius: 8px;
+}
+.about .story__title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+.about .story__title::after {
+  content: "";
+  display: block;
+  width: 88%;
+  height: 2px;
+  background: #000;
+  margin: 10px auto 18px;
+}
+.about .story__content {
+  font-size: 2.2rem;
+  text-align: justify;
+  text-indent: 2.8rem;
+  line-height: 1.67;
+}
+.about .story__content b {
+  font-weight: 600;
+}

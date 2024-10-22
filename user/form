@@ -1,0 +1,89 @@
+<!-- <ul class="left-filter__list">
+                <li class="left-filter__item">
+                  <p class="left-filter__sub-title">Sắp xếp</p>
+                  <form action="" class="left-filter__form">
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="sort" id="name" hidden />
+                      <label for="name">Sắp xếp theo tên</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="sort" id="price-asc" hidden />
+                      <label for="price-asc">Sắp xếp theo giá tăng dần</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="sort" id="price-desc" hidden />
+                      <label for="price-desc">Sắp xếp theo giá giảm dần</label>
+                    </div>
+                  </form>
+                </li>
+                <li class="left-filter__item">
+                  <p class="left-filter__sub-title">Hãng</p>
+                  <form action="" class="left-filter__form">
+                    <div class="left-filter__form-group">
+                      <input
+                        type="radio"
+                        name="brand"
+                        id="the-ordinary"
+                        hidden
+                      />
+                      <label for="the-ordinary">The Ordinary</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input
+                        type="radio"
+                        name="brand"
+                        id="la-roche-posay"
+                        hidden
+                      />
+                      <label for="la-roche-posay">La Roche-Posay</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="brand" id="cerave" hidden />
+                      <label for="cerave">CeraVe</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="brand" id="..." hidden />
+                      <label for="...">. . .</label>
+                    </div>
+                  </form>
+                </li>
+                <li class="left-filter__item">
+                  <p class="left-filter__sub-title">Giá cả</p>
+                  <form action="" class="left-filter__form">
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="price" id="level-1" hidden />
+                      <label for="level-1">Giá thấp hơn 200.000đ</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="price" id="level-2" hidden />
+                      <label for="level-2">Giá từ 200.000đ đến 400.000đ</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="price" id="level-3" hidden />
+                      <label for="level-3">Giá lớn hơn 400.000đ</label>
+                    </div>
+                  </form>
+                </li>
+                <li class="left-filter__item">
+                  <p class="left-filter__sub-title">Trạng thái</p>
+                  <form action="" class="left-filter__form">
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="status" id="can-buy" hidden />
+                      <label for="can-buy">Còn hàng</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input
+                        type="radio"
+                        name="status"
+                        id="can-not-buy"
+                        hidden
+                      />
+                      <label for="can-not-buy">Hết hàng</label>
+                    </div>
+                    <div class="left-filter__form-group">
+                      <input type="radio" name="status" id="sale" hidden />
+                      <label for="sale">Đang giảm giá</label>
+                    </div>
+                  </form>
+                </li>
+              </ul> -->

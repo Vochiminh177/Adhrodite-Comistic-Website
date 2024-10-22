@@ -1,0 +1,76 @@
+.body__bill {
+  padding: 32px 0;
+}
+.bill__info {
+  background: #fff;
+  padding: 26px 28px 32px;
+  border-radius: 8px;
+  width: 54%;
+  margin: 0 auto;
+}
+.bill__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bill__icon {
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+}
+.bill__title {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+.bill__slogan {
+  width: 328px;
+  margin-top: 10px;
+  font-size: 1.8rem;
+}
+.bill__column:last-of-type {
+  text-align: right;
+}
+.bill__date {
+  margin-top: 10px;
+  font-style: italic;
+}
+.bill__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 36px;
+}
+.bill__sub-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.bill__detail + .bill__detail {
+  margin-top: 2px;
+}
+.bill__shop-info {
+  text-align: right;
+}
+.bill__products {
+  margin-top: 24px;
+}
+.bill__product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 8px;
+}
+.bill__id-product {
+  width: 12%;
+}
+.bill__name-product {
+  width: 46%;
+}
+.bill__number-product {
+  width: 22%;
+  text-align: right;
+}
+.bill__price-product {
+  width: 20%;
+  text-align: right;
+}
