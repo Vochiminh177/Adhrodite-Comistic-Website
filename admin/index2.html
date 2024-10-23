@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!--STYLE-->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style2.css">
-    <link rel="stylesheet" href="assets/css/addProduct.css">
+    <link rel="stylesheet" href="assets/css/list_product.css">
+    <link rel="stylesheet" href="assets/css/add_Product.css">
 
     <!--ICON-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -76,32 +77,106 @@
             </a>
         </nav>
 
-		<main id="main-content">
-			<div class="title">
-				<h1>Thêm sản phẩm</h1>
-			</div>
-			<div class="content">
-				<!-- Nội dung nằm ở đây -->
-				<div id="left-input">
-                    <div class="content-two-input">
-                        <input type="text" placeholder="Mã sản phẩm">
-                        <input type="text" placeholder="Thương hiệu">
-                    </div>
-                    <div class="content-one-input">
-                        <input type="text" placeholder="Tên sản phẩm">
-                    </div>
-                    <div class="content-two-input">
-                        <input type="text" placeholder="Loại sản phẩm">
-                        <input type="text" placeholder="Giá bán">
-                    </div>
-                    <textarea name="" id="">Mô tả sản phẩm</textarea>
+		<main >
+            <!-- Nội dung ở đây -->
+            <div class="title">
+                <h1>Danh sách sản phẩm</h1>
+            </div>
+            <div class="content">
+                <div class="content-product-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên</th>
+                                <th>Thương hiệu</th>
+                                <th>Loại</th>
+                                <th>Giá</th>
+                                <th>Mô tả</th>
+                                <th>Tùy chỉnh</th>
+                            </tr>
+                        <tbody>
+                            <tr>
+                                <td id="id">123</td>
+                                <td id="src"><img style="width: 70px; height:90%;" src="assets/image/z5880225504504_c041459811d8195bff1d325a9c868597.png" alt=""></td>
+                                <td id="name">abc</td>
+                                <td id="brand">dgs</td>
+                                <td id="category">eig</td>
+                                <td id="price">100000</td>
+                                <td id="desc">akhlkahofhlh</td>
+                                <td>
+                                    <a href="">Sửa</a>
+                                    <a href="">Xóa</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="id">123</td>
+                                <td id="src"><img style="width: 70px; height:90%;" src="assets/image/z5880225504504_c041459811d8195bff1d325a9c868597.png" alt=""></td>
+                                <td id="name">abc</td>
+                                <td id="brand">dgs</td>
+                                <td id="category">eig</td>
+                                <td id="price">100000</td>
+                                <td id="desc">akhlkahofhlh</td>
+                                <td>
+                                    <a href="">Sửa</a>
+                                    <a href="">Xóa</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="id">123</td>
+                                <td id="src"><img style="width: 70px; height:90%;" src="assets/image/z5880225504504_c041459811d8195bff1d325a9c868597.png" alt=""></td>
+                                <td id="name">abc</td>
+                                <td id="brand">dgs</td>
+                                <td id="category">eig</td>
+                                <td id="price">100000</td>
+                                <td id="desc">akhlkahofhlh</td>
+                                <td>
+                                    <a href="">Sửa</a>
+                                    <a href="">Xóa</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                                    
+                        </thead>
+                    </table>
                 </div>
-                <div id="right-input">
+                
+            </div>
 
+            <!-- <div class="title">
+                <h1>Thêm sản phẩm</h1>
+            </div>
+            <div class="content">
+                <div class="content-product-add">
+                    <div id="left-input">
+                        <div class="content-two-input">
+                            <input type="text" placeholder="Mã sản phẩm">
+                            <input type="text" placeholder="Thương hiệu">
+                        </div>
+                        <div class="content-one-input">
+                            <input type="text" placeholder="Tên sản phẩm">
+                        </div>
+                        <div class="content-two-input">
+                            <input type="text" placeholder="Loại sản phẩm">
+                            <input type="text" placeholder="Giá bán">
+                        </div>
+                        <textarea name="" id="" placeholder="Miêu tả sản phẩm"></textarea>
+                        <button class="btn">Thêm sản phẩm</button>
+                    </div>
+                    <div id="right-input">
+                        <div class="add-photo-button">
+                            <label for="file"><i class='bx bxs-folder-plus' ></i>  Ảnh sản phẩm</label>
+                            <input id="file" type="file" accept="image/*">
+                        </div>
+                        <div class="image-show"></div>
+                    </div>
                 </div>
-			</div>
+            </div> -->
+			
 		</main>
     </section>
     <script src="js/script2.js"></script>
+    <script src="js/product.js"></script>
 </body>
 </html>

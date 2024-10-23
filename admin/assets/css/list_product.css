@@ -1,0 +1,12 @@
+.content-product-list table {
+    width: 100%;
+    padding: 12px;
+}
+.content-product-list table,th,td {
+    text-align: center;
+}
+.content-product-list table th {
+    background-color: black;
+    color: whitesmoke;
+    padding: 10px 0px;
+}

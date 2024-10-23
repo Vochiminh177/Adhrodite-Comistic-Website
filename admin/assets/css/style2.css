@@ -15,7 +15,7 @@ li {
 }
 
 :root {
-    --lato: 'Lato', sans-serif;
+    --poppins: "Poppins", sans-serif;
 
     --pink1: #a94064;
     --pink2: #db7699;
@@ -214,7 +214,7 @@ body {
 	border-radius: 36px 0 0 36px;
 	outline: none;
 	width: 100%;
-	color: var(--light);
+	color: black;
 }
 #content nav form .form-input button {
 	width: 36px;
@@ -223,7 +223,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	background: var(--pink3);
-	color: var(--light);
+	color: black;
 	font-size: 18px;
 	border: none;
 	outline: none;
@@ -263,10 +263,18 @@ body {
 
 #content main {
 	width: 100%;
-	padding: 36px 24px;
+	padding: 36px 28px;
 	font-family: "Poppins", sans-serif;
 	max-height: calc(100vh - 56px);
 	overflow-y: auto;
+}
+.title h1 {
+    padding: 12px;
+    font-family: var(--poppins);
+    font-size: 25px;
+}
+.content {
+    background-color: white;
 }
 
 /* Content */
