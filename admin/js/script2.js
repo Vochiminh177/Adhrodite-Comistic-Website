@@ -17,7 +17,7 @@ const sidebar = document.getElementById('side-bar');
 
 menuBar.addEventListener('click', function () {
 	sidebar.classList.toggle('hide');
-})
+});
 
 
 
@@ -35,7 +35,7 @@ searchButton.addEventListener('click', function (e) {
 			searchButtonIcon.classList.replace('bx-x', 'bx-search');
 		}
 	}
-})
+});
 
 
 
@@ -52,7 +52,7 @@ window.addEventListener('resize', function () {
 		searchButtonIcon.classList.replace('bx-x', 'bx-search');
 		searchForm.classList.remove('show');
 	}
-})
+});
 
 
 
@@ -64,4 +64,18 @@ switchMode.addEventListener('change', function () {
 	} else {
 		document.body.classList.remove('pink1');
 	}
-})
+});
+
+function showMain(sectionId) {
+    // Ẩn tất cả các phần tử main
+    const sections = document.querySelectorAll('main');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Hiển thị phần tử main được chọn
+    const activeSection = document.getElementById(sectionId);
+    if (activeSection) {
+        activeSection.style.display = 'block';
+    }
+}

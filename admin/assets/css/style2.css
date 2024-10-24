@@ -263,13 +263,13 @@ body {
 
 #content main {
 	width: 100%;
-	padding: 36px 28px;
+	padding: 28px 28px;
 	font-family: "Poppins", sans-serif;
 	max-height: calc(100vh - 56px);
 	overflow-y: auto;
 }
-.title h1 {
-    padding: 12px;
+.title  {
+    padding-bottom: 20px;
     font-family: var(--poppins);
     font-size: 25px;
 }

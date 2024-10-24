@@ -23,37 +23,37 @@
         </a>
         <ul class="side-menu">
             <li class="active">
-                <a href="#">
+                <a href="#" onclick="showMain('main-content-dashboard')">
                     <i class='bx bxs-doughnut-chart' ></i>
                     <span class="text">Thống kê</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#" onclick="showMain('main-content-product-list')">
                     <i class='bx bxs-star'></i>
                     <span class="text">Sản phẩm</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#" onclick="showMain('main-content-order')">
                     <i class='bx bxs-cart-alt'></i>
                     <span class="text">Đơn hàng</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#" onclick="showMain('main-content-customer')">
                     <i class='bx bxs-group'></i>
                     <span class="text">Khách hàng</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="#">
                     <i class='bx bxs-cog'></i>
                     <span class="text">Tài khoản</span>
                 </a>
-            </li>
+            </li> -->
             <li>
-                <a href="#">
+                <a href="#" onclick="showMain('main-content-logout')">
                     <i class='bx bxs-log-out'></i>
                     <span class="text">Đăng xuất</span>
                 </a>
@@ -73,14 +73,21 @@
                 </div>
             </form>
             <a href="#" class="profile">
-                <img src="image/z5880225504504_c041459811d8195bff1d325a9c868597.png" >
+                <img src="assets/images/z5880225504504_c041459811d8195bff1d325a9c868597.png" >
             </a>
         </nav>
 
-		<main >
+        <main id="main-content-dashboard">
+            <h1>Dashboard</h1>
+        </main>
+
+		<main id="main-content-product-list" style="display: none;">
             <!-- Nội dung ở đây -->
             <div class="title">
-                <h1>Danh sách sản phẩm</h1>
+                <div id="title-name">Danh sách sản phẩm</div>
+                <div>
+                    <button class="btn" onclick="showMain('main-content-product-add')">Thêm sản phẩm</button>
+                </div>
             </div>
             <div class="content">
                 <div class="content-product-list">
@@ -96,55 +103,95 @@
                                 <th>Mô tả</th>
                                 <th>Tùy chỉnh</th>
                             </tr>
-                        <tbody>
-                            <tr>
-                                <td id="id">123</td>
-                                <td id="src"><img style="width: 70px; height:90%;" src="assets/image/z5880225504504_c041459811d8195bff1d325a9c868597.png" alt=""></td>
-                                <td id="name">abc</td>
-                                <td id="brand">dgs</td>
-                                <td id="category">eig</td>
-                                <td id="price">100000</td>
-                                <td id="desc">akhlkahofhlh</td>
-                                <td>
-                                    <a href="">Sửa</a>
-                                    <a href="">Xóa</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="id">123</td>
-                                <td id="src"><img style="width: 70px; height:90%;" src="assets/image/z5880225504504_c041459811d8195bff1d325a9c868597.png" alt=""></td>
-                                <td id="name">abc</td>
-                                <td id="brand">dgs</td>
-                                <td id="category">eig</td>
-                                <td id="price">100000</td>
-                                <td id="desc">akhlkahofhlh</td>
-                                <td>
-                                    <a href="">Sửa</a>
-                                    <a href="">Xóa</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="id">123</td>
-                                <td id="src"><img style="width: 70px; height:90%;" src="assets/image/z5880225504504_c041459811d8195bff1d325a9c868597.png" alt=""></td>
-                                <td id="name">abc</td>
-                                <td id="brand">dgs</td>
-                                <td id="category">eig</td>
-                                <td id="price">100000</td>
-                                <td id="desc">akhlkahofhlh</td>
-                                <td>
-                                    <a href="">Sửa</a>
-                                    <a href="">Xóa</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                                    
                         </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="id">1</td>
+                                    <td id="src"><img style="width: 70px; height:90%;" src="assets/images/acnecream-image-1.jpg"></td>
+                                    <td id="name">abc</td>
+                                    <td id="brand">dgs</td>
+                                    <td id="category">eig</td>
+                                    <td id="price">100000</td>
+                                    <td id="desc">akhlkahofhlh</td>
+                                    <td>
+                                        <a href="">Sửa</a>
+                                        <a href="">Xóa</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="id">2</td>
+                                    <td id="src"><img style="width: 70px; height:90%;" src="assets/images/acnecream-image-2.jpg" alt=""></td>
+                                    <td id="name">abc</td>
+                                    <td id="brand">dgs</td>
+                                    <td id="category">eig</td>
+                                    <td id="price">100000</td>
+                                    <td id="desc">akhlkahofhlh</td>
+                                    <td>
+                                        <a href="">Sửa</a>
+                                        <a href="">Xóa</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="id">3</td>
+                                    <td id="src"><img style="width: 70px; height:90%;" src="assets/images/acnecream-image-3.jpg" alt=""></td>
+                                    <td id="name">abc</td>
+                                    <td id="brand">dgs</td>
+                                    <td id="category">eig</td>
+                                    <td id="price">100000</td>
+                                    <td id="desc">akhlkahofhlh</td>
+                                    <td>
+                                        <a href="">Sửa</a>
+                                        <a href="">Xóa</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="id">4</td>
+                                    <td id="src"><img style="width: 70px; height:90%;" src="assets/images/facewash-image-1.jpg" alt=""></td>
+                                    <td id="name">abc</td>
+                                    <td id="brand">dgs</td>
+                                    <td id="category">eig</td>
+                                    <td id="price">100000</td>
+                                    <td id="desc">akhlkahofhlh</td>
+                                    <td>
+                                        <a href="">Sửa</a>
+                                        <a href="">Xóa</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="id">5</td>
+                                    <td id="src"><img style="width: 70px; height:90%;" src="assets/images/facewash-image-1.jpg" alt=""></td>
+                                    <td id="name">abc</td>
+                                    <td id="brand">dgs</td>
+                                    <td id="category">eig</td>
+                                    <td id="price">100000</td>
+                                    <td id="desc">akhlkahofhlh</td>
+                                    <td>
+                                        <a href="">Sửa</a>
+                                        <a href="">Xóa</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="id">6</td>
+                                    <td id="src"><img style="width: 70px; height:90%;" src="assets/images/facewash-image-2.jpg" alt=""></td>
+                                    <td id="name">abc</td>
+                                    <td id="brand">dgs</td>
+                                    <td id="category">eig</td>
+                                    <td id="price">100000</td>
+                                    <td id="desc">akhlkahofhlh</td>
+                                    <td>
+                                        <a href="">Sửa</a>
+                                        <a href="">Xóa</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                     </table>
                 </div>
                 
             </div>
+		</main>
 
-            <!-- <div class="title">
+        <main id="main-content-product-add" style="display: none;">
+            <div class="title">
                 <h1>Thêm sản phẩm</h1>
             </div>
             <div class="content">
@@ -172,9 +219,20 @@
                         <div class="image-show"></div>
                     </div>
                 </div>
-            </div> -->
-			
-		</main>
+            </div>
+        </main>
+
+        <main id="main-content-order" style="display: none;">
+            <h1>Don hang</h1>
+        </main>
+
+        <main id="main-content-customer" style="display: none;">
+            <h1>Khach hang</h1>
+        </main>
+
+        <main id="main-content-logout" style="display: none;">
+            <h1>Dang xuat</h1>
+        </main>
     </section>
     <script src="js/script2.js"></script>
     <script src="js/product.js"></script>
