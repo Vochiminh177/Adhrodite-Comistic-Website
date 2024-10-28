@@ -102,6 +102,7 @@
                   id="find-header"
                   class="header__find-input"
                   placeholder="Tìm kiếm sản phẩm..."
+                  autocomplete="off"
                 />
                 <a href="#!" class="header__find-action"> Tìm</a>
                 <ul id="suggestions-list"></ul>
@@ -554,6 +555,334 @@
                   </p>
                 </li>
               </ul>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="body__products">
+          <div class="products__left">
+            <div class="left__search">
+              <h2 class="left-search__title heading">TÌM KIẾM</h2>
+              <div class="left-search__form-group">
+                <label for="search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </label>
+                <input
+                  type="text"
+                  id="left-search-input"
+                  autocomplete="off"
+                  placeholder="Tìm kiếm"
+                />
+              </div>
+            </div>
+            <div class="left__filter">
+              <h2 class="left-filter__tilte heading">BỘ LỌC</h2>
+              <a href="#!" class="left-filter__see" id="see-filter-menu">
+                Xem thêm <i class="fa-solid fa-chevron-down"></i>
+              </a>
+              <form action="" class="left-filter__form" id="filter-menu">
+                <div class="left-filter__form-group">
+                  <p class="left-filter__sub-title">Sắp xếp</p>
+                  <div class="left-filter__checkboxs">
+                    <input type="checkbox" name="sort" id="name" hidden="" />
+                    <label for="name">Sắp xếp tên</label>
+                    <input
+                      type="checkbox"
+                      name="sort"
+                      id="price-asc"
+                      hidden=""
+                    />
+                    <label for="price-asc">Sắp xếp giá tăng&nbsp;dần</label>
+                    <input
+                      type="checkbox"
+                      name="sort"
+                      id="price-desc"
+                      hidden=""
+                    />
+                    <label for="price-desc">Sắp xếp giá giảm&nbsp;dần</label>
+                  </div>
+                </div>
+                <div class="left-filter__form-group">
+                  <p class="left-filter__sub-title">Hãng</p>
+                  <div class="left-filter__checkboxs">
+                    <input
+                      type="checkbox"
+                      name="brand"
+                      id="the-ordinary"
+                      hidden=""
+                    />
+                    <label for="the-ordinary">The Ordinary</label>
+                    <input
+                      type="checkbox"
+                      name="brand"
+                      id="la-roche-posay"
+                      hidden=""
+                    />
+                    <label for="la-roche-posay">La Roche-Posay</label>
+                    <input type="checkbox" name="brand" id="cerave" hidden="" />
+                    <label for="cerave">CeraVe</label>
+                    <input type="checkbox" name="brand" id="..." hidden="" />
+                    <label for="...">. . .</label>
+                  </div>
+                </div>
+                <div class="left-filter__form-group">
+                  <p class="left-filter__sub-title">Giá cả</p>
+                  <div class="left-filter__checkboxs">
+                    <input
+                      type="checkbox"
+                      name="price"
+                      id="level-1"
+                      hidden=""
+                    />
+                    <label for="level-1">Giá dưới 200.000đ</label>
+                    <input
+                      type="checkbox"
+                      name="price"
+                      id="level-2"
+                      hidden=""
+                    />
+                    <label for="level-2">Giá từ 200.000đ đến 400.000đ</label>
+                    <input
+                      type="checkbox"
+                      name="price"
+                      id="level-3"
+                      hidden=""
+                    />
+                    <label for="level-3">Giá trên 400.000đ</label>
+                  </div>
+                </div>
+                <div class="left-filter__form-group">
+                  <p class="left-filter__sub-title">Giới tính</p>
+                  <div class="left-filter__checkboxs">
+                    <input type="checkbox" name="price" id="male" hidden="" />
+                    <label for="male">Nam</label>
+                    <input type="checkbox" name="price" id="female" hidden="" />
+                    <label for="female">Nữ</label>
+                  </div>
+                </div>
+                <div class="left-filter__form-group"></div>
+                <div class="left-filter__form-group">
+                  <p class="left-filter__sub-title">Trạng thái</p>
+                  <div class="left-filter__checkboxs">
+                    <input
+                      type="checkbox"
+                      name="status"
+                      id="can-buy"
+                      hidden=""
+                    />
+                    <label for="can-buy">Còn hàng</label>
+                    <input
+                      type="checkbox"
+                      name="status"
+                      id="can-not-buy"
+                      hidden=""
+                    />
+                    <label for="can-not-buy">Hết hàng</label>
+                    <input type="checkbox" name="status" id="sale" hidden="" />
+                    <label for="sale">Đang giảm giá</label>
+                  </div>
+                </div>
+              </form>
+              <button href="#!" class="left-filter__reset btn">Đặt lại</button>
+            </div>
+            <div class="left__menu">
+              <h2 class="left-menu__title heading">DANH MỤC</h2>
+              <ul class="left-menu__list">
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="tat-ca-left-menu"
+                    data-menu-product="tat-ca"
+                  >
+                    Tất cả
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="sua-rua-mat-left-menu"
+                    data-menu-product="sua-rua-mat"
+                  >
+                    Sữa rửa mặt
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="kem-tri-mun-left-menu"
+                    data-menu-product="kem-tri-mun"
+                  >
+                    Kem trị mụn
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="toner-left-menu"
+                    data-menu-product="toner"
+                  >
+                    Toner
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="tay-trang-left-menu"
+                    data-menu-product="tay-trang"
+                    >Tẩy trang</a
+                  >
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="serum-left-menu"
+                    data-menu-product="serum"
+                  >
+                    Serum
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="kem-duong-am-left-menu"
+                    data-menu-product="kem-duong-am"
+                  >
+                    Kem dưỡng ẩm
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="son-left-menu"
+                    data-menu-product="son"
+                  >
+                    Son
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="#!"
+                    class="left-menu__action"
+                    id="phan-left-menu"
+                    data-menu-product="phan"
+                  >
+                    Phấn
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="products__main main-body" id="products-main">
+            <div class="main__order">
+              <h2 class="main-order__title heading">SẢN PHẨM</h2>
+              <div class="main-order__body">
+                <div class="main-order__media">
+                  <img
+                    src="./assets/images/facewash-image-2.jpg"
+                    alt=""
+                    class="main-order__image"
+                  />
+                </div>
+                <div class="main-order__content">
+                  <h2 class="main-order__product-title">
+                    Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml
+                  </h2>
+                  <div class="main-order__details">
+                    <p class="main-order__detail">
+                      Mã sản phẩm: <b>APh00002</b>
+                    </p>
+                    <p class="main-order__detail">Hãng: <b>Simple</b></p>
+                    <p class="main-order__detail">
+                      Danh mục: <b>Sửa rửa mặt</b>
+                    </p>
+                    <p class="main-order__detail">Giá: <b>150.000đ</b></p>
+                    <div class="main-order__row">
+                      <p class="main-order__detail">Số lượng: </p>
+                      <button class="main-order__count-button increment">
+                        +
+                      </button>
+                      <span class="main-order__number"><b>1</b></span>
+                      <button class="main-order__count-button decrement">
+                        -
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    href="#!"
+                    class="main-order__add-to-shopping-cart-button"
+                  >
+                    Thêm giỏ hàng
+                  </button>
+                </div>
+              </div>
+              <button class="main-order__back-button">Quay lại</button>
+            </div>
+            <div class="main__info">
+              <div class="main-info__content">
+                <h2 class="info-content__title heading">THÔNG TIN CHI TIẾT</h2>
+                <p class="info-content__desc">
+                  Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml là sản phẩm dịu
+                  nhẹ, giúp làm sạch sâu da mà vẫn giữ được độ ẩm tự nhiên,
+                  không gây khô căng. Với công thức không chứa hương liệu, không
+                  phẩm màu và không chất gây kích ứng, sản phẩm phù hợp với mọi
+                  loại da, đặc biệt là da nhạy cảm. Thành phần chính gồm Vitamin
+                  B5 và Vitamin E giúp làm dịu và nuôi dưỡng làn da, loại bỏ bụi
+                  bẩn, dầu thừa một cách nhẹ nhàng. Với kết cấu dạng gel mịn,
+                  sữa rửa mặt này mang đến cảm giác tươi mát và sạch thoáng cho
+                  da sau mỗi lần sử dụng, giúp duy trì làn da mềm mại và khỏe
+                  mạnh.
+                </p>
+              </div>
+              <div class="main-info__rate">
+                <h2 class="info-rate__title heading">ĐÁNH GIÁ</h2>
+                <div class="info-rate__stats">
+                  <p class="info-rate__score">
+                    <b>5.0</b>
+                  </p>
+                  <div class="info-rate__stars">
+                    <i class="fa-solid fa-star info-rate__star"></i>
+                    <i class="fa-solid fa-star info-rate__star"></i>
+                    <i class="fa-solid fa-star info-rate__star"></i>
+                    <i class="fa-solid fa-star info-rate__star"></i>
+                    <i class="fa-solid fa-star info-rate__star"></i>
+                  </div>
+                  <div class="info-rate__score-details">
+                    <div class="score-details__row">
+                      <p class="score-details__number">5</p>
+                      <i class="fa-solid fa-star score-details__star"></i>
+                      <span class="score-details__rectangle"></span>
+                    </div>
+                    <div class="score-details__row">
+                      <p class="score-details__number">4</p>
+                      <i class="fa-solid fa-star score-details__star"></i>
+                      <span class="score-details__rectangle"></span>
+                    </div>
+                    <div class="score-details__row">
+                      <p class="score-details__number">3</p>
+                      <i class="fa-solid fa-star score-details__star"></i>
+                      <span class="score-details__rectangle"></span>
+                    </div>
+                    <div class="score-details__row">
+                      <p class="score-details__number">2</p>
+                      <i class="fa-solid fa-star score-details__star"></i>
+                      <span class="score-details__rectangle"></span>
+                    </div>
+                    <div class="score-details__row">
+                      <p class="score-details__number">&nbsp;1</p>
+                      <i class="fa-solid fa-star score-details__star"></i>
+                      <span class="score-details__rectangle"></span>
+                    </div>
+                  </div>
+                  <a href="#!" class="info-rate__rate-input">Đánh giá</a>
+                </div>
+              </div>
             </div>
           </div>
         </div> -->

@@ -89,6 +89,15 @@ img {
 .break-word {
   word-break: break-word;
 }
+/* Xoá mũi tên khi thẻ input có type="number" */
+.remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.remove-arrow {
+  -moz-appearance: textfield;
+}
 
 /* <===== Header =====> */
 .header {
@@ -155,6 +164,7 @@ img {
   color: #fff;
   font-size: 2.4rem;
   cursor: pointer;
+  pointer-events: none;
 }
 .header__find-icon {
   position: relative;
@@ -212,7 +222,6 @@ img {
   overflow: auto;
 }
 
-
 #suggestions-list li {
   display: flex;
   align-items: center;
@@ -237,7 +246,7 @@ img {
   border-radius: 55%;
 }
 
-#suggestions-list li span{
+#suggestions-list li span {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
