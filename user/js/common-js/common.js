@@ -1,3 +1,5 @@
+import { productItemAddedToShoppingCart } from "./database.js";
+
 // Hàm xoá dấu
 export function removeAccents(str) {
   return str
@@ -25,4 +27,14 @@ export function formatVietNamMoney(money) {
     }
   }
   return format.reverse().join("");
+}
+
+// Hàm tính tổng số tiền của các sản phẩm hiện có trong productItemAddedToShoppingCart
+export function calTotalProductItemPriceInShoppingCart() {
+  let totalPrice = 0;
+  productItemAddedToShoppingCart.forEach((productItem) => {
+    if (productItem.quantity >= 1)
+      totalPrice += productItem.price * productItem.quantity;
+  });
+  return totalPrice;
 }

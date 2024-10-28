@@ -1,6 +1,7 @@
 import { removeAllStyleTags } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 
+// Hàm cập nhật nội dung khi chuyển đến trang tương ứng
 function updateMainContent(mainContentKey) {
   const mainContentMap = {
     home: `
@@ -696,15 +697,19 @@ function updateMainContent(mainContentKey) {
                       </div>
                   </form>
                   </div>
-              </div>
-              </div>
-          `,
+                  </div>
+                  </div>
+                  `,
   };
   const mainContentDiv = document.getElementById("main-content");
   if (mainContentMap[mainContentKey]) {
-    // Kiểm tra xem có phải lần đầu nhấn vào trang Sản phẩm
-    var countUpdateProductsContent = 0;
+    // Kéo lên đầu trang mỗi lần chuyển trang
+    window.scrollTo(0, 0);
+
+    // Thay đổi nội dung ở trang tương ứng
     mainContentDiv.innerHTML = mainContentMap[mainContentKey];
+
+    // Nếu nội dung thay đổi là trang Sản phẩm
     if (mainContentKey === "products") {
       // Kiểm tra filterProductsScript có tồn tại hay không và xoá đi
       const filterProductsExistingScript = document.querySelector(
@@ -713,6 +718,7 @@ function updateMainContent(mainContentKey) {
       if (filterProductsExistingScript) {
         filterProductsExistingScript.remove();
       }
+
       // Hiện thị menu lọc sản phẩm theo các tiêu chí
       const filterProductsScript = document.createElement("script");
       filterProductsScript.src = "./js/products-js/showFilterProducts.js";
@@ -721,19 +727,20 @@ function updateMainContent(mainContentKey) {
 
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
-      if (countUpdateProductsContent++ === 0) {
-        // Tự động nhấn mục "Tất cả"
-        document.getElementById("tat-ca-left-menu").click();
-      }
+      // Tự động nhấn mục "Tất cả"
+      document.getElementById("tat-ca-left-menu").click();
     }
   }
 }
+
+// Tạo sự kiện khi người dùng muốn chuyển trang trên header
 document.querySelector(".navbar").addEventListener("click", function (event) {
   event.preventDefault();
   const mainContentKey = event.target.getAttribute("data-main-content");
   if (mainContentKey) {
     // Xoá các thẻ <style> đã tồn tại từ trước đó
     removeAllStyleTags();
+
     // Đặt lại style mới cho navbarStyle
     const navbarStyle = document.createElement("style");
     navbarStyle.className = "navbar-style";
@@ -753,6 +760,7 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
     `;
     document.head.appendChild(navbarStyle);
 
+    // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
   }
 });

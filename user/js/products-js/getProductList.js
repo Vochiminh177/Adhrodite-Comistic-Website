@@ -1,4 +1,4 @@
-import { removeAccents } from "../common-js/common.js";
+import { removeAccents, formatVietNamMoney } from "../common-js/common.js";
 import { productItemArray } from "../common-js/database.js";
 import { getProductItemInfo } from "./getProductItem.js";
 import {
@@ -7,10 +7,10 @@ import {
 } from "./productsPageStyles.js";
 import { updateProductsPaginationActions } from "./productsPagination.js";
 
-// Từ khoá chỉ danh mục hiện tại
-let currentProductListKey = "";
 // Từ khoá chỉ tên sản phẩm cần tìm kiếm hiện tại
 let currentProductItemName = "";
+// Từ khoá chỉ danh mục hiện tại
+let currentProductListKey = "";
 
 // Hàm lấy thông tin từ Left Search (Tìm kiếm - Tìm kiếm cơ bản)
 function getLeftSearchInfo() {
@@ -22,7 +22,6 @@ function getLeftSearchInfo() {
     if (currentProductItemName === "" || currentProductItemName) {
       // Cập nhật danh sách sản phẩm
       updateProductList(currentProductItemName, currentProductListKey);
-      getProductItemInfo();
     }
   });
 }
@@ -53,10 +52,15 @@ function getLeftMenuInfo() {
         // Cập nhật danh sách sản phẩm
         currentProductListKey = leftMenuValue;
         updateProductList(currentProductItemName, currentProductListKey);
-        getProductItemInfo();
       }
     });
   });
+}
+
+// Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
+export function comebackProductList() {
+  updateProductList(currentProductItemName, currentProductListKey);
+  getProductItemInfo();
 }
 
 // Danh sách các sản phẩm được hiển thị theo tìm kiếm, bộ lọc, danh mục
@@ -77,7 +81,7 @@ function updateProductList(productItemName, productListKey) {
     h3.textContent = `${productItem.name}`;
     let p2 = document.createElement("p");
     p2.className = "main-products__price";
-    p2.textContent = `${productItem.price}`;
+    p2.innerHTML = `${formatVietNamMoney(productItem.price)}đ`;
     let infoDiv = document.createElement("div");
     infoDiv.className = "main-products__info";
     infoDiv.appendChild(h3);
@@ -118,12 +122,12 @@ function updateProductList(productItemName, productListKey) {
   // Product Item
   productItemArray.forEach((productItem) => {
     if (
-      (productListKey === "tat-ca" &&
-        productItem.name.toLowerCase().includes(productItemName)) ||
-      (removeAccents(productItem.category)
-        .toLowerCase()
-        .replaceAll(" ", "-") === productListKey &&
-        productItem.name.toLowerCase().includes(productItemName))
+      (productListKey === "tat-ca" ||
+        productListKey ===
+          removeAccents(productItem.category)
+            .toLowerCase()
+            .replaceAll(" ", "-")) &&
+      productItem.name.toLowerCase().includes(productItemName)
     ) {
       createProductItemWithHtml(productItem);
       countProductItem++;
@@ -183,8 +187,19 @@ function updateProductList(productItemName, productListKey) {
 
   // Cập nhật hành động cho các nút phân trang sản phẩm
   updateProductsPaginationActions(countProductItem);
+
+  // Thiết lập hành động có thể xem "Chi tiết" cho các sản phẩm trong danh sách
+  getProductItemInfo();
 }
+
+// Khi người dùng chuyển đến trang Sản phẩm thì các hành động sẽ được thực thi
 export function getProductListInfo() {
+  /* Cập nhật lại tên danh mục hiện tại và tên sản phẩm cần tìm kiếm hiện
+  tại mỗi khi nhấn trở lại Sản phẩm */
+  currentProductListKey = "";
+  currentProductItemName = "";
+
+  // Gọi các sự kiện để cập nhật Danh sách sản phẩm
   getLeftSearchInfo();
   getLeftFilterInfo();
   getLeftMenuInfo();
