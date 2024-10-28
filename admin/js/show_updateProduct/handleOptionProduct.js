@@ -46,7 +46,7 @@ export function showListProduct() {
 }
 
 //Hàm lấy hình ảnh để upload - HIỆU
-let src;
+let src = null;
 function handlePicture(){
     let picture = document.querySelector(".image-show");
     let inputPicture = document.querySelector(".add-photo-button #file");
@@ -63,22 +63,31 @@ export function addProduct(){
         showMain("main-content-product-add");
         handlePicture();
 
-        document.querySelector(".btn-add").addEventListener("click", () => {
-            let result = add_product(src);
+        let handle_click = () => {
+            let result = add_product(src); //src sẽ được gán giá trị trong hàm handlePicture nếu admin chọn ảnh
+
             if(result.status){
                 showMain("main-content-product-list");
                 showListProduct();
                 alert(result.mess);
+                document.querySelector(".name-add").value = "";
+                document.querySelector(".price-add").value = "";
+                document.querySelector(".category-add").value = "";
+                document.querySelector(".brand-add").value = "";
+                document.querySelector(".description-add").value = "";
+                document.querySelector(".id-add").value = "";
             }
+
             else alert(result.mess);
-            document.querySelector(".name-add").value = "";
-            document.querySelector(".price-add").value = "";
-            document.querySelector(".category-add").value = "";
-            document.querySelector(".brand-add").value = "";
-            document.querySelector(".description-add").value = "";
-            document.querySelector(".id-add").value = "";
-        });
+
+            //xóa sự kiện handle_click để không bị gán nhiều lần//xóa sự kiện handle_click để không bị gán nhiều lần
+            document.querySelector(".btn-add").removeEventListener("click", handle_click);
+        }
+
+        document.querySelector(".btn-add").addEventListener("click", handle_click);
     });
+
+    
 
 }
 

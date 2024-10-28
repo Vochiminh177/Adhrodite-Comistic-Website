@@ -1,8 +1,6 @@
 //---HIỆU------
 
 export function add_product(src){
-    console.log(src);
-
     let name = document.querySelector(".name-add").value;
     let price = document.querySelector(".price-add").value;
     let category = document.querySelector(".category-add").value;

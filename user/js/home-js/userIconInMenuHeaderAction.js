@@ -1,4 +1,8 @@
+import { sign_in } from "./changeUserFormInMenuHeader.js";
+
+
 // Sự kiện khi người dùng nhấn vào icon hình nhân trên Header
+
 function unShowUserFormInMenuHeader() {
   document.getElementById("user-exit").addEventListener("click", function () {
     // Xóa changeUserFormInMenuHeaderScript
@@ -30,6 +34,9 @@ export function showUserFormInMenuHeader() {
   document.getElementById("user-click").addEventListener("click", function () {
     // Tạo mới changeUserFormInMenuHeaderScript
     const changeUserFormInMenuHeaderScript = document.createElement("script");
+    
+    changeUserFormInMenuHeaderScript.type = "module";
+
     changeUserFormInMenuHeaderScript.src =
       "./js/home-js/changeUserFormInMenuHeader.js";
     changeUserFormInMenuHeaderScript.className =
@@ -57,5 +64,7 @@ export function showUserFormInMenuHeader() {
 
       unShowUserFormInMenuHeader();
     }
+
+    sign_in();
   });
 }

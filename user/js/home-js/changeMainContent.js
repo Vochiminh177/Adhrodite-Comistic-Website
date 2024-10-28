@@ -1,7 +1,8 @@
 import { removeAllStyleTags } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 
-function updateMainContent(mainContentKey) {
+//---Hiệu thêm export dùng cho việc đăng nhập xong thì vào trang Trang chủ
+export function updateMainContent(mainContentKey) {
   const mainContentMap = {
     home: `
     <div class="body__home">

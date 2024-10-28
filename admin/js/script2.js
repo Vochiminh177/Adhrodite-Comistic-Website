@@ -30,12 +30,12 @@ function anhMinh(){
 				section.style.display = 'none';
 			});
 
-			//hiện thị main của option được chọn
+			//hiển thị main của option được chọn
 			//nếu option là sản phẩm
 			if(item.className == "product_sidebar"){
 				showMain("main-content-product-list");
-				showListProduct();
 				addProduct();
+				showListProduct();		
 			}
 			else console.log("khong");
 		});

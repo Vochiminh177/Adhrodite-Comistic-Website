@@ -1,3 +1,9 @@
+//Hiệu thêm class="btn-signup", username-signup, password-signup, email-signup của register
+// .btn-signin của đăng nhập
+
+import { add_user, check_user } from "../userUpdate/handleUserUpdate.js";
+import { updateMainContent } from "./changeMainContent.js";
+
 const formMap = {
   login: ` <form action="" autocomplete="off" class="header__user-form">
     <div class="header__form-group">
@@ -27,7 +33,7 @@ const formMap = {
       </label>
     </div>
     <div class="header__form-group">
-      <input type="submit" value="Đăng nhập" />
+      <input type="submit" value="Đăng nhập" class="btn-signin"/>
     </div>
   </form>
   <div class="header__user-contacts">
@@ -56,11 +62,12 @@ const formMap = {
       type="text"
       id="username"
       placeholder="Nhập tên tài khoản"
+      class="username-signup"
     />
   </div>
   <div class="header__form-group">
     <label for="email">Nhập email</label>
-    <input type="email" id="email" placeholder="Nhập email" />
+    <input type="email" id="email" placeholder="Nhập email" class="email-signup"/>
   </div>
   <div class="header__form-group">
     <label for="first-password">
@@ -69,6 +76,7 @@ const formMap = {
     <input
       type="first-password"
       id="first-password"
+      class="password-signup"
       placeholder="Nhập mật khẩu"
     />
   </div>
@@ -93,7 +101,7 @@ const formMap = {
       </label>
     </div>
   <div class="header__form-group">
-    <input type="submit" value="Đăng ký" />
+    <input type="submit" value="Đăng ký" class="btn-signup"/>
   </div>
 </form>
 </div>`,
@@ -135,5 +143,76 @@ document
     const formKey = event.target.getAttribute("data-user-form");
     if (formKey) {
       updateForm(formKey);
+
+      //nếu là đăng ký thì xử lí đăng ký
+      if (formKey == "register") {
+        sign_up();
+      }
+
+      else {
+        sign_in();
+      }
+
+
     }
   });
+
+
+//fuction đăng nhập, export để khi click vào user-click thì thì sẽ gán sự kiện vào nút đăng nhập
+export function sign_in() {
+  document.querySelector(".btn-signin").addEventListener("click", () => {
+    let username = document.querySelector("#username").value;
+    let password = document.querySelector("#password").value;
+
+    let result = check_user(username, password);
+
+    //nếu đăng nhập thành công
+    if (result.status) {
+      alert(result.mess);
+      // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import 
+      const changeUserFormInMenuHeaderExistingScript = document.querySelector(
+        ".change-user-form-in-menu-header-script"
+      );
+      if (changeUserFormInMenuHeaderExistingScript) {
+        changeUserFormInMenuHeaderExistingScript.remove();
+      }
+
+      // Xử lý sự kiện
+      const userModal = document.getElementById("user-modal");
+      const userBlock = document.getElementById("user-block");
+      const userExit = document.getElementById("user-exit");
+
+      userModal.style.visibility = "hidden";
+      userBlock.style.visibility = "hidden";
+      userExit.style.visibility = "hidden";
+      //--------------------------------------------------------
+
+      //--vô trang Trang chủ khi đăng nhập thành công
+      updateMainContent("home");
+    }
+    else alert(result.mess);
+  });
+}
+
+//function đăng ký
+function sign_up(){
+  document.querySelector(".btn-signup").addEventListener("click", () => {
+    let username = document.querySelector(".username-signup").value;
+    let password = document.querySelector(".password-signup").value;
+    let email = document.querySelector(".email-signup").value;
+
+    let result = add_user(username, password, email);
+
+    //nếu đăng ký thành công
+    if (result.status) {
+      alert(result.mess);
+
+      document.querySelector(".username-signup").value = "";
+      document.querySelector(".password-signup").value = "";
+      document.querySelector("#second-password").value = "";
+      document.querySelector(".email-signup").value = "";
+    }
+    //nếu đăng ký thât bại
+    else alert(result.mess);
+  });
+}
