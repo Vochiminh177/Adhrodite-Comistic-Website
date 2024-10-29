@@ -31,13 +31,12 @@ function getLeftFilterInfo() {}
 
 // Hàm lấy thông tin từ Left Menu (Danh mục - Phân chia sản phẩm)
 function getLeftMenuInfo() {
+  const leftMenuList = document.getElementById('left-menu-list');
   // Tạo sự kiện có thể nhấn vào cho các danh mục con
-  let array = Array.from(document.querySelectorAll(".left-menu__action "));
-  array.forEach((obj) => {
-    obj.addEventListener("click", function (event) {
-      // Lấy giá trị của danh mục con đã nhấn
+  leftMenuList.addEventListener('click', (event) =>{
+    if(event.target.matches('a.left-menu__action')){
       const leftMenuValue =
-        event.currentTarget.getAttribute("data-menu-product");
+        event.target.getAttribute("data-menu-product");
       if (leftMenuValue) {
         // Kiểm tra và đặt lại giá trị cho currentProductItemName và thẻ input ở Left Search
         const leftSearchInput = document.getElementById("left-search-input");
@@ -53,7 +52,7 @@ function getLeftMenuInfo() {
         currentProductListKey = leftMenuValue;
         updateProductList(currentProductItemName, currentProductListKey);
       }
-    });
+    }
   });
 }
 
@@ -123,10 +122,7 @@ function updateProductList(productItemName, productListKey) {
   productItemArray.forEach((productItem) => {
     if (
       (productListKey === "tat-ca" ||
-        productListKey ===
-          removeAccents(productItem.category)
-            .toLowerCase()
-            .replaceAll(" ", "-")) &&
+        productListKey === productItem.categoryID) &&
       productItem.name.toLowerCase().includes(productItemName)
     ) {
       createProductItemWithHtml(productItem);

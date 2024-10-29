@@ -552,7 +552,7 @@ export function updateMainContent(mainContentKey) {
             </div>
             <div class="left__menu">
               <h2 class="left-menu__title heading">DANH MỤC</h2>
-              <ul class="left-menu__list">
+              <ul class="left-menu__list" id="left-menu-list">
                 <li class="left-menu__item">
                   <a
                     href="#!"
