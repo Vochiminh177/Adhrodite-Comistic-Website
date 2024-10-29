@@ -204,15 +204,19 @@ img {
   position: relative;
 }
 
+.header__find-block-wrapper{
+  position: absolute;
+  width: 234px;
+  top: 27px;
+  left: 0px;
+  visibility: hidden;
+}
+
 .header__find-block {
   display: flex;
   align-items: center;
   gap: 0 4px;
-  position: absolute;
-  top: 27px;
-  left: 0;
-  visibility: hidden;
-  width: 234px;
+  position: relative;
   background: #fff;
   padding: 4px 6px;
   border: 1px solid #ccc;
@@ -239,13 +243,13 @@ img {
 }
 
 #suggestions-list {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
   margin: 0;
   position: absolute;
-  top: 36px;
-  left: -1px;
-  width: calc(100% + 2px);
+  top: 100%;
+  left: 0px;
+  width: 100%;
   border: 1px solid #ccc;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -256,7 +260,9 @@ img {
   overflow: auto;
 }
 
+
 #suggestions-list li {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 10px;
@@ -273,20 +279,23 @@ img {
 }
 
 #suggestions-list li img {
-  width: 25px;
-  height: 35px;
+  min-width: 35px;
+  max-width: 35px;
+  min-height: 35px;
+  max-height: 35px;
   object-fit: cover;
   margin-right: 10px;
   border-radius: 55%;
 }
 
-#suggestions-list li span {
+#suggestions-list li span{
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5em;
+  font-size: 12px;
+  line-height: 1.2em;
 }
 
 #suggestions-list li:hover {
