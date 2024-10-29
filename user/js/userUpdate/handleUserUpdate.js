@@ -1,9 +1,13 @@
 //-Hiệu------
-
+import { usersList } from "../../../admin/js/database.js";
 
 // kiểm tra thông tin đăng nhập
 export function check_user(username, password) {
-    let userList = JSON.parse(localStorage.getItem("userList"));
+    let userList = JSON.parse(localStorage.getItem("userList")) || [];
+    if(userList.length == 0){
+        userList = [...usersList];
+        localStorage.setItem("userList", JSON.stringify(userList));
+    }
 
     let result = {
         mess: "Thành công",
@@ -36,7 +40,11 @@ export function check_user(username, password) {
 }
 
 export function add_user(username, password, email){
-    let oldDataUsers = JSON.parse(localStorage.getItem("userList"));
+    let userList = JSON.parse(localStorage.getItem("userList")) || [];
+    if(userList.length == 0){
+        userList = [...usersList];
+        localStorage.setItem("userList", JSON.stringify(userList));
+    }
 
     let result = {
         mess: "Đăng ký thành công",
@@ -44,7 +52,7 @@ export function add_user(username, password, email){
     }
 
     //kiểm tra xem tài khoản đã tồn tại chưa
-    oldDataUsers.some((obj) => {
+    userList.some((obj) => {
         if(obj.username == username){
             result.mess = "Tên tài khoản đã tồn tại";
             result.status = false;
@@ -58,8 +66,8 @@ export function add_user(username, password, email){
     });
     if(!result.status) return result;
 
-    let id_user = oldDataUsers[0].id;
-    while (oldDataUsers.some((obj) => {
+    let id_user = userList[0].id;
+    while (userList.some((obj) => {
         return obj.id == id_user;
     })) {
         id_user = Math.floor(Math.random() * 100) + 1;
@@ -72,7 +80,7 @@ export function add_user(username, password, email){
     }
 
     //thêm vào mảng
-    oldDataUsers.push(data_obj);
-    localStorage.setItem("userList", JSON.stringify(oldDataUsers));
+    userList.push(data_obj);
+    localStorage.setItem("userList", JSON.stringify(userList));
     return result;
 }
