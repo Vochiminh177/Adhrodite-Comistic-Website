@@ -37,7 +37,9 @@ function anhMinh(){
 				addProduct();
 				showListProduct();		
 			}
-			else console.log("khong");
+			else if(item.className == "order_sidebar"){
+				showMain("main-content-order");
+			}
 		});
 	});
 	//----------------------------------------------------------------

@@ -24,7 +24,7 @@
         <ul class="side-menu">
             <li class="active">
                 <!-- <a href="#" onclick="showMain('main-content-dashboard')"> -->
-                <a href="#">
+                <a href="#" class="dashboard_sidebar">
                     <i class='bx bxs-doughnut-chart' ></i>
                     <span class="text">Thống kê</span>
                 </a>
@@ -37,14 +37,14 @@
             </li>
             <li>
                 <!-- <a href="#" onclick="showMain('main-content-order')"> -->
-                <a href="#">
+                <a href="#" class="order_sidebar">
                     <i class='bx bxs-cart-alt'></i>
                     <span class="text">Đơn hàng</span>
                 </a>
             </li>
             <li>
                 <!-- <a href="#" onclick="showMain('main-content-customer')"> -->
-                <a href="#">
+                <a href="#" class="customer_sidebar">
                     <i class='bx bxs-group'></i>
                     <span class="text">Khách hàng</span>
                 </a>
@@ -57,7 +57,7 @@
             </li> -->
             <li>
                 <!-- <a href="#" onclick="showMain('main-content-logout')"> -->
-                <a href="#">
+                <a href="#" class="sign_out_sidebar">
                     <i class='bx bxs-log-out'></i>
                     <span class="text">Đăng xuất</span>
                 </a>
@@ -231,7 +231,17 @@
         </main>
 
         <main id="main-content-order" style="display: none;">
-            <h1>Don hang</h1>
+            <div class="title">
+                <div id="title-name">Danh sách đơn hàng</div>
+            </div>
+            <div class="content">
+                <div class="content-order-list">
+                    <table>
+
+                    </table>
+                </div>
+                
+            </div>
         </main>
 
         <main id="main-content-customer" style="display: none;">

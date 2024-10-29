@@ -70,6 +70,7 @@ export function addProduct(){
                 showMain("main-content-product-list");
                 showListProduct();
                 alert(result.mess);
+                
                 document.querySelector(".name-add").value = "";
                 document.querySelector(".price-add").value = "";
                 document.querySelector(".category-add").value = "";

@@ -28,7 +28,7 @@ const formMap = {
         id="remember-user-account"
         hidden
       />
-      <label for="remember-user-account">
+      <label for="remember-user-account" class="remember-password">
         <p>Ghi nhớ mật khẩu</p>
       </label>
     </div>
@@ -107,7 +107,7 @@ const formMap = {
 </div>`,
 };
 
-function updateForm(formKey) {
+export function updateForm(formKey) {
   const formDiv = document.getElementById("user-form");
   if (formKey) {
     const reverseFormKey = {
@@ -159,8 +159,12 @@ document
 
 
 //fuction đăng nhập, export để khi click vào user-click thì thì sẽ gán sự kiện vào nút đăng nhập
-export function sign_in() {
-  document.querySelector(".btn-signin").addEventListener("click", () => {
+export let check_info_user = { //export một đối tượng thì file userIconInMenuHeaderAction mới thay đổi được giá trị true false
+  check: false
+};
+
+export function sign_in(){  
+  let handle_click_sign_in = () => {
     let username = document.querySelector("#username").value;
     let password = document.querySelector("#password").value;
 
@@ -187,11 +191,21 @@ export function sign_in() {
       userExit.style.visibility = "hidden";
       //--------------------------------------------------------
 
+      document.querySelector("#username").value = "";
+      document.querySelector("#password").value = "";
+      document.querySelector("#remember-user-account").checked = false;
+
       //--vô trang Trang chủ khi đăng nhập thành công
       updateMainContent("home");
+      check_info_user.check = true;
     }
+
+    //nếu đăng nhập thất bại
     else alert(result.mess);
-  });
+
+    document.querySelector(".btn-signin").removeEventListener("click", handle_click_sign_in); // xóa sự kiện tránh trường hợp click user-click để đăng nhập thì gán thêm sự kiện
+  };
+  document.querySelector(".btn-signin").addEventListener("click", handle_click_sign_in);
 }
 
 //function đăng ký
