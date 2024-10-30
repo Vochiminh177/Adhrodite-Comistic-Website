@@ -43,8 +43,20 @@ export function updateProductsPaginationActions(numbersOfProductItem) {
       if (currentPage > 1 && currentPage <= totalPage) {
         currentPage--;
         assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage);
+        window.scrollTo(0, 0);
       }
     });
+  // Nếu nhấn vào nút chuyển trang là số thứ tự
+  document
+    .getElementById("main-products-numbers")
+    .addEventListener("click", (event) => {
+      if (event.target.matches("button.main-products__number")){
+        currentPage = parseInt(event.target.textContent, 10);
+        assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage);
+        window.scrollTo(0, 0);
+      }
+    });
+
   // Nếu nhấn vào nút chuyển sang phải
   document
     .getElementById("main-products-right-button")
@@ -52,6 +64,7 @@ export function updateProductsPaginationActions(numbersOfProductItem) {
       if (currentPage >= 1 && currentPage < totalPage) {
         currentPage++;
         assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage);
+        window.scrollTo(0, 0);
       }
     });
 

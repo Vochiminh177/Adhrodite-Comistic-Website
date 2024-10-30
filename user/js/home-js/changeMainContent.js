@@ -115,8 +115,8 @@ export function updateMainContent(mainContentKey) {
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
                   <div class="popular-product__actions">
-                    <a href="#!" class="popular-p roduct__action">Mua</a>
-                    <a href="#!" class="popular-product__action">
+                    <a href="javascript:void(0)" class="popular-p roduct__action">Mua</a>
+                    <a href="javascript:void(0)" class="popular-product__action">
                       Thêm giỏ hàng
                     </a>
                   </div>
@@ -141,8 +141,8 @@ export function updateMainContent(mainContentKey) {
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
                   <div class="popular-product__actions">
-                    <a href="#!" class="popular-product__action">Mua</a>
-                    <a href="#!" class="popular-product__action">
+                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
+                    <a href="javascript:void(0)" class="popular-product__action">
                       Thêm giỏ hàng
                     </a>
                   </div>
@@ -167,8 +167,8 @@ export function updateMainContent(mainContentKey) {
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
                   <div class="popular-product__actions">
-                    <a href="#!" class="popular-product__action">Mua</a>
-                    <a href="#!" class="popular-product__action">
+                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
+                    <a href="javascript:void(0)" class="popular-product__action">
                       Thêm giỏ hàng
                     </a>
                   </div>
@@ -193,8 +193,8 @@ export function updateMainContent(mainContentKey) {
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
                   <div class="popular-product__actions">
-                    <a href="#!" class="popular-product__action">Mua</a>
-                    <a href="#!" class="popular-product__action">
+                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
+                    <a href="javascript:void(0)" class="popular-product__action">
                       Thêm giỏ hàng
                     </a>
                   </div>
@@ -219,8 +219,8 @@ export function updateMainContent(mainContentKey) {
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
                   <div class="popular-product__actions">
-                    <a href="#!" class="popular-product__action">Mua</a>
-                    <a href="#!" class="popular-product__action">
+                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
+                    <a href="javascript:void(0)" class="popular-product__action">
                       Thêm giỏ hàng
                     </a>
                   </div>
@@ -245,8 +245,8 @@ export function updateMainContent(mainContentKey) {
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
                   <div class="popular-product__actions">
-                    <a href="#!" class="popular-product__action">Mua</a>
-                    <a href="#!" class="popular-product__action">
+                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
+                    <a href="javascript:void(0)" class="popular-product__action">
                       Thêm giỏ hàng
                     </a>
                   </div>
@@ -442,7 +442,7 @@ export function updateMainContent(mainContentKey) {
             </div>
             <div class="left__filter">
               <h2 class="left-filter__tilte heading">BỘ LỌC</h2>
-              <a href="#!" class="left-filter__see" id="see-filter-menu">
+              <a href="javascript:void(0)" class="left-filter__see" id="see-filter-menu">
                 Xem thêm <i class="fa-solid fa-chevron-down"></i>
               </a>
               <form action="" class="left-filter__form" id="filter-menu">
@@ -548,14 +548,14 @@ export function updateMainContent(mainContentKey) {
                   </div>
                 </div>
               </form>
-              <button href="#!" class="left-filter__reset btn">Đặt lại</button>
+              <button href="javascript:void(0)" class="left-filter__reset btn">Đặt lại</button>
             </div>
             <div class="left__menu">
               <h2 class="left-menu__title heading">DANH MỤC</h2>
               <ul class="left-menu__list" id="left-menu-list">
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="tat-ca-left-menu"
                     data-menu-product="tat-ca"
@@ -565,7 +565,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="sua-rua-mat-left-menu"
                     data-menu-product="sua-rua-mat"
@@ -575,7 +575,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="kem-tri-mun-left-menu"
                     data-menu-product="kem-tri-mun"
@@ -585,7 +585,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="toner-left-menu"
                     data-menu-product="toner"
@@ -595,7 +595,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="tay-trang-left-menu"
                     data-menu-product="tay-trang"
@@ -604,7 +604,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="serum-left-menu"
                     data-menu-product="serum"
@@ -614,7 +614,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="kem-duong-am-left-menu"
                     data-menu-product="kem-duong-am"
@@ -624,7 +624,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="son-left-menu"
                     data-menu-product="son"
@@ -634,7 +634,7 @@ export function updateMainContent(mainContentKey) {
                 </li>
                 <li class="left-menu__item">
                   <a
-                    href="#!"
+                    href="javascript:void(0)"
                     class="left-menu__action"
                     id="phan-left-menu"
                     data-menu-product="phan"

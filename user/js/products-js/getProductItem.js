@@ -188,7 +188,7 @@ function updateProductItem(productItemKey) {
                   <span class="score-details__rectangle"></span>
                 </div>
               </div>
-              <a href="#!" class="info-rate__rate-input">Đánh giá</a>
+              <button class="info-rate__rate-input">Đánh giá</button>
             </div>
           </div>
         </div>`,

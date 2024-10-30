@@ -34,6 +34,8 @@ function getLeftMenuInfo() {
   const leftMenuList = document.getElementById('left-menu-list');
   // Tạo sự kiện có thể nhấn vào cho các danh mục con
   leftMenuList.addEventListener('click', (event) =>{
+    window.scrollTo(0, 0);
+    
     if(event.target.matches('a.left-menu__action')){
       const leftMenuValue =
         event.target.getAttribute("data-menu-product");
@@ -144,8 +146,9 @@ function updateProductList(productItemName, productListKey) {
     // - Các nút thứ tự trang
     let numbersDiv = document.createElement("div");
     numbersDiv.className = "main-products__numbers";
+    numbersDiv.id = "main-products-numbers";
     for (let i = 1; i <= Math.ceil(countProductItem / 6); i++) {
-      let numberButton = document.createElement("span");
+      let numberButton = document.createElement("button");
       numberButton.className = "main-products__number";
       numberButton.textContent = `${i}`;
       numbersDiv.appendChild(numberButton);
