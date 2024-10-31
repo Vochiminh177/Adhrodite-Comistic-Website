@@ -39,13 +39,13 @@ const formMap = {
   <div class="header__user-contacts">
     <p class="header__user-contacts-title">Hoặc</p>
     <div class="header__user-contacts-block">
-      <a href="#!" class="header__user-contact">
+      <a href="javascript:void(0)" class="header__user-contact">
         <i
           class="fa-brands fa-facebook-f header__user-contact-icon"
         ></i>
         <p class="header__user-contact-sub-title">Facebook</p>
       </a>
-      <a href="#!" class="header__user-contact">
+      <a href="javascript:void(0)" class="header__user-contact">
         <i
           class="fa-brands fa-google header__user-contact-icon"
         ></i>
