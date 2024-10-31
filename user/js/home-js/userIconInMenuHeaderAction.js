@@ -37,7 +37,7 @@ export function showUserFormInMenuHeader() {
   document.getElementById("user-click").addEventListener("click", function () {
 
     //hiển thị form đăng nhập, đăng ký
-    if(!check_info_user.check){
+    if(!check_info_user.check){ //nếu chưa có trạng thái đăng nhập
       // Tạo mới changeUserFormInMenuHeaderScript
       const changeUserFormInMenuHeaderScript = document.createElement("script");
       
@@ -73,6 +73,7 @@ export function showUserFormInMenuHeader() {
 
       sign_in();
     }
+
     // hiển thị info-user
     else{
       let check = document.querySelector(".info-user"); //để kiểm tra info-user có tồn tại không, nếu không thì hiển thị, còn nếu có thì delete
@@ -100,7 +101,6 @@ export function showUserFormInMenuHeader() {
         info_user.classList.add("info-user");
         info_user.innerHTML = infoUser;
         document.querySelector(".header__menu").appendChild(info_user);
-
         sign_out_user();
 
       }
@@ -116,7 +116,7 @@ function sign_out_user(){
   document.querySelector(".sign-out-user").addEventListener("click", (e) => {
     e.preventDefault();
     check_info_user.check = false;
-    updateMainContent("home");
     document.querySelector(".info-user").remove();//xóa info-user
+    updateMainContent("home");
   });
 }

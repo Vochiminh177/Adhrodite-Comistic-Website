@@ -2,6 +2,9 @@ import { productItemArray } from "../database.js"
 import { showMain } from "../script2.js";
 import {add_product, delete_product, edit_product} from "./handleUpdate_Product.js";
 
+var src_1 = null;
+
+
 
 //hiện danh sách sản phẩm - HIỆU
 export function showListProduct() {
@@ -45,50 +48,84 @@ export function showListProduct() {
     editProduct();
 }
 
-//Hàm lấy hình ảnh để upload - HIỆU
-let src = null;
-function handlePicture(){
-    let picture = document.querySelector(".image-show");
-    let inputPicture = document.querySelector(".add-photo-button #file");
 
-    inputPicture.addEventListener("change", () => {
-        src = URL.createObjectURL(inputPicture.files[0]);
-        picture.innerHTML = `<img src="${src}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
-    });
+function reset_input(){
+    if(document.querySelector(".err-text")){
+        document.querySelectorAll(".content-one-input input").forEach((ele) => {
+            ele.classList.remove("err-text");
+        });
+        document.querySelectorAll(".content-two-input input").forEach((ele) => {
+            ele.classList.remove("err-text");
+        });
+
+        document.querySelectorAll(".content-product-add #left-input textarea").forEach((ele) => {
+            ele.classList.remove("err-text");
+        });
+    }
+
+    document.querySelector(".name-add").value = "";
+    document.querySelector(".name-add").style.borderColor = "#a94064";
+    document.querySelector(".name-add").placeholder = "Tên sản phẩm";
+
+    document.querySelector(".price-add").value = "";
+    document.querySelector(".price-add").style.borderColor = "#a94064";
+    document.querySelector(".price-add").placeholder = "Giá bán";
+
+    document.querySelector(".category-add").value = "";
+    document.querySelector(".category-add").style.borderColor = "#a94064";
+    document.querySelector(".category-add").placeholder = "Thương Hiệu";
+
+    document.querySelector(".brand-add").value = "";
+    document.querySelector(".brand-add").style.borderColor = "#a94064";
+    document.querySelector(".brand-add").value = "";
+
+    document.querySelector(".description-add").value = "";
+    document.querySelector(".description-add").style.borderColor = "#a94064";
+    document.querySelector(".description-add").placeholder = "Miêu tả sản phẩm";
+
+    document.querySelector(".id-add").value = "";
+    document.querySelector(".id-add").style.borderColor = "#a94064";
+    document.querySelector(".id-add").placeholder = "Mã sản phẩm";
+    
+    let picture = document.querySelector(".image-show");
+    picture.innerHTML = ``;
+}
+//Hàm lấy hình ảnh để upload - HIỆU
+function handlePicture(){
+        let picture = document.querySelector(".image-show");
+        let inputPicture = document.querySelector(".add-photo-button #file");
+    
+        inputPicture.onchange = () => {
+            src_1 = URL.createObjectURL(inputPicture.files[0]);
+            picture.innerHTML = `<img src="${src_1}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+        };
 }
 
 //chức năng thêm sản phẩm của admin - HIẸU
 export function addProduct(){
-    document.querySelector(".btn-add-product").addEventListener("click", () => {
+
+    //sự kiện click bên trong một sự kiện click
+    let handle_click_btn_add_product = () => {
         showMain("main-content-product-add");
+        document.querySelector(".btn-add").textContent = "Thêm sản phẩm";
         handlePicture();
 
-        let handle_click = () => {
-            let result = add_product(src); //src sẽ được gán giá trị trong hàm handlePicture nếu admin chọn ảnh
+        //xóa bỏ dữ liệu cũ trong input khi admin click (.btn-add-product)
+        reset_input();
 
-            if(result.status){
+        //xử lí thêm sản phẩm trong data
+        let handle_click_btn_add = () => {  
+            let result = add_product(src_1);
+
+            //nếu thêm sản phẩm thành công
+            if(result){
                 showMain("main-content-product-list");
                 showListProduct();
-                alert(result.mess);
-                
-                document.querySelector(".name-add").value = "";
-                document.querySelector(".price-add").value = "";
-                document.querySelector(".category-add").value = "";
-                document.querySelector(".brand-add").value = "";
-                document.querySelector(".description-add").value = "";
-                document.querySelector(".id-add").value = "";
             }
-
-            else alert(result.mess);
-
-            //xóa sự kiện handle_click để không bị gán nhiều lần//xóa sự kiện handle_click để không bị gán nhiều lần
-            document.querySelector(".btn-add").removeEventListener("click", handle_click);
-        }
-
-        document.querySelector(".btn-add").addEventListener("click", handle_click);
-    });
-
-    
+        };
+        document.querySelector(".btn-add").onclick = handle_click_btn_add;
+    };
+    document.querySelector(".btn-add-product").onclick = handle_click_btn_add_product;
 
 }
 
@@ -115,23 +152,27 @@ export function editProduct(){
             document.querySelector(".btn-add").textContent = "Lưu sản phẩm"; //hehe, sửa lại nội dung nút button
 
             //gán giá trị hiện tại của sản phẩm vào input để admin dễ xử lý
+            reset_input();//trước khi gán thì reset input
             document.querySelector(".name-add").value = productList[index].name;
             document.querySelector(".price-add").value = productList[index].price;
             document.querySelector(".category-add").value = productList[index].category;
             document.querySelector(".brand-add").value = productList[index].brand;
             document.querySelector(".description-add").value = productList[index].desc;
             document.querySelector(".id-add").value = productList[index].id;
+            let picture = document.querySelector(".image-show");
+            let src_2 = productList[index].src;
+            picture.innerHTML = `<img src="${src_2}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
 
-            document.querySelector(".btn-add").addEventListener("click", () => {
-                let result = edit_product(index);
+            handlePicture();      
 
-                if(result.status){
-                    alert(result.mess);
+            let handle_click_btn_edit = () => {
+                let result = edit_product(index, src_1);
+                if(result){
                     showMain("main-content-product-list");
                     showListProduct();
                 }
-                else alert(result.mess);
-            });
+            };
+            document.querySelector(".btn-add").onclick = handle_click_btn_edit;
         });
     });
 }

@@ -1,58 +1,146 @@
 //---HIỆU------
+//hàm này thông báo lỗi input
 
-export function add_product(src){
-    let name = document.querySelector(".name-add").value;
-    let price = document.querySelector(".price-add").value;
-    let category = document.querySelector(".category-add").value;
-    let brand = document.querySelector(".brand-add").value;
-    let description = document.querySelector(".description-add").value;
-    let id = document.querySelector(".id-add").value;
-    
+function delete_space(str) {
+    let result = "";
+    let wordArray = [];
+    let word = "";
+    let isSpace = true; // Kiểm tra khoảng trắng ở đầu chuỗi
 
-    let lisProduct = JSON.parse(localStorage.getItem("productList"));
+    for (let i = 0; i < str.length; i++) {
+        let char = str[i];
 
-    let result = {
-        status: true,
-        mess: "Thêm thành công"
+        if (char !== " ") {
+            word += char;
+            isSpace = false;
+        } else {
+            if (word !== "") {
+                wordArray.push(word); // Thêm từ vào mảng
+                word = ""; // Reset từ để chuẩn bị cho từ tiếp theo
+            }
+            isSpace = true;
+        }
     }
 
-    //nếu trùng tên sản phẩm, sản phẩm đã tồn tại, return false
-   lisProduct.some((obj) => {
-        if(obj.id == id){
-            result.status = false;
-            result.mess = "Lỗi! Trùng mã sản phẩm";
-            return result;
+    // Thêm từ cuối cùng nếu có
+    if (word !== "") {
+        wordArray.push(word);
+    }
+
+    // Kết hợp các từ trong mảng thành chuỗi với một khoảng trắng giữa các từ
+    for (let i = 0; i < wordArray.length; i++) {
+        result += wordArray[i];
+        if (i < wordArray.length - 1) {
+            result += " ";
         }
-        if(obj.name == name){
-            result.status = false;
-            result.mess = "Lỗi! Trùng tên sản phẩm";
-            return result
+    }
+
+    return result;
+}
+
+function reset_style_input(input, text){
+    input.placeholder = text;
+    input.classList.remove("err-text");
+    input.style.borderColor = "#a94064";
+}
+function err_input(input, mess){
+    // let parent = input.parentElement;
+    let text = input.placeholder;
+
+    if(input.value == ""){
+        input.placeholder = "*Lỗi! thiếu dữ liệu";
+    }
+    else{
+        if(mess){
+            input.placeholder = mess;
+        }
+    }
+
+    input.style.borderColor = "red";
+    input.classList.add("err-text");
+
+    input.onclick = () => {
+        reset_style_input(input, text);
+    }
+}
+
+
+export function add_product(src){
+    let productList = JSON.parse(localStorage.getItem("productList"));
+
+    let name = document.querySelector(".name-add");
+    let price = document.querySelector(".price-add");
+    let category = document.querySelector(".category-add");
+    let brand = document.querySelector(".brand-add");
+    let description = document.querySelector(".description-add");
+    let id = document.querySelector(".id-add");
+
+    //Nếu input rỗng
+    let check_empty = false;
+    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == ""){
+        err_input(name);
+        err_input(id);
+        err_input(price);
+        err_input(brand);
+        err_input(category);
+        err_input(description);
+        check_empty = true;
+    }
+
+    //nếu trùng tên sản phẩm, sản phẩm đã tồn tại
+    let check = {
+        status: true,
+        mess_id: null,
+        mess_name: null
+    }
+    check.check_id = productList.some((obj) => {
+        if(obj.id === delete_space(id.value)){
+            check.status = false;
+            check.mess_id = "Lỗi! Trùng mã sản phẩm";
+            return;
+        }    
+    });
+    check.check_name = productList.some((obj) => {
+        if(obj.name === delete_space(name.value)){
+            check.status = false;
+            check.mess_name = "Lỗi! Trùng tên sản phẩm";
+            return;
         }
     });
 
-    if (!result.status) {
-        return result;
+    if(!check.status){
+        if(check.mess_id){
+            err_input(id, check.mess_id);
+            id.value = "";
+        }
+        if(check.mess_name){
+            err_input(name, check.mess_name);
+            name.value = "";
+        }
+        return;
     }
 
-    //nếu sản phẩm được thêm, tạo id sản phẩm random
-    let number = lisProduct.length + 1;
+    if(check_empty) return;
+
+    //nếu sản phẩm được thêm, tạo number sản phẩm
+    let number = productList.length + 1;
 
     //thêm sản phẩm vào mảng và update lên localStorage, xong hết return true
     let data = {
         number: number,
-        id: id,
-        name: name,
-        desc: description,
-        brand: brand,
-        category: category,
-        price: price,
+        id: delete_space(id.value),
+        name: delete_space(name.value),
+        desc: delete_space(description.value),
+        brand: delete_space(brand.value),
+        category: delete_space(category.value),
+        price: delete_space(price.value),
         src: src
     }
 
     //update vào mảng và localStorage
-    lisProduct.push(data);
-    localStorage.setItem("productList", JSON.stringify(lisProduct));
-    return result;
+    productList.push(data);
+    localStorage.setItem("productList", JSON.stringify(productList));
+    return true;
 }
 
 export function delete_product(index) {
@@ -61,42 +149,76 @@ export function delete_product(index) {
     localStorage.setItem("productList", JSON.stringify(lisProduct));
 }
 
-export function edit_product(index) {
+export function edit_product(index, src_1) {
     let productList = JSON.parse(localStorage.getItem("productList"));
-    let result = {
+    let name = document.querySelector(".name-add");
+    let price = document.querySelector(".price-add");
+    let category = document.querySelector(".category-add");
+    let brand = document.querySelector(".brand-add");
+    let description = document.querySelector(".description-add");
+    let id = document.querySelector(".id-add");
+
+    //Nếu input rỗng
+    let check_empty = false;
+    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == ""){
+        err_input(name);
+        err_input(id);
+        err_input(price);
+        err_input(brand);
+        err_input(category);
+        err_input(description);
+        check_empty = true;
+    }
+
+    //nếu trùng tên sản phẩm, sản phẩm đã tồn tại
+    let check = {
         status: true,
-        mess: "Sửa thành công"
-    };
-
-    //nếu các thuộc tính của sản phẩm bị trùng với sản phẩm khác, return false
-    productList.some((obj, i) => { 
-        if(i != index){ //duyệt qua mảng, loại bỏ trường hợp so sánh trên 1 sản phẩm 
-
-            //nếu trùng tên sản phẩm
-            if(obj.name == document.querySelector(".name-add").value){
-                result.status = false;
-                result.mess = "Lỗi! Tên sản phẩm bị trùng";
-                return result;
+        mess_id: null,
+        mess_name: null
+    }
+    check.check_id = productList.some((obj, i) => {
+        if(index != i){
+            if(obj.id === delete_space(id.value)){
+                check.status = false;
+                check.mess_id = "Lỗi! Trùng mã sản phẩm";
+                return;
+            }    
+        }
+    });
+    check.check_name = productList.some((obj, i) => {
+        if(index != i){
+            if(obj.name === delete_space(name.value)){
+                check.status = false;
+                check.mess_name = "Lỗi! Trùng tên sản phẩm";
+                return;
             }
-
-            //nếu trùng mã sản phẩm
-            if(obj.id == document.querySelector(".id-add").value){
-                result.status = false;
-                result.mess = "Lỗi! Mã sản phẩm bị trùng";
-                return result;
-            }
-        } 
+        }
     });
 
+    if(!check.status){
+        if(check.mess_id){
+            err_input(id, check.mess_id);
+            id.value = "";
+        }
+        if(check.mess_name){
+            err_input(name, check.mess_name);
+            name.value = "";
+        }
+        return;
+    }
+
+    if(check_empty) return;
+
     //update vào mảng và update lên localStorage, return true
-    productList[index].name = document.querySelector(".name-add").value;
-    productList[index].price = document.querySelector(".price-add").value;
-    productList[index].category = document.querySelector(".category-add").value;
-    productList[index].brand = document.querySelector(".brand-add").value;
-    productList[index].description = document.querySelector(".description-add").value;
-    productList[index].id = document.querySelector(".id-add").value;
+    productList[index].name = delete_space(name.value);
+    productList[index].price = delete_space(price.value);
+    productList[index].category = delete_space(category.value);
+    productList[index].brand = delete_space(brand.value)
+    productList[index].description = delete_space(description.value);
+    productList[index].id = delete_space(id.value);
+    productList[index].src = src_1;
 
     localStorage.setItem("productList", JSON.stringify(productList));
-    return result;
+    return true;
 }
 //-----------------

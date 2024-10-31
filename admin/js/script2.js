@@ -35,7 +35,7 @@ function anhMinh(){
 			if(item.className == "product_sidebar"){
 				showMain("main-content-product-list");
 				addProduct();
-				showListProduct();		
+				showListProduct();
 			}
 			else if(item.className == "order_sidebar"){
 				showMain("main-content-order");

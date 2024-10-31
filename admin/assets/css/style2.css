@@ -280,4 +280,9 @@ body {
     background-color: white;
 }
 
+.err-text::placeholder{
+    color: red;
+}
+
 /* Content */
+
