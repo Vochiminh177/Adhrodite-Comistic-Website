@@ -88,7 +88,9 @@ function clickToComebackProductList() {
 }
 
 // Thông tin của một sản phẩm cụ thể
-function updateProductItem(productItemKey) {
+export function updateProductItem(productItemKey) {
+  // Vị trí của sản phẩm trong mảng là stt (number) - 1
+  productItemKey = productItemKey - 1;
   if (productItemArray[productItemKey]) {
     // Đưa về đầu trang
     window.scrollTo(0, 0);
@@ -217,8 +219,7 @@ export function getProductItemInfo() {
         event.currentTarget.getAttribute("data-product")
       );
       if (productItemKey >= 0) {
-        // Vị trí của sản phẩm trong mảng là stt (number) - 1
-        updateProductItem(productItemKey - 1);
+        updateProductItem(productItemKey);
       }
     });
   });

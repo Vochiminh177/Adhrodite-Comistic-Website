@@ -262,7 +262,6 @@ img {
 
 
 #suggestions-list li {
-  position: relative;
   display: flex;
   align-items: center;
   padding: 10px;
@@ -300,6 +299,20 @@ img {
 
 #suggestions-list li:hover {
   background-color: #f0f0f0;
+}
+
+#suggestions-list li.HeaderSearch__product-not-found{
+  display: block;
+  text-align: center;
+}
+
+#suggestions-list li.HeaderSearch__product-not-found span:first-child{
+  font-size: 14px;
+  font-style: italic;
+}
+
+#suggestions-list li.HeaderSearch__product-not-found span:last-child{
+  font-size: 15px;
 }
 
 .header__find-action:hover {

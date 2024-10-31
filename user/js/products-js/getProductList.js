@@ -65,7 +65,7 @@ export function comebackProductList() {
 }
 
 // Danh sách các sản phẩm được hiển thị theo tìm kiếm, bộ lọc, danh mục
-function updateProductList(productItemName, productListKey) {
+export function updateProductList(productItemName, productListKey) {
   //Hàm tạo một sản phẩm
   function createProductItemWithHtml(productItem) {
     // Image
@@ -184,8 +184,10 @@ function updateProductList(productItemName, productListKey) {
   // Cập nhật lại mainProductsListStyle
   updateMainProductsListStyle(countProductItem);
 
-  // Cập nhật hành động cho các nút phân trang sản phẩm
-  updateProductsPaginationActions(countProductItem);
+  if(countProductItem > 0){
+    // Cập nhật hành động cho các nút phân trang sản phẩm
+    updateProductsPaginationActions(countProductItem);
+  }
 
   // Thiết lập hành động có thể xem "Chi tiết" cho các sản phẩm trong danh sách
   getProductItemInfo();
