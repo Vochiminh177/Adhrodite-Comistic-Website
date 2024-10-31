@@ -10,14 +10,17 @@ body {
   font-size: 1.6rem;
 }
 
-/* hiệu ----------------------------*/
+/* hiệu ---------css userform khi click .user-click hiện ra form profile-------------------*/
 .info-user{
   width: 200px;
   right: 0px;
   top: 80%;
   z-index: 2;
   position: absolute;
-  background-color: #ccc;
+  background-color: #ffff;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity ease-in-out 0.2s;
 }
 .info-user img{
   height: 50px;
@@ -26,18 +29,34 @@ body {
   margin-left: 50px;
   margin-top: 20px;
   border-radius: 50%;
+  border: 2px solid #a94064;
+  padding: 3px;
 }
 .info-user h2{
   margin-top: 20px;
+  font-weight: 600;
   text-align: center;
+  color: #a94064;
 }
 .info-user a{
   width: 100%;
   display: block;
   padding: 10px;
+  margin: 10px 0px;
 }
+
+.info-user a:hover{
+  background-color: #ccc;
+}
+
+.info-user a:hover p{
+  font-weight: 600;
+}
+
 .info-user p{
+  text-decoration: underline;
   width: 100%;
+  color: #a94064;
 }
 /* hiệu -----------------------*/
 

@@ -1,5 +1,5 @@
 import { updateMainContent } from "./changeMainContent.js";
-import { sign_in } from "./changeUserFormInMenuHeader.js";
+import { sign_in, sign_out_user } from "./changeUserFormInMenuHeader.js";
 import { check_info_user } from "./changeUserFormInMenuHeader.js";
 
 
@@ -35,7 +35,6 @@ function unShowUserFormInMenuHeader() {
 
 export function showUserFormInMenuHeader() {
   document.getElementById("user-click").addEventListener("click", function () {
-
     //hiển thị form đăng nhập, đăng ký
     if(!check_info_user.check){ //nếu chưa có trạng thái đăng nhập
       // Tạo mới changeUserFormInMenuHeaderScript
@@ -82,26 +81,29 @@ export function showUserFormInMenuHeader() {
               <div class="container-info">
                   <img src="./assets/images/acnecream-image-1.jpg" alt="img">
                   <h2>Chào bạn !</h2>
-                  <hr>
+                 
                   <a href="">
                     <p>Hồ sơ</p>
-                    <hr>
+                    
                   </a>
                   <a href="">
                     <p>Đổi mật khẩu</p>
-                    <hr>
+                    
                   </a>
                   <a href="" class="sign-out-user">
                     <p>Đăng xuất</p>
-                    <hr>
+                    
                   </a>
               </div>
         `;
-        let info_user = document.createElement("div")
+        let info_user = document.createElement("div");
         info_user.classList.add("info-user");
         info_user.innerHTML = infoUser;
         document.querySelector(".header__menu").appendChild(info_user);
         sign_out_user();
+        setTimeout(() => {
+          info_user.style.opacity = "1";
+        },10);
 
       }
       else{
@@ -109,14 +111,5 @@ export function showUserFormInMenuHeader() {
       }
       
     }
-  });
-}
-
-function sign_out_user(){
-  document.querySelector(".sign-out-user").addEventListener("click", (e) => {
-    e.preventDefault();
-    check_info_user.check = false;
-    document.querySelector(".info-user").remove();//xóa info-user
-    updateMainContent("home");
   });
 }

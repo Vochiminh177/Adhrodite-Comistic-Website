@@ -766,3 +766,5 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
     updateMainContent(mainContentKey);
   }
 });
+
+

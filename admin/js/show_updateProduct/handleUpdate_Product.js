@@ -1,7 +1,8 @@
 //---HIỆU------
 //hàm này thông báo lỗi input
 
-function delete_space(str) {
+
+export function delete_space(str) {
     let result = "";
     let wordArray = [];
     let word = "";
@@ -38,12 +39,12 @@ function delete_space(str) {
     return result;
 }
 
-function reset_style_input(input, text){
+export function reset_style_input(input, text){
     input.placeholder = text;
     input.classList.remove("err-text");
     input.style.borderColor = "#a94064";
 }
-function err_input(input, mess){
+export function err_input(input, mess){
     // let parent = input.parentElement;
     let text = input.placeholder;
 
@@ -59,7 +60,7 @@ function err_input(input, mess){
     input.style.borderColor = "red";
     input.classList.add("err-text");
 
-    input.onclick = () => {
+    input.onchange = () => {
         reset_style_input(input, text);
     }
 }

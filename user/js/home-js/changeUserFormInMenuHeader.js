@@ -153,8 +153,6 @@ document
       else {
         sign_in();
       }
-
-
     }
   });
 
@@ -164,124 +162,109 @@ export let check_info_user = { //export một đối tượng thì file userIcon
   check: false
 };
 
+//hàm tạo thông báo
+function create_notification(mess){
+  let text = document.createElement("p");
+  text.className = "notification";
+  text.innerText = mess;
+  text.style.backgroundColor = "#ffff";
+  text.style.color = "#a94064";
+  text.style.position = "absolute";
+  text.style.left = "50%";
+  text.style.transform = "translate(-50%, -200%)";
+  text.style.zIndex = "2";
+  text.style.padding = "10px 50px";
+  text.style.fontSize = "2.4rem";
+  text.style.transition = "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
+  document.querySelector(".header__menu").appendChild(text);
+}
+
 export function sign_in(){  
-  let handle_click_sign_in = () => {
-    let username = document.querySelector("#username");
-    let password = document.querySelector("#password");
-
-    //nếu username hoặc password không có giá trị thì báo lỗi
-    if(username.value == ""|| password.value == ""){
-      error_input(username);
-      error_input(password);
-    }
-    else{
-      let result = check_user(username.value, password.value);
-
-      //nếu đăng nhập thành công
-      if (result.status) {
-        alert(result.mess);
-        // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import 
-        const changeUserFormInMenuHeaderExistingScript = document.querySelector(
-          ".change-user-form-in-menu-header-script"
-        );
-        if (changeUserFormInMenuHeaderExistingScript) {
-          changeUserFormInMenuHeaderExistingScript.remove();
-        }
-
-        // Xử lý sự kiện
-        const userModal = document.getElementById("user-modal");
-        const userBlock = document.getElementById("user-block");
-        const userExit = document.getElementById("user-exit");
-
-        userModal.style.visibility = "hidden";
-        userBlock.style.visibility = "hidden";
-        userExit.style.visibility = "hidden";
-        //--------------------------------------------------------
-
-        document.querySelector("#username").value = "";
-        document.querySelector("#password").value = "";
-        document.querySelector("#remember-user-account").checked = false;
-
-        //--vô trang Trang chủ khi đăng nhập thành công
-        updateMainContent("home");
-        check_info_user.check = true; //trạng thái đăng nhập
+  let handle_click_sign_in = (e) => {
+    e.preventDefault();
+    let result = check_user();
+    //tạo thông báo
+    create_notification("Đăng nhập thành công!");
+    //nếu đăng nhập thành công
+    if (result) {
+      // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import 
+      const changeUserFormInMenuHeaderExistingScript = document.querySelector(".change-user-form-in-menu-header-script");
+      if (changeUserFormInMenuHeaderExistingScript) {
+        changeUserFormInMenuHeaderExistingScript.remove();
       }
 
-      //nếu đăng nhập thất bại
-      else alert(result.mess);
+      // ẩn form
+      const userModal = document.getElementById("user-modal");
+      const userBlock = document.getElementById("user-block");
+      const userExit = document.getElementById("user-exit");
+      userBlock.style.visibility = "hidden";
+      userExit.style.visibility = "hidden";
+      userModal.style.visibility = "hidden";
+      // --------------------------------------------------------
 
-      document.querySelector(".btn-signin").removeEventListener("click", handle_click_sign_in); // xóa sự kiện tránh trường hợp click user-click để đăng nhập thì gán thêm sự kiện
+      document.querySelector("#username").value = "";
+      document.querySelector("#password").value = "";
+      document.querySelector("#remember-user-account").checked = false;
+      document.querySelector(".notification").style.transform = "translate(-50%, 20%)";
+
+      check_info_user.check = true; //trạng thái đăng nhập
+
+      //mờ dần
+      setTimeout(() => {
+        document.querySelector(".notification").style.opacity = "1"; 
+      }, 2000);
     }
+
+    //xóa khỏi dom
+    setTimeout(() => {
+      document.querySelector(".notification").remove();
+    }, 2001);
   }
-  document.querySelector(".btn-signin").addEventListener("click", handle_click_sign_in);
+  document.querySelector(".btn-signin").onclick = handle_click_sign_in;
 }
 
 //function đăng ký
 function sign_up(){
-  document.querySelector(".btn-signup").addEventListener("click", () => {
-    let username = document.querySelector(".username-signup");
-    let password = document.querySelector(".password-signup");
-    let second_password = document.querySelector("#second-password");
-    let email = document.querySelector(".email-signup");
-    let check_accept_privacy = document.querySelector(".accept-privacy");
+  let handle_sign_up = (e) =>{
+    e.preventDefault();
+    let result = add_user();
 
-    //gạch chân những input trống dữ liệu
-    if(username.value == "" || password.value == "" || email.value == "" || second_password.value == "" || !check_accept_privacy.checked){
-      error_input(username);
-      error_input(password);
-      error_input(second_password);
-      error_input(email);
-      error_input(check_accept_privacy);
+    //tạo phần tử p (thông báo khi đăng ký thành công)
+    create_notification("Đăng ký thành công!");
+
+    if(result){ 
+      updateForm("login");
+      sign_in();
+      document.querySelector(".notification").style.transform = "translate(-50%, 20%)";
+      //mờ dần
+      setTimeout(() => {
+        document.querySelector(".notification").style.opacity = "0"; 
+      }, 800);
     }
-    else{
-      let result = add_user(username.value, password.value, email.value);
 
-      //nếu đăng ký thành công
-      if (result.status) {
-        alert(result.mess);
-
-        document.querySelector(".username-signup").value = "";
-        document.querySelector(".password-signup").value = "";
-        document.querySelector("#second-password").value = "";
-        document.querySelector(".email-signup").value = "";
-        document.querySelector(".accept-privacy").checked = false;
-      }
-      //nếu đăng ký thât bại
-      else alert(result.mess);
-    }
-  });
+    //xóa khỏi dom
+    setTimeout(() => {
+      document.querySelector(".notification").remove();
+    }, 801);
+  }
+  document.querySelector(".btn-signup").onclick = handle_sign_up;
 }
 
+export function sign_out_user(){
+  document.querySelector(".sign-out-user").addEventListener("click", (e) => {
+    e.preventDefault();
+    check_info_user.check = false;
+    document.querySelector(".info-user").remove();//xóa info-user
+    create_notification("Đăng xuất thành công!");
 
-export function error_input(input){
-  if(input.type == "checkbox"){
-    if(!input.checked){
-      let parent = input.parentElement;
-      parent.querySelector("p").style.color = "red";
-
-      input.addEventListener("change", () => {
-        parent.querySelector("p").style.color = "black";
-      });
-    }
-  }
-  else{
-      if(input.value == ""){
-        input.style.borderBottom = "1px solid red";
-        let parent = input.parentElement;
-        
-        //nếu nó thông báo lỗi chưa tồn tại thì thêm vô, ngược lại thì không khi người dùng click nhiều lần
-        if(parent.querySelector("span") == null){
-          let text = document.createElement("span");
-          text.innerText = "*Lỗi không được để trống";
-          text.style.color = "red";
-          text.style.fontSize = "1.2rem"
-          parent.appendChild(text);
-
-          input.addEventListener("change", () => {
-            text.remove();
-            input.style.borderBottom = "1px solid #ccc";
-          });
-        }
-      }
-  }
+    setTimeout(() => {
+      document.querySelector(".notification").style.transform = "translate(-50%, 20%)";
+    }, 10);
+    setTimeout(() =>{
+      document.querySelector(".notification").style.opacity = "1";
+    }, 2000);
+    setTimeout(() => {
+      document.querySelector(".notification").remove();
+    }, 2001);
+  });
 }
