@@ -159,7 +159,7 @@ export let check_info_user = { //nếu true thì đang ở trạng thái đăng 
 };
 
 //hàm tạo thông báo
-function create_notification(mess) {
+function create_notification_user(mess) {
   let text = document.createElement("p");
   text.className = "notification";
   text.innerText = mess;
@@ -182,7 +182,7 @@ export function sign_in() {
     e.preventDefault();
     let result = handle_sign_in();
     //tạo thông báo
-    create_notification("Đăng nhập thành công!");
+    create_notification_user("Đăng nhập thành công!");
     //nếu đăng nhập thành công
     if (result) {
       // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import 
@@ -228,7 +228,7 @@ function sign_up() {
     let result = handle_sign_up();
 
     //tạo phần tử p (thông báo khi đăng ký thành công)
-    create_notification("Đăng ký thành công!");
+    create_notification_user("Đăng ký thành công!");
 
     if (result) {
       updateForm("login");
@@ -254,7 +254,7 @@ export function sign_out_user() {
     check_info_user.check = false;
 
     document.querySelector(".info-user").remove();//xóa info-user
-    create_notification("Đăng xuất thành công!");
+    create_notification_user("Đăng xuất thành công!");
 
     setTimeout(() => {
       document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
@@ -305,7 +305,7 @@ export function change_password() {
 
     document.querySelector(".btn-save-change-password").onclick = () => {
       let result = handle_change_password();
-      create_notification("Đổi mật khẩu thành công!");
+      create_notification_user("Đổi mật khẩu thành công!");
 
       if(result){
         setTimeout(() => {

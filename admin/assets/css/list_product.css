@@ -18,12 +18,59 @@
     text-align: center;
 }
 .content-product-list table th {
+    font-size: 1.2rem;
     background-color: black;
     color: whitesmoke;
-    padding: 10px;
+    padding: 10px 0px;
 }
 .content-product-list table td {
     text-align: center;
     vertical-align: middle;
     padding: 10px;
 }
+
+/* -----css phần list danh mục--- */
+.content-product-list table .id-list{
+    width: 10%;
+}
+.content-product-list table .name-list{
+    width: 35%;
+}
+.content-product-list table .brand-list{
+    width: 20%;
+}
+.content-product-list table .category-list{
+    width: 10%;
+    position: relative;
+}
+.content-product-list table .price-list{
+    width: 15%;
+}
+.content-product-list table .option-list{
+    width: 10%;
+}
+.form-category{
+    background-color: #ccc;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding: 10px;
+}
+.content-category{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content-category p{
+    color: #000;
+    width: 100%;
+    font-size: 1.2rem;
+    margin: 10px;
+    text-decoration: underline;
+}
+.content-category p:hover{
+    color: #fff;
+}
+
+
+/*------ ----- --*/

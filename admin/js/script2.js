@@ -1,4 +1,4 @@
-import {addProduct, showListProduct} from "./show_updateProduct/handleOptionProduct.js";
+import {addProduct, showListProduct} from "./show_updateProduct/OptionProduct.js";
 
 
 function start(){
