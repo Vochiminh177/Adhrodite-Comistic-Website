@@ -1,8 +1,5 @@
-//Hiệu thêm class="btn-signup", username-signup, password-signup, email-signup của register
-// .btn-signin của đăng nhập
 
-import { add_user, check_user } from "../userUpdate/handleUserUpdate.js";
-import { updateMainContent } from "./changeMainContent.js";
+import { handle_sign_up, handle_sign_in, handle_change_password} from "../userUpdate/handleUserUpdate.js";
 
 const formMap = {
   login: ` <form action="" autocomplete="off" class="header__user-form">
@@ -157,32 +154,33 @@ document
   });
 
 
-//fuction đăng nhập, export để khi click vào user-click thì thì sẽ gán sự kiện vào nút đăng nhập
-export let check_info_user = { //export một đối tượng thì file userIconInMenuHeaderAction mới thay đổi được giá trị true false
+export let check_info_user = { //nếu true thì đang ở trạng thái đăng nhập, click user-click thì hiện form infouser
   check: false
 };
 
 //hàm tạo thông báo
-function create_notification(mess){
+function create_notification(mess) {
   let text = document.createElement("p");
   text.className = "notification";
   text.innerText = mess;
   text.style.backgroundColor = "#ffff";
   text.style.color = "#a94064";
   text.style.position = "absolute";
-  text.style.left = "50%";
-  text.style.transform = "translate(-50%, -200%)";
+  text.style.right = "0px";
+  text.style.top = "0px";
+  text.style.transform = "translate(100%, 50%)";
   text.style.zIndex = "2";
   text.style.padding = "10px 50px";
-  text.style.fontSize = "2.4rem";
+  text.style.fontSize = "2rem";
+  text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
   text.style.transition = "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
-  document.querySelector(".header__menu").appendChild(text);
+  document.body.appendChild(text);
 }
 
-export function sign_in(){  
+export function sign_in() {
   let handle_click_sign_in = (e) => {
     e.preventDefault();
-    let result = check_user();
+    let result = handle_sign_in();
     //tạo thông báo
     create_notification("Đăng nhập thành công!");
     //nếu đăng nhập thành công
@@ -205,66 +203,167 @@ export function sign_in(){
       document.querySelector("#username").value = "";
       document.querySelector("#password").value = "";
       document.querySelector("#remember-user-account").checked = false;
-      document.querySelector(".notification").style.transform = "translate(-50%, 20%)";
+      document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
 
       check_info_user.check = true; //trạng thái đăng nhập
 
-      //mờ dần
+      //tắt dần
       setTimeout(() => {
-        document.querySelector(".notification").style.opacity = "1"; 
+        document.querySelector(".notification").style.transform = "translate(100%, 50%)";
       }, 2000);
     }
 
     //xóa khỏi dom
     setTimeout(() => {
       document.querySelector(".notification").remove();
-    }, 2001);
+    }, 3000);
   }
   document.querySelector(".btn-signin").onclick = handle_click_sign_in;
 }
 
 //function đăng ký
-function sign_up(){
-  let handle_sign_up = (e) =>{
+function sign_up() {
+  let handle_sign_up = (e) => {
     e.preventDefault();
-    let result = add_user();
+    let result = handle_sign_up();
 
     //tạo phần tử p (thông báo khi đăng ký thành công)
     create_notification("Đăng ký thành công!");
 
-    if(result){ 
+    if (result) {
       updateForm("login");
       sign_in();
-      document.querySelector(".notification").style.transform = "translate(-50%, 20%)";
+      document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
       //mờ dần
       setTimeout(() => {
-        document.querySelector(".notification").style.opacity = "0"; 
-      }, 800);
+        document.querySelector(".notification").style.transform = "translate(100%, 50%)";
+      }, 2000);
     }
 
     //xóa khỏi dom
     setTimeout(() => {
       document.querySelector(".notification").remove();
-    }, 801);
+    }, 3000);
   }
   document.querySelector(".btn-signup").onclick = handle_sign_up;
 }
 
-export function sign_out_user(){
+export function sign_out_user() {
   document.querySelector(".sign-out-user").addEventListener("click", (e) => {
     e.preventDefault();
     check_info_user.check = false;
+
     document.querySelector(".info-user").remove();//xóa info-user
     create_notification("Đăng xuất thành công!");
 
     setTimeout(() => {
-      document.querySelector(".notification").style.transform = "translate(-50%, 20%)";
+      document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
     }, 10);
-    setTimeout(() =>{
-      document.querySelector(".notification").style.opacity = "1";
+    //mờ dần
+    setTimeout(() => {
+      document.querySelector(".notification").style.transform = "translate(100%, 50%)";
     }, 2000);
+    //xóa khỏi dom
     setTimeout(() => {
       document.querySelector(".notification").remove();
-    }, 2001);
+    }, 3000);
   });
+}
+
+export function change_password() {
+  document.querySelector(".change-password-user").onclick = (e) => {
+    document.querySelector(".info-user").remove(); //xóa form infouser khi ấn đổi mật khẩu
+    e.preventDefault();
+    let ele = document.createElement("div");
+    ele.className = "container-change-password-user";
+    ele.innerHTML = `
+      <div class="form-change-password">
+        <div class="content-change-password">
+          <button class="exit-form-change-user">X</button>
+          <p>Đổi mật khẩu</p>
+          <div class="username-change">
+            <label for="username-change"></label>
+            <input type="text" id="username-change" placeholder="Tên tài khoản">
+          </div>
+          <div class="old-password-change">
+            <label for="old-password-change"></label>
+            <input type="text" id="old-password-change" placeholder="Mật khẩu cũ">
+          </div>
+          <div class="new-password-change">
+            <label for="new-password-change"></label>
+            <input type="text" id="new-password-change" placeholder="Mật khẩu mới">
+          </div>
+          <button class="btn-save-change-password">Lưu thay đổi</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(ele);
+
+    document.querySelector(".exit-form-change-user").onclick = () => {
+      ele.remove();
+    };
+
+    document.querySelector(".btn-save-change-password").onclick = () => {
+      let result = handle_change_password();
+      create_notification("Đổi mật khẩu thành công!");
+
+      if(result){
+        setTimeout(() => {
+          document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
+        }, 10);
+        //tắt dần
+        setTimeout(() => {
+          document.querySelector(".notification").style.transform = "translate(100%, 50%)";
+        }, 2000);
+      }
+      //xóa khỏi dom
+      setTimeout(() => {
+        document.querySelector(".notification").remove();
+      }, 3000);
+    };
+  };
+}
+
+
+export function show_infoUser() {
+  let check = document.querySelector(".info-user"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
+  if (!check) {
+    let infoUser = `
+              <div class="container-info">
+                  <img src="./assets/images/acnecream-image-1.jpg" alt="img">
+                  <h2>Chào bạn !</h2>
+                 
+                  <a href="">
+                    <p>Hồ sơ</p>
+                    
+                  </a>
+                  <a href="" class="change-password-user">
+                    <p>Đổi mật khẩu</p>
+                    
+                  </a>
+                  <a href="" class="sign-out-user">
+                    <p>Đăng xuất</p>
+                    
+                  </a>
+              </div>
+        `;
+    let info_user = document.createElement("div");
+    info_user.classList.add("info-user");
+    info_user.innerHTML = infoUser;
+    document.querySelector(".header__menu").appendChild(info_user);
+
+    sign_out_user();
+    change_password();
+    setTimeout(() => {
+      info_user.style.opacity = "1";
+    }, 10);
+
+    document.querySelector(".header__navbar").onclick = () => {
+      document.querySelector(".info-user").remove();
+    }
+  }
+  //nếu click mà đang hiện form thì xóa form
+  else {
+    document.querySelector(".info-user").remove(); //tắt info-user
+  }
 }

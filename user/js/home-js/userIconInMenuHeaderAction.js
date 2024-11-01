@@ -1,6 +1,7 @@
-import { updateMainContent } from "./changeMainContent.js";
-import { sign_in, sign_out_user } from "./changeUserFormInMenuHeader.js";
+
+import { sign_in } from "./changeUserFormInMenuHeader.js";
 import { check_info_user } from "./changeUserFormInMenuHeader.js";
+import { show_infoUser } from "./changeUserFormInMenuHeader.js";
 
 
 // Sự kiện khi người dùng nhấn vào icon hình nhân trên Header
@@ -75,41 +76,7 @@ export function showUserFormInMenuHeader() {
 
     // hiển thị info-user
     else{
-      let check = document.querySelector(".info-user"); //để kiểm tra info-user có tồn tại không, nếu không thì hiển thị, còn nếu có thì delete
-      if(!check){
-        let infoUser = `
-              <div class="container-info">
-                  <img src="./assets/images/acnecream-image-1.jpg" alt="img">
-                  <h2>Chào bạn !</h2>
-                 
-                  <a href="">
-                    <p>Hồ sơ</p>
-                    
-                  </a>
-                  <a href="">
-                    <p>Đổi mật khẩu</p>
-                    
-                  </a>
-                  <a href="" class="sign-out-user">
-                    <p>Đăng xuất</p>
-                    
-                  </a>
-              </div>
-        `;
-        let info_user = document.createElement("div");
-        info_user.classList.add("info-user");
-        info_user.innerHTML = infoUser;
-        document.querySelector(".header__menu").appendChild(info_user);
-        sign_out_user();
-        setTimeout(() => {
-          info_user.style.opacity = "1";
-        },10);
-
-      }
-      else{
-        document.querySelector(".info-user").remove(); //tắt info-user
-      }
-      
+      show_infoUser();
     }
   });
 }

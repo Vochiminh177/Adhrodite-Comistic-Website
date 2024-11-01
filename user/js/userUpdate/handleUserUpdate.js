@@ -5,6 +5,7 @@ import { reset_style_input, delete_space } from "../../../admin/js/show_updatePr
 function error_input(input, mess){
     let parent = input.parentElement;
 
+    //nếu là checkbox
     if(input.type == "checkbox"){
       if(!input.checked){
         parent.querySelector("p").style.color = "red";
@@ -14,8 +15,10 @@ function error_input(input, mess){
         };
       }
     }
+    //nếu là text
     else{
         if(parent.querySelector("span") == null){  
+            //nếu có tồn tại mess (trường hợp không phải input rỗng)
             if(mess){
                 input.style.borderBottom = "1px solid red";
                 let text = document.createElement("span");
@@ -29,6 +32,7 @@ function error_input(input, mess){
                 };
             }
 
+            //nếu input rỗng
             if(input.value == ""){      
                 input.style.borderBottom = "1px solid red";
                 let text = document.createElement("span");
@@ -41,13 +45,15 @@ function error_input(input, mess){
                     input.style.borderBottom = "1px solid #ccc";
                 };
             }
+
+            //còn lại không có lỗi
             
         }
     }
 }
 
 // kiểm tra thông tin đăng nhập
-export function check_user() {
+export function handle_sign_in() {
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
     if(userList.length == 0){
         userList = [...usersList];
@@ -63,22 +69,27 @@ export function check_user() {
         return false;
     }
 
-    // lấy toàn bộ người có tên đăng nhập là username
-    let check = userList.filter((obj) => {
-        return username.value === obj.username;
+    // lấy người có tên đăng nhập là username
+    let check = null;
+    userList.some((obj, index) => {
+        if(username.value === obj.username){
+            check = userList[index];
+            return;
+        }
     });
 
     // nếu không có ai thì tên đăng nhập không tồn tại
-    if (!check.length) {
-        error_input(username, "Tài khoản không tồn tại");
+    if (!check) {
+        error_input(username, "*Lỗi! Tài khoản không tồn tại");
         return false;
     }
 
-    // kiểm tra trong array đó có người có password giống không
-    let a = check.find((obj) => obj.password === password.value)
+    // kiểm tra  password giống không
+    let p = false;
+    if(check.password === password.value) p=true;
     // nếu không là .....
-    if (!a) {
-        error_input(password, "Mật không không chính xác");
+    if (!p) {
+        error_input(password, "*Lỗi! Mật không không chính xác");
         return false;
     }
 
@@ -86,7 +97,8 @@ export function check_user() {
     return true;
 }
 
-export function add_user(){
+//kiểm tra khi đăng ký
+export function handle_sign_up(){
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
     if(userList.length == 0){
         userList = [...usersList];
@@ -153,6 +165,62 @@ export function add_user(){
 
     //thêm vào mảng
     userList.push(data_obj);
+    localStorage.setItem("userList", JSON.stringify(userList));
+    return true;
+}
+
+//hàm đổi mật khẩu
+export function handle_change_password(){
+    let userList = JSON.parse(localStorage.getItem("userList"));
+    let username = document.querySelector("#username-change");
+    let old_password = document.querySelector("#old-password-change");
+    let new_password = document.querySelector("#new-password-change");
+
+    let check_empty = false;
+    if(username.value == "" || old_password.value == "" || new_password.value == ""){
+        error_input(username);
+        error_input(old_password);
+        error_input(new_password);
+        check_empty = true;
+    }
+
+    // lấy người có tên đăng nhập là username
+    let check = null;
+    userList.some((obj, index) => {
+        if(username.value === obj.username){
+            check = userList[index];
+            return;
+        }
+    });
+
+    // nếu không có ai thì tên đăng nhập không tồn tại
+    if (!check) {
+        error_input(username, "*Lỗi! Tài khoản không tồn tại");
+        return false;
+    }
+
+    // kiểm tra có password giống không
+    let p = false;
+    if(check.password === old_password.value) p=true;
+    // nếu không là .....
+    if (!p) {
+        error_input(old_password, "*Lỗi! Mật không không chính xác");
+        return false;
+    }
+
+    if(check_empty) return;
+
+    //nếu đổi thành công
+    userList.some((obj, index) => {
+        if(username.value === obj.username){
+            userList[index].password = new_password.value;
+            return;
+        }
+    });
+
+    username.value = "";
+    old_password.value = "";
+    new_password.value = "";
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
