@@ -65,10 +65,7 @@
                 Giới&nbsp;thiệu
               </a>
             </li>
-            <li
-              class="header-navbar__item"
-              data-main-content="products"
-            >
+            <li class="header-navbar__item" data-main-content="products">
               <a
                 href="javascript:void(0)"
                 id="products"
@@ -91,7 +88,11 @@
           </ul>
           <div class="header__icons">
             <div class="header__find-icon">
-              <a href="javascript:void(0)" class="header__find-click" id="find-click">
+              <a
+                href="javascript:void(0)"
+                class="header__find-click"
+                id="find-click"
+              >
                 <i class="fa-solid fa-magnifying-glass header__icon"></i>
               </a>
               <div class="header__find-block-wrapper" id="find-block-wrapper">
@@ -102,19 +103,30 @@
                     id="find-header"
                     class="header__find-input"
                     placeholder="Tìm kiếm sản phẩm..."
+                    autocomplete="off"
                   />
-                  <button class="header__find-action" id="find-action"> Tìm</button>
+                  <button class="header__find-action" id="find-action">
+                    Tìm
+                  </button>
                 </div>
                 <ul id="suggestions-list"></ul>
               </div>
             </div>
             <div class="header__shopping-cart-icon">
-              <a href="javascript:void(0)" class="header__action" id="shopping-cart-click">
+              <a
+                href="javascript:void(0)"
+                class="header__action"
+                id="shopping-cart-click"
+              >
                 <i class="fa-solid fa-cart-shopping header__icon"></i>
               </a>
             </div>
             <div class="header__user-icon">
-              <a href="javascript:void(0)" class="header__action" id="user-click">
+              <a
+                href="javascript:void(0)"
+                class="header__action"
+                id="user-click"
+              >
                 <i class="fa-solid fa-user header__icon"></i>
               </a>
               <div class="header__modal" id="user-modal">
@@ -166,24 +178,36 @@
                           id="remember-user-account"
                           hidden
                         />
-                        <label for="remember-user-account" class="remember-password"
+                        <label
+                          for="remember-user-account"
+                          class="remember-password"
                           >Ghi nhớ mật khẩu</label
                         >
                       </div>
                       <div class="header__form-group">
-                        <input type="submit" value="Đăng nhập" class="btn-signin"/>
+                        <input
+                          type="submit"
+                          value="Đăng nhập"
+                          class="btn-signin"
+                        />
                       </div>
                     </form>
                     <div class="header__user-contacts">
                       <p class="header__user-contacts-title">Hoặc</p>
                       <div class="header__user-contacts-block">
-                        <a href="javascript:void(0)" class="header__user-contact">
+                        <a
+                          href="javascript:void(0)"
+                          class="header__user-contact"
+                        >
                           <i
                             class="fa-brands fa-facebook-f header__user-contact-icon"
                           ></i>
                           <p class="header__user-contact-sub-title">Facebook</p>
                         </a>
-                        <a href="javascript:void(0)" class="header__user-contact">
+                        <a
+                          href="javascript:void(0)"
+                          class="header__user-contact"
+                        >
                           <i
                             class="fa-brands fa-google header__user-contact-icon"
                           ></i>
@@ -202,7 +226,7 @@
     <!-- Body -->
     <main class="body">
       <div class="main-content" id="main-content">
-        <!-- <div class="body__home">
+        <div class="body__home">
           <div class="home__hero">
             <div class="hero__rectangle">
               <h1 class="hero__title heading-lv1">
@@ -220,7 +244,7 @@
             </h2>
             <div class="popular-menu__body">
               <ul class="popular-menu__list">
-                <li class="popular-menu__item">
+                <li class="popular-menu__item" data-popular-menu="sua-rua-mat">
                   <figure class="popular-menu__media">
                     <img
                       src="./assets/images/popular-menu_image-1.jpg"
@@ -230,7 +254,7 @@
                   </figure>
                   <p class="popular-menu__label">SỮA&nbsp;RỬA&nbsp;MẶT</p>
                 </li>
-                <li class="popular-menu__item">
+                <li class="popular-menu__item" data-popular-menu="toner">
                   <figure class="popular-menu__media">
                     <img
                       src="./assets/images/popular-menu_image-2.jpg"
@@ -240,7 +264,7 @@
                   </figure>
                   <p class="popular-menu__label">TONER</p>
                 </li>
-                <li class="popular-menu__item">
+                <li class="popular-menu__item" data-popular-menu="serum">
                   <figure class="popular-menu__media">
                     <img
                       src="./assets/images/popular-menu_image-3.jpg"
@@ -250,7 +274,7 @@
                   </figure>
                   <p class="popular-menu__label">SERUM</p>
                 </li>
-                <li class="popular-menu__item">
+                <li class="popular-menu__item" data-popular-menu="kem-duong-am">
                   <figure class="popular-menu__media">
                     <img
                       src="./assets/images/popular-menu_image-4.jpg"
@@ -260,7 +284,7 @@
                   </figure>
                   <p class="popular-menu__label">KEM&nbsp;DƯỠNG&nbsp;ẨM</p>
                 </li>
-                <li class="popular-menu__item">
+                <li class="popular-menu__item" data-popular-menu="son">
                   <figure class="popular-menu__media">
                     <img
                       src="./assets/images/popular-menu_image-5.jpg"
@@ -270,7 +294,7 @@
                   </figure>
                   <p class="popular-menu__label">SON</p>
                 </li>
-                <li class="popular-menu__item">
+                <li class="popular-menu__item" data-popular-menu="phan">
                   <figure class="popular-menu__media">
                     <img
                       src="./assets/images/popular-menu_image-6.jpg"
@@ -289,7 +313,6 @@
             </h2>
             <div class="popular-product__list">
               <div class="popular-product__item">
-                <div class="popular-product__color"></div>
                 <figure class="popular-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -306,16 +329,15 @@
                     Danh mục: <b>Sửa rửa mặt</b>
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                  <div class="popular-product__actions">
-                    <a href="javascript:void(0)" class="popular-p roduct__action">Mua</a>
-                    <a href="javascript:void(0)" class="popular-product__action">
-                      Thêm giỏ hàng
-                    </a>
-                  </div>
+                  <button
+                    href="javascript:void(0)"
+                    class="popular-product__button"
+                  >
+                    Thêm&nbsp;giỏ&nbsp;hàng
+                  </button>
                 </div>
               </div>
               <div class="popular-product__item">
-                <div class="popular-product__color"></div>
                 <figure class="popular-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -332,16 +354,15 @@
                     Danh mục: <b>Sửa rửa mặt</b>
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                  <div class="popular-product__actions">
-                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                    <a href="javascript:void(0)" class="popular-product__action">
-                      Thêm giỏ hàng
-                    </a>
-                  </div>
+                  <button
+                    href="javascript:void(0)"
+                    class="popular-product__button"
+                  >
+                    Thêm&nbsp;giỏ&nbsp;hàng
+                  </button>
                 </div>
               </div>
               <div class="popular-product__item">
-                <div class="popular-product__color"></div>
                 <figure class="popular-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -358,16 +379,15 @@
                     Danh mục: <b>Sửa rửa mặt</b>
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                  <div class="popular-product__actions">
-                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                    <a href="javascript:void(0)" class="popular-product__action">
-                      Thêm giỏ hàng
-                    </a>
-                  </div>
+                  <button
+                    href="javascript:void(0)"
+                    class="popular-product__button"
+                  >
+                    Thêm&nbsp;giỏ&nbsp;hàng
+                  </button>
                 </div>
               </div>
               <div class="popular-product__item">
-                <div class="popular-product__color"></div>
                 <figure class="popular-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -384,16 +404,15 @@
                     Danh mục: <b>Sửa rửa mặt</b>
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                  <div class="popular-product__actions">
-                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                    <a href="javascript:void(0)" class="popular-product__action">
-                      Thêm giỏ hàng
-                    </a>
-                  </div>
+                  <button
+                    href="javascript:void(0)"
+                    class="popular-product__button"
+                  >
+                    Thêm&nbsp;giỏ&nbsp;hàng
+                  </button>
                 </div>
               </div>
               <div class="popular-product__item">
-                <div class="popular-product__color"></div>
                 <figure class="popular-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -410,16 +429,15 @@
                     Danh mục: <b>Sửa rửa mặt</b>
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                  <div class="popular-product__actions">
-                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                    <a href="javascript:void(0)" class="popular-product__action">
-                      Thêm giỏ hàng
-                    </a>
-                  </div>
+                  <button
+                    href="javascript:void(0)"
+                    class="popular-product__button"
+                  >
+                    Thêm&nbsp;giỏ&nbsp;hàng
+                  </button>
                 </div>
               </div>
               <div class="popular-product__item">
-                <div class="popular-product__color"></div>
                 <figure class="popular-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -436,12 +454,12 @@
                     Danh mục: <b>Sửa rửa mặt</b>
                   </p>
                   <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                  <div class="popular-product__actions">
-                    <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                    <a href="javascript:void(0)" class="popular-product__action">
-                      Thêm giỏ hàng
-                    </a>
-                  </div>
+                  <button
+                    href="javascript:void(0)"
+                    class="popular-product__button"
+                  >
+                    Thêm&nbsp;giỏ&nbsp;hàng
+                  </button>
                 </div>
               </div>
             </div>
@@ -450,7 +468,6 @@
             <h2 class="sale-product__title">Khuyến mãi</h2>
             <div class="sale-product__list">
               <div class="sale-product__item">
-                <div class="sale-product__color"></div>
                 <figure class="sale-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -469,7 +486,6 @@
                 </div>
               </div>
               <div class="sale-product__item">
-                <div class="sale-product__color"></div>
                 <figure class="sale-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -488,7 +504,6 @@
                 </div>
               </div>
               <div class="sale-product__item">
-                <div class="sale-product__color"></div>
                 <figure class="sale-product__media">
                   <img
                     src="./assets/images/facewash-image-1.jpg "
@@ -557,334 +572,7 @@
               </ul>
             </div>
           </div>
-        </div> -->
-        <!-- <div class="body__products">
-          <div class="products__left">
-            <div class="left__search">
-              <h2 class="left-search__title heading">TÌM KIẾM</h2>
-              <div class="left-search__form-group">
-                <label for="search">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </label>
-                <input
-                  type="text"
-                  id="left-search-input"
-                  autocomplete="off"
-                  placeholder="Tìm kiếm"
-                />
-              </div>
-            </div>
-            <div class="left__filter">
-              <h2 class="left-filter__tilte heading">BỘ LỌC</h2>
-              <a href="javascript:void(0)" class="left-filter__see" id="see-filter-menu">
-                Xem thêm <i class="fa-solid fa-chevron-down"></i>
-              </a>
-              <form action="" class="left-filter__form" id="filter-menu">
-                <div class="left-filter__form-group">
-                  <p class="left-filter__sub-title">Sắp xếp</p>
-                  <div class="left-filter__checkboxs">
-                    <input type="checkbox" name="sort" id="name" hidden="" />
-                    <label for="name">Sắp xếp tên</label>
-                    <input
-                      type="checkbox"
-                      name="sort"
-                      id="price-asc"
-                      hidden=""
-                    />
-                    <label for="price-asc">Sắp xếp giá tăng&nbsp;dần</label>
-                    <input
-                      type="checkbox"
-                      name="sort"
-                      id="price-desc"
-                      hidden=""
-                    />
-                    <label for="price-desc">Sắp xếp giá giảm&nbsp;dần</label>
-                  </div>
-                </div>
-                <div class="left-filter__form-group">
-                  <p class="left-filter__sub-title">Hãng</p>
-                  <div class="left-filter__checkboxs">
-                    <input
-                      type="checkbox"
-                      name="brand"
-                      id="the-ordinary"
-                      hidden=""
-                    />
-                    <label for="the-ordinary">The Ordinary</label>
-                    <input
-                      type="checkbox"
-                      name="brand"
-                      id="la-roche-posay"
-                      hidden=""
-                    />
-                    <label for="la-roche-posay">La Roche-Posay</label>
-                    <input type="checkbox" name="brand" id="cerave" hidden="" />
-                    <label for="cerave">CeraVe</label>
-                    <input type="checkbox" name="brand" id="..." hidden="" />
-                    <label for="...">. . .</label>
-                  </div>
-                </div>
-                <div class="left-filter__form-group">
-                  <p class="left-filter__sub-title">Giá cả</p>
-                  <div class="left-filter__checkboxs">
-                    <input
-                      type="checkbox"
-                      name="price"
-                      id="level-1"
-                      hidden=""
-                    />
-                    <label for="level-1">Giá dưới 200.000đ</label>
-                    <input
-                      type="checkbox"
-                      name="price"
-                      id="level-2"
-                      hidden=""
-                    />
-                    <label for="level-2">Giá từ 200.000đ đến 400.000đ</label>
-                    <input
-                      type="checkbox"
-                      name="price"
-                      id="level-3"
-                      hidden=""
-                    />
-                    <label for="level-3">Giá trên 400.000đ</label>
-                  </div>
-                </div>
-                <div class="left-filter__form-group">
-                  <p class="left-filter__sub-title">Giới tính</p>
-                  <div class="left-filter__checkboxs">
-                    <input type="checkbox" name="price" id="male" hidden="" />
-                    <label for="male">Nam</label>
-                    <input type="checkbox" name="price" id="female" hidden="" />
-                    <label for="female">Nữ</label>
-                  </div>
-                </div>
-                <div class="left-filter__form-group"></div>
-                <div class="left-filter__form-group">
-                  <p class="left-filter__sub-title">Trạng thái</p>
-                  <div class="left-filter__checkboxs">
-                    <input
-                      type="checkbox"
-                      name="status"
-                      id="can-buy"
-                      hidden=""
-                    />
-                    <label for="can-buy">Còn hàng</label>
-                    <input
-                      type="checkbox"
-                      name="status"
-                      id="can-not-buy"
-                      hidden=""
-                    />
-                    <label for="can-not-buy">Hết hàng</label>
-                    <input type="checkbox" name="status" id="sale" hidden="" />
-                    <label for="sale">Đang giảm giá</label>
-                  </div>
-                </div>
-              </form>
-              <button class="left-filter__reset btn">Đặt lại</button>
-            </div>
-            <div class="left__menu">
-              <h2 class="left-menu__title heading">DANH MỤC</h2>
-              <ul class="left-menu__list">
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="tat-ca-left-menu"
-                    data-menu-product="tat-ca"
-                  >
-                    Tất cả
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="sua-rua-mat-left-menu"
-                    data-menu-product="sua-rua-mat"
-                  >
-                    Sữa rửa mặt
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="kem-tri-mun-left-menu"
-                    data-menu-product="kem-tri-mun"
-                  >
-                    Kem trị mụn
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="toner-left-menu"
-                    data-menu-product="toner"
-                  >
-                    Toner
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="tay-trang-left-menu"
-                    data-menu-product="tay-trang"
-                    >Tẩy trang</a
-                  >
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="serum-left-menu"
-                    data-menu-product="serum"
-                  >
-                    Serum
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="kem-duong-am-left-menu"
-                    data-menu-product="kem-duong-am"
-                  >
-                    Kem dưỡng ẩm
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="son-left-menu"
-                    data-menu-product="son"
-                  >
-                    Son
-                  </a>
-                </li>
-                <li class="left-menu__item">
-                  <a
-                    href="javascript:void(0)"
-                    class="left-menu__action"
-                    id="phan-left-menu"
-                    data-menu-product="phan"
-                  >
-                    Phấn
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="products__main main-body" id="products-main">
-            <div class="main__order">
-              <h2 class="main-order__title heading">SẢN PHẨM</h2>
-              <div class="main-order__body">
-                <div class="main-order__media">
-                  <img
-                    src="./assets/images/facewash-image-2.jpg"
-                    alt=""
-                    class="main-order__image"
-                  />
-                </div>
-                <div class="main-order__content">
-                  <h2 class="main-order__product-title">
-                    Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml
-                  </h2>
-                  <div class="main-order__details">
-                    <p class="main-order__detail">
-                      Mã sản phẩm: <b>APh00002</b>
-                    </p>
-                    <p class="main-order__detail">Hãng: <b>Simple</b></p>
-                    <p class="main-order__detail">
-                      Danh mục: <b>Sửa rửa mặt</b>
-                    </p>
-                    <p class="main-order__detail">Giá: <b>150.000đ</b></p>
-                    <div class="main-order__row">
-                      <p class="main-order__detail">Số lượng: </p>
-                      <button class="main-order__count-button increment">
-                        +
-                      </button>
-                      <span class="main-order__number"><b>1</b></span>
-                      <button class="main-order__count-button decrement">
-                        -
-                      </button>
-                    </div>
-                  </div>
-                  <button
-                    class="main-order__add-to-shopping-cart-button"
-                  >
-                    Thêm giỏ hàng
-                  </button>
-                </div>
-              </div>
-              <button class="main-order__back-button">Quay lại</button>
-            </div>
-            <div class="main__info">
-              <div class="main-info__content">
-                <h2 class="info-content__title heading">THÔNG TIN CHI TIẾT</h2>
-                <p class="info-content__desc">
-                  Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml là sản phẩm dịu
-                  nhẹ, giúp làm sạch sâu da mà vẫn giữ được độ ẩm tự nhiên,
-                  không gây khô căng. Với công thức không chứa hương liệu, không
-                  phẩm màu và không chất gây kích ứng, sản phẩm phù hợp với mọi
-                  loại da, đặc biệt là da nhạy cảm. Thành phần chính gồm Vitamin
-                  B5 và Vitamin E giúp làm dịu và nuôi dưỡng làn da, loại bỏ bụi
-                  bẩn, dầu thừa một cách nhẹ nhàng. Với kết cấu dạng gel mịn,
-                  sữa rửa mặt này mang đến cảm giác tươi mát và sạch thoáng cho
-                  da sau mỗi lần sử dụng, giúp duy trì làn da mềm mại và khỏe
-                  mạnh.
-                </p>
-              </div>
-              <div class="main-info__rate">
-                <h2 class="info-rate__title heading">ĐÁNH GIÁ</h2>
-                <div class="info-rate__stats">
-                  <p class="info-rate__score">
-                    <b>5.0</b>
-                  </p>
-                  <div class="info-rate__stars">
-                    <i class="fa-solid fa-star info-rate__star"></i>
-                    <i class="fa-solid fa-star info-rate__star"></i>
-                    <i class="fa-solid fa-star info-rate__star"></i>
-                    <i class="fa-solid fa-star info-rate__star"></i>
-                    <i class="fa-solid fa-star info-rate__star"></i>
-                  </div>
-                  <div class="info-rate__score-details">
-                    <div class="score-details__row">
-                      <p class="score-details__number">5</p>
-                      <i class="fa-solid fa-star score-details__star"></i>
-                      <span class="score-details__rectangle"></span>
-                    </div>
-                    <div class="score-details__row">
-                      <p class="score-details__number">4</p>
-                      <i class="fa-solid fa-star score-details__star"></i>
-                      <span class="score-details__rectangle"></span>
-                    </div>
-                    <div class="score-details__row">
-                      <p class="score-details__number">3</p>
-                      <i class="fa-solid fa-star score-details__star"></i>
-                      <span class="score-details__rectangle"></span>
-                    </div>
-                    <div class="score-details__row">
-                      <p class="score-details__number">2</p>
-                      <i class="fa-solid fa-star score-details__star"></i>
-                      <span class="score-details__rectangle"></span>
-                    </div>
-                    <div class="score-details__row">
-                      <p class="score-details__number">&nbsp;1</p>
-                      <i class="fa-solid fa-star score-details__star"></i>
-                      <span class="score-details__rectangle"></span>
-                    </div>
-                  </div>
-                  <a href="javascript:void(0)" class="info-rate__rate-input">Đánh giá</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
+        </div>
       </div>
     </main>
     <!-- Footer -->
@@ -918,25 +606,39 @@
             <h2 class="help__title">Trợ giúp</h2>
             <ul class="help__menu">
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action">Chính sách sử dụng website</a>
+                <a href="javascript:void(0)" class="help__action"
+                  >Chính sách sử dụng website</a
+                >
               </li>
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action"> Phương thức thanh toán </a>
+                <a href="javascript:void(0)" class="help__action">
+                  Phương thức thanh toán
+                </a>
               </li>
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action">Chính sách đổi trả</a>
+                <a href="javascript:void(0)" class="help__action"
+                  >Chính sách đổi trả</a
+                >
               </li>
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action">Chính sách giao hàng</a>
+                <a href="javascript:void(0)" class="help__action"
+                  >Chính sách giao hàng</a
+                >
               </li>
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action">Điều khoản dịch vụ</a>
+                <a href="javascript:void(0)" class="help__action"
+                  >Điều khoản dịch vụ</a
+                >
               </li>
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action">Hướng dẫn mua hàng</a>
+                <a href="javascript:void(0)" class="help__action"
+                  >Hướng dẫn mua hàng</a
+                >
               </li>
               <li class="help__item">
-                <a href="javascript:void(0)" class="help__action">Chính sách bảo mật</a>
+                <a href="javascript:void(0)" class="help__action"
+                  >Chính sách bảo mật</a
+                >
               </li>
             </ul>
           </div>
@@ -971,8 +673,9 @@
       </div>
     </footer>
 
-
     <script src="./js/home-js/changeMainContent.js" type="module"></script>
-    <script src="./js/home-js/headerActions.js" type="module"></script>
+    <script src="./js/home-js/headerEvents.js" type="module"></script>
+    <script src="./js/home-js/homePageEvents.js" type="module"></script>
+    <script src="./js/products-js/showFilterProducts.js"></script>
   </body>
 </html>

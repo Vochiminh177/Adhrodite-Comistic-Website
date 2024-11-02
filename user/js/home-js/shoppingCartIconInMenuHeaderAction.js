@@ -34,6 +34,9 @@ export function showShoppingCartFormInMenuHeader() {
   document
     .getElementById("shopping-cart-click")
     .addEventListener("click", function () {
+      // Kéo lên đầu trang mỗi lần chuyển trang
+      window.scrollTo(0, 0);
+
       // Cập nhật lại style khi người dùng ấn vào Giỏ hàng
       updateStyleTags();
 

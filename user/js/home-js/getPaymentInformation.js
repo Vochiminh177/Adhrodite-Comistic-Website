@@ -96,54 +96,22 @@ function updatePaymentInformation() {
             <div class="payment-information-info__block">
                 <h3 class="payment-information-info__sub-title">Thông tin khách hàng</h3>
                 <form action="" class="payment-information-info__form">
-                <div class="payment-information-info__form-group">
-                    <input type="text" class="payment-information-info__name" placeholder="${
-                      basicInformationFromUser.fullname
-                    }" readonly="">
-                </div>
-                <div class="payment-information-info__form-group">
-                    <input type="email" class="payment-information-info__email" placeholder="${
-                      basicInformationFromUser.email
-                    }" readonly="">
-                    <input type="phone" class="payment-information-info__phone" placeholder="${
-                      basicInformationFromUser.phone
-                    }" readonly="">
-                </div>
-                <div class="payment-information-info__form-group">
-                    <input type="text" class="payment-information-info__location">
-                </div>
-                <div class="payment-information-info__form-group">
-                    <select name="" id="" class="payment-information-info__select">
-                    <option value="" class="payment-information-info__option">
-                        Chọn tỉnh / thành
-                    </option>
-                    <option value="" class="payment-information-info__option">
-                        Hà Nội
-                    </option>
-                    <option value="" class="payment-information-info__option">
-                        Thừa-Thiên Huế
-                    </option>
-                    <option value="" class="payment-information-info__option">
-                        Thành phố Hồ Chí Minh
-                    </option>
-                    </select>
-                    <select name="" id="" class="payment-information-info__select">
-                    <option value="" class="payment-information-info__option">
-                        Chọn quận / huyện
-                    </option>
-                    <option value="" class="payment-information-info__option"></option>
-                    <option value="" class="payment-information-info__option"></option>
-                    <option value="" class="payment-information-info__option"></option>
-                    </select>
-                    <select name="" id="" class="payment-information-info__select">
-                    <option value="" class="payment-information-info__option">
-                        Chọn phường / xã
-                    </option>
-                    <option value="" class="payment-information-info__option"></option>
-                    <option value="" class="payment-information-info__option"></option>
-                    <option value="" class="payment-information-info__option"></option>
-                    </select>
-                </div>
+                  <div class="payment-information-info__form-group">
+                      <input type="text" class="payment-information-info__name" placeholder="${
+                        basicInformationFromUser.fullname
+                      }" readonly="">
+                  </div>
+                  <div class="payment-information-info__form-group">
+                      <input type="email" class="payment-information-info__email" placeholder="${
+                        basicInformationFromUser.email
+                      }" readonly="">
+                      <input type="phone" class="payment-information-info__phone" placeholder="${
+                        basicInformationFromUser.phone
+                      }" readonly="">
+                  </div>
+                  <div class="payment-information-info__form-group">
+                      <input type="text" class="payment-information-info__location">
+                  </div>
                 </form>
                 <div class="payment-information-info__change-location">
                 <a href="#!" class="payment-information-info__change-location-action">

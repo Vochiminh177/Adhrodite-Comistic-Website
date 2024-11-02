@@ -99,7 +99,10 @@ export function updateProductItem(productItemKey) {
     const productItemForm = {
       item: `
         <div class="main__order">
-          <h2 class="main-order__title heading">SẢN PHẨM</h2>
+          <button class="main-order__comeback-button">
+            <i class="fa-solid fa-arrow-left"></i>
+            Quay lại
+          </button>
           <div class="main-order__body">
             <div class="main-order__media">
               <img
@@ -141,7 +144,6 @@ export function updateProductItem(productItemKey) {
               </button>
             </div>
           </div>
-          <button class="main-order__comeback-button">Quay lại</button>
         </div>
         <div class="main__info">
           <div class="main-info__content">
@@ -167,7 +169,7 @@ export function updateProductItem(productItemKey) {
                 <div class="score-details__row">
                   <p class="score-details__number">5</p>
                   <i class="fa-solid fa-star score-details__star"></i>
-                  <span class="score-details__rectangle"></span>
+                  <span class="score-details__rectangle max-score"></span>
                 </div>
                 <div class="score-details__row">
                   <p class="score-details__number">4</p>

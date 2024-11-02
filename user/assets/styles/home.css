@@ -12,7 +12,7 @@ body {
 
 /* hiệu ---------css userform khi click .user-click hiện ra form profile-------------------*/
 /*---- css form user---- */
-.info-user{
+.info-user {
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.3);
   width: 200px;
   right: 0px;
@@ -24,7 +24,7 @@ body {
   opacity: 0;
   transition: opacity ease-in-out 0.3s;
 }
-.info-user img{
+.info-user img {
   height: 50px;
   width: 50%;
   object-fit: cover;
@@ -34,28 +34,28 @@ body {
   border: 2px solid #a94064;
   padding: 3px;
 }
-.info-user h2{
+.info-user h2 {
   margin-top: 20px;
   font-weight: 600;
   text-align: center;
   color: #a94064;
 }
-.info-user a{
+.info-user a {
   width: 100%;
   display: block;
   padding: 10px;
   margin: 10px 0px;
 }
 
-.info-user a:hover{
+.info-user a:hover {
   background-color: #ccc;
 }
 
-.info-user a:hover p{
+.info-user a:hover p {
   font-weight: 600;
 }
 
-.info-user p{
+.info-user p {
   text-decoration: underline;
   width: 100%;
   color: #a94064;
@@ -63,43 +63,43 @@ body {
 /*------------------------- */
 
 /* css form đổi mật khẩu */
-.container-change-password-user{
+.container-change-password-user {
   position: absolute;
   top: 0px;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.form-change-password{
+.form-change-password {
   background-color: #fff;
   width: 524px;
   border-radius: 24px;
   padding: 20px;
 }
 
-.content-change-password{
+.content-change-password {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 }
 
-.content-change-password p{
+.content-change-password p {
   margin: 20px 0px;
   font-weight: 700;
   font-size: 2.8rem;
   color: #a94064;
 }
 
-.content-change-password div{
+.content-change-password div {
   width: 100%;
 }
 
-.content-change-password input{
+.content-change-password input {
   padding: 10px 0px;
   margin: 30px 0px;
   font-size: 2rem;
@@ -107,22 +107,22 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
-.content-change-password input:hover{
+.content-change-password input:hover {
   border-bottom: 1px solid #fc8eac;
 }
 
-.content-change-password input:hover::placeholder{
+.content-change-password input:hover::placeholder {
   color: #fc8eac;
 }
 
-.content-change-password button:first-child{
+.content-change-password button:first-child {
   position: absolute;
   font-size: 2.8rem;
   right: 0px;
   color: #ccc;
   transform: translate(40%, -30%);
 }
-.content-change-password button:last-child{
+.content-change-password button:last-child {
   color: #fff;
   border-radius: 999px;
   background-color: #000;
@@ -132,7 +132,7 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
-.content-change-password button:last-child:hover{
+.content-change-password button:last-child:hover {
   background-color: #fc8eac;
   color: #fff;
 }
@@ -303,7 +303,7 @@ img {
   position: relative;
 }
 
-.header__find-block-wrapper{
+.header__find-block-wrapper {
   position: absolute;
   width: 234px;
   top: 27px;
@@ -359,7 +359,6 @@ img {
   overflow: auto;
 }
 
-
 #suggestions-list li {
   display: flex;
   align-items: center;
@@ -386,7 +385,7 @@ img {
   border-radius: 55%;
 }
 
-#suggestions-list li span{
+#suggestions-list li span {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -400,17 +399,17 @@ img {
   background-color: #f0f0f0;
 }
 
-#suggestions-list li.HeaderSearch__product-not-found{
+#suggestions-list li.HeaderSearch__product-not-found {
   display: block;
   text-align: center;
 }
 
-#suggestions-list li.HeaderSearch__product-not-found span:first-child{
+#suggestions-list li.HeaderSearch__product-not-found span:first-child {
   font-size: 14px;
   font-style: italic;
 }
 
-#suggestions-list li.HeaderSearch__product-not-found span:last-child{
+#suggestions-list li.HeaderSearch__product-not-found span:last-child {
   font-size: 15px;
 }
 
@@ -707,13 +706,6 @@ img {
 .body__home .popular-product__item:hover {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
-.body__home .popular-product__color {
-  position: absolute;
-  width: 100%;
-  height: 328px;
-  background: #fc8eac;
-  opacity: 0.2;
-}
 .body__home .popular-product__image {
   height: 328px;
   object-fit: contain;
@@ -738,18 +730,15 @@ img {
 .body__home .popular-product__detail + .popular-product__detail {
   margin-top: 4px;
 }
-.body__home .popular-product__actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-}
-.body__home .popular-product__action {
+.body__home .popular-product__button {
   font-size: 2rem;
   font-weight: 600;
+  margin-top: 8px;
+  margin-left: 50%;
+  transform: translateX(-50%);
   transition: color 0.2s;
 }
-.body__home .popular-product__action:hover {
+.body__home .popular-product__button:hover {
   color: #fc8eac;
 }
 /* <=== Sale Product ===> */
@@ -785,7 +774,6 @@ img {
   z-index: 2;
   width: 24px;
   height: 24px;
-  background: red;
   border-radius: 50%;
   color: #fff;
   line-height: 24px;
@@ -793,15 +781,6 @@ img {
 }
 .body__home .sale-product__item:hover {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-}
-.body__home .sale-product__color {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30%;
-  height: 100%;
-  background: #fc8eac;
-  opacity: 0.2;
 }
 .body__home .sale-product__media {
   overflow: hidden;
@@ -813,6 +792,7 @@ img {
   height: 100%;
   background: #fff;
   padding: 16px 18px;
+  border-left: 1px solid #ccc;
 }
 .body__home .sale-product__name {
   font-weight: 600;

@@ -1,370 +1,357 @@
-import { removeAllStyleTags } from "../common-js/common.js";
+import { updateNavbarStyle } from "../common-js/common.js";
+import { clickToPopularMenus } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 
-const mainContentMap = {
+export const mainContentMap = {
   home: `
   <div class="body__home">
-        <!-- Hero -->
-        <div class="home__hero">
-          <div class="hero__rectangle">
-            <h1 class="hero__title heading-lv1">
-              Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
-            </h1>
-            <p class="hero__desc desc-lv1">
-              Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
-              lựa chọn được phong cách sống cho riêng mình.
-            </p>
-          </div>
-        </div>
-        <!-- Popular Menu -->
-        <div class="home__popular-menu">
-          <h2 class="popular-menu__title heading-lv2">
-            Các danh mục nổi bật
-          </h2>
-          <div class="popular-menu__body">
-            <ul class="popular-menu__list">
-              <li class="popular-menu__item">
-                <figure class="popular-menu__media">
-                  <img
-                    src="./assets/images/popular-menu_image-1.jpg"
-                    alt=""
-                    class="popular-menu__image"
-                  />
-                </figure>
-                <p class="popular-menu__label">SỮA&nbsp;RỬA&nbsp;MẶT</p>
-              </li>
-              <li class="popular-menu__item">
-                <figure class="popular-menu__media">
-                  <img
-                    src="./assets/images/popular-menu_image-2.jpg"
-                    alt=""
-                    class="popular-menu__image"
-                  />
-                </figure>
-                <p class="popular-menu__label">TONER</p>
-              </li>
-              <li class="popular-menu__item">
-                <figure class="popular-menu__media">
-                  <img
-                    src="./assets/images/popular-menu_image-3.jpg"
-                    alt=""
-                    class="popular-menu__image"
-                  />
-                </figure>
-                <p class="popular-menu__label">SERUM</p>
-              </li>
-              <li class="popular-menu__item">
-                <figure class="popular-menu__media">
-                  <img
-                    src="./assets/images/popular-menu_image-4.jpg"
-                    alt=""
-                    class="popular-menu__image"
-                  />
-                </figure>
-                <p class="popular-menu__label">KEM&nbsp;DƯỠNG&nbsp;ẨM</p>
-              </li>
-              <li class="popular-menu__item">
-                <figure class="popular-menu__media">
-                  <img
-                    src="./assets/images/popular-menu_image-5.jpg"
-                    alt=""
-                    class="popular-menu__image"
-                  />
-                </figure>
-                <p class="popular-menu__label">SON</p>
-              </li>
-              <li class="popular-menu__item">
-                <figure class="popular-menu__media">
-                  <img
-                    src="./assets/images/popular-menu_image-6.jpg"
-                    alt=""
-                    class="popular-menu__image"
-                  />
-                </figure>
-                <p class="popular-menu__label">PHẤN</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Popular Product -->
-        <div class="home__popular-product">
-          <h2 class="popular-product__title heading-lv2">
-            Các sản phẩm nổi bật
-          </h2>
-          <div class="popular-product__list">
-            <div class="popular-product__item">
-              <div class="popular-product__color"></div>
-              <figure class="popular-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="popular-product__image"
-                />
-              </figure>
-              <div class="popular-product__info">
-                <h3 class="popular-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-                <p class="popular-product__detail">
-                  Danh mục: <b>Sửa rửa mặt</b>
-                </p>
-                <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                <div class="popular-product__actions">
-                  <a href="javascript:void(0)" class="popular-p roduct__action">Mua</a>
-                  <a href="javascript:void(0)" class="popular-product__action">
-                    Thêm giỏ hàng
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="popular-product__item">
-              <div class="popular-product__color"></div>
-              <figure class="popular-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="popular-product__image"
-                />
-              </figure>
-              <div class="popular-product__info">
-                <h3 class="popular-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-                <p class="popular-product__detail">
-                  Danh mục: <b>Sửa rửa mặt</b>
-                </p>
-                <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                <div class="popular-product__actions">
-                  <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                  <a href="javascript:void(0)" class="popular-product__action">
-                    Thêm giỏ hàng
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="popular-product__item">
-              <div class="popular-product__color"></div>
-              <figure class="popular-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="popular-product__image"
-                />
-              </figure>
-              <div class="popular-product__info">
-                <h3 class="popular-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-                <p class="popular-product__detail">
-                  Danh mục: <b>Sửa rửa mặt</b>
-                </p>
-                <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                <div class="popular-product__actions">
-                  <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                  <a href="javascript:void(0)" class="popular-product__action">
-                    Thêm giỏ hàng
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="popular-product__item">
-              <div class="popular-product__color"></div>
-              <figure class="popular-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="popular-product__image"
-                />
-              </figure>
-              <div class="popular-product__info">
-                <h3 class="popular-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-                <p class="popular-product__detail">
-                  Danh mục: <b>Sửa rửa mặt</b>
-                </p>
-                <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                <div class="popular-product__actions">
-                  <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                  <a href="javascript:void(0)" class="popular-product__action">
-                    Thêm giỏ hàng
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="popular-product__item">
-              <div class="popular-product__color"></div>
-              <figure class="popular-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="popular-product__image"
-                />
-              </figure>
-              <div class="popular-product__info">
-                <h3 class="popular-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-                <p class="popular-product__detail">
-                  Danh mục: <b>Sửa rửa mặt</b>
-                </p>
-                <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                <div class="popular-product__actions">
-                  <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                  <a href="javascript:void(0)" class="popular-product__action">
-                    Thêm giỏ hàng
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="popular-product__item">
-              <div class="popular-product__color"></div>
-              <figure class="popular-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="popular-product__image"
-                />
-              </figure>
-              <div class="popular-product__info">
-                <h3 class="popular-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-                <p class="popular-product__detail">
-                  Danh mục: <b>Sửa rửa mặt</b>
-                </p>
-                <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-                <div class="popular-product__actions">
-                  <a href="javascript:void(0)" class="popular-product__action">Mua</a>
-                  <a href="javascript:void(0)" class="popular-product__action">
-                    Thêm giỏ hàng
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Sale Product -->
-        <div class="home__sale-product">
-          <h2 class="sale-product__title">Khuyến mãi</h2>
-          <div class="sale-product__list">
-            <div class="sale-product__item">
-              <div class="sale-product__color"></div>
-              <figure class="sale-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="sale-product__image"
-                />
-              </figure>
-              <div class="sale-product__info">
-                <h3 class="sale-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="sale-product__price">
-                  <b class="old">xxx.000đ</b>
-                  <b class="new">xxx.000đ</b>
-                </p>
-              </div>
-            </div>
-            <div class="sale-product__item">
-              <div class="sale-product__color"></div>
-              <figure class="sale-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="sale-product__image"
-                />
-              </figure>
-              <div class="sale-product__info">
-                <h3 class="sale-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="sale-product__price">
-                  <b class="old">xxx.000đ</b>
-                  <b class="new">xxx.000đ</b>
-                </p>
-              </div>
-            </div>
-            <div class="sale-product__item">
-              <div class="sale-product__color"></div>
-              <figure class="sale-product__media">
-                <img
-                  src="./assets/images/facewash-image-1.jpg "
-                  alt=""
-                  class="sale-product__image"
-                />
-              </figure>
-              <div class="sale-product__info">
-                <h3 class="sale-product__name">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-                </h3>
-                <p class="sale-product__price">
-                  <b class="old">xxx.000đ</b>
-                  <b class="new">xxx.000đ</b>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Useful -->
-        <div class="home__useful">
-          <div class="useful__media">
+  <div class="home__hero">
+    <div class="hero__rectangle">
+      <h1 class="hero__title heading-lv1">
+        Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
+      </h1>
+      <p class="hero__desc desc-lv1">
+        Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
+        lựa chọn được phong cách sống cho riêng mình.
+      </p>
+    </div>
+  </div>
+  <div class="home__popular-menu">
+    <h2 class="popular-menu__title heading-lv2">
+      Các danh mục nổi bật
+    </h2>
+    <div class="popular-menu__body">
+      <ul class="popular-menu__list">
+        <li class="popular-menu__item" data-popular-menu="sua-rua-mat">
+          <figure class="popular-menu__media">
             <img
-              src="./assets/images/useful-image.jpg"
+              src="./assets/images/popular-menu_image-1.jpg"
               alt=""
-              class="useful__model"
+              class="popular-menu__image"
             />
-          </div>
-          <div class="useful__content">
-            <h2 class="useful__title heading-lv2">
-              Lợi ích khi mua sản phẩm từ chúng tôi
-            </h2>
-            <ul class="useful__menu">
-              <li class="useful__item">
-                <p class="useful__desc">
-                  <b>Sản phẩm chính hãng:</b> Cam kết cung cấp các sản phẩm mỹ
-                  phẩm từ các thương hiệu uy tín và có nguồn gốc rõ ràng.
-                </p>
-              </li>
-              <li class="useful__item">
-                <p class="useful__desc">
-                  <b>Đa dạng sản phẩm:</b> Cửa hàng có đầy đủ các sản phẩm từ
-                  skincare đến trang điểm, đáp ứng mọi nhu cầu làm đẹp của
-                  khách hàng.
-                </p>
-              </li>
-              <li class="useful__item">
-                <p class="useful__desc">
-                  <b>Tư vấn chuyên nghiệp:</b> Đội ngũ nhân viên có kiến thức
-                  chuyên sâu sẽ hỗ trợ tư vấn sản phẩm phù hợp với loại da và
-                  nhu cầu cá nhân.
-                </p>
-              </li>
-              <li class="useful__item">
-                <p class="useful__desc">
-                  <b>Ưu đãi hấp dẫn:</b> Luôn có các chương trình khuyến mãi
-                  và quà tặng kèm cho những đơn hàng lớn.
-                </p>
-              </li>
-              <li class="useful__item">
-                <p class="useful__desc">
-                  <b>Tư vấn chăm sóc da miễn phí:</b> Khách hàng có thể được
-                  tư vấn cách sử dụng mỹ phẩm và chăm sóc da hàng ngày hoàn
-                  toàn miễn phí.
-                </p>
-              </li>
-            </ul>
-          </div>
+          </figure>
+          <p class="popular-menu__label">SỮA&nbsp;RỬA&nbsp;MẶT</p>
+        </li>
+        <li class="popular-menu__item" data-popular-menu="toner">
+          <figure class="popular-menu__media">
+            <img
+              src="./assets/images/popular-menu_image-2.jpg"
+              alt=""
+              class="popular-menu__image"
+            />
+          </figure>
+          <p class="popular-menu__label">TONER</p>
+        </li>
+        <li class="popular-menu__item" data-popular-menu="serum">
+          <figure class="popular-menu__media">
+            <img
+              src="./assets/images/popular-menu_image-3.jpg"
+              alt=""
+              class="popular-menu__image"
+            />
+          </figure>
+          <p class="popular-menu__label">SERUM</p>
+        </li>
+        <li class="popular-menu__item" data-popular-menu="kem-duong-am">
+          <figure class="popular-menu__media">
+            <img
+              src="./assets/images/popular-menu_image-4.jpg"
+              alt=""
+              class="popular-menu__image"
+            />
+          </figure>
+          <p class="popular-menu__label">KEM&nbsp;DƯỠNG&nbsp;ẨM</p>
+        </li>
+        <li class="popular-menu__item" data-popular-menu="son">
+          <figure class="popular-menu__media">
+            <img
+              src="./assets/images/popular-menu_image-5.jpg"
+              alt=""
+              class="popular-menu__image"
+            />
+          </figure>
+          <p class="popular-menu__label">SON</p>
+        </li>
+        <li class="popular-menu__item" data-popular-menu="phan">
+          <figure class="popular-menu__media">
+            <img
+              src="./assets/images/popular-menu_image-6.jpg"
+              alt=""
+              class="popular-menu__image"
+            />
+          </figure>
+          <p class="popular-menu__label">PHẤN</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="home__popular-product">
+    <h2 class="popular-product__title heading-lv2">
+      Các sản phẩm nổi bật
+    </h2>
+    <div class="popular-product__list">
+      <div class="popular-product__item">
+        <figure class="popular-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="popular-product__image"
+          />
+        </figure>
+        <div class="popular-product__info">
+          <h3 class="popular-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+          <p class="popular-product__detail">
+            Danh mục: <b>Sửa rửa mặt</b>
+          </p>
+          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+          <button
+            href="javascript:void(0)"
+            class="popular-product__button"
+          >
+            Thêm&nbsp;giỏ&nbsp;hàng
+          </button>
         </div>
-        <!-- Feedback -->
       </div>
+      <div class="popular-product__item">
+        <figure class="popular-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="popular-product__image"
+          />
+        </figure>
+        <div class="popular-product__info">
+          <h3 class="popular-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+          <p class="popular-product__detail">
+            Danh mục: <b>Sửa rửa mặt</b>
+          </p>
+          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+
+          <button
+            href="javascript:void(0)"
+            class="popular-product__button"
+          >
+            Thêm&nbsp;giỏ&nbsp;hàng
+          </button>
+        </div>
+      </div>
+      <div class="popular-product__item">
+        <figure class="popular-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="popular-product__image"
+          />
+        </figure>
+        <div class="popular-product__info">
+          <h3 class="popular-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+          <p class="popular-product__detail">
+            Danh mục: <b>Sửa rửa mặt</b>
+          </p>
+          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+          <button
+            href="javascript:void(0)"
+            class="popular-product__button"
+          >
+            Thêm&nbsp;giỏ&nbsp;hàng
+          </button>
+        </div>
+      </div>
+      <div class="popular-product__item">
+        <figure class="popular-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="popular-product__image"
+          />
+        </figure>
+        <div class="popular-product__info">
+          <h3 class="popular-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+          <p class="popular-product__detail">
+            Danh mục: <b>Sửa rửa mặt</b>
+          </p>
+          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+          <button
+            href="javascript:void(0)"
+            class="popular-product__button"
+          >
+            Thêm&nbsp;giỏ&nbsp;hàng
+          </button>
+        </div>
+      </div>
+      <div class="popular-product__item">
+        <figure class="popular-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="popular-product__image"
+          />
+        </figure>
+        <div class="popular-product__info">
+          <h3 class="popular-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+          <p class="popular-product__detail">
+            Danh mục: <b>Sửa rửa mặt</b>
+          </p>
+          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+          <button
+            href="javascript:void(0)"
+            class="popular-product__button"
+          >
+            Thêm&nbsp;giỏ&nbsp;hàng
+          </button>
+        </div>
+      </div>
+      <div class="popular-product__item">
+        <figure class="popular-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="popular-product__image"
+          />
+        </figure>
+        <div class="popular-product__info">
+          <h3 class="popular-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
+          <p class="popular-product__detail">
+            Danh mục: <b>Sửa rửa mặt</b>
+          </p>
+          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
+          <button
+            href="javascript:void(0)"
+            class="popular-product__button"
+          >
+            Thêm&nbsp;giỏ&nbsp;hàng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="home__sale-product">
+    <h2 class="sale-product__title">Khuyến mãi</h2>
+    <div class="sale-product__list">
+      <div class="sale-product__item">
+        <figure class="sale-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="sale-product__image"
+          />
+        </figure>
+        <div class="sale-product__info">
+          <h3 class="sale-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="sale-product__price">
+            <b class="old">xxx.000đ</b>
+            <b class="new">xxx.000đ</b>
+          </p>
+        </div>
+      </div>
+      <div class="sale-product__item">
+        <figure class="sale-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="sale-product__image"
+          />
+        </figure>
+        <div class="sale-product__info">
+          <h3 class="sale-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="sale-product__price">
+            <b class="old">xxx.000đ</b>
+            <b class="new">xxx.000đ</b>
+          </p>
+        </div>
+      </div>
+      <div class="sale-product__item">
+        <figure class="sale-product__media">
+          <img
+            src="./assets/images/facewash-image-1.jpg "
+            alt=""
+            class="sale-product__image"
+          />
+        </figure>
+        <div class="sale-product__info">
+          <h3 class="sale-product__name">
+            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+          </h3>
+          <p class="sale-product__price">
+            <b class="old">xxx.000đ</b>
+            <b class="new">xxx.000đ</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="home__useful">
+    <div class="useful__media">
+      <img
+        src="./assets/images/useful-image.jpg"
+        alt=""
+        class="useful__model"
+      />
+    </div>
+    <div class="useful__content">
+      <h2 class="useful__title heading-lv2">
+        Lợi ích khi mua sản phẩm từ chúng tôi
+      </h2>
+      <ul class="useful__list">
+        <li class="useful__item">
+          <p class="useful__desc">
+            <b>Sản phẩm chính hãng:</b> Cam kết cung cấp các sản phẩm mỹ
+            phẩm từ các thương hiệu uy tín và có nguồn gốc rõ ràng.
+          </p>
+        </li>
+        <li class="useful__item">
+          <p class="useful__desc">
+            <b>Đa dạng sản phẩm:</b> Cửa hàng có đầy đủ các sản phẩm từ
+            skincare đến trang điểm, đáp ứng mọi nhu cầu làm đẹp của
+            khách hàng.
+          </p>
+        </li>
+        <li class="useful__item">
+          <p class="useful__desc">
+            <b>Tư vấn chuyên nghiệp:</b> Đội ngũ nhân viên có kiến thức
+            chuyên sâu sẽ hỗ trợ tư vấn sản phẩm phù hợp với loại da và
+            nhu cầu cá nhân.
+          </p>
+        </li>
+        <li class="useful__item">
+          <p class="useful__desc">
+            <b>Ưu đãi hấp dẫn:</b> Luôn có các chương trình khuyến mãi
+            và quà tặng kèm cho những đơn hàng lớn.
+          </p>
+        </li>
+        <li class="useful__item">
+          <p class="useful__desc">
+            <b>Tư vấn chăm sóc da miễn phí:</b> Khách hàng có thể được
+            tư vấn cách sử dụng mỹ phẩm và chăm sóc da hàng ngày hoàn
+            toàn miễn phí.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
         `,
   about: `
             <div class="about">
@@ -421,228 +408,415 @@ const mainContentMap = {
         `,
   products: `
   <div class="body__products">
-        <div class="products__left">
-          <div class="left__search">
-            <h2 class="left-search__title heading">TÌM KIẾM</h2>
-            <div class="left-search__form-group">
-              <label for="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </label>
-              <input
-                type="text"
-                id="left-search-input"
-                autocomplete="off"
-                placeholder="Tìm kiếm"
-              />
+          <div class="products__left">
+            <div class="left__search">
+              <h2 class="left-search__title heading">TÌM KIẾM</h2>
+              <div class="left-search__form-group">
+                <label for="search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </label>
+                <input
+                  type="text"
+                  id="left-search-input"
+                  autocomplete="off"
+                  placeholder="Tìm kiếm"
+                />
+              </div>
+              <div class="left-search__filter">
+                <a href="javascript:void(0)" class="left-search-filter__action">
+                  <i
+                    class="fa-solid fa-filter"
+                    class="left-search-filter__icon"
+                  ></i>
+                </a>
+                <div class="left-search-filter__content">
+                  <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
+                  <form autocomple="off" class="left-search-filter__form">
+                    <div class="left-search-filter__form-group">
+                      <h4 class="left-search-filter__sub-title">Hãng</h4>
+                      <div class="left-search-filter__brands">
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="loreal"
+                            value="loreal"
+                            hidden
+                          />
+                          <label for="loreal">
+                            <img
+                              src="./assets/images/brand-logo-1.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="clinique"
+                            value="clinique"
+                            hidden
+                          />
+                          <label for="clinique">
+                            <img
+                              src="./assets/images/brand-logo-2.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="mac"
+                            value="mac"
+                            hidden
+                          />
+                          <label for="mac">
+                            <img
+                              src="./assets/images/brand-logo-3.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="maybelline"
+                            value="maybelline"
+                            hidden
+                          />
+                          <label for="maybelline">
+                            <img
+                              src="./assets/images/brand-logo-4.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="shu-uemura"
+                            value="shu-uemura"
+                            hidden
+                          />
+                          <label for="shu-uemura">
+                            <img
+                              src="./assets/images/brand-logo-5.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="sk-ii"
+                            value="sk-ii"
+                            hidden
+                          />
+                          <label for="sk-ii">
+                            <img
+                              src="./assets/images/brand-logo-6.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="olay"
+                            value="olay"
+                            hidden
+                          />
+                          <label for="olay">
+                            <img
+                              src="./assets/images/brand-logo-7.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="revlon"
+                            value="revlon"
+                            hidden
+                          />
+                          <label for="revlon">
+                            <img
+                              src="./assets/images/brand-logo-8.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="estee-lauder"
+                            value="estee-lauder"
+                            hidden
+                          />
+                          <label for="estee-lauder">
+                            <img
+                              src="./assets/images/brand-logo-9.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                        <div class="left-search-filter__brand">
+                          <input
+                            name="brand"
+                            type="checkbox"
+                            id="dove"
+                            value="dove"
+                            hidden
+                          />
+                          <label for="dove">
+                            <img
+                              src="./assets/images/brand-logo-10.jpg"
+                              alt=""
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="left-search-filter__row">
+                      <div class="left-search-filter__form-group">
+                        <h4 class="left-search-filter__sub-title">Sắp xếp</h4>
+                        <div class="left-search-filter__list">
+                          <div class="left-search-filter__item">
+                            <input
+                              name="sort"
+                              type="radio"
+                              id="sort-1"
+                              value="sort-1"
+                              hidden
+                            />
+                            <label for="sort-1">Sắp xếp theo tên</label>
+                          </div>
+                          <div class="left-search-filter__item">
+                            <input
+                              name="sort"
+                              type="radio"
+                              id="sort-2"
+                              value="sort-2"
+                              hidden
+                            />
+                            <label for="sort-2"
+                              >Sắp xếp theo giá giảm dần</label
+                            >
+                          </div>
+                          <div class="left-search-filter__item">
+                            <input
+                              name="sort"
+                              type="radio"
+                              id="sort-3"
+                              value="sort-3"
+                              hidden
+                            />
+                            <label for="sort-3"
+                              >Sắp xếp theo giá tăng dần</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="left-search-filter__form-group">
+                        <h4 class="left-search-filter__sub-title">Giá cả</h4>
+                        <div class="left-search-filter__list">
+                          <div class="left-search-filter__item">
+                            <input
+                              name="price"
+                              type="radio"
+                              id="price-1"
+                              value="price-1"
+                              hidden
+                            />
+                            <label for="price-1">Giá dưới 200.000đ</label>
+                          </div>
+                          <div class="left-search-filter__item">
+                            <input
+                              name="price"
+                              type="radio"
+                              id="price-2"
+                              value="price-2"
+                              hidden
+                            />
+                            <label for="price-2"
+                              >Giá từ 200.000đ đến 400.000đ</label
+                            >
+                          </div>
+                          <div class="left-search-filter__item">
+                            <input
+                              name="price"
+                              type="radio"
+                              id="price-3"
+                              value="price-3"
+                              hidden
+                            />
+                            <label for="price-3">Giá trên 400.000đ</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="left-search-filter__row">
+                      <div class="left-search-filter__form-group">
+                        <h4 class="left-search-filter__sub-title">
+                          Trạng thái
+                        </h4>
+                        <div class="left-search-filter__list">
+                          <div class="left-search-filter__item">
+                            <input
+                              name="state"
+                              type="radio"
+                              id="state-1"
+                              value="state-1"
+                              hidden
+                            />
+                            <label for="state-1">Còn hàng</label>
+                          </div>
+                          <div class="left-search-filter__item">
+                            <input
+                              name="state"
+                              type="radio"
+                              id="state-2"
+                              value="state-2"
+                              hidden
+                            />
+                            <label for="state-2">Hết hàng</label>
+                          </div>
+                          <div class="left-search-filter__item">
+                            <input
+                              name="state"
+                              type="radio"
+                              id="state-3"
+                              value="state-3"
+                              hidden
+                            />
+                            <label for="state-3">Đang giảm giá</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="left-search-filter__form-group buttons">
+                        <input
+                          type="submit"
+                          class="left-search-filter__button"
+                          value="Áp dụng"
+                        />
+                        <input
+                          type="button"
+                          class="left-search-filter__button"
+                          value="Đặt lại"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="left__menu">
+              <h2 class="left-menu__title heading">DANH MỤC</h2>
+              <ul class="left-menu__list" id="left-menu-list">
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="tat-ca-left-menu"
+                    data-menu-product="tat-ca"
+                  >
+                    Tất cả
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="sua-rua-mat-left-menu"
+                    data-menu-product="sua-rua-mat"
+                  >
+                    Sữa rửa mặt
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="kem-tri-mun-left-menu"
+                    data-menu-product="kem-tri-mun"
+                  >
+                    Kem trị mụn
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="toner-left-menu"
+                    data-menu-product="toner"
+                  >
+                    Toner
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="tay-trang-left-menu"
+                    data-menu-product="tay-trang"
+                    >Tẩy trang</a
+                  >
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="serum-left-menu"
+                    data-menu-product="serum"
+                  >
+                    Serum
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="kem-duong-am-left-menu"
+                    data-menu-product="kem-duong-am"
+                  >
+                    Kem dưỡng ẩm
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="son-left-menu"
+                    data-menu-product="son"
+                  >
+                    Son
+                  </a>
+                </li>
+                <li class="left-menu__item">
+                  <a
+                    href="javascript:void(0)"
+                    class="left-menu__action"
+                    id="phan-left-menu"
+                    data-menu-product="phan"
+                  >
+                    Phấn
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="left__filter">
-            <h2 class="left-filter__tilte heading">BỘ LỌC</h2>
-            <a href="javascript:void(0)" class="left-filter__see" id="see-filter-menu">
-              Xem thêm <i class="fa-solid fa-chevron-down"></i>
-            </a>
-            <form action="" class="left-filter__form" id="filter-menu">
-              <div class="left-filter__form-group">
-                <p class="left-filter__sub-title">Sắp xếp</p>
-                <div class="left-filter__checkboxs">
-                  <input type="checkbox" name="sort" id="name" hidden="" />
-                  <label for="name">Sắp xếp tên</label>
-                  <input
-                    type="checkbox"
-                    name="sort"
-                    id="price-asc"
-                    hidden=""
-                  />
-                  <label for="price-asc">Sắp xếp giá tăng&nbsp;dần</label>
-                  <input
-                    type="checkbox"
-                    name="sort"
-                    id="price-desc"
-                    hidden=""
-                  />
-                  <label for="price-desc">Sắp xếp giá giảm&nbsp;dần</label>
-                </div>
-              </div>
-              <div class="left-filter__form-group">
-                <p class="left-filter__sub-title">Hãng</p>
-                <div class="left-filter__checkboxs">
-                  <input
-                    type="checkbox"
-                    name="brand"
-                    id="the-ordinary"
-                    hidden=""
-                  />
-                  <label for="the-ordinary">The Ordinary</label>
-                  <input
-                    type="checkbox"
-                    name="brand"
-                    id="la-roche-posay"
-                    hidden=""
-                  />
-                  <label for="la-roche-posay">La Roche-Posay</label>
-                  <input type="checkbox" name="brand" id="cerave" hidden="" />
-                  <label for="cerave">CeraVe</label>
-                  <input type="checkbox" name="brand" id="..." hidden="" />
-                  <label for="...">. . .</label>
-                </div>
-              </div>
-              <div class="left-filter__form-group">
-                <p class="left-filter__sub-title">Giá cả</p>
-                <div class="left-filter__checkboxs">
-                  <input
-                    type="checkbox"
-                    name="price"
-                    id="level-1"
-                    hidden=""
-                  />
-                  <label for="level-1">Giá dưới 200.000đ</label>
-                  <input
-                    type="checkbox"
-                    name="price"
-                    id="level-2"
-                    hidden=""
-                  />
-                  <label for="level-2">Giá từ 200.000đ đến 400.000đ</label>
-                  <input
-                    type="checkbox"
-                    name="price"
-                    id="level-3"
-                    hidden=""
-                  />
-                  <label for="level-3">Giá trên 400.000đ</label>
-                </div>
-              </div>
-              <div class="left-filter__form-group">
-                <p class="left-filter__sub-title">Giới tính</p>
-                <div class="left-filter__checkboxs">
-                  <input type="checkbox" name="price" id="male" hidden="" />
-                  <label for="male">Nam</label>
-                  <input type="checkbox" name="price" id="female" hidden="" />
-                  <label for="female">Nữ</label>
-                </div>
-              </div>
-              <div class="left-filter__form-group"></div>
-              <div class="left-filter__form-group">
-                <p class="left-filter__sub-title">Trạng thái</p>
-                <div class="left-filter__checkboxs">
-                  <input
-                    type="checkbox"
-                    name="status"
-                    id="can-buy"
-                    hidden=""
-                  />
-                  <label for="can-buy">Còn hàng</label>
-                  <input
-                    type="checkbox"
-                    name="status"
-                    id="can-not-buy"
-                    hidden=""
-                  />
-                  <label for="can-not-buy">Hết hàng</label>
-                  <input type="checkbox" name="status" id="sale" hidden="" />
-                  <label for="sale">Đang giảm giá</label>
-                </div>
-              </div>
-            </form>
-            <button class="left-filter__reset btn">Đặt lại</button>
-          </div>
-          <div class="left__menu">
-            <h2 class="left-menu__title heading">DANH MỤC</h2>
-            <ul class="left-menu__list" id="left-menu-list">
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="tat-ca-left-menu"
-                  data-menu-product="tat-ca"
-                >
-                  Tất cả
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="sua-rua-mat-left-menu"
-                  data-menu-product="sua-rua-mat"
-                >
-                  Sữa rửa mặt
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="kem-tri-mun-left-menu"
-                  data-menu-product="kem-tri-mun"
-                >
-                  Kem trị mụn
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="toner-left-menu"
-                  data-menu-product="toner"
-                >
-                  Toner
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="tay-trang-left-menu"
-                  data-menu-product="tay-trang"
-                  >Tẩy trang</a
-                >
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="serum-left-menu"
-                  data-menu-product="serum"
-                >
-                  Serum
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="kem-duong-am-left-menu"
-                  data-menu-product="kem-duong-am"
-                >
-                  Kem dưỡng ẩm
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="son-left-menu"
-                  data-menu-product="son"
-                >
-                  Son
-                </a>
-              </li>
-              <li class="left-menu__item">
-                <a
-                  href="javascript:void(0)"
-                  class="left-menu__action"
-                  id="phan-left-menu"
-                  data-menu-product="phan"
-                >
-                  Phấn
-                </a>
-              </li>
-            </ul>
-          </div>
+          <div class="products__main main-body" id="products-main"></div>
         </div>
-        <div class="products__main main-body" id="products-main"></div>
-      </div>
         `,
   contact: `
             <div class="contact">
@@ -700,16 +874,24 @@ const mainContentMap = {
                 `,
 };
 
+// Biến dùng để chuyển nội dung chính tương ứng với từng trang
+export const mainContentDiv = document.getElementById("main-content");
+
 //---Hiệu thêm export dùng cho việc đăng nhập xong thì vào trang Trang chủ
 // Hàm cập nhật nội dung khi chuyển đến trang tương ứng
 export function updateMainContent(mainContentKey) {
-  const mainContentDiv = document.getElementById("main-content");
   if (mainContentMap[mainContentKey]) {
     // Kéo lên đầu trang mỗi lần chuyển trang
     window.scrollTo(0, 0);
 
     // Thay đổi nội dung ở trang tương ứng
     mainContentDiv.innerHTML = mainContentMap[mainContentKey];
+
+    // Nếu nội dung thay đổi là trang Trang chủ
+    if (mainContentKey === "home") {
+      // Tạo sự kiện cho phép người dùng nhấn vào "Danh mục nổi bậc"
+      clickToPopularMenus();
+    }
 
     // Nếu nội dung thay đổi là trang Sản phẩm
     if (mainContentKey === "products") {
@@ -740,33 +922,10 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
   event.preventDefault();
   const mainContentKey = event.target.getAttribute("data-main-content");
   if (mainContentKey) {
-    // Xoá các thẻ <style> đã tồn tại từ trước đó
-    removeAllStyleTags();
-
-    // Đặt lại style mới cho navbarStyle
-    const navbarStyle = document.createElement("style");
-    navbarStyle.className = "navbar-style";
-    navbarStyle.innerHTML = `
-      .header-navbar__action#${mainContentKey} {
-        color: #fff;
-        text-shadow: 1px 0 0 currentColor;
-      }
-      .header-navbar__action:not(#${mainContentKey}) {
-        color: #dbd7d7;
-        text-shadow: none;
-      }
-      .header-navbar__action:not(#${mainContentKey}):hover {
-        color: #fff;
-        text-shadow: 1px 0 0 currentColor;
-      }
-    `;
-    document.head.appendChild(navbarStyle);
+    // Cập nhật lại style cho navbar
+    updateNavbarStyle(mainContentKey);
 
     // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
   }
 });
-
-
-
-

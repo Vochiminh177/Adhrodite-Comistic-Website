@@ -9,11 +9,36 @@ export function removeAccents(str) {
     .replace(/Đ/g, "D");
 }
 
-// Hàm tìm tất cả các thẻ <style> trong <head> và xóa chúng
+// Xoá các thẻ <style> đã tồn tại từ trước đó
 export function removeAllStyleTags() {
   document.querySelectorAll("head style").forEach((styleTag) => {
     styleTag.remove();
   });
+}
+
+// Hàm cập nhật lại style cho navbar
+export function updateNavbarStyle(mainContentKey) {
+  // Xoá tất cả thẻ <style> hiện có
+  removeAllStyleTags();
+
+  // Đặt lại style mới cho navbarStyle
+  const navbarStyle = document.createElement("style");
+  navbarStyle.className = "navbar-style";
+  navbarStyle.innerHTML = `
+    .header-navbar__action#${mainContentKey} {
+      color: #fff;
+      text-shadow: 1px 0 0 currentColor;
+    }
+    .header-navbar__action:not(#${mainContentKey}) {
+      color: #dbd7d7;
+      text-shadow: none;
+    }
+    .header-navbar__action:not(#${mainContentKey}):hover {
+      color: #fff;
+      text-shadow: 1px 0 0 currentColor;
+    }
+  `;
+  document.head.appendChild(navbarStyle);
 }
 
 // Hàm định dạng việc hiển thị tiền VNĐ

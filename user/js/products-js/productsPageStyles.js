@@ -65,7 +65,7 @@ export function updateMainProductsListStyle(numbersOfProductItem) {
     mainProductsListStyle.innerHTML = `
         .body__products .main-products__list {
           position: relative;
-          height: 576px;
+          height: 558px;
           margin-top: 18px;
         }
       `;
