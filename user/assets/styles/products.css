@@ -296,8 +296,6 @@
 }
 .body__products .main-products__chevron,
 .body__products .main-products__number {
-  width: 28px;
-  height: 28px;
   border-radius: 50%;
   line-height: 28px;
   text-align: center;
@@ -312,9 +310,23 @@
   font-weight: 600;
   transition: background-color 0.3s, color 0.3s;
 }
-.body__products .main-products__number:first-of-type {
+.body__products .main-products__number.active{
   background: #fc8eac;
   color: #fff;
+}
+
+.ellipsis {
+  font-size: 1.7rem;
+  color: #3c3c3c;
+  padding: 0 3px; 
+  cursor: default;
+  transition: color 0.3s, transform 0.3s;
+  text-align: center;
+}
+
+.ellipsis:hover {
+  color: #000;
+  transform: scale(1.1);
 }
 
 /* <===== Main Order =====> */

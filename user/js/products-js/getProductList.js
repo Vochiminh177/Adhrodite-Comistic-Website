@@ -137,23 +137,20 @@ export function updateProductList(productItemName, productListKey) {
     let paginationDiv = document.createElement("div");
     paginationDiv.className = "main-products__pagination";
     paginationDiv.id = "main-products-pagination";
+
     // - Nút sang trái
     let leftButton = document.createElement("button");
     leftButton.className = "main-products__chevron";
     leftButton.id = "main-products-left-button";
     leftButton.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`;
     paginationDiv.appendChild(leftButton);
+
     // - Các nút thứ tự trang
     let numbersDiv = document.createElement("div");
     numbersDiv.className = "main-products__numbers";
     numbersDiv.id = "main-products-numbers";
-    for (let i = 1; i <= Math.ceil(countProductItem / 6); i++) {
-      let numberButton = document.createElement("button");
-      numberButton.className = "main-products__number";
-      numberButton.textContent = `${i}`;
-      numbersDiv.appendChild(numberButton);
-    }
     paginationDiv.appendChild(numbersDiv);
+    
     // - Nút sang phải
     let rightButton = document.createElement("button");
     rightButton.className = "main-products__chevron";
