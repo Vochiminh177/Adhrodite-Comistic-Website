@@ -256,9 +256,11 @@
   margin-bottom: var(--spacing);
   width: calc(calc(100% / var(--columns)) - var(--spacing));
   transition: hover 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 .body__products figure:has(.main-products__image) {
-  height: 72%;
+  height: 290px;
   overflow: hidden;
 }
 .body__products .main-products__image {
@@ -270,12 +272,12 @@
   transform: scale(1.1);
 }
 .body__products .main-products__info {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 10px 12px;
-  height: 28%;
   border-top: 1px solid #acabab;
 }
 .body__products .main-products__name {
@@ -292,6 +294,7 @@
   word-break: break-word;
 }
 .body__products .main-products__price {
+  margin-top: 15px;
   color: #6a253c;
   font-size: 1.9rem;
   font-weight: 700;
