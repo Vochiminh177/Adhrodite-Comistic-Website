@@ -1,11 +1,7 @@
-import { removeAccents, formatVietNamMoney } from "../common-js/common.js";
 import { productItemArray } from "../common-js/database.js";
 import { getProductItemInfo } from "./getProductItem.js";
-import {
-  updateLeftMenuStyle,
-  updateMainProductsListStyle,
-} from "./productsPageStyles.js";
-import { updateProductsPaginationActions } from "./productsPagination.js";
+import { updateLeftMenuStyle } from "./productsPageStyles.js";
+import { updateProductsPagination } from "./productsPagination.js";
 
 // Từ khoá chỉ tên sản phẩm cần tìm kiếm hiện tại
 let currentProductItemName = "";
@@ -61,45 +57,28 @@ function getLeftMenuInfo() {
 // Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
 export function comebackProductList() {
   updateProductList(currentProductItemName, currentProductListKey);
-  getProductItemInfo();
+}
+
+let filteredProductsLength = 0;
+function filterProducts(productItemName, productListKey) {
+  filteredProductsLength = 0;
+  const filteredProducts = productItemArray.filter((product) => {
+    if (
+      (productListKey === "tat-ca" || productListKey === product.categoryID) &&
+      product.name.toLowerCase().includes(productItemName)
+    ) {
+      filteredProductsLength++;
+      return true;
+    }
+
+    return false;
+  });
+
+  return filteredProducts;
 }
 
 // Danh sách các sản phẩm được hiển thị theo tìm kiếm, bộ lọc, danh mục
 export function updateProductList(productItemName, productListKey) {
-  //Hàm tạo một sản phẩm
-  function createProductItemWithHtml(productItem) {
-    // Image
-    let img = document.createElement("img");
-    img.src = `${productItem.src}`;
-    img.alt = "";
-    img.className = "main-products__image";
-    let figure = document.createElement("figure");
-    figure.appendChild(img);
-
-    // Info
-    let h3 = document.createElement("h3");
-    h3.className = "main-products__name";
-    h3.textContent = `${productItem.name}`;
-    let p2 = document.createElement("p");
-    p2.className = "main-products__price";
-    p2.innerHTML = `${formatVietNamMoney(productItem.price)}đ`;
-    let infoDiv = document.createElement("div");
-    infoDiv.className = "main-products__info";
-    infoDiv.appendChild(h3);
-    infoDiv.appendChild(p2);
-
-    // Item
-    let itemDiv = document.createElement("div");
-    itemDiv.className = "main-products__item";
-    itemDiv.dataset.product = `${productItem.number}`;
-    itemDiv.appendChild(figure);
-    itemDiv.appendChild(infoDiv);
-    listDiv.appendChild(itemDiv);
-  }
-
-  // Đếm số lượng sản phẩm theo danh mục
-  let countProductItem = 0;
-
   // Main Products
   let mainProductsDiv = document.createElement("div");
   mainProductsDiv.className = "main__products";
@@ -120,19 +99,9 @@ export function updateProductList(productItemName, productListKey) {
   listDiv.className = "main-products__list";
   listDiv.id = "main-products__list";
 
-  // Product Item
-  productItemArray.forEach((productItem) => {
-    if (
-      (productListKey === "tat-ca" ||
-        productListKey === productItem.categoryID) &&
-      productItem.name.toLowerCase().includes(productItemName)
-    ) {
-      createProductItemWithHtml(productItem);
-      countProductItem++;
-    }
-  });
+  const filteredProducts = filterProducts(productItemName, productListKey);
 
-  if (countProductItem > 0) {
+  if (filteredProductsLength > 0) {
     // Pagination
     let paginationDiv = document.createElement("div");
     paginationDiv.className = "main-products__pagination";
@@ -150,7 +119,7 @@ export function updateProductList(productItemName, productListKey) {
     numbersDiv.className = "main-products__numbers";
     numbersDiv.id = "main-products-numbers";
     paginationDiv.appendChild(numbersDiv);
-    
+
     // - Nút sang phải
     let rightButton = document.createElement("button");
     rightButton.className = "main-products__chevron";
@@ -165,27 +134,21 @@ export function updateProductList(productItemName, productListKey) {
     let pInform = document.createElement("p");
     pInform.className = "main-products__inform";
     pInform.textContent = "KHÔNG CÓ SẢN PHẨM NÀO TRONG DANH SÁCH";
+    listDiv.innerHTML = "";
     listDiv.appendChild(pInform);
-
     bodyDiv.appendChild(listDiv);
   }
+
   mainProductsDiv.appendChild(bodyDiv);
-
-  /* Tạo ra một thẻ div để lấy nội dung bên trong nó,
-    nếu không sẽ mất thẻ mainProductsDiv khi ghi đè nội dung */
-  let productsMainHTML = document.createElement("div");
-  productsMainHTML.appendChild(mainProductsDiv);
   const productsMainDiv = document.getElementById("products-main");
-  productsMainDiv.innerHTML = `${productsMainHTML.innerHTML}`;
+  productsMainDiv.innerHTML = "";
+  productsMainDiv.appendChild(mainProductsDiv);
 
-  // Cập nhật lại mainProductsListStyle
-  updateMainProductsListStyle(countProductItem);
-
-  if(countProductItem > 0){
+  if (filteredProductsLength > 0) {
     // Cập nhật hành động cho các nút phân trang sản phẩm
-    updateProductsPaginationActions(countProductItem);
+    updateProductsPagination(filteredProducts, filteredProductsLength);
   }
-
+  
   // Thiết lập hành động có thể xem "Chi tiết" cho các sản phẩm trong danh sách
   getProductItemInfo();
 }

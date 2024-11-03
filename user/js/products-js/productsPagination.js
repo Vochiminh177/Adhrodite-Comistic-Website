@@ -1,66 +1,103 @@
-//Hàm cập nhật lại productsPaginationScript
-export function updateProductsPaginationActions(numbersOfProductItem) {
-  // Hàm gán style cho mainProductsBodyStyle
-  function assignMainProductsBodyStyleForSmallNumberofProducts(mainProductsBodyStyle, currentPage) {
-    mainProductsBodyStyle.innerHTML = `
-        .body__products .main-products__list {
-          transform: translateY(calc(-${currentPage - 1}00% - ${currentPage - 1} * 48px));
-        }
-      `;
+import { showPaginatedProducts } from "./showPaginatedProducts.js";
 
-    document
-      .querySelector(".body__products .main-products__number.active")
-      .classList.remove("active");
-      
-    document
-      .querySelector(
-        `.body__products .main-products__number[data-page="${currentPage}"]`
-      )
-      .classList.add("active");
+/*-----------FUNCTION-----------*/
+// Xử lý focus, unfocus nút trang
+function focusCurrentPage(currentPage) {
+  // Chọn page element đã 'focus' trước đó để 'unfocus'
+  const unFocus = document.querySelector(
+    ".body__products .main-products__number.active"
+  );
+
+  if (unFocus) {
+    unFocus.classList.remove("active");
+  } else {
+    console.log(`Cant find class="active"`);
   }
 
-  function assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage) {
-    mainProductsBodyStyle.innerHTML = `
-        .body__products .main-products__list {
-          transform: translateY(calc(-${currentPage - 1}00% - ${currentPage - 1} * 48px));
-        }
-      `;
+  // Chọn page element hiện tại để 'focus'
+  const focus = document.querySelector(
+    `.body__products .main-products__number[data-page="${currentPage}"]`
+  );
+
+  if (focus) {
+    focus.classList.add("active");
+  } else {
+    console.log(`Cant find page${currentPage}`);
   }
+}
 
-
-  // Lớp div bao các STT trang ở giữa
+/*-----------MAIN_FUNCTION-----------*/
+//Hàm cập nhật phân trang
+export function updateProductsPagination(
+  filteredProducts,
+  filteredProductsLength
+) {
+  
+  // Lớp div chứa các nút trang
   const numbersDiv = document.getElementById("main-products-numbers");
 
   // Số sản phẩm mỗi trang
-  const productsPerPage = 6;
-  
+  const productsPerPage = 9;
+
   // Tổng số trang
-  const totalPage = Math.ceil(numbersOfProductItem / productsPerPage);
+  const totalPages = Math.ceil(filteredProductsLength / productsPerPage);
 
-  // Số trang tối đa
+  // Số trang tối đa có thể hiển thị
   let maxPages = 7;
-  // (3 <= maxPages <= totalPages)
+  // Ràng buộc: {3 <= maxPages <= totalPages}
   maxPages = Math.max(maxPages, 3);
-  maxPages = Math.min(maxPages, totalPage);
+  maxPages = Math.min(maxPages, totalPages);
 
-  // Số trang tối đa hiển thị ở giữa (firstPage ... maxMiddlePages ... lastPage)
+  // Số trang tối đa có thể hiển thị ở giữa (firstPage ... maxMiddlePages ... lastPage)
   const maxMiddlePages = maxPages - 2;
 
-  // Số trang phía bên trái
+  // Số trang phía bên trái so với currentPage
   const leftSidePages = Math.floor((maxMiddlePages - 1) / 2);
 
   // Trang đầu tiên và cuối cùng
   const firstPage = 1;
-  const lastPage = totalPage;
+  const lastPage = totalPages;
 
   // Trang hiện tại
   let currentPage = 1;
 
-  /*-----------MAIN_FUNCTION-----------*/
+  // Phân trang lần đầu tiên
+  if (totalPages <= maxPages) {
+    handleLessEuqalThanMaxPages();
+  } else {
+    createPageButtons(currentPage);
+  }
+  updatepage(currentPage);
+
+  /*-----------FUNCTION-----------*/
+  // Cập nhật lại trang (hiển thị sản phẩm, các nút trang)
+  function updatepage(currentPage) {
+    window.scrollTo(0, 0);
+    const paginatedProducts = filteredProducts.slice(
+      productsPerPage * (currentPage - 1),
+      productsPerPage * currentPage
+    );
+
+    // Hiển thị sản phẩm trên 1 trang
+    showPaginatedProducts(paginatedProducts);
+
+    if (totalPages <= maxPages) {
+      // Các nút trang có sẵn, không cần tạo lại
+      // Chỉ cần focus vào currentPage
+      focusCurrentPage(currentPage);
+    } else {
+      // Tạo lại các nút trang
+      createPageButtons(currentPage);
+    }
+  }
+
+  /*-----------FUNCTION-----------*/
   // Tạo các nút trang
   function createPageButtons(currentPage) {
     numbersDiv.innerHTML = "";
 
+    // Mặc định sẽ luôn có firstPage và lastPage
+    // Chỉ cần tính toán cho các trang hiện thị ở giữa
     let start = Math.max(currentPage - leftSidePages, 2);
     let end = start + maxMiddlePages - 1;
 
@@ -80,13 +117,15 @@ export function updateProductsPaginationActions(numbersOfProductItem) {
   }
 
   /*-----------FUNCTION-----------*/
-  // Tạo element 'button' cho trang ${index}
+  // Tạo element 'button' cho trang thứ ${index}
   function createPageButtonELe(index) {
     const numberButton = document.createElement("button");
     numberButton.className = "main-products__number";
     numberButton.textContent = `${index}`;
     numberButton.dataset.page = `${index}`;
+
     if (currentPage === index) {
+      // Focus vào nút trang
       numberButton.classList.add("active");
     }
 
@@ -121,48 +160,21 @@ export function updateProductsPaginationActions(numbersOfProductItem) {
   /*-----------FUNCTION-----------*/
   // Khi tổng trang <= số trang hiển thị tối đa
   // totalPages <= maxPages
-  // -> chỉ cần hiển thị trang bình thường, không cần chấm lửng
+  // -> chỉ cần hiển thị các nút trang bình thường, không cần dấu chấm lửng
   function handleLessEuqalThanMaxPages() {
+    numbersDiv.innerHTML = "";
     for (let i = firstPage; i <= lastPage; i++) {
       createPageButtonELe(i);
     }
   }
 
-
-  // Phân trang lần đầu tiên
-  if (totalPage <= maxPages) {
-    handleLessEuqalThanMaxPages();
-  } else {
-    createPageButtons(currentPage);
-  }
-
-
-  // Kiểm tra thẻ mainProductsBodyStyle có tồn tại hay không và xoá đi
-  const mainProductsBodyExistingStyle = document.querySelector(
-    ".main-products-body-style"
-  );
-  if (mainProductsBodyExistingStyle) {
-    mainProductsBodyExistingStyle.remove();
-  }
-  // Thêm thẻ mainProductsBodyStyle mới
-  const mainProductsBodyStyle = document.createElement("style");
-  mainProductsBodyStyle.className = "main-products-body-style";
-
   // Nếu nhấn vào nút chuyển sang trái
   document
     .getElementById("main-products-left-button")
     .addEventListener("click", function () {
-      if (currentPage > 1 && currentPage <= totalPage) {
-        window.scrollTo(0, 0);
-        
+      if (currentPage > 1 && currentPage <= totalPages) {
         currentPage--;
-        
-        if (totalPage > maxPages) {
-          assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage);
-          createPageButtons(currentPage);
-        } else{
-          assignMainProductsBodyStyleForSmallNumberofProducts(mainProductsBodyStyle, currentPage);
-        }
+        updatepage(currentPage);
       }
     });
 
@@ -170,17 +182,9 @@ export function updateProductsPaginationActions(numbersOfProductItem) {
   document
     .getElementById("main-products-numbers")
     .addEventListener("click", (event) => {
-      if (event.target.matches("button.main-products__number")){
-        window.scrollTo(0, 0);
-
+      if (event.target.matches("button.main-products__number")) {
         currentPage = parseInt(event.target.getAttribute("data-page"), 10);
-
-        if (totalPage > maxPages) {
-          assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage);
-          createPageButtons(currentPage);
-        } else{
-          assignMainProductsBodyStyleForSmallNumberofProducts(mainProductsBodyStyle, currentPage);
-        }
+        updatepage(currentPage);
       }
     });
 
@@ -188,19 +192,9 @@ export function updateProductsPaginationActions(numbersOfProductItem) {
   document
     .getElementById("main-products-right-button")
     .addEventListener("click", function () {
-      if (currentPage >= 1 && currentPage < totalPage) {
-        window.scrollTo(0, 0);
-
+      if (currentPage >= 1 && currentPage < totalPages) {
         currentPage++;
-        
-        if (totalPage > maxPages) {
-          assignMainProductsBodyStyle(mainProductsBodyStyle, currentPage);
-          createPageButtons(currentPage);
-        } else{
-          assignMainProductsBodyStyleForSmallNumberofProducts(mainProductsBodyStyle, currentPage);
-        }
+        updatepage(currentPage);
       }
     });
-
-  document.head.appendChild(mainProductsBodyStyle);
 }
