@@ -13,6 +13,9 @@ function getLeftSearchInfo() {
   // Lắng nghe sự kiện từ trường tìm kiếm
   const leftSearchInput = document.querySelector("#left-search-input");
   leftSearchInput.addEventListener("input", () => {
+    // Đưa về đầu trang
+    window.scrollTo(0, 0);
+
     // Cập nhập lại tên hiện tại của sản phẩm cần tìm
     currentProductItemName = leftSearchInput.value.trim().toLowerCase();
     if (currentProductItemName === "" || currentProductItemName) {
@@ -27,14 +30,15 @@ function getLeftFilterInfo() {}
 
 // Hàm lấy thông tin từ Left Menu (Danh mục - Phân chia sản phẩm)
 function getLeftMenuInfo() {
-  const leftMenuList = document.getElementById('left-menu-list');
+  const leftMenuList = document.getElementById("left-menu-list");
   // Tạo sự kiện có thể nhấn vào cho các danh mục con
-  leftMenuList.addEventListener('click', (event) =>{
+  leftMenuList.addEventListener("click", (event) => {
+    // Đưa về đầu trang
     window.scrollTo(0, 0);
-    
-    if(event.target.matches('a.left-menu__action')){
-      const leftMenuValue =
-        event.target.getAttribute("data-menu-product");
+
+    // Nếu nhấn vào một mục con trong "Danh mục sản phẩm"
+    if (event.target.matches("a.left-menu__action")) {
+      const leftMenuValue = event.target.getAttribute("data-menu-product");
       if (leftMenuValue) {
         // Kiểm tra và đặt lại giá trị cho currentProductItemName và thẻ input ở Left Search
         const leftSearchInput = document.getElementById("left-search-input");
@@ -130,7 +134,7 @@ export function updateProductList(productItemName, productListKey) {
     bodyDiv.appendChild(listDiv);
     bodyDiv.appendChild(paginationDiv);
   } else {
-    listDiv.style.minHeight = '558px';
+    listDiv.style.minHeight = "558px";
     // Inform
     let pInform = document.createElement("p");
     pInform.className = "main-products__inform";
@@ -149,7 +153,7 @@ export function updateProductList(productItemName, productListKey) {
     // Cập nhật hành động cho các nút phân trang sản phẩm
     updateProductsPagination(filteredProducts, filteredProductsLength);
   }
-  
+
   // Thiết lập hành động có thể xem "Chi tiết" cho các sản phẩm trong danh sách
   getProductItemInfo();
 }

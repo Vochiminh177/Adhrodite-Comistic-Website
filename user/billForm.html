@@ -37,8 +37,18 @@
     <main class="body" style="height: 100vh">
       <div class="main-content" id="content">
         <div class="body__bill">
+          <!-- Comeback Homepage -->
+          <button class="bill__comeback__home-page">
+            <i
+              class="fa-solid fa-chevron-left"
+              style="pointer-events: none"
+            ></i>
+            Quay trở lại Trang chủ / (Trang lịch sử giao hàng)
+          </button>
+          <!-- Info Bill -->
           <div class="bill__info">
-            <div class="bill__header">
+            <!-- Header -->
+            <div class="bill__row">
               <div class="bill__column">
                 <h2 class="bill__icon">APHRODITE</h2>
                 <p class="bill__slogan">
@@ -50,31 +60,93 @@
                 <p class="bill__date" id="date-bill">Ngày: dd/mm/yyyy</p>
               </div>
             </div>
+            <!-- Info -->
             <div class="bill__row">
               <div class="bill__user-info">
-                <h3 class="bill__sub-title">HOÁ ĐƠN CHO:</h3>
+                <h3 class="bill__sub-title">KHÁCH HÀNG</h3>
                 <p class="bill__detail">MY NAME</p>
                 <p class="bill__detail">email@gmail.com</p>
                 <p class="bill__detail">012346789</p>
                 <p class="bill__detail">location</p>
               </div>
               <div class="bill__shop-info">
-                <h3 class="bill__sub-title">THANH TOÁN CHO:</h3>
+                <h3 class="bill__sub-title">CỬA HÀNG</h3>
                 <p class="bill__detail">Shop APHRODITE</p>
                 <p class="bill__detail">nhom1SGU@gmail.com</p>
                 <p class="bill__detail">+84 0123456789</p>
               </div>
             </div>
+            <!-- Products -->
             <div class="bill__products">
-              <h3 class="bill__sub-title">SẢN PHẨM</h3>
-              <div class="bill__product">
-                <p class="bill__id-product bill__detail">APhxxxx</p>
-                <p class="bill__name-product bill__detail">
-                  Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+              <h3 class="bill__sub-title center">SẢN PHẨM</h3>
+              <table class="bill__table">
+                <thead>
+                  <tr>
+                    <th width="22%">Mã sản phẩm</th>
+                    <th width="40%">Tên sản phẩm</th>
+                    <th width="19%">Số lượng</th>
+                    <th width="19%">Giá</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>APh00001</td>
+                    <td align="left">
+                      Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
+                    </td>
+                    <td>1000000000</td>
+                    <td>200.000đ</td>
+                  </tr>
+                  <tr>
+                    <td>APh00002</td>
+                    <td align="left">
+                      Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar
+                      Duo+ M
+                    </td>
+                    <td>1</td>
+                    <td>400.000đ</td>
+                  </tr>
+                  <tr>
+                    <td>APh00002</td>
+                    <td align="left">
+                      Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar
+                      Duo+ M
+                    </td>
+                    <td>1</td>
+                    <td>400.000đ</td>
+                  </tr>
+                  <tr>
+                    <td>APh00002</td>
+                    <td align="left">
+                      Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar
+                      Duo+ M
+                    </td>
+                    <td>1</td>
+                    <td>400.000đ</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="bill__payment">
+                <p class="bill__delivery-price">
+                  Phí vận chuyển: <span>18.000đ</span>
                 </p>
-                <p class="bill__number-product bill__detail">Số lượng: 1</p>
-                <p class="bill__price-product bill__detail">xxx.000đ</p>
+                <p class="bill__total-price">
+                  Tổng tiền: <span class="bill__price">xxx.000đ</span>
+                </p>
               </div>
+            </div>
+            <!-- Payment Function -->
+            <div class="bill__payment-function">
+              <h3 class="bill__sub-title">PHƯƠNG THỨC THANH TOÁN</h3>
+            </div>
+            <!-- Thankyou -->
+            <div class="bill__thankyou">
+              <p>Cảm ơn Quý khách đã tin tưởng lựa chọn APHRODITE!</p>
+              <p>
+                Chúng tôi hy vọng các sản phẩm mỹ phẩm sẽ mang lại cho bạn sự
+                hài lòng và vẻ đẹp hoàn hảo. Rất mong được phục vụ bạn trong
+                những lần mua sắm tiếp theo!
+              </p>
             </div>
           </div>
         </div>

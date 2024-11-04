@@ -5,13 +5,14 @@
   background: #fff;
   padding: 26px 28px 32px;
   border-radius: 8px;
-  width: 54%;
+  width: 58%;
   margin: 0 auto;
 }
-.bill__header {
+.bill__row,
+.bill__product {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 .bill__icon {
   font-size: 3.2rem;
@@ -34,43 +35,72 @@
   margin-top: 10px;
   font-style: italic;
 }
-.bill__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.bill__row:nth-of-type(2) {
   margin-top: 36px;
 }
 .bill__sub-title {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 5px;
+}
+.bill__detail:first-of-type {
+  margin-top: 6px;
 }
 .bill__detail + .bill__detail {
-  margin-top: 2px;
+  margin-top: 4px;
 }
 .bill__shop-info {
   text-align: right;
 }
 .bill__products {
-  margin-top: 24px;
+  margin-top: 32px;
+  min-height: 324px;
 }
-.bill__product {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0 8px;
+.bill__sub-title.center {
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed #000;
 }
-.bill__id-product {
-  width: 12%;
+.bill__table thead tr {
+  height: 48px;
+  font-size: 1.8rem;
+  line-height: 48px;
+  text-align: center;
+  text-decoration: underline;
 }
-.bill__name-product {
-  width: 46%;
+.bill__table tbody tr {
+  height: 64px;
+  text-align: center;
 }
-.bill__number-product {
-  width: 22%;
-  text-align: right;
+.bill__table tbody tr td {
+  vertical-align: middle;
+  padding: 4px 6px;
 }
-.bill__price-product {
-  width: 20%;
-  text-align: right;
+.bill__payment {
+  position: relative;
+  top: 0;
+  left: 100%;
+  transform: translateX(-100%);
+  display: inline-block;
+  margin-top: 12px;
+}
+.bill__payment p + p {
+  margin-top: 6px;
+}
+.bill__payment span {
+  font-size: 1.8rem;
+}
+.bill__payment-function {
+  margin-top: 32px;
+}
+.bill__thankyou {
+  margin-top: 36px;
+}
+.bill__thankyou p:first-of-type {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.bill__thankyou p:last-of-type {
+  margin-top: 8px;
+  text-align: justify;
+  line-height: 1.28;
 }

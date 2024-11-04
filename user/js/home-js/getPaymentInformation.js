@@ -7,6 +7,7 @@ import {
   basicInformationFromUser,
 } from "../common-js/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
+import { getBillInfo } from "./getBill.js";
 
 // Hàm ẩn hiển header và footer của trang web
 function updateHeaderAndFooter(condition) {
@@ -37,7 +38,7 @@ function clickToComebackShoppingCart() {
     });
 }
 
-// Hàm tạo thông tin tóm tắt của các sản phẩm sẽ được thanh toán
+// Hàm tạo thông tin tóm tắt của các sản phẩm sẽ được thanh toán trong Thông tin giao hàng
 function createPaymentInformationItemsByHtml() {
   function getQuantityFormat(productItemQuantity) {
     if (productItemQuantity >= 100) productItemQuantity = "+99";
@@ -168,7 +169,7 @@ function updatePaymentInformation() {
             <div class="payment-information-info__row">
                 <button class="payment-information-info__comeback-button">Giỏ hàng</button>
                 <button class="payment-information-info__submit btn">
-                Hoàn tất đơn hàng
+                  Hoàn tất đơn hàng
                 </button>
             </div>
             </div>
@@ -202,6 +203,9 @@ function updatePaymentInformation() {
 
   // Tạo sự kiện để người dùng có thể trở về trang Giỏ hàng
   clickToComebackShoppingCart();
+
+  // Tạo sự kiện để người dùng nhấn "Hoàn tất" thông tin giao hàng để hiện thị Hoá đơn
+  getBillInfo(currentPage)
 }
 
 // Hàm hiển thị thông tin thanh toán của người dùng

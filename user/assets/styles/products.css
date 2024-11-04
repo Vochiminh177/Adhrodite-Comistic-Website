@@ -323,15 +323,18 @@
   font-weight: 600;
   transition: background-color 0.3s, color 0.3s;
 }
-.body__products .main-products__number.active{
+.body__products .main-products__number.active {
   background: #fc8eac;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   color: #fff;
 }
 
 .ellipsis {
   font-size: 1.7rem;
   color: #3c3c3c;
-  padding: 0 3px; 
+  padding: 0 3px;
   cursor: default;
   transition: color 0.3s, transform 0.3s;
   text-align: center;
