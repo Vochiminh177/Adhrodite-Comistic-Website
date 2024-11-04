@@ -1,5 +1,5 @@
 import { updateNavbarStyle } from "../common-js/common.js";
-import { clickToPopularMenus } from "./homePageEvents.js";
+import { clickToPopularMenus, clickToProductItem } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 
 export const mainContentMap = {
@@ -90,7 +90,7 @@ export const mainContentMap = {
       Các sản phẩm nổi bật
     </h2>
     <div class="popular-product__list">
-      <div class="popular-product__item">
+      <div class="popular-product__item" data-popular-product="sua-rua-mat">
         <figure class="popular-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -115,7 +115,7 @@ export const mainContentMap = {
           </button>
         </div>
       </div>
-      <div class="popular-product__item">
+      <div class="popular-product__item" data-popular-product="toner">
         <figure class="popular-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -141,7 +141,7 @@ export const mainContentMap = {
           </button>
         </div>
       </div>
-      <div class="popular-product__item">
+      <div class="popular-product__item" data-popular-product="serum">
         <figure class="popular-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -166,7 +166,7 @@ export const mainContentMap = {
           </button>
         </div>
       </div>
-      <div class="popular-product__item">
+      <div class="popular-product__item" data-popular-product="kem-duong-am">
         <figure class="popular-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -191,7 +191,7 @@ export const mainContentMap = {
           </button>
         </div>
       </div>
-      <div class="popular-product__item">
+      <div class="popular-product__item" data-popular-product="son">
         <figure class="popular-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -216,7 +216,7 @@ export const mainContentMap = {
           </button>
         </div>
       </div>
-      <div class="popular-product__item">
+      <div class="popular-product__item" data-popular-product="phan">
         <figure class="popular-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -246,7 +246,7 @@ export const mainContentMap = {
   <div class="home__sale-product">
     <h2 class="sale-product__title">Khuyến mãi</h2>
     <div class="sale-product__list">
-      <div class="sale-product__item">
+      <div class="sale-product__item" data-popular-product="sua-rua-mat">
         <figure class="sale-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -264,7 +264,7 @@ export const mainContentMap = {
           </p>
         </div>
       </div>
-      <div class="sale-product__item">
+      <div class="sale-product__item" data-popular-product="sua-rua-mat">
         <figure class="sale-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -282,7 +282,7 @@ export const mainContentMap = {
           </p>
         </div>
       </div>
-      <div class="sale-product__item">
+      <div class="sale-product__item" data-popular-product="sua-rua-mat">
         <figure class="sale-product__media">
           <img
             src="./assets/images/facewash-image-1.jpg "
@@ -384,7 +384,7 @@ export const mainContentMap = {
                     để đảm bảo an toàn và hiệu quả cho người sử dụng.
                     </p>
                     <p class="story__content">
-                    Với phương châm “Làm đẹp không chỉ là một lựa chọn, mà là một
+                    Với phương châm “Làm đẹp không chỉ là một lựa chọn, mà là một
                     phong cách sống”, <b>APHRODITE</b> không chỉ đơn thuần là nơi bán
                     mỹ phẩm, mà còn là không gian để mọi phụ nữ khám phá và tôn vinh
                     vẻ đẹp của riêng mình. Chúng tôi luôn đồng hành cùng bạn trong
@@ -891,6 +891,9 @@ export function updateMainContent(mainContentKey) {
     if (mainContentKey === "home") {
       // Tạo sự kiện cho phép người dùng nhấn vào "Danh mục nổi bậc"
       clickToPopularMenus();
+
+      // Tạo sự kiện cho phép người dùng nhấn vào "Sản phẩm nổi bật", "Khuyến mãi"
+      clickToProductItem();
     }
 
     // Nếu nội dung thay đổi là trang Sản phẩm

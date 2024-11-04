@@ -27,18 +27,67 @@ export function clickToPopularMenus() {
       filterProductsScript.className = "filter-products-script";
       document.body.appendChild(filterProductsScript);
 
-      // Tạo sự kiện cho các danh mục sản phẩm
-      getProductListInfo();
       // Tự động nhấn mục mà người dùng đã chọn
       let popularMenuKey =
         event.currentTarget.getAttribute("data-popular-menu");
       document.getElementById(`${popularMenuKey}-left-menu`).click();
+
+      // Tạo sự kiện cho các danh mục sản phẩm
+      getProductListInfo();
     });
   });
 }
 
 // Hàm tạo sự kiện khi người dùng nhấn vào một sản phẩm
-export function clickToProductItem() {}
+export function clickToProductItem() {
+  let array = document.querySelectorAll(
+    ".popular-product__item, .sale-product__item"
+  );
+  array.forEach((obj) => {
+    obj.addEventListener("click", function (event) {
+      // Thay đổi nội dung thành trang Sản phẩm
+      mainContentDiv.innerHTML = mainContentMap["products"];
+
+      // Cập nhật lại style cho navbar
+      updateNavbarStyle("products");
+
+      const filterProductsExistingScript = document.querySelector(
+        ".filter-products-script"
+      );
+      if (filterProductsExistingScript) {
+        filterProductsExistingScript.remove();
+      }
+
+      const filterProductsScript = document.createElement("script");
+      filterProductsScript.src = "./js/products-js/showFilterProducts.js";
+      filterProductsScript.className = "filter-products-script";
+      document.body.appendChild(filterProductsScript);
+
+      getProductListInfo();
+
+      let popularMenuKey = event.currentTarget.getAttribute(
+        "data-popular-product"
+      );
+      document.getElementById(`${popularMenuKey}-left-menu`).click();
+      let productItemName = obj
+        .querySelector(".popular-product__name")
+        ?.textContent.trim();
+      let saleProductItemName = obj
+        .querySelector(".sale-product__name")
+        ?.textContent.trim();
+      // console.log(productItemName, saleProductItemName);
+      let productList = document.querySelectorAll(".main-products__name");
+      productList.forEach((name) => {
+        if (
+          name.textContent.trim() === productItemName ||
+          name.textContent.trim() === saleProductItemName
+        ) {
+          name.click();
+        }
+      });
+    });
+  });
+}
 
 // Thiết lập sự kiện khi người dùng nhấn vào "Danh mục nổi bật"
 clickToPopularMenus();
