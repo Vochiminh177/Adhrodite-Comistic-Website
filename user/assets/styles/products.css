@@ -236,7 +236,6 @@
   display: flex;
   flex-wrap: wrap;
   margin-left: calc(-1 * var(--spacing));
-  min-height: 558px;
 }
 .body__products .main-products__inform {
   position: absolute;

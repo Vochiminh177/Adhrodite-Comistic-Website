@@ -130,6 +130,7 @@ export function updateProductList(productItemName, productListKey) {
     bodyDiv.appendChild(listDiv);
     bodyDiv.appendChild(paginationDiv);
   } else {
+    listDiv.style.minHeight = '558px';
     // Inform
     let pInform = document.createElement("p");
     pInform.className = "main-products__inform";
