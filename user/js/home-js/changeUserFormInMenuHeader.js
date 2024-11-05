@@ -1,5 +1,5 @@
 
-import { usersList } from "../../../admin/js/database.js";
+import { usersList } from "../../../database/database.js";
 import { handle_sign_up, handle_sign_in, handle_change_password, handle_get_data_information} from "../userUpdate/handleUserUpdate.js";
 
 const formMap = {

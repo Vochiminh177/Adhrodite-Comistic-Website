@@ -1,5 +1,5 @@
 //-Hiệu------
-import { usersList } from "../../../admin/js/database.js";
+import { usersList } from "../../../database/database.js";
 import { delete_space } from "../../../admin/js/show_updateProduct/handleUpdate_Product.js";
 
 

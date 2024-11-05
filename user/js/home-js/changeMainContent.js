@@ -1,7 +1,7 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { clickToPopularMenus, clickToProductItem } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
-import { usersList } from "../../../admin/js/database.js";
+import { usersList } from "../../../database/database.js";
 
 //reset trạng thái không đăng nhập
 let userList = JSON.parse(localStorage.getItem("userList")) || [];
