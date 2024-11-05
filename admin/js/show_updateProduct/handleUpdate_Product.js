@@ -1,5 +1,5 @@
 //---HIỆU------
-//hàm này thông báo lỗi input
+
 
 
 export function delete_space(str) {

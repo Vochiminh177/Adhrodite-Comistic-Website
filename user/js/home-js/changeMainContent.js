@@ -1,6 +1,17 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { clickToPopularMenus } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
+import { usersList } from "../../../admin/js/database.js";
+
+//reset trạng thái không đăng nhập
+let userList = JSON.parse(localStorage.getItem("userList")) || [];
+if(userList.length == 0){
+  userList = [...usersList];
+}
+userList.forEach((obj) => {
+  obj.status_login = false;
+});
+localStorage.setItem("userList", JSON.stringify(userList));
 
 export const mainContentMap = {
   home: `
@@ -929,3 +940,6 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
     updateMainContent(mainContentKey);
   }
 });
+
+
+

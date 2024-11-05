@@ -92,24 +92,49 @@ export function abc() {
 //dữ liệu mảng user mặc định -- Hiệu
 export let usersList = [
   {
+    status_login: false,
     id: 1,
     username: "user1",
     password: "password1",
     email: "user1@example.com",
-    remember_password: false
+    remember_password: false,
+    first_name: "Nguyễn",
+    last_name: "Thanh Hiệu",
+    phone: "null",
+    address: "null",
+    stk: "null",  
+    bank: "null",
+    src: null
   },
   {
-      id: 2,
-      username: "user2",
-      password: "password2",
-      email: "user2@example.com",
-      remember_password: false
+    status_login: false,
+    id: 2,
+    username: "user2",
+    password: "password2",
+    email: "user2@example.com",
+    remember_password: false,
+    first_name: "null",
+    last_name: "null",
+    phone: "null",
+    address: "null",
+    stk: "null",
+    bank: "null",
+    src: null
   },
   {
-      id: 3,
-      username: "user3",
-      password: "password3",
-      email: "user3@example.com",
-      remember_password: false
+    status_login: false,
+    id: 3,
+    username: "user3",
+    password: "password3",
+    email: "user3@example.com",
+    remember_password: false,
+    first_name: "null",
+    last_name: "null",
+    phone: "null",
+    address: "null",
+    stk: "null",
+    bank: "null",
+    src: null
   }
-]
+];
+

@@ -35,31 +35,31 @@ function create_notification_admin(mess) {
 }
 
 // hàm lọc theo danh mục
-function filer_category(){
-    document.querySelector(".category-list").style.cursor = "pointer"
-    document.querySelector(".category-list").onmousedown = (e) => {
-        e.preventDefault();
-    }
-    document.querySelector(".category-list").onclick = (e) => {
-        e.preventDefault();
-        if(!document.querySelector(".form-category")){
-            let ele = document.createElement("div");
-            ele.className = "form-category";
-            ele.innerHTML = `
-            <div class="content-category">
-                <p>Trang điểm</p>
-                <p>Tóc</p>
-                <p>Cơ thể</p>
-                <p>Da</p>
-            </div>
-            `;
-            document.querySelector(".category-list").appendChild(ele);
-        }
-        else{
-            document.querySelector(".form-category").remove();
-        }
-    };
-}
+// function filer_category(){
+//     document.querySelector(".category-list").style.cursor = "pointer"
+//     document.querySelector(".category-list").onmousedown = (e) => {
+//         e.preventDefault();
+//     }
+//     document.querySelector(".category-list").onclick = (e) => {
+//         e.preventDefault();
+//         if(!document.querySelector(".form-category")){
+//             let ele = document.createElement("div");
+//             ele.className = "form-category";
+//             ele.innerHTML = `
+//             <div class="content-category">
+//                 <p>Trang điểm</p>
+//                 <p>Tóc</p>
+//                 <p>Cơ thể</p>
+//                 <p>Da</p>
+//             </div>
+//             `;
+//             document.querySelector(".category-list").appendChild(ele);
+//         }
+//         else{
+//             document.querySelector(".form-category").remove();
+//         }
+//     };
+// }
 
 //hiện danh sách sản phẩm - HIỆU
 export function showListProduct() {
@@ -99,7 +99,7 @@ export function showListProduct() {
 
     deleteProduct();
     editProduct();
-    filer_category();
+    // filer_category();
 }
 
 
@@ -157,7 +157,7 @@ function reset_input(){
     path_picture = null;
 }
 //Hàm lấy hình ảnh để upload - HIỆU
-function handlePicture(){
+function handlePicture_admin(){
         let picture = document.querySelector(".image-show");
         let inputPicture = document.querySelector(".add-photo-button #file");
     
@@ -174,7 +174,7 @@ export function addProduct(){
     let handle_click_btn_add_product = () => {
         showMain("main-content-product-add");
         document.querySelector(".btn-add").textContent = "Thêm sản phẩm";
-        handlePicture();
+        handlePicture_admin();
 
         //xóa bỏ dữ liệu cũ trong input khi admin click (.btn-add-product)
         reset_input();
@@ -276,7 +276,7 @@ export function editProduct(){
             let src_2 = productList[index].src;
             picture.innerHTML = `<img src="${src_2}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
 
-            handlePicture();      
+            handlePicture_admin();      
 
             let handle_click_btn_edit = () => {
                 let result = edit_product(index, path_picture);
