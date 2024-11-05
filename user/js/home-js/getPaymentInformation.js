@@ -5,7 +5,7 @@ import {
 import {
   productItemAddedToShoppingCart as productItemAddedArray,
   basicInformationFromUser,
-} from "../common-js/database.js";
+} from "../../../database/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
 

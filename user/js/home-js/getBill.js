@@ -1,4 +1,4 @@
-import { productItemAddedToShoppingCart as productItemAddedArray } from "../common-js/database.js";
+import { productItemAddedToShoppingCart as productItemAddedArray } from "../../../database/database.js";
 
 // Hàm cập nhật thông tin hoá đơn
 function updateBill() {}

@@ -121,6 +121,6 @@ function updateMainContent(mainContentKey) {
     const mainContentDiv = document.getElementById("main-content");
     if (mainContentMap[mainContentKey]) {
 
-        var 
+        // var 
     }
 }

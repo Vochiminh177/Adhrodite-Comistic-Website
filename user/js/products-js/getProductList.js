@@ -1,4 +1,4 @@
-import { productItemArray } from "../common-js/database.js";
+import { productItemArray } from "../../../database/database.js";
 import { getProductItemInfo } from "./getProductItem.js";
 import { updateLeftMenuStyle } from "./productsPageStyles.js";
 import { updateProductsPagination } from "./productsPagination.js";

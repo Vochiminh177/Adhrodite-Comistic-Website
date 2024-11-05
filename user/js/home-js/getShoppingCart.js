@@ -2,7 +2,7 @@ import {
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
-import { productItemAddedToShoppingCart as currentProductItemAdded } from "../common-js/database.js";
+import { productItemAddedToShoppingCart as currentProductItemAdded } from "../../../database/database.js";
 import { getPaymentInformationInfo } from "./getPaymentInformation.js";
 
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn

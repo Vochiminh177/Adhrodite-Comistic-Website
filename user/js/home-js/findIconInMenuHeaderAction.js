@@ -1,4 +1,4 @@
-import { productItemArray } from "../common-js/database.js";
+import { productItemArray } from "../../../database/database.js";
 import { updateProductItem } from "../products-js/getProductItem.js";
 import { updateMainContent } from "../home-js/changeMainContent.js";
 import { updateProductList } from "../products-js/getProductList.js";
