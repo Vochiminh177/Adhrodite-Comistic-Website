@@ -251,18 +251,10 @@ export function handle_change_password(){
     return true;
 }
 
-//Hàm lấy hình ảnh để upload 
-var path_picture_user = null;
-function handlePicture_user(){
-    let inputPicture = document.querySelector(".picture-profile");
 
-    inputPicture.onchange = () => {
-        path_picture_user = URL.createObjectURL(inputPicture.files[0]);
-    };
-}
 
 //hàm lưu thông tin người dùng
-export function handle_save_data_information(index_user_status_login){
+export function handle_save_data_information(index_user_status_login, path_picture_user){
     let userList = JSON.parse(localStorage.getItem("userList"));
 
     let first_name = document.querySelector(".first-name");
@@ -270,11 +262,9 @@ export function handle_save_data_information(index_user_status_login){
     let email = document.querySelector(".email-info");
     let phone = document.querySelector(".phone");
     let address = document.querySelector(".address");
-    let inputPicture = document.querySelector(".picture-profile");
-    handlePicture_user();
 
     let check_empty = false;
-    if(first_name.value == "" || last_name.value == "" || email.value == "" || phone.value == "" || address.value == ""){
+    if(first_name.value === "" || last_name.value === "" || email.value === "" || phone.value === "" || address.value === ""){
         error_input(first_name);
         error_input(last_name);
         error_input(email);
@@ -297,6 +287,8 @@ export function handle_save_data_information(index_user_status_login){
         return false;
     }
 
+    console.log(path_picture_user);
+
     userList[index_user_status_login] = {
         status_login: true,
         id: userList[index_user_status_login].id,
@@ -308,9 +300,9 @@ export function handle_save_data_information(index_user_status_login){
         last_name: last_name.value,
         phone: phone.value,
         address: address.value,
-        stk: "null",
-        bank: "null",
-        src: path_picture_user
+        stk: userList[index_user_status_login].stk,
+        bank: userList[index_user_status_login].bank,
+        src: path_picture_user.src
     };
 
     localStorage.setItem("userList", JSON.stringify(userList));
@@ -346,6 +338,8 @@ export function handle_save_data_money(index_user_status_login){
     if(check_empty){
         return false;
     }
+
+    console.log(stk.value);
 
     userList[index_user_status_login] = {
         status_login: true,

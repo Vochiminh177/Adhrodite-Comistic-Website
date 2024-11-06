@@ -166,7 +166,7 @@ function create_notification_user(mess) {
   text.style.right = "0px";
   text.style.top = "0px";
   text.style.transform = "translate(100%, 50%)";
-  text.style.zIndex = "2";
+  text.style.zIndex = "100000";
   text.style.padding = "10px 50px";
   text.style.fontSize = "2rem";
   text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
@@ -388,6 +388,16 @@ function render_form_profile(){
   document.body.appendChild(ele);
 }
 
+function handlePicture_user(path_picture_user){
+    console.log(123);
+    let inputPicture = document.querySelector(".picture-profile");
+
+    inputPicture.onchange = () => {
+        path_picture_user.src = URL.createObjectURL(inputPicture.files[0]);
+        console.log(path_picture_user.src);
+    };
+}
+
 function show_profile_user(){
   let userList = JSON.parse(localStorage.getItem("userList"));
   let index_user_status_login;
@@ -424,9 +434,14 @@ function show_profile_user(){
       `;
     document.querySelector(".right-content").innerHTML = right_content;
 
+    let path_picture_user = {
+      src: null
+    };
+    handlePicture_user(path_picture_user); //Hàm lấy hình ảnh để upload 
+
     //nếu ấn nút lưu thông tin
     document.querySelector(".save-information").onclick = () => {
-      let result = handle_save_data_information(index_user_status_login);
+      let result = handle_save_data_information(index_user_status_login, path_picture_user);
       if(result){
         create_notification_user("Cập nhật thành công");
         document.querySelector(".container-profile-user").remove();
