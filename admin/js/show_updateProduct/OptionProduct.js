@@ -129,11 +129,11 @@ function reset_input(){
 
     document.querySelector(".category-add").value = "";
     document.querySelector(".category-add").style.borderColor = "#a94064";
-    document.querySelector(".category-add").placeholder = "Thương Hiệu";
+    document.querySelector(".category-add").placeholder = "Danh mục";
 
     document.querySelector(".brand-add").value = "";
     document.querySelector(".brand-add").style.borderColor = "#a94064";
-    document.querySelector(".brand-add").value = "";
+    document.querySelector(".brand-add").placeholder = "Thương hiệu";
 
     document.querySelector(".description-add").value = "";
     document.querySelector(".description-add").style.borderColor = "#a94064";
@@ -169,7 +169,6 @@ function handlePicture_admin(){
 
 //chức năng thêm sản phẩm của admin - HIẸU
 export function addProduct(){
-
     //sự kiện click bên trong một sự kiện click
     let handle_click_btn_add_product = () => {
         showMain("main-content-product-add");

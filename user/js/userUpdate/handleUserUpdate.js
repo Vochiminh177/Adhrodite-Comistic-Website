@@ -6,9 +6,9 @@ import { delete_space } from "../../../admin/js/show_updateProduct/handleUpdate_
 //hàm báo lỗi input
 function error_input(input, mess){
     //nếu là file
-    if(input.type == "file"){
+    if(input.type == "file"){''
         input.style.borderBottom = "1px solid red";
-        input.onclick = () => {
+        input.change = () => {
             input.style.borderBottom = "1px solid #ccc";
         };
         return;
@@ -26,12 +26,15 @@ function error_input(input, mess){
     }
     //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
     input.classList.add("err-text");
-    let text = input.placeholder;
+    
     if(mess){
+        let text = input.placeholder;
+        console.log(text);
         input.style.borderBottom = "1px solid red";
         input.value = "";
         input.placeholder = mess;
-        input.onclick = () => {
+        console.log(input.placeholder);
+        input.onchange = () => {
             input.style.borderBottom = "1px solid #ccc";
             input.placeholder = text;
             input.classList.remove("err-text");
@@ -40,9 +43,10 @@ function error_input(input, mess){
     }
     //nếu input rỗng
     if(input.value == ""){
+        let text = input.placeholder;
         input.style.borderBottom = "1px solid red";
         input.placeholder = "*Lỗi! Không được để trống";
-        input.onclick = () => {
+        input.onchange = () => {
             input.placeholder = text;
             input.style.borderBottom = "1px solid #ccc";
             input.classList.remove("err-text");
@@ -120,6 +124,7 @@ export function handle_sign_up(){
 
     let check_empty = false;
     if(username.value === "" || password.value === "" || !check_accept_privacy.checked){
+        console.log(username.value);
         error_input(username)
         error_input(password);
         error_input(second_password);
@@ -130,27 +135,33 @@ export function handle_sign_up(){
 
     //kiểm tra xem tài khoản đã tồn tại chưa
     let check = {
-        status: true,
+        status: false,
         mess_username: null,
         mess_email: null
     };
-    userList.some((obj) => {
+    userList.forEach((obj) => {
         if(obj.username === delete_space(username.value)){
             check.mess_username = "*Tên đăng nhập đã tồn tại!"
-            check.status = false;
+            check.status = true;
             return;
         }
     });
-    userList.some((obj) => {
+    userList.forEach((obj) => {
         if(obj.email === delete_space(email.value)){
             check.mess_email = "*Email đã tồn tại!";
-            check.status = false;
+            check.status = true;
             return;
         }
     });
-    if(!check.status){
+    if(check.status){
+        console.log(check.mess_username);
         error_input(username, check.mess_username);
-        error_input(username, check.mess_email);
+        error_input(email, check.mess_email);
+        return false;
+    }
+    
+    if(password.value != second_password.value){
+        error_input(second_password, "*Lỗi! Mật khẩu cần giống nhau");
         return false;
     }
 
@@ -250,8 +261,8 @@ function handlePicture_user(){
     };
 }
 
-//hàm lấy thông tin người dùng
-export function handle_get_data_information(index_user_status_login){
+//hàm lưu thông tin người dùng
+export function handle_save_data_information(index_user_status_login){
     let userList = JSON.parse(localStorage.getItem("userList"));
 
     let first_name = document.querySelector(".first-name");
@@ -263,20 +274,18 @@ export function handle_get_data_information(index_user_status_login){
     handlePicture_user();
 
     let check_empty = false;
-    if(first_name.value == "" || last_name.value == "" || email.value == "" || phone.value == "" || address.value == "" || path_picture_user == null){
+    if(first_name.value == "" || last_name.value == "" || email.value == "" || phone.value == "" || address.value == ""){
         error_input(first_name);
         error_input(last_name);
         error_input(email);
         error_input(phone);
         error_input(address);
-        if(path_picture_user == null){
-            error_input(inputPicture);
-        }
         check_empty = true;
     }
 
-    let check = userList.some((obj) => {
-        return obj.phone === phone.value;
+    let check = userList.some((obj, i) => {
+        if(i != index_user_status_login)
+            return obj.phone === phone.value;
     });
     if(check){
         error_input(phone, "*Lỗi! Đã tồn tại số điện thoại");
@@ -306,5 +315,54 @@ export function handle_get_data_information(index_user_status_login){
 
     localStorage.setItem("userList", JSON.stringify(userList));
     path_picture_user = null;
+    return true;
+}
+
+//hàm lưu ví người dùng
+export function handle_save_data_money(index_user_status_login){
+    let userList = JSON.parse(localStorage.getItem("userList"));
+
+    let stk = document.querySelector(".stk");
+    let bank = document.querySelector(".bank");
+
+    let check_empty = false;
+    if(stk.value == "" || bank.value == ""){
+        error_input(stk);
+        error_input(bank);
+        check_empty = true;
+    }
+
+    let check = userList.some((obj, i) => {
+        if(i != index_user_status_login){ //tránh trường hợp so sánh dữ liệu cũ
+            if(bank.value == obj.bank) //trường hợp khác ngân hàng nhưng giống số tài khoản
+                return obj.phone === phone.value;
+        }
+    });
+
+    if(check){
+        error_input(stk, "*Lỗi! Đã tồn tại số tài khoản");
+        return false;
+    }
+    if(check_empty){
+        return false;
+    }
+
+    userList[index_user_status_login] = {
+        status_login: true,
+        id: userList[index_user_status_login].id,
+        username: userList[index_user_status_login].username,
+        password: userList[index_user_status_login].password,
+        email: userList[index_user_status_login].email,
+        remember_password: false,
+        first_name: userList[index_user_status_login].first_name,
+        last_name: userList[index_user_status_login].last_name,
+        phone: userList[index_user_status_login].phone,
+        address: userList[index_user_status_login].address,
+        stk: stk.value,
+        bank: bank.value,
+        src: userList[index_user_status_login].src
+    };
+
+    localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }

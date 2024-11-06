@@ -1,42 +1,8 @@
 //---HIỆU------
-
-
-
 export function delete_space(str) {
-    let result = "";
-    let wordArray = [];
-    let word = "";
-    let isSpace = true; // Kiểm tra khoảng trắng ở đầu chuỗi
-
-    for (let i = 0; i < str.length; i++) {
-        let char = str[i];
-
-        if (char !== " ") {
-            word += char;
-            isSpace = false;
-        } else {
-            if (word !== "") {
-                wordArray.push(word); // Thêm từ vào mảng
-                word = ""; // Reset từ để chuẩn bị cho từ tiếp theo
-            }
-            isSpace = true;
-        }
-    }
-
-    // Thêm từ cuối cùng nếu có
-    if (word !== "") {
-        wordArray.push(word);
-    }
-
-    // Kết hợp các từ trong mảng thành chuỗi với một khoảng trắng giữa các từ
-    for (let i = 0; i < wordArray.length; i++) {
-        result += wordArray[i];
-        if (i < wordArray.length - 1) {
-            result += " ";
-        }
-    }
-
-    return result;
+    str = str.trim();
+    str = str.replaceAll("/\s+/g", " ");
+    return str;
 }
 
 export function reset_style_input(input, text){

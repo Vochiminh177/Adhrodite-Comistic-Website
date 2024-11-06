@@ -1,7 +1,7 @@
 
 import { sign_in } from "./changeUserFormInMenuHeader.js";
 import { check_info_user } from "./changeUserFormInMenuHeader.js";
-import { show_infoUser } from "./changeUserFormInMenuHeader.js";
+import { show_menuUser } from "./changeUserFormInMenuHeader.js";
 
 
 // Sự kiện khi người dùng nhấn vào icon hình nhân trên Header
@@ -76,7 +76,7 @@ export function showUserFormInMenuHeader() {
 
     // hiển thị info-user
     else{
-      show_infoUser();
+      show_menuUser();
     }
   });
 }

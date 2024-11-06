@@ -1,6 +1,6 @@
 
 import { usersList } from "../../../admin/js/database.js";
-import { handle_sign_up, handle_sign_in, handle_change_password, handle_get_data_information} from "../userUpdate/handleUserUpdate.js";
+import { handle_sign_up, handle_sign_in, handle_change_password, handle_save_data_information, handle_save_data_money} from "../userUpdate/handleUserUpdate.js";
 
 const formMap = {
   login: ` <form action="" autocomplete="off" class="header__user-form">
@@ -72,7 +72,7 @@ const formMap = {
       <p>Nhập mật khẩu</p>
     </label>
     <input
-      type="first-password"
+      type="password"
       id="first-password"
       class="password-signup"
       placeholder="Nhập mật khẩu"
@@ -83,7 +83,7 @@ const formMap = {
       <p>Nhập lại mật khẩu</p>
     </label>
     <input
-      type="second-password"
+      type="password"
       id="second-password"
       placeholder="Nhập lại mật khẩu"
     />
@@ -154,10 +154,6 @@ document
     }
   });
 
-
-export let check_info_user = { //nếu true thì đang ở trạng thái đăng nhập, click user-click thì hiện form infouser
-  check: false
-};
 
 //hàm tạo thông báo
 function create_notification_user(mess) {
@@ -238,73 +234,71 @@ function sign_up() {
 }
 
 //hàm đăng xuất
+export let check_info_user = { //nếu true thì đang ở trạng thái đăng nhập, click user-click thì hiện form infouser, export cho file userIconMenu....
+  check: false
+};
 export function sign_out_user() {
-  document.querySelector(".sign-out-user").addEventListener("click", (e) => {
-    e.preventDefault();
-    check_info_user.check = false;
+  check_info_user.check = false;
 
-    document.querySelector(".info-user").remove();//xóa info-user
-    create_notification_user("Đăng xuất thành công!");
-  });
+  document.querySelector(".info-user").remove();//xóa info-user
+  create_notification_user("Đăng xuất thành công!");
+  
 }
 
 //hàm đổi mật khẩu
 export function change_password() {
-  document.querySelector(".change-password-user").onclick = (e) => {
-    document.querySelector(".info-user").remove(); //xóa form infouser khi ấn đổi mật khẩu
-    e.preventDefault();
-    let ele = document.createElement("div");
-    ele.className = "container-change-password-user";
-    ele.innerHTML = `
-      <div class="form-change-password">
-        <div class="content-change-password">
-          <button class="exit-form-change-user">X</button>
-          <p>Đổi mật khẩu</p>
-          <div class="username-change">
-            <label for="username-change"></label>
-            <input type="text" id="username-change" placeholder="Tên tài khoản">
-          </div>
-          <div class="old-password-change">
-            <label for="old-password-change"></label>
-            <input type="text" id="old-password-change" placeholder="Mật khẩu cũ">
-          </div>
-          <div class="new-password-change">
-            <label for="new-password-change"></label>
-            <input type="text" id="new-password-change" placeholder="Mật khẩu mới">
-          </div>
-          <button class="btn-save-change-password">Lưu thay đổi</button>
+  document.querySelector(".info-user").remove(); //xóa form infouser khi ấn đổi mật khẩu
+  let ele = document.createElement("div");
+  ele.className = "container-change-password-user";
+  ele.innerHTML = `
+    <div class="form-change-password">
+      <div class="content-change-password">
+        <button class="exit-form-change-user">X</button>
+        <p>Đổi mật khẩu</p>
+        <div class="username-change">
+          <label for="username-change"></label>
+          <input type="text" id="username-change" placeholder="Tên tài khoản">
         </div>
+        <div class="old-password-change">
+          <label for="old-password-change"></label>
+          <input type="text" id="old-password-change" placeholder="Mật khẩu cũ">
+        </div>
+        <div class="new-password-change">
+          <label for="new-password-change"></label>
+          <input type="text" id="new-password-change" placeholder="Mật khẩu mới">
+        </div>
+        <button class="btn-save-change-password">Lưu thay đổi</button>
       </div>
-    `;
-    document.body.appendChild(ele);
+    </div>
+  `;
+  document.body.appendChild(ele);
 
-    document.querySelector(".exit-form-change-user").onclick = () => {
-      ele.remove();
-    };
+  document.querySelector(".exit-form-change-user").onclick = () => {
+    ele.remove();
+  };
 
-    document.querySelector(".btn-save-change-password").onclick = () => {
-      let result = handle_change_password();
-      create_notification_user("Đổi mật khẩu thành công!");
+  document.querySelector(".btn-save-change-password").onclick = () => {
+    let result = handle_change_password();
+    create_notification_user("Đổi mật khẩu thành công!");
 
-      if(result){
-        setTimeout(() => {
-          document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
-        }, 10);
-        //tắt dần
-        setTimeout(() => {
-          document.querySelector(".notification").style.transform = "translate(100%, 50%)";
-        }, 2000);
-      }
-      //xóa khỏi dom
+    if(result){
       setTimeout(() => {
-        document.querySelector(".notification").remove();
-      }, 3000);
-    };
+        document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
+      }, 10);
+      //tắt dần
+      setTimeout(() => {
+        document.querySelector(".notification").style.transform = "translate(100%, 50%)";
+      }, 2000);
+    }
+    //xóa khỏi dom
+    setTimeout(() => {
+      document.querySelector(".notification").remove();
+    }, 3000);
   };
 }
 
 //hàm show menu profile
-export function show_infoUser() {
+export function show_menuUser() {
   let check = document.querySelector(".info-user"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
   if (!check) {
     let infoUser = `
@@ -334,9 +328,18 @@ export function show_infoUser() {
       info_user.style.opacity = "1";
     }, 10);
 
-    sign_out_user();
-    change_password();
-    show_profile_user();
+    document.querySelector(".sign-out-user").onclick = (e) => {
+      e.preventDefault();
+      sign_out_user();
+    };
+    document.querySelector(".change-password-user").onclick = (e) => {
+      e.preventDefault();
+      change_password();
+    };
+    document.querySelector(".info-profile").onclick = (e) => {
+      e.preventDefault();
+      show_profile_user();
+    };
 
     document.querySelector(".header__navbar").onclick = () => {
       if(document.querySelector(".info-user")) document.querySelector(".info-user").remove();
@@ -349,10 +352,9 @@ export function show_infoUser() {
 }
 
 //hàm show profile
-function show_profile_user(){
-  document.querySelector(".info-profile").onclick = (e) => {
-    let index_user_status_login;
-    let userList = JSON.parse(localStorage.getItem("userList"));
+function render_form_profile(){
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  let index_user_status_login;
     //vị trí user đang đăng nhập
     userList.forEach((obj, index) => {
       if(obj.status_login){
@@ -360,83 +362,102 @@ function show_profile_user(){
         return;
       }
     });
-    console.log(index_user_status_login);
-    e.preventDefault();
-    
-    //tạo form hồ sơ
-    let ele = document.createElement("div");
-    ele.className = "container-profile-user";
-    ele.innerHTML = `
-    <div class="form-profile-user">
-          <div class="content-profile-user">
-            <div class="left-content">
-              <img src="${userList[index_user_status_login].src}" alt="">
-              <h2>${userList[index_user_status_login].first_name + " " + userList[index_user_status_login].last_name}</h2>
-              <hr>
-              <div class="information info">
-                <p>Tài khoản</p>
-              </div>
-              <div class="money info">
-                <p>Ví</p>
-              </div>
+
+  //tạo form hồ sơ
+  let ele = document.createElement("div");
+  ele.className = "container-profile-user";
+  ele.innerHTML = `
+  <div class="form-profile-user">
+        <div class="content-profile-user">
+          <div class="left-content">
+            <img src="${userList[index_user_status_login].src}" alt="">
+            <h2>${userList[index_user_status_login].first_name + " " + userList[index_user_status_login].last_name}</h2>
+            <hr>
+            <div class="information info">
+              <p>Tài khoản</p>
             </div>
-            <div class="right-content">
+            <div class="money info">
+              <p>Ví</p>
             </div>
           </div>
+          <div class="right-content">
+          </div>
         </div>
-    `;
-    document.body.appendChild(ele);
+      </div>
+  `;
+  document.body.appendChild(ele);
+}
 
-    //nếu click tài khoản
-    document.querySelector(".information").onclick = () => {
-      let right_content = `
-        <div class="two-input">
-          <input type="text" class="first-name" placeholder="Nhập họ">
-          <input type="text" class="last-name" placeholder="Nhập tên">
-        </div>
-        <div class="two-input">
-          <input type="text" class="phone" placeholder="Nhập số điện thoại">
-          <input type="file" class="picture-profile" accept="image/*">
-        </div>
-        <div class="one-input">
-          <input type="text" class="address" placeholder="Nhập địa chỉ">
-        </div>
-        <div class="one-input">
-          <input type="text" class="email-info" placeholder="Nhập email">
-        </div>
-        <div class="one-input-btn">
-          <button class="save-information">Lưu thông tin</button>
-        </div>
-        `;
-      document.querySelector(".right-content").innerHTML = right_content;
-
-      document.querySelector(".email-info").value = userList[index_user_status_login].email;
-      document.querySelector(".first-name").value = userList[index_user_status_login].first_name;
-      document.querySelector(".last-name").value = userList[index_user_status_login].last_name;
-      document.querySelector(".address").value = userList[index_user_status_login].address;
-      document.querySelector(".phone").value = userList[index_user_status_login].phone;
-      document.querySelector(".picture-profile").value = userList[index_user_status_login].src;
-      document.querySelector(".save-information").onclick = () => {
-        let result = handle_get_data_information(index_user_status_login);
-        if(result){
-          create_notification_user("Cập nhật thành công");
-          document.querySelector(".right-content").innerHTML = right_content;
-        }
-      };
+function show_profile_user(){
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  let index_user_status_login;
+  //vị trí user đang đăng nhập
+  userList.forEach((obj, index) => {
+    if(obj.status_login){
+      index_user_status_login = index;
+      return;
     }
-    
-    //nếu click ví
-    let index_user_login;
-    document.querySelector(".money").onclick = () => {      
-      document.querySelector(".right-content").innerHTML = `
-        <div class="two-input">
-          <input type="text" class="stk" placeholder="Nhập số tài khoản">
-          <input type="text" class="bank" placeholder="Nhập tên ngân hàng">
-        </div>
-        <div class="one-input-btn">
-          <button>Lưu thông tin</button>
-        </div> 
+  });
+
+  render_form_profile();
+
+  //nếu click tài khoản
+  document.querySelector(".information").onclick = () => {
+    let right_content = `
+      <div class="two-input">
+        <input type="text" class="first-name" placeholder="Nhập họ" value="${userList[index_user_status_login].first_name}">
+        <input type="text" class="last-name" placeholder="Nhập tên" value="${userList[index_user_status_login].last_name}">
+      </div>
+      <div class="two-input">
+        <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${userList[index_user_status_login].phone}">
+        <input type="file" class="picture-profile" accept="image/*">
+      </div>
+      <div class="one-input">
+        <input type="text" class="address" placeholder="Nhập địa chỉ" value="${userList[index_user_status_login].address}">
+      </div>
+      <div class="one-input">
+        <input type="text" class="email-info" placeholder="Nhập email" value="${userList[index_user_status_login].email}">
+      </div>
+      <div class="one-input-btn">
+        <button class="save-information">Lưu thông tin</button>
+      </div>
       `;
-    }
-  };
+    document.querySelector(".right-content").innerHTML = right_content;
+
+    //nếu ấn nút lưu thông tin
+    document.querySelector(".save-information").onclick = () => {
+      let result = handle_save_data_information(index_user_status_login);
+      if(result){
+        create_notification_user("Cập nhật thành công");
+        document.querySelector(".container-profile-user").remove();
+        show_profile_user();
+      }
+    };
+  }
+
+  //nếu click ví
+  let index_user_login;
+  document.querySelector(".money").onclick = () => {
+    let right_content = `
+      <div class="two-input">
+        <input type="text" class="stk" placeholder="Nhập số tài khoản" value="${userList[index_user_status_login].stk}">
+        <input type="text" class="bank" placeholder="Nhập tên ngân hàng" value="${userList[index_user_status_login].bank}">
+      </div>
+      <div class="one-input-btn">
+        <button class="save-money">Lưu thông tin</button>
+      </div> 
+    `;
+    document.querySelector(".right-content").innerHTML = right_content;
+
+    //nếu ấn lưu ví
+    document.querySelector(".save-money").onclick = () => {
+      let result = handle_save_data_money(index_user_status_login);
+      if(result){
+        create_notification_user("Cập nhật ví thành công");
+        document.querySelector(".container-profile-user").remove();
+        show_profile_user();
+      }
+    };
+  }
+  
 }
