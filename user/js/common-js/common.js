@@ -55,9 +55,9 @@ export function formatVietNamMoney(money) {
 }
 
 // Hàm tính tổng số tiền của các sản phẩm hiện có trong productItemAddedToShoppingCart
-export function calTotalProductItemPriceInShoppingCart() {
+export function calTotalProductItemPriceInShoppingCart(userList, index_user_status_login) {
   let totalPrice = 0;
-  productItemAddedToShoppingCart.forEach((productItem) => {
+  userList[index_user_status_login].shoppingCart.forEach((productItem) => {
     if (productItem.quantity >= 1)
       totalPrice += productItem.price * productItem.quantity;
   });

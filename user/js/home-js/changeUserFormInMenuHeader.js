@@ -156,13 +156,14 @@ document
 
 
 //hàm tạo thông báo
-function create_notification_user(mess) {
+export function create_notification_user(mess) {
   let text = document.createElement("p");
   text.className = "notification";
   text.innerText = mess;
   text.style.backgroundColor = "#ffff";
-  text.style.color = "#a94064";
-  text.style.position = "absolute";
+  text.style.color = "#000";
+  text.style.fontWeight = "400";
+  text.style.position = "fixed";
   text.style.right = "0px";
   text.style.top = "0px";
   text.style.transform = "translate(100%, 50%)";

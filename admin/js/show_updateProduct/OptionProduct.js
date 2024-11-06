@@ -11,7 +11,7 @@ function create_notification_admin(mess) {
     text.innerText = mess;
     text.style.backgroundColor = "#ffff";
     text.style.color = "#a94064";
-    text.style.position = "absolute";
+    text.style.position = "fixed";
     text.style.right = "0px";
     text.style.top = "0px";
     text.style.transform = "translate(100%, 10%)";

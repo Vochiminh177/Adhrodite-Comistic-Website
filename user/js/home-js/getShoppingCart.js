@@ -2,7 +2,7 @@ import {
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
-import { productItemAddedToShoppingCart as currentProductItemAdded } from "../../../database/database.js";
+import { productItemAddedToShoppingCart, usersList } from "../../../database/database.js";
 import { getPaymentInformationInfo } from "./getPaymentInformation.js";
 
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn
@@ -12,18 +12,18 @@ export function comebackShoppingCart() {
 
 // Hàm cập nhật các sản phẩm đã được thêm vào Giỏ hàng trong mảng (loại bỏ {})
 function updateProductItemAddedInArray() {
-  for (let i = 0; i < currentProductItemAdded.length; i++) {
-    if (Object.entries(currentProductItemAdded[i]).length == 0) {
-      currentProductItemAdded.splice(i, 1);
+  for (let i = 0; i < productItemAddedToShoppingCart.length; i++) {
+    if (Object.entries(productItemAddedToShoppingCart[i]).length == 0) {
+      productItemAddedToShoppingCart.splice(i, 1);
       i--;
     }
   }
 }
 
 // Hàm cập nhật thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
-function updateShoppingCartAfterActionsFromUser() {
+function updateShoppingCartAfterActionsFromUser(userList, index_user_status_login) {
   // Biến chỉ số lượng sản phẩm ban đầu trong Giỏ hàng
-  let numbersOfProductItem = currentProductItemAdded.length;
+  let numbersOfProductItem = usersList[index_user_status_login].shoppingCart.length;
   // Biến chỉ số lượng sản phẩm đã được xoá trong Giỏ hàng
   let numbersOfProductItemRemoved = 0;
 
@@ -51,7 +51,7 @@ function updateShoppingCartAfterActionsFromUser() {
         // Nếu từ khoá là "trash" (xoá sản phẩm khỏi Giỏ hàng)
         if (shoppingCartItemActionKey === "trash") {
           // Loại bỏ sản phẩm khỏi currentProductItemAdded
-          currentProductItemAdded.splice(productItemKey - 1, 1, {});
+          userList[index_user_status_login].shoppingCart.splice(productItemKey - 1, 1, {});
           productItem.remove();
           numbersOfProductItemRemoved++;
         }
@@ -73,9 +73,9 @@ function updateShoppingCartAfterActionsFromUser() {
             currentNumber.addEventListener("change", function () {
               if (currentNumber.value <= 0) {
                 // window.alert("Không cho phép nhập sản phẩm dưới 1");
-                currentProductItemAdded[productItemKey - 1].quantity = 1;
+                userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity = 1;
               } else {
-                currentProductItemAdded[productItemKey - 1].quantity = parseInt(
+                userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity = parseInt(
                   currentNumber.value
                 );
               }
@@ -86,33 +86,33 @@ function updateShoppingCartAfterActionsFromUser() {
             shoppingCartItemActionKey === "increment" &&
             parseInt(currentNumber.value) >= 1
           ) {
-            currentProductItemAdded[productItemKey - 1].quantity++;
+            userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity++;
           }
           // Nếu từ khoá là "decrement" (giảm sản phẩm)
           else if (
             shoppingCartItemActionKey === "decrement" &&
             parseInt(currentNumber.value) >= 2
           ) {
-            currentProductItemAdded[productItemKey - 1].quantity--;
+            userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity--;
           }
           // Gán lại số lượng sản phẩm được thêm vào Giỏ hàng
           currentNumber.value = `${
-            currentProductItemAdded[productItemKey - 1].quantity
+            userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity
           }`;
           // Tính lại tổng số tiền cho một sản phẩm
           currentProductTotalPrice.innerHTML = `${formatVietNamMoney(
-            currentProductItemAdded[productItemKey - 1].price *
-              currentProductItemAdded[productItemKey - 1].quantity
+            userList[index_user_status_login].shoppingCart[productItemKey - 1].price *
+              userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity
           )}<u>đ</u>`;
         }
 
         // Biến chỉ giá tiền của tổng sản phẩm trong giỏ hàng
         let totalPrice = document.querySelector(".shopping-cart__total-price");
         totalPrice.innerHTML = `${formatVietNamMoney(
-          calTotalProductItemPriceInShoppingCart()
+          calTotalProductItemPriceInShoppingCart(userList, index_user_status_login)
         )}<u>đ</u>`;
       }
-
+      
       // Nếu số sản phẩm bị xoá bằng với số sản phẩm ban đầu trong Giỏ hàng
       if (numbersOfProductItemRemoved === numbersOfProductItem) {
         // Cập nhật lại giỏ hàng
@@ -121,16 +121,27 @@ function updateShoppingCartAfterActionsFromUser() {
         // Cập nhật lại thông tin các sản phẩm trong giỏ hàng
         updateShoppingCart();
       }
+
+      localStorage.setItem("userList", JSON.stringify(userList));
+
     });
 }
 
 // Hàm tạo thông tin của Giỏ hàng bằng các thẻ html
 function updateShoppingCart() {
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  let index_user_status_login;
+  userList.forEach((obj, index) => {
+    if(obj.status_login){
+      index_user_status_login = index;
+    }
+  });
+
   // Hàm tạo một shoppingCartItem
   function createShoppingCartItemWithHtml(listDiv, indexInArray) {
     // Figure - Shopping-Cart Image
     let imageImg = document.createElement("img");
-    imageImg.src = `${currentProductItemAdded[indexInArray].src}`;
+    imageImg.src = `${userList[index_user_status_login].shoppingCart[indexInArray].src}`;
     imageImg.alt = "";
     imageImg.className = "shopping-cart__image ";
     let figure = document.createElement("figure");
@@ -139,13 +150,13 @@ function updateShoppingCart() {
     // Shopping-Cart Name - Shopping-Cart Details
     let nameH3 = document.createElement("h3");
     nameH3.className = "shopping-cart__name";
-    nameH3.textContent = `${currentProductItemAdded[indexInArray].name}`;
+    nameH3.textContent = `${userList[index_user_status_login].shoppingCart[indexInArray].name}`;
     let detailsP = document.createElement("p");
     detailsP.className = "shopping-cart__details";
     detailsP.textContent = `
-        ${currentProductItemAdded[indexInArray].id} /
-        ${currentProductItemAdded[indexInArray].category} /
-        ${formatVietNamMoney(currentProductItemAdded[indexInArray].price)}đ
+        ${userList[index_user_status_login].shoppingCart[indexInArray].id} /
+        ${userList[index_user_status_login].shoppingCart[indexInArray].category} /
+        ${formatVietNamMoney(userList[index_user_status_login].shoppingCart[indexInArray].price)}đ
       `;
     // Shopping-Cart Column
     let columnDiv = document.createElement("div");
@@ -164,7 +175,7 @@ function updateShoppingCart() {
     numberInput.className = "shopping-cart__number remove-arrow";
     numberInput.setAttribute(
       "value",
-      `${currentProductItemAdded[indexInArray].quantity}`
+      `${userList[index_user_status_login].shoppingCart[indexInArray].quantity}`
     );
     numberInput.setAttribute("data-shopping-cart-item-action", "input");
     let decrementA = document.createElement("a");
@@ -183,8 +194,8 @@ function updateShoppingCart() {
     let productTotalPriceP = document.createElement("p");
     productTotalPriceP.className = "shopping-cart__product-total-price";
     productTotalPriceP.innerHTML = `${formatVietNamMoney(
-      currentProductItemAdded[indexInArray].price *
-        currentProductItemAdded[indexInArray].quantity
+      userList[index_user_status_login].shoppingCart[indexInArray].price *
+      userList[index_user_status_login].shoppingCart[indexInArray].quantity
     )}<u>đ</u>`;
 
     // Shopping-Cart Trash
@@ -220,9 +231,9 @@ function updateShoppingCart() {
 
   /* Shopping-Cart Item / Shopping-Cart Inform (tuỳ thuộc vào số lượng
     sản phẩm trong mảng currentProductItemAdded) */
-  if (currentProductItemAdded.length >= 1) {
+  if (userList[index_user_status_login].shoppingCart.length >= 1) {
     // Shopping-Cart Item
-    for (let i = 0; i < currentProductItemAdded.length; i++) {
+    for (let i = 0; i < userList[index_user_status_login].shoppingCart.length; i++) {
       createShoppingCartItemWithHtml(listDiv, i);
     }
   } else {
@@ -242,7 +253,7 @@ function updateShoppingCart() {
   let paymentInfoP = document.createElement("p");
   paymentInfoP.className = "shopping-cart__payment-info";
   paymentInfoP.innerHTML = `Tổng số tiền: <b class="shopping-cart__total-price">${formatVietNamMoney(
-    calTotalProductItemPriceInShoppingCart()
+    calTotalProductItemPriceInShoppingCart(userList, index_user_status_login)
   )}<u>đ</u></b>`;
   // Shopping-Cart Payment-Button
   let paymentButton = document.createElement("button");
@@ -275,7 +286,7 @@ function updateShoppingCart() {
   mainContentDiv.innerHTML = `${bodyShoppingCartHtml.innerHTML}`;
 
   // Cập nhật lại thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
-  updateShoppingCartAfterActionsFromUser();
+  updateShoppingCartAfterActionsFromUser(userList, index_user_status_login);
 
   // Tạo mẫu thông tin để thanh toán khi người dùng nhấn vào "Thanh toán"
   getPaymentInformationInfo();

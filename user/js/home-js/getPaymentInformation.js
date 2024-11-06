@@ -5,9 +5,11 @@ import {
 import {
   productItemAddedToShoppingCart as productItemAddedArray,
   basicInformationFromUser,
+  usersList,
 } from "../../../database/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
+import { productItemArray } from "../../../database/database.js";
 
 // Hàm ẩn hiển header và footer của trang web
 function updateHeaderAndFooter(condition) {
@@ -39,38 +41,38 @@ function clickToComebackShoppingCart() {
 }
 
 // Hàm tạo thông tin tóm tắt của các sản phẩm sẽ được thanh toán trong Thông tin giao hàng
-function createPaymentInformationItemsByHtml() {
+function createPaymentInformationItemsByHtml(array_orderProduct) {
   function getQuantityFormat(productItemQuantity) {
     if (productItemQuantity >= 100) productItemQuantity = "+99";
     return productItemQuantity;
   }
 
   let productListDivToHtml = document.createElement("div");
-  for (let i = 0; i < productItemAddedArray.length; i++) {
+  for (let i = 0; i < array_orderProduct.length; i++) {
     let productItemForm = `
             <figure class="payment-information-products__media">
                 <img src="${
-                  productItemAddedArray[i].src
+                  array_orderProduct[i].src
                 }" alt="" class="payment-information-products__image">
             </figure>
             <div class="payment-information-products__info">
                 <div class="payment-information-products__column">
                     <h3 class="payment-information-products__name">${
-                      productItemAddedArray[i].name
+                      array_orderProduct[i].name
                     }</h3>
                     <p class="payment-information-products__details">
-                        ${productItemAddedArray[i].id} / ${
-      productItemAddedArray[i].category
-    } / ${formatVietNamMoney(productItemAddedArray[i].price)}đ
+                        ${array_orderProduct[i].id} / ${
+      array_orderProduct[i].category
+    } / ${formatVietNamMoney(array_orderProduct[i].price)}đ
                     </p>
                 </div>
                 <p class="payment-information-products__total-price-product">${formatVietNamMoney(
-                  productItemAddedArray[i].price *
-                    productItemAddedArray[i].quantity
+                  array_orderProduct[i].price *
+                    array_orderProduct[i].quantity
                 )}đ</p>
             </div>
             <span class="payment-information-products__numbers">${getQuantityFormat(
-              productItemAddedArray[i].quantity
+              array_orderProduct[i].quantity
             )}</span>
     `;
     let productItemDiv = document.createElement("div");
@@ -82,7 +84,7 @@ function createPaymentInformationItemsByHtml() {
 }
 
 // Hàm cập nhật thông tin thanh toán từ Giỏ hàng
-function updatePaymentInformation() {
+function updatePaymentInformation(userList, index_user_status_login, array_orderProduct) {
   const paymentInformationForm = `
         <div class="body__payment-information">
         <div class="payment-information__header">
@@ -174,11 +176,11 @@ function updatePaymentInformation() {
             </div>
             </div>
             <div class="payment-information__products">
-            <div class="payment-information-products__list">${createPaymentInformationItemsByHtml()}</div>
+            <div class="payment-information-products__list">${createPaymentInformationItemsByHtml(array_orderProduct)}</div>
             <div class="payment-information-products__calculation">
                 <p class="payment-information-products__temp-price">
                 Tạm tính <span id="temp-price">${formatVietNamMoney(
-                  calTotalProductItemPriceInShoppingCart()
+                  calTotalProductItemPriceInShoppingCart(userList, index_user_status_login)
                 )}đ</span>
                 </p>
                 <p class="payment-information-products__ship-price">
@@ -187,7 +189,7 @@ function updatePaymentInformation() {
             </div>
             <p class="payment-information-products__total-price">
                 Tổng cộng <span id="total-price">${formatVietNamMoney(
-                  calTotalProductItemPriceInShoppingCart() + 18000
+                  calTotalProductItemPriceInShoppingCart(userList, index_user_status_login) + 18000
                 )}<u>đ</u></span>
             </p>
             </div>
@@ -205,7 +207,8 @@ function updatePaymentInformation() {
   clickToComebackShoppingCart();
 
   // Tạo sự kiện để người dùng nhấn "Hoàn tất" thông tin giao hàng để hiện thị Hoá đơn
-  getBillInfo(currentPage)
+  // getBillInfo(currentPage) // Hiệu tạm thời bỏ currentPage để xử lí bên admin
+  getBillInfo(array_orderProduct);
 }
 
 // Hàm hiển thị thông tin thanh toán của người dùng
@@ -213,15 +216,56 @@ export function getPaymentInformationInfo() {
   document
     .querySelector(".shopping-cart__payment-button")
     .addEventListener("click", function () {
-      if (productItemAddedArray.length >= 1) {
+      //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
+      let userList = JSON.parse(localStorage.getItem("userList"));
+      let index_user_status_login;
+      userList.forEach((obj, index) => {
+        if(obj.status_login){
+          index_user_status_login = index;
+        }
+      });
+
+
+      if (userList[index_user_status_login].shoppingCart.length >= 1) {
         // Đưa về đầu trang
         window.scrollTo(0, 0);
 
         // Ẩn đi header và footer của trang web
         updateHeaderAndFooter("off");
 
+        //mảng chứa những obj đơn hàng gồm id và quantity (giải quyết cho admin)
+        let array_orderProduct = [];
+        let array_shopping_cart__item = document.querySelectorAll(".shopping-cart__list .shopping-cart__item");
+
+        array_shopping_cart__item.forEach((obj) => {
+          //lấy id của sản phẩm
+          let string_details = obj.querySelector(".shopping-cart__column .shopping-cart__details").textContent;
+          console.log(string_details);
+          // string_details là chuỗi gồm .../.../...
+          let array_split = string_details.split("/");
+          let id = array_split[0].trim(); // lấy chuỗi id sản phẩm và loại bỏ 2 khoảng trắng
+          let category = array_split[1].trim();
+          let price = array_split[2].trim();
+          console.log(price)
+          price = price.replaceAll("đ","");
+          price = price.replaceAll(".","");
+          let quantity = obj.querySelector(".shopping-cart__quantity .shopping-cart__number").value; //lấy số lượng đặt hàng của mỗi sản phẩm 
+          let name =  obj.querySelector(".shopping-cart__column .shopping-cart__name").textContent;
+          let src = obj.querySelector("img").src;
+          let data = {
+            id: id,
+            price: price,
+            category: category,
+            quantity: quantity,
+            name: name,
+            src: src
+          }
+          console.log(data);
+          array_orderProduct.push(data); //mảng chứa những obj đơn hàng gồm id và quantity (giải quyết cho admin)
+        });
+
         // Cập nhật thông tin thanh toán
-        updatePaymentInformation();
+        updatePaymentInformation(userList, index_user_status_login, array_orderProduct);
       } else {
         window.alert(
           "Hiện tại, trong Giỏ hàng của bạn không có sản phẩm nào. Bạn hãy quay lại trang Sản phẩm và đặt mua một vài thứ nhé."
@@ -229,3 +273,4 @@ export function getPaymentInformationInfo() {
       }
     });
 }
+

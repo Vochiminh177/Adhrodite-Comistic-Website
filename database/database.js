@@ -10,7 +10,7 @@ export let productItemArray = [
     categoryID: "sua-rua-mat",
     price: 200000,
     desc: `<b>EFFACLAR DUO+ M </b>từ <b>La Roche-Posay</b> là kem dưỡng chuyên biệt dành cho da mụn, giúp giảm mụn và ngăn ngừa tái phát. Sản phẩm chứa các thành phần nổi bật như Niacinamide (Vitamin B3) giúp làm dịu da và giảm viêm, LHA và Salicylic Acid có tác dụng tẩy tế bào chết nhẹ nhàng, ngăn ngừa tình trạng bí tắc lỗ chân lông, cùng Procerad hỗ trợ giảm thâm và làm sáng da. <b>EFFACLAR DUO+ M</b> không chỉ giúp kiểm soát dầu nhờn mà còn cải thiện các vấn đề da mụn nhạy cảm. Bạn nên sử dụng sản phẩm 1-2 lần mỗi ngày, thoa một lớp mỏng lên vùng da bị mụn để đạt hiệu quả tốt nhất.`,
-    quantity: 2
+    quantity: 15
     },
     {
     number: 2,
@@ -65,7 +65,7 @@ export let productItemArray = [
   // Mảng chứa các sản phẩm (khi thêm vào giỏ hàng)
 export let productItemAddedToShoppingCart = [
     {
-      id: "APhxxxx",
+      id: "APh00002",
       src: "./assets/images/facewash-image-1.jpg",
       name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
       category: "Sửa rửa mặt",
@@ -73,7 +73,7 @@ export let productItemAddedToShoppingCart = [
       quantity: 1,
     },
     {
-      id: "APhxxxx",
+      id: "APh00003",
       src: "./assets/images/facewash-image-2.jpg",
       name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
       category: "Sửa rửa mặt",
@@ -81,7 +81,7 @@ export let productItemAddedToShoppingCart = [
       quantity: 3,
     },
     {
-      id: "APhxxxx",
+      id: "APh00004",
       src: "./assets/images/facewash-image-1.jpg",
       name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
       category: "Sửa rửa mặt",
@@ -109,7 +109,34 @@ export let usersList = [
     address: "null",
     stk: "null",  
     bank: "null",
-    src: null
+    src: null,
+    shoppingCart: [
+      {
+        id: "APh00002",
+        src: "./assets/images/facewash-image-1.jpg",
+        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+        category: "Sửa rửa mặt",
+        price: 200000,
+        quantity: 1,
+      },
+      {
+        id: "APh00003",
+        src: "./assets/images/facewash-image-2.jpg",
+        name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
+        category: "Sửa rửa mặt",
+        price: 150000,
+        quantity: 3,
+      },
+      {
+        id: "APh00004",
+        src: "./assets/images/facewash-image-1.jpg",
+        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+        category: "Sửa rửa mặt",
+        price: 222000,
+        quantity: 1,
+      },
+    ],
+    ordersHistory: []
   },
   {
     status_login: false,
@@ -124,7 +151,9 @@ export let usersList = [
     address: "null",
     stk: "null",
     bank: "null",
-    src: null
+    src: null,
+    shoppingCart: [],
+    ordersHistory: []
   },
   {
     status_login: false,
@@ -139,7 +168,18 @@ export let usersList = [
     address: "null",
     stk: "null",
     bank: "null",
-    src: null
+    src: null,
+    shoppingCart: [
+      {
+        id: "APh00001",
+        src: "./assets/images/facewash-image-1.jpg",
+        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+        category: "Sửa rửa mặt",
+        price: 200000,
+        quantity: 5,
+      }
+    ],
+    ordersHistory: []
   }
 ];
 
