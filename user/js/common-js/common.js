@@ -1,4 +1,4 @@
-import { productItemAddedToShoppingCart } from "./database.js";
+import { productItemAddedToShoppingCart } from "../../../database/database.js";
 
 // Hàm xoá dấu
 export function removeAccents(str) {

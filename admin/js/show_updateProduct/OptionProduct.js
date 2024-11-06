@@ -1,4 +1,4 @@
-import { productItemArray } from "../database.js"
+import { productItemArray } from "../../../database/database.js"
 import { showMain } from "../script2.js";
 import {add_product, delete_product, edit_product} from "./handleUpdate_Product.js";
 

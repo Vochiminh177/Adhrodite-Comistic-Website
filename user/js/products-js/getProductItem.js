@@ -2,7 +2,7 @@ import { formatVietNamMoney } from "../common-js/common.js";
 import {
   productItemArray,
   productItemAddedToShoppingCart as productItemAddedArray,
-} from "../common-js/database.js";
+} from "../../../database/database.js";
 import { comebackProductList } from "./getProductList.js";
 
 let productItemQuantity = 0;
