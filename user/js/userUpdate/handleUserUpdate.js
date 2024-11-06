@@ -210,6 +210,8 @@ export function handle_change_password(){
         check_empty = true;
     }
 
+    if(check_empty) return;
+
     // lấy người có tên đăng nhập là username
     let check = null;
     userList.some((obj, index) => {
@@ -233,8 +235,6 @@ export function handle_change_password(){
         error_input(old_password, "*Lỗi! Mật không không chính xác");
         return false;
     }
-
-    if(check_empty) return;
 
     //nếu đổi thành công
     userList.some((obj, index) => {

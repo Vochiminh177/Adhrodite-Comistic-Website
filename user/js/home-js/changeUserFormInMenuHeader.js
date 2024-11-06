@@ -247,13 +247,12 @@ export function sign_out_user() {
 
 //hàm đổi mật khẩu
 export function change_password() {
-  document.querySelector(".info-user").remove(); //xóa form infouser khi ấn đổi mật khẩu
   let ele = document.createElement("div");
   ele.className = "container-change-password-user";
   ele.innerHTML = `
     <div class="form-change-password">
       <div class="content-change-password">
-        <button class="exit-form-change-user">X</button>
+        <button class="exit-form-change-password-user">X</button>
         <p>Đổi mật khẩu</p>
         <div class="username-change">
           <label for="username-change"></label>
@@ -273,7 +272,7 @@ export function change_password() {
   `;
   document.body.appendChild(ele);
 
-  document.querySelector(".exit-form-change-user").onclick = () => {
+  document.querySelector(".exit-form-change-password-user").onclick = () => {
     ele.remove();
   };
 
@@ -382,6 +381,7 @@ function render_form_profile(){
           </div>
           <div class="right-content">
           </div>
+          <a href="">X<a>
         </div>
       </div>
   `;
@@ -460,4 +460,9 @@ function show_profile_user(){
     };
   }
   
+  //ấn Dấu x xóa form
+  document.querySelector(".content-profile-user a").onclick = (e) => {
+    e.preventDefault();
+    document.querySelector(".container-profile-user").remove();
+  }
 }
