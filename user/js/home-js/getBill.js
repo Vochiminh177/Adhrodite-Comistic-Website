@@ -86,7 +86,7 @@ function check_remaning_quantity(userList, index_user_status_login, productList,
 
     array_orderProduct.forEach((obj_orderProduct) => {
       userList[index_user_status_login].shoppingCart.forEach((obj_shoppingCart, index) => {
-        if(obj_orderProduct.id === obj_shoppingCart){
+        if(obj_orderProduct.id === obj_shoppingCart.id){
           userList[index_user_status_login].shoppingCart.splice(index, 1);
           return;
         }
