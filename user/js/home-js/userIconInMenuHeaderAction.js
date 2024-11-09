@@ -2,6 +2,7 @@
 import { sign_in } from "./changeUserFormInMenuHeader.js";
 import { check_info_user } from "./changeUserFormInMenuHeader.js";
 import { show_menuUser } from "./changeUserFormInMenuHeader.js";
+import { usersList } from "../../../database/database.js";
 
 
 // Sự kiện khi người dùng nhấn vào icon hình nhân trên Header
@@ -37,7 +38,21 @@ function unShowUserFormInMenuHeader() {
 export function showUserFormInMenuHeader() {
   document.getElementById("user-click").addEventListener("click", function () {
     //hiển thị form đăng nhập, đăng ký
-    if(!check_info_user.check){ //nếu chưa có trạng thái đăng nhập
+    let userList = JSON.parse(localStorage.getItem("userList")) || [];
+    if(userList.length == 0){
+      userList = [...usersList];
+    }
+    localStorage.setItem("userList", JSON.stringify(userList));
+
+    // lấy vị trí người đăng nhập và trạng thái đăng nhập để hiện form
+    let index_user_status_login = -1;
+    userList.forEach((obj, index) => {
+      if(obj.status_login == true){
+        index_user_status_login = index;
+      }
+    });
+    
+    if(index_user_status_login < 0){ //nếu chưa có trạng thái đăng nhập
       // Tạo mới changeUserFormInMenuHeaderScript
       const changeUserFormInMenuHeaderScript = document.createElement("script");
       

@@ -3,6 +3,8 @@ import { clickToPopularMenus, clickToProductItem } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 import { usersList } from "../../../database/database.js";
 
+
+
 //reset trạng thái không đăng nhập
 let userList = JSON.parse(localStorage.getItem("userList")) || [];
 if(userList.length == 0){
@@ -839,7 +841,7 @@ export const mainContentMap = {
                     Hồ Chí Minh
                 </p>
                 <p class="detail__email"><b>Email: </b>nhom1SGU@gmail.com</p>
-                <p class="detail__phone"><b>Số điện thoại: </b>+84 0123456789</p>
+                <p class="detail__phone"><b>Số điện thoại: </b>+ " "8+ 4 0123456789</p>
                 </div>
                 <figure class="info__map">
                 <img

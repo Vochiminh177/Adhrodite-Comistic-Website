@@ -97,6 +97,8 @@ export let productItemAddedToShoppingCart = [
 //dữ liệu mảng user mặc định -- Hiệu
 export let usersList = [
   {
+    full_info: false,
+    full_money: false,
     status_login: false,
     id: 1,
     username: "user1",
@@ -107,8 +109,10 @@ export let usersList = [
     last_name: "Thanh Hiệu",
     phone: "null",
     address: "null",
-    stk: "null",  
+    ma_the: "null", 
+    code_the: "null",
     bank: "null",
+    purchase_method: "null",
     src: null,
     shoppingCart: [
       {
@@ -139,6 +143,8 @@ export let usersList = [
     ordersHistory: []
   },
   {
+    full_info: false,
+    full_money: false,
     status_login: false,
     id: 2,
     username: "user2",
@@ -149,13 +155,17 @@ export let usersList = [
     last_name: "null",
     phone: "null",
     address: "null",
-    stk: "null",
+    ma_the: "null", 
+    code_the: "null",
     bank: "null",
+    purchase_method: "null",
     src: null,
     shoppingCart: [],
     ordersHistory: []
   },
   {
+    full_info: false,
+    full_money: false,
     status_login: false,
     id: 3,
     username: "user3",
@@ -166,8 +176,10 @@ export let usersList = [
     last_name: "null",
     phone: "null",
     address: "null",
-    stk: "null",
+    ma_the: "null", 
+    code_the: "null",
     bank: "null",
+    purchase_method: "null",
     src: null,
     shoppingCart: [
       {
@@ -190,3 +202,61 @@ export let basicInformationFromUser = {
     phone: "0123456789",
     address: "...",
 };
+
+// mảng này để quản lí đơn hàng cho admin khi người dùng ấn thanh toán đặt hàng
+export let order_is_in_process = [
+  {
+    id: 1,
+    status: "shipping",
+    date_order: "01/01/2000",
+    date_ship: "05/05/2000",
+    address_ship: "273 an dương vương",
+    priceTotal: "2.000.000đ",
+    orderProduct: []
+  },
+  {
+    id: 2,
+    status: "pending",
+    date_order: "15/02/2021",
+    date_ship: "20/02/2021",
+    address_ship: "123 lê lợi",
+    priceTotal: "1.500.000đ",
+    orderProduct: []
+  },
+  {
+    id: 3,
+    status: "delivered",
+    date_order: "05/03/2021",
+    date_ship: "10/03/2021",
+    address_ship: "456 lý thường kiệt",
+    priceTotal: "3.200.000đ",
+    orderProduct: []
+  },
+  {
+    id: 4,
+    status: "canceled",
+    date_order: "25/04/2021",
+    date_ship: "30/04/2021",
+    address_ship: "789 nguyễn văn linh",
+    priceTotal: "900.000đ",
+    orderProduct: []
+  },
+  {
+    id: 5,
+    status: "shipping",
+    date_order: "10/05/2021",
+    date_ship: "15/05/2021",
+    address_ship: "101 bà triệu",
+    priceTotal: "2.700.000đ",
+    orderProduct: []
+  },
+  {
+    id: 6,
+    status: "pending",
+    date_order: "20/06/2021",
+    date_ship: "25/06/2021",
+    address_ship: "202 phan đăng lưu",
+    priceTotal: "1.800.000đ",
+    orderProduct: []
+  }
+];

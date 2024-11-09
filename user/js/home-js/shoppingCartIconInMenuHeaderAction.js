@@ -1,5 +1,6 @@
 import { removeAllStyleTags } from "../common-js/common.js";
 import { getShoppingCartInfo } from "../home-js/getShoppingCart.js";
+import {create_notification_user} from "../home-js/changeUserFormInMenuHeader.js";
 
 // Hàm cập nhật lại style
 function updateStyleTags() {
@@ -34,13 +35,28 @@ export function showShoppingCartFormInMenuHeader() {
   document
     .getElementById("shopping-cart-click")
     .addEventListener("click", function () {
-      // Kéo lên đầu trang mỗi lần chuyển trang
-      window.scrollTo(0, 0);
+      let userList = JSON.parse(localStorage.getItem("userList"));
+      let index_user_status_login = -1;
+      userList.forEach((obj, index) => {
+        if(obj.status_login){
+          index_user_status_login = index;
+          return;
+        }
+      });
 
-      // Cập nhật lại style khi người dùng ấn vào Giỏ hàng
-      updateStyleTags();
+      //trạng thái có đăng nhập 
+      if(index_user_status_login > -1){
+        // Kéo lên đầu trang mỗi lần chuyển trang
+        window.scrollTo(0, 0);
 
-      // Hiển thị thông tin sản phẩm của Giỏ hàng
-      getShoppingCartInfo();
+        // Cập nhật lại style khi người dùng ấn vào Giỏ hàng
+        updateStyleTags();
+
+        // Hiển thị thông tin sản phẩm của Giỏ hàng
+        getShoppingCartInfo();
+      }
+      else{
+        create_notification_user("Bạn chưa đăng nhập!");
+      }
     });
 }

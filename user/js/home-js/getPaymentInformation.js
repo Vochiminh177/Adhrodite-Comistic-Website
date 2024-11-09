@@ -25,7 +25,7 @@ function updateHeaderAndFooter(condition) {
 }
 
 // Hàm trở về trang Giỏ hàng
-function clickToComebackShoppingCart() {
+function clickToComebackShoppingCart(userList, index_user_status_login) {
   document
     .querySelector(".payment-information-info__comeback-button")
     .addEventListener("click", function () {
@@ -36,7 +36,7 @@ function clickToComebackShoppingCart() {
       updateHeaderAndFooter("on");
 
       // Trở lại trang Giỏ hàng
-      comebackShoppingCart();
+      comebackShoppingCart(userList, index_user_status_login);
     });
 }
 
@@ -101,15 +101,15 @@ function updatePaymentInformation(userList, index_user_status_login, array_order
                 <form action="" class="payment-information-info__form">
                   <div class="payment-information-info__form-group">
                       <input type="text" class="payment-information-info__name" placeholder="${
-                        basicInformationFromUser.fullname
+                        userList[index_user_status_login].first_name + " " + userList[index_user_status_login].last_name
                       }" readonly="">
                   </div>
                   <div class="payment-information-info__form-group">
                       <input type="email" class="payment-information-info__email" placeholder="${
-                        basicInformationFromUser.email
+                        userList[index_user_status_login].email
                       }" readonly="">
                       <input type="phone" class="payment-information-info__phone" placeholder="${
-                        basicInformationFromUser.phone
+                        userList[index_user_status_login].phone
                       }" readonly="">
                   </div>
                   <div class="payment-information-info__form-group">
@@ -145,7 +145,7 @@ function updatePaymentInformation(userList, index_user_status_login, array_order
             </div>
             <div class="payment-information-info__block">
                 <h3 class="payment-information-info__sub-title">Phương thức thanh toán</h3>
-                <form action="" class="payment-information-info__form">
+                <form action="" class="payment-information-info__form purchase-method">
                 <div class="payment-information-info__form-group">
                     <input type="radio" name="pay" value="cod" id="cod" checked="" hidden="">
                     <label for="cod">
@@ -156,13 +156,13 @@ function updatePaymentInformation(userList, index_user_status_login, array_order
                 <div class="payment-information-info__form-group">
                     <input type="radio" name="pay" value="internet-banking" id="internet-banking" hidden="">
                     <label for="internet-banking">
-                    <i class="fa-solid fa-money-check-dollar"></i>
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
                     Thanh toán qua chuyển khoản
                     </label>
                 </div>
-                <div class="payment-information-info__form-group">
+                <div class="payment-information-info__form-group purchase-atm">
                     <input type="radio" name="pay" value="credit-card" id="credit-card" hidden="">
-                    <label for="credit-card">
+                    <label class="label-atm" for="credit-card">
                     <i class="fa-solid fa-credit-card"></i>Thanh toán qua thẻ
                     </label>
                 </div>
@@ -203,8 +203,105 @@ function updatePaymentInformation(userList, index_user_status_login, array_order
   let mainContent = document.getElementById("main-content");
   mainContent.innerHTML = paymentInformationFormToHTML.innerHTML;
 
+  // gán sự kiện cho hành động chọn địa điểm giao hàng
+  document.querySelector(".payment-information-info__change-location-action").onclick = (e) => {
+    e.preventDefault();
+    if(document.querySelector(".payment-information-info__change-location-list").style.display == "none"){
+      document.querySelector(".payment-information-info__change-location-list").style.display = "block";
+    }
+    else{
+      document.querySelector(".payment-information-info__change-location-list").style.display = "none";
+    }
+  };
+
+  let array_item = document.querySelectorAll(".payment-information-info__change-location-item");
+  array_item.forEach((obj) => {
+    obj.onclick = () => {
+      let input = document.querySelector(".payment-information-info__change-location-list input");
+      if(input){
+        input.remove();
+      }
+
+      let ele = document.createElement("input");
+      ele.type = "text";
+      ele.style.borderBottom = "1px solid #000";
+      ele.style.width = "100%";
+      ele.style.padding = "10px";
+
+      if(obj.textContent.trim() == "Nhập từ thông tin cá nhân"){
+        ele.value = userList[index_user_status_login].address;
+        ele.disabled = true;
+      }
+      document.querySelector(".payment-information-info__change-location-list").appendChild(ele);
+      
+    };
+  });
+
+  // gán sự kiện chọn thanh toán qua thẻ
+  document.querySelector("#credit-card").onclick = () => {
+    let form_purchase_method = document.querySelector(".purchase-method");
+    let array_input_text = form_purchase_method.querySelectorAll("input[type=text]");
+    if(array_input_text.length != 0){
+      array_input_text.forEach((obj) => {
+        obj.remove();
+      });
+    };
+
+    let ele_1 = document.createElement("input");
+    ele_1.type = "text";
+    ele_1.style.borderBottom = "1px solid #000";
+    ele_1.style.width = "100%";
+    ele_1.style.padding = "10px";
+    ele_1.style.margin = "10px 0px";
+    ele_1.disabled = true;
+    ele_1.value = userList[index_user_status_login].ma_the;
+
+    let ele_2 = document.createElement("input");
+    ele_2.type = "text";
+    ele_2.style.borderBottom = "1px solid #000";
+    ele_2.style.width = "100%";
+    ele_2.style.padding = "10px";
+    ele_2.style.margin = "5px 0px";
+    ele_2.disabled = true;
+    ele_2.value = userList[index_user_status_login].code_the;
+
+    let ele_3 = document.createElement("input");
+    ele_3.type = "text";
+    ele_3.style.borderBottom = "1px solid #000";
+    ele_3.style.width = "100%";
+    ele_3.style.padding = "10px";
+    ele_3.style.margin = "5px 0px";
+    ele_3.disabled = true;
+    ele_3.value = userList[index_user_status_login].bank;
+
+    document.querySelector(".purchase-atm").appendChild(ele_1);
+    document.querySelector(".purchase-atm").appendChild(ele_2);
+    document.querySelector(".purchase-atm").appendChild(ele_3);
+  };
+
+  // gán sự kiện khi chọn chuyển khoản
+  document.querySelector("#internet-banking").onclick = () => {
+    let form_purchase_method = document.querySelector(".purchase-method");
+    let array_input_text = form_purchase_method.querySelectorAll("input[type=text]");
+    if(array_input_text.length != 0){
+      array_input_text.forEach((obj) => {
+        obj.remove();
+      });
+    };
+  };
+
+  // gán sự kiện khi chọn tiền mặt
+  document.querySelector("#cod").onclick = () => {
+    let form_purchase_method = document.querySelector(".purchase-method");
+    let array_input_text = form_purchase_method.querySelectorAll("input[type=text]");
+    if(array_input_text.length != 0){
+      array_input_text.forEach((obj) => {
+        obj.remove();
+      });
+    };
+  };
   // Tạo sự kiện để người dùng có thể trở về trang Giỏ hàng
-  clickToComebackShoppingCart();
+  clickToComebackShoppingCart(userList, index_user_status_login);
 
   // Tạo sự kiện để người dùng nhấn "Hoàn tất" thông tin giao hàng để hiện thị Hoá đơn
   // getBillInfo(currentPage) // Hiệu tạm thời bỏ currentPage để xử lí bên admin
@@ -240,15 +337,16 @@ export function getPaymentInformationInfo() {
         array_shopping_cart__item.forEach((obj) => {
           //lấy id của sản phẩm
           let string_details = obj.querySelector(".shopping-cart__column .shopping-cart__details").textContent;
-          console.log(string_details);
+          
           // string_details là chuỗi gồm .../.../...
           let array_split = string_details.split("/");
           let id = array_split[0].trim(); // lấy chuỗi id sản phẩm và loại bỏ 2 khoảng trắng
           let category = array_split[1].trim();
           let price = array_split[2].trim();
-          console.log(price)
+
           price = price.replaceAll("đ","");
           price = price.replaceAll(".","");
+
           let quantity = obj.querySelector(".shopping-cart__quantity .shopping-cart__number").value; //lấy số lượng đặt hàng của mỗi sản phẩm 
           let name =  obj.querySelector(".shopping-cart__column .shopping-cart__name").textContent;
           let src = obj.querySelector("img").src;
@@ -260,7 +358,7 @@ export function getPaymentInformationInfo() {
             name: name,
             src: src
           }
-          console.log(data);
+         
           array_orderProduct.push(data); //mảng chứa những obj đơn hàng gồm id và quantity (giải quyết cho admin)
         });
 

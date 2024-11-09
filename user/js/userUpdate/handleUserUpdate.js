@@ -174,6 +174,8 @@ export function handle_sign_up(){
         id_user = Math.floor(Math.random() * 100) + 1;
     }
     var data_obj = {
+        full_info: false,
+        full_money: false,
         status_login: false,
         id: id_user,
         username: username.value,
@@ -184,9 +186,13 @@ export function handle_sign_up(){
         last_name: "null",
         phone: "null",
         address: "null",
-        stk: "null",
+        ma_the: "null",
+        code_the: "null",  
         bank: "null",
-        src: "null" 
+        purchase_method: "null",
+        src: null,
+        shoppingCart: [],
+        ordersHistory: []
     }
 
     //thêm vào mảng
@@ -279,34 +285,24 @@ export function handle_save_data_information(index_user_status_login, path_pictu
     });
     if(check){
         error_input(phone, "*Lỗi! Đã tồn tại số điện thoại");
-        path_picture_user = null;
+        path_picture_user.src = null;
         return false;
     }
     if(check_empty){
-        path_picture_user = null;
+        path_picture_user.src = null;
         return false;
     }
 
-    console.log(path_picture_user);
-
-    userList[index_user_status_login] = {
-        status_login: true,
-        id: userList[index_user_status_login].id,
-        username: userList[index_user_status_login].username,
-        password: userList[index_user_status_login].password,
-        email: userList[index_user_status_login].email,
-        remember_password: false,
-        first_name: first_name.value,
-        last_name: last_name.value,
-        phone: phone.value,
-        address: address.value,
-        stk: userList[index_user_status_login].stk,
-        bank: userList[index_user_status_login].bank,
-        src: path_picture_user.src
-    };
+    userList[index_user_status_login].first_name = first_name.value;
+    userList[index_user_status_login].last_name = last_name.value;
+    userList[index_user_status_login].email = email.value;
+    userList[index_user_status_login].phone = phone.value;
+    userList[index_user_status_login].address = address.value;
+    userList[index_user_status_login].src = path_picture_user.src;
+    userList[index_user_status_login].full_info = true;
 
     localStorage.setItem("userList", JSON.stringify(userList));
-    path_picture_user = null;
+    path_picture_user.src = null;
     return true;
 }
 
@@ -314,12 +310,14 @@ export function handle_save_data_information(index_user_status_login, path_pictu
 export function handle_save_data_money(index_user_status_login){
     let userList = JSON.parse(localStorage.getItem("userList"));
 
-    let stk = document.querySelector(".stk");
+    let ma_the = document.querySelector(".ma-the");
+    let code_the = document.querySelector(".code-the");
     let bank = document.querySelector(".bank");
 
     let check_empty = false;
-    if(stk.value == "" || bank.value == ""){
-        error_input(stk);
+    if(ma_the.value == "" || code_the.value == "" || bank.value == ""){
+        error_input(ma_the);
+        error_input(code_the);
         error_input(bank);
         check_empty = true;
     }
@@ -327,7 +325,7 @@ export function handle_save_data_money(index_user_status_login){
     let check = userList.some((obj, i) => {
         if(i != index_user_status_login){ //tránh trường hợp so sánh dữ liệu cũ
             if(bank.value == obj.bank) //trường hợp khác ngân hàng nhưng giống số tài khoản
-                return obj.phone === phone.value;
+                return obj.ma_the === ma_the.value;
         }
     });
 
@@ -339,23 +337,10 @@ export function handle_save_data_money(index_user_status_login){
         return false;
     }
 
-    console.log(stk.value);
-
-    userList[index_user_status_login] = {
-        status_login: true,
-        id: userList[index_user_status_login].id,
-        username: userList[index_user_status_login].username,
-        password: userList[index_user_status_login].password,
-        email: userList[index_user_status_login].email,
-        remember_password: false,
-        first_name: userList[index_user_status_login].first_name,
-        last_name: userList[index_user_status_login].last_name,
-        phone: userList[index_user_status_login].phone,
-        address: userList[index_user_status_login].address,
-        stk: stk.value,
-        bank: bank.value,
-        src: userList[index_user_status_login].src
-    };
+    userList[index_user_status_login].bank = bank.value;
+    userList[index_user_status_login].ma_the = ma_the.value;
+    userList[index_user_status_login].code_the = code_the.value;
+    userList[index_user_status_login].full_money = true;
 
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;

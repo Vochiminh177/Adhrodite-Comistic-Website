@@ -1,5 +1,4 @@
-
-import { usersList } from "../../../database/database.js";
+import { updateMainContent } from "./changeMainContent.js";
 import { handle_sign_up, handle_sign_in, handle_change_password, handle_save_data_information, handle_save_data_money} from "../userUpdate/handleUserUpdate.js";
 
 const formMap = {
@@ -215,7 +214,7 @@ export function sign_in() {
       document.querySelector("#password").value = "";
       document.querySelector("#remember-user-account").checked = false;
 
-      check_info_user.check = true; //trạng thái đăng nhập
+      // check_info_user.check = true; //trạng thái đăng nhập
     }
   }
 }
@@ -238,12 +237,16 @@ function sign_up() {
 export let check_info_user = { //nếu true thì đang ở trạng thái đăng nhập, click user-click thì hiện form infouser, export cho file userIconMenu....
   check: false
 };
-export function sign_out_user() {
-  check_info_user.check = false;
-
+export function sign_out_user(index_user_status_login) {
+  // check_info_user.check = false;
   document.querySelector(".info-user").remove();//xóa info-user
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  userList[index_user_status_login].status_login = false;
   create_notification_user("Đăng xuất thành công!");
   
+  localStorage.setItem("userList", JSON.stringify(userList));
+  updateMainContent("home");
+
 }
 
 //hàm đổi mật khẩu
@@ -299,12 +302,20 @@ export function change_password() {
 
 //hàm show menu profile
 export function show_menuUser() {
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  let index_user_status_login = -1;
+    userList.forEach((obj, index) => {
+      if(obj.status_login == true){
+        index_user_status_login = index;
+      }
+    });
+
   let check = document.querySelector(".info-user"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
   if (!check) {
     let infoUser = `
               <div class="container-info">
-                  <img src="./assets/images/acnecream-image-1.jpg" alt="img">
-                  <h2>Chào bạn !</h2>
+                  <img src=${userList[index_user_status_login].src} alt="img">
+                  <h2>Chào ${userList[index_user_status_login].username}!</h2>
                  
                   <a href="" class="info-profile">
                     <p>Hồ sơ</p>
@@ -330,7 +341,7 @@ export function show_menuUser() {
 
     document.querySelector(".sign-out-user").onclick = (e) => {
       e.preventDefault();
-      sign_out_user();
+      sign_out_user(index_user_status_login);
     };
     document.querySelector(".change-password-user").onclick = (e) => {
       e.preventDefault();
@@ -370,14 +381,14 @@ function render_form_profile(){
   <div class="form-profile-user">
         <div class="content-profile-user">
           <div class="left-content">
-            <img src="${userList[index_user_status_login].src}" alt="">
+            <img src=${userList[index_user_status_login].src} alt="">
             <h2>${userList[index_user_status_login].first_name + " " + userList[index_user_status_login].last_name}</h2>
             <hr>
             <div class="information info">
               <p>Tài khoản</p>
             </div>
             <div class="money info">
-              <p>Ví</p>
+              <p>Ngân hàng</p>
             </div>
           </div>
           <div class="right-content">
@@ -390,14 +401,21 @@ function render_form_profile(){
 }
 
 function handlePicture_user(path_picture_user){
-    console.log(123);
-    let inputPicture = document.querySelector(".picture-profile");
+  let inputPicture = document.querySelector(".picture-profile");
 
-    inputPicture.onchange = () => {
-        path_picture_user.src = URL.createObjectURL(inputPicture.files[0]);
-        console.log(path_picture_user.src);
-    };
+  inputPicture.onchange = () => {
+      const file = inputPicture.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+              path_picture_user.src = reader.result; // Hiển thị ảnh
+              localStorage.setItem("userImage", reader.result); // Lưu Base64 vào localStorage
+          };
+          reader.readAsDataURL(file); // Đọc file dưới dạng Base64
+      }
+  };
 }
+
 
 function show_profile_user(){
   let userList = JSON.parse(localStorage.getItem("userList"));
@@ -452,12 +470,13 @@ function show_profile_user(){
   }
 
   //nếu click ví
-  let index_user_login;
+  // let index_user_login;
   document.querySelector(".money").onclick = () => {
     let right_content = `
       <div class="two-input">
-        <input type="text" class="stk" placeholder="Nhập số tài khoản" value="${userList[index_user_status_login].stk}">
-        <input type="text" class="bank" placeholder="Nhập tên ngân hàng" value="${userList[index_user_status_login].bank}">
+        <input type="text" class="ma-the" placeholder="Nhập mã thẻ" value="${userList[index_user_status_login].ma_the}">
+        <input type="text" class="bank" placeholder="Nhập code 3 số cuối" value="${userList[index_user_status_login].code_the}">
+        <input type="text" class="code-the" placeholder="Nhập ngân hàng" value="${userList[index_user_status_login].bank}">
       </div>
       <div class="one-input-btn">
         <button class="save-money">Lưu thông tin</button>
