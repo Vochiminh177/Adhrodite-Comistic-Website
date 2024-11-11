@@ -7,6 +7,9 @@ export function clickToPopularMenus() {
   let array = document.querySelectorAll(".popular-menu__item");
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
+      // Kéo lên đầu trang mỗi lần chuyển trang
+      window.scrollTo(0, 0);
+
       // Thay đổi nội dung thành trang Sản phẩm
       mainContentDiv.innerHTML = mainContentMap["products"];
 
@@ -27,13 +30,13 @@ export function clickToPopularMenus() {
       filterProductsScript.className = "filter-products-script";
       document.body.appendChild(filterProductsScript);
 
+      // Tạo sự kiện cho các danh mục sản phẩm
+      getProductListInfo();
+
       // Tự động nhấn mục mà người dùng đã chọn
       let popularMenuKey =
         event.currentTarget.getAttribute("data-popular-menu");
       document.getElementById(`${popularMenuKey}-left-menu`).click();
-
-      // Tạo sự kiện cho các danh mục sản phẩm
-      getProductListInfo();
     });
   });
 }

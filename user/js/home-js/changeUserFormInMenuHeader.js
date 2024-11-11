@@ -1,5 +1,11 @@
 import { updateMainContent } from "./changeMainContent.js";
-import { handle_sign_up, handle_sign_in, handle_change_password, handle_save_data_information, handle_save_data_money} from "../userUpdate/handleUserUpdate.js";
+import {
+  handleSignUp,
+  handleSignIn,
+  handleChangePassword,
+  handleSaveDateInformation,
+  handleSaveDateMoney,
+} from "../userUpdate/handleUserUpdate.js";
 
 const formMap = {
   login: ` <form action="" autocomplete="off" class="header__user-form">
@@ -144,15 +150,12 @@ document
 
       //nếu là đăng ký thì xử lí đăng ký
       if (formKey == "register") {
-        sign_up();
-      }
-
-      else {
-        sign_in();
+        signUp();
+      } else {
+        signIn();
       }
     }
   });
-
 
 //hàm tạo thông báo
 export function create_notification_user(mess) {
@@ -170,13 +173,16 @@ export function create_notification_user(mess) {
   text.style.padding = "10px 50px";
   text.style.fontSize = "2rem";
   text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-  text.style.transition = "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
+  text.style.transition =
+    "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
   document.body.appendChild(text);
   setTimeout(() => {
-    document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
+    document.querySelector(".notification").style.transform =
+      "translate(-10%, 50%)";
   }, 10);
   setTimeout(() => {
-    document.querySelector(".notification").style.transform = "translate(100%, 50%)";
+    document.querySelector(".notification").style.transform =
+      "translate(100%, 50%)";
   }, 1000);
   //xóa khỏi dom
   setTimeout(() => {
@@ -185,18 +191,20 @@ export function create_notification_user(mess) {
 }
 
 // hàm đăng nhập
-export function sign_in() {
+export function signIn() {
   document.querySelector(".btn-signin").onclick = (e) => {
     e.preventDefault();
-    let result = handle_sign_in();
+    let result = handleSignIn();
 
     //nếu đăng nhập thành công
     if (result) {
       //tạo thông báo
       create_notification_user("Đăng nhập thành công!");
 
-      // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import 
-      const changeUserFormInMenuHeaderExistingScript = document.querySelector(".change-user-form-in-menu-header-script");
+      // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import
+      const changeUserFormInMenuHeaderExistingScript = document.querySelector(
+        ".change-user-form-in-menu-header-script"
+      );
       if (changeUserFormInMenuHeaderExistingScript) {
         changeUserFormInMenuHeaderExistingScript.remove();
       }
@@ -216,17 +224,17 @@ export function sign_in() {
 
       // check_info_user.check = true; //trạng thái đăng nhập
     }
-  }
+  };
 }
 
 //function đăng ký
-function sign_up() {
+function signUp() {
   document.querySelector(".btn-signup").onclick = (e) => {
     e.preventDefault();
-    let result = handle_sign_up();
+    let result = handleSignUp();
     if (result) {
       updateForm("login");
-      sign_in();
+      signIn();
       //tạo phần tử p (thông báo khi đăng ký thành công)
       create_notification_user("Đăng ký thành công!");
     }
@@ -234,23 +242,23 @@ function sign_up() {
 }
 
 //hàm đăng xuất
-export let check_info_user = { //nếu true thì đang ở trạng thái đăng nhập, click user-click thì hiện form infouser, export cho file userIconMenu....
-  check: false
+export let check_info_user = {
+  //nếu true thì đang ở trạng thái đăng nhập, click user-click thì hiện form infouser, export cho file userIconMenu....
+  check: false,
 };
-export function sign_out_user(index_user_status_login) {
+export function signOutUser(userStatusLoginIndex) {
   // check_info_user.check = false;
-  document.querySelector(".info-user").remove();//xóa info-user
+  document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
   let userList = JSON.parse(localStorage.getItem("userList"));
-  userList[index_user_status_login].status_login = false;
+  userList[userStatusLoginIndex].statusLogin = false;
   create_notification_user("Đăng xuất thành công!");
-  
+
   localStorage.setItem("userList", JSON.stringify(userList));
   updateMainContent("home");
-
 }
 
 //hàm đổi mật khẩu
-export function change_password() {
+export function changePassword() {
   let ele = document.createElement("div");
   ele.className = "container-change-password-user";
   ele.innerHTML = `
@@ -281,16 +289,18 @@ export function change_password() {
   };
 
   document.querySelector(".btn-save-change-password").onclick = () => {
-    let result = handle_change_password();
+    let result = handleChangePassword();
     create_notification_user("Đổi mật khẩu thành công!");
 
-    if(result){
+    if (result) {
       setTimeout(() => {
-        document.querySelector(".notification").style.transform = "translate(-10%, 50%)";
+        document.querySelector(".notification").style.transform =
+          "translate(-10%, 50%)";
       }, 10);
       //tắt dần
       setTimeout(() => {
-        document.querySelector(".notification").style.transform = "translate(100%, 50%)";
+        document.querySelector(".notification").style.transform =
+          "translate(100%, 50%)";
       }, 2000);
     }
     //xóa khỏi dom
@@ -301,78 +311,89 @@ export function change_password() {
 }
 
 //hàm show menu profile
-export function show_menuUser() {
+export function showUserMenu() {
   let userList = JSON.parse(localStorage.getItem("userList"));
-  let index_user_status_login = -1;
-    userList.forEach((obj, index) => {
-      if(obj.status_login == true){
-        index_user_status_login = index;
-      }
-    });
+  let userStatusLoginIndex = -1;
+  userList.forEach((obj, index) => {
+    if (obj.status_login == true) {
+      userStatusLoginIndex = index;
+    }
+  });
 
-  let check = document.querySelector(".info-user"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
+  let check = document.querySelector(".header__user-menu"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
   if (!check) {
     let infoUser = `
-              <div class="container-info">
-                  <img src=${userList[index_user_status_login].src} alt="img">
-                  <h2>Chào ${userList[index_user_status_login].username}!</h2>
-                 
-                  <a href="" class="info-profile">
-                    <p>Hồ sơ</p>
-                    
-                  </a>
-                  <a href="" class="change-password-user">
-                    <p>Đổi mật khẩu</p>
-                    
-                  </a>
-                  <a href="" class="sign-out-user">
-                    <p>Đăng xuất</p>
-                    
-                  </a>
-              </div>
+          <h2 class="header__user-title">
+            ${userList[userStatusLoginIndex].username}
+          </h2>
+          <div class="header__user-menu-actions">
+            <a href="" class="header__user-menu-action info">
+              <p>Hồ sơ</p>
+            </a>
+            <a href="" class="header__user-menu-action private-info">
+              <p>Thông tin cá nhân</p>
+            </a>
+            <a href="" class="header__user-menu-action bank-info">
+              <p>Thông tin ngân hàng</p>
+            </a>
+            <a href="" class="header__user-menu-action info">
+              <p>Lịch sử mua hàng</p>
+            </a>
+            <a href="" class="header__user-menu-action change-password">
+              <p>Đổi mật khẩu</p>
+            </a>
+            <a href="" class="header__user-menu-action sign-out">
+              <p>Đăng xuất</p>
+            </a>
+          </div>
         `;
     let info_user = document.createElement("div");
-    info_user.classList.add("info-user");
+    info_user.classList.add("header__user-menu");
     info_user.innerHTML = infoUser;
-    document.querySelector(".header__menu").appendChild(info_user);
+    document.querySelector(".header__user-icon").appendChild(info_user);
     setTimeout(() => {
       info_user.style.opacity = "1";
     }, 10);
 
-    document.querySelector(".sign-out-user").onclick = (e) => {
+    document.querySelector(".header__user-menu-action.info").onclick = (e) => {
       e.preventDefault();
-      sign_out_user(index_user_status_login);
+      showUserProfile();
     };
-    document.querySelector(".change-password-user").onclick = (e) => {
+    document.querySelector(
+      ".header__user-menu-action.change-password"
+    ).onclick = (e) => {
       e.preventDefault();
-      change_password();
+      changePassword();
     };
-    document.querySelector(".info-profile").onclick = (e) => {
+    document.querySelector(".header__user-menu-action.sign-out").onclick = (
+      e
+    ) => {
       e.preventDefault();
-      show_profile_user();
+      signOutUser(userStatusLoginIndex);
     };
 
     document.querySelector(".header__navbar").onclick = () => {
-      if(document.querySelector(".info-user")) document.querySelector(".info-user").remove();
-    }
+      if (document.querySelector(".header__user-menu"))
+        document.querySelector(".header__user-menu").remove();
+    };
   }
   //nếu click mà đang hiện form thì xóa form
   else {
-    document.querySelector(".info-user").remove(); //tắt info-user
+    document.querySelector(".header__user-menu").remove(); //tắt header__user-menu
   }
 }
 
 //hàm show profile
-function render_form_profile(){
+function render_form_profile() {
   let userList = JSON.parse(localStorage.getItem("userList"));
-  let index_user_status_login;
-    //vị trí user đang đăng nhập
-    userList.forEach((obj, index) => {
-      if(obj.status_login){
-        index_user_status_login = index;
-        return;
-      }
-    });
+  let userStatusLoginIndex;
+  //vị trí user đang đăng nhập
+  userList.forEach((obj, index) => {
+    if (obj.status_login) {
+      userStatusLoginIndex = index;
+      return;
+    }
+  });
 
   //tạo form hồ sơ
   let ele = document.createElement("div");
@@ -381,8 +402,12 @@ function render_form_profile(){
   <div class="form-profile-user">
         <div class="content-profile-user">
           <div class="left-content">
-            <img src=${userList[index_user_status_login].src} alt="">
-            <h2>${userList[index_user_status_login].first_name + " " + userList[index_user_status_login].last_name}</h2>
+            <img src=${userList[userStatusLoginIndex].src} alt="">
+            <h2>${
+              userList[userStatusLoginIndex].firstName +
+              " " +
+              userList[userStatusLoginIndex].lastName
+            }</h2>
             <hr>
             <div class="information info">
               <p>Tài khoản</p>
@@ -400,30 +425,29 @@ function render_form_profile(){
   document.body.appendChild(ele);
 }
 
-function handlePicture_user(path_picture_user){
+function handlePicture_user(path_picture_user) {
   let inputPicture = document.querySelector(".picture-profile");
 
   inputPicture.onchange = () => {
-      const file = inputPicture.files[0];
-      if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-              path_picture_user.src = reader.result; // Hiển thị ảnh
-              localStorage.setItem("userImage", reader.result); // Lưu Base64 vào localStorage
-          };
-          reader.readAsDataURL(file); // Đọc file dưới dạng Base64
-      }
+    const file = inputPicture.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        path_picture_user.src = reader.result; // Hiển thị ảnh
+        localStorage.setItem("userImage", reader.result); // Lưu Base64 vào localStorage
+      };
+      reader.readAsDataURL(file); // Đọc file dưới dạng Base64
+    }
   };
 }
 
-
-function show_profile_user(){
+function showUserProfile() {
   let userList = JSON.parse(localStorage.getItem("userList"));
-  let index_user_status_login;
+  let userStatusLoginIndex;
   //vị trí user đang đăng nhập
   userList.forEach((obj, index) => {
-    if(obj.status_login){
-      index_user_status_login = index;
+    if (obj.status_login) {
+      userStatusLoginIndex = index;
       return;
     }
   });
@@ -434,18 +458,18 @@ function show_profile_user(){
   document.querySelector(".information").onclick = () => {
     let right_content = `
       <div class="two-input">
-        <input type="text" class="first-name" placeholder="Nhập họ" value="${userList[index_user_status_login].first_name}">
-        <input type="text" class="last-name" placeholder="Nhập tên" value="${userList[index_user_status_login].last_name}">
+        <input type="text" class="first-name" placeholder="Nhập họ" value="${userList[userStatusLoginIndex].firstName}">
+        <input type="text" class="last-name" placeholder="Nhập tên" value="${userList[userStatusLoginIndex].lastName}">
       </div>
       <div class="two-input">
-        <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${userList[index_user_status_login].phone}">
+        <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${userList[userStatusLoginIndex].phone}">
         <input type="file" class="picture-profile" accept="image/*">
       </div>
       <div class="one-input">
-        <input type="text" class="address" placeholder="Nhập địa chỉ" value="${userList[index_user_status_login].address}">
+        <input type="text" class="address" placeholder="Nhập địa chỉ" value="${userList[userStatusLoginIndex].address}">
       </div>
       <div class="one-input">
-        <input type="text" class="email-info" placeholder="Nhập email" value="${userList[index_user_status_login].email}">
+        <input type="text" class="email-info" placeholder="Nhập email" value="${userList[userStatusLoginIndex].email}">
       </div>
       <div class="one-input-btn">
         <button class="save-information">Lưu thông tin</button>
@@ -454,29 +478,32 @@ function show_profile_user(){
     document.querySelector(".right-content").innerHTML = right_content;
 
     let path_picture_user = {
-      src: null
+      src: null,
     };
-    handlePicture_user(path_picture_user); //Hàm lấy hình ảnh để upload 
+    handlePicture_user(path_picture_user); //Hàm lấy hình ảnh để upload
 
     //nếu ấn nút lưu thông tin
     document.querySelector(".save-information").onclick = () => {
-      let result = handle_save_data_information(index_user_status_login, path_picture_user);
-      if(result){
+      let result = handleSaveDateInformation(
+        userStatusLoginIndex,
+        path_picture_user
+      );
+      if (result) {
         create_notification_user("Cập nhật thành công");
         document.querySelector(".container-profile-user").remove();
-        show_profile_user();
+        showUserProfile();
       }
     };
-  }
+  };
 
   //nếu click ví
   // let index_user_login;
   document.querySelector(".money").onclick = () => {
     let right_content = `
       <div class="two-input">
-        <input type="text" class="ma-the" placeholder="Nhập mã thẻ" value="${userList[index_user_status_login].ma_the}">
-        <input type="text" class="bank" placeholder="Nhập code 3 số cuối" value="${userList[index_user_status_login].code_the}">
-        <input type="text" class="code-the" placeholder="Nhập ngân hàng" value="${userList[index_user_status_login].bank}">
+        <input type="text" class="ma-the" placeholder="Nhập mã thẻ" value="${userList[userStatusLoginIndex].ma_the}">
+        <input type="text" class="bank" placeholder="Nhập code 3 số cuối" value="${userList[userStatusLoginIndex].code_the}">
+        <input type="text" class="code-the" placeholder="Nhập ngân hàng" value="${userList[userStatusLoginIndex].bank}">
       </div>
       <div class="one-input-btn">
         <button class="save-money">Lưu thông tin</button>
@@ -486,18 +513,18 @@ function show_profile_user(){
 
     //nếu ấn lưu ví
     document.querySelector(".save-money").onclick = () => {
-      let result = handle_save_data_money(index_user_status_login);
-      if(result){
+      let result = handleSaveDateMoney(userStatusLoginIndex);
+      if (result) {
         create_notification_user("Cập nhật ví thành công");
         document.querySelector(".container-profile-user").remove();
-        show_profile_user();
+        showUserProfile();
       }
     };
-  }
-  
+  };
+
   //ấn Dấu x xóa form
   document.querySelector(".content-profile-user a").onclick = (e) => {
     e.preventDefault();
     document.querySelector(".container-profile-user").remove();
-  }
+  };
 }

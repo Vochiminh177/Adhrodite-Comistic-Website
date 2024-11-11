@@ -1,7 +1,7 @@
 
-import { sign_in } from "./changeUserFormInMenuHeader.js";
+import { signIn } from "./changeUserFormInMenuHeader.js";
 import { check_info_user } from "./changeUserFormInMenuHeader.js";
-import { show_menuUser } from "./changeUserFormInMenuHeader.js";
+import { showUserMenu } from "./changeUserFormInMenuHeader.js";
 import { usersList } from "../../../database/database.js";
 
 
@@ -86,12 +86,12 @@ export function showUserFormInMenuHeader() {
         unShowUserFormInMenuHeader();
       }
 
-      sign_in();
+      signIn();
     }
 
     // hiển thị info-user
     else{
-      show_menuUser();
+      showUserMenu();
     }
   });
 }
