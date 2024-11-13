@@ -99,10 +99,10 @@ export let usersList = [
   {
     full_info: false,
     full_money: false,
-    status_login: false,
+    statusLogin: false,
     id: 1,
-    username: "user1",
-    password: "password1",
+    username: "123",
+    password: "123",
     email: "user1@example.com",
     remember_password: false,
     first_name: "Nguyễn",
@@ -140,12 +140,57 @@ export let usersList = [
         quantity: 1,
       },
     ],
-    ordersHistory: []
+    ordersHistory: [
+      {
+        orderId: 1,
+        orderDate: "01/01/2000",
+        orderProduct: [
+          {
+            id: "APh00002",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 200000,
+            quantity: 1,
+          },
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-2.jpg",
+            name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
+            category: "Sửa rửa mặt",
+            price: 150000,
+            quantity: 3,
+          }
+        ]
+      },
+      {
+        orderId: 2,
+        orderDate: "31/12/2024",
+        orderProduct: [
+          {
+            id: "APh00002",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 200000,
+            quantity: 3,
+          },
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-2.jpg",
+            name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
+            category: "Sửa rửa mặt",
+            price: 150000,
+            quantity: 9,
+          }
+        ]
+      }
+    ]
   },
   {
     full_info: false,
     full_money: false,
-    status_login: false,
+    statusLogin: false,
     id: 2,
     username: "user2",
     password: "password2",
@@ -166,7 +211,7 @@ export let usersList = [
   {
     full_info: false,
     full_money: false,
-    status_login: false,
+    statusLogin: false,
     id: 3,
     username: "user3",
     password: "password3",

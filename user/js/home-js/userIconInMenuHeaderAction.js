@@ -47,7 +47,7 @@ export function showUserFormInMenuHeader() {
     // lấy vị trí người đăng nhập và trạng thái đăng nhập để hiện form
     let index_user_status_login = -1;
     userList.forEach((obj, index) => {
-      if(obj.status_login == true){
+      if(obj.statusLogin == true){
         index_user_status_login = index;
       }
     });

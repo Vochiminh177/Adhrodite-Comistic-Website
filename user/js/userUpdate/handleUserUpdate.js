@@ -100,7 +100,7 @@ export function handleSignIn() {
     // có thì đăng nhập thành công
     userList.forEach((obj) => {
         if(username.value === obj.username){
-            obj.status_login = true;
+            obj.statusLogin = true;
             return;
         }
     });
@@ -176,7 +176,7 @@ export function handleSignUp(){
     var data_obj = {
         full_info: false,
         full_money: false,
-        status_login: false,
+        statusLogin: false,
         id: userID,
         username: username.value,
         password: password.value,
@@ -216,7 +216,7 @@ export function handleChangePassword(){
         checkEmpty = true;
     }
 
-    if(checkEmpty) return;
+    if(checkEmpty) return false;
 
     // lấy người có tên đăng nhập là username
     let check = null;
@@ -258,7 +258,7 @@ export function handleChangePassword(){
 }
 
 //hàm lưu thông tin người dùng
-export function handleSaveDateInformation(userStatusLoginIndex, pictureUserPath){
+export function handleSaveDateInformation(userStatusLoginIndex){
     let userList = JSON.parse(localStorage.getItem("userList"));
 
     let firstName = document.querySelector(".first-name");
@@ -296,50 +296,48 @@ export function handleSaveDateInformation(userStatusLoginIndex, pictureUserPath)
     userList[userStatusLoginIndex].email = email.value;
     userList[userStatusLoginIndex].phone = phone.value;
     userList[userStatusLoginIndex].address = address.value;
-    userList[userStatusLoginIndex].src = pictureUserPath.src;
     userList[userStatusLoginIndex].full_info = true;
 
     localStorage.setItem("userList", JSON.stringify(userList));
-    pictureUserPath.src = null;
     return true;
 }
 
 //hàm lưu ví người dùng
-export function handleSaveDateMoney(userStatusLoginIndex){
-    let userList = JSON.parse(localStorage.getItem("userList"));
+// export function handleSaveDateMoney(userStatusLoginIndex){
+//     let userList = JSON.parse(localStorage.getItem("userList"));
 
-    let ma_the = document.querySelector(".ma-the");
-    let code_the = document.querySelector(".code-the");
-    let bank = document.querySelector(".bank");
+//     let ma_the = document.querySelector(".ma-the");
+//     let code_the = document.querySelector(".code-the");
+//     let bank = document.querySelector(".bank");
 
-    let checkEmpty = false;
-    if(ma_the.value == "" || code_the.value == "" || bank.value == ""){
-        errorInput(ma_the);
-        errorInput(code_the);
-        errorInput(bank);
-        checkEmpty = true;
-    }
+//     let checkEmpty = false;
+//     if(ma_the.value == "" || code_the.value == "" || bank.value == ""){
+//         errorInput(ma_the);
+//         errorInput(code_the);
+//         errorInput(bank);
+//         checkEmpty = true;
+//     }
 
-    let check = userList.some((obj, i) => {
-        if(i != userStatusLoginIndex){ //tránh trường hợp so sánh dữ liệu cũ
-            if(bank.value == obj.bank) //trường hợp khác ngân hàng nhưng giống số tài khoản
-                return obj.ma_the === ma_the.value;
-        }
-    });
+//     let check = userList.some((obj, i) => {
+//         if(i != userStatusLoginIndex){ //tránh trường hợp so sánh dữ liệu cũ
+//             if(bank.value == obj.bank) //trường hợp khác ngân hàng nhưng giống số tài khoản
+//                 return obj.ma_the === ma_the.value;
+//         }
+//     });
 
-    if(check){
-        errorInput(stk, "*Lỗi! Đã tồn tại số tài khoản");
-        return false;
-    }
-    if(checkEmpty){
-        return false;
-    }
+//     if(check){
+//         errorInput(stk, "*Lỗi! Đã tồn tại số tài khoản");
+//         return false;
+//     }
+//     if(checkEmpty){
+//         return false;
+//     }
 
-    userList[userStatusLoginIndex].bank = bank.value;
-    userList[userStatusLoginIndex].ma_the = ma_the.value;
-    userList[userStatusLoginIndex].code_the = code_the.value;
-    userList[userStatusLoginIndex].full_money = true;
+//     userList[userStatusLoginIndex].bank = bank.value;
+//     userList[userStatusLoginIndex].ma_the = ma_the.value;
+//     userList[userStatusLoginIndex].code_the = code_the.value;
+//     userList[userStatusLoginIndex].full_money = true;
 
-    localStorage.setItem("userList", JSON.stringify(userList));
-    return true;
-}
+//     localStorage.setItem("userList", JSON.stringify(userList));
+//     return true;
+// }

@@ -11,8 +11,8 @@ if(userList.length == 0){
   userList = [...usersList];
 }
 userList.forEach((obj) => {
-  obj.status_login = false;
-});
+  obj.statusLogin = false;
+}); 
 localStorage.setItem("userList", JSON.stringify(userList));
 
 export const mainContentMap = {

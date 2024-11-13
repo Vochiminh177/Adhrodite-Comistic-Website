@@ -49,7 +49,7 @@ export function err_input(input, mess){
 }
 
 
-export function add_product(src){
+export function add_product(path_picture_admin){
     let productList = JSON.parse(localStorage.getItem("productList"));
 
     let name = document.querySelector(".name-add");
@@ -63,7 +63,7 @@ export function add_product(src){
 
     //Nếu input rỗng
     let check_empty = false;
-    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == "" || src == null || quantity.value ==""){
+    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value ==""){
         err_input(name);
         err_input(id);
         err_input(price);
@@ -71,7 +71,7 @@ export function add_product(src){
         err_input(category);
         err_input(description);
         err_input(quantity);
-        if(src == null){
+        if(path_picture_admin.src == null){
             err_input(file_picture);
         }
         check_empty = true;
@@ -110,7 +110,10 @@ export function add_product(src){
         return;
     }
 
-    if(check_empty) return;
+    if(check_empty){
+        path_picture_admin.src = null;
+        return;
+    }
 
     //nếu sản phẩm được thêm, tạo number sản phẩm
     let number = 1;
@@ -124,7 +127,7 @@ export function add_product(src){
     let data = {
         number: number,
         id: delete_space(id.value),
-        src: src,
+        src: path_picture_admin.src,
         name: delete_space(name.value),
         brand: delete_space(brand.value),
         category: delete_space(category.value),
@@ -159,7 +162,7 @@ export function delete_product(index, number) {
     return true;
 }
 
-export function edit_product(index, src) {
+export function edit_product(index, path_picture_admin) {
     let productList = JSON.parse(localStorage.getItem("productList"));
     let name = document.querySelector(".name-add");
     let price = document.querySelector(".price-add");
@@ -168,11 +171,11 @@ export function edit_product(index, src) {
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
     let quantity = document.querySelector(".quantity-add");
-    let file_picture = document.querySelector(".add-photo-button #file");
+    // let file_picture = document.querySelector(".add-photo-button #file");
 
     //Nếu input rỗng
     let check_empty = false;
-    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == "" || src == null || quantity.value == ""){
+    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value == ""){
         err_input(name);
         err_input(id);
         err_input(price);
@@ -181,10 +184,6 @@ export function edit_product(index, src) {
         err_input(description);
         err_input(src);
         err_input(quantity);
-        if(src == null){
-            console.log(file_picture)
-            // err_input(file_picture);
-        }
         check_empty = true;
     }
 
@@ -234,7 +233,7 @@ export function edit_product(index, src) {
     productList[index].brand = delete_space(brand.value)
     productList[index].description = delete_space(description.value);
     productList[index].id = delete_space(id.value);
-    productList[index].src = src;
+    productList[index].src = path_picture_admin.src;
     productList[index].quantity = quantity.value;
 
     localStorage.setItem("productList", JSON.stringify(productList));

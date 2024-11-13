@@ -3,7 +3,7 @@ import { getShoppingCartInfo } from "../home-js/getShoppingCart.js";
 import {create_notification_user} from "../home-js/changeUserFormInMenuHeader.js";
 
 // Hàm cập nhật lại style
-function updateStyleTags() {
+export function updateStyleTags() {
   // Xoá các thẻ style đã tồn tại từ trước đó
   removeAllStyleTags();
   // Đặt lại style cho navBarStyle
@@ -38,7 +38,7 @@ export function showShoppingCartFormInMenuHeader() {
       let userList = JSON.parse(localStorage.getItem("userList"));
       let index_user_status_login = -1;
       userList.forEach((obj, index) => {
-        if(obj.status_login){
+        if(obj.statusLogin){
           index_user_status_login = index;
           return;
         }
@@ -46,10 +46,6 @@ export function showShoppingCartFormInMenuHeader() {
 
       //trạng thái có đăng nhập 
       if(index_user_status_login > -1){
-        // Kéo lên đầu trang mỗi lần chuyển trang
-        window.scrollTo(0, 0);
-
-        // Cập nhật lại style khi người dùng ấn vào Giỏ hàng
         updateStyleTags();
 
         // Hiển thị thông tin sản phẩm của Giỏ hàng
