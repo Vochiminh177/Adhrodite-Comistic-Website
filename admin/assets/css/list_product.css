@@ -30,25 +30,6 @@
 }
 
 /* -----css phần list danh mục--- */
-.content-product-list table .id-list{
-    width: 10%;
-}
-.content-product-list table .name-list{
-    width: 35%;
-}
-.content-product-list table .brand-list{
-    width: 20%;
-}
-.content-product-list table .category-list{
-    width: 10%;
-    position: relative;
-}
-.content-product-list table .price-list{
-    width: 15%;
-}
-.content-product-list table .option-list{
-    width: 10%;
-}
 .form-category{
     background-color: #ccc;
     position: absolute;

@@ -2,134 +2,51 @@
 .err-text::placeholder {
   color: red;
 }
+/* //////////////// */
 
-.container-profile-user {
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0, 0, 0, 0.5);
+/* Css ấn thông tin cá nhân */
+.container-formInformation-user{
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   top: 0px;
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.form-profile-user {
+.form-user{
   background-color: #fff;
-  width: 1200px;
-  padding: 20px;
-  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.3);
-}
-
-.content-profile-user {
-  position: relative;
-  display: flex;
-}
-
-.left-content {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px 40px;
+  position: relative;
 }
-
-.left-content img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #a94064;
-  margin: 10px;
+.form-user .exit-form-information-user{
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
-
-.left-content h2 {
-  margin: 10px;
-  font-weight: 800;
-  font-size: 2.2rem;
-  color: #a94064;
-}
-
-.left-content hr {
-  background-color: #a94064;
-  height: 2px;
-  border: none;
-  margin: 10px;
+.form-user .two-input, .one-input{
   width: 100%;
-}
-
-.left-content .info {
-  width: 100%;
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   margin: 10px 0px;
 }
-
-.left-content p {
-  font-weight: 600;
-  font-size: 1.8rem;
-  color: #a94064;
-  width: 100%;
-  margin: 10px;
-}
-
-.left-content .info:hover {
-  background-color: #a94064;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.left-content .info:hover p {
-  color: #fff;
-}
-
-.right-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  /* border: 1px solid black; */
-  width: 70%;
-}
-
-.right-content div {
-  display: flex;
-  width: 100%;
-  margin: 20px 0px;
-}
-
-.right-content input {
-  width: 100%;
-  margin: 0px 50px;
+.two-input input{
+  width: 45%;
   padding: 10px;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
-  font-size: 1.6rem;
-  transition: background-color 0.3s ease-in-out;
-  color: #000;
-}
-
-.right-content input:hover {
   background-color: #ccc;
-  color: #a94064;
 }
-
-.right-content .one-input-btn {
-  /* border: 1px solid black; */
-  display: flex;
-  justify-content: center;
-}
-
-.right-content button {
-  background-color: #000;
-  font-size: 1.8rem;
-  color: #fff;
+.one-input input{
+  width: 100%;
   padding: 10px;
-  transition: background-color 0.3s ease-in-out;
-  outline: none;
-  border: none;
+  background-color: #ccc;
 }
 
-.right-content button:hover {
-  background-color: #fc8eac;
-}
+/* ------------------------------ */
 
 /* hiệu ---------css userform khi click .user-click hiện ra form profile-------------------*/
 /*---- css form user---- */

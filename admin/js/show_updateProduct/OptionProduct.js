@@ -2,7 +2,6 @@ import { productItemArray } from "../../../database/database.js"
 import { showMain } from "../script2.js";
 import {add_product, delete_product, edit_product} from "./handleUpdate_Product.js";
 
-var path_picture = null;
 
 //hàm tạo thông báo
 function create_notification_admin(mess) {
@@ -72,22 +71,26 @@ export function showListProduct() {
     //tạo danh sách sản phẩm từ mảng chèn vô bảng table
     let product = `
         <tr>
-            <th class="id-list">ID</th>
+            <th class="picture-list">Hình ảnh</th>
+            <th class="id-list">Mã</th>
             <th class="name-list">Tên</th>
             <th class="brand-list">Thương hiệu</th>
             <th class="category-list">Loại</th>
             <th class="price-list">Giá</th>
+            <th class="quantity-list">Số lượng</th>
             <th class="option-list">Tùy chỉnh</th>
         </tr>
     `;
     productList.forEach((ele) => {
         product += `
             <tr>
+                <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
                 <td id="id">${ele.id}</td>
                 <td id="name">${ele.name}</td>
                 <td id="brand">${ele.brand}</td>
                 <td id="category">${ele.category}</td>
                 <td id="price">${ele.price}</td>
+                <td id="quantity">${ele.quantity}</td>
                 <td>
                     <a href="" class="edit-product">Sửa</a>
                     <a href="" class="delete-product">Xóa</a>
@@ -102,7 +105,9 @@ export function showListProduct() {
     // filer_category();
 }
 
-
+var path_picture_admin = {
+    src: null
+};
 
 //đặt lại input về ban đầu, áp dụng cho add product
 function reset_input(){
@@ -154,17 +159,16 @@ function reset_input(){
     
     let picture = document.querySelector(".image-show");
     picture.innerHTML = ``;
-    path_picture = null;
+    path_picture_admin.src = null;
 }
 //Hàm lấy hình ảnh để upload - HIỆU
 function handlePicture_admin(){
-        let picture = document.querySelector(".image-show");
-        let inputPicture = document.querySelector(".add-photo-button #file");
-    
-        inputPicture.onchange = () => {
-            path_picture = URL.createObjectURL(inputPicture.files[0]);
-            picture.innerHTML = `<img src="${path_picture}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
-        };
+    let inputPicture = document.querySelector("#file");
+    inputPicture.onchange = () => {
+        path_picture_admin.src = inputPicture.files[0];
+        console.log(path_picture_admin.src);
+        document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+    };
 }
 
 //chức năng thêm sản phẩm của admin - HIẸU
@@ -172,18 +176,17 @@ export function addProduct(){
     //sự kiện click bên trong một sự kiện click
     let handle_click_btn_add_product = () => {
         showMain("main-content-product-add");
+        //xóa bỏ dữ liệu cũ trong input khi admin click (.btn-add-product)
+        reset_input();
         document.querySelector(".btn-add").textContent = "Thêm sản phẩm";
         handlePicture_admin();
 
-        //xóa bỏ dữ liệu cũ trong input khi admin click (.btn-add-product)
-        reset_input();
-
         //xử lí thêm sản phẩm trong data
         let handle_click_btn_add = () => {  
-            let result = add_product(path_picture);   
+            let result = add_product(path_picture_admin);   
             //nếu thêm sản phẩm thành công
             if(result){
-                path_picture = null;
+                path_picture_admin.src = null;
                 showMain("main-content-product-list");
                 showListProduct();
                 create_notification_admin("Thêm sản phẩm thành công!");
@@ -269,7 +272,7 @@ export function editProduct(){
             document.querySelector(".description-add").value = productList[index].desc;
             document.querySelector(".id-add").value = productList[index].id;
             document.querySelector(".quantity-add").value = productList[index].quantity;
-            path_picture = productList[index].src;
+            path_picture_admin.src = productList[index].src;
 
             let picture = document.querySelector(".image-show");
             let src_2 = productList[index].src;
@@ -278,9 +281,9 @@ export function editProduct(){
             handlePicture_admin();      
 
             let handle_click_btn_edit = () => {
-                let result = edit_product(index, path_picture);
+                let result = edit_product(index, path_picture_admin);
                 if(result){
-                    path_picture = null;
+                    path_picture_admin.src = null;
                     showMain("main-content-product-list");
                     showListProduct();
                     create_notification_admin("Sửa sản phẩm thành công!");

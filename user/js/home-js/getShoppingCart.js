@@ -169,11 +169,10 @@ function updateShoppingCartAfterActionsFromUser(userList, index_user_status_logi
 
 // Hàm tạo thông tin của Giỏ hàng bằng các thẻ html
 function updateShoppingCart() {
-  console.log(123);
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
   let index_user_status_login;
   userList.forEach((obj, index) => {
-    if(obj.status_login){
+    if(obj.statusLogin){
       index_user_status_login = index;
     }
   });
