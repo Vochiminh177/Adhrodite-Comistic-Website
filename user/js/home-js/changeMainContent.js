@@ -2,6 +2,7 @@ import { updateNavbarStyle } from "../common-js/common.js";
 import { clickToPopularMenus, clickToProductItem } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 import { usersList } from "../../../database/database.js";
+import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
 
 
 
@@ -102,218 +103,13 @@ export const mainContentMap = {
     <h2 class="popular-product__title heading-lv2">
       Các sản phẩm nổi bật
     </h2>
-    <div class="popular-product__list">
-      <div class="popular-product__item" data-popular-product="sua-rua-mat">
-        <figure class="popular-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="popular-product__image"
-          />
-        </figure>
-        <div class="popular-product__info">
-          <h3 class="popular-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-          <p class="popular-product__detail">
-            Danh mục: <b>Sửa rửa mặt</b>
-          </p>
-          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-          <button
-            href="javascript:void(0)"
-            class="popular-product__button"
-          >
-            Thêm&nbsp;giỏ&nbsp;hàng
-          </button>
-        </div>
-      </div>
-      <div class="popular-product__item" data-popular-product="toner">
-        <figure class="popular-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="popular-product__image"
-          />
-        </figure>
-        <div class="popular-product__info">
-          <h3 class="popular-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-          <p class="popular-product__detail">
-            Danh mục: <b>Sửa rửa mặt</b>
-          </p>
-          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
 
-          <button
-            href="javascript:void(0)"
-            class="popular-product__button"
-          >
-            Thêm&nbsp;giỏ&nbsp;hàng
-          </button>
-        </div>
-      </div>
-      <div class="popular-product__item" data-popular-product="serum">
-        <figure class="popular-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="popular-product__image"
-          />
-        </figure>
-        <div class="popular-product__info">
-          <h3 class="popular-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-          <p class="popular-product__detail">
-            Danh mục: <b>Sửa rửa mặt</b>
-          </p>
-          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-          <button
-            href="javascript:void(0)"
-            class="popular-product__button"
-          >
-            Thêm&nbsp;giỏ&nbsp;hàng
-          </button>
-        </div>
-      </div>
-      <div class="popular-product__item" data-popular-product="kem-duong-am">
-        <figure class="popular-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="popular-product__image"
-          />
-        </figure>
-        <div class="popular-product__info">
-          <h3 class="popular-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-          <p class="popular-product__detail">
-            Danh mục: <b>Sửa rửa mặt</b>
-          </p>
-          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-          <button
-            href="javascript:void(0)"
-            class="popular-product__button"
-          >
-            Thêm&nbsp;giỏ&nbsp;hàng
-          </button>
-        </div>
-      </div>
-      <div class="popular-product__item" data-popular-product="son">
-        <figure class="popular-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="popular-product__image"
-          />
-        </figure>
-        <div class="popular-product__info">
-          <h3 class="popular-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-          <p class="popular-product__detail">
-            Danh mục: <b>Sửa rửa mặt</b>
-          </p>
-          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-          <button
-            href="javascript:void(0)"
-            class="popular-product__button"
-          >
-            Thêm&nbsp;giỏ&nbsp;hàng
-          </button>
-        </div>
-      </div>
-      <div class="popular-product__item" data-popular-product="phan">
-        <figure class="popular-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="popular-product__image"
-          />
-        </figure>
-        <div class="popular-product__info">
-          <h3 class="popular-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="popular-product__detail">Hãng: <b>CeraVe</b></p>
-          <p class="popular-product__detail">
-            Danh mục: <b>Sửa rửa mặt</b>
-          </p>
-          <p class="popular-product__detail">Giá: <b>xxx.000đ</b></p>
-          <button
-            href="javascript:void(0)"
-            class="popular-product__button"
-          >
-            Thêm&nbsp;giỏ&nbsp;hàng
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="popular-product__list"></div>
+    
   <div class="home__sale-product">
     <h2 class="sale-product__title">Khuyến mãi</h2>
-    <div class="sale-product__list">
-      <div class="sale-product__item" data-popular-product="sua-rua-mat">
-        <figure class="sale-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="sale-product__image"
-          />
-        </figure>
-        <div class="sale-product__info">
-          <h3 class="sale-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="sale-product__price">
-            <b class="old">xxx.000đ</b>
-            <b class="new">xxx.000đ</b>
-          </p>
-        </div>
-      </div>
-      <div class="sale-product__item" data-popular-product="sua-rua-mat">
-        <figure class="sale-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="sale-product__image"
-          />
-        </figure>
-        <div class="sale-product__info">
-          <h3 class="sale-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="sale-product__price">
-            <b class="old">xxx.000đ</b>
-            <b class="new">xxx.000đ</b>
-          </p>
-        </div>
-      </div>
-      <div class="sale-product__item" data-popular-product="sua-rua-mat">
-        <figure class="sale-product__media">
-          <img
-            src="./assets/images/facewash-image-1.jpg "
-            alt=""
-            class="sale-product__image"
-          />
-        </figure>
-        <div class="sale-product__info">
-          <h3 class="sale-product__name">
-            Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu
-          </h3>
-          <p class="sale-product__price">
-            <b class="old">xxx.000đ</b>
-            <b class="new">xxx.000đ</b>
-          </p>
-        </div>
-      </div>
-    </div>
+
+    <div class="sale-product__list"></div>
   </div>
   <div class="home__useful">
     <div class="useful__media">
@@ -904,7 +700,8 @@ export function updateMainContent(mainContentKey) {
     if (mainContentKey === "home") {
       // Tạo sự kiện cho phép người dùng nhấn vào "Danh mục nổi bậc"
       clickToPopularMenus();
-
+      renderPopularProductList();
+      renderSalePopularProductList();
       // Tạo sự kiện cho phép người dùng nhấn vào "Sản phẩm nổi bật", "Khuyến mãi"
       clickToProductItem();
     }

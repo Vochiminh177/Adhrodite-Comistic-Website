@@ -93,7 +93,11 @@ export function clickToProductItem() {
 }
 
 // Thiết lập sự kiện khi người dùng nhấn vào "Danh mục nổi bật"
-clickToPopularMenus();
+
 
 // Thiết lập sự kiện khi người dùng nhấn vào một sản phẩm
-clickToProductItem();
+window.addEventListener('load', () => {
+  clickToPopularMenus();
+  clickToProductItem();
+
+});
