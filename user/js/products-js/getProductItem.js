@@ -100,7 +100,7 @@ function addProductItemToShoppingCart(productItemKey) {
 }
 
 // Hàm trở về trang chứa danh sách sản phẩm trước đó
-function clickToComebackProductList() {
+function clickToComebackProductList(productCategory) {
   document
     .querySelector(".main-order__comeback-button")
     .addEventListener("click", function () {
@@ -108,7 +108,7 @@ function clickToComebackProductList() {
       window.scrollTo(0, 0);
 
       // Trở về phần Danh sách sản phẩm
-      comebackProductList();
+      comebackProductList(productCategory);
     });
 }
 
@@ -233,7 +233,7 @@ export function updateProductItem(productItemKey) {
     addProductItemToShoppingCart(productItemKey);
 
     // Khi người dùng nhấn nút "Quay lại"
-    clickToComebackProductList();
+    clickToComebackProductList(productItemArray[productItemKey].categoryID);
   }
 }
 

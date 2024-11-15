@@ -169,6 +169,64 @@
 .body__products [type="radio"]:checked + label::after {
   background: #fc8eac;
 }
+.body__products [type="checkbox"]:checked + label {
+  border-color: #fc8eac;
+}
+/*double slider*/
+.body__products .left-search-filter__item .left-search-filter__double-slider{
+  visibility: hidden;
+  position: relative;
+  width: 100%;
+  height: 7px;
+  margin-top: 15px;
+}
+.body__products .left-search-filter__item .grey-bar{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+  border-radius: 3px;
+}
+.body__products .left-search-filter__item .range-bar{
+  position: absolute;
+  height: 6px;
+  top: 0px;
+  background-color: green;
+  border-radius: 3px;
+}
+.body__products .left-search-filter__item .thumb{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: green;
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.body__products .left-search-filter__custom-price-button{
+  width: 100%;
+  margin: 0 auto;
+  color: lightblue;
+}
+.body__products .left-search-filter__custom-price-button:hover{
+  color: blue;
+}
+.body__products .left-search-filter__item .price-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+.body__products .left-search-filter__item input{
+  margin-top: 5px;
+  width: 95px;
+  border: 1px solid black;
+  text-align: center;
+}
+.body__products .left-search-filter__item span{
+  align-self: center;
+}
 .body__products .left-search-filter__button {
   background: #000;
   width: 128px;

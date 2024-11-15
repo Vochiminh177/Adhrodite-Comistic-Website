@@ -63,3 +63,11 @@ export function calTotalProductItemPriceInShoppingCart(userList, index_user_stat
   });
   return totalPrice;
 }
+
+export function replaceSpaceWithHyphen(str){
+  str = str.trim();
+  str = str.toLowerCase();
+  str = str.replace(/\s+/g, '-');
+  console.log(str);
+  return str;
+}

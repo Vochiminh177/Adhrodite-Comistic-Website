@@ -3,7 +3,7 @@ import { clickToPopularMenus, clickToProductItem } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 import { usersList } from "../../../database/database.js";
 import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
-
+import { generateFilter } from "../products-js/generateFilter.js";
 
 
 //reset trạng thái không đăng nhập
@@ -240,7 +240,7 @@ export const mainContentMap = {
                 </a>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
-                  <form autocomple="off" class="left-search-filter__form">
+                  <form name="left-search-filter__form" autocomple="off" class="left-search-filter__form">
                     <div class="left-search-filter__form-group">
                       <h4 class="left-search-filter__sub-title">Hãng</h4>
                       <div class="left-search-filter__brands">
@@ -405,20 +405,10 @@ export const mainContentMap = {
                               name="sort"
                               type="radio"
                               id="sort-1"
-                              value="sort-1"
+                              value="price-desc"
                               hidden
                             />
-                            <label for="sort-1">Sắp xếp theo tên</label>
-                          </div>
-                          <div class="left-search-filter__item">
-                            <input
-                              name="sort"
-                              type="radio"
-                              id="sort-2"
-                              value="sort-2"
-                              hidden
-                            />
-                            <label for="sort-2"
+                            <label for="sort-1"
                               >Sắp xếp theo giá giảm dần</label
                             >
                           </div>
@@ -426,11 +416,11 @@ export const mainContentMap = {
                             <input
                               name="sort"
                               type="radio"
-                              id="sort-3"
-                              value="sort-3"
+                              id="sort-2"
+                              value="price-asc"
                               hidden
                             />
-                            <label for="sort-3"
+                            <label for="sort-2"
                               >Sắp xếp theo giá tăng dần</label
                             >
                           </div>
@@ -444,7 +434,7 @@ export const mainContentMap = {
                               name="price"
                               type="radio"
                               id="price-1"
-                              value="price-1"
+                              value="0-199999"
                               hidden
                             />
                             <label for="price-1">Giá dưới 200.000đ</label>
@@ -454,7 +444,7 @@ export const mainContentMap = {
                               name="price"
                               type="radio"
                               id="price-2"
-                              value="price-2"
+                              value="200000-400000"
                               hidden
                             />
                             <label for="price-2"
@@ -466,10 +456,24 @@ export const mainContentMap = {
                               name="price"
                               type="radio"
                               id="price-3"
-                              value="price-3"
+                              value="400001-INF"
                               hidden
                             />
                             <label for="price-3">Giá trên 400.000đ</label>
+                          </div>
+                          <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">Hoặc chọn mức giá tuỳ ý</button>
+                          <div class="left-search-filter__item">
+                            <div class="left-search-filter__double-slider" id="double-slider">
+                              <div class="grey-bar"></div>
+                              <div class="range-bar" id="range-bar"></div>
+                              <div class="thumb" id="min-thumb"></div>
+                              <div class="thumb" id="max-thumb"></div>
+                              <div class="price-container" id="price-container">
+                                <input name="minPrice" class="min-price" id="min-price">
+                                <span>-</span>
+                                <input name="maxPrice" class="max-price" id="max-price">
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -517,11 +521,13 @@ export const mainContentMap = {
                           type="submit"
                           class="left-search-filter__button"
                           value="Áp dụng"
+                          id="left-search-filter__apply"
                         />
                         <input
-                          type="button"
+                          type="reset"
                           class="left-search-filter__button"
                           value="Đặt lại"
+                          id="left-search-filter__reset"
                         />
                       </div>
                     </div>
@@ -708,20 +714,8 @@ export function updateMainContent(mainContentKey) {
 
     // Nếu nội dung thay đổi là trang Sản phẩm
     if (mainContentKey === "products") {
-      // Kiểm tra filterProductsScript có tồn tại hay không và xoá đi
-      const filterProductsExistingScript = document.querySelector(
-        ".filter-products-script"
-      );
-      if (filterProductsExistingScript) {
-        filterProductsExistingScript.remove();
-      }
-
-      // Hiện thị menu lọc sản phẩm theo các tiêu chí
-      const filterProductsScript = document.createElement("script");
-      filterProductsScript.src = "./js/products-js/showFilterProducts.js";
-      filterProductsScript.className = "filter-products-script";
-      document.body.appendChild(filterProductsScript);
-
+      // Tạo sự kiện cho bộ lọc
+      generateFilter();
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
       // Tự động nhấn mục "Tất cả"
