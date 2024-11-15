@@ -159,8 +159,8 @@ function updateShoppingCartAfterActionsFromUser(userList, index_user_status_logi
       if(obj_input.getAttribute("data-shopping-cart-item-action") == "input"){ //nếu điền trực tiếp số lượng input
         obj_input.onchange = () => {
           userList[index_user_status_login].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value;
-          updateShoppingCart();
           localStorage.setItem("userList", JSON.stringify(userList));
+          updateShoppingCart();
         }
       }
     });  

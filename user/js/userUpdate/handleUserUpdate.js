@@ -341,3 +341,4 @@ export function handleSaveDateInformation(userStatusLoginIndex){
 //     localStorage.setItem("userList", JSON.stringify(userList));
 //     return true;
 // }
+

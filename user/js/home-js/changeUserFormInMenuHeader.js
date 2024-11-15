@@ -347,21 +347,21 @@ function handle_showInformation(userList, userStatusLoginIndex){
 }
 
 //hàm lịch sử mua hàng
-function orderHistory() {
-  document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
+function showOrderHistory() {
+  if(document.querySelector(".header__user-menu")) document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
-  let index_user_status_login;
+  let indexUserStatusLogin;
   userList.forEach((obj, index) => {
     if(obj.statusLogin){
-      index_user_status_login = index;
+      indexUserStatusLogin = index;
     }
   });
 
   // Hàm tạo một orderHistoryItem
-  function createOrderHistoryItemWithHtml(listDiv, i, indexInArray) {
+  function createOrderHistoryItemWithHtml(ele, i, indexInArray) {
     // Figure - OrderHistory Image
     let imageImg = document.createElement("img");
-    imageImg.src = `${userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].src}`;
+    imageImg.src = `${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].src}`;
     imageImg.alt = "";
     imageImg.className = "shopping-cart__image ";
     let figure = document.createElement("figure");
@@ -370,13 +370,13 @@ function orderHistory() {
     // ordersHistory Name - ordersHistory Details
     let nameH3 = document.createElement("h3");
     nameH3.className = "shopping-cart__name";
-    nameH3.textContent = `${userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].name}`;
+    nameH3.textContent = `${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].name}`;
     let detailsP = document.createElement("p");
     detailsP.className = "shopping-cart__details";
     detailsP.textContent = `
-        ${userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].id} /
-        ${userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].category} /
-        ${formatVietNamMoney(userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].price)}đ
+        ${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].id} /
+        ${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].category} /
+        ${formatVietNamMoney(userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].price)}đ
       `;
     // Shopping-Cart Column
     let columnDiv = document.createElement("div");
@@ -384,33 +384,26 @@ function orderHistory() {
     columnDiv.appendChild(nameH3);
     columnDiv.appendChild(detailsP);
 
-    // Shopping-Cart Operator (Increment/Decrement) - Shopping-Cart Quantity
-    // let incrementA = document.createElement("a");
-    // incrementA.href = "#!";
-    // incrementA.className = "shopping-cart__operator";
-    // incrementA.setAttribute("data-shopping-cart-item-action", "increment");
-    // incrementA.textContent = "+";
+    //Shopping-Cart Quantity
     let numberInput = document.createElement("input");
     numberInput.disabled = "true";
     numberInput.type = "number";
     numberInput.className = "shopping-cart__number remove-arrow";
     numberInput.setAttribute(
       "value",
-      `${userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].quantity}`
+      `${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].quantity}`
     );
 
     let quantityDiv = document.createElement("div");
     quantityDiv.className = "shopping-cart__quantity";
-    // quantityDiv.appendChild(incrementA);
     quantityDiv.appendChild(numberInput);
-    // quantityDiv.appendChild(decrementA);
 
     // Shopping-Cart Product Total Price
     let productTotalPriceP = document.createElement("p");
     productTotalPriceP.className = "shopping-cart__product-total-price";
     productTotalPriceP.innerHTML = `${formatVietNamMoney(
-      userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].price *
-      userList[index_user_status_login].ordersHistory[i].orderProduct[indexInArray].quantity
+      userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].price *
+      userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].quantity
     )}<u>đ</u>`;
 
     // Shopping-Cart Trash
@@ -432,7 +425,7 @@ function orderHistory() {
     itemDiv.appendChild(productTotalPriceP);
     itemDiv.appendChild(trashA);
 
-    listDiv.appendChild(itemDiv);
+    ele.appendChild(itemDiv);
 
     
   }
@@ -448,55 +441,25 @@ function orderHistory() {
 
   /* Shopping-Cart Item / Shopping-Cart Inform (tuỳ thuộc vào số lượng
     sản phẩm trong mảng currentProductItemAdded) */
-  if (userList[index_user_status_login].ordersHistory.length >= 1) {
-    const ordersHistoryLength = userList[index_user_status_login].ordersHistory.length;
+  if (userList[indexUserStatusLogin].ordersHistory.length >= 1) {
+    const ordersHistoryLength = userList[indexUserStatusLogin].ordersHistory.length;
     // Shopping-Cart Item
     for (let i = 0; i < ordersHistoryLength; i++) {
-
       let ele = document.createElement("div");
       ele.className = "order-date";
       let orderDate = document.createElement("p");
-      orderDate.textContent = userList[index_user_status_login].ordersHistory[i].orderDate;
-
+      orderDate.textContent = userList[indexUserStatusLogin].ordersHistory[i].orderDate;
       ele.appendChild(orderDate);
-      listDiv.appendChild(ele);
-
-      let ele_div = document.createElement("div");
-      ele_div.classList = "item-dive";
-
-      userList[index_user_status_login].ordersHistory[i].orderProduct.forEach((obj, index) => {
-        createOrderHistoryItemWithHtml(listDiv, i, index);
-      
-          
+      userList[indexUserStatusLogin].ordersHistory[i].orderProduct.forEach((obj, index) => {
+        createOrderHistoryItemWithHtml(ele, i, index);
       });
-      
-      
-      
-      // setTimeout(() => {
-      //   let trash = document.querySelectorAll(".shopping-cart__trash");
-      //   trash[index].onclick = () => {
-      //     userList[index_user_status_login].orderHistory[i].orderProduct.splice(index, 1);
-      //     localStorage.setItem("userList", JSON.stringify(userList));
-      //     orderHistory();
-      //   };
-      // }, 10);
-      
+      listDiv.appendChild(ele);
     }
-    setTimeout(() => {
-      let arrayItem = document.querySelectorAll(".shopping-cart__item");
-      for (let indexTimeOrderHistory = 0; indexTimeOrderHistory < ordersHistoryLength; indexTimeOrderHistory++) {
-        arrayItem.forEach((obj) => {  
-          let index = parseInt(obj.getAttribute("data-shopping-cart-item")) - 1;
-          obj.querySelector(".shopping-cart__trash").onclick = () => {
-            // userList[index_user_status_login].orderHistory[i].orderProduct.splice(index, 1);
-            // localStorage.setItem("userList", JSON.stringify(userList));
-            // orderHistory();
-            console.log(indexTimeOrderHistory);
-            console.log(index);
-          }
-        });
-      }
-    }, 10);
+
+   setTimeout(() => {
+    deleteProductInOrderHistory(userList, indexUserStatusLogin)
+   }, 10);
+
     
 
   } else {
@@ -610,7 +573,7 @@ export function showUserMenu() {
       // Kéo lên đầu trang mỗi lần chuyển trang
       window.scrollTo(0, 0);
 
-      orderHistory();
+      showOrderHistory();
     };
   }
   //nếu click mà đang hiện form thì xóa form
@@ -619,149 +582,22 @@ export function showUserMenu() {
   }
 }
 
-// //hàm show profile
-// function render_form_profile() {
-//   let userList = JSON.parse(localStorage.getItem("userList"));
-//   let userStatusLoginIndex;
-//   //vị trí user đang đăng nhập
-//   userList.forEach((obj, index) => {
-//     if (obj.status_login) {
-//       userStatusLoginIndex = index;
-//       return;
-//     }
-//   });
-
-//   //tạo form hồ sơ
-//   let ele = document.createElement("div");
-//   ele.className = "container-profile-user";
-//   ele.innerHTML = `
-//   <div class="form-profile-user">
-//         <div class="content-profile-user">
-//           <div class="left-content">
-//             <img src=${userList[userStatusLoginIndex].src} alt="">
-//             <h2>${
-//               userList[userStatusLoginIndex].firstName +
-//               " " +
-//               userList[userStatusLoginIndex].lastName
-//             }</h2>
-//             <hr>
-//             <div class="information info">
-//               <p>Tài khoản</p>
-//             </div>
-//             <div class="money info">
-//               <p>Ngân hàng</p>
-//             </div>
-//           </div>
-//           <div class="right-content">
-//           </div>
-//           <a href="">X<a>
-//         </div>
-//       </div>
-//   `;
-//   document.body.appendChild(ele);
-// }
-
-// function handlePicture_user(path_picture_user) {
-//   let inputPicture = document.querySelector(".picture-profile");
-
-//   inputPicture.onchange = () => {
-//     const file = inputPicture.files[0];
-//     if (file) {
-//       const reader = new FileReader();
-//       reader.onload = () => {
-//         path_picture_user.src = reader.result; // Hiển thị ảnh
-//         localStorage.setItem("userImage", reader.result); // Lưu Base64 vào localStorage
-//       };
-//       reader.readAsDataURL(file); // Đọc file dưới dạng Base64
-//     }
-//   };
-// }
-
-// function showUserProfile() {
-//   let userList = JSON.parse(localStorage.getItem("userList"));
-//   let userStatusLoginIndex;
-//   //vị trí user đang đăng nhập
-//   userList.forEach((obj, index) => {
-//     if (obj.status_login) {
-//       userStatusLoginIndex = index;
-//       return;
-//     }
-//   });
-
-  // render_form_profile();
-
-  //nếu click tài khoản
-  // document.querySelector(".information").onclick = () => {
-  //   let form_information_user = `
-  //     <div class="container-form-user">
-  //         <div class="form-user">
-  //           <div class="two-input">
-  //             <input type="text" class="first-name" placeholder="Nhập họ" value="${userList[userStatusLoginIndex].firstName}">
-  //             <input type="text" class="last-name" placeholder="Nhập tên" value="${userList[userStatusLoginIndex].lastName}">
-  //           </div>
-  //           <div class="two-input">
-  //             <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${userList[userStatusLoginIndex].phone}">
-  //             <input type="file" class="picture-profile" accept="image/*">
-  //           </div>
-  //           <div class="one-input">
-  //             <input type="text" class="address" placeholder="Nhập địa chỉ" value="${userList[userStatusLoginIndex].address}">
-  //           </div>
-  //           <div class="one-input">
-  //             <input type="text" class="email-info" placeholder="Nhập email" value="${userList[userStatusLoginIndex].email}">
-  //           </div>
-  //           <div class="one-input-btn">
-  //             <button class="save-information">Lưu thông tin</button>
-  //           </div>
-  //         </div>
-  //     </div>
-  //     `;
-  //   document.body.appendChild(form_information_user);
-
-  //   let path_picture_user = {
-  //     src: null,
-  //   };
-  //   handlePicture_user(path_picture_user); //Hàm lấy hình ảnh để upload
-
-  //   //nếu ấn nút lưu thông tin
-  //   document.querySelector(".save-information").onclick = () => {
-  //     let result = handleSaveDateInformation(
-  //       userStatusLoginIndex,
-  //       path_picture_user
-  //     );
-  //     if (result) {
-  //       create_notification_user("Cập nhật thành công");
-  //       document.querySelector(".container-profile-user").remove();
-  //       showUserProfile();
-  //     }
-  //   };
-  // };
-
-  //nếu click ví
-  // let index_user_login;
-  // document.querySelector(".money").onclick = () => {
-  //   let right_content = `
-  //     <div class="two-input">
-  //       <input type="text" class="ma-the" placeholder="Nhập mã thẻ" value="${userList[userStatusLoginIndex].ma_the}">
-  //       <input type="text" class="bank" placeholder="Nhập code 3 số cuối" value="${userList[userStatusLoginIndex].code_the}">
-  //       <input type="text" class="code-the" placeholder="Nhập ngân hàng" value="${userList[userStatusLoginIndex].bank}">
-  //     </div>
-  //     <div class="one-input-btn">
-  //       <button class="save-money">Lưu thông tin</button>
-  //     </div> 
-  //   `;
-  //   document.querySelector(".right-content").innerHTML = right_content;
-
-  //   //nếu ấn lưu ví
-  //   document.querySelector(".save-money").onclick = () => {
-  //     let result = handleSaveDateMoney(userStatusLoginIndex);
-  //     if (result) {
-  //       create_notification_user("Cập nhật ví thành công");
-  //       document.querySelector(".container-profile-user").remove();
-  //       showUserProfile();
-  //     }
-  //   };
-  // };
-
-
-
-
+//hàm xóa bỏ sản phẩm đã đặt hàng của user
+function deleteProductInOrderHistory(userList, indexUserStatusLogin){
+  let arrayOrderDateDiv = document.querySelectorAll(".order-date");
+  console.log(arrayOrderDateDiv)
+  arrayOrderDateDiv.forEach((objOrderDateDiv, indexOrderDateDiv) => {
+    let arrayItemDiv = objOrderDateDiv.querySelectorAll(".shopping-cart__item");
+    console.log(arrayItemDiv)
+    arrayItemDiv.forEach((objItemDiv, indexItemDiv) => {
+      objItemDiv.querySelector("button").onclick = () => {
+        userList[indexUserStatusLogin].ordersHistory[indexOrderDateDiv].orderProduct.splice(indexItemDiv, 1); // xóa sản phẩm đã chọn
+        if(userList[indexUserStatusLogin].ordersHistory[indexOrderDateDiv].orderProduct.length == 0){ //nếu xóa hết sản phẩm của lần mua đó thì xóa lần mua đó
+          userList[indexUserStatusLogin].ordersHistory.splice(indexOrderDateDiv, 1);
+        }
+        localStorage.setItem("userList", JSON.stringify(userList));
+        showOrderHistory(); //gọi lại hàm để in ra
+      };
+    });
+  });
+}
