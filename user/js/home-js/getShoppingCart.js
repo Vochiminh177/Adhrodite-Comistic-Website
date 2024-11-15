@@ -6,8 +6,8 @@ import { productItemAddedToShoppingCart} from "../../../database/database.js";
 import { getPaymentInformationInfo } from "./getPaymentInformation.js";
 
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn
-export function comebackShoppingCart(userList, index_user_status_login) {
-  updateShoppingCart(userList, index_user_status_login);
+export function comebackShoppingCart(userList, userStatusLoginIndex) {
+  updateShoppingCart(userList, userStatusLoginIndex);
 }
 
 // Hàm cập nhật các sản phẩm đã được thêm vào Giỏ hàng trong mảng (loại bỏ {})
@@ -21,9 +21,9 @@ function updateProductItemAddedInArray() {
 }
 
 // Hàm cập nhật thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
-// function updateShoppingCartAfterActionsFromUser(userList, index_user_status_login) {
+// function updateShoppingCartAfterActionsFromUser(userList, userStatusLoginIndex) {
 //   // Biến chỉ số lượng sản phẩm ban đầu trong Giỏ hàng
-//   let numbersOfProductItem = userList[index_user_status_login].shoppingCart.length;
+//   let numbersOfProductItem = userList[userStatusLoginIndex].shoppingCart.length;
 //   // Biến chỉ số lượng sản phẩm đã được xoá trong Giỏ hàng
 //   let numbersOfProductItemRemoved = 0;
 
@@ -51,11 +51,11 @@ function updateProductItemAddedInArray() {
 //         // Nếu từ khoá là "trash" (xoá sản phẩm khỏi Giỏ hàng)
 //         if (shoppingCartItemActionKey === "trash") {
 //           // Loại bỏ sản phẩm khỏi currentProductItemAdded
-//           // userList[index_user_status_login].shoppingCart.splice(productItemKey - 1, 1, {});
-//           userList[index_user_status_login].shoppingCart.splice(productItemKey - 1, 1);
+//           // userList[userStatusLoginIndex].shoppingCart.splice(productItemKey - 1, 1, {});
+//           userList[userStatusLoginIndex].shoppingCart.splice(productItemKey - 1, 1);
 //           productItem.remove();
 //           numbersOfProductItemRemoved++;
-//           console.log(userList[index_user_status_login].shoppingCart);
+//           console.log(userList[userStatusLoginIndex].shoppingCart);
 //         }
 //         // Nếu từ khoá là "increment" / "decrement"
 //         else {
@@ -75,9 +75,9 @@ function updateProductItemAddedInArray() {
 //             currentNumber.addEventListener("change", function () {
 //               if (currentNumber.value <= 0) {
 //                 // window.alert("Không cho phép nhập sản phẩm dưới 1");
-//                 userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity = 1;
+//                 userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].quantity = 1;
 //               } else {
-//                 userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity = parseInt(
+//                 userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].quantity = parseInt(
 //                   currentNumber.value
 //                 );
 //               }
@@ -88,30 +88,30 @@ function updateProductItemAddedInArray() {
 //             shoppingCartItemActionKey === "increment" &&
 //             parseInt(currentNumber.value) >= 1
 //           ) {
-//             userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity++;
+//             userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].quantity++;
 //           }
 //           // Nếu từ khoá là "decrement" (giảm sản phẩm)
 //           else if (
 //             shoppingCartItemActionKey === "decrement" &&
 //             parseInt(currentNumber.value) >= 2
 //           ) {
-//             userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity--;
+//             userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].quantity--;
 //           }
 //           // Gán lại số lượng sản phẩm được thêm vào Giỏ hàng
 //           currentNumber.value = `${
-//             userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity
+//             userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].quantity
 //           }`;
 //           // Tính lại tổng số tiền cho một sản phẩm
 //           currentProductTotalPrice.innerHTML = `${formatVietNamMoney(
-//             userList[index_user_status_login].shoppingCart[productItemKey - 1].price *
-//               userList[index_user_status_login].shoppingCart[productItemKey - 1].quantity
+//             userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].price *
+//               userList[userStatusLoginIndex].shoppingCart[productItemKey - 1].quantity
 //           )}<u>đ</u>`;
 //         }
 
 //         // Biến chỉ giá tiền của tổng sản phẩm trong giỏ hàng
 //         let totalPrice = document.querySelector(".shopping-cart__total-price");
 //         totalPrice.innerHTML = `${formatVietNamMoney(
-//           calTotalProductItemPriceInShoppingCart(userList, index_user_status_login)
+//           calTotalProductItemPriceInShoppingCart(userList, userStatusLoginIndex)
 //         )}<u>đ</u>`;
 //       }
       
@@ -129,14 +129,14 @@ function updateProductItemAddedInArray() {
 // }
 
 //hiệu làm lại hàm cập nhật thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
-function updateShoppingCartAfterActionsFromUser(userList, index_user_status_login){
+function updateShoppingCartAfterActionsFromUser(userList, userStatusLoginIndex){
   document.querySelectorAll(".shopping-cart__item").forEach((obj_product, index_product) => { //từng vị trí của sản phẩm
     let array_shopping_product = obj_product.querySelectorAll("[data-shopping-cart-item-action]");
     array_shopping_product.forEach((obj_input) => {
       if(obj_input.getAttribute("data-shopping-cart-item-action") == "increment"){ // nếu nhấn +
         obj_input.onclick = () => {
           obj_product.querySelector(".remove-arrow").value = parseInt(obj_product.querySelector(".remove-arrow").value) + 1;
-          userList[index_user_status_login].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value;
+          userList[userStatusLoginIndex].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value;
           localStorage.setItem("userList", JSON.stringify(userList));
           updateShoppingCart();
         }
@@ -144,21 +144,21 @@ function updateShoppingCartAfterActionsFromUser(userList, index_user_status_logi
       if(obj_input.getAttribute("data-shopping-cart-item-action") == "decrement"){ // nếu nhấn -
         obj_input.onclick = () => {
           obj_product.querySelector(".remove-arrow").value = parseInt(obj_product.querySelector(".remove-arrow").value) - 1;
-          userList[index_user_status_login].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value; 
+          userList[userStatusLoginIndex].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value; 
           localStorage.setItem("userList", JSON.stringify(userList));
           updateShoppingCart();
         }
       }
       if(obj_input.getAttribute("data-shopping-cart-item-action") == "trash"){ //nếu loại bỏ
         obj_input.onclick = () => {
-          userList[index_user_status_login].shoppingCart.splice(index_product, 1);
+          userList[userStatusLoginIndex].shoppingCart.splice(index_product, 1);
           localStorage.setItem("userList", JSON.stringify(userList));
           updateShoppingCart();
         }
       }
       if(obj_input.getAttribute("data-shopping-cart-item-action") == "input"){ //nếu điền trực tiếp số lượng input
         obj_input.onchange = () => {
-          userList[index_user_status_login].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value;
+          userList[userStatusLoginIndex].shoppingCart[index_product].quantity = obj_product.querySelector(".remove-arrow").value;
           localStorage.setItem("userList", JSON.stringify(userList));
           updateShoppingCart();
         }
@@ -170,10 +170,10 @@ function updateShoppingCartAfterActionsFromUser(userList, index_user_status_logi
 // Hàm tạo thông tin của Giỏ hàng bằng các thẻ html
 function updateShoppingCart() {
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
-  let index_user_status_login;
+  let userStatusLoginIndex;
   userList.forEach((obj, index) => {
     if(obj.statusLogin){
-      index_user_status_login = index;
+      userStatusLoginIndex = index;
     }
   });
 
@@ -181,7 +181,7 @@ function updateShoppingCart() {
   function createShoppingCartItemWithHtml(listDiv, indexInArray) {
     // Figure - Shopping-Cart Image
     let imageImg = document.createElement("img");
-    imageImg.src = `${userList[index_user_status_login].shoppingCart[indexInArray].src}`;
+    imageImg.src = `${userList[userStatusLoginIndex].shoppingCart[indexInArray].src}`;
     imageImg.alt = "";
     imageImg.className = "shopping-cart__image ";
     let figure = document.createElement("figure");
@@ -190,13 +190,13 @@ function updateShoppingCart() {
     // Shopping-Cart Name - Shopping-Cart Details
     let nameH3 = document.createElement("h3");
     nameH3.className = "shopping-cart__name";
-    nameH3.textContent = `${userList[index_user_status_login].shoppingCart[indexInArray].name}`;
+    nameH3.textContent = `${userList[userStatusLoginIndex].shoppingCart[indexInArray].name}`;
     let detailsP = document.createElement("p");
     detailsP.className = "shopping-cart__details";
     detailsP.textContent = `
-        ${userList[index_user_status_login].shoppingCart[indexInArray].id} /
-        ${userList[index_user_status_login].shoppingCart[indexInArray].category} /
-        ${formatVietNamMoney(userList[index_user_status_login].shoppingCart[indexInArray].price)}đ
+        ${userList[userStatusLoginIndex].shoppingCart[indexInArray].id} /
+        ${userList[userStatusLoginIndex].shoppingCart[indexInArray].category} /
+        ${formatVietNamMoney(userList[userStatusLoginIndex].shoppingCart[indexInArray].price)}đ
       `;
     // Shopping-Cart Column
     let columnDiv = document.createElement("div");
@@ -215,7 +215,7 @@ function updateShoppingCart() {
     numberInput.className = "shopping-cart__number remove-arrow";
     numberInput.setAttribute(
       "value",
-      `${userList[index_user_status_login].shoppingCart[indexInArray].quantity}`
+      `${userList[userStatusLoginIndex].shoppingCart[indexInArray].quantity}`
     );
     numberInput.setAttribute("data-shopping-cart-item-action", "input");
     let decrementA = document.createElement("a");
@@ -234,8 +234,8 @@ function updateShoppingCart() {
     let productTotalPriceP = document.createElement("p");
     productTotalPriceP.className = "shopping-cart__product-total-price";
     productTotalPriceP.innerHTML = `${formatVietNamMoney(
-      userList[index_user_status_login].shoppingCart[indexInArray].price *
-      userList[index_user_status_login].shoppingCart[indexInArray].quantity
+      userList[userStatusLoginIndex].shoppingCart[indexInArray].price *
+      userList[userStatusLoginIndex].shoppingCart[indexInArray].quantity
     )}<u>đ</u>`;
 
     // Shopping-Cart Trash
@@ -271,9 +271,9 @@ function updateShoppingCart() {
 
   /* Shopping-Cart Item / Shopping-Cart Inform (tuỳ thuộc vào số lượng
     sản phẩm trong mảng currentProductItemAdded) */
-  if (userList[index_user_status_login].shoppingCart.length >= 1) {
+  if (userList[userStatusLoginIndex].shoppingCart.length >= 1) {
     // Shopping-Cart Item
-    for (let i = 0; i < userList[index_user_status_login].shoppingCart.length; i++) {
+    for (let i = 0; i < userList[userStatusLoginIndex].shoppingCart.length; i++) {
       createShoppingCartItemWithHtml(listDiv, i);
     }
   } else {
@@ -293,7 +293,7 @@ function updateShoppingCart() {
   let paymentInfoP = document.createElement("p");
   paymentInfoP.className = "shopping-cart__payment-info";
   paymentInfoP.innerHTML = `Tổng số tiền: <b class="shopping-cart__total-price">${formatVietNamMoney(
-    calTotalProductItemPriceInShoppingCart(userList, index_user_status_login)
+    calTotalProductItemPriceInShoppingCart(userList, userStatusLoginIndex)
   )}<u>đ</u></b>`;
   // Shopping-Cart Payment-Button
   let paymentButton = document.createElement("button");
@@ -326,7 +326,7 @@ function updateShoppingCart() {
   mainContentDiv.innerHTML = `${bodyShoppingCartHtml.innerHTML}`;
 
   // Cập nhật lại thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
-  updateShoppingCartAfterActionsFromUser(userList, index_user_status_login);
+  updateShoppingCartAfterActionsFromUser(userList, userStatusLoginIndex);
 
   // Tạo mẫu thông tin để thanh toán khi người dùng nhấn vào "Thanh toán"
   getPaymentInformationInfo();
