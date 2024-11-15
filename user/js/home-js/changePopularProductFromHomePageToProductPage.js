@@ -203,7 +203,7 @@ export function renderPopularProductList() {
       let userStatusLoginIndex;
       // Tìm vị trí của người dùng đang đăng nhập
       userList.forEach((user, index) => {
-        if (user.status_login) {
+        if (user.statusLogin) {
           userStatusLoginIndex = index;
         }
       });
@@ -461,7 +461,7 @@ var salePopularProductArray = [
   
         // Tìm người dùng đang đăng nhập
         userList.forEach((user, index) => {
-          if (user.status_login) {
+          if (user.statusLogin) {
             userStatusLoginIndex = index;
           }
         });
