@@ -1,11 +1,8 @@
 import { formatVietNamMoney } from "../common-js/common.js";
-import {
-  productItemArray,
-  productItemAddedToShoppingCart,
-  usersList,
-} from "../../../database/database.js";
+import { productItemArray } from "../../../database/database.js";
 import { comebackProductList } from "./getProductList.js";
 import { create_notification_user } from "../home-js/changeUserFormInMenuHeader.js";
+import { generateFilter } from "./generateFilter.js";
 
 let productItemQuantity = 0;
 
@@ -14,7 +11,7 @@ function changeProductItemQuantity() {
   let number = document.querySelector(".main-order__number");
 
   // Nếu người dùng nhấn vào nút tăng/giảm
-  let array = document.querySelectorAll(".main-order__count-button");
+  let array = document.querySelectorAll(".main-order__count");
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
       // Loại bỏ đi các giá trị mặc định
@@ -44,42 +41,50 @@ function changeProductItemQuantity() {
 // Hàm để thêm sản phẩm hiện tại vào Giỏ hàng
 function addProductItemToShoppingCart(productItemKey) {
   document
-    .querySelector(".main-order__add-to-shopping-cart-button")
+    .querySelector(".main-order__add-to-shopping-cart")
     .addEventListener("click", function () {
       //lấy vị trí người dùng đang đăng nhập để lấy giỏ hàng
       let userList = JSON.parse(localStorage.getItem("userList"));
       let userStatusLoginIndex = -1;
       userList.forEach((obj, index) => {
-        if(obj.statusLogin){
+        if (obj.statusLogin) {
           userStatusLoginIndex = index;
         }
       });
 
-      if(userStatusLoginIndex < 0){
-        create_notification_user("Bạn chưa đăng nhập!")
-      }
-      else{
+      if (userStatusLoginIndex < 0) {
+        create_notification_user("Bạn chưa đăng nhập!");
+      } else {
         // lấy danh sách sản phẩm trên local
         let productList = JSON.parse(localStorage.getItem("productList")) || [];
-        if(productList.length == 0){
+        if (productList.length == 0) {
           productList = [...productItemArray];
         }
 
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
         let isExistingProductItem = false;
         let indexProductItem = -1;
-        for (let i = 0; i < userList[userStatusLoginIndex].shoppingCart.length; i++) {
-          if (userList[userStatusLoginIndex].shoppingCart[i].id === productList[productItemKey].id) {
+        for (
+          let i = 0;
+          i < userList[userStatusLoginIndex].shoppingCart.length;
+          i++
+        ) {
+          if (
+            userList[userStatusLoginIndex].shoppingCart[i].id ===
+            productList[productItemKey].id
+          ) {
             isExistingProductItem = true;
             indexProductItem = i;
             break;
           }
         }
-      
+
         // console.log(userList[userStatusLoginIndex].shoppingCart[indexProductItem]);
         if (isExistingProductItem) {
           // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
-          userList[userStatusLoginIndex].shoppingCart[indexProductItem].quantity += 1;
+          userList[userStatusLoginIndex].shoppingCart[
+            indexProductItem
+          ].quantity += 1;
         } else {
           // Nếu sản phẩm chưa có, thêm vào giỏ hàng với số lượng là 1
           userList[userStatusLoginIndex].shoppingCart.push({
@@ -92,7 +97,6 @@ function addProductItemToShoppingCart(productItemKey) {
           });
         }
 
-
         localStorage.setItem("userList", JSON.stringify(userList));
         create_notification_user("Đã thêm vào giỏ hàng!");
       }
@@ -102,10 +106,13 @@ function addProductItemToShoppingCart(productItemKey) {
 // Hàm trở về trang chứa danh sách sản phẩm trước đó
 function clickToComebackProductList(productCategory) {
   document
-    .querySelector(".main-order__comeback-button")
+    .querySelector(".main-order__comeback")
     .addEventListener("click", function () {
       // Đưa về đầu trang
       window.scrollTo(0, 0);
+
+      // Thiết lập lại bộ lọc
+      generateFilter();
 
       // Trở về phần Danh sách sản phẩm
       comebackProductList(productCategory);
@@ -124,7 +131,7 @@ export function updateProductItem(productItemKey) {
     const productItemForm = {
       item: `
         <div class="main__order">
-          <button class="main-order__comeback-button">
+          <button class="main-order__comeback">
             <i class="fa-solid fa-arrow-left"></i>
             Quay lại
           </button>
@@ -157,13 +164,13 @@ export function updateProductItem(productItemKey) {
                   <p class="main-order__detail">Số lượng: </p>
                   <input type="number" name="quantity" class="main-order__number remove-arrow" value="1"/>
                   <div class="main-order__buttons">
-                    <button class="main-order__count-button increment">+</button>
-                    <button class="main-order__count-button decrement">-</button>
+                    <button class="main-order__count increment">+</button>
+                    <button class="main-order__count decrement">-</button>
                   </div>
                 </div>
               </div>
               <button
-                class="main-order__add-to-shopping-cart-button"
+                class="main-order__add-to-shopping-cart"
               >
                 Thêm giỏ hàng
               </button>

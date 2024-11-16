@@ -10,20 +10,6 @@ import { replaceSpaceWithHyphen } from "../common-js/common.js";
 let productItemName = "";
 // Từ khoá chỉ danh mục hiện tại
 let productListKey = "";
-// Các hãng đã chọn
-let chosenBrands = [];
-// Khoảng giá đã chọn
-let chosenPrice = "";
-// Loại sắp xếp đã chọn
-let chosenSort = "";
-// Giá thấp nhất
-let minPrice = 0;
-// Giá cao nhất
-let maxPrice = 2 ** 31;
-// Trạng thái đã chọn
-let chosenStatus = "";
-// Danh sách sản phẩm đã lọc
-let filteredProducts = [];
 
 // Hàm lấy thông tin từ Left Search (Tìm kiếm - Tìm kiếm cơ bản)
 function getLeftSearchInfo() {
@@ -40,6 +26,70 @@ function getLeftSearchInfo() {
   });
 }
 
+// Các hãng đã chọn
+let chosenBrands = [];
+// Khoảng giá đã chọn
+let chosenPrice = "";
+// Loại sắp xếp đã chọn
+let chosenSort = "";
+// Giá thấp nhất
+let minPrice = 0;
+// Giá cao nhất
+let maxPrice = 2 ** 31;
+// Trạng thái đã chọn
+let chosenStatus = "";
+// Danh sách sản phẩm đã lọc
+let filteredProducts = [];
+// Kích hoạt bộ lọc
+function activateFilterSearch(){
+  // Đưa về đầu trang
+  window.scrollTo(0, 0);
+
+  // Các checked elements
+  const chosenBrandsEle = Array.from(
+    document.querySelectorAll(
+      `.left-search-filter__brand [name="brand"]:checked`
+    )
+  );
+
+  chosenBrands = chosenBrandsEle.map((brandEle) => brandEle.value);
+  chosenSort = document.forms["left-search-filter__form"].sort.value;
+  chosenPrice = document.forms["left-search-filter__form"].price.value;
+  chosenStatus = document.forms["left-search-filter__form"].state.value;
+
+  // Reset khung tìm kiếm
+  document.querySelector("#left-search-input").value = "";
+  productItemName = "";
+
+  filteredProducts = filterProducts();
+  updateProductList(filteredProducts);
+}
+// Đặt lại các tiêu chí lọc
+function resetFilter(){
+  document.querySelectorAll(`.left-search-filter__form input:checked`).forEach((ele) => {
+    ele.checked = false;
+  });
+}
+// Hàm so sánh dựa theo 'attribute' và 'sortType' để sắp xếp
+function customSort(attribute, sortType){
+  return function cmpFn(firstProduct, secondProduct){
+    if(sortType === 'asc'){
+      if(firstProduct[attribute] < secondProduct[attribute]){
+        return -1;
+      } else{
+        return 1;
+      }
+    }
+
+    if(sortType === 'desc'){
+      if(firstProduct[attribute] > secondProduct[attribute]){
+        return -1;
+      } else{
+        return 1;
+      }
+    }
+  }
+}
 // Hàm lấy thông tin từ Left Filter (Bộ lọc - Tìm kiếm nâng cao)
 function getLeftFilterInfo() {
   const applyButton = document.getElementById("left-search-filter__apply");
@@ -69,7 +119,7 @@ function getLeftMenuInfo() {
     if (event.target.matches("a.left-menu__action")) {
       const leftMenuValue = event.target.getAttribute("data-menu-product");
       if (leftMenuValue) {
-        // Reset bộ lọc
+        // Đặt lại bộ lọc
         document.getElementById("left-search-filter__reset").click();
 
         // Kiểm tra và đặt lại giá trị cho currentProductItemName và thẻ input ở Left Search
@@ -91,67 +141,7 @@ function getLeftMenuInfo() {
   });
 }
 
-// Reset các tiêu chí lọc
-function resetFilter(){
-  document.querySelectorAll(`.left-search-filter__form input:checked`).forEach((ele) => {
-    ele.checked = false;
-  });
-}
-
-// Kích hoạt bộ lọc
-function activateFilterSearch(){
-  // Đưa về đầu trang
-  window.scrollTo(0, 0);
-
-  // Các checked elements
-  const chosenBrandsEle = Array.from(
-    document.querySelectorAll(
-      `.left-search-filter__brand [name="brand"]:checked`
-    )
-  );
-
-  chosenBrands = chosenBrandsEle.map((brandEle) => brandEle.value);
-  chosenSort = document.forms["left-search-filter__form"].sort.value;
-  chosenPrice = document.forms["left-search-filter__form"].price.value;
-  chosenStatus = document.forms["left-search-filter__form"].state.value;
-
-  // Reset khung tìm kiếm
-  document.querySelector("#left-search-input").value = "";
-  productItemName = "";
-
-  filteredProducts = filterProducts();
-  updateProductList(filteredProducts);
-}
-
-// Hàm so sánh dựa theo 'attribute' và 'sortType' để sắp xếp
-function customSort(attribute, sortType){
-  return function cmpFn(firstProduct, secondProduct){
-    if(sortType === 'asc'){
-      if(firstProduct[attribute] < secondProduct[attribute]){
-        return -1;
-      } else{
-        return 1;
-      }
-    }
-
-    if(sortType === 'desc'){
-      if(firstProduct[attribute] > secondProduct[attribute]){
-        return -1;
-      } else{
-        return 1;
-      }
-    }
-  }
-}
-
-// Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
-export function comebackProductList(productCategory) {
-  // Dành cho trường hợp vào chi tiết sản phẩm bằng thanh tìm kiếm ở header
-  // khi quay lại sẽ đi vào danh mục của sản phẩm đó
-  document.getElementById(productCategory + '-left-menu').click();
-  updateProductList(filteredProducts);
-}
-
+// Hàm lấy ra các sản phẩm sau khi lọc từ 3 mục Tìm kiếm, Bộ lọc và Danh mục
 function filterProducts() {
   const chosenBrandsLength = chosenBrands.length;
   if (chosenPrice) {
@@ -189,6 +179,14 @@ function filterProducts() {
   }
 
   return filteredProducts;
+}
+
+// Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
+export function comebackProductList(productCategory) {
+  // Dành cho trường hợp vào chi tiết sản phẩm bằng thanh tìm kiếm ở header
+  // khi quay lại sẽ đi vào danh mục của sản phẩm đó
+  document.getElementById(productCategory + '-left-menu').click();
+  updateProductList(filteredProducts);
 }
 
 // Danh sách các sản phẩm được hiển thị theo tìm kiếm, bộ lọc, danh mục
@@ -272,7 +270,6 @@ export function updateProductList(filteredProducts) {
 export function getProductListInfo() {
   /* Cập nhật lại tên danh mục hiện tại và tên sản phẩm cần tìm kiếm hiện
   tại mỗi khi nhấn trở lại Sản phẩm */
-  
   productListKey = "";
   productItemName = "";
   chosenBrands = [];
@@ -281,6 +278,7 @@ export function getProductListInfo() {
   chosenStatus = "";
   minPrice = 0;
   maxPrice = 2 ** 31;
+  
   // Gọi các sự kiện để cập nhật Danh sách sản phẩm
   getLeftSearchInfo();
   getLeftFilterInfo();

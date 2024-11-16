@@ -1,0 +1,110 @@
+/* <===== Default =====> */
+* {
+    box-sizing: border-box;
+  }
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.6rem;
+  }
+  
+  button,
+  select,
+  a,
+  input,
+  textarea {
+    font-family: inherit;
+    font-size: inherit;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  input,
+  textarea,
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+  button {
+    cursor: pointer;
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+  }
+  
+  /* <===== Common =====> */
+  .main-content {
+    width: 1128px;
+    max-width: calc(100% - 48px);
+    margin: 0 auto;
+  }
+  .line-clamp {
+    display: -webkit-inline-box;
+    -webkit-line-clamp: var(--line-clamp, 2);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .main-icon {
+    color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(white, pink);
+    overflow: hidden;
+    letter-spacing: 0.2rem;
+  }
+  .button-block {
+    background: #000;
+    color: #fff;
+    transition: color 0.2s, background-color 0.2s;
+  }
+  .button-block:hover {
+    background: #fc8eac;
+  }
+  .button-word {
+    font-weight: 600;
+    transition: color 0.2s; 
+  }
+  .button-word:hover {
+    color: #fc8eac;
+  }
+  .heading-lv1 {
+    font-size: 5.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .heading-lv2 {
+    font-size: 4.4rem;
+    font-weight: 700;
+    line-height: 1.28;
+    text-align: center;
+  }
+  .desc-lv1 {
+    font-size: 2.6rem;
+    font-weight: 500;
+    line-height: 1.37;
+  }
+  .desc-lv2 {
+    color: #b5adad;
+    font-size: 2.2rem;
+    line-height: 1.67;
+  }
+  .break-all {
+    word-break: break-all;
+  }
+  .break-word {
+    word-break: break-word;
+  }
+  /* Xoá mũi tên khi thẻ input có type="number" */
+  .remove-arrow::-webkit-inner-spin-button,
+  .remove-arrow::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .remove-arrow {
+    -moz-appearance: textfield;
+  }

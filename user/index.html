@@ -29,6 +29,7 @@
     <!-- Reset CSS -->
     <link rel="stylesheet" href="./assets/styles/reset.css" />
     <!-- Styles CSS -->
+    <link rel="stylesheet" href="./assets/styles/default.css" />
     <link rel="stylesheet" href="./assets/styles/home.css" />
     <link rel="stylesheet" href="./assets/styles/about.css" />
     <link rel="stylesheet" href="./assets/styles/products.css" />
@@ -243,80 +244,23 @@
             <h2 class="popular-menu__title heading-lv2">
               Các danh mục nổi bật
             </h2>
-            <div class="popular-menu__body">
-              <ul class="popular-menu__list">
-                <li class="popular-menu__item" data-popular-menu="sua-rua-mat">
-                  <figure class="popular-menu__media">
-                    <img
-                      src="./assets/images/popular-menu_image-1.jpg"
-                      alt=""
-                      class="popular-menu__image"
-                    />
-                  </figure>
-                  <p class="popular-menu__label">SỮA&nbsp;RỬA&nbsp;MẶT</p>
-                </li>
-                <li class="popular-menu__item" data-popular-menu="toner">
-                  <figure class="popular-menu__media">
-                    <img
-                      src="./assets/images/popular-menu_image-2.jpg"
-                      alt=""
-                      class="popular-menu__image"
-                    />
-                  </figure>
-                  <p class="popular-menu__label">TONER</p>
-                </li>
-                <li class="popular-menu__item" data-popular-menu="serum">
-                  <figure class="popular-menu__media">
-                    <img
-                      src="./assets/images/popular-menu_image-3.jpg"
-                      alt=""
-                      class="popular-menu__image"
-                    />
-                  </figure>
-                  <p class="popular-menu__label">SERUM</p>
-                </li>
-                <li class="popular-menu__item" data-popular-menu="kem-duong-am">
-                  <figure class="popular-menu__media">
-                    <img
-                      src="./assets/images/popular-menu_image-4.jpg"
-                      alt=""
-                      class="popular-menu__image"
-                    />
-                  </figure>
-                  <p class="popular-menu__label">KEM&nbsp;DƯỠNG&nbsp;ẨM</p>
-                </li>
-                <li class="popular-menu__item" data-popular-menu="son">
-                  <figure class="popular-menu__media">
-                    <img
-                      src="./assets/images/popular-menu_image-5.jpg"
-                      alt=""
-                      class="popular-menu__image"
-                    />
-                  </figure>
-                  <p class="popular-menu__label">SON</p>
-                </li>
-                <li class="popular-menu__item" data-popular-menu="phan">
-                  <figure class="popular-menu__media">
-                    <img
-                      src="./assets/images/popular-menu_image-6.jpg"
-                      alt=""
-                      class="popular-menu__image"
-                    />
-                  </figure>
-                  <p class="popular-menu__label">PHẤN</p>
-                </li>
-              </ul>
-            </div>
+            <div class="popular-menu__list"></div>
           </div>
           <div class="home__popular-product">
-            <h2 class="popular-product__title heading-lv2">
-              Các sản phẩm nổi bật
-            </h2>
-            <div class="popular-product__list"></div>
+            <div class="popular-product__header">
+              <h2 class="popular-product__title heading-lv2">
+                Các sản phẩm nổi bật
+              </h2>
+            </div>
+            <div class="popular-product__body">
+              <div class="popular-product__list"></div>
+            </div>
           </div>
           <div class="home__sale-product">
-            <h2 class="sale-product__title">Khuyến mãi</h2>
-            <div class="sale-product__list"></div>
+            <div class="sale-product__header"></div>
+            <div class="sale-product__body">
+              <div class="sale-product__list"></div>
+            </div>
           </div>
           <div class="home__useful">
             <div class="useful__media">
@@ -472,6 +416,5 @@
     <script src="./js/home-js/changeMainContent.js" type="module"></script>
     <script src="./js/home-js/headerEvents.js" type="module"></script>
     <script src="./js/home-js/homePageEvents.js" type="module"></script>
-    <script src="./js/home-js/changePopularProductFromHomePageToProductPage.js" type="module"></script>
   </body>
 </html>

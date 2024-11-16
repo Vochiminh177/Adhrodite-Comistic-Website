@@ -67,11 +67,11 @@ export function updateProductsPagination(
   } else {
     createPageButtons(currentPage);
   }
-  updatepage(currentPage);
+  updatePage(currentPage);
 
   /*-----------FUNCTION-----------*/
   // Cập nhật lại trang (hiển thị sản phẩm, các nút trang)
-  function updatepage(currentPage) {
+  function updatePage(currentPage) {
     window.scrollTo(0, 0);
     const paginatedProducts = filteredProducts.slice(
       productsPerPage * (currentPage - 1),
@@ -174,7 +174,7 @@ export function updateProductsPagination(
     .addEventListener("click", function () {
       if (currentPage > 1 && currentPage <= totalPages) {
         currentPage--;
-        updatepage(currentPage);
+        updatePage(currentPage);
       }
     });
 
@@ -184,7 +184,7 @@ export function updateProductsPagination(
     .addEventListener("click", (event) => {
       if (event.target.matches("button.main-products__number")) {
         currentPage = parseInt(event.target.getAttribute("data-page"), 10);
-        updatepage(currentPage);
+        updatePage(currentPage);
       }
     });
 
@@ -194,7 +194,7 @@ export function updateProductsPagination(
     .addEventListener("click", function () {
       if (currentPage >= 1 && currentPage < totalPages) {
         currentPage++;
-        updatepage(currentPage);
+        updatePage(currentPage);
       }
     });
 }
