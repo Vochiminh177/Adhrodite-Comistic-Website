@@ -5,8 +5,8 @@ import {
   handleChangePassword,
   handleSaveDateInformation,
 } from "../userUpdate/handleUserUpdate.js";
-import {updateStyleTags} from "./shoppingCartIconInMenuHeaderAction.js"
-import {getShoppingCartInfo} from "./getShoppingCart.js"
+import { updateStyleTags } from "./shoppingCartIconInMenuHeaderAction.js";
+import { getShoppingCartInfo } from "./getShoppingCart.js";
 import {
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
@@ -215,12 +215,14 @@ export function signIn() {
       }
 
       // ẩn form
-      const userModal = document.getElementById("user-modal");
+      const userContainer = document.getElementById("user-container");
+      const userOverlay = document.getElementById("user-overlay");
       const userBlock = document.getElementById("user-block");
       const userExit = document.getElementById("user-exit");
+      userContainer.style.visibility = "hidden";
       userBlock.style.visibility = "hidden";
       userExit.style.visibility = "hidden";
-      userModal.style.visibility = "hidden";
+      userOverlay.style.visibility = "hidden";
       // --------------------------------------------------------
 
       document.querySelector("#username").value = "";
@@ -304,7 +306,7 @@ export function changePassword() {
 }
 
 //hàm hiện form khi ấn thông tin cá nhân trong menu-user
-function handle_showInformation(userList, userStatusLoginIndex){
+function handle_showInformation(userList, userStatusLoginIndex) {
   document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
   let formInformationUser = `
       <div class="form-user">
@@ -330,16 +332,15 @@ function handle_showInformation(userList, userStatusLoginIndex){
   `;
   let ele = document.createElement("div");
   ele.className = "container-formInformation-user";
-  ele.innerHTML = formInformationUser
+  ele.innerHTML = formInformationUser;
   document.body.appendChild(ele);
 
   document.querySelector(".form-user .save-information").onclick = () => {
     let result = handleSaveDateInformation(userStatusLoginIndex);
-    if(result){
+    if (result) {
       create_notification_user("Lưu thành công!");
-    }  
+    }
   };
- 
 
   document.querySelector(".exit-form-information-user").onclick = () => {
     document.querySelector(".container-formInformation-user").remove();
@@ -348,11 +349,12 @@ function handle_showInformation(userList, userStatusLoginIndex){
 
 //hàm lịch sử mua hàng
 function showOrderHistory() {
-  if(document.querySelector(".header__user-menu")) document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
+  if (document.querySelector(".header__user-menu"))
+    document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
   let indexUserStatusLogin;
   userList.forEach((obj, index) => {
-    if(obj.statusLogin){
+    if (obj.statusLogin) {
       indexUserStatusLogin = index;
     }
   });
@@ -374,9 +376,21 @@ function showOrderHistory() {
     let detailsP = document.createElement("p");
     detailsP.className = "shopping-cart__details";
     detailsP.textContent = `
-        ${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].id} /
-        ${userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].category} /
-        ${formatVietNamMoney(userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].price)}đ
+        ${
+          userList[indexUserStatusLogin].ordersHistory[i].orderProduct[
+            indexInArray
+          ].id
+        } /
+        ${
+          userList[indexUserStatusLogin].ordersHistory[i].orderProduct[
+            indexInArray
+          ].category
+        } /
+        ${formatVietNamMoney(
+          userList[indexUserStatusLogin].ordersHistory[i].orderProduct[
+            indexInArray
+          ].price
+        )}đ
       `;
     // Shopping-Cart Column
     let columnDiv = document.createElement("div");
@@ -402,8 +416,11 @@ function showOrderHistory() {
     let productTotalPriceP = document.createElement("p");
     productTotalPriceP.className = "shopping-cart__product-total-price";
     productTotalPriceP.innerHTML = `${formatVietNamMoney(
-      userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].price *
-      userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray].quantity
+      userList[indexUserStatusLogin].ordersHistory[i].orderProduct[indexInArray]
+        .price *
+        userList[indexUserStatusLogin].ordersHistory[i].orderProduct[
+          indexInArray
+        ].quantity
     )}<u>đ</u>`;
 
     // Shopping-Cart Trash
@@ -426,8 +443,6 @@ function showOrderHistory() {
     itemDiv.appendChild(trashA);
 
     ele.appendChild(itemDiv);
-
-    
   }
 
   // Shopping-Cart Title
@@ -442,26 +457,27 @@ function showOrderHistory() {
   /* Shopping-Cart Item / Shopping-Cart Inform (tuỳ thuộc vào số lượng
     sản phẩm trong mảng currentProductItemAdded) */
   if (userList[indexUserStatusLogin].ordersHistory.length >= 1) {
-    const ordersHistoryLength = userList[indexUserStatusLogin].ordersHistory.length;
+    const ordersHistoryLength =
+      userList[indexUserStatusLogin].ordersHistory.length;
     // Shopping-Cart Item
     for (let i = 0; i < ordersHistoryLength; i++) {
       let ele = document.createElement("div");
       ele.className = "order-date";
       let orderDate = document.createElement("p");
-      orderDate.textContent = userList[indexUserStatusLogin].ordersHistory[i].orderDate;
+      orderDate.textContent =
+        userList[indexUserStatusLogin].ordersHistory[i].orderDate;
       ele.appendChild(orderDate);
-      userList[indexUserStatusLogin].ordersHistory[i].orderProduct.forEach((obj, index) => {
-        createOrderHistoryItemWithHtml(ele, i, index);
-      });
+      userList[indexUserStatusLogin].ordersHistory[i].orderProduct.forEach(
+        (obj, index) => {
+          createOrderHistoryItemWithHtml(ele, i, index);
+        }
+      );
       listDiv.appendChild(ele);
     }
 
-   setTimeout(() => {
-    deleteProductInOrderHistory(userList, indexUserStatusLogin)
-   }, 10);
-
-    
-
+    setTimeout(() => {
+      deleteProductInOrderHistory(userList, indexUserStatusLogin);
+    }, 10);
   } else {
     // Shopping-Cart Inform
     let informP = document.createElement("p");
@@ -497,8 +513,6 @@ function showOrderHistory() {
 
   // Cập nhật lại thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
   // updateOrdersHistoryAfterActionsFromUser(userList, index_user_status_login);
-
- 
 }
 
 //hàm show menu profile
@@ -542,23 +556,23 @@ export function showUserMenu() {
 
     document.querySelector(".private-info").onclick = (e) => {
       e.preventDefault();
-      if(document.querySelector(".container-formInformation-user")){
+      if (document.querySelector(".container-formInformation-user")) {
         document.querySelector(".container-formInformation-user").remove();
-      }
-      else{
+      } else {
         handle_showInformation(userList, userStatusLoginIndex);
       }
     };
-    
+
     document.querySelector(".change-password").onclick = (e) => {
       e.preventDefault();
-      if(!document.querySelector(".container-change-password-user")){
+      if (!document.querySelector(".container-change-password-user")) {
         changePassword();
-      }
-      else document.querySelector(".container-change-password-user").remove();
+      } else document.querySelector(".container-change-password-user").remove();
     };
 
-    document.querySelector(".header__user-menu-action.sign-out").onclick = (e) => {
+    document.querySelector(".header__user-menu-action.sign-out").onclick = (
+      e
+    ) => {
       e.preventDefault();
       signOutUser(userStatusLoginIndex);
     };
@@ -583,17 +597,26 @@ export function showUserMenu() {
 }
 
 //hàm xóa bỏ sản phẩm đã đặt hàng của user
-function deleteProductInOrderHistory(userList, indexUserStatusLogin){
+function deleteProductInOrderHistory(userList, indexUserStatusLogin) {
   let arrayOrderDateDiv = document.querySelectorAll(".order-date");
-  console.log(arrayOrderDateDiv)
+  console.log(arrayOrderDateDiv);
   arrayOrderDateDiv.forEach((objOrderDateDiv, indexOrderDateDiv) => {
     let arrayItemDiv = objOrderDateDiv.querySelectorAll(".shopping-cart__item");
-    console.log(arrayItemDiv)
+    console.log(arrayItemDiv);
     arrayItemDiv.forEach((objItemDiv, indexItemDiv) => {
       objItemDiv.querySelector("button").onclick = () => {
-        userList[indexUserStatusLogin].ordersHistory[indexOrderDateDiv].orderProduct.splice(indexItemDiv, 1); // xóa sản phẩm đã chọn
-        if(userList[indexUserStatusLogin].ordersHistory[indexOrderDateDiv].orderProduct.length == 0){ //nếu xóa hết sản phẩm của lần mua đó thì xóa lần mua đó
-          userList[indexUserStatusLogin].ordersHistory.splice(indexOrderDateDiv, 1);
+        userList[indexUserStatusLogin].ordersHistory[
+          indexOrderDateDiv
+        ].orderProduct.splice(indexItemDiv, 1); // xóa sản phẩm đã chọn
+        if (
+          userList[indexUserStatusLogin].ordersHistory[indexOrderDateDiv]
+            .orderProduct.length == 0
+        ) {
+          //nếu xóa hết sản phẩm của lần mua đó thì xóa lần mua đó
+          userList[indexUserStatusLogin].ordersHistory.splice(
+            indexOrderDateDiv,
+            1
+          );
         }
         localStorage.setItem("userList", JSON.stringify(userList));
         showOrderHistory(); //gọi lại hàm để in ra

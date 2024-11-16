@@ -6,7 +6,9 @@ import { calTotalProductItemPriceInShoppingCart } from "../common-js/common.js";
 
 
 // Hàm cập nhật thông tin hoá đơn
-function updateBill() {}
+function updateBill() {
+  
+}
 
 export function getBillInfo(array_orderProduct, currentPage) {
   document
@@ -23,7 +25,7 @@ export function getBillInfo(array_orderProduct, currentPage) {
       let userList = JSON.parse(localStorage.getItem("userList"));
       let index_user_status_login;
       userList.forEach((obj, index) => {
-        if(obj.status_login){
+        if(obj.statusLogin){
           index_user_status_login = index;
         }
       });

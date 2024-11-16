@@ -131,7 +131,7 @@
               >
                 <i class="fa-solid fa-user header__icon"></i>
               </a>
-              <div class="header__modal" id="user-modal">
+              <div class="header__container" id="user-container">
                 <div class="header__user-block" id="user-block">
                   <button class="header__exit" id="user-exit">x</button>
                   <div class="header__user-actions main-user-form-body">
@@ -219,6 +219,7 @@
                     </div>
                   </div>
                 </div>
+                <div class="header__overlay" id="user-overlay"></div>
               </div>
             </div>
           </div>
@@ -310,6 +311,71 @@
                   `
                 </li>
               </ul>
+            </div>
+          </div>
+          <div class="body__shopping-cart">
+            <div class="shopping-cart__content">
+              <h2 class="shopping-cart__title">GIỎ HÀNG</h2>
+              <div class="shopping-cart__body">
+                <div class="shopping-cart__list">
+                  <div
+                    class="shopping-cart__item"
+                    data-shopping-cart-item="1"
+                  >
+                    <figure>
+                      <img
+                        src="./assets/images/facewash-image-2.jpg"
+                        alt=""
+                        class="shopping-cart__image"
+                      />
+                    </figure>
+                    <div class="shopping-cart__column">
+                      <h3 class="shopping-cart__name">
+                        Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml
+                      </h3>
+                      <p class="shopping-cart__details">
+                        APh00002 / Sửa rửa mặt / 150.000đ
+                      </p>
+                    </div>
+                    <div class="shopping-cart__quantity">
+                      <a
+                        href="#!"
+                        class="shopping-cart__operator"
+                        data-shopping-cart-item-action="increment"
+                        >+</a
+                      ><input
+                        type="number"
+                        class="shopping-cart__number remove-arrow"
+                        value="1"
+                        data-shopping-cart-item-action="input"
+                      /><a
+                        href="#!"
+                        class="shopping-cart__operator"
+                        data-shopping-cart-item-action="decrement"
+                        >-</a
+                      >
+                    </div>
+                    <p class="shopping-cart__product-total-price">
+                      150.000<u>đ</u>
+                    </p>
+                    <button
+                      class="shopping-cart__trash"
+                      data-shopping-cart-item-action="trash"
+                    >
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="shopping-cart__payment">
+                <p class="shopping-cart__payment-info">
+                  Tổng số tiền:
+                  <b class="shopping-cart__total-price">150.000<u>đ</u></b>
+                </p>
+                <button class="shopping-cart__payment-button">
+                  Thanh toán
+                </button>
+              </div>
             </div>
           </div>
         </div>

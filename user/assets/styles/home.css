@@ -183,15 +183,17 @@
 .header__find-action:hover {
   background: #fc8eac;
 }
-.header__modal {
+.header__container {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   inset: 0;
-  display: flex;
   visibility: hidden;
+}
+.header__overlay {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
+  visibility: hidden;
   transition: visibility 0.2s;
 }
 .header__exit {
