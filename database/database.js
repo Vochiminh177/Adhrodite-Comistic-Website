@@ -1,6 +1,6 @@
 // Mảng chứa các sản phẩm (lấy từ phía Admin)
 export let productItemArray = [
-    {
+  {
     number: 1,
     id: "APh00001",
     src: "./assets/images/facewash-image-1.jpg",
@@ -11,8 +11,8 @@ export let productItemArray = [
     price: 200000,
     desc: `<b>EFFACLAR DUO+ M </b>từ <b>La Roche-Posay</b> là kem dưỡng chuyên biệt dành cho da mụn, giúp giảm mụn và ngăn ngừa tái phát. Sản phẩm chứa các thành phần nổi bật như Niacinamide (Vitamin B3) giúp làm dịu da và giảm viêm, LHA và Salicylic Acid có tác dụng tẩy tế bào chết nhẹ nhàng, ngăn ngừa tình trạng bí tắc lỗ chân lông, cùng Procerad hỗ trợ giảm thâm và làm sáng da. <b>EFFACLAR DUO+ M</b> không chỉ giúp kiểm soát dầu nhờn mà còn cải thiện các vấn đề da mụn nhạy cảm. Bạn nên sử dụng sản phẩm 1-2 lần mỗi ngày, thoa một lớp mỏng lên vùng da bị mụn để đạt hiệu quả tốt nhất.`,
     quantity: 15
-    },
-    {
+  },
+  {
     number: 2,
     id: "APh00002",
     src: "./assets/images/facewash-image-2.jpg",
@@ -23,8 +23,8 @@ export let productItemArray = [
     price: 150000,
     desc: `Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml là sản phẩm dịu nhẹ, giúp làm sạch sâu da mà vẫn giữ được độ ẩm tự nhiên, không gây khô căng. Với công thức không chứa hương liệu, không phẩm màu và không chất gây kích ứng, sản phẩm phù hợp với mọi loại da, đặc biệt là da nhạy cảm. Thành phần chính gồm Vitamin B5 và Vitamin E giúp làm dịu và nuôi dưỡng làn da, loại bỏ bụi bẩn, dầu thừa một cách nhẹ nhàng. Với kết cấu dạng gel mịn, sữa rửa mặt này mang đến cảm giác tươi mát và sạch thoáng cho da sau mỗi lần sử dụng, giúp duy trì làn da mềm mại và khỏe mạnh.`,
     quantity: 3
-    },
-    {
+  },
+  {
     number: 3,
     id: "APh00003",
     src: "./assets/images/acnecream-image-1.jpg",
@@ -35,8 +35,8 @@ export let productItemArray = [
     price: 400000,
     desc: `<b>EFFACLAR DUO+ M </b>từ <b>La Roche-Posay</b> là kem dưỡng chuyên biệt dành cho da mụn, giúp giảm mụn và ngăn ngừa tái phát. Sản phẩm chứa các thành phần nổi bật như Niacinamide (Vitamin B3) giúp làm dịu da và giảm viêm, LHA và Salicylic Acid có tác dụng tẩy tế bào chết nhẹ nhàng, ngăn ngừa tình trạng bí tắc lỗ chân lông, cùng Procerad hỗ trợ giảm thâm và làm sáng da. <b>EFFACLAR DUO+ M</b> không chỉ giúp kiểm soát dầu nhờn mà còn cải thiện các vấn đề da mụn nhạy cảm. Bạn nên sử dụng sản phẩm 1-2 lần mỗi ngày, thoa một lớp mỏng lên vùng da bị mụn để đạt hiệu quả tốt nhất.`,
     quantity: 2
-    },
-    {
+  },
+  {
     number: 4,
     id: "APh00004",
     src: "./assets/images/acnecream-image-2.jpg",
@@ -47,8 +47,8 @@ export let productItemArray = [
     price: 235000,
     desc: `<b>Gel Dưỡng Megaduo Plus Giảm Mụn, Mờ Thâm 15g</b> là sản phẩm chuyên biệt giúp điều trị mụn và giảm thâm, hỗ trợ làn da sáng mịn và đều màu. Sản phẩm chứa các thành phần nổi bật như Azelaic Acid có tác dụng kháng viêm, giảm vi khuẩn gây mụn và kiểm soát dầu nhờn, cùng AHA (Glycolic Acid) giúp tẩy tế bào chết nhẹ nhàng, thúc đẩy tái tạo da và làm mờ thâm mụn. Với kết cấu dạng gel mỏng nhẹ, Megaduo Plus dễ dàng thẩm thấu, không gây nhờn rít, phù hợp với da dầu, da mụn, và da nhạy cảm. Sản phẩm có thể được sử dụng 1-2 lần mỗi ngày, thoa trực tiếp lên vùng da có mụn và thâm để cải thiện tình trạng da.`,
     quantity: 1
-    },
-    {
+  },
+  {
     number: 5,
     id: "APh00005",
     src: "./assets/images/acnecream-image-3.jpg",
@@ -59,61 +59,52 @@ export let productItemArray = [
     price: 212000,
     desc: `<b>Gel Giảm Mụn Alcom Derma Forte Advanced</b> là sản phẩm điều trị mụn hiệu quả, giúp làm giảm mụn và ngăn ngừa thâm sau mụn. Sản phẩm chứa các thành phần chính như Niacinamide (Vitamin B3) giúp làm dịu da và kháng viêm, Azelaic Acid có tác dụng giảm vi khuẩn gây mụn, kiểm soát bã nhờn, và Vitamin E giúp dưỡng ẩm, làm mềm da. Gel này còn hỗ trợ làm đều màu da và ngăn ngừa sẹo thâm sau mụn, phù hợp cho các loại da, đặc biệt là da dầu và da mụn. Bạn nên thoa một lớp mỏng lên vùng da mụn 1-2 lần mỗi ngày để đạt hiệu quả tối ưu.`,
     quantity: 6
-    },
-  ];
-  
-  // Mảng chứa các sản phẩm (khi thêm vào giỏ hàng)
+  },
+];
+
+// Mảng chứa các sản phẩm (khi thêm vào giỏ hàng)
 export let productItemAddedToShoppingCart = [
-    {
-      id: "APh00002",
-      src: "./assets/images/facewash-image-1.jpg",
-      name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-      category: "Sửa rửa mặt",
-      price: 200000,
-      quantity: 1,
-    },
-    {
-      id: "APh00003",
-      src: "./assets/images/facewash-image-2.jpg",
-      name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
-      category: "Sửa rửa mặt",
-      price: 150000,
-      quantity: 3,
-    },
-    {
-      id: "APh00004",
-      src: "./assets/images/facewash-image-1.jpg",
-      name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-      category: "Sửa rửa mặt",
-      price: 222000,
-      quantity: 1,
-    },
-  ];
-  
-  export function abc() {
-    console.log(productItemAddedToShoppingCart);
-  }
-  
-//dữ liệu mảng user mặc định -- Hiệu
+  {
+    id: "APh00002",
+    src: "./assets/images/facewash-image-1.jpg",
+    name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+    category: "Sửa rửa mặt",
+    price: 200000,
+    quantity: 1,
+  },
+  {
+    id: "APh00003",
+    src: "./assets/images/facewash-image-2.jpg",
+    name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
+    category: "Sửa rửa mặt",
+    price: 150000,
+    quantity: 3,
+  },
+  {
+    id: "APh00004",
+    src: "./assets/images/facewash-image-1.jpg",
+    name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+    category: "Sửa rửa mặt",
+    price: 222000,
+    quantity: 1,
+  },
+];
+
+export function abc() {
+  console.log(productItemAddedToShoppingCart);
+}
+
+//dữ liệu mảng user mặc định
 export let usersList = [
   {
     full_info: false,
-    full_money: false,
     statusLogin: false,
     id: 1,
     username: "123",
     password: "123",
-    email: "user1@example.com",
-    remember_password: false,
     first_name: "Nguyễn",
     last_name: "Thanh Hiệu",
-    phone: "null",
-    address: "null",
-    ma_the: "null", 
-    code_the: "null",
-    bank: "null",
-    purchase_method: "null",
-    src: null,
+    phone: null,
     shoppingCart: [
       {
         id: "APh00002",
@@ -123,129 +114,247 @@ export let usersList = [
         price: 200000,
         quantity: 1,
       },
-      {
-        id: "APh00003",
-        src: "./assets/images/facewash-image-2.jpg",
-        name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
-        category: "Sửa rửa mặt",
-        price: 150000,
-        quantity: 3,
-      },
-      {
-        id: "APh00004",
-        src: "./assets/images/facewash-image-1.jpg",
-        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-        category: "Sửa rửa mặt",
-        price: 222000,
-        quantity: 1,
-      },
     ],
-    ordersHistory: [
-      {
-        orderId: 1,
-        orderDate: "01/01/2000",
-        orderProduct: [
-          {
-            id: "APh00002",
-            src: "./assets/images/facewash-image-1.jpg",
-            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-            category: "Sửa rửa mặt",
-            price: 200000,
-            quantity: 1,
-          },
-          {
-            id: "APh00003",
-            src: "./assets/images/facewash-image-2.jpg",
-            name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
-            category: "Sửa rửa mặt",
-            price: 150000,
-            quantity: 3,
-          }
-        ]
-      },
-      {
-        orderId: 2,
-        orderDate: "31/12/2024",
-        orderProduct: [
-          {
-            id: "APh00002",
-            src: "./assets/images/facewash-image-1.jpg",
-            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-            category: "Sửa rửa mặt",
-            price: 200000,
-            quantity: 3,
-          },
-          {
-            id: "APh00003",
-            src: "./assets/images/facewash-image-2.jpg",
-            name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
-            category: "Sửa rửa mặt",
-            price: 150000,
-            quantity: 9,
-          }
-        ]
-      }
-    ]
+    ordersHistory: [],
   },
   {
     full_info: false,
-    full_money: false,
     statusLogin: false,
     id: 2,
     username: "user2",
     password: "password2",
-    email: "user2@example.com",
-    remember_password: false,
-    first_name: "null",
-    last_name: "null",
-    phone: "null",
-    address: "null",
-    ma_the: "null", 
-    code_the: "null",
-    bank: "null",
-    purchase_method: "null",
-    src: null,
+    first_name: null,
+    last_name: null,
+    phone: null,
     shoppingCart: [],
-    ordersHistory: []
+    ordersHistory: [],
   },
   {
     full_info: false,
-    full_money: false,
     statusLogin: false,
     id: 3,
     username: "user3",
     password: "password3",
-    email: "user3@example.com",
-    remember_password: false,
-    first_name: "null",
-    last_name: "null",
-    phone: "null",
-    address: "null",
-    ma_the: "null", 
-    code_the: "null",
-    bank: "null",
-    purchase_method: "null",
-    src: null,
-    shoppingCart: [
-      {
-        id: "APh00001",
-        src: "./assets/images/facewash-image-1.jpg",
-        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-        category: "Sửa rửa mặt",
-        price: 200000,
-        quantity: 5,
-      }
-    ],
-    ordersHistory: []
-  }
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 4,
+    username: "user4",
+    password: "password4",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 5,
+    username: "user5",
+    password: "password5",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 6,
+    username: "user6",
+    password: "password6",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 7,
+    username: "user7",
+    password: "password7",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 8,
+    username: "user8",
+    password: "password8",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 9,
+    username: "user9",
+    password: "password9",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 10,
+    username: "user10",
+    password: "password10",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 11,
+    username: "user11",
+    password: "password11",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 12,
+    username: "user12",
+    password: "password12",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 13,
+    username: "user13",
+    password: "password13",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 14,
+    username: "user14",
+    password: "password14",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 15,
+    username: "user15",
+    password: "password15",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 16,
+    username: "user16",
+    password: "password16",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 17,
+    username: "user17",
+    password: "password17",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 18,
+    username: "user18",
+    password: "password18",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 19,
+    username: "user19",
+    password: "password19",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
+  {
+    full_info: false,
+    statusLogin: false,
+    id: 20,
+    username: "user20",
+    password: "password20",
+    first_name: null,
+    last_name: null,
+    phone: null,
+    shoppingCart: [],
+    ordersHistory: [],
+  },
 ];
+
+
 
 // Đối tượng chứa thông tin cơ bản của người dùng
 export let basicInformationFromUser = {
-    fullname: "Trần Thanh Quy",
-    email: "email@gmail.com",
-    phone: "0123456789",
-    address: "...",
+  fullname: "Trần Thanh Quy",
+  email: "email@gmail.com",
+  phone: "0123456789",
+  address: "...",
 };
 
 // mảng này để quản lí đơn hàng cho admin khi người dùng ấn thanh toán đặt hàng

@@ -1,5 +1,7 @@
-import {addProduct, showListProduct} from "./show_updateProduct/OptionProduct.js";
-
+import { usersList } from "../../database/database.js";
+import { pagination, showListProduct, showListCustomer} from "./showList/show.js";
+import { addCustomer } from "./updateCustomer/optionCustomer.js";
+import {addProduct} from "./updateProduct/OptionListProduct.js";
 
 function start(){
 	anhMinh();
@@ -8,6 +10,14 @@ function start(){
 
 start();
 
+function deleteMainCreatedFromJs(){
+	if(document.querySelector(".main-content-customer-edit")){
+		document.querySelector(".main-content-customer-edit").remove();
+	}
+	if(document.querySelector(".main-content-customer-add")){
+		document.querySelector(".main-content-customer-add").remove();
+	}
+}
 
 function anhMinh(){
 
@@ -17,7 +27,8 @@ function anhMinh(){
 	allSideMenu.forEach(item=> {
 		const li = item.parentElement;
 
-		item.addEventListener('click', function() {
+		item.addEventListener('click', function(e) {
+			e.preventDefault();
 			allSideMenu.forEach(i=> {
 				i.parentElement.classList.remove('active');
 			})
@@ -33,12 +44,24 @@ function anhMinh(){
 			//hiển thị main của option được chọn
 			//nếu option là sản phẩm
 			if(item.className == "product_sidebar"){
+				deleteMainCreatedFromJs();
 				showMain("main-content-product-list");
 				addProduct();
 				showListProduct();
 			}
 			else if(item.className == "order_sidebar"){
 				showMain("main-content-order");
+			}
+			else if(item.className == "customer_sidebar"){
+				deleteMainCreatedFromJs();
+				let userList = JSON.parse(localStorage.getItem("userList")) || [];
+				if(userList.length == 0){
+					userList = [...usersList];
+				}
+				localStorage.setItem("userList", JSON.stringify(userList));
+				showMain("main-content-customer");
+				addCustomer();
+				pagination(userList, 1, showListCustomer);
 			}
 		});
 	});
@@ -70,8 +93,6 @@ function anhMinh(){
 		}
 	});
 
-
-
 	if(window.innerWidth < 768) {
 		sidebar.classList.add('hide');
 	} else if(window.innerWidth > 576) {
@@ -79,15 +100,12 @@ function anhMinh(){
 		searchForm.classList.remove('show');
 	}
 
-
 	window.addEventListener('resize', function () {
 		if(this.innerWidth > 576) {
 			searchButtonIcon.classList.replace('bx-x', 'bx-search');
 			searchForm.classList.remove('show');
 		}
 	});
-
-
 
 	const switchMode = document.getElementById('switch-mode');
 

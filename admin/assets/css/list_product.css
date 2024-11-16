@@ -10,48 +10,57 @@
     padding: 12px;
     column-gap: 5px
 }
-.content-product-list table {
+.content-product-list table, .content-customer-list table {
     width: 100%;
     padding: 12px;
 }
-.content-product-list table,th,td {
+.content-product-list table,th,td{
     text-align: center;
 }
-.content-product-list table th {
+.content-customer-list table,th,td{
+    text-align: center;
+}
+.content-product-list table th, .content-customer-list table th {
     font-size: 1.2rem;
     background-color: black;
     color: whitesmoke;
     padding: 10px 0px;
 }
-.content-product-list table td {
+.content-product-list table td, .content-customer-list table td {
     text-align: center;
     vertical-align: middle;
     padding: 10px;
 }
 
-/* -----css phần list danh mục--- */
-.form-category{
-    background-color: #ccc;
-    position: absolute;
-    top: 100%;
+/* css phần list page */
+.listPage{
     width: 100%;
-    padding: 10px;
-}
-.content-category{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
-.content-category p{
-    color: #000;
-    width: 100%;
-    font-size: 1.2rem;
-    margin: 10px;
-    text-decoration: underline;
+.listPage li{
+    margin: 10px 20px;
+    border-radius: 100%;
+    overflow: hidden;
+    height: 30px;
+    line-height: 30px;
 }
-.content-category p:hover{
+.listPage li a{
+    font-size: 1rem;
+    font-weight: 200;
+    padding: 10px;
+    cursor: pointer;
+    /* background-color: #ccc; */
+    transition: background 0.2s;
+}
+.listPage li a.active-page{
+    background-color: #000;
     color: #fff;
+    font-weight: 300;
 }
-
-
-/*------ ----- --*/
+.listPage li a:hover{
+    background-color: #000;
+    color: #fff;
+    font-weight: 300;
+}
+/* ------------------------- */

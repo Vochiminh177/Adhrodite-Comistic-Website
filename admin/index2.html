@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/style2.css">
     <link rel="stylesheet" href="assets/css/list_product.css">
     <link rel="stylesheet" href="assets/css/add_Product.css">
+    <link rel="stylesheet" href="assets/css/list_Customer.css">
 
     <!--ICON-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -236,6 +237,9 @@
         <main id="main-content-order" style="display: none;">
             <div class="title">
                 <div id="title-name">Danh sách đơn hàng</div>
+                <div>
+                    <button class="btn btn-add-customer">Thêm khách hàng</button>
+                </div>
             </div>
             <div class="content">
                 <div class="content-order-list">
@@ -248,7 +252,20 @@
         </main>
 
         <main id="main-content-customer" style="display: none;">
-            <h1>Khach hang</h1>
+            <div class="title">
+                <div id="title-name">Danh Sách Khách Hàng</div>
+                <div>
+                    <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-customer-list">
+                    <table>
+                    </table>
+                    <div class="list-page"></div>
+                </div>
+                
+            </div>
         </main>
 
         <main id="main-content-logout" style="display: none;">

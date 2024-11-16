@@ -1,20 +1,14 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
+
+import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
+
 import { usersList } from "../../../database/database.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
 
-//reset trạng thái không đăng nhập
-let userList = JSON.parse(localStorage.getItem("userList")) || [];
-if (userList.length == 0) {
-  userList = [...usersList];
-}
-userList.forEach((obj) => {
-  obj.statusLogin = false;
-});
-localStorage.setItem("userList", JSON.stringify(userList));
 
 export const mainContentMap = {
   home: `

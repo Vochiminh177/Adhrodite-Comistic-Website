@@ -1,52 +1,12 @@
 //---HIỆU------
+
 export function delete_space(str) {
     str = str.trim();
     str = str.replaceAll(/\s+/g, " ");
     return str;
 }
 
-export function reset_style_input(input, text){
-    input.placeholder = text;
-    input.classList.remove("err-text");
-    input.style.borderColor = "#a94064";
-}
 
-export function err_input(input, mess){
-    if(input.type == "file"){
-        let parent = input.parentElement;
-        if(!parent.querySelector("p")){
-            let ele = document.createElement("p");
-            ele.innerText = "*Lỗi! Cần thêm hình ảnh";
-            ele.style.fontSize = "0.8rem";
-            ele.style.color = "red";
-            parent.appendChild(ele);
-
-            input.onclick = () => {
-                ele.remove();
-            };
-        }
-    }
-    else{
-        let text = input.placeholder;
-
-        if(input.value == ""){
-            input.placeholder = "*Lỗi! Thiếu dữ liệu";
-            input.style.borderColor = "red";
-            input.classList.add("err-text");
-        }
-        else{
-            if(mess){
-                input.value = "";
-                input.placeholder = mess;
-                input.style.borderColor = "red";
-                input.classList.add("err-text");
-            }
-        }
-        input.onclick = () => {
-            reset_style_input(input, text);
-        }
-    }
-}
 
 
 export function add_product(path_picture_admin){

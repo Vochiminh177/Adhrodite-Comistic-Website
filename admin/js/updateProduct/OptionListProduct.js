@@ -1,109 +1,8 @@
-import { productItemArray } from "../../../database/database.js"
+import { createNotificationAdmin } from "../base/baseFunction.js";
+import { showListProduct } from "../showList/show.js";
 import { showMain } from "../script2.js";
 import {add_product, delete_product, edit_product} from "./handleUpdate_Product.js";
 
-
-//hàm tạo thông báo
-function create_notification_admin(mess) {
-    let text = document.createElement("p");
-    text.className = "notification";
-    text.innerText = mess;
-    text.style.backgroundColor = "#ffff";
-    text.style.color = "#a94064";
-    text.style.position = "fixed";
-    text.style.right = "0px";
-    text.style.top = "0px";
-    text.style.transform = "translate(100%, 10%)";
-    text.style.zIndex = "2001";
-    text.style.padding = "10px 50px";
-    text.style.fontSize = "1.5rem";
-    text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-    text.style.transition = "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
-    document.body.appendChild(text);
-    setTimeout(() => {
-        document.querySelector(".notification").style.transform = "translate(-5%, 10%)";
-    }, 10);
-    //tắt dần
-    setTimeout(() => {
-        document.querySelector(".notification").style.transform = "translate(100%, 10%)";
-    }, 2000);
-    //xóa khỏi dom
-    setTimeout(() => {
-        document.querySelector(".notification").remove();
-    }, 2500);
-}
-
-// hàm lọc theo danh mục
-// function filer_category(){
-//     document.querySelector(".category-list").style.cursor = "pointer"
-//     document.querySelector(".category-list").onmousedown = (e) => {
-//         e.preventDefault();
-//     }
-//     document.querySelector(".category-list").onclick = (e) => {
-//         e.preventDefault();
-//         if(!document.querySelector(".form-category")){
-//             let ele = document.createElement("div");
-//             ele.className = "form-category";
-//             ele.innerHTML = `
-//             <div class="content-category">
-//                 <p>Trang điểm</p>
-//                 <p>Tóc</p>
-//                 <p>Cơ thể</p>
-//                 <p>Da</p>
-//             </div>
-//             `;
-//             document.querySelector(".category-list").appendChild(ele);
-//         }
-//         else{
-//             document.querySelector(".form-category").remove();
-//         }
-//     };
-// }
-
-//hiện danh sách sản phẩm - HIỆU
-export function showListProduct() {
-    let productList = JSON.parse(localStorage.getItem('productList')) || [];
-    if (productList.length == 0) {
-        productList = [...productItemArray];
-        localStorage.setItem("productList", JSON.stringify(productList));
-    }
-
-    //tạo danh sách sản phẩm từ mảng chèn vô bảng table
-    let product = `
-        <tr>
-            <th class="picture-list">Hình ảnh</th>
-            <th class="id-list">Mã</th>
-            <th class="name-list">Tên</th>
-            <th class="brand-list">Thương hiệu</th>
-            <th class="category-list">Loại</th>
-            <th class="price-list">Giá</th>
-            <th class="quantity-list">Số lượng</th>
-            <th class="option-list">Tùy chỉnh</th>
-        </tr>
-    `;
-    productList.forEach((ele) => {
-        product += `
-            <tr>
-                <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
-                <td id="id">${ele.id}</td>
-                <td id="name">${ele.name}</td>
-                <td id="brand">${ele.brand}</td>
-                <td id="category">${ele.category}</td>
-                <td id="price">${ele.price}</td>
-                <td id="quantity">${ele.quantity}</td>
-                <td>
-                    <a href="" class="edit-product">Sửa</a>
-                    <a href="" class="delete-product">Xóa</a>
-                </td>
-            </tr>
-        `;
-    });
-    document.querySelector(".content .content-product-list table").innerHTML = product;
-
-    deleteProduct();
-    editProduct();
-    // filer_category();
-}
 
 var path_picture_admin = {
     src: null
@@ -165,9 +64,12 @@ function reset_input(){
 function handlePicture_admin(){
     let inputPicture = document.querySelector("#file");
     inputPicture.onchange = () => {
-        path_picture_admin.src = inputPicture.files[0];
-        console.log(path_picture_admin.src);
-        document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+        const reader = new FileReader();
+        reader.readAsDataURL(inputPicture.files[0]);
+        reader.onload = (e) => {
+            path_picture_admin.src = e.target.result;
+            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+        }
     };
 }
 
@@ -189,7 +91,7 @@ export function addProduct(){
                 path_picture_admin.src = null;
                 showMain("main-content-product-list");
                 showListProduct();
-                create_notification_admin("Thêm sản phẩm thành công!");
+                createNotificationAdmin("Thêm sản phẩm thành công!");
             }
         };
         document.querySelector(".btn-add").onclick = handle_click_btn_add;
@@ -244,7 +146,7 @@ export function deleteProduct(){
                 result = delete_product(i, number);
                 if(result){
                     ele.remove();
-                    create_notification_admin("Xóa sản phẩm thành công!");
+                    createNotificationAdmin("Xóa sản phẩm thành công!");
                     showListProduct();
                 }
             };
@@ -286,7 +188,7 @@ export function editProduct(){
                     path_picture_admin.src = null;
                     showMain("main-content-product-list");
                     showListProduct();
-                    create_notification_admin("Sửa sản phẩm thành công!");
+                    createNotificationAdmin("Sửa sản phẩm thành công!");
                 }
             };
             document.querySelector(".btn-add").onclick = handle_click_btn_edit;

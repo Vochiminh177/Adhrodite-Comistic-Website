@@ -1,0 +1,46 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* css phần thông báo có muốn xóa người dùng không */
+
+.container-delete-customer{
+    z-index: 10000;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.form-delete-customer{
+    padding: 20px;
+    background-color: #fff;
+}
+.form-delete-customer span{
+    font-size: 2rem;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 700;
+}
+.form-delete-customer button{
+    border: none;
+    width: 10rem;
+    font-size: 1.2rem;
+    margin: 0px 20px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 300;
+    background-color: #fff;
+    transition: background 0.2;
+}
+.form-delete-customer button:hover{
+    background-color: #000;
+    color: #fff;
+    font-weight: 500;
+}
+/* ------------------------------------------ */

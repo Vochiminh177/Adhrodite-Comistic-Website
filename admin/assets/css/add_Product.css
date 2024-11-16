@@ -5,11 +5,11 @@
     --poppins: "Poppins", sans-serif;
 }
 
-.content-product-add {
+.content-product-add, .content-edit-customer {
     display: grid;
     grid-template-columns: 55% 45%;
     padding: 12px;
-    column-gap: 20px
+    column-gap: 20px;
 }
 #left-input input {
     height: 40px;
