@@ -2,7 +2,7 @@
 
 export function delete_space(str) {
     str = str.trim();
-    str = str.replaceAll("/\s+/g", " ");
+    str = str.replaceAll(/\s+/g, " ");
     return str;
 }
 

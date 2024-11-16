@@ -3,7 +3,7 @@ import { mainContentMap, mainContentDiv } from "./changeMainContent.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 
 // Hàm tạo sự kiện khi người dùng nhấn vào "Danh mục nổi bậc"
-export function clickToPopularMenus() {
+export function clickToPopularMenu() {
   let array = document.querySelectorAll(".popular-menu__item");
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
@@ -93,11 +93,8 @@ export function clickToProductItem() {
 }
 
 // Thiết lập sự kiện khi người dùng nhấn vào "Danh mục nổi bật"
-
-
 // Thiết lập sự kiện khi người dùng nhấn vào một sản phẩm
 window.addEventListener('load', () => {
   clickToPopularMenus();
   clickToProductItem();
-
 });

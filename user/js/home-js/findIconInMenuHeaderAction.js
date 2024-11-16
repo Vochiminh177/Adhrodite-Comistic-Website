@@ -2,6 +2,7 @@ import { productItemArray } from "../../../database/database.js";
 import { updateProductItem } from "../products-js/getProductItem.js";
 import { updateMainContent } from "../home-js/changeMainContent.js";
 import { updateProductList } from "../products-js/getProductList.js";
+import { updateLeftMenuStyle } from "../products-js/productsPageStyles.js";
 
 // Lớp bao thanh tìm kiếm và danh sách gợi ý
 const userBlock = document.getElementById("find-block-wrapper");
@@ -23,19 +24,20 @@ let searchTerm = "";
 function goToProductDetails(productItemKey) {
   updateMainContent("products");
   updateProductItem(productItemKey);
-  const leftSearchInput = document.getElementById("left-search-input");
-  leftSearchInput.value = productItemArray[productItemKey - 1].name;
-  leftSearchInput.focus();
+  document.getElementById("left-search-input").focus();
+  // Cập nhật lại leftMenuStyle
+  updateLeftMenuStyle(productItemArray[productItemKey - 1].categoryID);
 }
 
 /*-----------FUNCTION-----------*/
-// Đi vaof trang sản phẩm với từ khoá
+// Đi vào trang sản phẩm với từ khoá
 function goToProductPageWithSearchTerm(searchTerm) {
   updateMainContent("products");
   const leftSearchInput = document.getElementById("left-search-input");
   leftSearchInput.value = searchTerm;
   leftSearchInput.focus();
-  updateProductList(searchTerm, "tat-ca");
+  const filteredProducts = filterProducts(searchTerm);
+  updateProductList(filteredProducts);
 }
 
 /*-----------FUNCTION-----------*/
