@@ -1,20 +1,7 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { clickToPopularMenus, clickToProductItem } from "./homePageEvents.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
-import { usersList } from "../../../database/database.js";
 import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
-
-
-
-//reset trạng thái không đăng nhập
-let userList = JSON.parse(localStorage.getItem("userList")) || [];
-if(userList.length == 0){
-  userList = [...usersList];
-}
-userList.forEach((obj) => {
-  obj.statusLogin = false;
-}); 
-localStorage.setItem("userList", JSON.stringify(userList));
 
 export const mainContentMap = {
   home: `
