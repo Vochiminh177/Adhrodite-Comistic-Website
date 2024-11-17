@@ -60,6 +60,55 @@ export let productItemArray = [
     desc: `<b>Gel Giảm Mụn Alcom Derma Forte Advanced</b> là sản phẩm điều trị mụn hiệu quả, giúp làm giảm mụn và ngăn ngừa thâm sau mụn. Sản phẩm chứa các thành phần chính như Niacinamide (Vitamin B3) giúp làm dịu da và kháng viêm, Azelaic Acid có tác dụng giảm vi khuẩn gây mụn, kiểm soát bã nhờn, và Vitamin E giúp dưỡng ẩm, làm mềm da. Gel này còn hỗ trợ làm đều màu da và ngăn ngừa sẹo thâm sau mụn, phù hợp cho các loại da, đặc biệt là da dầu và da mụn. Bạn nên thoa một lớp mỏng lên vùng da mụn 1-2 lần mỗi ngày để đạt hiệu quả tối ưu.`,
     quantity: 6
   },
+  {
+    number: 6,
+    id: "APh00006",
+    src: "./assets/images/popular-menu_image-1.jpg",
+    name: "Gel Giảm Mụn Alcom Derma Forte Advanced 15g",
+    brand: "CeraVe",
+    category: "Kem trị mụn",
+    categoryID: "kem-tri-mun",
+    price: 212000,
+    desc: `<b>Gel Giảm Mụn Alcom Derma Forte Advanced</b> là sản phẩm điều trị mụn hiệu quả, giúp làm giảm mụn và ngăn ngừa thâm sau mụn. Sản phẩm chứa các thành phần chính như Niacinamide (Vitamin B3) giúp làm dịu da và kháng viêm, Azelaic Acid có tác dụng giảm vi khuẩn gây mụn, kiểm soát bã nhờn, và Vitamin E giúp dưỡng ẩm, làm mềm da. Gel này còn hỗ trợ làm đều màu da và ngăn ngừa sẹo thâm sau mụn, phù hợp cho các loại da, đặc biệt là da dầu và da mụn. Bạn nên thoa một lớp mỏng lên vùng da mụn 1-2 lần mỗi ngày để đạt hiệu quả tối ưu.`,
+    quantity: 6
+  },
+  {
+    number: 7,
+    id: "APh00007",
+    src: "./assets/images/popular-menu_image-2.jpg",
+    name: "Gel Giảm Mụn Alcom Derma Forte Advanced 15g",
+    brand: "CeraVe",
+    category: "Kem trị mụn",
+    categoryID: "kem-tri-mun",
+    price: 212000,
+    desc: `<b>Gel Giảm Mụn Alcom Derma Forte Advanced</b> là sản phẩm điều trị mụn hiệu quả, giúp làm giảm mụn và ngăn ngừa thâm sau mụn. Sản phẩm chứa các thành phần chính như Niacinamide (Vitamin B3) giúp làm dịu da và kháng viêm, Azelaic Acid có tác dụng giảm vi khuẩn gây mụn, kiểm soát bã nhờn, và Vitamin E giúp dưỡng ẩm, làm mềm da. Gel này còn hỗ trợ làm đều màu da và ngăn ngừa sẹo thâm sau mụn, phù hợp cho các loại da, đặc biệt là da dầu và da mụn. Bạn nên thoa một lớp mỏng lên vùng da mụn 1-2 lần mỗi ngày để đạt hiệu quả tối ưu.`,
+    quantity: 6
+  },
+  {
+    number: 8,
+    id: "APh00008",
+    src: "./assets/images/popular-menu_image-3.jpg",
+    name: "Gel Giảm Mụn Alcom Derma Forte Advanced 15g",
+    brand: "CeraVe",
+    category: "Kem trị mụn",
+    categoryID: "kem-tri-mun",
+    price: 212000,
+    desc: `<b>Gel Giảm Mụn Alcom Derma Forte Advanced</b> là sản phẩm điều trị mụn hiệu quả, giúp làm giảm mụn và ngăn ngừa thâm sau mụn. Sản phẩm chứa các thành phần chính như Niacinamide (Vitamin B3) giúp làm dịu da và kháng viêm, Azelaic Acid có tác dụng giảm vi khuẩn gây mụn, kiểm soát bã nhờn, và Vitamin E giúp dưỡng ẩm, làm mềm da. Gel này còn hỗ trợ làm đều màu da và ngăn ngừa sẹo thâm sau mụn, phù hợp cho các loại da, đặc biệt là da dầu và da mụn. Bạn nên thoa một lớp mỏng lên vùng da mụn 1-2 lần mỗi ngày để đạt hiệu quả tối ưu.`,
+    quantity: 6
+  },
+  {
+    number: 9,
+    id: "APh00009",
+    src: "./assets/images/popular-menu_image-4.jpg",
+    name: "Gel Giảm Mụn Alcom Derma Forte Advanced 15g",
+    brand: "CeraVe",
+    category: "Kem trị mụn",
+    categoryID: "kem-tri-mun",
+    price: 212000,
+    desc: `<b>Gel Giảm Mụn Alcom Derma Forte Advanced</b> là sản phẩm điều trị mụn hiệu quả, giúp làm giảm mụn và ngăn ngừa thâm sau mụn. Sản phẩm chứa các thành phần chính như Niacinamide (Vitamin B3) giúp làm dịu da và kháng viêm, Azelaic Acid có tác dụng giảm vi khuẩn gây mụn, kiểm soát bã nhờn, và Vitamin E giúp dưỡng ẩm, làm mềm da. Gel này còn hỗ trợ làm đều màu da và ngăn ngừa sẹo thâm sau mụn, phù hợp cho các loại da, đặc biệt là da dầu và da mụn. Bạn nên thoa một lớp mỏng lên vùng da mụn 1-2 lần mỗi ngày để đạt hiệu quả tối ưu.`,
+    quantity: 6
+  },
+
 ];
 
 // Mảng chứa các sản phẩm (khi thêm vào giỏ hàng)

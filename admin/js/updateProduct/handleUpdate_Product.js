@@ -1,13 +1,20 @@
 //---HIỆU------
 
-export function delete_space(str) {
+import { err_input } from "../base/baseFunction.js";
+
+function delete_space(str) {
     str = str.trim();
     str = str.replaceAll(/\s+/g, " ");
     return str;
 }
 
 
-
+//hàm kiểm tra input giá cả và số lượng
+function checkNumber(value){
+    if(!isNaN(value)){
+        return value == Math.round(value);
+    }
+}
 
 export function add_product(path_picture_admin){
     let productList = JSON.parse(localStorage.getItem("productList"));
@@ -37,6 +44,20 @@ export function add_product(path_picture_admin){
         check_empty = true;
     }
 
+    let checkNum = true;
+    if(!checkNumber(price.value) || !checkNumber(quantity.value)){
+        checkNum = false;
+        if(!checkNumber(price.value) && !checkNumber(quantity.value)){
+            err_input(price, "Phải nhập số nguyên!");
+            err_input(quantity, "Phải nhập số nguyên!");
+        }
+        else if(!checkNumber(price.value)){
+            err_input(price, "Phải nhập số nguyên!");
+        }
+        else err_input(quantity, "Phải nhập số nguyên!");
+    }
+    if(!checkNum) return false;
+
     //nếu trùng tên hoặc mã sản phẩm, sản phẩm đã tồn tại
     let check = {
         status: true,
@@ -44,14 +65,14 @@ export function add_product(path_picture_admin){
         mess_name: null
     }
     check.check_id = productList.some((obj) => {
-        if(obj.id === delete_space(id.value)){
+        if(obj.id === id.value){
             check.status = false;
             check.mess_id = "Lỗi! Trùng mã sản phẩm";
             return;
         }    
     });
     check.check_name = productList.some((obj) => {
-        if(obj.name === delete_space(name.value)){
+        if(obj.name === name.value){
             check.status = false;
             check.mess_name = "Lỗi! Trùng tên sản phẩm";
             return;
@@ -86,13 +107,13 @@ export function add_product(path_picture_admin){
     //thêm sản phẩm vào mảng và update lên localStorage, xong hết return true
     let data = {
         number: number,
-        id: delete_space(id.value),
+        id: id.value,
         src: path_picture_admin.src,
-        name: delete_space(name.value),
-        brand: delete_space(brand.value),
-        category: delete_space(category.value),
-        price: delete_space(price.value),
-        desc: delete_space(description.value),
+        name: name.value,
+        brand: brand.value,
+        category: category.value,
+        price: price.value,
+        desc: description.value,
         quantity: quantity.value
     }
 
@@ -147,6 +168,20 @@ export function edit_product(index, path_picture_admin) {
         check_empty = true;
     }
 
+    let checkNum = true;
+    if(!checkNumber(price.value) || !checkNumber(quantity.value)){
+        checkNum = false;
+        if(!checkNumber(price.value) && !checkNumber(quantity.value)){
+            err_input(price, "Phải nhập số nguyên!");
+            err_input(quantity, "Phải nhập số nguyên!");
+        }
+        else if(!checkNumber(price.value)){
+            err_input(price, "Phải nhập số nguyên!");
+        }
+        else err_input(quantity, "Phải nhập số nguyên!");
+    }
+    if(!checkNum) return false;
+
     //nếu trùng tên sản phẩm, sản phẩm đã tồn tại
     let check = {
         status: true,
@@ -155,7 +190,7 @@ export function edit_product(index, path_picture_admin) {
     }
     check.check_id = productList.some((obj, i) => {
         if(index != i){
-            if(obj.id === delete_space(id.value)){
+            if(obj.id === id.value){
                 check.status = false;
                 check.mess_id = "Lỗi! Trùng mã sản phẩm";
                 return;
@@ -164,7 +199,7 @@ export function edit_product(index, path_picture_admin) {
     });
     check.check_name = productList.some((obj, i) => {
         if(index != i){
-            if(obj.name === delete_space(name.value)){
+            if(obj.name === name.value){
                 check.status = false;
                 check.mess_name = "Lỗi! Trùng tên sản phẩm";
                 return;
@@ -187,12 +222,12 @@ export function edit_product(index, path_picture_admin) {
     if(check_empty) return;
 
     //update vào mảng và update lên localStorage, return true
-    productList[index].name = delete_space(name.value);
-    productList[index].price = delete_space(price.value);
-    productList[index].category = delete_space(category.value);
-    productList[index].brand = delete_space(brand.value)
-    productList[index].description = delete_space(description.value);
-    productList[index].id = delete_space(id.value);
+    productList[index].name = name.value;
+    productList[index].price = price.value;
+    productList[index].category = category.value;
+    productList[index].brand = brand.value;
+    productList[index].description = description.value;
+    productList[index].id = id.value;
     productList[index].src = path_picture_admin.src;
     productList[index].quantity = quantity.value;
 

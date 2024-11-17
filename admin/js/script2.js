@@ -1,7 +1,7 @@
-import { usersList } from "../../database/database.js";
+import { usersList, productItemArray} from "../../database/database.js";
 import { pagination, showListProduct, showListCustomer} from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
-import {addProduct} from "./updateProduct/OptionListProduct.js";
+import {addProduct} from "./updateProduct/OptionProduct.js";
 
 function start(){
 	anhMinh();
@@ -40,20 +40,24 @@ function anhMinh(){
 			document.querySelectorAll('main').forEach(section => {
 				section.style.display = 'none';
 			});
-
+			deleteMainCreatedFromJs();
 			//hiển thị main của option được chọn
-			//nếu option là sản phẩm
 			if(item.className == "product_sidebar"){
-				deleteMainCreatedFromJs();
+				console.log(1);
+				let productList = JSON.parse(localStorage.getItem("productList")) || [];
+				if(productList.length == 0){
+					productList = [...productItemArray];
+				}
+				localStorage.setItem("productList", JSON.stringify(productList));
 				showMain("main-content-product-list");
 				addProduct();
-				showListProduct();
+				pagination(productList, 1, showListProduct, "#main-content-product-list");
 			}
 			else if(item.className == "order_sidebar"){
 				showMain("main-content-order");
 			}
 			else if(item.className == "customer_sidebar"){
-				deleteMainCreatedFromJs();
+				console.log(2);
 				let userList = JSON.parse(localStorage.getItem("userList")) || [];
 				if(userList.length == 0){
 					userList = [...usersList];
@@ -61,7 +65,7 @@ function anhMinh(){
 				localStorage.setItem("userList", JSON.stringify(userList));
 				showMain("main-content-customer");
 				addCustomer();
-				pagination(userList, 1, showListCustomer);
+				pagination(userList, 1, showListCustomer, "#main-content-customer");
 			}
 		});
 	});

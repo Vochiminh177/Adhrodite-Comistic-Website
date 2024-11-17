@@ -1,7 +1,8 @@
 import { createNotificationAdmin } from "../base/baseFunction.js";
-import { showListProduct } from "../showList/show.js";
+import { pagination, showListProduct } from "../showList/show.js";
 import { showMain } from "../script2.js";
 import {add_product, delete_product, edit_product} from "./handleUpdate_Product.js";
+import { productItemArray } from "../../../database/database.js";
 
 
 var path_picture_admin = {
@@ -90,8 +91,9 @@ export function addProduct(){
             if(result){
                 path_picture_admin.src = null;
                 showMain("main-content-product-list");
-                showListProduct();
                 createNotificationAdmin("Thêm sản phẩm thành công!");
+                let productList = JSON.parse(localStorage.getItem("productList"));
+                pagination(productList, Math.ceil(productList.length/3), showListProduct, "#main-content-product-list");
             }
         };
         document.querySelector(".btn-add").onclick = handle_click_btn_add;
@@ -102,9 +104,10 @@ export function addProduct(){
 
 //chức năng xóa sản phẩm của admin -HIỆU
 export function deleteProduct(){
-    document.querySelectorAll(".delete-product").forEach((obj, i) => {
+    document.querySelectorAll(".delete-product").forEach((obj) => {
         obj.addEventListener("click", (e) => {
             e.preventDefault();
+            let index = parseInt(obj.getAttribute("index-item"));
             //tạo form xóa sản phẩm
             let ele = document.createElement("div");
             ele.className = "container-delete-confirm";
@@ -134,7 +137,7 @@ export function deleteProduct(){
             //nếu chọn xóa hết
             document.querySelector(".select-all-delete").onclick = () => {
                 let productList = JSON.parse(localStorage.getItem("productList"));
-                document.querySelector("#number-delete-confirm").value = productList[i].quantity;
+                document.querySelector("#number-delete-confirm").value = productList[index].quantity;
             };
 
             //kiểm tra xóa thành công hay không
@@ -143,11 +146,16 @@ export function deleteProduct(){
                 //lấy số lượng muốn xóa
                 let number = document.querySelector("#number-delete-confirm").value;
 
-                result = delete_product(i, number);
+                result = delete_product(index, number);
                 if(result){
                     ele.remove();
                     createNotificationAdmin("Xóa sản phẩm thành công!");
-                    showListProduct();
+                    let productList = JSON.parse(localStorage.getItem("productList"));
+                    if(productList.length == 0){
+                        productList = [...productItemArray];
+                    }
+                    localStorage.setItem("productList", JSON.stringify(productList));
+                    pagination(productList, 1, showListProduct, "#main-content-product-list");
                 }
             };
         });
@@ -155,10 +163,11 @@ export function deleteProduct(){
 }
 
 //chức năng sửa sản phẩm của admin - HIỆU
-export function editProduct(){
-    document.querySelectorAll(".edit-product").forEach((obj, index) => {
+export function editProduct(currentPage){
+    document.querySelectorAll(".edit-product").forEach((obj) => {
         obj.addEventListener("click", (e) => {
             let productList = JSON.parse(localStorage.getItem("productList"));
+            let index = parseInt(obj.getAttribute("index-item"));
 
             e.preventDefault();
             showMain("main-content-product-add");
@@ -186,9 +195,10 @@ export function editProduct(){
                 let result = edit_product(index, path_picture_admin);
                 if(result){
                     path_picture_admin.src = null;
-                    showMain("main-content-product-list");
-                    showListProduct();
                     createNotificationAdmin("Sửa sản phẩm thành công!");
+                    showMain("main-content-product-list");
+                    productList = JSON.parse(localStorage.getItem("productList"));
+                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
                 }
             };
             document.querySelector(".btn-add").onclick = handle_click_btn_edit;

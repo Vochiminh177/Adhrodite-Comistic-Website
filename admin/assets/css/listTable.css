@@ -1,0 +1,66 @@
+.title {
+    display: flex;
+    justify-content:space-between;
+}
+.title-name {
+    text-align: center;
+}
+.content-product-add {
+    display: flex;
+    padding: 12px;
+    column-gap: 5px
+}
+.content-product-list table, .content-customer-list table {
+    width: 100%;
+    padding: 12px;
+}
+.content-product-list table,th,td{
+    text-align: center;
+}
+.content-customer-list table,th,td{
+    text-align: center;
+}
+.content-product-list table th, .content-customer-list table th {
+    font-size: 1.2rem;
+    background-color: black;
+    color: whitesmoke;
+    padding: 10px 0px;
+}
+.content-product-list table td, .content-customer-list table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+/* css phần list page */
+.listPage{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.listPage li{
+    margin: 10px 20px;
+    border-radius: 100%;
+    overflow: hidden;
+    height: 30px;
+    line-height: 30px;
+}
+.listPage li a{
+    font-size: 1rem;
+    font-weight: 200;
+    padding: 10px;
+    cursor: pointer;
+    /* background-color: #ccc; */
+    transition: background 0.2s;
+}
+.listPage li a.active-page{
+    background-color: #000;
+    color: #fff;
+    font-weight: 300;
+}
+.listPage li a:hover{
+    background-color: #000;
+    color: #fff;
+    font-weight: 300;
+}
+/* ------------------------- */

@@ -3,8 +3,9 @@ import { createNotificationAdmin } from "../base/baseFunction.js";
 import { pagination, showListCustomer } from "../showList/show.js";
 import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
+import { usersList } from "../../../database/database.js";
 
-export function deleteCustomer(currentPage) {
+export function deleteCustomer() {
     document.querySelectorAll(".delete-customer").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
@@ -21,11 +22,9 @@ export function deleteCustomer(currentPage) {
                 </div>
             `;
             document.body.appendChild(container);
-            let userList = JSON.parse(localStorage.getItem("userList"));
             document.querySelectorAll(".container-delete-customer .no").forEach((obj) => {
                 obj.onclick = () => {
                     document.querySelector(".container-delete-customer").remove();
-                    pagination(userList, currentPage, showListCustomer);
                 };
             });
             document.querySelectorAll(".container-delete-customer .yes").forEach((obj) => {
@@ -33,7 +32,12 @@ export function deleteCustomer(currentPage) {
                     handleDeleteCustomer(index);
                     console.log(index);
                     document.querySelector(".container-delete-customer").remove();
-                    pagination(userList, 1, showListCustomer);
+                    let userList = JSON.parse(localStorage.getItem("userList"));
+                    if(userList.length == 0){
+                        userList = [...usersList];
+                    }
+                    localStorage.setItem("userList", JSON.stringify(userList));
+                    pagination(userList, 1, showListCustomer, "#main-content-customer");
                 };
             });
         };
@@ -78,7 +82,7 @@ export function editCustomer(currentPage) {
                 </div>
             `;
             let main = document.createElement("main");
-            main.id = "main-content-customer-edit";
+            main.className = "main-content-customer-edit";
             main.innerHTML = container.innerHTML;
             document.querySelector("#content").appendChild(main);
             document.querySelector(".btn-saveChange-customer").onclick = () => {
@@ -86,9 +90,9 @@ export function editCustomer(currentPage) {
                 if(result){
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
-                    document.querySelector("#main-content-customer-edit").remove();
-                    showMain("main-content-customer");
-				    pagination(userList, currentPage, showListCustomer);
+                    document.querySelector(".main-content-customer-edit").remove();
+                    // showMain("main-content-customer");
+				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
         }
@@ -134,8 +138,8 @@ export function addCustomer(){
                 createNotificationAdmin("Thêm khách hàng thành công!");
                 document.querySelector(".main-content-customer-add").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
-                showMain("main-content-customer");
-				pagination(userList, Math.ceil(userList.length/3), showListCustomer);
+                // showMain("main-content-customer");
+				pagination(userList, Math.ceil(userList.length/3), showListCustomer, "#main-content-customer");
             }
         }
     }
