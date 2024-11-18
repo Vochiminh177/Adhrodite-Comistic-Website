@@ -148,7 +148,7 @@ body {
 /* Content */
 #content {
     position: relative;
-    width: calc(100%-230px);
+    width: calc(100% - 230px);
     left: 230px;
     transition: .3s ease;
 }
