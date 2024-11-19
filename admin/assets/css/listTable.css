@@ -10,28 +10,29 @@
     padding: 12px;
     column-gap: 5px
 }
-.content-product-list table, .content-customer-list table {
+table {
     width: 100%;
     padding: 12px;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-.content-product-list table,th,td{
-    text-align: center;
-}
-.content-customer-list table,th,td{
-    text-align: center;
-}
-.content-product-list table th, .content-customer-list table th {
+th {
+    font-weight: bold;
+    padding: 25px 5px;
+    border: 1px solid #ddd;
     font-size: 1.2rem;
     background-color: black;
     color: whitesmoke;
-    padding: 10px 0px;
-}
-.content-product-list table td, .content-customer-list table td {
-    text-align: center;
     vertical-align: middle;
-    padding: 10px;
+    text-align: center;
 }
-
+td {
+    word-wrap: break-word;
+    padding: 15px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    text-align: center;
+}
 /* css phần list page */
 .listPage{
     width: 100%;
