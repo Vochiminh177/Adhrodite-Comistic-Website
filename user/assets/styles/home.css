@@ -392,6 +392,7 @@
 /* <=== Hero ===> */
 .body__home .home__hero {
   position: relative;
+  content: "width=device-width, initial-scale=1.0";
   top: 0;
   left: -156px;
   background: url("/user/assets/images/hero-image.jpg") center/cover no-repeat;
