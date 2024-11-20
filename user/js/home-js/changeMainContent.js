@@ -1,14 +1,10 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
-
-import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
-
 import { usersList } from "../../../database/database.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
-
 
 export const mainContentMap = {
   home: `
