@@ -1,8 +1,8 @@
 import { productItemArray, usersList } from "../../../database/database.js"
-import { deleteProduct, editProduct } from "../updateProduct/OptionListProduct.js";
+import { deleteProduct, editProduct } from "../updateProduct/OptionProduct.js";
 import { deleteCustomer, editCustomer } from "../updateCustomer/optionCustomer.js";
 
-function createPage(list, currentPage, showList){
+function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
     let totalPage = Math.ceil(list.length / itemPerPage);
     // console.log(totalPage);
@@ -27,7 +27,8 @@ function createPage(list, currentPage, showList){
         else eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
     }
     eleUl.innerHTML += `<li><a href="" class="right-page">></a></li>`;
-    document.querySelector(".list-page").innerHTML = eleUl.outerHTML;
+    document.querySelector(main).querySelector(".content .list-page").innerHTML = eleUl.outerHTML;
+    console.log(document.querySelector(main));
     //------------------------------------------
     //-----In ra danh sách list---------
     let start = (currentPage-1) * itemPerPage;
@@ -35,31 +36,31 @@ function createPage(list, currentPage, showList){
     showList(start, end, currentPage);
     //------------------------------------------
     //--gán sự kiện----
-    document.querySelector(".left-page").onclick = (e) => {
+    document.querySelector(main).querySelector(".left-page").onclick = (e) => {
         e.preventDefault();
         if(currentPage-1>0){
-            createPage(list, currentPage-1, showList);
+            createPage(list, currentPage-1, showList, main);
         }
     };
-    document.querySelector(".right-page").onclick = (e) => {
+    document.querySelector(main).querySelector(".right-page").onclick = (e) => {
         e.preventDefault();
         if(currentPage+1<=totalPage){
-            createPage(list, currentPage+1, showList);
+            createPage(list, currentPage+1, showList, main);
         }
     };
-    document.querySelectorAll(".page-number").forEach((obj) => {
+    document.querySelector(main).querySelectorAll(".page-number").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
-            createPage(list, parseInt(obj.textContent), showList);
+            createPage(list, parseInt(obj.textContent), showList, main);
         }
     });
 }
 
-export function pagination(list, currentPage, showList){
-    createPage(list, currentPage, showList);
+export function pagination(list, currentPage, showList, main){
+    createPage(list, currentPage, showList, main);
 }
 
-export function showListProduct() {
+export function showListProduct(start, end, currentPage) {
     let productList = JSON.parse(localStorage.getItem('productList')) || [];
     if (productList.length == 0) {
         productList = [...productItemArray];
@@ -79,7 +80,8 @@ export function showListProduct() {
             <th class="option-list">Tùy chỉnh</th>
         </tr>
     `;
-    productList.forEach((ele) => {
+    productList.forEach((ele, index) => {
+        if(index>=start && index < end){
         product += `
             <tr>
                 <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
@@ -90,17 +92,17 @@ export function showListProduct() {
                 <td id="price">${ele.price}</td>
                 <td id="quantity">${ele.quantity}</td>
                 <td>
-                    <a href="" class="edit-product">Sửa</a>
-                    <a href="" class="delete-product">Xóa</a>
+                    <a href="" class="edit-product" index-item=${index}>Sửa</a>
+                    <a href="" class="delete-product" index-item=${index}>Xóa</a>
                 </td>
             </tr>
         `;
+        }
     });
     document.querySelector(".content .content-product-list table").innerHTML = product;
 
     deleteProduct();
-    editProduct();
-    // filer_category();
+    editProduct(currentPage);
 }
 
 export function showListCustomer(start, end, currentPage){
@@ -122,7 +124,7 @@ export function showListCustomer(start, end, currentPage){
                 <tr>
                     <td id="id-user">${ele.id}</td>
                     <td id="username">${ele.username}</td>
-                    <td id="fullname">${ele.first_name + " " + ele.last_name}</td>
+                    <td id="fullname">${(ele.first_name ? ele.first_name : 'chưa') + " " + (ele.last_name ? ele.last_name : 'có')}</td>
                     <td>
                         <a href="" class="edit-customer" index-item=${index}>Sửa</a>
                         <a href="" class="delete-customer" index-item=${index}>Xóa</a>
@@ -132,6 +134,6 @@ export function showListCustomer(start, end, currentPage){
         }
     });
     document.querySelector(".content .content-customer-list table").innerHTML = user;
-    deleteCustomer(currentPage);
+    deleteCustomer();
     editCustomer(currentPage);
 }

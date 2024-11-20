@@ -1,0 +1,67 @@
+.title {
+    display: flex;
+    justify-content:space-between;
+}
+.title-name {
+    text-align: center;
+}
+.content-product-add {
+    display: flex;
+    padding: 12px;
+    column-gap: 5px
+}
+table {
+    width: 100%;
+    padding: 12px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+th {
+    font-weight: bold;
+    padding: 25px 5px;
+    border: 1px solid #ddd;
+    font-size: 1.2rem;
+    background-color: black;
+    color: whitesmoke;
+    vertical-align: middle;
+    text-align: center;
+}
+td {
+    word-wrap: break-word;
+    padding: 15px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    text-align: center;
+}
+/* css phần list page */
+.listPage{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.listPage li{
+    margin: 10px 20px;
+    border-radius: 100%;
+    overflow: hidden;
+    height: 30px;
+    line-height: 30px;
+}
+.listPage li a{
+    font-size: 1rem;
+    font-weight: 200;
+    padding: 10px;
+    cursor: pointer;
+    /* background-color: #ccc; */
+    transition: background 0.2s;
+}
+.listPage li a.active-page{
+    background-color: #000;
+    color: #fff;
+    font-weight: 300;
+}
+.listPage li a:hover{
+    background-color: #000;
+    color: #fff;
+    font-weight: 300;
+}
+/* ------------------------- */

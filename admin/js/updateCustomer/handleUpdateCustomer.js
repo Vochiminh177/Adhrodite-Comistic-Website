@@ -89,7 +89,6 @@ export function handleAddCustomer() {
     if (username.value == "" || password.value == "" || phone.value == "" || firstName.value == "" || lastName.value == "") {
         err_input(username);
         err_input(password);
-        err_input(address);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);

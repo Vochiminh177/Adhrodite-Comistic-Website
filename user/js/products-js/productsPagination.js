@@ -1,5 +1,5 @@
 import { showPaginatedProducts } from "./showPaginatedProducts.js";
-
+import { getProductItemInfo } from "./getProductItem.js";
 /*-----------FUNCTION-----------*/
 // Xử lý focus, unfocus nút trang
 function focusCurrentPage(currentPage) {
@@ -80,7 +80,7 @@ export function updateProductsPagination(
 
     // Hiển thị sản phẩm trên 1 trang
     showPaginatedProducts(paginatedProducts);
-
+    getProductItemInfo();
     if (totalPages <= maxPages) {
       // Các nút trang có sẵn, không cần tạo lại
       // Chỉ cần focus vào currentPage

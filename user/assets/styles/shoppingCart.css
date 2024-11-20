@@ -1,0 +1,144 @@
+/* <===== Shopping Cart =====> */
+.body__shopping-cart {
+  padding: 32px 0;
+}
+.shopping-cart__content {
+  background: #fff;
+  padding: 26px 28px 32px;
+  border-radius: 8px;
+}
+.shopping-cart__title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+.shopping-cart__title::after {
+  content: "";
+  display: block;
+  width: 88%;
+  height: 2px;
+  background: #000;
+  margin: 10px auto 18px;
+}
+.shopping-cart__body {
+  height: 480px;
+}
+.shopping-cart__list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+.shopping-cart__inform {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: rgba(119, 119, 119, 0.2);
+  font-family: "Roboto";
+  font-size: 5.8rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.4rem;
+  line-height: 1.17;
+  text-align: center;
+}
+.shopping-cart__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 25%;
+}
+.shopping-cart__item::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #d4d4d4;
+}
+.shopping-cart__item + .shopping-cart__item {
+  margin: 12px 0;
+}
+figure:has(.shopping-cart__image) {
+  width: 100px;
+  height: 100px;
+}
+.shopping-cart__image {
+  width: 100%;
+  height: 100%;
+}
+.shopping-cart__name {
+  width: 368px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.17;
+}
+.shopping-cart__details {
+  color: #777;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.shopping-cart__quantity {
+  margin-left: 112px;
+}
+.shopping-cart__operator,
+.shopping-cart__number {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  font-size: 2rem;
+  line-height: 38px;
+  text-align: center;
+}
+.shopping-cart__operator {
+  background: #eee;
+  transition: background-color 0.2s;
+}
+.shopping-cart__operator:hover {
+  background: #ccc;
+}
+.shopping-cart__product-total-price {
+  width: 148px;
+  font-size: 1.7rem;
+  margin-left: 28px;
+  text-align: right;
+}
+.shopping-cart__trash {
+  display: block;
+  color: red;
+  font-size: 2.8rem;
+  margin-left: 134px;
+}
+.shopping-cart__trash i {
+  /* Vô hiệu hoá khả năng nhấn vào icon */
+  pointer-events: none;
+}
+.shopping-cart__payment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+.shopping-cart__payment-info {
+  font-size: 2rem;
+}
+.shopping-cart__total-price {
+  font-weight: 700;
+}
+.shopping-cart__payment-button {
+  width: 186px;
+  height: 48px;
+  background: #000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+.shopping-cart__payment-button:hover {
+  background: #fc8eac;
+}

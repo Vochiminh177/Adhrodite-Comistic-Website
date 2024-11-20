@@ -9,6 +9,19 @@ export function removeAccents(str) {
     .replace(/Đ/g, "D");
 }
 
+// Hàm ẩn hiển header và footer của trang web
+export function updateHeaderAndFooter(condition) {
+  const header = document.querySelector(".header");
+  const footer = document.querySelector(".footer");
+  if (condition === "off") {
+    header.style.display = "none";
+    footer.style.display = "none";
+  } else {
+    header.style.display = "block";
+    footer.style.display = "block";
+  }
+}
+
 // Xoá các thẻ <style> đã tồn tại từ trước đó
 export function removeAllStyleTags() {
   document.querySelectorAll("head style").forEach((styleTag) => {
@@ -55,7 +68,10 @@ export function formatVietNamMoney(money) {
 }
 
 // Hàm tính tổng số tiền của các sản phẩm hiện có trong productItemAddedToShoppingCart
-export function calTotalProductItemPriceInShoppingCart(userList, index_user_status_login) {
+export function calTotalProductItemPriceInShoppingCart(
+  userList,
+  index_user_status_login
+) {
   let totalPrice = 0;
   userList[index_user_status_login].shoppingCart.forEach((productItem) => {
     if (productItem.quantity >= 1)
@@ -64,10 +80,19 @@ export function calTotalProductItemPriceInShoppingCart(userList, index_user_stat
   return totalPrice;
 }
 
-export function replaceSpaceWithHyphen(str){
+// Hàm tính tổng tiền từ mảng các sản phẩm
+export function calTotalProductItemPrice(productsArray) {
+  let totalPrice = 0;
+  productsArray.forEach((product) => {
+    if (product.quantity >= 1) totalPrice += product.price * product.quantity;
+  });
+  return totalPrice;
+}
+
+export function replaceSpaceWithHyphen(str) {
   str = str.trim();
   str = str.toLowerCase();
-  str = str.replace(/\s+/g, '-');
+  str = str.replace(/\s+/g, "-");
   console.log(str);
   return str;
 }

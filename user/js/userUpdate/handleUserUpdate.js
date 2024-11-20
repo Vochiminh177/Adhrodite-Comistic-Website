@@ -1,6 +1,6 @@
 //-Hiệu------
 import { usersList } from "../../../database/database.js";
-import { delete_space } from "../../../admin/js/updateProduct/handleUpdate_Product.js";
+// import { delete_space } from "../../../admin/js/updateProduct/handleUpdate_Product.js";
 
 
 //hàm báo lỗi input
@@ -140,14 +140,14 @@ export function handleSignUp(){
         mess_email: null
     };
     userList.forEach((obj) => {
-        if(obj.username === delete_space(username.value)){
+        if(obj.username === username.value){
             check.mess_username = "*Tên đăng nhập đã tồn tại!"
             check.status = true;
             return;
         }
     });
     userList.forEach((obj) => {
-        if(obj.email === delete_space(email.value)){
+        if(obj.email === email.value){
             check.mess_email = "*Email đã tồn tại!";
             check.status = true;
             return;
