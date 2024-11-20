@@ -182,10 +182,7 @@ function filterProducts() {
 }
 
 // Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
-export function comebackProductList(productCategory) {
-  // Dành cho trường hợp vào chi tiết sản phẩm bằng thanh tìm kiếm ở header
-  // khi quay lại sẽ đi vào danh mục của sản phẩm đó
-  document.getElementById(productCategory + '-left-menu').click();
+export function comebackProductList() {
   updateProductList(filteredProducts);
 }
 
