@@ -6,7 +6,6 @@ import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
 import { usersList } from "../../../database/database.js";
 
-
 export const mainContentMap = {
   home: `
   <div class="body__home">
@@ -675,15 +674,3 @@ export function deleteAllFormCreatedFromJsUser(){
   document.querySelector(".header__find-block-wrapper").style.visibility = "hidden";
 }
 
-
-// let userList = JSON.parse(localStorage.getItem("userList")) || [];
-// if(userList.length === 0){
-//   userList=[...usersList];
-// }
-// localStorage.setItem("userList", JSON.stringify(userList));
-
-// userList.forEach((obj) => {
-//   if(obj.remember_password){
-
-//   }
-// })

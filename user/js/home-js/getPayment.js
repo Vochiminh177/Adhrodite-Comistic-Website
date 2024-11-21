@@ -1,22 +1,10 @@
 import {
+  updateHeaderAndFooter,
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
-
-// Hàm ẩn hiển header và footer của trang web
-function updateHeaderAndFooter(condition) {
-  const header = document.querySelector(".header");
-  const footer = document.querySelector(".footer");
-  if (condition === "off") {
-    header.style.display = "none";
-    footer.style.display = "none";
-  } else {
-    header.style.display = "block";
-    footer.style.display = "block";
-  }
-}
 
 // Hàm trở về trang Giỏ hàng
 function clickToComebackShoppingCart(userList, userStatusLoginIndex) {
@@ -207,118 +195,119 @@ function updatePaymentInformation(
   mainContent.innerHTML = paymentInformationForm;
 
   // gán sự kiện cho hành động chọn địa điểm giao hàng
-  document.querySelector(
-    ".payment-information-info__change-location-action"
-  ).onclick = (e) => {
-    e.preventDefault();
-    if (
-      document.querySelector(".payment-information-info__change-location-list")
-        .style.display == "none"
-    ) {
-      document.querySelector(
-        ".payment-information-info__change-location-list"
-      ).style.display = "block";
-    } else {
-      document.querySelector(
-        ".payment-information-info__change-location-list"
-      ).style.display = "none";
-    }
-  };
+  // document.querySelector(
+  //   ".payment-information-info__change-location-action"
+  // ).onclick = (e) => {
+  //   e.preventDefault();
+  //   if (
+  //     document.querySelector(".payment-information-info__change-location-list")
+  //       .style.display == "none"
+  //   ) {
+  //     document.querySelector(
+  //       ".payment-information-info__change-location-list"
+  //     ).style.display = "block";
+  //   } else {
+  //     document.querySelector(
+  //       ".payment-information-info__change-location-list"
+  //     ).style.display = "none";
+  //   }
+  // };
 
-  let array_item = document.querySelectorAll(
-    ".payment-information-info__change-location-item"
-  );
-  array_item.forEach((obj) => {
-    obj.onclick = () => {
-      let input = document.querySelector(
-        ".payment-information-info__change-location-list input"
-      );
-      if (input) {
-        input.remove();
-      }
+  // let array_item = document.querySelectorAll(
+  //   ".payment-information-info__change-location-item"
+  // );
+  // array_item.forEach((obj) => {
+  //   obj.onclick = () => {
+  //     let input = document.querySelector(
+  //       ".payment-information-info__change-location-list input"
+  //     );
+  //     if (input) {
+  //       input.remove();
+  //     }
 
-      let ele = document.createElement("input");
-      ele.type = "text";
-      ele.style.borderBottom = "1px solid #000";
-      ele.style.width = "100%";
-      ele.style.padding = "10px";
+  //     let ele = document.createElement("input");
+  //     ele.type = "text";
+  //     ele.style.borderBottom = "1px solid #000";
+  //     ele.style.width = "100%";
+  //     ele.style.padding = "10px";
 
-      if (obj.textContent.trim() == "Nhập từ thông tin cá nhân") {
-        ele.value = userList[userStatusLoginIndex].address;
-        ele.disabled = true;
-      }
-      document
-        .querySelector(".payment-information-info__change-location-list")
-        .appendChild(ele);
-    };
-  });
+  //     if (obj.textContent.trim() == "Nhập từ thông tin cá nhân") {
+  //       ele.value = userList[userStatusLoginIndex].address;
+  //       ele.disabled = true;
+  //     }
+  //     document
+  //       .querySelector(".payment-information-info__change-location-list")
+  //       .appendChild(ele);
+  //   };
+  // });
 
-  // gán sự kiện chọn thanh toán qua thẻ
-  document.querySelector("#credit-card").onclick = () => {
-    let form_purchase_method = document.querySelector(".purchase-method");
-    let array_input_text =
-      form_purchase_method.querySelectorAll("input[type=text]");
-    if (array_input_text.length != 0) {
-      array_input_text.forEach((obj) => {
-        obj.remove();
-      });
-    }
+  // // gán sự kiện chọn thanh toán qua thẻ
+  // document.querySelector("#credit-card").onclick = () => {
+  //   let form_purchase_method = document.querySelector(".purchase-method");
+  //   let array_input_text =
+  //     form_purchase_method.querySelectorAll("input[type=text]");
+  //   if (array_input_text.length != 0) {
+  //     array_input_text.forEach((obj) => {
+  //       obj.remove();
+  //     });
+  //   }
 
-    let ele_1 = document.createElement("input");
-    ele_1.type = "text";
-    ele_1.style.borderBottom = "1px solid #000";
-    ele_1.style.width = "100%";
-    ele_1.style.padding = "10px";
-    ele_1.style.margin = "10px 0px";
-    ele_1.disabled = true;
-    ele_1.value = userList[userStatusLoginIndex].ma_the;
+  //   let ele_1 = document.createElement("input");
+  //   ele_1.type = "text";
+  //   ele_1.style.borderBottom = "1px solid #000";
+  //   ele_1.style.width = "100%";
+  //   ele_1.style.padding = "10px";
+  //   ele_1.style.margin = "10px 0px";
+  //   ele_1.disabled = true;
+  //   ele_1.value = userList[userStatusLoginIndex].ma_the;
 
-    let ele_2 = document.createElement("input");
-    ele_2.type = "text";
-    ele_2.style.borderBottom = "1px solid #000";
-    ele_2.style.width = "100%";
-    ele_2.style.padding = "10px";
-    ele_2.style.margin = "5px 0px";
-    ele_2.disabled = true;
-    ele_2.value = userList[userStatusLoginIndex].code_the;
+  //   let ele_2 = document.createElement("input");
+  //   ele_2.type = "text";
+  //   ele_2.style.borderBottom = "1px solid #000";
+  //   ele_2.style.width = "100%";
+  //   ele_2.style.padding = "10px";
+  //   ele_2.style.margin = "5px 0px";
+  //   ele_2.disabled = true;
+  //   ele_2.value = userList[userStatusLoginIndex].code_the;
 
-    let ele_3 = document.createElement("input");
-    ele_3.type = "text";
-    ele_3.style.borderBottom = "1px solid #000";
-    ele_3.style.width = "100%";
-    ele_3.style.padding = "10px";
-    ele_3.style.margin = "5px 0px";
-    ele_3.disabled = true;
-    ele_3.value = userList[userStatusLoginIndex].bank;
+  //   let ele_3 = document.createElement("input");
+  //   ele_3.type = "text";
+  //   ele_3.style.borderBottom = "1px solid #000";
+  //   ele_3.style.width = "100%";
+  //   ele_3.style.padding = "10px";
+  //   ele_3.style.margin = "5px 0px";
+  //   ele_3.disabled = true;
+  //   ele_3.value = userList[userStatusLoginIndex].bank;
 
-    document.querySelector(".purchase-atm").appendChild(ele_1);
-    document.querySelector(".purchase-atm").appendChild(ele_2);
-    document.querySelector(".purchase-atm").appendChild(ele_3);
-  };
+  //   document.querySelector(".purchase-atm").appendChild(ele_1);
+  //   document.querySelector(".purchase-atm").appendChild(ele_2);
+  //   document.querySelector(".purchase-atm").appendChild(ele_3);
+  // };
 
-  // gán sự kiện khi chọn chuyển khoản
-  document.querySelector("#internet-banking").onclick = () => {
-    let form_purchase_method = document.querySelector(".purchase-method");
-    let array_input_text =
-      form_purchase_method.querySelectorAll("input[type=text]");
-    if (array_input_text.length != 0) {
-      array_input_text.forEach((obj) => {
-        obj.remove();
-      });
-    }
-  };
+  // // gán sự kiện khi chọn chuyển khoản
+  // document.querySelector("#internet-banking").onclick = () => {
+  //   let form_purchase_method = document.querySelector(".purchase-method");
+  //   let array_input_text =
+  //     form_purchase_method.querySelectorAll("input[type=text]");
+  //   if (array_input_text.length != 0) {
+  //     array_input_text.forEach((obj) => {
+  //       obj.remove();
+  //     });
+  //   }
+  // };
 
-  // gán sự kiện khi chọn tiền mặt
-  document.querySelector("#cod").onclick = () => {
-    let form_purchase_method = document.querySelector(".purchase-method");
-    let array_input_text =
-      form_purchase_method.querySelectorAll("input[type=text]");
-    if (array_input_text.length != 0) {
-      array_input_text.forEach((obj) => {
-        obj.remove();
-      });
-    }
-  };
+  // // gán sự kiện khi chọn tiền mặt
+  // document.querySelector("#cod").onclick = () => {
+  //   let form_purchase_method = document.querySelector(".purchase-method");
+  //   let array_input_text =
+  //     form_purchase_method.querySelectorAll("input[type=text]");
+  //   if (array_input_text.length != 0) {
+  //     array_input_text.forEach((obj) => {
+  //       obj.remove();
+  //     });
+  //   }
+  // };
+
   // Tạo sự kiện để người dùng có thể trở về trang Giỏ hàng
   clickToComebackShoppingCart(userList, userStatusLoginIndex);
 

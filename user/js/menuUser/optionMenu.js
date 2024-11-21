@@ -62,15 +62,15 @@ export function changePassword() {
           <p>Đổi mật khẩu</p>
           <div class="username-change">
             <label for="username-change"></label>
-            <input type="text" class="username-change" placeholder="Tên tài khoản">
+            <input type="text" id="username-change" placeholder="Nhập tên tài khoản">
           </div>
           <div class="old-password-change">
             <label for="old-password-change"></label>
-            <input type="text" class="old-password-change" placeholder="Mật khẩu cũ">
+            <input type="text" id="old-password-change" placeholder="Nhập mật khẩu cũ">
           </div>
           <div class="new-password-change">
             <label for="new-password-change"></label>
-            <input type="text" class="new-password-change" placeholder="Mật khẩu mới">
+            <input type="text" id="new-password-change" placeholder="Nhập mật khẩu mới">
           </div>
           <button class="btn-save-change-password">Lưu thay đổi</button>
         </div>

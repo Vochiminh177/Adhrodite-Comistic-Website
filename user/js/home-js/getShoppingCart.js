@@ -3,7 +3,7 @@ import {
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
 import { generateFilter } from "../products-js/generateFilter.js";
-import { getPaymentInformationInfo } from "./getPaymentInformation.js";
+import { getPaymentInformationInfo } from "./getPayment.js";
 
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn
 export function comebackShoppingCart(userList, userStatusLoginIndex) {

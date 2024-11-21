@@ -11,9 +11,9 @@ function checkNumberPhone(value){
 //hàm đổi mật khẩu
 export function handleChangePassword() {
     let userList = JSON.parse(localStorage.getItem("userList"));
-    let username = document.querySelector(".username-change");
-    let oldPassword = document.querySelector(".old-password-change");
-    let newPassword = document.querySelector(".new-password-change");
+    let username = document.querySelector("#username-change");
+    let oldPassword = document.querySelector("#old-password-change");
+    let newPassword = document.querySelector("#new-password-change");
 
     if (username.value == "" || oldPassword.value == "" || newPassword.value == "") {
         errorInput(username);

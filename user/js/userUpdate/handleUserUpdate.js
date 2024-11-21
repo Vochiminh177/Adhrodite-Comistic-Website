@@ -20,9 +20,13 @@ export function resetDefaultInputForUser(input){
     if(input.className === "last-name") return "Nhập tên";
     if(input.className === "phone") return "Nhập số điện thoại";
     if(input.className === "email-info") return "Nhập email";
+    if(input.id === "username-change") return "Nhập tên tài khoản";
+    if(input.id === "old-password-change") return "Nhập mật khẩu cũ";
+    if(input.id === "new-password-change") return "Nhập mật khẩu mới";
 } 
 //hàm báo lỗi input
 export function errorInput(input, mess){
+    console.log(123);
     if(input.type == "checkbox"){
         let parent = input.parentElement;
         if(!input.checked){
