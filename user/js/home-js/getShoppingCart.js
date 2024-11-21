@@ -121,9 +121,9 @@ function updateShoppingCart() {
                 ${shoppingCartFromUser.name}
               </h3>
               <p class="shopping-cart__details">
-              ${shoppingCartFromUser.id} / ${shoppingCartFromUser.category} / ${
-          shoppingCartFromUser.price
-        }
+              ${shoppingCartFromUser.id} / ${
+          shoppingCartFromUser.category
+        } / ${formatVietNamMoney(shoppingCartFromUser.price)}đ
               </p>
             </div>
             <div class="shopping-cart__quantity">

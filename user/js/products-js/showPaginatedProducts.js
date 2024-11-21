@@ -1,17 +1,13 @@
 import { formatVietNamMoney } from "../common-js/common.js";
-
-export function showPaginatedProducts(paginatedProducts) {
-  const listDiv = document.getElementById("main-products__list");
-  listDiv.innerHTML = "";
-
-  paginatedProducts.forEach((product) => {
-    const itemDiv = createProductItemWithHtml(product);
-    listDiv.appendChild(itemDiv);
-  });
-}
+import { getProductItemInfo } from "./getProductItem.js";
 
 //Hàm tạo một sản phẩm, trả về element sản phẩm
 function createProductItemWithHtml(product) {
+  // Button
+  const p1 = document.createElement("p");
+  p1.className = "main-products__show-info";
+  p1.innerHTML = `Chi tiết <i class="fa-solid fa-arrow-right"></i>`;
+
   // Image
   const img = document.createElement("img");
   img.src = `${product.src}`;
@@ -36,8 +32,22 @@ function createProductItemWithHtml(product) {
   const itemDiv = document.createElement("div");
   itemDiv.className = "main-products__item";
   itemDiv.dataset.product = `${product.number}`;
+  itemDiv.appendChild(p1);
   itemDiv.appendChild(figure);
   itemDiv.appendChild(infoDiv);
 
   return itemDiv;
 }
+
+export function showPaginatedProducts(paginatedProducts) {
+  const listDiv = document.getElementById("main-products__list");
+  listDiv.innerHTML = "";
+
+  paginatedProducts.forEach((product) => {
+    const itemDiv = createProductItemWithHtml(product);
+    listDiv.appendChild(itemDiv);
+  });
+
+  getProductItemInfo();
+}
+

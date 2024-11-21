@@ -22,12 +22,12 @@
 }
 .shopping-cart__body {
   height: 480px;
+  overflow-y: auto;
 }
 .shopping-cart__list {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 }
 .shopping-cart__inform {
   position: absolute;
@@ -61,7 +61,7 @@
   background: #d4d4d4;
 }
 .shopping-cart__item + .shopping-cart__item {
-  margin: 12px 0;
+  /* margin: 12px 0; */
 }
 figure:has(.shopping-cart__image) {
   width: 100px;

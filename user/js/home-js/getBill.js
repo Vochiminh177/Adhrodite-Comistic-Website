@@ -326,13 +326,13 @@ export function getBillInfo(array_orderProduct) {
     .querySelector(".payment-information-info__submit")
     .addEventListener("click", function () {
       // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
-      // let productList = JSON.parse(localStorage.getItem("productList")) || [];
-      // if (productList.length == 0) {
-      //   productList = [...productItemArray];
-      //   localStorage.setItem("productList", JSON.stringify(productList));
-      // }
+      let productList = JSON.parse(localStorage.getItem("productList")) || [];
+      if (productList.length == 0) {
+        productList = [...productItemArray];
+        localStorage.setItem("productList", JSON.stringify(productList));
+      }
 
-      // //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
+      //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
       // let userList = JSON.parse(localStorage.getItem("userList"));
       // let index_user_status_login;
       // userList.forEach((obj, index) => {
@@ -341,14 +341,20 @@ export function getBillInfo(array_orderProduct) {
       //   }
       // });
 
-      //hàm kiểm tra thông tin thanh toán
-      // if(handle_order_information(userList, index_user_status_login)){
+      // hàm kiểm tra thông tin thanh toán
+      // if (handle_order_information(userList, index_user_status_login)) {
       //   //hàm xử lí đơn người dùng đặt hàng
-      //   handle_order_product(userList, index_user_status_login, productList, array_orderProduct);
+      //   handle_order_product(
+      //     userList,
+      //     index_user_status_login,
+      //     productList,
+      //     array_orderProduct
+      //   );
 
       //   // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
       //   updateBill();
       // }
-      updateBill(array_orderProduct);
+
+      updateBill();
     });
 }
