@@ -1,7 +1,7 @@
 import { formatVietNamMoney } from "../common-js/common.js";
 import { productItemArray } from "../../../database/database.js";
 import { comebackProductList } from "./getProductList.js";
-import { create_notification_user } from "../home-js/changeUserFormInMenuHeader.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 import { generateFilter } from "./generateFilter.js";
 
 let productItemQuantity = 0;

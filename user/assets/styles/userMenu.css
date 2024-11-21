@@ -6,6 +6,7 @@
 
 /* Css ấn thông tin cá nhân */
 .container-formInformation-user{
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -19,12 +20,14 @@
 .form-user{
   background-color: #fff;
   padding: 10px;
+  width: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 }
 .form-user .exit-form-information-user{
+  font-size: 2.5rem;
   position: absolute;
   right: 0px;
   top: 0px;
@@ -91,7 +94,8 @@
 
 /* css form đổi mật khẩu */
 .container-change-password-user {
-  position: absolute;
+  z-index: 1;
+  position: fixed;
   top: 0px;
   width: 100vw;
   height: 100vh;
@@ -164,3 +168,10 @@
   background-color: #fc8eac;
   color: #fff;
 }
+
+/* css phần chữ trong lịch sử mua hàng */
+.order-date p{
+  margin: 10px 0px;
+  font-weight: 600;
+}
+/* ---------------------------------------- */

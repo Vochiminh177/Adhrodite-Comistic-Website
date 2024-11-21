@@ -1,6 +1,8 @@
+import { usersList } from "../../../database/database.js";
 import { removeAllStyleTags } from "../common-js/common.js";
 import { getShoppingCartInfo } from "../home-js/getShoppingCart.js";
-import {create_notification_user} from "../home-js/changeUserFormInMenuHeader.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
+import { deleteAllFormCreatedFromJsUser } from "./changeMainContent.js";
 
 // Hàm cập nhật lại style
 export function updateStyleTags() {
@@ -35,7 +37,12 @@ export function showShoppingCartFormInMenuHeader() {
   document
     .getElementById("shopping-cart-click")
     .addEventListener("click", function () {
-      let userList = JSON.parse(localStorage.getItem("userList"));
+      deleteAllFormCreatedFromJsUser();
+      let userList = JSON.parse(localStorage.getItem("userList")) || [];
+      if(userList.length == 0){
+        userList = [...usersList];
+      }
+      localStorage.setItem("userList", JSON.stringify(userList));
       let index_user_status_login = -1;
       userList.forEach((obj, index) => {
         if(obj.statusLogin){
@@ -43,7 +50,6 @@ export function showShoppingCartFormInMenuHeader() {
           return;
         }
       });
-
       //trạng thái có đăng nhập 
       if(index_user_status_login > -1){
         updateStyleTags();

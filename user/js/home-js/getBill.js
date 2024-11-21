@@ -1,6 +1,6 @@
 import { productItemAddedToShoppingCart as productItemAddedArray, usersList } from "../../../database/database.js";
 import { productItemArray } from "../../../database/database.js";
-import {create_notification_user} from "./changeUserFormInMenuHeader.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 import {order_is_in_process} from "../../../database/database.js";
 import { calTotalProductItemPriceInShoppingCart } from "../common-js/common.js";
 
@@ -151,7 +151,7 @@ function handle_order_product(userList, index_user_status_login, productList, ar
     });
 
     let data = {
-      username: userList[index_user_status_login].username,
+      customerID: userList[index_user_status_login].id,
       id: id_order,
       status: "pending",
       date_order: date_order,

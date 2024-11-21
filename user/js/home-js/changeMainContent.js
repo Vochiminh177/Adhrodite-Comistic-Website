@@ -1,13 +1,10 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
-
-// import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
-
-import { usersList } from "../../../database/database.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
+import { usersList } from "../../../database/database.js";
 
 
 export const mainContentMap = {
@@ -659,6 +656,7 @@ export function updateMainContent(mainContentKey) {
 // Tạo sự kiện khi người dùng muốn chuyển trang trên header
 document.querySelector(".navbar").addEventListener("click", function (event) {
   event.preventDefault();
+  deleteAllFormCreatedFromJsUser();
   const mainContentKey = event.target.getAttribute("data-main-content");
   if (mainContentKey) {
     // Cập nhật lại style cho navbar
@@ -668,3 +666,24 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
     updateMainContent(mainContentKey);
   }
 });
+
+//hàm xóa các form tạo từ javascript
+export function deleteAllFormCreatedFromJsUser(){
+  if(document.querySelector(".header__user-menu")){
+    document.querySelector(".header__user-menu").remove();
+  }
+  document.querySelector(".header__find-block-wrapper").style.visibility = "hidden";
+}
+
+
+// let userList = JSON.parse(localStorage.getItem("userList")) || [];
+// if(userList.length === 0){
+//   userList=[...usersList];
+// }
+// localStorage.setItem("userList", JSON.stringify(userList));
+
+// userList.forEach((obj) => {
+//   if(obj.remember_password){
+
+//   }
+// })
