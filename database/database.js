@@ -559,6 +559,7 @@ export let usersList = [
         orderId: 1,
         orderDate: "30/04/2024",
         orderStatus: "Shipped",
+        orderTotalPrice: 200000,
         orderProduct: [
           {
             id: "APh00002",
@@ -568,12 +569,109 @@ export let usersList = [
             price: 200000,
             quantity: 1,
           },
+          {
+            id: "APh00004",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 600000,
+            quantity: 3,
+          },
+          {
+            id: "APh00004",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 800000,
+            quantity: 4,
+          },
+          {
+            id: "APh00004",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 800000,
+            quantity: 4,
+          },
+          {
+            id: "APh00004",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 800000,
+            quantity: 4,
+          }
         ]
       },
       {
         orderId: 2,
         orderDate: "01/08/2024",
         orderStatus: "Pending",
+        orderTotalPrice: 400000,
+        orderProduct: [
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 400000,
+            quantity: 2,
+          },
+        ]
+      },
+      {
+        orderId: 3,
+        orderDate: "01/08/2024",
+        orderStatus: "Pending",
+        orderTotalPrice: 400000,
+        orderProduct: [
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 400000,
+            quantity: 2,
+          },
+        ]
+      },
+      {
+        orderId: 4,
+        orderDate: "01/08/2024",
+        orderStatus: "Pending",
+        orderTotalPrice: 400000,
+        orderProduct: [
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 400000,
+            quantity: 2,
+          },
+        ]
+      },
+      {
+        orderId: 5,
+        orderDate: "01/08/2024",
+        orderStatus: "Pending",
+        orderTotalPrice: 400000,
+        orderProduct: [
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 400000,
+            quantity: 2,
+          },
+        ]
+      },
+      {
+        orderId: 6,
+        orderDate: "01/08/2024",
+        orderStatus: "Pending",
+        orderTotalPrice: 400000,
         orderProduct: [
           {
             id: "APh00003",
