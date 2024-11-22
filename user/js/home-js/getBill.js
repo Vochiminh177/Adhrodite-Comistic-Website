@@ -3,8 +3,9 @@ import {
   usersList,
 } from "../../../database/database.js";
 import { productItemArray } from "../../../database/database.js";
-import { create_notification_user } from "./changeUserFormInMenuHeader.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 import { order_is_in_process } from "../../../database/database.js";
+import { calTotalProductItemPriceInShoppingCart } from "../common-js/common.js";
 import {
   updateHeaderAndFooter,
   updateNavbarStyle,
@@ -12,6 +13,42 @@ import {
   calTotalProductItemPrice,
 } from "../common-js/common.js";
 import { updateMainContent } from "./changeMainContent.js";
+
+// // Hàm cập nhật thông tin hoá đơn
+// function updateBill() {
+
+// }
+
+// export function getBillInfo(array_orderProduct, currentPage) {
+//   document
+//     .querySelector(".payment-information-info__submit")
+//     .addEventListener("click", function () {
+//       // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
+//       let productList = JSON.parse(localStorage.getItem('productList')) || [];
+//       if (productList.length == 0) {
+//         productList = [...productItemArray];
+//         localStorage.setItem("productList", JSON.stringify(productList));
+//       }
+
+//       //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
+//       let userList = JSON.parse(localStorage.getItem("userList"));
+//       let index_user_status_login;
+//       userList.forEach((obj, index) => {
+//         if(obj.statusLogin){
+//           index_user_status_login = index;
+//         }
+//       });
+
+//       //hàm kiểm tra thông tin thanh toán
+//       if(handle_order_information(userList, index_user_status_login)){
+//         //hàm xử lí đơn người dùng đặt hàng
+//         handle_order_product(userList, index_user_status_login, productList, array_orderProduct);
+
+//         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
+//         updateBill();
+//       }
+//     });
+// }
 
 // hàm kiểm tra sản phẩm nào không đặt được, tô đỏ sản phẩm đó
 function error_orderProduct(id_product) {
@@ -157,7 +194,7 @@ function handle_order_product(
     });
 
     let data = {
-      username: userList[index_user_status_login].username,
+      customerID: userList[index_user_status_login].id,
       id: id_order,
       status: "pending",
       date_order: date_order,
@@ -288,12 +325,12 @@ function updateBill(array_orderProduct) {
           </table>
           <div class="bill__payment">
             <p class="bill__delivery-price">
-              Phí vận chuyển: <span>18.000đ</span>
+              Phí vận chuyển: <span>18.000<u>đ</u></span>
             </p>
             <p class="bill__total-price">
               Tổng tiền: <span class="bill__price">${formatVietNamMoney(
                 calTotalProductItemPrice(array_orderProduct) + 18000
-              )}</span>
+              )}<u>đ</u></span>
             </p>
           </div>
         </div>
@@ -355,6 +392,6 @@ export function getBillInfo(array_orderProduct) {
       //   updateBill();
       // }
 
-      updateBill();
+      updateBill(array_orderProduct);
     });
 }

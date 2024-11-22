@@ -32,10 +32,6 @@ function reset_input(){
     document.querySelector(".price-add").style.borderColor = "#a94064";
     document.querySelector(".price-add").placeholder = "Giá bán";
 
-    document.querySelector(".category-add").value = "";
-    document.querySelector(".category-add").style.borderColor = "#a94064";
-    document.querySelector(".category-add").placeholder = "Danh mục";
-
     document.querySelector(".brand-add").value = "";
     document.querySelector(".brand-add").style.borderColor = "#a94064";
     document.querySelector(".brand-add").placeholder = "Thương hiệu";
@@ -143,10 +139,7 @@ export function deleteProduct(){
             //kiểm tra xóa thành công hay không
             let result = false;
             document.querySelector(".confirm-delete").onclick = () => {
-                //lấy số lượng muốn xóa
-                let number = document.querySelector("#number-delete-confirm").value;
-
-                result = delete_product(index, number);
+                result = delete_product(index);
                 if(result){
                     ele.remove();
                     createNotificationAdmin("Xóa sản phẩm thành công!");
@@ -176,9 +169,21 @@ export function editProduct(currentPage){
 
             //gán giá trị hiện tại của sản phẩm vào input để admin dễ xử lý
             reset_input();//trước khi gán thì reset input
+
+            let objCategory = {
+                "kem-tri-mun": "Kem trị mụn",
+                "sua-rua-mat": "Sữa rửa mặt",
+                "son": "son",
+                "phan": "phấn",
+                "toner": "toner",
+                "sereum": "sereum",
+                "kem-duong-am": "kem dưỡng ẩm",
+                "tay-trang": "tẩy trang",
+              }
+
             document.querySelector(".name-add").value = productList[index].name;
             document.querySelector(".price-add").value = productList[index].price;
-            document.querySelector(".category-add").value = productList[index].category;
+            document.querySelector("#category-add").value = productList[index].categoryID;
             document.querySelector(".brand-add").value = productList[index].brand;
             document.querySelector(".description-add").value = productList[index].desc;
             document.querySelector(".id-add").value = productList[index].id;

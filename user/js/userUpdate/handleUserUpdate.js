@@ -1,24 +1,37 @@
-//-Hiệu------
 import { usersList } from "../../../database/database.js";
-// import { delete_space } from "../../../admin/js/updateProduct/handleUpdate_Product.js";
 
 
-//hàm báo lỗi input
-function errorInput(input, mess){
-    //nếu là file
-    if(input.type == "file"){''
-        input.style.borderBottom = "1px solid red";
-        input.change = () => {
-            input.style.borderBottom = "1px solid #ccc";
-        };
-        return;
+//hàm return về chuỗi placeholder ban đầu
+export function resetDefaultInputForUser(input){
+    input.style.borderBottom = "1px solid #ccc";
+    input.classList.remove("err-text");
+    if(input.className === "username-change"){
+        return "Nhập tên tài khoản"
     }
-    //nếu là checkbox
+    if(input.className === "old-password-change") return "Nhập mật khẩu cũ";
+    if(input.className === "new-password-change") return "Nhập mật khẩu mới";
+    if(input.className === "username-login") return "Nhập tên tài khoản";
+    if(input.className === "password-login") return "Nhập mật khẩu";
+    if(input.className === "username-signup") return "Nhập tên tài khoản";
+    if(input.className === "email-signup") return "Nhập email";
+    if(input.id === "first-password") return "Nhập mật khẩu";
+    if(input.id === "second-password") return "Nhập lại mật khẩu";
+    if(input.className === "first-name") return "Nhập họ";
+    if(input.className === "last-name") return "Nhập tên";
+    if(input.className === "phone") return "Nhập số điện thoại";
+    if(input.className === "email-info") return "Nhập email";
+    if(input.id === "username-change") return "Nhập tên tài khoản";
+    if(input.id === "old-password-change") return "Nhập mật khẩu cũ";
+    if(input.id === "new-password-change") return "Nhập mật khẩu mới";
+} 
+//hàm báo lỗi input
+export function errorInput(input, mess){
+    console.log(123);
     if(input.type == "checkbox"){
         let parent = input.parentElement;
         if(!input.checked){
             parent.querySelector("p").style.color = "red";
-            input.onchange = () => {
+            input.onfocus = () => {
                 parent.querySelector("p").style.color = "black";
             };
         }
@@ -28,28 +41,20 @@ function errorInput(input, mess){
     input.classList.add("err-text");
     
     if(mess){
-        let text = input.placeholder;
-        console.log(text);
         input.style.borderBottom = "1px solid red";
         input.value = "";
         input.placeholder = mess;
-        console.log(input.placeholder);
-        input.onchange = () => {
-            input.style.borderBottom = "1px solid #ccc";
-            input.placeholder = text;
-            input.classList.remove("err-text");
+        input.onfocus = () => {
+            input.placeholder = resetDefaultInputForUser(input);
         };
         return;
     }
     //nếu input rỗng
     if(input.value == ""){
-        let text = input.placeholder;
         input.style.borderBottom = "1px solid red";
         input.placeholder = "*Lỗi! Không được để trống";
-        input.onchange = () => {
-            input.placeholder = text;
-            input.style.borderBottom = "1px solid #ccc";
-            input.classList.remove("err-text");
+        input.onfocus = () => {
+            input.placeholder = resetDefaultInputForUser(input);
         };
         return;
     }
@@ -122,15 +127,13 @@ export function handleSignUp(){
     let email = document.querySelector(".email-signup");
     let check_accept_privacy = document.querySelector(".accept-privacy");
 
-    let checkEmpty = false;
-    if(username.value === "" || password.value === "" || !check_accept_privacy.checked){
-        console.log(username.value);
+    if(username.value === "" || password.value === "" || !check_accept_privacy.checked || email.value == ""){
         errorInput(username)
         errorInput(password);
         errorInput(second_password);
         errorInput(email);
         errorInput(check_accept_privacy);
-        checkEmpty = true;
+        return false;
     }
 
     //kiểm tra xem tài khoản đã tồn tại chưa
@@ -165,34 +168,24 @@ export function handleSignUp(){
         return false;
     }
 
-    if(checkEmpty) return;
-
     let userID = userList[0].id;
     while (userList.some((obj) => {
         return obj.id == userID;
     })) {
-        userID = Math.floor(Math.random() * 100) + 1;
+        userID = Math.floor(Math.random() * userList.length + 1) + 1;
     }
+    console.log(userID);
     var data_obj = {
         full_info: false,
-        full_money: false,
         statusLogin: false,
         id: userID,
         username: username.value,
         password: password.value,
-        email: email.value,
-        remember_password: false,
-        firstName: "null",
-        lastName: "null",
-        phone: "null",
-        address: "null",
-        ma_the: "null",
-        code_the: "null",  
-        bank: "null",
-        purchase_method: "null",
-        src: "null",
+        first_name: null,
+        last_name: null,
+        phone: null,
         shoppingCart: [],
-        ordersHistory: []
+        ordersHistory: [],
     }
 
     //thêm vào mảng
@@ -201,144 +194,5 @@ export function handleSignUp(){
     return true;
 }
 
-//hàm đổi mật khẩu
-export function handleChangePassword(){
-    let userList = JSON.parse(localStorage.getItem("userList"));
-    let username = document.querySelector("#username-change");
-    let oldPassword = document.querySelector("#old-password-change");
-    let newPassword = document.querySelector("#new-password-change");
 
-    let checkEmpty = false;
-    if(username.value == "" || oldPassword.value == "" || newPassword.value == ""){
-        errorInput(username);
-        errorInput(oldPassword);
-        errorInput(newPassword);
-        checkEmpty = true;
-    }
-
-    if(checkEmpty) return false;
-
-    // lấy người có tên đăng nhập là username
-    let check = null;
-    userList.some((obj, index) => {
-        if(username.value === obj.username){
-            check = userList[index];
-            return;
-        }
-    });
-
-    // nếu không có ai thì tên đăng nhập không tồn tại
-    if (!check) {
-        errorInput(username, "*Lỗi! Tài khoản không tồn tại");
-        return false;
-    }
-
-    // kiểm tra có password giống không
-    let p = false;
-    if(check.password === oldPassword.value) p=true;
-    // nếu không là .....
-    if (!p) {
-        errorInput(oldPassword, "*Lỗi! Mật không không chính xác");
-        return false;
-    }
-
-    //nếu đổi thành công
-    userList.some((obj, index) => {
-        if(username.value === obj.username){
-            userList[index].password = newPassword.value;
-            return;
-        }
-    });
-
-    username.value = "";
-    oldPassword.value = "";
-    newPassword.value = "";
-    localStorage.setItem("userList", JSON.stringify(userList));
-    return true;
-}
-
-//hàm lưu thông tin người dùng
-export function handleSaveDateInformation(userStatusLoginIndex){
-    let userList = JSON.parse(localStorage.getItem("userList"));
-
-    let firstName = document.querySelector(".first-name");
-    let lastName = document.querySelector(".last-name");
-    let email = document.querySelector(".email-info");
-    let phone = document.querySelector(".phone");
-    let address = document.querySelector(".address");
-
-    let checkEmpty = false;
-    if(firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || address.value === ""){
-        errorInput(firstName);
-        errorInput(lastName);
-        errorInput(email);
-        errorInput(phone);
-        errorInput(address);
-        checkEmpty = true;
-    }
-
-    let check = userList.some((obj, i) => {
-        if(i != userStatusLoginIndex)
-            return obj.phone === phone.value;
-    });
-    if(check){
-        errorInput(phone, "*Lỗi! Đã tồn tại số điện thoại");
-        pictureUserPath.src = null;
-        return false;
-    }
-    if(checkEmpty){
-        pictureUserPath.src = null;
-        return false;
-    }
-
-    userList[userStatusLoginIndex].firstName = firstName.value;
-    userList[userStatusLoginIndex].lastName = lastName.value;
-    userList[userStatusLoginIndex].email = email.value;
-    userList[userStatusLoginIndex].phone = phone.value;
-    userList[userStatusLoginIndex].address = address.value;
-    userList[userStatusLoginIndex].full_info = true;
-
-    localStorage.setItem("userList", JSON.stringify(userList));
-    return true;
-}
-
-//hàm lưu ví người dùng
-// export function handleSaveDateMoney(userStatusLoginIndex){
-//     let userList = JSON.parse(localStorage.getItem("userList"));
-
-//     let ma_the = document.querySelector(".ma-the");
-//     let code_the = document.querySelector(".code-the");
-//     let bank = document.querySelector(".bank");
-
-//     let checkEmpty = false;
-//     if(ma_the.value == "" || code_the.value == "" || bank.value == ""){
-//         errorInput(ma_the);
-//         errorInput(code_the);
-//         errorInput(bank);
-//         checkEmpty = true;
-//     }
-
-//     let check = userList.some((obj, i) => {
-//         if(i != userStatusLoginIndex){ //tránh trường hợp so sánh dữ liệu cũ
-//             if(bank.value == obj.bank) //trường hợp khác ngân hàng nhưng giống số tài khoản
-//                 return obj.ma_the === ma_the.value;
-//         }
-//     });
-
-//     if(check){
-//         errorInput(stk, "*Lỗi! Đã tồn tại số tài khoản");
-//         return false;
-//     }
-//     if(checkEmpty){
-//         return false;
-//     }
-
-//     userList[userStatusLoginIndex].bank = bank.value;
-//     userList[userStatusLoginIndex].ma_the = ma_the.value;
-//     userList[userStatusLoginIndex].code_the = code_the.value;
-//     userList[userStatusLoginIndex].full_money = true;
-
-//     localStorage.setItem("userList", JSON.stringify(userList));
-//     return true;
-// }
 

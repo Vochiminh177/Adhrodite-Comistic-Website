@@ -91,7 +91,7 @@ export function editCustomer(currentPage) {
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
                     document.querySelector(".main-content-customer-edit").remove();
-                    // showMain("main-content-customer");
+                    showMain("main-content-customer");
 				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
@@ -138,7 +138,7 @@ export function addCustomer(){
                 createNotificationAdmin("Thêm khách hàng thành công!");
                 document.querySelector(".main-content-customer-add").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
-                // showMain("main-content-customer");
+                showMain("main-content-customer");
 				pagination(userList, Math.ceil(userList.length/3), showListCustomer, "#main-content-customer");
             }
         }

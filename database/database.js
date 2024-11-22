@@ -520,8 +520,7 @@ export let productItemAddedToShoppingCart = [
 export let usersList = [
   {
     full_info: false,
-    full_money: false,
-    status_login: false,
+    statusLogin: false,
     id: 1,
     username: "user1",
     password: "password1",
@@ -529,13 +528,6 @@ export let usersList = [
     remember_password: false,
     first_name: "Nguyễn",
     last_name: "Thanh Hiệu",
-    phone: "null",
-    address: "null",
-    ma_the: "null", 
-    code_the: "null",
-    bank: "null",
-    purchase_method: "null",
-    src: null,
     shoppingCart: [
       {
         id: "APh00002",
@@ -562,47 +554,62 @@ export let usersList = [
         quantity: 1,
       },
     ],
-    ordersHistory: []
+    ordersHistory: [
+      {
+        orderId: 1,
+        orderDate: "30/04/2024",
+        orderStatus: "Shipped",
+        orderProduct: [
+          {
+            id: "APh00002",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 200000,
+            quantity: 1,
+          },
+        ]
+      },
+      {
+        orderId: 2,
+        orderDate: "01/08/2024",
+        orderStatus: "Pending",
+        orderProduct: [
+          {
+            id: "APh00003",
+            src: "./assets/images/facewash-image-1.jpg",
+            name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+            category: "Sửa rửa mặt",
+            price: 400000,
+            quantity: 2,
+          },
+        ]
+      }
+    ],
   },
   {
     full_info: false,
-    full_money: false,
-    status_login: false,
+    statusLogin: false,
     id: 2,
     username: "user2",
     password: "password2",
     email: "user2@example.com",
     remember_password: false,
-    first_name: "null",
-    last_name: "null",
-    phone: "null",
-    address: "null",
-    ma_the: "null", 
-    code_the: "null",
-    bank: "null",
-    purchase_method: "null",
-    src: null,
+    first_name: null,
+    last_name: null,
     shoppingCart: [],
     ordersHistory: []
   },
   {
     full_info: false,
-    full_money: false,
-    status_login: false,
+    statusLogin: false,
     id: 3,
     username: "user3",
     password: "password3",
     email: "user3@example.com",
     remember_password: false,
-    first_name: "null",
-    last_name: "null",
-    phone: "null",
-    address: "null",
-    ma_the: "null", 
-    code_the: "null",
-    bank: "null",
-    purchase_method: "null",
-    src: null,
+    first_name: null,
+    last_name: null,
     shoppingCart: [
       {
         id: "APh00001",

@@ -43,7 +43,6 @@ function anhMinh(){
 			deleteMainCreatedFromJs();
 			//hiển thị main của option được chọn
 			if(item.className == "product_sidebar"){
-				console.log(1);
 				let productList = JSON.parse(localStorage.getItem("productList")) || [];
 				if(productList.length == 0){
 					productList = [...productItemArray];

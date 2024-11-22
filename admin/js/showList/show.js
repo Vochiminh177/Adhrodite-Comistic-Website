@@ -28,7 +28,6 @@ function createPage(list, currentPage, showList, main){
     }
     eleUl.innerHTML += `<li><a href="" class="right-page">></a></li>`;
     document.querySelector(main).querySelector(".content .list-page").innerHTML = eleUl.outerHTML;
-    console.log(document.querySelector(main));
     //------------------------------------------
     //-----In ra danh sách list---------
     let start = (currentPage-1) * itemPerPage;
@@ -69,6 +68,7 @@ export function showListProduct(start, end, currentPage) {
 
     //tạo danh sách sản phẩm từ mảng chèn vô bảng table
     let product = `
+    <thead>
         <tr>
             <th class="picture-list">Hình ảnh</th>
             <th class="id-list">Mã</th>
@@ -79,10 +79,12 @@ export function showListProduct(start, end, currentPage) {
             <th class="quantity-list">Số lượng</th>
             <th class="option-list">Tùy chỉnh</th>
         </tr>
+    </thead>    
     `;
+    let eleTbody = document.createElement("tbody");
     productList.forEach((ele, index) => {
         if(index>=start && index < end){
-        product += `
+        eleTbody.innerHTML += `
             <tr>
                 <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
                 <td id="id">${ele.id}</td>
@@ -99,8 +101,8 @@ export function showListProduct(start, end, currentPage) {
         `;
         }
     });
+    product += eleTbody.outerHTML;
     document.querySelector(".content .content-product-list table").innerHTML = product;
-
     deleteProduct();
     editProduct(currentPage);
 }
@@ -111,16 +113,19 @@ export function showListCustomer(start, end, currentPage){
         userList = [...usersList];
     }
     let user = `
-    <tr>
-        <th class="id-user-list">Id</th>
-        <th class="username-list">Tài khoản</th>
-        <th class="fullname-list">Họ tên</th>
-        <th class="edit-user">Chỉnh sửa</th>
-    </tr>
+    <thead>
+        <tr>
+            <th class="id-user-list">Id</th>
+            <th class="username-list">Tài khoản</th>
+            <th class="fullname-list">Họ tên</th>
+            <th class="edit-user">Chỉnh sửa</th>
+        </tr>
+    </thead>
     `;
+    let eleTbody = document.createElement("tbody");
     userList.forEach((ele, index) => {
         if(index >= start && index < end){
-            user += `
+            eleTbody.innerHTML += `
                 <tr>
                     <td id="id-user">${ele.id}</td>
                     <td id="username">${ele.username}</td>
@@ -133,6 +138,7 @@ export function showListCustomer(start, end, currentPage){
             `;
         }
     });
+    user += eleTbody.outerHTML;
     document.querySelector(".content .content-customer-list table").innerHTML = user;
     deleteCustomer();
     editCustomer(currentPage);

@@ -88,6 +88,7 @@
 }
 .bill__payment span {
   font-size: 1.8rem;
+  font-weight: 600;
 }
 .bill__payment-function {
   margin-top: 32px;
