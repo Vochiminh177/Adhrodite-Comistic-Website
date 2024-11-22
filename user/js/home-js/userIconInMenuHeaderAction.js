@@ -1,6 +1,6 @@
 import { signIn } from "../userUpdate/LoginSignUpUser.js";
 import { usersList } from "../../../database/database.js";
-import { showFormInformation, changePassword, signOutUser, showOrderHistory } from "../menuUser/optionMenu.js";
+import { showFormInformation, changePassword, signOutUser } from "../menuUser/optionMenu.js";
 
 // Sự kiện khi người dùng nhấn vào icon hình nhân trên Header
 
@@ -139,9 +139,6 @@ function showUserMenu(userList, userStatusLoginIndex) {
             <div class="header__user-menu-actions">
               <a href="" class="header__user-menu-action private-info">
                 <p>Thông tin cá nhân</p>
-              </a>
-              <a href="" class="header__user-menu-action order-history-info">
-                <p>Lịch sử mua hàng</p>
               </a>
               <a href="" class="header__user-menu-action change-password">
                 <p>Đổi mật khẩu</p>

@@ -75,6 +75,10 @@ export function addProduct(){
     //sự kiện click bên trong một sự kiện click
     let handle_click_btn_add_product = () => {
         showMain("main-content-product-add");
+        document.querySelector(".comback-product").onclick = (e) => {
+            e.preventDefault();
+            showMain("main-content-product-list");
+        }
         //xóa bỏ dữ liệu cũ trong input khi admin click (.btn-add-product)
         reset_input();
         document.querySelector(".btn-add").textContent = "Thêm sản phẩm";
@@ -109,7 +113,7 @@ export function deleteProduct(){
             ele.className = "container-delete-confirm";
             ele.innerHTML = `
             <div class="form-delete-confirm">
-                <button class="exit-confirm-delete">X</button>
+                <a class="exit-confirm-delete">&times;</a>
                 <div class="content-delete-confirm">
                     
                     <div class="content-delete">
@@ -127,7 +131,8 @@ export function deleteProduct(){
             }, 10);
 
             //gán sự kiện click để xóa form
-            document.querySelector(".exit-confirm-delete").onclick = () => {
+            document.querySelector(".exit-confirm-delete").onclick = (e) => {
+                e.preventDefault();
                 ele.remove();
             };
             //nếu chọn xóa hết

@@ -2,8 +2,10 @@ import {
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 import { generateFilter } from "../products-js/generateFilter.js";
 import { getPaymentInformationInfo } from "./getPayment.js";
+import { updateStyleTags } from "./shoppingCartIconInMenuHeaderAction.js";
 
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn
 export function comebackShoppingCart(userList, userStatusLoginIndex) {
@@ -165,6 +167,32 @@ function updateShoppingCart() {
     return items;
   }
 
+  // Danh sách sản phẩm đã đặt hàng nằm ở dưới giỏ hàng
+  function orderedProduct() {
+    if (userList[userStatusLoginIndex].ordersHistory.length == 0) {
+      let eleP = document.createElement("p");
+      eleP.textContent = "BẠN CHƯA ĐẶT SẢN PHẨM NÀO! ĐẶT NHANH ĐI!";
+      return eleP.outerHTML;
+    }
+
+    let eleOrder = document.createElement("div");
+    for (
+      let i = 0;
+      i < userList[userStatusLoginIndex].ordersHistory.length;
+      i++
+    ) {
+      eleOrder.innerHTML += `
+          <div id="order-item">
+            <p id="order-date-history">Ngày đặt hàng: ${userList[userStatusLoginIndex].ordersHistory[i].orderDate}</p>
+            <p id="order-status-history">Tình trạng đơn hàng: ${userList[userStatusLoginIndex].ordersHistory[i].orderStatus}</p>
+            <p id="totalPrice-history">Tổng giá trị đơn hàng: ${userList[userStatusLoginIndex].ordersHistory[i].orderTotalPrice}</p>
+            <a href="" id="detail-ordered">Chi tiết</a>
+            <a href="" id="delete-ordered">Hủy đơn hàng</a>
+          </div>
+        `;
+    }
+    return eleOrder.innerHTML;
+  }
   //
   const shoppingCartForm = `
     <div class="body__shopping-cart">
@@ -173,6 +201,10 @@ function updateShoppingCart() {
         <div class="shopping-cart__body">
           <div class="shopping-cart__list">
             ${createShoppingCartItems()}
+          </div>
+          <div class="order-cart__list">
+            <p id="ordered">ĐƠN HÀNG ĐÃ ĐẶT</p>
+            ${orderedProduct()}
           </div>
         </div>
         <div class="shopping-cart__payment">
@@ -201,6 +233,11 @@ function updateShoppingCart() {
 
   // Tạo mẫu thông tin để thanh toán khi người dùng nhấn vào "Thanh toán"
   getPaymentInformationInfo();
+
+  //gán sự kiện cho nút xem chi tiết sản phẩm đã đặt hàng
+  if (document.querySelectorAll("#order-item a").length > 0) {
+    detailOrderProduct(userList, userStatusLoginIndex);
+  }
 }
 
 // Hàm hiển thị thông tin của Giỏ hàng
@@ -210,4 +247,113 @@ export function getShoppingCartInfo() {
 
   // Tạo thông tin của Giỏ hàng bằng các thẻ html
   updateShoppingCart();
+}
+
+function detailOrderProduct(userList, userStatusLoginIndex) {
+  document
+    .querySelectorAll("#order-item #detail-ordered")
+    .forEach((obj, indexOrdersHistory) => {
+      obj.onclick = (e) => {
+        e.preventDefault();
+        function showDetailOrder() {
+          function showListDetailProduct() {
+            let ele = document.createElement("div");
+            ele.className = "list-order-product";
+            for (
+              let i = 0;
+              i <
+              userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
+                .orderProduct.length;
+              i++
+            ) {
+              ele.innerHTML += `
+              <div class="order-product-item">
+                <div class="content-product-ordered">
+                  <p id="name-product-ordered">Tên: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].name}</p>
+                  <p id="category-product-ordered">Danh mục: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].category}</p>
+                  <p id="price-product-ordered">Giá: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].price}</p>
+                  <p id="quantity-product-ordered">Số lượng: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].quantity}</p>
+
+                </div>
+                <img style="width: 100px;  height:100px;" src=${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].src}>
+              </div>
+            `;
+            }
+            return ele.outerHTML;
+          }
+
+          let container = document.createElement("div");
+          container.className = "container-detail-order";
+          container.innerHTML = `
+          <div class="form-detail-order">
+            <button class="exit-form-detail-ordered-product">&times;</button>
+            <h2>CHI TIẾT ĐƠN HÀNG</h2>
+            <h2>TÌNH TRẠNG: ${
+              userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
+                .orderStatus
+            }</h2>
+            ${showListDetailProduct()}
+          </div>
+        `;
+          document.body.appendChild(container);
+          document.querySelector(".exit-form-detail-ordered-product").onclick =
+            () => {
+              document.querySelector(".container-detail-order").remove();
+            };
+        }
+        showDetailOrder();
+      };
+    });
+
+  document
+    .querySelectorAll("#order-item #delete-ordered")
+    .forEach((obj, indexOrdersHistory) => {
+      if (
+        userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
+          .orderStatus != "Pending"
+      ) {
+        obj.style.backgroundColor = "greenyellow";
+        obj.onclick = (e) => {
+          e.preventDefault();
+        };
+      } else {
+        obj.onclick = (e) => {
+          e.preventDefault();
+          function handleDelete() {
+            function questionDelete() {
+              let ele = document.createElement("div");
+              ele.className = "container-question";
+              ele.innerHTML = `
+              <div class="form-question">
+                <button class="exit-form-detail-ordered-product">&times;</button>
+                <p>Bạn có chắc muốn hủy ?</p>
+                <a href="" class="yes">Có</a>
+                <a href="" class="no">Không</a>
+              </div>
+            `;
+              document.body.appendChild(ele);
+              document.querySelector(".form-question .yes").onclick = (e) => {
+                e.preventDefault();
+                userList[userStatusLoginIndex].ordersHistory.splice(
+                  indexOrdersHistory,
+                  1
+                );
+                localStorage.setItem("userList", JSON.stringify(userList));
+                ele.remove();
+                create_notification_user("Hủy đơn hàng thành công");
+                // updateStyleTags();
+                // Hiển thị thông tin sản phẩm của Giỏ hàng
+                getShoppingCartInfo();
+              };
+              document.querySelector(".form-question .no").onclick = (e) => {
+                e.preventDefault();
+                ele.remove();
+              };
+            }
+            questionDelete();
+          }
+          handleDelete();
+        };
+      }
+    });
 }

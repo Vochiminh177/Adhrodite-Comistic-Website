@@ -75,3 +75,21 @@
 .image-show {
     min-height: 100px;
 }
+
+
+/* css chỉnh phẩn quay lại trong thêm sản phẩm */
+#main-content-product-add .title{
+    justify-content: unset;
+}
+#main-content-product-add .title a{
+    margin-left: 20px;
+    color: #ccc;    
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+#main-content-product-add .title a:hover{
+    color: #000;
+}
+/* ------------------------------------------ */
