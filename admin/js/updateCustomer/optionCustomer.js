@@ -61,6 +61,7 @@ export function editCustomer(currentPage) {
             container.innerHTML = `
                 <div class="title">
                 <h1>Sửa thông tin khách hàng</h1>
+                <a class="comback-customer">< Quay lại</a>
                 </div>
                 <div class="content">
                     <div class="content-edit-customer">
@@ -85,6 +86,13 @@ export function editCustomer(currentPage) {
             main.className = "main-content-customer-edit";
             main.innerHTML = container.innerHTML;
             document.querySelector("#content").appendChild(main);
+            
+            document.querySelector(".comback-customer").onclick = (e) => {
+                e.preventDefault();
+                main.remove();
+                showMain("main-content-customer");
+            }
+
             document.querySelector(".btn-saveChange-customer").onclick = () => {
                 let result = handleEditCustomer(index);
                 if(result){
@@ -111,6 +119,7 @@ export function addCustomer(){
         main.innerHTML = `
              <div class="title">
                 <h1>Thêm khách hàng</h1>
+                <a class="comback-customer">< Quay lại</a>
             </div>
             <div class="content">
                 <div class="content-product-add content-customer-add">
@@ -132,6 +141,13 @@ export function addCustomer(){
             </div>
         `;
         document.querySelector("#content").appendChild(main);
+
+        document.querySelector(".comback-customer").onclick = (e) => {
+            e.preventDefault();
+            main.remove();
+            showMain("main-content-customer");
+        }
+
         document.querySelector(".add-customer").onclick = () => {
             let result = handleAddCustomer();
             if(result){

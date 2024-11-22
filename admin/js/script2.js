@@ -33,6 +33,10 @@ function anhMinh(){
 				i.parentElement.classList.remove('active');
 			})
 			li.classList.add('active');
+			allSideMenu.forEach(i=> {
+				i.parentElement.classList.remove('active-mobile');
+			})
+			li.classList.add('active-mobile');
 
 
 			//khi click option nào thì hiện main của option đó ở thanh menu
