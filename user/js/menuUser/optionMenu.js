@@ -39,7 +39,7 @@ export function create_notification_user(mess) {
 }
 
 //-----------------------------------OPTION USER----------------------------------------
-//hàm đăng xuất
+// Hàm đăng xuất
 export function signOutUser(userStatusLoginIndex) {
   let userList = JSON.parse(localStorage.getItem("userList"));
   userList[userStatusLoginIndex].statusLogin = false;
@@ -49,7 +49,7 @@ export function signOutUser(userStatusLoginIndex) {
   updateMainContent("home");
 }
 
-//hàm đổi mật khẩu
+// Hàm đổi mật khẩu
 export function changePassword() {
   let ele = document.createElement("div");
   ele.className = "container-change-password-user";
@@ -89,37 +89,44 @@ export function changePassword() {
   };
 }
 
-//hàm hiện form khi ấn thông tin cá nhân trong menu-user
+// Hàm hiện form khi ấn thông tin cá nhân trong menu-user
 export function showFormInformation(userList, userStatusLoginIndex) {
   let formInformationUser = `
         <div class="form-user">
           <button class="exit-form-information-user">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
-            <input type="text" class="first-name" placeholder="Nhập họ" value=${
+            <input type="text" class="first-name" placeholder="Nhập họ" value="${
               userList[userStatusLoginIndex].firstName
                 ? userList[userStatusLoginIndex].firstName
-                : ""
-            }>
-            <input type="text" class="last-name" placeholder="Nhập tên" value=${
+                : "Nhập họ"
+            }">
+            <input type="text" class="last-name" placeholder="Nhập tên" value="${
               userList[userStatusLoginIndex].lastName
                 ? userList[userStatusLoginIndex].lastName
-                : ""
-            }>
+                : "Nhập tên"
+            }">
           </div>
           <div class="one-input">
-            <input type="text" class="phone" placeholder="Nhập số điện thoại" value=${
+            <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${
               userList[userStatusLoginIndex].phone
                 ? userList[userStatusLoginIndex].phone
-                : ""
-            }>
+                : "Nhập số điện thoại"
+            }">
           </div>
           <div class="one-input">
-            <input type="text" class="email-info" placeholder="Nhập email" value=${
+            <input type="text" class="email" placeholder="Nhập email" value="${
               userList[userStatusLoginIndex].email
                 ? userList[userStatusLoginIndex].email
-                : ""
-            }>
+                : "Nhập email"
+            }">
+          </div>
+          <div class="one-input">
+            <input type="text" class="address" placeholder="Nhập địa chỉ" value="${
+              userList[userStatusLoginIndex].address
+                ? userList[userStatusLoginIndex].address
+                : "Nhập địa chỉ"
+            }">
           </div>
           <div class="one-input-btn">
             <button class="save-information">Lưu thông tin</button>

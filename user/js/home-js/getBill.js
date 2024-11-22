@@ -251,7 +251,7 @@ function comebackHomePage() {
 }
 
 // Hàm cập nhật thông tin hoá đơn
-function updateBill(array_orderProduct) {
+function updateBill(userList, userStatusLoginIndex, array_orderProduct) {
   function createBillItems() {
     let items = "";
     for (let i = 0; i < array_orderProduct.length; i++) {
@@ -297,10 +297,14 @@ function updateBill(array_orderProduct) {
         <div class="bill__row">
           <div class="bill__user-info">
             <h3 class="bill__sub-title">KHÁCH HÀNG</h3>
-            <p class="bill__detail">MY NAME</p>
-            <p class="bill__detail">email@gmail.com</p>
-            <p class="bill__detail">012346789</p>
-            <p class="bill__detail">location</p>
+            <p class="bill__detail">${
+              userList[userStatusLoginIndex].firstName
+            } ${userList[userStatusLoginIndex].lastName}</p>
+            <p class="bill__detail">${userList[userStatusLoginIndex].email}</p>
+            <p class="bill__detail">${userList[userStatusLoginIndex].phone}</p>
+            <p class="bill__detail">${
+              userList[userStatusLoginIndex].address
+            }</p>
           </div>
           <div class="bill__shop-info">
             <h3 class="bill__sub-title">CỬA HÀNG</h3>
@@ -369,14 +373,14 @@ export function getBillInfo(array_orderProduct) {
         localStorage.setItem("productList", JSON.stringify(productList));
       }
 
-      //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
-      // let userList = JSON.parse(localStorage.getItem("userList"));
-      // let index_user_status_login;
-      // userList.forEach((obj, index) => {
-      //   if (obj.statusLogin) {
-      //     index_user_status_login = index;
-      //   }
-      // });
+      // lấy danh sách user từ local để lấy vị trí người đang đăng nhập
+      let userList = JSON.parse(localStorage.getItem("userList"));
+      let userStatusLoginIndex;
+      userList.forEach((obj, index) => {
+        if (obj.statusLogin) {
+          userStatusLoginIndex = index;
+        }
+      });
 
       // hàm kiểm tra thông tin thanh toán
       // if (handle_order_information(userList, index_user_status_login)) {
@@ -392,6 +396,6 @@ export function getBillInfo(array_orderProduct) {
       //   updateBill();
       // }
 
-      updateBill(array_orderProduct);
+      updateBill(userList, userStatusLoginIndex, array_orderProduct);
     });
 }

@@ -1,5 +1,5 @@
 import { clickToPopularMenu } from "./homePageEvents.js";
-import { popularMenuArray } from "./database.js";
+import { popularMenuArray } from "../common-js/database.js";
 
 export function renderPopularMenuList() {
   const menuContainer = document.querySelector(".popular-menu__list");

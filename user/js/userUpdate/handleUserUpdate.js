@@ -26,7 +26,6 @@ export function resetDefaultInputForUser(input){
 } 
 //hàm báo lỗi input
 export function errorInput(input, mess){
-    console.log(123);
     if(input.type == "checkbox"){
         let parent = input.parentElement;
         if(!input.checked){
