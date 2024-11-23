@@ -1,14 +1,11 @@
-<<<<<<< HEAD
+
 import {
     handleSignUp,
     handleSignIn,
   } from "../userUpdate/handleUserUpdate.js";
   import { create_notification_user } from "../menuUser/optionMenu.js";
   import { updateForm } from "../home-js/changeUserFormInMenuHeader.js";
-=======
-import { handleSignUp, handleSignIn } from "../userUpdate/handleUserUpdate.js";
-import { create_notification_user } from "../menuUser/optionMenu.js";
->>>>>>> 1a785d6e20ae52427f85189d99082d517141cec8
+
 
 // hàm đăng nhập
 export function signIn() {
