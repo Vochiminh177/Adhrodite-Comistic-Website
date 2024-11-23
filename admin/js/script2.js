@@ -1,7 +1,7 @@
 import { usersList, productItemArray} from "../../database/database.js";
 import { pagination, showListProduct, showListCustomer} from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
-import {addProduct} from "./updateProduct/OptionProduct.js";
+import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
 
 function start(){
 	anhMinh();
@@ -55,12 +55,12 @@ function anhMinh(){
 				showMain("main-content-product-list");
 				addProduct();
 				pagination(productList, 1, showListProduct, "#main-content-product-list");
+				filterProductAdmin();
 			}
 			else if(item.className == "order_sidebar"){
 				showMain("main-content-order");
 			}
 			else if(item.className == "customer_sidebar"){
-				console.log(2);
 				let userList = JSON.parse(localStorage.getItem("userList")) || [];
 				if(userList.length == 0){
 					userList = [...usersList];

@@ -70,7 +70,7 @@
 /* ------------------------------ */
 
 /* css chỉnh phẩn quay lại trong chỉnh sửa khách hàng*/
-.main-content-customer-edit .title a, .main-content-customer-add .title{
+.main-content-customer-edit .title, .main-content-customer-add .title{
     justify-content: unset;
 }
 .main-content-customer-edit .title a, .main-content-customer-add .title a{
@@ -86,3 +86,30 @@
 }
 /* ------------------------------------------ */
 
+/* css phần tìm kiếm */
+.search-customer{
+    margin: 10px 0px;
+    /* width: 50%; */
+}
+.search-customer input{
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #a94064;
+    outline: none;
+    transition: background 0.2s ease;
+}
+.search-customer input:hover{
+    background-color: #ccc;
+}
+.search-customer a{
+    margin-left: 10px;
+    background-color: #a94064;
+    color: #fff;
+    padding: 5px 10px;
+    transition: background 0.2s ease;
+}
+.search-customer a:hover{
+    background-color: #000;
+}
+/* ------------------------------------------ */

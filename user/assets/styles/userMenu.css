@@ -18,6 +18,7 @@
 }
 
 .form-user{
+  border-radius: 10px;
   background-color: #fff;
   padding: 10px;
   width: 520px;
@@ -32,6 +33,11 @@
   right: 0px;
   top: 0px;
 }
+.form-user h2{
+  margin: 10px;
+  font-size: 2rem;
+  font-weight: bolder;
+}
 .form-user .two-input, .one-input{
   width: 100%;
   display: flex;
@@ -41,14 +47,24 @@
 .two-input input{
   width: 45%;
   padding: 10px;
-  background-color: #ccc;
+  border-bottom: 1px solid #fc8eac;
 }
 .one-input input{
   width: 100%;
   padding: 10px;
-  background-color: #ccc;
+  border-bottom: 1px solid #fc8eac;
 }
-
+.one-input-btn{
+  margin: 10px;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #fc8eac;
+  transition: background 0.2s ease;
+}
+.one-input-btn:hover{
+  background-color: #000;
+}
 /* ------------------------------ */
 
 /* hiệu ---------css userform khi click .user-click hiện ra form profile-------------------*/
@@ -120,10 +136,10 @@
 }
 
 .content-change-password p {
-  margin: 20px 0px;
+  margin: 10px;
   font-weight: 700;
-  font-size: 2.8rem;
-  color: #a94064;
+  font-size: 2.5rem;
+  color: #000;
 }
 
 .content-change-password div {
@@ -135,37 +151,27 @@
   margin: 30px 0px;
   font-size: 2rem;
   width: 100%;
-  border-bottom: 1px solid #ccc;
-}
-
-.content-change-password input:hover {
   border-bottom: 1px solid #fc8eac;
-}
-
-.content-change-password input:hover::placeholder {
-  color: #fc8eac;
 }
 
 .content-change-password button:first-child {
   position: absolute;
   font-size: 2.8rem;
   right: 0px;
-  color: #ccc;
+  color: #000;
   transform: translate(40%, -30%);
 }
 
 .content-change-password button:last-child {
   color: #fff;
-  border-radius: 999px;
-  background-color: #000;
+  background-color: #fc8eac;
   padding: 10px 20px;
-  font-size: 2.4rem;
-  font-weight: 700;
+  font-size: 2rem;
   transition: background-color 0.2s ease-in-out;
 }
 
 .content-change-password button:last-child:hover {
-  background-color: #fc8eac;
+  background-color: #000;
   color: #fff;
 }
 

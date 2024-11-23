@@ -5,9 +5,26 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
+.order-cart__list .mess-never-buy{
+    font-size: 3rem;
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+    margin-top: 50px;
+}
 .order-cart__list #ordered{
     width: 100%;
     text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+.order-cart__list #ordered::after {
+    content: "";
+    display: block;
+    width: 88%;
+    height: 2px;
+    background: #000;
+    margin: 10px auto 18px;
 }
 #order-item{
     margin: 20px;

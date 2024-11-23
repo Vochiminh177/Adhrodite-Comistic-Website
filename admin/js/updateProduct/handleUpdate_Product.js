@@ -10,7 +10,7 @@ import { err_input } from "../base/baseFunction.js";
 
 
 //hàm kiểm tra input giá cả và số lượng
-function checkNumber(value){
+export function checkNumber(value){
     if(!isNaN(value)){
         return value == Math.round(value);
     }

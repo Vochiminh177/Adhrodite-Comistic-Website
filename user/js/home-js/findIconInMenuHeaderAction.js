@@ -1,7 +1,7 @@
 import { productItemArray } from "../../../database/database.js";
 import { updateProductItem } from "../products-js/getProductItem.js";
 import { updateProductList } from "../products-js/getProductList.js";
-
+import { updateMainContent } from "./changeMainContent.js";
 // Lớp bao thanh tìm kiếm và danh sách gợi ý
 const userBlock = document.getElementById("find-block-wrapper");
 

@@ -1,6 +1,6 @@
 import { productItemArray, usersList } from "../../../database/database.js"
-import { deleteProduct, editProduct } from "../updateProduct/OptionProduct.js";
-import { deleteCustomer, editCustomer } from "../updateCustomer/optionCustomer.js";
+import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
+import { deleteCustomer, editCustomer, searchUser } from "../updateCustomer/optionCustomer.js";
 
 function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
@@ -32,7 +32,8 @@ function createPage(list, currentPage, showList, main){
     //-----In ra danh sách list---------
     let start = (currentPage-1) * itemPerPage;
     let end = start + itemPerPage;
-    showList(start, end, currentPage);
+    console.log(start, end)
+    showList(start, end, currentPage, list);
     //------------------------------------------
     //--gán sự kiện----
     document.querySelector(main).querySelector(".left-page").onclick = (e) => {
@@ -59,12 +60,7 @@ export function pagination(list, currentPage, showList, main){
     createPage(list, currentPage, showList, main);
 }
 
-export function showListProduct(start, end, currentPage) {
-    let productList = JSON.parse(localStorage.getItem('productList')) || [];
-    if (productList.length == 0) {
-        productList = [...productItemArray];
-        localStorage.setItem("productList", JSON.stringify(productList));
-    }
+export function showListProduct(start, end, currentPage, productList) {
 
     //tạo danh sách sản phẩm từ mảng chèn vô bảng table
     let product = `
@@ -74,7 +70,7 @@ export function showListProduct(start, end, currentPage) {
             <th class="id-list">Mã</th>
             <th class="name-list">Tên</th>
             <th class="brand-list">Thương hiệu</th>
-            <th class="category-list">Loại</th>
+            <th class="category-list">Danh mục</th>
             <th class="price-list">Giá</th>
             <th class="quantity-list">Số lượng</th>
             <th class="option-list">Tùy chỉnh</th>
@@ -105,13 +101,10 @@ export function showListProduct(start, end, currentPage) {
     document.querySelector(".content .content-product-list table").innerHTML = product;
     deleteProduct();
     editProduct(currentPage);
+    searchProduct();
 }
 
-export function showListCustomer(start, end, currentPage){
-    let userList = JSON.parse(localStorage.getItem("userList")) || [];
-    if(userList.length ==0){
-        userList = [...usersList];
-    }
+export function showListCustomer(start, end, currentPage, userList){
     let user = `
     <thead>
         <tr>
@@ -142,4 +135,5 @@ export function showListCustomer(start, end, currentPage){
     document.querySelector(".content .content-customer-list table").innerHTML = user;
     deleteCustomer();
     editCustomer(currentPage);
+    searchUser();
 }

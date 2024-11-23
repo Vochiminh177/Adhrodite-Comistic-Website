@@ -1,3 +1,51 @@
+/* css phần bộ lọc */
+#main-content-product-list .filter-product{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.filter-product a{
+    cursor: pointer;
+    background-color: #a94064;
+    color: #fff;
+    font-size: 1rem;
+    transition: backgrounđ 0.2s ease;
+    padding: 10px;
+}
+.filter-product a:hover{
+    background-color: #000;
+}
+.filter-product .content-filter{
+    display: flex;
+    align-items: center;
+    width: 0px;
+    background-color: #fff;
+    transition: width 0.5s ease;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 10px 0px;
+    justify-content: space-evenly;
+}
+.filter-product .content-filter.active{
+    width: 90%;
+}
+.filter-product #select-product-filter-category, #select-product-filter-brand, #input-filter-quantity{
+    font-size: 0.8rem;
+    overflow: auto;
+    margin: 0px;
+    padding: 10px;
+}
+#input-filter-quantity{
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #a94064;
+    width: 30%;
+}
+
+/* ------------------------------------ */
+
 /*------ css phần thông báo xác nhận muốn xóa sản phẩm --*/
  .container-delete-confirm{
     position: absolute;
@@ -92,7 +140,33 @@
     color: #fff;
 }
 /* ----------------------------------------------- */
-
+/* css phần tìm kiếm */
+.search-product{
+    margin: 10px 0px;
+    /* width: 50%; */
+}
+.search-product input{
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #a94064;
+    outline: none;
+    transition: background 0.2s ease;
+}
+.search-product input:hover{
+    background-color: #ccc;
+}
+.search-product a{
+    margin-left: 10px;
+    background-color: #a94064;
+    color: #fff;
+    padding: 5px 10px;
+    transition: background 0.2s ease;
+}
+.search-product a:hover{
+    background-color: #000;
+}
+/* ------------------------------------------*/
 
 
 /* --------------------reponsive-------------------- */
@@ -229,7 +303,6 @@
         font-size: 1rem;
     }
 /* ----------------------------------- */
-
 
 
 }

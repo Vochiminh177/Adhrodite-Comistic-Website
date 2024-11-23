@@ -181,6 +181,7 @@ export function handleSignUp(){
         id: userID,
         username: username.value,
         password: password.value,
+        email: email.value,
         first_name: null,
         last_name: null,
         phone: null,

@@ -58,7 +58,7 @@ export function changePassword() {
     ele.innerHTML = `
       <div class="form-change-password">
         <div class="content-change-password">
-          <button class="exit-form-change-password-user">X</button>
+          <button class="exit-form-change-password-user">&times;</button>
           <p>Đổi mật khẩu</p>
           <div class="username-change">
             <label for="username-change"></label>
@@ -98,8 +98,8 @@ export function showFormInformation(userList, userStatusLoginIndex) {
           <button class="exit-form-information-user">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
-            <input type="text" class="first-name" placeholder="Nhập họ" value=${userList[userStatusLoginIndex].firstName ? userList[userStatusLoginIndex].firstName : ""}>
-            <input type="text" class="last-name" placeholder="Nhập tên" value=${userList[userStatusLoginIndex].lastName ? userList[userStatusLoginIndex].lastName : ""}>
+            <input type="text" class="first-name" placeholder="Nhập họ" value="${userList[userStatusLoginIndex].firstName ? userList[userStatusLoginIndex].firstName : ""}">
+            <input type="text" class="last-name" placeholder="Nhập tên" value="${userList[userStatusLoginIndex].lastName ? userList[userStatusLoginIndex].lastName : ""}">
           </div>
           <div class="one-input">
             <input type="text" class="phone" placeholder="Nhập số điện thoại" value=${userList[userStatusLoginIndex].phone ? userList[userStatusLoginIndex].phone : ""}>
@@ -108,7 +108,7 @@ export function showFormInformation(userList, userStatusLoginIndex) {
             <input type="text" class="email-info" placeholder="Nhập email" value=${userList[userStatusLoginIndex].email ? userList[userStatusLoginIndex].email : ""}>
           </div>
           <div class="one-input-btn">
-            <button class="save-information">Lưu thông tin</button>
+            <a class="save-information">Lưu thông tin</a>
           </div>
         </div>
     `;
@@ -121,6 +121,7 @@ export function showFormInformation(userList, userStatusLoginIndex) {
         let result = handleSaveDateInformation(userStatusLoginIndex);
         if (result) {
             create_notification_user("Lưu thành công!");
+            ele.remove();
         }
     };
 

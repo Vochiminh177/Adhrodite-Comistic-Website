@@ -170,7 +170,8 @@ function updateShoppingCart() {
   function orderedProduct() {
     if (userList[userStatusLoginIndex].ordersHistory.length == 0) {
       let eleP = document.createElement("p");
-      eleP.textContent = "BẠN CHƯA ĐẶT SẢN PHẨM NÀO! ĐẶT NHANH ĐI!";
+      eleP.className = "mess-never-buy";
+      eleP.textContent = "BẠN CHƯA MUA SẢN PHẨM NÀO! ĐẶT NHANH ĐI!";
       return eleP.outerHTML;
     }
 
@@ -198,7 +199,7 @@ function updateShoppingCart() {
             ${createShoppingCartItems()}
           </div>
           <div class="order-cart__list">
-            <p id="ordered">ĐƠN HÀNG ĐÃ ĐẶT</p>
+            <h2 id="ordered">ĐƠN HÀNG ĐÃ ĐẶT</h2>
             ${orderedProduct()}
           </div>
         </div>

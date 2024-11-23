@@ -55,8 +55,8 @@
     cursor: pointer;
 }
 
-#right-input {
-}
+/* #right-input {
+} */
 #right-input input {
     display: none;
 }
@@ -78,10 +78,10 @@
 
 
 /* css chỉnh phẩn quay lại trong thêm sản phẩm */
-#main-content-product-add .title{
+#main-content-product-add .title, .main-content-product-add .title{
     justify-content: unset;
 }
-#main-content-product-add .title a{
+#main-content-product-add .title a, .main-content-product-add .title a{
     margin-left: 20px;
     color: #ccc;    
     font-size: 1.5rem;
@@ -89,7 +89,7 @@
     font-weight: 600;
     transition: color 0.2s ease;
 }
-#main-content-product-add .title a:hover{
+#main-content-product-add .title a:hover, .main-content-product-add .title a:hover{
     color: #000;
 }
 /* ------------------------------------------ */

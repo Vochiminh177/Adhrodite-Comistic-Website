@@ -160,3 +160,77 @@ export function addCustomer(){
         }
     }
 }
+
+export function searchUser(){
+    document.querySelector(".search-customer a").onclick = (e) => {
+        e.preventDefault();
+        let value = document.querySelector(".search-customer input").value;
+        let userList = JSON.parse(localStorage.getItem("userList"));
+        let i = userList.findIndex((obj) => {
+            return obj.username.toLowerCase() === value.toLowerCase();
+        });
+
+        if(i>=0){
+            //Ẩn tất cả các main
+            const sections = document.querySelectorAll('main');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            //sài js để render ra form sửa customer
+            let container = document.createElement("div");
+            container.className = "container-edit-customer";
+            container.innerHTML = `
+                <div class="title">
+                <h1>Sửa thông tin khách hàng</h1>
+                <a class="comback-customer">< Quay lại</a>
+                </div>
+                <div class="content">
+                    <div class="content-edit-customer">
+                        <div id="left-input">
+                            <div class="content-two-input">
+                                <input type="text" placeholder="Nhập tên tài khoản" class="username-customer" value=${userList[i].username}>
+                                <input type="text" placeholder="Nhập mật khẩu" class="password-customer" value=${userList[i].password}>
+                            </div>
+                            <div class="content-two-input">
+                                <input type="text" placeholder="Nhập họ" class="firstname-customer" value=${userList[i].first_name ? userList[i].first_name : ''}>
+                                <input type="text" placeholder="Nhập tên" class="lastname-customer" value=${userList[i].last_name ? userList[i].last_name : ''}>
+                            </div>
+                            <div class="content-one-input">
+                                <input type="text" placeholder="Nhập số điện thoại" class="phone-customer" value=${userList[i].phone ? userList[i].phone : ''}>
+                            </div>
+                            <button class="btn btn-saveChange-customer">Thay đổi và lưu</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            let main = document.createElement("main");
+            main.className = "main-content-customer-edit";
+            main.innerHTML = container.innerHTML;
+            document.querySelector("#content").appendChild(main);
+            document.querySelector(".comback-customer").onclick = (e) => {
+                e.preventDefault();
+                main.remove();
+                showMain("main-content-customer");
+            }
+            document.querySelector(".btn-saveChange-customer").onclick = () => {
+                let result = handleEditCustomer(i);
+                if(result){
+                    createNotificationAdmin("Sửa thông tin thành công!");
+                    userList = JSON.parse(localStorage.getItem("userList"));
+                    document.querySelector(".main-content-customer-edit").remove();
+                    showMain("main-content-customer");
+				    pagination(userList, 1, showListCustomer, "#main-content-customer");
+                }
+            }
+        }
+        else{
+            createNotificationAdmin("Không tìm thấy");
+        }
+    };
+    document.querySelector(".search-customer input").onblur = () => {
+        setTimeout(() => {
+            document.querySelector(".search-customer input").value = "";
+            document.querySelector(".search-customer input").placeholder = "Nhập tên tài khoản";
+        }, 1000);   
+    }
+}
