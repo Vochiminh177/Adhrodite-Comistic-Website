@@ -94,22 +94,21 @@
   color: #737373;
   text-align: center;
 }
-.payment-information-info__change-location-action {
+.payment-information-info__change-address-action {
   display: inline-block;
   margin-top: 14px;
   color: #ccc;
   font-style: italic;
   transition: color 0.2s;
 }
-/* .payment-information-info__change-location-action:focus {
-    color: #000;
-    font-style: normal;
-  } */
-.payment-information-info__change-location-list {
-  display: none;
-  margin-top: 8px;
+.payment-information-info__change-address-action:hover {
+  color: #000;
+  font-style: normal;
 }
-.payment-information-info__change-location-item {
+.payment-information-info__change-address-list {
+  margin-top: 10px;
+}
+.payment-information-info__change-address-item {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -117,22 +116,51 @@
   font-size: 1.4rem;
   cursor: pointer;
 }
-.payment-information-info__change-location-item::before,
-.payment-information-info__change-location-item::after {
+.payment-information-info__change-address-item::before,
+.payment-information-info__change-address-item::after {
   content: "";
   display: inline-block;
   width: 8px;
   height: 2px;
   background: currentColor;
 }
-.payment-information-info__change-location-item
-  + .payment-information-info__change-location-item {
-  margin-top: 4px;
+.payment-information-info__change-address-item
+  + .payment-information-info__change-address-item {
+  margin-top: 6px;
 }
-/* .payment-information-info__change-location-action:focus
-    + .payment-information-info__change-location-list {
-    display: block;
-  } */
+.payment-information-info__change-address-body
+  .form-group:nth-of-type(1)
+  input {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 4px 6px;
+  margin-top: 8px;
+}
+.payment-information-info__change-address-body .form-group:nth-of-type(2) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.payment-information-info__change-address-body .form-group:nth-of-type(3) {
+  position: relative;
+}
+.payment-information-info__change-address-body
+  .form-group:nth-of-type(3)
+  input {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translateX(-100%);
+  display: inline-block;
+  width: 84px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+}
+.payment-information-info__change-address-body .form-group + .form-group {
+  margin-top: 6px;
+}
 .payment-information-info__form-group [type="radio"] + label {
   position: relative;
   display: flex;

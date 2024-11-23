@@ -3,6 +3,7 @@ import {
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
+import { locationToSelectArray } from "../common-js/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
 
@@ -62,6 +63,204 @@ function createPaymentInformationItems(array_orderProduct) {
   return items;
 }
 
+// Hàm thay đổi địa chỉ giao hàng mới từ người dùng nhập vào
+function updateUserAddressByInput() {
+  // Biến giữ thông tin các select lần lượt là Tỉnh thành - Quận / Huyện - Phường / Xã
+  const citySelect = document.querySelector(".city");
+  const districtSelect = document.querySelector(".district");
+  const wardSelect = document.querySelector(".ward");
+
+  // Hàm đặt lại các lựa chọn
+  function resetAllSelect(condition) {
+    if (condition === 1) {
+      citySelect.innerHTML = `<option>Chọn Tỉnh thành</option>`;
+      districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+    }
+    if (condition === 2) {
+      districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+    }
+    wardSelect.innerHTML = `<option>Chọn Phường / Xã</option>`;
+  }
+
+  // Đặt lại các lựa chọn
+  resetAllSelect(1);
+  // Cập nhật dữ liệu Thành phố
+  let cityItems = "";
+  for (let i = 0; i < locationToSelectArray.length; i++) {
+    const city = locationToSelectArray[i];
+    cityItems += `<option value="${city.id}">${city.name}</option>`;
+  }
+  citySelect.innerHTML = cityItems;
+
+  //Khi người dùng lựa chọn Thành phố
+  citySelect.addEventListener("change", function () {
+    const cityIDSelected = citySelect.value;
+    let districtsFromCitySelected;
+    for (let i = 0; i < locationToSelectArray.length; i++) {
+      if (locationToSelectArray[i].id == cityIDSelected) {
+        districtsFromCitySelected = locationToSelectArray[i].districts;
+        break;
+      }
+    }
+
+    // Đặt lại các lựa chọn
+    resetAllSelect(2);
+    // Cập nhật dữ liệu Quận / Huyện khi đã biết tên Thành phố
+    let districtItems = "";
+    for (let i = 0; i < districtsFromCitySelected.length; i++) {
+      const district = districtsFromCitySelected[i];
+      districtItems += `<option value="${district.id}">${district.name}</option>`;
+    }
+    districtSelect.innerHTML = districtItems;
+
+    //Khi người dùng lựa chọn Quận / Huyện
+    districtSelect.addEventListener("change", function () {
+      const districtIDSelected = districtSelect.value;
+      let wardsFromDistrictSelected;
+      for (let i = 0; i < districtsFromCitySelected.length; i++) {
+        if (districtsFromCitySelected[i].id == districtIDSelected) {
+          wardsFromDistrictSelected = districtsFromCitySelected[i].wards;
+          break;
+        }
+      }
+
+      // Đặt lại các lựa chọn
+      resetAllSelect(0);
+      // Cập nhật dữ liệu Phường / Xã khi đã biết tên Quận / Huyện
+      let wardItems = "";
+      for (let i = 0; i < wardsFromDistrictSelected.length; i++) {
+        const ward = wardsFromDistrictSelected[i];
+        wardItems += `<option value="${ward.id}">${ward.name}</option>`;
+      }
+      wardSelect.innerHTML = wardItems;
+    });
+  });
+}
+// Hàm cho phép người dùng thay đổi địa chỉ giao hàng
+function updateChangeAddress(userList, userStatusLoginIndex) {
+  const changeAddressForm = {
+    list: `
+      <ul class="payment-information-info__change-address-list">
+        <li class="payment-information-info__change-address-item from-user-info">
+          Nhập từ thông tin cá nhân
+        </li>
+        <li class="payment-information-info__change-address-item from-user-input">
+          Nhập từ bàn phím
+        </li>
+      </ul>
+    `,
+    item2: `
+      <div class="form-group">
+        <input type="text" class="street" placeholder="Nhập địa chỉ"/>
+      </div>
+      <div class="form-group">
+        <select class="city"><option></option></select>
+        <select class="district"><option></option></select>
+        <select class="ward"><option></option></select>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="comeback-change-address-list-button button-block" value="Áp dụng"/>
+      </div>
+    `,
+  };
+
+  // gán sự kiện cho hành động chọn địa điểm giao hàng
+  const changeAddressAction = document.querySelector(
+    ".payment-information-info__change-address-action"
+  );
+  changeAddressAction.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const changeAddressDiv = document.querySelector(
+      ".payment-information-info__change-address-body"
+    );
+    if (changeAddressDiv.innerHTML === "") {
+      // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
+      changeAddressAction.style.color = "#000";
+      changeAddressAction.style.fontStyle = "normal";
+      // Cập nhật lại nội dung cho phần thân của vùng thay đổi địa chỉ
+      changeAddressDiv.innerHTML = changeAddressForm["list"];
+
+      // Sự kiện khi chọn "Nhập từ thông tin cá nhân"
+      document
+        .querySelector(
+          ".payment-information-info__change-address-item.from-user-info"
+        )
+        .addEventListener("click", function () {
+          // Cập nhật lại thông tin địa chỉ
+          const addressInput = document.querySelector(
+            ".payment-information-info__address"
+          );
+          addressInput.setAttribute(
+            "placeholder",
+            userList[userStatusLoginIndex].address
+          );
+        });
+
+      // Sự kiện khi nhập từ bàn phím
+      document
+        .querySelector(
+          ".payment-information-info__change-address-item.from-user-input"
+        )
+        .addEventListener("click", function () {
+          changeAddressDiv.innerHTML = changeAddressForm["item2"];
+
+          // Thiết lập sự kiện cho phép người dùng nhập thông tin của địa chỉ mới
+          updateUserAddressByInput();
+
+          // Thiết lập sự kiện cho phép người dùng quay về danh sách các lựa chọn địa chỉ
+          document
+            .querySelector(".comeback-change-address-list-button")
+            .addEventListener("click", function () {
+              // Số nhà, tên đường
+              const streetInfo = document.querySelector(".street").value;
+              // Phường hoặc Xã
+              const wardInfo =
+                document.querySelector(".ward :checked").innerText;
+              // Quận hoặc Huyện
+              const districtInfo =
+                document.querySelector(".district :checked").innerText;
+              // Tỉnh thành
+              const cityInfo =
+                document.querySelector(".city :checked").innerText;
+              // Biến tổng hợp lại các thông tin trên
+              let newAddress =
+                streetInfo +
+                ", " +
+                wardInfo +
+                ", " +
+                districtInfo +
+                ", " +
+                cityInfo;
+
+              // Cập nhật lại thông tin địa chỉ
+              const addressInput = document.querySelector(
+                ".payment-information-info__address"
+              );
+              addressInput.setAttribute("placeholder", newAddress);
+
+              // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
+              changeAddressAction.style.color = "#ccc";
+              changeAddressAction.style.fontStyle = "italic";
+              // Cập nhật lại nội dung cho phần thân của vùng thay đổi địa chỉ
+              changeAddressDiv.innerHTML = "";
+
+              //
+            });
+        });
+    } else {
+      // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
+      changeAddressAction.style.color = "#ccc";
+      changeAddressAction.style.fontStyle = "italic";
+      // Cập nhật lại nội dung cho phần thân của vùng thay đổi địa chỉ
+      changeAddressDiv.innerHTML = "";
+    }
+  });
+}
+
+// Hàm cho phép người dùng thay đổi phương thức thanh toán
+function updatePayFunction() {}
+
 // Hàm cập nhật thông tin thanh toán từ Giỏ hàng
 function updatePaymentInformation(
   userList,
@@ -84,36 +283,41 @@ function updatePaymentInformation(
                 <form action="" class="payment-information-info__form">
                   <div class="payment-information-info__form-group">
                       <input type="text" class="payment-information-info__name" placeholder="${
-                        userList[userStatusLoginIndex].first_name +
+                        userList[userStatusLoginIndex].firstName +
                         " " +
-                        userList[userStatusLoginIndex].last_name
+                        userList[userStatusLoginIndex].lastName
+                          ? userList[userStatusLoginIndex].firstName +
+                            " " +
+                            userList[userStatusLoginIndex].lastName
+                          : "Nhập họ và tên"
                       }" readonly="">
                   </div>
                   <div class="payment-information-info__form-group">
                       <input type="email" class="payment-information-info__email" placeholder="${
                         userList[userStatusLoginIndex].email
+                          ? userList[userStatusLoginIndex].email
+                          : "Nhập email"
                       }" readonly="">
                       <input type="phone" class="payment-information-info__phone" placeholder="${
                         userList[userStatusLoginIndex].phone
+                          ? userList[userStatusLoginIndex].phone
+                          : "Nhập số điện thoại"
                       }" readonly="">
                   </div>
                   <div class="payment-information-info__form-group">
-                      <input type="text" class="payment-information-info__location">
+                      <input type="text" class="payment-information-info__address" placeholder="${
+                        userList[userStatusLoginIndex].address
+                          ? userList[userStatusLoginIndex].address
+                          : "Nhập địa chỉ giao hàng"
+                      }" readonly="">
                   </div>
                 </form>
-                <div class="payment-information-info__change-location">
-                <a href="#!" class="payment-information-info__change-location-action">
-                    Tuỳ chọn địa điểm giao hàng
-                    <i class="fa-solid fa-chevron-down"></i>
-                </a>
-                <ul class="payment-information-info__change-location-list">
-                    <li class="payment-information-info__change-location-item">
-                    Nhập từ thông tin cá nhân
-                    </li>
-                    <li class="payment-information-info__change-location-item">
-                    Nhập từ bàn phím
-                    </li>
-                </ul>
+                <div class="payment-information-info__change-address">
+                  <a href="#!" class="payment-information-info__change-address-action">
+                      Tuỳ chọn địa điểm giao hàng
+                      <i class="fa-solid fa-chevron-down"></i>
+                  </a>
+                  <div class="payment-information-info__change-address-body"></div>
                 </div>
             </div>
             <div class="payment-information-info__block">
@@ -194,53 +398,13 @@ function updatePaymentInformation(
   let mainContent = document.getElementById("main-content");
   mainContent.innerHTML = paymentInformationForm;
 
-  // gán sự kiện cho hành động chọn địa điểm giao hàng
-  // document.querySelector(
-  //   ".payment-information-info__change-location-action"
-  // ).onclick = (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     document.querySelector(".payment-information-info__change-location-list")
-  //       .style.display == "none"
-  //   ) {
-  //     document.querySelector(
-  //       ".payment-information-info__change-location-list"
-  //     ).style.display = "block";
-  //   } else {
-  //     document.querySelector(
-  //       ".payment-information-info__change-location-list"
-  //     ).style.display = "none";
-  //   }
-  // };
+  // Thiết lập sự kiện cho phép người dùng thay đổi địa chỉ giao hàng
+  updateChangeAddress(userList, userStatusLoginIndex);
 
-  // let array_item = document.querySelectorAll(
-  //   ".payment-information-info__change-location-item"
-  // );
-  // array_item.forEach((obj) => {
-  //   obj.onclick = () => {
-  //     let input = document.querySelector(
-  //       ".payment-information-info__change-location-list input"
-  //     );
-  //     if (input) {
-  //       input.remove();
-  //     }
+  // Thiết lập sự kiện cho phép người dùng thay đổi phương thức thanh toán
+  updatePayFunction();
 
-  //     let ele = document.createElement("input");
-  //     ele.type = "text";
-  //     ele.style.borderBottom = "1px solid #000";
-  //     ele.style.width = "100%";
-  //     ele.style.padding = "10px";
-
-  //     if (obj.textContent.trim() == "Nhập từ thông tin cá nhân") {
-  //       ele.value = userList[userStatusLoginIndex].address;
-  //       ele.disabled = true;
-  //     }
-  //     document
-  //       .querySelector(".payment-information-info__change-location-list")
-  //       .appendChild(ele);
-  //   };
-  // });
-
+  // Thiết lập sự kiện cho phép người dùng thay đổi phương thức thanh toán
   // // gán sự kiện chọn thanh toán qua thẻ
   // document.querySelector("#credit-card").onclick = () => {
   //   let form_purchase_method = document.querySelector(".purchase-method");
@@ -312,7 +476,6 @@ function updatePaymentInformation(
   clickToComebackShoppingCart(userList, userStatusLoginIndex);
 
   // Tạo sự kiện để người dùng nhấn "Hoàn tất" thông tin giao hàng để hiện thị Hoá đơn
-  // getBillInfo(currentPage) // Hiệu tạm thời bỏ currentPage để xử lí bên admin
   getBillInfo(array_orderProduct);
 }
 

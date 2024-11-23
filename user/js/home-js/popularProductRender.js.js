@@ -1,6 +1,6 @@
 import { formatVietNamMoney } from "../common-js/common.js";
+import { popularProductArray } from "../common-js/database.js";
 import { clickToProductItem } from "./homePageEvents.js";
-import { popularProductArray } from "./database.js";
 import { updatePopularProductPagination } from "./popularProductPagination.js";
 
 export function renderPopularProductList() {

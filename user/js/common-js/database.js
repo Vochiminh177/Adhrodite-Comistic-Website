@@ -1,4 +1,92 @@
-// Mảng chứa các danh mục phổ biến sẽ được hiển thị ở Trang chủ
+// Mảng chứa thông tin của tỉnh thành, quận huyện, phường xã để nhập địa chỉ cho người dùng
+export const locationToSelectArray = [
+  {
+    name: "Chọn Tỉnh thành",
+    id: "default-city",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Hà Nội",
+    id: "hanoi",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "TP Hồ Chí Minh",
+    id: "tphcm",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+      {
+        name: "Quận 3",
+        id: "quan3",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+          {
+            name: "Phường 11",
+            id: "phuong11",
+          },
+          {
+            name: "Phường 13",
+            id: "phuong13",
+          },
+        ],
+      },
+      {
+        name: "Quận 10",
+        id: "quan10",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+          {
+            name: "Phường 2",
+            id: "phuong2",
+          },
+          {
+            name: "Phường 13",
+            id: "phuong13",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+// Mảng chứa các Danh mục phổ biến sẽ được hiển thị ở Trang chủ
 export let popularMenuArray = [
   {
     src: "./assets/images/popular-menu_image-1.jpg",

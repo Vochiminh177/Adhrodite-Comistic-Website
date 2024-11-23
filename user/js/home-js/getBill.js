@@ -4,7 +4,7 @@ import {
 } from "../../../database/database.js";
 import { productItemArray } from "../../../database/database.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
-import {order_is_in_process} from "../../../database/database.js";
+import { order_is_in_process } from "../../../database/database.js";
 import { calTotalProductItemPriceInShoppingCart } from "../common-js/common.js";
 import {
   updateHeaderAndFooter,
@@ -14,10 +14,9 @@ import {
 } from "../common-js/common.js";
 import { updateMainContent } from "./changeMainContent.js";
 
-
 // // Hàm cập nhật thông tin hoá đơn
 // function updateBill() {
-  
+
 // }
 
 // export function getBillInfo(array_orderProduct, currentPage) {
@@ -50,7 +49,6 @@ import { updateMainContent } from "./changeMainContent.js";
 //       }
 //     });
 // }
-
 
 // hàm kiểm tra sản phẩm nào không đặt được, tô đỏ sản phẩm đó
 function error_orderProduct(id_product) {
@@ -253,7 +251,7 @@ function comebackHomePage() {
 }
 
 // Hàm cập nhật thông tin hoá đơn
-function updateBill(array_orderProduct) {
+function updateBill(userList, userStatusLoginIndex, array_orderProduct) {
   function createBillItems() {
     let items = "";
     for (let i = 0; i < array_orderProduct.length; i++) {
@@ -299,10 +297,14 @@ function updateBill(array_orderProduct) {
         <div class="bill__row">
           <div class="bill__user-info">
             <h3 class="bill__sub-title">KHÁCH HÀNG</h3>
-            <p class="bill__detail">MY NAME</p>
-            <p class="bill__detail">email@gmail.com</p>
-            <p class="bill__detail">012346789</p>
-            <p class="bill__detail">location</p>
+            <p class="bill__detail">${
+              userList[userStatusLoginIndex].firstName
+            } ${userList[userStatusLoginIndex].lastName}</p>
+            <p class="bill__detail">${userList[userStatusLoginIndex].email}</p>
+            <p class="bill__detail">${userList[userStatusLoginIndex].phone}</p>
+            <p class="bill__detail">${
+              userList[userStatusLoginIndex].address
+            }</p>
           </div>
           <div class="bill__shop-info">
             <h3 class="bill__sub-title">CỬA HÀNG</h3>
@@ -327,12 +329,12 @@ function updateBill(array_orderProduct) {
           </table>
           <div class="bill__payment">
             <p class="bill__delivery-price">
-              Phí vận chuyển: <span>18.000đ</span>
+              Phí vận chuyển: <span>18.000<u>đ</u></span>
             </p>
             <p class="bill__total-price">
               Tổng tiền: <span class="bill__price">${formatVietNamMoney(
                 calTotalProductItemPrice(array_orderProduct) + 18000
-              )}</span>
+              )}<u>đ</u></span>
             </p>
           </div>
         </div>
@@ -365,29 +367,35 @@ export function getBillInfo(array_orderProduct) {
     .querySelector(".payment-information-info__submit")
     .addEventListener("click", function () {
       // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
-      // let productList = JSON.parse(localStorage.getItem("productList")) || [];
-      // if (productList.length == 0) {
-      //   productList = [...productItemArray];
-      //   localStorage.setItem("productList", JSON.stringify(productList));
-      // }
+      let productList = JSON.parse(localStorage.getItem("productList")) || [];
+      if (productList.length == 0) {
+        productList = [...productItemArray];
+        localStorage.setItem("productList", JSON.stringify(productList));
+      }
 
-      // //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
-      // let userList = JSON.parse(localStorage.getItem("userList"));
-      // let index_user_status_login;
-      // userList.forEach((obj, index) => {
-      //   if (obj.statusLogin) {
-      //     index_user_status_login = index;
-      //   }
-      // });
+      // lấy danh sách user từ local để lấy vị trí người đang đăng nhập
+      let userList = JSON.parse(localStorage.getItem("userList"));
+      let userStatusLoginIndex;
+      userList.forEach((obj, index) => {
+        if (obj.statusLogin) {
+          userStatusLoginIndex = index;
+        }
+      });
 
-      //hàm kiểm tra thông tin thanh toán
-      // if(handle_order_information(userList, index_user_status_login)){
+      // hàm kiểm tra thông tin thanh toán
+      // if (handle_order_information(userList, index_user_status_login)) {
       //   //hàm xử lí đơn người dùng đặt hàng
-      //   handle_order_product(userList, index_user_status_login, productList, array_orderProduct);
+      //   handle_order_product(
+      //     userList,
+      //     index_user_status_login,
+      //     productList,
+      //     array_orderProduct
+      //   );
 
       //   // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
       //   updateBill();
       // }
-      updateBill(array_orderProduct);
+
+      updateBill(userList, userStatusLoginIndex, array_orderProduct);
     });
 }

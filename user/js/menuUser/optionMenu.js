@@ -1,61 +1,59 @@
-import { handleChangePassword, handleSaveDateInformation } from "./handleOptionMenu.js";
-import { updateMainContent } from "../home-js/changeMainContent.js";
 import {
-    formatVietNamMoney,
-} from "../common-js/common.js";
+  handleChangePassword,
+  handleSaveDateInformation,
+} from "./handleOptionMenu.js";
+import { updateMainContent } from "../home-js/changeMainContent.js";
+import { formatVietNamMoney } from "../common-js/common.js";
 
 //hàm tạo thông báo
 export function create_notification_user(mess) {
-    let text = document.createElement("p");
-    text.className = "notification";
-    text.innerText = mess;
-    text.style.backgroundColor = "#ffff";
-    text.style.color = "#000";
-    text.style.fontWeight = "400";
-    text.style.position = "fixed";
-    text.style.right = "0px";
-    text.style.top = "0px";
-    text.style.transform = "translate(100%, 50%)";
-    text.style.zIndex = "100000";
-    text.style.padding = "10px 50px";
-    text.style.fontSize = "2rem";
-    text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-    text.style.transition =
-        "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
-    document.body.appendChild(text);
-    setTimeout(() => {
-        document.querySelector(".notification").style.transform =
-            "translate(-10%, 50%)";
-    }, 10);
-    setTimeout(() => {
-        document.querySelector(".notification").style.transform =
-            "translate(100%, 50%)";
-    }, 1000);
-    //xóa khỏi dom
-    setTimeout(() => {
-        document.querySelector(".notification").remove();
-    }, 2200);
+  let text = document.createElement("p");
+  text.className = "notification";
+  text.innerText = mess;
+  text.style.backgroundColor = "#ffff";
+  text.style.color = "#000";
+  text.style.fontWeight = "400";
+  text.style.position = "fixed";
+  text.style.right = "0px";
+  text.style.top = "0px";
+  text.style.transform = "translate(100%, 50%)";
+  text.style.zIndex = "100000";
+  text.style.padding = "10px 50px";
+  text.style.fontSize = "2rem";
+  text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
+  text.style.transition =
+    "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
+  document.body.appendChild(text);
+  setTimeout(() => {
+    document.querySelector(".notification").style.transform =
+      "translate(-10%, 50%)";
+  }, 10);
+  setTimeout(() => {
+    document.querySelector(".notification").style.transform =
+      "translate(100%, 50%)";
+  }, 1000);
+  //xóa khỏi dom
+  setTimeout(() => {
+    document.querySelector(".notification").remove();
+  }, 2200);
 }
-
 
 //-----------------------------------OPTION USER----------------------------------------
-//hàm đăng xuất
+// Hàm đăng xuất
 export function signOutUser(userStatusLoginIndex) {
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  userList[userStatusLoginIndex].statusLogin = false;
+  create_notification_user("Đăng xuất thành công!");
 
-    let userList = JSON.parse(localStorage.getItem("userList"));
-    userList[userStatusLoginIndex].statusLogin = false;
-    create_notification_user("Đăng xuất thành công!");
-
-    localStorage.setItem("userList", JSON.stringify(userList));
-    updateMainContent("home");
+  localStorage.setItem("userList", JSON.stringify(userList));
+  updateMainContent("home");
 }
 
-
-//hàm đổi mật khẩu
+// Hàm đổi mật khẩu
 export function changePassword() {
-    let ele = document.createElement("div");
-    ele.className = "container-change-password-user";
-    ele.innerHTML = `
+  let ele = document.createElement("div");
+  ele.className = "container-change-password-user";
+  ele.innerHTML = `
       <div class="form-change-password">
         <div class="content-change-password">
           <button class="exit-form-change-password-user">&times;</button>
@@ -76,58 +74,84 @@ export function changePassword() {
         </div>
       </div>
     `;
-    document.body.appendChild(ele);
+  document.body.appendChild(ele);
 
-    document.querySelector(".exit-form-change-password-user").onclick = () => {
-        ele.remove();
-    };
+  document.querySelector(".exit-form-change-password-user").onclick = () => {
+    ele.remove();
+  };
 
-    document.querySelector(".btn-save-change-password").onclick = () => {
-        let result = handleChangePassword();
-        if (result) {
-            create_notification_user("Đổi mật khẩu thành công!");
-            ele.remove();
-        }
-    };
+  document.querySelector(".btn-save-change-password").onclick = () => {
+    let result = handleChangePassword();
+    if (result) {
+      create_notification_user("Đổi mật khẩu thành công!");
+      ele.remove();
+    }
+  };
 }
 
-//hàm hiện form khi ấn thông tin cá nhân trong menu-user
+// Hàm hiện form khi ấn thông tin cá nhân trong menu-user
 export function showFormInformation(userList, userStatusLoginIndex) {
-    let formInformationUser = `
+  let formInformationUser = `
         <div class="form-user">
           <button class="exit-form-information-user">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
-            <input type="text" class="first-name" placeholder="Nhập họ" value="${userList[userStatusLoginIndex].firstName ? userList[userStatusLoginIndex].firstName : ""}">
-            <input type="text" class="last-name" placeholder="Nhập tên" value="${userList[userStatusLoginIndex].lastName ? userList[userStatusLoginIndex].lastName : ""}">
+
+            <input type="text" class="first-name" placeholder="Nhập họ" value="${
+              userList[userStatusLoginIndex].firstName
+                ? userList[userStatusLoginIndex].firstName
+                : "Nhập họ"
+            }">
+            <input type="text" class="last-name" placeholder="Nhập tên" value="${
+              userList[userStatusLoginIndex].lastName
+                ? userList[userStatusLoginIndex].lastName
+                : "Nhập tên"
+            }">
+
           </div>
           <div class="one-input">
-            <input type="text" class="phone" placeholder="Nhập số điện thoại" value=${userList[userStatusLoginIndex].phone ? userList[userStatusLoginIndex].phone : ""}>
+            <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${
+              userList[userStatusLoginIndex].phone
+                ? userList[userStatusLoginIndex].phone
+                : "Nhập số điện thoại"
+            }">
           </div>
           <div class="one-input">
-            <input type="text" class="email-info" placeholder="Nhập email" value=${userList[userStatusLoginIndex].email ? userList[userStatusLoginIndex].email : ""}>
+            <input type="text" class="email" placeholder="Nhập email" value="${
+              userList[userStatusLoginIndex].email
+                ? userList[userStatusLoginIndex].email
+                : "Nhập email"
+            }">
+          </div>
+          <div class="one-input">
+            <input type="text" class="address" placeholder="Nhập địa chỉ" value="${
+              userList[userStatusLoginIndex].address
+                ? userList[userStatusLoginIndex].address
+                : "Nhập địa chỉ"
+            }">
           </div>
           <div class="one-input-btn">
             <a class="save-information">Lưu thông tin</a>
           </div>
         </div>
     `;
-    let ele = document.createElement("div");
-    ele.className = "container-formInformation-user";
-    ele.innerHTML = formInformationUser;
-    document.body.appendChild(ele);
+  let ele = document.createElement("div");
+  ele.className = "container-formInformation-user";
+  ele.innerHTML = formInformationUser;
+  document.body.appendChild(ele);
 
-    document.querySelector(".form-user .save-information").onclick = () => {
-        let result = handleSaveDateInformation(userStatusLoginIndex);
-        if (result) {
-            create_notification_user("Lưu thành công!");
-            ele.remove();
-        }
-    };
 
-    document.querySelector(".exit-form-information-user").onclick = () => {
-        document.querySelector(".container-formInformation-user").remove();
-    };
+  document.querySelector(".form-user .save-information").onclick = () => {
+    let result = handleSaveDateInformation(userStatusLoginIndex);
+    if (result) {
+      create_notification_user("Lưu thành công!");
+    }
+  };
+
+
+  document.querySelector(".exit-form-information-user").onclick = () => {
+    document.querySelector(".container-formInformation-user").remove();
+  };
 }
 
 
@@ -294,8 +318,6 @@ export function showFormInformation(userList, userStatusLoginIndex) {
 //     mainContentDiv.innerHTML = `${bodyordersHistoryHtml.innerHTML}`;
 // }
 
-
-
 //hàm xóa bỏ sản phẩm đã đặt hàng của user
 // function deleteProductInOrderHistory(userList, indexUserStatusLogin) {
 //     let arrayOrderDateDiv = document.querySelectorAll(".order-date");
@@ -327,5 +349,3 @@ export function showFormInformation(userList, userStatusLoginIndex) {
 // }
 
 //-------------------------------------------------------------------------------------------
-
-
