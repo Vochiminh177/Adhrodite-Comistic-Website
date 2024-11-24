@@ -646,8 +646,6 @@ export function updateMainContent(mainContentKey) {
       generateFilter();
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
-      // Tự động nhấn mục "Tất cả"
-      document.getElementById("tat-ca-left-menu").click();
     }
   }
 }
@@ -660,9 +658,14 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
   if (mainContentKey) {
     // Cập nhật lại style cho navbar
     updateNavbarStyle(mainContentKey);
-
+    
     // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
+
+    if(mainContentKey === "products"){
+      // Tự động nhấn mục "Tất cả" khi vào trang "sản phẩm" ở header
+      document.getElementById("tat-ca-left-menu").click();
+    }
   }
 });
 
