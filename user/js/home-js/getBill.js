@@ -83,29 +83,25 @@ function handle_order_information(userList, index_user_status_login) {
     return false;
   }
   if (
-    !document.querySelector(
-      ".payment-information-info__change-location-list input"
-    )
+    document.querySelector(
+      ".payment-information-info__address"
+    ).placeholder === ""
   ) {
+    console.log(document.querySelector(".payment-information-info__address").value);
     create_notification_user("Bạn cần bổ sung địa chỉ giao hàng");
     return false;
-  } else {
-    if (
-      document.querySelector(
-        ".payment-information-info__change-location-list input"
-      ).value == ""
-    ) {
-      create_notification_user("Bạn cần bổ sung địa chỉ giao hàng");
-      return false;
-    }
-  }
+  } 
 
   if (document.querySelector("#credit-card").checked) {
-    if (!userList[index_user_status_login].full_money) {
-      create_notification_user("Bạn cần bổ sung thông tin ngân hàng!");
+      create_notification_user("Chưa xây dựng dữ liệu");
       return false;
-    }
+  
   }
+  if (document.querySelector("#internet-banking").checked) {
+    create_notification_user("Chưa xây dựng dữ liệu");
+    return false;
+  }
+ 
 
   return true;
 }
@@ -118,8 +114,6 @@ function handle_order_product(
   array_orderProduct
 ) {
   let check_quantity = array_orderProduct.some((obj_orderProduct) => {
-    let check = true;
-
     // kiểm tra số lượng sản phẩm so với hàng tồn của admin, tránh trường hợp admin hết hàng
     productList.forEach((obj_product_in_shop) => {
       if (obj_orderProduct.id === obj_product_in_shop.id) {
@@ -129,24 +123,21 @@ function handle_order_product(
         if (soLuong_conLai < 0) {
           error_orderProduct(obj_orderProduct.id);
           create_notification_user("Vui lòng xem lại số lượng đơn hàng!");
-          check = false;
-          return;
+          return false;
         }
         //ngược lại, nếu đặt được, cập nhật số lượng sản phẩm ở phía admin
         else {
           obj_product_in_shop.quantity = soLuong_conLai;
+          return true;
         }
       }
     });
-
-    if (!check) return false;
-    else return true;
   });
 
   //nếu người dùng đặt hàng thành công
   if (check_quantity) {
     create_notification_user("Đặt hàng thành công!");
-    let order_is_in_process =
+    let ordersHistory =
       JSON.parse(localStorage.getItem("order_is_in_process")) || [];
 
     //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
@@ -383,19 +374,19 @@ export function getBillInfo(array_orderProduct) {
       });
 
       // hàm kiểm tra thông tin thanh toán
-      // if (handle_order_information(userList, index_user_status_login)) {
-      //   //hàm xử lí đơn người dùng đặt hàng
-      //   handle_order_product(
-      //     userList,
-      //     index_user_status_login,
-      //     productList,
-      //     array_orderProduct
-      //   );
+      if (handle_order_information(userList, userStatusLoginIndex)) {
+        //hàm xử lí đơn người dùng đặt hàng
+        //array_orderProduct được khai báo ở file getpayment-----------------
+        handle_order_product(
+          userList,
+          userStatusLoginIndex,
+          productList,
+          array_orderProduct
+        );
 
-      //   // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
-      //   updateBill();
-      // }
-
-      updateBill(userList, userStatusLoginIndex, array_orderProduct);
+        // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
+        // updateBill();
+        updateBill(userList, userStatusLoginIndex, array_orderProduct);
+      }
     });
 }

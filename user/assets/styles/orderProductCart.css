@@ -1,9 +1,8 @@
 .order-cart__list{
     width: 100%;
-    height: 50%;
+    height: 400px;
     position: relative;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-y: auto;
 }
 .order-cart__list .mess-never-buy{
     font-size: 3rem;
@@ -27,7 +26,7 @@
     margin: 10px auto 18px;
 }
 #order-item{
-    margin: 20px;
+    margin-bottom: 40px;
 }
 .order-cart__list p{
     margin: 15px;
@@ -75,20 +74,23 @@
     margin: 10px;
     height: 5%;
 }
-.form-detail-order h2:first-child{
+.form-detail-order p{
+    margin: 5px;
+}
+.form-detail-order p:nth-child(8){
     font-weight: bold;
 }
 .list-order-product{
-    height: 80%;
+    height: 50%;
+    padding: 5px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 .list-order-product .order-product-item{
-    padding: 10px;
+    /* padding: 10px; */
     display: flex;
     justify-content: space-between;
-    margin: 10px 0px;
-    height: calc(90%/3);
+    height: calc(100%/2);
 }
 .order-product-item p{
     margin: 10px 0px;

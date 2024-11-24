@@ -198,15 +198,15 @@ function updateShoppingCart() {
   const shoppingCartForm = `
     <div class="body__shopping-cart">
       <div class="shopping-cart__content">
-        <h2 class="shopping-cart__title">GIỎ HÀNG</h2>
-        <div class="shopping-cart__body">
-          <div class="shopping-cart__list">
-            ${createShoppingCartItems()}
-          </div>
           <div class="order-cart__list">
             <h2 id="ordered">ĐƠN HÀNG ĐÃ ĐẶT</h2>
             ${orderedProduct()}
           </div>
+        <h2 class="shopping-cart__title">GIỎ HÀNG</h2>
+        <div class="shopping-cart__body">
+          <div class="shopping-cart__list">
+            ${createShoppingCartItems()}
+          </div>       
         </div>
         <div class="shopping-cart__payment">
           <p class="shopping-cart__payment-info">
@@ -289,10 +289,15 @@ function detailOrderProduct(userList, userStatusLoginIndex) {
           <div class="form-detail-order">
             <button class="exit-form-detail-ordered-product">&times;</button>
             <h2>CHI TIẾT ĐƠN HÀNG</h2>
-            <h2>TÌNH TRẠNG: ${
+            <p>Tình trạng: ${
               userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
                 .orderStatus
-            }</h2>
+            }</p>
+            <p>Ngày đặt: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderDate}</p>
+            <p>Mã đơn hàng: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderId}</p>
+            <p>Địa chỉ: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderAddressToShip}</p>
+            <p>Phương thức thanh toán: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderMethod}</p>
+            <p>Danh sách sản phẩm đã mua:</p>
             ${showListDetailProduct()}
           </div>
         `;

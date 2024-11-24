@@ -559,6 +559,8 @@ export let usersList = [
         orderId: 1,
         orderDate: "30/04/2024",
         orderStatus: "Shipped",
+        orderAddressToShip: "123 hieu dep trai",
+        orderMethod: "Thanh toán khi giao hàng (COD)",
         orderTotalPrice: 200000,
         orderProduct: [
           {
@@ -607,6 +609,7 @@ export let usersList = [
         orderId: 2,
         orderDate: "01/08/2024",
         orderStatus: "Pending",
+        orderAddressToShip: "123 quy dep trai",
         orderTotalPrice: 400000,
         orderProduct: [
           {
@@ -623,6 +626,7 @@ export let usersList = [
         orderId: 3,
         orderDate: "01/08/2024",
         orderStatus: "Pending",
+        orderAddressToShip: "123 khang dep trai",
         orderTotalPrice: 400000,
         orderProduct: [
           {
@@ -639,6 +643,7 @@ export let usersList = [
         orderId: 4,
         orderDate: "01/08/2024",
         orderStatus: "Pending",
+        orderAddressToShip: "123 minh dep trai",
         orderTotalPrice: 400000,
         orderProduct: [
           {
@@ -655,6 +660,7 @@ export let usersList = [
         orderId: 5,
         orderDate: "01/08/2024",
         orderStatus: "Pending",
+        orderAddressToShip: "123 minh dep trai",
         orderTotalPrice: 400000,
         orderProduct: [
           {
@@ -671,6 +677,7 @@ export let usersList = [
         orderId: 6,
         orderDate: "01/08/2024",
         orderStatus: "Pending",
+        orderAddressToShip: "123 thay dep trai",
         orderTotalPrice: 400000,
         orderProduct: [
           {
