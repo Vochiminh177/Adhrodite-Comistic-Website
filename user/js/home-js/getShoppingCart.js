@@ -198,10 +198,6 @@ function updateShoppingCart() {
   const shoppingCartForm = `
     <div class="body__shopping-cart">
       <div class="shopping-cart__content">
-          <div class="order-cart__list">
-            <h2 id="ordered">ĐƠN HÀNG ĐÃ ĐẶT</h2>
-            ${orderedProduct()}
-          </div>
         <h2 class="shopping-cart__title">GIỎ HÀNG</h2>
         <div class="shopping-cart__body">
           <div class="shopping-cart__list">
@@ -221,6 +217,10 @@ function updateShoppingCart() {
             Thanh toán
           </button>
         </div>
+        <div class="order-cart__list">
+          <h2 id="ordered">ĐƠN HÀNG ĐÃ ĐẶT</h2>
+          ${orderedProduct()}
+        </div>
       </div>
     </div>
   `;
@@ -233,7 +233,7 @@ function updateShoppingCart() {
   updateShoppingCartAfterActionsFromUser(userList, userStatusLoginIndex);
 
   // Tạo mẫu thông tin để thanh toán khi người dùng nhấn vào "Thanh toán"
-  getPaymentInformationInfo();
+  getPaymentInformationInfo(userList, userStatusLoginIndex);
 
   //gán sự kiện cho nút xem chi tiết sản phẩm đã đặt hàng
   if (document.querySelectorAll("#order-item a").length > 0) {
@@ -353,6 +353,9 @@ function detailOrderProduct(userList, userStatusLoginIndex) {
               };
               document.querySelector(".form-question .no").onclick = (e) => {
                 e.preventDefault();
+                ele.remove();
+              };
+              document.querySelector(".form-question .exit-form-detail-ordered-product").onclick = () => {
                 ele.remove();
               };
             }

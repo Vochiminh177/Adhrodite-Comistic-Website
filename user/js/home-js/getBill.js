@@ -109,50 +109,55 @@ function handle_order_information(userList, index_user_status_login) {
 // hàm kiểm tra có đặt hàng thành công hay không
 function handle_order_product(
   userList,
-  index_user_status_login,
+  userStatusLoginIndex ,
   productList,
   array_orderProduct
 ) {
-  let check_quantity = array_orderProduct.some((obj_orderProduct) => {
+  let check_quantity = true;
+  array_orderProduct.forEach((obj_orderProduct) => {
+    let check = true;
     // kiểm tra số lượng sản phẩm so với hàng tồn của admin, tránh trường hợp admin hết hàng
-    productList.forEach((obj_product_in_shop) => {
-      if (obj_orderProduct.id === obj_product_in_shop.id) {
-        let soLuong_conLai =
-          obj_product_in_shop.quantity - obj_orderProduct.quantity;
-        //nếu hàng đặt nhiều hơn hàng tồn kho
-        if (soLuong_conLai < 0) {
-          error_orderProduct(obj_orderProduct.id);
-          create_notification_user("Vui lòng xem lại số lượng đơn hàng!");
-          return false;
-        }
-        //ngược lại, nếu đặt được, cập nhật số lượng sản phẩm ở phía admin
-        else {
-          obj_product_in_shop.quantity = soLuong_conLai;
-          return true;
-        }
-      }
+    let index = productList.findIndex((obj_product_in_shop) => {
+      return obj_orderProduct.id === obj_product_in_shop.id;
     });
+    if(index >= 0){
+      let soLuong_conLai =
+        productList[index].quantity - obj_orderProduct.quantity;
+      //nếu hàng đặt nhiều hơn hàng tồn kho
+      if (soLuong_conLai < 0) {
+        error_orderProduct(obj_orderProduct.id);
+        create_notification_user("Vui lòng xem lại số lượng đơn hàng!");
+        check = false;
+      }
+      //ngược lại, nếu đặt được, cập nhật số lượng sản phẩm ở phía admin
+      else {
+        productList[index].quantity = soLuong_conLai;
+      }
+    }
+
+    if(!check) check_quantity = false;
   });
+
+  if(!check_quantity){
+    console.log(123);
+    return false;
+  }
 
   //nếu người dùng đặt hàng thành công
   if (check_quantity) {
     create_notification_user("Đặt hàng thành công!");
-    let ordersHistory =
-      JSON.parse(localStorage.getItem("order_is_in_process")) || [];
-
     //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
     //tạo id cho đơn hàng
     let id_order = 1;
-    if (order_is_in_process.length != 0) {
+   
       while (
-        order_is_in_process.some((obj) => {
-          return obj.id === id_order;
+        userList[userStatusLoginIndex].ordersHistory.some((obj) => {
+          return obj.orderId == id_order;
         })
       ) {
-        id_order = Math.floor(Math.random() * 100) + 1;
+        id_order = Math.floor(Math.random() * userList[userStatusLoginIndex].ordersHistory.length + 1) + 1;
       }
-    }
-    console.log(id_order);
+   
 
     //tạo thời gian đặt hàng
     let date_order = new Date();
@@ -184,44 +189,33 @@ function handle_order_product(
       }
     });
 
+    //address để ship
+    let address = document.querySelector(".payment-information-info__address").placeholder;
+    console.log(userList[userStatusLoginIndex]);
+    console.log(userList[userStatusLoginIndex].shoppingCart);
+
     let data = {
-      customerID: userList[index_user_status_login].id,
-      id: id_order,
-      status: "pending",
-      date_order: date_order,
-      address_ship: document.querySelector(
-        ".payment-information-info__change-location-list input"
-      ).value,
-      priceTotal:
-        calTotalProductItemPriceInShoppingCart(
-          userList,
-          index_user_status_login
-        ) + 18000,
-      purchase_method: purchase_method,
-      products: userList[index_user_status_login].shoppingCart,
+      orderId: id_order,
+      orderDate: date_order,
+      orderAddressToShip: address,
+      orderStatus: "Pending",
+      orderMethod: purchase_method,
+      orderTotalPrice: calTotalProductItemPriceInShoppingCart(userList,userStatusLoginIndex ) + 18000,
+      orderProduct: userList[userStatusLoginIndex].shoppingCart
     };
+    console.log(userList[userStatusLoginIndex].shoppingCart);
+    console.log(typeof(calTotalProductItemPriceInShoppingCart(userList,userStatusLoginIndex ) + 18000));
 
-    order_is_in_process.push(data);
-    console.log(order_is_in_process);
-    localStorage.setItem(
-      "order_is_in_process",
-      JSON.stringify(order_is_in_process)
-    );
+    userList[userStatusLoginIndex].ordersHistory.push(data);
+    console.log(userList[userStatusLoginIndex].ordersHistory[userList[userStatusLoginIndex].ordersHistory.length -1]);
 
-    // xóa dữ liệu trong giỏ hàng
-    array_orderProduct.forEach((obj_orderProduct) => {
-      userList[index_user_status_login].shoppingCart.forEach(
-        (obj_shoppingCart, index) => {
-          if (obj_orderProduct.id === obj_shoppingCart.id) {
-            userList[index_user_status_login].shoppingCart.splice(index, 1);
-            return;
-          }
-        }
-      );
-    });
-
+    // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
+    setTimeout(() => {
+      userList[userStatusLoginIndex ].shoppingCart = [];
+    }, 500);
     localStorage.setItem("userList", JSON.stringify(userList));
     localStorage.setItem("productList", JSON.stringify(productList));
+    return true;
   }
 }
 
@@ -368,16 +362,15 @@ export function getBillInfo(array_orderProduct) {
       let userList = JSON.parse(localStorage.getItem("userList"));
       let userStatusLoginIndex;
       userList.forEach((obj, index) => {
-        if (obj.statusLogin) {
+        if (obj.statusLogin == true) {
           userStatusLoginIndex = index;
         }
       });
-
       // hàm kiểm tra thông tin thanh toán
       if (handle_order_information(userList, userStatusLoginIndex)) {
         //hàm xử lí đơn người dùng đặt hàng
         //array_orderProduct được khai báo ở file getpayment-----------------
-        handle_order_product(
+        let result = handle_order_product(
           userList,
           userStatusLoginIndex,
           productList,
@@ -386,7 +379,9 @@ export function getBillInfo(array_orderProduct) {
 
         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
         // updateBill();
-        updateBill(userList, userStatusLoginIndex, array_orderProduct);
+        if(result){
+          updateBill(userList, userStatusLoginIndex, array_orderProduct);
+        }
       }
     });
 }

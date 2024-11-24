@@ -480,18 +480,13 @@ function updatePaymentInformation(
 }
 
 // Hàm hiển thị thông tin thanh toán của người dùng
-export function getPaymentInformationInfo() {
+export function getPaymentInformationInfo(userList, userStatusLoginIndex) {
   document
     .querySelector(".shopping-cart__payment-button")
     .addEventListener("click", function () {
-      //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
-      let userList = JSON.parse(localStorage.getItem("userList"));
-      let userStatusLoginIndex;
-      userList.forEach((obj, index) => {
-        if (obj.statusLogin) {
-          userStatusLoginIndex = index;
-        }
-      });
+      //up userList lên local vì khi ấn nút này cần cập nhật giỏ hàng lên local (khúc này chưa cập nhật lên local nên việc xử lí không đồng bộ)
+      localStorage.setItem("userList", JSON.stringify(userList));
+      console.log(userList[userStatusLoginIndex]);
 
       if (userList[userStatusLoginIndex].shoppingCart.length >= 1) {
         // Đưa về đầu trang
