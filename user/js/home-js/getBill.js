@@ -148,15 +148,15 @@ function handle_order_product(
     create_notification_user("Đặt hàng thành công!");
     //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
     //tạo id cho đơn hàng
-    let id_order = 1;
+
    
-      while (
-        userList[userStatusLoginIndex].ordersHistory.some((obj) => {
-          return obj.orderId == id_order;
-        })
-      ) {
-        id_order = Math.floor(Math.random() * userList[userStatusLoginIndex].ordersHistory.length + 1) + 1;
-      }
+    // while (
+    //   userList[userStatusLoginIndex].ordersHistory.some((obj) => {
+    //     return obj.orderId == id_order;
+    //   })
+    // ) {
+    //   id_order = Math.floor(Math.random() * userList[userStatusLoginIndex].ordersHistory.length + 1) + 1;
+    // }
    
 
     //tạo thời gian đặt hàng
@@ -194,26 +194,33 @@ function handle_order_product(
     console.log(userList[userStatusLoginIndex]);
     console.log(userList[userStatusLoginIndex].shoppingCart);
 
+    const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+    const id_order = orderList.length + 1;
+
     let data = {
+      customerId: userList[userStatusLoginIndex].id,
       orderId: id_order,
       orderDate: date_order,
       orderAddressToShip: address,
       orderStatus: "Pending",
       orderMethod: purchase_method,
-      orderTotalPrice: calTotalProductItemPriceInShoppingCart(userList,userStatusLoginIndex ) + 18000,
+      orderTotalPrice: calTotalProductItemPriceInShoppingCart(userList, userStatusLoginIndex) + 18000,
       orderProduct: userList[userStatusLoginIndex].shoppingCart
     };
+
+    orderList.push(data);
     console.log(userList[userStatusLoginIndex].shoppingCart);
     console.log(typeof(calTotalProductItemPriceInShoppingCart(userList,userStatusLoginIndex ) + 18000));
 
-    userList[userStatusLoginIndex].ordersHistory.push(data);
-    console.log(userList[userStatusLoginIndex].ordersHistory[userList[userStatusLoginIndex].ordersHistory.length -1]);
+    // userList[userStatusLoginIndex].ordersHistory.push(data);
+    // console.log(userList[userStatusLoginIndex].ordersHistory[userList[userStatusLoginIndex].ordersHistory.length -1]);
 
     // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
     setTimeout(() => {
       userList[userStatusLoginIndex ].shoppingCart = [];
     }, 500);
-    localStorage.setItem("userList", JSON.stringify(userList));
+    
+    localStorage.setItem("orderList", JSON.stringify(orderList));
     localStorage.setItem("productList", JSON.stringify(productList));
     return true;
   }

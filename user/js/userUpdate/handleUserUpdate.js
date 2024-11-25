@@ -185,7 +185,6 @@ export function handleSignUp(){
         last_name: null,
         phone: null,
         shoppingCart: [],
-        ordersHistory: [],
     }
 
     //thêm vào mảng

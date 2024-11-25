@@ -147,7 +147,6 @@ export function handleAddCustomer() {
         last_name: lastName.value,
         phone: phone.value,
         shoppingCart: [],
-        ordersHistory: []
     }
     userList.push(data);
     localStorage.setItem("userList", JSON.stringify(userList));

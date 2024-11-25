@@ -10,7 +10,7 @@ import { updateStyleTags } from "./shoppingCartIconInMenuHeaderAction.js";
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn
 export function comebackShoppingCart(userList, userStatusLoginIndex) {
   updateShoppingCart(userList, userStatusLoginIndex);
-  generateFilter();
+  
 }
 
 //hiệu làm lại hàm cập nhật thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
@@ -167,9 +167,19 @@ function updateShoppingCart() {
     return items;
   }
 
+  // Lấy lịch sử đơn hàng của user từ danh sách đơn hàng
+  const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+  const ordersHistory = [];
+  orderList.forEach((order) => {
+    if(order.customerId === userList[userStatusLoginIndex].id){
+      ordersHistory.push(order);
+    }
+  });
+
   // Danh sách sản phẩm đã đặt hàng nằm ở dưới giỏ hàng
   function orderedProduct() {
-    if (userList[userStatusLoginIndex].ordersHistory.length == 0) {
+
+    if (ordersHistory.length == 0) {
       let eleP = document.createElement("p");
       eleP.className = "mess-never-buy";
       eleP.textContent = "BẠN CHƯA MUA SẢN PHẨM NÀO! ĐẶT NHANH ĐI!";
@@ -179,14 +189,14 @@ function updateShoppingCart() {
     let eleOrder = document.createElement("div");
     for (
       let i = 0;
-      i < userList[userStatusLoginIndex].ordersHistory.length;
+      i < ordersHistory.length;
       i++
     ) {
       eleOrder.innerHTML += `
           <div id="order-item">
-            <p id="order-date-history">Ngày đặt hàng: ${userList[userStatusLoginIndex].ordersHistory[i].orderDate}</p>
-            <p id="order-status-history">Tình trạng đơn hàng: ${userList[userStatusLoginIndex].ordersHistory[i].orderStatus}</p>
-            <p id="totalPrice-history">Tổng giá trị đơn hàng: ${userList[userStatusLoginIndex].ordersHistory[i].orderTotalPrice}</p>
+            <p id="order-date-history">Ngày đặt hàng: ${ordersHistory[i].orderDate}</p>
+            <p id="order-status-history">Tình trạng đơn hàng: ${ordersHistory[i].orderStatus}</p>
+            <p id="totalPrice-history">Tổng giá trị đơn hàng: ${ordersHistory[i].orderTotalPrice}</p>
             <a href="" id="detail-ordered">Chi tiết</a>
             <a href="" id="delete-ordered">Hủy đơn hàng</a>
           </div>
@@ -237,7 +247,7 @@ function updateShoppingCart() {
 
   //gán sự kiện cho nút xem chi tiết sản phẩm đã đặt hàng
   if (document.querySelectorAll("#order-item a").length > 0) {
-    detailOrderProduct(userList, userStatusLoginIndex);
+    detailOrderProduct(ordersHistory);
   }
 }
 
@@ -250,7 +260,8 @@ export function getShoppingCartInfo() {
   updateShoppingCart();
 }
 
-function detailOrderProduct(userList, userStatusLoginIndex) {
+function detailOrderProduct(ordersHistory) {
+
   document
     .querySelectorAll("#order-item #detail-ordered")
     .forEach((obj, indexOrdersHistory) => {
@@ -263,20 +274,19 @@ function detailOrderProduct(userList, userStatusLoginIndex) {
             for (
               let i = 0;
               i <
-              userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
-                .orderProduct.length;
+              ordersHistory[indexOrdersHistory].orderProduct.length;
               i++
             ) {
               ele.innerHTML += `
               <div class="order-product-item">
                 <div class="content-product-ordered">
-                  <p id="name-product-ordered">Tên: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].name}</p>
-                  <p id="category-product-ordered">Danh mục: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].category}</p>
-                  <p id="price-product-ordered">Giá: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].price}</p>
-                  <p id="quantity-product-ordered">Số lượng: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].quantity}</p>
+                  <p id="name-product-ordered">Tên: ${ordersHistory[indexOrdersHistory].orderProduct[i].name}</p>
+                  <p id="category-product-ordered">Danh mục: ${ordersHistory[indexOrdersHistory].orderProduct[i].category}</p>
+                  <p id="price-product-ordered">Giá: ${ordersHistory[indexOrdersHistory].orderProduct[i].price}</p>
+                  <p id="quantity-product-ordered">Số lượng: ${ordersHistory[indexOrdersHistory].orderProduct[i].quantity}</p>
 
                 </div>
-                <img style="width: 100px;  height:100px;" src=${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderProduct[i].src}>
+                <img style="width: 100px;  height:100px;" src=${ordersHistory[indexOrdersHistory].orderProduct[i].src}>
               </div>
             `;
             }
@@ -290,13 +300,13 @@ function detailOrderProduct(userList, userStatusLoginIndex) {
             <button class="exit-form-detail-ordered-product">&times;</button>
             <h2>CHI TIẾT ĐƠN HÀNG</h2>
             <p>Tình trạng: ${
-              userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
+              ordersHistory[indexOrdersHistory]
                 .orderStatus
             }</p>
-            <p>Ngày đặt: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderDate}</p>
-            <p>Mã đơn hàng: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderId}</p>
-            <p>Địa chỉ: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderAddressToShip}</p>
-            <p>Phương thức thanh toán: ${userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory].orderMethod}</p>
+            <p>Ngày đặt: ${ordersHistory[indexOrdersHistory].orderDate}</p>
+            <p>Mã đơn hàng: ${ordersHistory[indexOrdersHistory].orderId}</p>
+            <p>Địa chỉ: ${ordersHistory[indexOrdersHistory].orderAddressToShip}</p>
+            <p>Phương thức thanh toán: ${ordersHistory[indexOrdersHistory].orderMethod}</p>
             <p>Danh sách sản phẩm đã mua:</p>
             ${showListDetailProduct()}
           </div>
@@ -315,7 +325,7 @@ function detailOrderProduct(userList, userStatusLoginIndex) {
     .querySelectorAll("#order-item #delete-ordered")
     .forEach((obj, indexOrdersHistory) => {
       if (
-        userList[userStatusLoginIndex].ordersHistory[indexOrdersHistory]
+        ordersHistory[indexOrdersHistory]
           .orderStatus != "Pending"
       ) {
         obj.style.backgroundColor = "greenyellow";
@@ -340,11 +350,25 @@ function detailOrderProduct(userList, userStatusLoginIndex) {
               document.body.appendChild(ele);
               document.querySelector(".form-question .yes").onclick = (e) => {
                 e.preventDefault();
-                userList[userStatusLoginIndex].ordersHistory.splice(
-                  indexOrdersHistory,
-                  1
-                );
-                localStorage.setItem("userList", JSON.stringify(userList));
+                // ordersHistory.splice(
+                //   indexOrdersHistory,
+                //   1
+                // );
+                // localStorage.setItem("userList", JSON.stringify(userList));
+
+                // code mới của Huy
+                const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+                // Tìm đơn hàng có ID cần xoá trên local
+                let removeIndex = orderList.findIndex((order) => {
+                  return order.orderId === ordersHistory[indexOrdersHistory].orderId;
+                })
+                // Array method findIndex: return first_index, otherwise -1
+                // Xoá và cập nhật lại đơn hàng lên local
+                if(removeIndex !== -1){
+                  orderList.splice(removeIndex, 1);
+                  localStorage.setItem('orderList', JSON.stringify(orderList));
+                }
+
                 ele.remove();
                 create_notification_user("Hủy đơn hàng thành công");
                 // updateStyleTags();
