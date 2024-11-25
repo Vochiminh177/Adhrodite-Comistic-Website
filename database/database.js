@@ -556,7 +556,6 @@ export let usersList = [
         quantity: 1,
       },
     ],
-
   },
   {
     full_info: false,

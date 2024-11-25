@@ -1,6 +1,5 @@
 import { usersList } from "../../../database/database.js";
 
-
 //hàm return về chuỗi placeholder ban đầu
 export function resetDefaultInputForUser(input){
     input.style.borderBottom = "1px solid #ccc";
