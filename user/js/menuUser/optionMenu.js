@@ -97,38 +97,18 @@ export function showFormInformation(userList, userStatusLoginIndex) {
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
 
-            <input type="text" class="first-name" placeholder="Nhập họ" value="${
-              userList[userStatusLoginIndex].firstName
-                ? userList[userStatusLoginIndex].firstName
-                : "Nhập họ"
-            }">
-            <input type="text" class="last-name" placeholder="Nhập tên" value="${
-              userList[userStatusLoginIndex].lastName
-                ? userList[userStatusLoginIndex].lastName
-                : "Nhập tên"
-            }">
+            <input type="text" class="first-name" value="${userList[userStatusLoginIndex].first_name ? userList[userStatusLoginIndex].first_name : ""}" placeholder="Nhập họ">
+            <input type="text" class="last-name" value="${userList[userStatusLoginIndex].last_name ? userList[userStatusLoginIndex].last_name : ""}" placeholder="Nhập tên">
 
           </div>
           <div class="one-input">
-            <input type="text" class="phone" placeholder="Nhập số điện thoại" value="${
-              userList[userStatusLoginIndex].phone
-                ? userList[userStatusLoginIndex].phone
-                : "Nhập số điện thoại"
-            }">
+            <input type="text" class="phone" value="${userList[userStatusLoginIndex].phone ? userList[userStatusLoginIndex].phone : ""}" placeholder="Nhập số điện thoại">
           </div>
           <div class="one-input">
-            <input type="text" class="email" placeholder="Nhập email" value="${
-              userList[userStatusLoginIndex].email
-                ? userList[userStatusLoginIndex].email
-                : "Nhập email"
-            }">
+            <input type="text" class="email" value="${userList[userStatusLoginIndex].email ? userList[userStatusLoginIndex].email : ""}" placeholder="Nhập email">
           </div>
           <div class="one-input">
-            <input type="text" class="address" placeholder="Nhập địa chỉ" value="${
-              userList[userStatusLoginIndex].address
-                ? userList[userStatusLoginIndex].address
-                : "Nhập địa chỉ"
-            }">
+            <input type="text" class="address" value="${userList[userStatusLoginIndex].address ? userList[userStatusLoginIndex].address : ""}" placeholder="Nhập địa chỉ">
           </div>
           <div class="one-input-btn">
             <a class="save-information">Lưu thông tin</a>
@@ -141,7 +121,8 @@ export function showFormInformation(userList, userStatusLoginIndex) {
   document.body.appendChild(ele);
 
 
-  document.querySelector(".form-user .save-information").onclick = () => {
+  document.querySelector(".form-user .save-information").onclick = (e) => {
+    e.preventDefault();
     let result = handleSaveDateInformation(userStatusLoginIndex);
     if (result) {
       create_notification_user("Lưu thành công!");

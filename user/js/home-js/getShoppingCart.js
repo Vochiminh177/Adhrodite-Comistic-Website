@@ -348,42 +348,51 @@ function detailOrderProduct(ordersHistory) {
               </div>
             `;
               document.body.appendChild(ele);
-              document.querySelector(".form-question .yes").onclick = (e) => {
-                e.preventDefault();
-                // ordersHistory.splice(
-                //   indexOrdersHistory,
-                //   1
-                // );
-                // localStorage.setItem("userList", JSON.stringify(userList));
-
-                // code mới của Huy
-                const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-                // Tìm đơn hàng có ID cần xoá trên local
-                let removeIndex = orderList.findIndex((order) => {
-                  return order.orderId === ordersHistory[indexOrdersHistory].orderId;
-                })
-                // Array method findIndex: return first_index, otherwise -1
-                // Xoá và cập nhật lại đơn hàng lên local
-                if(removeIndex !== -1){
-                  orderList.splice(removeIndex, 1);
-                  localStorage.setItem('orderList', JSON.stringify(orderList));
-                }
-
-                ele.remove();
-                create_notification_user("Hủy đơn hàng thành công");
-                // updateStyleTags();
-                // Hiển thị thông tin sản phẩm của Giỏ hàng
-                getShoppingCartInfo();
-              };
-              document.querySelector(".form-question .no").onclick = (e) => {
-                e.preventDefault();
-                ele.remove();
-              };
-              document.querySelector(".form-question .exit-form-detail-ordered-product").onclick = () => {
-                ele.remove();
-              };
             }
             questionDelete();
+            document.querySelector(".form-question .yes").onclick = (e) => {
+              e.preventDefault();
+
+              // code mới của Huy
+              const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+              let productList = JSON.parse(localStorage.getItem("productList"));
+
+              //hoàn số lượng của sản phẩm của shop (admin)
+              orderList.forEach((obj) => { //obj là từng đơn hàng
+                obj.orderProduct.forEach((objOrderProduct) => { //objOrderProduct là từng sản phẩm của obj
+                  let index = productList.findIndex((objProductShop) => { //objProdcutShop là từng sản phẩm của shop
+                    return objProductShop.id === objOrderProduct.id;
+                  });
+                  productList[index].quantity += objOrderProduct.quantity;
+                  localStorage.setItem("productList", JSON.stringify(productList));
+                })
+              })
+
+              // Tìm đơn hàng có ID cần xoá trên local
+              let removeIndex = orderList.findIndex((order) => {
+                return order.orderId === ordersHistory[indexOrdersHistory].orderId;
+              })
+              // Array method findIndex: return first_index, otherwise -1
+              // Xoá và cập nhật lại đơn hàng lên local
+              if(removeIndex !== -1){
+                orderList.splice(removeIndex, 1);
+                localStorage.setItem('orderList', JSON.stringify(orderList));
+              }
+
+              document.querySelector(".container-question").remove();
+              create_notification_user("Hủy đơn hàng thành công");
+              // updateStyleTags();
+              // Hiển thị thông tin sản phẩm của Giỏ hàng
+              getShoppingCartInfo();
+            };
+            document.querySelector(".form-question .no").onclick = (e) => {
+              e.preventDefault();
+              document.querySelector(".container-question").remove();
+            };
+            document.querySelector(".form-question .exit-form-detail-ordered-product").onclick = () => {
+              document.querySelector(".container-question").remove();
+            };
+          
           }
           handleDelete();
         };

@@ -3,7 +3,6 @@ import { createNotificationAdmin } from "../base/baseFunction.js";
 import { pagination, showListCustomer } from "../showList/show.js";
 import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
-import { usersList } from "../../../database/database.js";
 
 export function deleteCustomer() {
     document.querySelectorAll(".delete-customer").forEach((obj) => {
@@ -22,24 +21,15 @@ export function deleteCustomer() {
                 </div>
             `;
             document.body.appendChild(container);
-            document.querySelectorAll(".container-delete-customer .no").forEach((obj) => {
-                obj.onclick = () => {
-                    document.querySelector(".container-delete-customer").remove();
-                };
-            });
-            document.querySelectorAll(".container-delete-customer .yes").forEach((obj) => {
-                obj.onclick = () => {
-                    handleDeleteCustomer(index);
-                    console.log(index);
-                    document.querySelector(".container-delete-customer").remove();
-                    let userList = JSON.parse(localStorage.getItem("userList"));
-                    if(userList.length == 0){
-                        userList = [...usersList];
-                    }
-                    localStorage.setItem("userList", JSON.stringify(userList));
-                    pagination(userList, 1, showListCustomer, "#main-content-customer");
-                };
-            });
+            document.querySelector(".container-delete-customer .no").onclick = () => {
+                document.querySelector(".container-delete-customer").remove();
+            };
+            document.querySelector(".container-delete-customer .yes").onclick = () => {
+                handleDeleteCustomer(index);
+                document.querySelector(".container-delete-customer").remove();
+                let userList = JSON.parse(localStorage.getItem("userList"));
+                pagination(userList, 1, showListCustomer, "#main-content-customer");
+            };
         };
     });
 }
@@ -50,55 +40,24 @@ export function editCustomer(currentPage) {
         obj.onclick = (e) => {
             e.preventDefault();
             let index = parseInt(obj.getAttribute("index-item"));
-            //Ẩn tất cả các main
-            const sections = document.querySelectorAll('main');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-            //sài js để render ra form sửa customer
-            let container = document.createElement("div");
-            container.className = "container-edit-customer";
-            container.innerHTML = `
-                <div class="title">
-                <h1>Sửa thông tin khách hàng</h1>
-                <a class="comback-customer">< Quay lại</a>
-                </div>
-                <div class="content">
-                    <div class="content-edit-customer">
-                        <div id="left-input">
-                            <div class="content-two-input">
-                                <input type="text" placeholder="Nhập tên tài khoản" class="username-customer" value=${userList[index].username}>
-                                <input type="text" placeholder="Nhập mật khẩu" class="password-customer" value=${userList[index].password}>
-                            </div>
-                            <div class="content-two-input">
-                                <input type="text" placeholder="Nhập họ" class="firstname-customer" value=${userList[index].first_name ? userList[index].first_name : ''}>
-                                <input type="text" placeholder="Nhập tên" class="lastname-customer" value=${userList[index].last_name ? userList[index].last_name : ''}>
-                            </div>
-                            <div class="content-one-input">
-                                <input type="text" placeholder="Nhập số điện thoại" class="phone-customer" value=${userList[index].phone ? userList[index].phone : ''}>
-                            </div>
-                            <button class="btn btn-saveChange-customer">Thay đổi và lưu</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            let main = document.createElement("main");
-            main.className = "main-content-customer-edit";
-            main.innerHTML = container.innerHTML;
-            document.querySelector("#content").appendChild(main);
-            
+
+            showMain("main-content-customer-add");
+            document.querySelector(".username-customer").value = userList[index].username;
+            document.querySelector(".password-customer").value = userList[index].password;
+            document.querySelector(".firstname-customer").value =  userList[index].first_name;
+            document.querySelector(".lastname-customer").value =  userList[index].last_name;
+            document.querySelector(".phone-customer").value =  userList[index].phone;
+
             document.querySelector(".comback-customer").onclick = (e) => {
                 e.preventDefault();
-                main.remove();
                 showMain("main-content-customer");
             }
 
-            document.querySelector(".btn-saveChange-customer").onclick = () => {
+            document.querySelector(".add-customer").onclick = () => {
                 let result = handleEditCustomer(index);
                 if(result){
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
-                    document.querySelector(".main-content-customer-edit").remove();
                     showMain("main-content-customer");
 				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
@@ -109,42 +68,9 @@ export function editCustomer(currentPage) {
 
 export function addCustomer(){
     document.querySelector("#main-content-customer .btn-add-customer").onclick = () =>{
-        //Ẩn tất cả các main
-        const sections = document.querySelectorAll('main');
-        sections.forEach(section => {
-            section.style.display = 'none';
-        });
-        let main = document.createElement("main");
-        main.className = "main-content-product-add main-content-customer-add";
-        main.innerHTML = `
-             <div class="title">
-                <h1>Thêm khách hàng</h1>
-                <a class="comback-customer">< Quay lại</a>
-            </div>
-            <div class="content">
-                <div class="content-product-add content-customer-add">
-                    <div id="left-input">
-                        <div class="content-two-input">
-                            <input type="text" placeholder="Nhập tên tài khoản" class="username-customer">
-                            <input type="text" placeholder="Nhập mật khẩu" class="password-customer">
-                        </div>
-                        <div class="content-two-input">
-                           <input type="text" placeholder="Nhập họ" class="firstname-customer">
-                            <input type="text" placeholder="Nhập tên" class="lastname-customer" >
-                        </div>
-                        <div class="content-one-input">
-                            <input type="text" placeholder="Nhập số điện thoại" class="phone-customer">
-                        </div>
-                        <button class="btn btn-add add-customer">Thêm khách hàng</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.querySelector("#content").appendChild(main);
-
+        showMain("main-content-customer-add");
         document.querySelector(".comback-customer").onclick = (e) => {
             e.preventDefault();
-            main.remove();
             showMain("main-content-customer");
         }
 
@@ -169,57 +95,32 @@ export function searchUser(){
         let i = userList.findIndex((obj) => {
             return obj.username.toLowerCase() === value.toLowerCase();
         });
-
+        
         if(i>=0){
-            //Ẩn tất cả các main
-            const sections = document.querySelectorAll('main');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-            //sài js để render ra form sửa customer
-            let container = document.createElement("div");
-            container.className = "container-edit-customer";
-            container.innerHTML = `
-                <div class="title">
-                <h1>Sửa thông tin khách hàng</h1>
-                <a class="comback-customer">< Quay lại</a>
-                </div>
-                <div class="content">
-                    <div class="content-edit-customer">
-                        <div id="left-input">
-                            <div class="content-two-input">
-                                <input type="text" placeholder="Nhập tên tài khoản" class="username-customer" value=${userList[i].username}>
-                                <input type="text" placeholder="Nhập mật khẩu" class="password-customer" value=${userList[i].password}>
-                            </div>
-                            <div class="content-two-input">
-                                <input type="text" placeholder="Nhập họ" class="firstname-customer" value=${userList[i].first_name ? userList[i].first_name : ''}>
-                                <input type="text" placeholder="Nhập tên" class="lastname-customer" value=${userList[i].last_name ? userList[i].last_name : ''}>
-                            </div>
-                            <div class="content-one-input">
-                                <input type="text" placeholder="Nhập số điện thoại" class="phone-customer" value=${userList[i].phone ? userList[i].phone : ''}>
-                            </div>
-                            <button class="btn btn-saveChange-customer">Thay đổi và lưu</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            let main = document.createElement("main");
-            main.className = "main-content-customer-edit";
-            main.innerHTML = container.innerHTML;
-            document.querySelector("#content").appendChild(main);
+            let currentPage;
+            if(i=0){
+                currentPage = 1;
+            } 
+            else currentPage = Math.ceil(i/3);
+
+            showMain("main-content-customer-add");
+            document.querySelector(".username-customer").value = userList[i].username;
+            document.querySelector(".password-customer").value = userList[i].password;
+            document.querySelector(".firstname-customer").value =  userList[i].first_name;
+            document.querySelector(".lastname-customer").value =  userList[i].last_name;
+            document.querySelector(".phone-customer").value =  userList[i].phone;
+
             document.querySelector(".comback-customer").onclick = (e) => {
                 e.preventDefault();
-                main.remove();
                 showMain("main-content-customer");
             }
-            document.querySelector(".btn-saveChange-customer").onclick = () => {
+            document.querySelector(".add-customer").onclick = () => {
                 let result = handleEditCustomer(i);
                 if(result){
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
-                    document.querySelector(".main-content-customer-edit").remove();
                     showMain("main-content-customer");
-				    pagination(userList, 1, showListCustomer, "#main-content-customer");
+				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
         }
@@ -227,10 +128,8 @@ export function searchUser(){
             createNotificationAdmin("Không tìm thấy");
         }
     };
-    document.querySelector(".search-customer input").onblur = () => {
-        setTimeout(() => {
-            document.querySelector(".search-customer input").value = "";
-            document.querySelector(".search-customer input").placeholder = "Nhập tên tài khoản";
-        }, 1000);   
+    document.querySelector(".search-customer input").onfocus = () => {
+        document.querySelector(".search-customer input").value = "";
+        document.querySelector(".search-customer input").placeholder = "Nhập tên tài khoản";  
     }
 }

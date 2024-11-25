@@ -42,7 +42,7 @@ export function add_product(path_picture_admin){
         return false;
     }
 
-    //check số giá bán
+    //check số giá bán và số lượng
     let checkNum = true;
     if(!checkNumber(price.value) || !checkNumber(quantity.value)){
         checkNum = false;
@@ -55,7 +55,6 @@ export function add_product(path_picture_admin){
         }
         else err_input(quantity, "Phải nhập số nguyên!");
     }
-
     if(price.value<0 || quantity.value<0){
         if(price.value<0 && quantity.value<0){
             err_input(price, "Nhập số dương");
@@ -69,6 +68,7 @@ export function add_product(path_picture_admin){
         }
         return false;
     }
+
     //nếu trùng tên hoặc mã sản phẩm, sản phẩm đã tồn tại
     let check = {
         status: true,
@@ -89,22 +89,14 @@ export function add_product(path_picture_admin){
             return;
         }
     });
-
     if(!check.status){
         if(check.mess_id){
             err_input(id, check.mess_id);
-            id.value = "";
         }
         if(check.mess_name){
             err_input(name, check.mess_name);
-            name.value = "";
         }
-        return;
-    }
-
-    if(check_empty){
-        path_picture_admin.src = null;
-        return;
+        return false;
     }
 
     //nếu sản phẩm được thêm, tạo number sản phẩm

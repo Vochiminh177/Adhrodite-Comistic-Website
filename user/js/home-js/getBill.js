@@ -87,7 +87,6 @@ function handle_order_information(userList, index_user_status_login) {
       ".payment-information-info__address"
     ).placeholder === ""
   ) {
-    console.log(document.querySelector(".payment-information-info__address").value);
     create_notification_user("Bạn cần bổ sung địa chỉ giao hàng");
     return false;
   } 
@@ -120,31 +119,30 @@ function handle_order_product(
     let index = productList.findIndex((obj_product_in_shop) => {
       return obj_orderProduct.id === obj_product_in_shop.id;
     });
-    if(index >= 0){
-      let soLuong_conLai =
-        productList[index].quantity - obj_orderProduct.quantity;
-      //nếu hàng đặt nhiều hơn hàng tồn kho
-      if (soLuong_conLai < 0) {
-        error_orderProduct(obj_orderProduct.id);
-        create_notification_user("Vui lòng xem lại số lượng đơn hàng!");
-        check = false;
-      }
-      //ngược lại, nếu đặt được, cập nhật số lượng sản phẩm ở phía admin
-      else {
-        productList[index].quantity = soLuong_conLai;
-      }
+  
+    let soLuongConLai = productList[index].quantity - obj_orderProduct.quantity;
+    
+    //nếu hàng đặt nhiều hơn hàng tồn kho
+    if (soLuongConLai < 0) {
+      error_orderProduct(obj_orderProduct.id);
+      create_notification_user("Vui lòng xem lại số lượng đơn hàng!");
+      check = false;
     }
+    //ngược lại, nếu đặt được, cập nhật số lượng sản phẩm ở phía admin
+    else {
+      productList[index].quantity = soLuongConLai;
+    }
+  
 
     if(!check) check_quantity = false;
   });
 
   if(!check_quantity){
-    console.log(123);
     return false;
   }
 
   //nếu người dùng đặt hàng thành công
-  if (check_quantity) {
+
     create_notification_user("Đặt hàng thành công!");
     //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
     //tạo id cho đơn hàng
@@ -173,7 +171,7 @@ function handle_order_product(
       date_order.getMonth().toString() +
       "/" +
       date_order.getFullYear().toString();
-    console.log(date_order);
+  
 
     //phương thức thanh toán
     let purchase_method;
@@ -184,15 +182,13 @@ function handle_order_product(
       if (obj.querySelector("input[type=radio]")) {
         if (obj.querySelector("input[type=radio]").checked) {
           purchase_method = obj.querySelector("label").textContent.trim();
-          return;
         }
       }
     });
 
     //address để ship
     let address = document.querySelector(".payment-information-info__address").placeholder;
-    console.log(userList[userStatusLoginIndex]);
-    console.log(userList[userStatusLoginIndex].shoppingCart);
+
 
     const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
     const id_order = orderList.length + 1;
@@ -209,11 +205,7 @@ function handle_order_product(
     };
 
     orderList.push(data);
-    console.log(userList[userStatusLoginIndex].shoppingCart);
-    console.log(typeof(calTotalProductItemPriceInShoppingCart(userList,userStatusLoginIndex ) + 18000));
 
-    // userList[userStatusLoginIndex].ordersHistory.push(data);
-    // console.log(userList[userStatusLoginIndex].ordersHistory[userList[userStatusLoginIndex].ordersHistory.length -1]);
 
     // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
     setTimeout(() => {
@@ -222,8 +214,9 @@ function handle_order_product(
     
     localStorage.setItem("orderList", JSON.stringify(orderList));
     localStorage.setItem("productList", JSON.stringify(productList));
+   
     return true;
-  }
+  
 }
 
 // Hàm trở lại Trang chủ

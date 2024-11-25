@@ -5,7 +5,7 @@
     --poppins: "Poppins", sans-serif;
 }
 
-.content-product-add, .content-edit-customer {
+.content-product-add, .content-customer-add {
     display: grid;
     grid-template-columns: 55% 45%;
     padding: 12px;

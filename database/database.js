@@ -528,6 +528,8 @@ export let usersList = [
     remember_password: false,
     first_name: "Nguyễn",
     last_name: "Thanh Hiệu",
+    phone: null,
+    address: null,
     shoppingCart: [
       {
         id: "APh00002",
@@ -566,6 +568,8 @@ export let usersList = [
     remember_password: false,
     first_name: null,
     last_name: null,
+    phone: null,
+    address: null,
     shoppingCart: [],
   },
   {
@@ -578,6 +582,8 @@ export let usersList = [
     remember_password: false,
     first_name: null,
     last_name: null,
+    phone: null,
+    address: null,
     shoppingCart: [
       {
         id: "APh00001",

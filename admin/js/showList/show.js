@@ -32,7 +32,6 @@ function createPage(list, currentPage, showList, main){
     //-----In ra danh sách list---------
     let start = (currentPage-1) * itemPerPage;
     let end = start + itemPerPage;
-    console.log(start, end)
     showList(start, end, currentPage, list);
     //------------------------------------------
     //--gán sự kiện----

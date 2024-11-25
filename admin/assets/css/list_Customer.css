@@ -70,10 +70,10 @@
 /* ------------------------------ */
 
 /* css chỉnh phẩn quay lại trong chỉnh sửa khách hàng*/
-.main-content-customer-edit .title, .main-content-customer-add .title{
+#main-content-customer-edit .title, #main-content-customer-add .title{
     justify-content: unset;
 }
-.main-content-customer-edit .title a, .main-content-customer-add .title a{
+#main-content-customer-edit .title a, #main-content-customer-add .title a{
     margin-left: 20px;
     color: #ccc;    
     font-size: 1.5rem;
@@ -81,7 +81,7 @@
     font-weight: 600;
     transition: color 0.2s ease;
 }
-.main-content-customer-edit .title a:hover, .main-content-customer-add .title a:hover{
+#main-content-customer-edit .title a:hover, #main-content-customer-add .title a:hover{
     color: #000;
 }
 /* ------------------------------------------ */
