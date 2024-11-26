@@ -156,9 +156,13 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
             let items = "";
             for (let i = 0; i < orderProduct.length; i++) {
               if (i === orderProduct.length - 1) {
-                items += `${orderProduct[i].id} - ${orderProduct[i].name} - ${orderProduct[i].quantity} - ${orderProduct[i].price}`;
+                items += `${orderProduct[i].id} - ${orderProduct[i].name} - ${
+                  orderProduct[i].quantity
+                } - ${formatVietNamMoney(orderProduct[i].price)}đ`;
               } else {
-                items += `${orderProduct[i].id} - ${orderProduct[i].name} - ${orderProduct[i].quantity} - ${orderProduct[i].price}, `;
+                items += `${orderProduct[i].id} - ${orderProduct[i].name} - ${
+                  orderProduct[i].quantity
+                } - ${formatVietNamMoney(orderProduct[i].price)}đ, `;
               }
             }
             return items;

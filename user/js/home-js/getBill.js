@@ -1,10 +1,5 @@
-import {
-  productItemAddedToShoppingCart as productItemAddedArray,
-  usersList,
-} from "../../../database/database.js";
 import { productItemArray } from "../../../database/database.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
-import { order_is_in_process } from "../../../database/database.js";
 import { calTotalProductItemPriceInShoppingCart } from "../common-js/common.js";
 import {
   updateHeaderAndFooter,
@@ -83,24 +78,21 @@ function handle_order_information(userList, index_user_status_login) {
     return false;
   }
   if (
-    document.querySelector(
-      ".payment-information-info__address"
-    ).placeholder === ""
+    document.querySelector(".payment-information-info__address").placeholder ===
+    ""
   ) {
     create_notification_user("Bạn cần bổ sung địa chỉ giao hàng");
     return false;
-  } 
+  }
 
   if (document.querySelector("#credit-card").checked) {
-      create_notification_user("Chưa xây dựng dữ liệu");
-      return false;
-  
+    create_notification_user("Chưa xây dựng dữ liệu");
+    return false;
   }
   if (document.querySelector("#internet-banking").checked) {
     create_notification_user("Chưa xây dựng dữ liệu");
     return false;
   }
- 
 
   return true;
 }
@@ -108,7 +100,7 @@ function handle_order_information(userList, index_user_status_login) {
 // hàm kiểm tra có đặt hàng thành công hay không
 function handle_order_product(
   userList,
-  userStatusLoginIndex ,
+  userStatusLoginIndex,
   productList,
   array_orderProduct
 ) {
@@ -119,9 +111,9 @@ function handle_order_product(
     let index = productList.findIndex((obj_product_in_shop) => {
       return obj_orderProduct.id === obj_product_in_shop.id;
     });
-  
+
     let soLuongConLai = productList[index].quantity - obj_orderProduct.quantity;
-    
+
     //nếu hàng đặt nhiều hơn hàng tồn kho
     if (soLuongConLai < 0) {
       error_orderProduct(obj_orderProduct.id);
@@ -132,91 +124,89 @@ function handle_order_product(
     else {
       productList[index].quantity = soLuongConLai;
     }
-  
 
-    if(!check) check_quantity = false;
+    if (!check) check_quantity = false;
   });
 
-  if(!check_quantity){
+  if (!check_quantity) {
     return false;
   }
 
   //nếu người dùng đặt hàng thành công
 
-    create_notification_user("Đặt hàng thành công!");
-    //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
-    //tạo id cho đơn hàng
+  create_notification_user("Đặt hàng thành công!");
+  //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
+  //tạo id cho đơn hàng
 
-   
-    // while (
-    //   userList[userStatusLoginIndex].ordersHistory.some((obj) => {
-    //     return obj.orderId == id_order;
-    //   })
-    // ) {
-    //   id_order = Math.floor(Math.random() * userList[userStatusLoginIndex].ordersHistory.length + 1) + 1;
-    // }
-   
+  // while (
+  //   userList[userStatusLoginIndex].ordersHistory.some((obj) => {
+  //     return obj.orderId == id_order;
+  //   })
+  // ) {
+  //   id_order = Math.floor(Math.random() * userList[userStatusLoginIndex].ordersHistory.length + 1) + 1;
+  // }
 
-    //tạo thời gian đặt hàng
-    let date_order = new Date();
-    date_order =
-      date_order.getHours().toString() +
-      ":" +
-      date_order.getMinutes().toString() +
-      ":" +
-      date_order.getSeconds().toString() +
-      " " +
-      date_order.getDate().toString() +
-      "/" +
-      date_order.getMonth().toString() +
-      "/" +
-      date_order.getFullYear().toString();
-  
+  //tạo thời gian đặt hàng
+  let date_order = new Date();
+  date_order =
+    date_order.getHours().toString() +
+    ":" +
+    date_order.getMinutes().toString() +
+    ":" +
+    date_order.getSeconds().toString() +
+    " " +
+    date_order.getDate().toString() +
+    "/" +
+    date_order.getMonth().toString() +
+    "/" +
+    date_order.getFullYear().toString();
 
-    //phương thức thanh toán
-    let purchase_method;
-    let payment_information_info__form_group = document.querySelectorAll(
-      ".payment-information-info__form-group"
-    );
-    payment_information_info__form_group.forEach((obj) => {
-      if (obj.querySelector("input[type=radio]")) {
-        if (obj.querySelector("input[type=radio]").checked) {
-          purchase_method = obj.querySelector("label").textContent.trim();
-        }
+  //phương thức thanh toán
+  let purchase_method;
+  let payment_information_info__form_group = document.querySelectorAll(
+    ".payment-information-info__form-group"
+  );
+  payment_information_info__form_group.forEach((obj) => {
+    if (obj.querySelector("input[type=radio]")) {
+      if (obj.querySelector("input[type=radio]").checked) {
+        purchase_method = obj.querySelector("label").textContent.trim();
       }
-    });
+    }
+  });
 
-    //address để ship
-    let address = document.querySelector(".payment-information-info__address").placeholder;
+  //address để ship
+  let address = document.querySelector(
+    ".payment-information-info__address"
+  ).placeholder;
 
+  const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+  const id_order = orderList.length + 1;
 
-    const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-    const id_order = orderList.length + 1;
+  let data = {
+    customerId: userList[userStatusLoginIndex].id,
+    orderId: id_order,
+    orderDate: date_order,
+    orderAddressToShip: address,
+    orderStatus: "Pending",
+    orderMethod: purchase_method,
+    orderTotalPrice:
+      calTotalProductItemPriceInShoppingCart(userList, userStatusLoginIndex) +
+      18000,
+    orderProduct: userList[userStatusLoginIndex].shoppingCart,
+  };
 
-    let data = {
-      customerId: userList[userStatusLoginIndex].id,
-      orderId: id_order,
-      orderDate: date_order,
-      orderAddressToShip: address,
-      orderStatus: "Pending",
-      orderMethod: purchase_method,
-      orderTotalPrice: calTotalProductItemPriceInShoppingCart(userList, userStatusLoginIndex) + 18000,
-      orderProduct: userList[userStatusLoginIndex].shoppingCart
-    };
+  orderList.push(data);
 
-    orderList.push(data);
+  // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
+  setTimeout(() => {
+    userList[userStatusLoginIndex].shoppingCart = [];
+  }, 500);
 
+  localStorage.setItem("userList", JSON.stringify(userList));
+  localStorage.setItem("orderList", JSON.stringify(orderList));
+  localStorage.setItem("productList", JSON.stringify(productList));
 
-    // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
-    setTimeout(() => {
-      userList[userStatusLoginIndex ].shoppingCart = [];
-    }, 500);
-    
-    localStorage.setItem("orderList", JSON.stringify(orderList));
-    localStorage.setItem("productList", JSON.stringify(productList));
-   
-    return true;
-  
+  return true;
 }
 
 // Hàm trở lại Trang chủ
@@ -351,13 +341,6 @@ export function getBillInfo(array_orderProduct) {
   document
     .querySelector(".payment-information-info__submit")
     .addEventListener("click", function () {
-      // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
-      let productList = JSON.parse(localStorage.getItem("productList")) || [];
-      if (productList.length == 0) {
-        productList = [...productItemArray];
-        localStorage.setItem("productList", JSON.stringify(productList));
-      }
-
       // lấy danh sách user từ local để lấy vị trí người đang đăng nhập
       let userList = JSON.parse(localStorage.getItem("userList"));
       let userStatusLoginIndex;
@@ -366,6 +349,14 @@ export function getBillInfo(array_orderProduct) {
           userStatusLoginIndex = index;
         }
       });
+
+      // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
+      let productList = JSON.parse(localStorage.getItem("productList")) || [];
+      if (productList.length == 0) {
+        productList = [...productItemArray];
+        localStorage.setItem("productList", JSON.stringify(productList));
+      }
+
       // hàm kiểm tra thông tin thanh toán
       if (handle_order_information(userList, userStatusLoginIndex)) {
         //hàm xử lí đơn người dùng đặt hàng
@@ -379,7 +370,7 @@ export function getBillInfo(array_orderProduct) {
 
         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
         // updateBill();
-        if(result){
+        if (result) {
           updateBill(userList, userStatusLoginIndex, array_orderProduct);
         }
       }
