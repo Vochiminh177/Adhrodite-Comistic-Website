@@ -836,20 +836,10 @@
     margin-top: 32px;
   }
 
-  .body__products .main-products__list{
-    display: flex;
-    justify-content: center;
-  }
-
-  /* .body__products .main-products__item{
-    width: 50%;
-
-  } */
   .body__products figure:has(.main-products__image) {
     height: 200px;
     overflow: hidden;
   }
-
 }
 
 /* ======================= ipad */
@@ -886,15 +876,6 @@
 
 
 @media screen and (min-width:651px)and (max-width:1025px) {
-
-  .body__products .main-products__body {
-    --columns: 3;
-    --spacing: 28px;
-  }
-  /* .body__products .main-products__item{
-    margin: 0;
-  } */
-
   .body__products .left-search-filter__content {
     width: 60vw;
   }
