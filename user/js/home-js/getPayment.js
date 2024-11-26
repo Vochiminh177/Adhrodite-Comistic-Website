@@ -485,7 +485,7 @@ export function getPaymentInformationInfo(userList, userStatusLoginIndex) {
     .querySelector(".shopping-cart__pay-button")
     .addEventListener("click", function () {
       //up userList lên local vì khi ấn nút này cần cập nhật giỏ hàng lên local (khúc này chưa cập nhật lên local nên việc xử lí không đồng bộ)
-      //localStorage.setItem("userList", JSON.stringify(userList));
+      localStorage.setItem("userList", JSON.stringify(userList));
 
       if (userList[userStatusLoginIndex].shoppingCart.length >= 1) {
         // Đưa về đầu trang
