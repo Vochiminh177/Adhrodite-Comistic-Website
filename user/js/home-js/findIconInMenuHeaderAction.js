@@ -1,9 +1,7 @@
 import { productItemArray } from "../../../database/database.js";
 import { updateProductItem } from "../products-js/getProductItem.js";
-import { updateMainContent } from "../home-js/changeMainContent.js";
 import { updateProductList } from "../products-js/getProductList.js";
-import { updateLeftMenuStyle } from "../products-js/productsPageStyles.js";
-
+import { updateMainContent } from "./changeMainContent.js";
 // Lớp bao thanh tìm kiếm và danh sách gợi ý
 const userBlock = document.getElementById("find-block-wrapper");
 
@@ -25,8 +23,6 @@ function goToProductDetails(productItemKey) {
   updateMainContent("products");
   updateProductItem(productItemKey);
   document.getElementById("left-search-input").focus();
-  // Cập nhật lại leftMenuStyle
-  updateLeftMenuStyle(productItemArray[productItemKey - 1].categoryID);
 }
 
 /*-----------FUNCTION-----------*/
@@ -208,6 +204,9 @@ function handleSuggestionNotFound() {
 // Sự kiện khi người dùng nhấn vào icon tìm kiếm trên Header
 export function showFindFormInMenuHeader() {
   document.getElementById("find-click").addEventListener("click", function () {
+    if(document.querySelector(".header__user-menu")){
+      document.querySelector(".header__user-menu").remove();
+    }
     if (
       getComputedStyle(userBlock).getPropertyValue("visibility") === "visible"
     ) {

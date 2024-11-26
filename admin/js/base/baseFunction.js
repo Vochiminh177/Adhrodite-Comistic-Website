@@ -29,9 +29,22 @@ export function createNotificationAdmin(mess) {
 }
 
 //reset input
-export function reset_style_input(input, text){
-    input.placeholder = text;
+export function reset_style_input(input){
     input.classList.remove("err-text");
+    if(input.className == "id-add"){
+        input.placeholder = "Mã sản phẩm";
+    }
+    else if(input.className == "brand-add") input.placeholder = "Thương hiệu";
+    else if(input.className == "name-add") input.placeholder = "Tên sản phẩm";
+    else if(input.className == "price-add") input.placeholder = "Giá bán";
+    else if(input.className == "quantity-add") input.placeholder = "Số lượng";
+    else if(input.className == "description-add") input.placeholder = "Miêu tả sản phẩm";   
+    else if(input.className == "username-customer") input.placeholder = "Nhập tên tài khoản";
+    else if(input.className == "password-customer") input.placeholder = "Nhập mật khẩu";
+    else if(input.className == "phone-customer") input.placeholder = "Nhập số điện thoại";
+    else if(input.className == "firstname-customer") input.placeholder = "Nhập họ";
+    else if(input.className == "lastname-customer") input.placeholder = "Nhập tên";
+    else input.placeholder = "Nhập số lượng";
     input.style.borderColor = "#a94064";
 }
 
@@ -51,7 +64,6 @@ export function err_input(input, mess){
         }
     }
     else{
-        let text = input.placeholder;
 
         if(input.value == ""){
             input.placeholder = "*Lỗi! Thiếu dữ liệu";
@@ -66,8 +78,8 @@ export function err_input(input, mess){
                 input.classList.add("err-text");
             }
         }
-        input.onclick = () => {
-            reset_style_input(input, text);
+        input.onfocus = () => {
+            reset_style_input(input);
         }
     }
 }

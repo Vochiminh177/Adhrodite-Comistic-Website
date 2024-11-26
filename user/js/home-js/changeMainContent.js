@@ -1,13 +1,10 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
-
-// import { renderPopularProductList,renderSalePopularProductList  } from "./changePopularProductFromHomePageToProductPage.js";
-
-import { usersList } from "../../../database/database.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
+import { usersList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
 
 
@@ -664,12 +661,27 @@ export function updateMainContent(mainContentKey) {
 // Tạo sự kiện khi người dùng muốn chuyển trang trên header
 document.querySelector(".navbar").addEventListener("click", function (event) {
   event.preventDefault();
+  deleteAllFormCreatedFromJsUser();
   const mainContentKey = event.target.getAttribute("data-main-content");
   if (mainContentKey) {
     // Cập nhật lại style cho navbar
     updateNavbarStyle(mainContentKey);
-
+    
     // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
+
+    if(mainContentKey === "products"){
+      // Tự động nhấn mục "Tất cả" khi vào trang "sản phẩm" ở header
+      document.getElementById("tat-ca-left-menu").click();
+    }
   }
 });
+
+//hàm xóa các form tạo từ javascript
+export function deleteAllFormCreatedFromJsUser(){
+  if(document.querySelector(".header__user-menu")){
+    document.querySelector(".header__user-menu").remove();
+  }
+  document.querySelector(".header__find-block-wrapper").style.visibility = "hidden";
+}
+

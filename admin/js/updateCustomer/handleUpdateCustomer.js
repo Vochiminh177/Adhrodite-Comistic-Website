@@ -28,7 +28,6 @@ export function handleEditCustomer(index) {
         err_input(lastName);
         checkEmpty = true;
     }
-    if (checkEmpty) return false; //nếu input bị rỗng
 
     //nếu không đúng số điện thoại
     let checkPhone = checkNumberPhone(phone.value);
@@ -44,7 +43,6 @@ export function handleEditCustomer(index) {
         messPhone: null,
         messUsername: null
     }
-    console.log(phone.value)
     userList.forEach((obj, i) => {
         if (index != i) {
             if (obj.username == username.value) {
@@ -67,6 +65,8 @@ export function handleEditCustomer(index) {
         }
         return false;
     }
+
+    if (checkEmpty) return false; //nếu input bị rỗng
 
     //nếu tất cả ổn
     userList[index].username = username.value;
@@ -110,14 +110,13 @@ export function handleAddCustomer() {
         messPhone: null,
         messUsername: null
     }
-    console.log(phone.value)
     userList.forEach((obj) => {
         if (obj.username == username.value) {
             check.status = true;
             check.messUsername = "Tên tài khoản đã tồn tại!";
         }
         if (obj.phone == phone.value) {
-            console.log(obj.phone, userList[index].phone)
+            // console.log(obj.phone, userList[index].phone)
             check.status = true;
             check.messPhone = "Số điện thoại đã tồn tại!";
         }
@@ -148,7 +147,6 @@ export function handleAddCustomer() {
         last_name: lastName.value,
         phone: phone.value,
         shoppingCart: [],
-        ordersHistory: []
     }
     userList.push(data);
     localStorage.setItem("userList", JSON.stringify(userList));

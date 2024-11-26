@@ -5,13 +5,13 @@
     --poppins: "Poppins", sans-serif;
 }
 
-.content-product-add, .content-edit-customer {
+.content-product-add, .content-customer-add {
     display: grid;
     grid-template-columns: 55% 45%;
     padding: 12px;
     column-gap: 20px;
 }
-#left-input input {
+#left-input input, select {
     height: 40px;
     border: solid 1px var(--pink1);
     background-color: whitesmoke;
@@ -26,6 +26,9 @@
     justify-content: space-between;
 }
 .content-two-input input {
+    width: 45%;
+} 
+.content-two-input select {
     width: 45%;
 } 
 .content-one-input input {
@@ -52,8 +55,8 @@
     cursor: pointer;
 }
 
-#right-input {
-}
+/* #right-input {
+} */
 #right-input input {
     display: none;
 }
@@ -72,3 +75,21 @@
 .image-show {
     min-height: 100px;
 }
+
+
+/* css chỉnh phẩn quay lại trong thêm sản phẩm */
+#main-content-product-add .title, .main-content-product-add .title{
+    justify-content: unset;
+}
+#main-content-product-add .title a, .main-content-product-add .title a{
+    margin-left: 20px;
+    color: #ccc;    
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+#main-content-product-add .title a:hover, .main-content-product-add .title a:hover{
+    color: #000;
+}
+/* ------------------------------------------ */

@@ -1,4 +1,4 @@
-import { popularProductArray } from "./database.js";
+import { popularProductArray } from "../common-js/database.js";
 
 export function updatePopularProductPagination() {
   const popularProductLength = popularProductArray.length;

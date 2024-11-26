@@ -1,37 +1,11 @@
-import { updateNavbarStyle } from "../common-js/common.js";
-import { mainContentMap, mainContentDiv } from "./changeMainContent.js";
-import { getProductListInfo } from "../products-js/getProductList.js";
-
+import { updateMainContent } from "../home-js/changeMainContent.js"
 // Hàm tạo sự kiện khi người dùng nhấn vào "Danh mục nổi bậc"
 export function clickToPopularMenu() {
   let array = document.querySelectorAll(".popular-menu__item");
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
-      // Kéo lên đầu trang mỗi lần chuyển trang
-      window.scrollTo(0, 0);
-
-      // Thay đổi nội dung thành trang Sản phẩm
-      mainContentDiv.innerHTML = mainContentMap["products"];
-
-      // Cập nhật lại style cho navbar
-      updateNavbarStyle("products");
-
-      // Kiểm tra filterProductsScript có tồn tại hay không và xoá đi
-      const filterProductsExistingScript = document.querySelector(
-        ".filter-products-script"
-      );
-      if (filterProductsExistingScript) {
-        filterProductsExistingScript.remove();
-      }
-
-      // Hiện thị menu lọc sản phẩm theo các tiêu chí
-      const filterProductsScript = document.createElement("script");
-      filterProductsScript.src = "./js/products-js/showFilterProducts.js";
-      filterProductsScript.className = "filter-products-script";
-      document.body.appendChild(filterProductsScript);
-
-      // Tạo sự kiện cho các danh mục sản phẩm
-      getProductListInfo();
+      // Chuyển sang trang "Sản phẩm" 
+      updateMainContent("products");
 
       // Tự động nhấn mục mà người dùng đã chọn
       let popularMenuKey =
@@ -48,25 +22,8 @@ export function clickToProductItem() {
   );
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
-      // Thay đổi nội dung thành trang Sản phẩm
-      mainContentDiv.innerHTML = mainContentMap["products"];
-
-      // Cập nhật lại style cho navbar
-      updateNavbarStyle("products");
-
-      const filterProductsExistingScript = document.querySelector(
-        ".filter-products-script"
-      );
-      if (filterProductsExistingScript) {
-        filterProductsExistingScript.remove();
-      }
-
-      const filterProductsScript = document.createElement("script");
-      filterProductsScript.src = "./js/products-js/showFilterProducts.js";
-      filterProductsScript.className = "filter-products-script";
-      document.body.appendChild(filterProductsScript);
-
-      getProductListInfo();
+      // Chuyển sang trang "Sản phẩm"
+      updateMainContent("products");
 
       let popularMenuKey = event.currentTarget.getAttribute(
         "data-popular-product"

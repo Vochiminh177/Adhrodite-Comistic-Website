@@ -1,7 +1,7 @@
 import { formatVietNamMoney } from "../common-js/common.js";
 import { productItemArray } from "../../../database/database.js";
 import { comebackProductList } from "./getProductList.js";
-import { create_notification_user } from "../home-js/changeUserFormInMenuHeader.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 import { generateFilter } from "./generateFilter.js";
 
 let productItemQuantity = 0;
@@ -104,7 +104,7 @@ function addProductItemToShoppingCart(productItemKey) {
 }
 
 // Hàm trở về trang chứa danh sách sản phẩm trước đó
-function clickToComebackProductList(productCategory) {
+function clickToComebackProductList() {
   document
     .querySelector(".main-order__comeback")
     .addEventListener("click", function () {
@@ -115,7 +115,7 @@ function clickToComebackProductList(productCategory) {
       generateFilter();
 
       // Trở về phần Danh sách sản phẩm
-      comebackProductList(productCategory);
+      comebackProductList();
     });
 }
 
@@ -240,7 +240,7 @@ export function updateProductItem(productItemKey) {
     addProductItemToShoppingCart(productItemKey);
 
     // Khi người dùng nhấn nút "Quay lại"
-    clickToComebackProductList(productItemArray[productItemKey].categoryID);
+    clickToComebackProductList();
   }
 }
 

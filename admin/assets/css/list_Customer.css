@@ -32,15 +32,84 @@
     width: 10rem;
     font-size: 1.2rem;
     margin: 0px 20px;
-    padding: 10px;
+    padding: 10px 0px;
     cursor: pointer;
     font-weight: 300;
     background-color: #fff;
     transition: background 0.2;
 }
 .form-delete-customer button:hover{
-    background-color: #000;
+    background-color: #a94064;
     color: #fff;
     font-weight: 500;
+}
+/* ------------------------------------------ */
+
+/* css phần tủy chỉnh 2 nút sửa xóa khách hàng của admin */
+.edit-customer{
+    background-color: greenyellow;
+    padding: 5px;
+    font-weight: 400;
+}
+.edit-customer:focus{
+    color: #fff;
+}
+.delete-customer{
+    background-color: red;
+    padding: 5px;
+    font-weight: 400;
+}
+.delete-customer:focus{
+    color: #fff;
+}
+/* ----------------------------------------------------------- */
+/* css phần cột id của bảng */
+.content-customer-list table th:first-child{
+    width: 10%;
+}
+/* ------------------------------ */
+
+/* css chỉnh phẩn quay lại trong chỉnh sửa khách hàng*/
+#main-content-customer-edit .title, #main-content-customer-add .title{
+    justify-content: unset;
+}
+#main-content-customer-edit .title a, #main-content-customer-add .title a{
+    margin-left: 20px;
+    color: #ccc;    
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+#main-content-customer-edit .title a:hover, #main-content-customer-add .title a:hover{
+    color: #000;
+}
+/* ------------------------------------------ */
+
+/* css phần tìm kiếm */
+.search-customer{
+    margin: 10px 0px;
+    /* width: 50%; */
+}
+.search-customer input{
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #a94064;
+    outline: none;
+    transition: background 0.2s ease;
+}
+.search-customer input:hover{
+    background-color: #ccc;
+}
+.search-customer a{
+    margin-left: 10px;
+    background-color: #a94064;
+    color: #fff;
+    padding: 5px 10px;
+    transition: background 0.2s ease;
+}
+.search-customer a:hover{
+    background-color: #000;
 }
 /* ------------------------------------------ */

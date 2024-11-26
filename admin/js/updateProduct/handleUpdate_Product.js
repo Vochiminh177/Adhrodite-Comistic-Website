@@ -2,15 +2,15 @@
 
 import { err_input } from "../base/baseFunction.js";
 
-function delete_space(str) {
-    str = str.trim();
-    str = str.replaceAll(/\s+/g, " ");
-    return str;
-}
+// function delete_space(str) {
+//     str = str.trim();
+//     str = str.replaceAll(/\s+/g, " ");
+//     return str;
+// }
 
 
 //hàm kiểm tra input giá cả và số lượng
-function checkNumber(value){
+export function checkNumber(value){
     if(!isNaN(value)){
         return value == Math.round(value);
     }
@@ -21,7 +21,7 @@ export function add_product(path_picture_admin){
 
     let name = document.querySelector(".name-add");
     let price = document.querySelector(".price-add");
-    let category = document.querySelector(".category-add");
+    let category = document.querySelector("#category-add");
     let brand = document.querySelector(".brand-add");
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
@@ -29,21 +29,20 @@ export function add_product(path_picture_admin){
     let file_picture = document.querySelector(".add-photo-button #file");
 
     //Nếu input rỗng
-    let check_empty = false;
-    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value ==""){
+    if(name.value == "" || price.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value ==""){
         err_input(name);
         err_input(id);
         err_input(price);
         err_input(brand);
-        err_input(category);
         err_input(description);
         err_input(quantity);
         if(path_picture_admin.src == null){
             err_input(file_picture);
         }
-        check_empty = true;
+        return false;
     }
 
+    //check số giá bán và số lượng
     let checkNum = true;
     if(!checkNumber(price.value) || !checkNumber(quantity.value)){
         checkNum = false;
@@ -56,7 +55,19 @@ export function add_product(path_picture_admin){
         }
         else err_input(quantity, "Phải nhập số nguyên!");
     }
-    if(!checkNum) return false;
+    if(price.value<0 || quantity.value<0){
+        if(price.value<0 && quantity.value<0){
+            err_input(price, "Nhập số dương");
+            err_input(quantity, "Nhập số dương");
+        }
+        else if(price.value<0){
+            err_input(price, "Nhập số dương");
+        }
+        else {
+            err_input(quantity, "Nhập số dương");
+        }
+        return false;
+    }
 
     //nếu trùng tên hoặc mã sản phẩm, sản phẩm đã tồn tại
     let check = {
@@ -78,22 +89,14 @@ export function add_product(path_picture_admin){
             return;
         }
     });
-
     if(!check.status){
         if(check.mess_id){
             err_input(id, check.mess_id);
-            id.value = "";
         }
         if(check.mess_name){
             err_input(name, check.mess_name);
-            name.value = "";
         }
-        return;
-    }
-
-    if(check_empty){
-        path_picture_admin.src = null;
-        return;
+        return false;
     }
 
     //nếu sản phẩm được thêm, tạo number sản phẩm
@@ -104,6 +107,17 @@ export function add_product(path_picture_admin){
         number = Math.floor(Math.random() * productList.length+1) + 1;
     }
 
+    //obj của danh mục
+    let objCategory = {
+        "kem-tri-mun": "Kem trị mụn",
+        "sua-rua-mat": "Sữa rửa mặt",
+        "son": "son",
+        "phan": "phấn",
+        "toner": "toner",
+        "sereum": "sereum",
+        "kem-duong-am": "kem dưỡng ẩm",
+        "tay-trang": "tẩy trang",
+    }
     //thêm sản phẩm vào mảng và update lên localStorage, xong hết return true
     let data = {
         number: number,
@@ -111,10 +125,11 @@ export function add_product(path_picture_admin){
         src: path_picture_admin.src,
         name: name.value,
         brand: brand.value,
-        category: category.value,
-        price: price.value,
+        category: objCategory[category.value],
+        categoryID: category.value,
+        price: parseInt(price.value),
         desc: description.value,
-        quantity: quantity.value
+        quantity: parseInt(quantity.value)
     }
 
     //update vào mảng và localStorage
@@ -123,10 +138,20 @@ export function add_product(path_picture_admin){
     return true;
 }
 
-export function delete_product(index, number) {
+export function delete_product(index) {
+    //lấy số lượng muốn xóa
+    let number = document.querySelector("#number-delete-confirm");
+    if(number.value === ""){
+        err_input(number);
+        return false;
+    }
+    if(parseInt(number.value) < 0){
+        err_input(number, "Cần nhập đúng");
+        return false;
+    }
     let productList = JSON.parse(localStorage.getItem("productList"));
-
-    productList[index].quantity -= number;
+ 
+    productList[index].quantity -= parseInt(number.value);
 
     if(!productList[index].quantity){
         productList.splice(index, 1); //xóa bỏ
@@ -147,27 +172,28 @@ export function edit_product(index, path_picture_admin) {
     let productList = JSON.parse(localStorage.getItem("productList"));
     let name = document.querySelector(".name-add");
     let price = document.querySelector(".price-add");
-    let category = document.querySelector(".category-add");
+    let category = document.querySelector("#category-add");
     let brand = document.querySelector(".brand-add");
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
     let quantity = document.querySelector(".quantity-add");
-    // let file_picture = document.querySelector(".add-photo-button #file");
+    let file_picture = document.querySelector(".add-photo-button #file");
 
     //Nếu input rỗng
-    let check_empty = false;
-    if(name.value == "" || price.value == "" || category.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value == ""){
+    if(name.value == "" || price.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value == ""){
         err_input(name);
         err_input(id);
         err_input(price);
         err_input(brand);
-        err_input(category);
         err_input(description);
-        err_input(src);
+        if(path_picture_admin.src == null){
+            err_input(file_picture);
+        }
         err_input(quantity);
-        check_empty = true;
+        return false;
     }
 
+    //check số giá bán
     let checkNum = true;
     if(!checkNumber(price.value) || !checkNumber(quantity.value)){
         checkNum = false;
@@ -181,6 +207,20 @@ export function edit_product(index, path_picture_admin) {
         else err_input(quantity, "Phải nhập số nguyên!");
     }
     if(!checkNum) return false;
+
+    if(price.value<0 || quantity.value<0){
+        if(price.value<0 && quantity.value<0){
+            err_input(price, "Nhập số dương");
+            err_input(quantity, "Nhập số dương");
+        }
+        else if(price.value<0){
+            err_input(price, "Nhập số dương");
+        }
+        else {
+            err_input(quantity, "Nhập số dương");
+        }
+        return false;
+    }
 
     //nếu trùng tên sản phẩm, sản phẩm đã tồn tại
     let check = {
@@ -219,19 +259,30 @@ export function edit_product(index, path_picture_admin) {
         return;
     }
 
-    if(check_empty) return;
+      //obj của danh mục
+      let objCategory = {
+        "kem-tri-mun": "Kem trị mụn",
+        "sua-rua-mat": "Sữa rửa mặt",
+        "son": "son",
+        "phan": "phấn",
+        "toner": "toner",
+        "sereum": "sereum",
+        "kem-duong-am": "kem dưỡng ẩm",
+        "tay-trang": "tẩy trang",
+      }
 
     //update vào mảng và update lên localStorage, return true
     productList[index].name = name.value;
-    productList[index].price = price.value;
-    productList[index].category = category.value;
+    productList[index].price = parseInt(price.value);
+    productList[index].category = objCategory[category.value];
+    productList[index].categoryID = category.value;
     productList[index].brand = brand.value;
     productList[index].description = description.value;
     productList[index].id = id.value;
     productList[index].src = path_picture_admin.src;
-    productList[index].quantity = quantity.value;
+    productList[index].quantity = parseInt(quantity.value);
 
     localStorage.setItem("productList", JSON.stringify(productList));
     return true;
 }
-//-----------------
+//--------------------------------------------------------------------

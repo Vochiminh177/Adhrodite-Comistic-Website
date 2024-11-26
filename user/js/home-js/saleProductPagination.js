@@ -1,5 +1,6 @@
-import { salePopularProductArray } from "./database.js";
+import { salePopularProductArray } from "../common-js/database.js";
 
+// Hàm tạo sự kiện phân trang cho Khuyến mãi
 export function updateSaleProductPagination() {
   const saleProductHeader = document.querySelector(".sale-product__header");
   if (saleProductHeader) saleProductHeader.innerHTML = "";

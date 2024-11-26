@@ -1,6 +1,6 @@
 import { productItemArray, usersList } from "../../../database/database.js"
-import { deleteProduct, editProduct } from "../updateProduct/OptionProduct.js";
-import { deleteCustomer, editCustomer } from "../updateCustomer/optionCustomer.js";
+import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
+import { deleteCustomer, editCustomer, searchUser } from "../updateCustomer/optionCustomer.js";
 
 function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
@@ -28,12 +28,11 @@ function createPage(list, currentPage, showList, main){
     }
     eleUl.innerHTML += `<li><a href="" class="right-page">></a></li>`;
     document.querySelector(main).querySelector(".content .list-page").innerHTML = eleUl.outerHTML;
-    console.log(document.querySelector(main));
     //------------------------------------------
     //-----In ra danh sách list---------
     let start = (currentPage-1) * itemPerPage;
     let end = start + itemPerPage;
-    showList(start, end, currentPage);
+    showList(start, end, currentPage, list);
     //------------------------------------------
     //--gán sự kiện----
     document.querySelector(main).querySelector(".left-page").onclick = (e) => {
@@ -60,29 +59,27 @@ export function pagination(list, currentPage, showList, main){
     createPage(list, currentPage, showList, main);
 }
 
-export function showListProduct(start, end, currentPage) {
-    let productList = JSON.parse(localStorage.getItem('productList')) || [];
-    if (productList.length == 0) {
-        productList = [...productItemArray];
-        localStorage.setItem("productList", JSON.stringify(productList));
-    }
+export function showListProduct(start, end, currentPage, productList) {
 
     //tạo danh sách sản phẩm từ mảng chèn vô bảng table
     let product = `
+    <thead>
         <tr>
             <th class="picture-list">Hình ảnh</th>
             <th class="id-list">Mã</th>
             <th class="name-list">Tên</th>
             <th class="brand-list">Thương hiệu</th>
-            <th class="category-list">Loại</th>
+            <th class="category-list">Danh mục</th>
             <th class="price-list">Giá</th>
             <th class="quantity-list">Số lượng</th>
             <th class="option-list">Tùy chỉnh</th>
         </tr>
+    </thead>    
     `;
+    let eleTbody = document.createElement("tbody");
     productList.forEach((ele, index) => {
         if(index>=start && index < end){
-        product += `
+        eleTbody.innerHTML += `
             <tr>
                 <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
                 <td id="id">${ele.id}</td>
@@ -99,28 +96,28 @@ export function showListProduct(start, end, currentPage) {
         `;
         }
     });
+    product += eleTbody.outerHTML;
     document.querySelector(".content .content-product-list table").innerHTML = product;
-
     deleteProduct();
     editProduct(currentPage);
+    searchProduct();
 }
 
-export function showListCustomer(start, end, currentPage){
-    let userList = JSON.parse(localStorage.getItem("userList")) || [];
-    if(userList.length ==0){
-        userList = [...usersList];
-    }
+export function showListCustomer(start, end, currentPage, userList){
     let user = `
-    <tr>
-        <th class="id-user-list">Id</th>
-        <th class="username-list">Tài khoản</th>
-        <th class="fullname-list">Họ tên</th>
-        <th class="edit-user">Chỉnh sửa</th>
-    </tr>
+    <thead>
+        <tr>
+            <th class="id-user-list">Id</th>
+            <th class="username-list">Tài khoản</th>
+            <th class="fullname-list">Họ tên</th>
+            <th class="edit-user">Chỉnh sửa</th>
+        </tr>
+    </thead>
     `;
+    let eleTbody = document.createElement("tbody");
     userList.forEach((ele, index) => {
         if(index >= start && index < end){
-            user += `
+            eleTbody.innerHTML += `
                 <tr>
                     <td id="id-user">${ele.id}</td>
                     <td id="username">${ele.username}</td>
@@ -133,7 +130,9 @@ export function showListCustomer(start, end, currentPage){
             `;
         }
     });
+    user += eleTbody.outerHTML;
     document.querySelector(".content .content-customer-list table").innerHTML = user;
     deleteCustomer();
     editCustomer(currentPage);
+    searchUser();
 }
