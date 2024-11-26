@@ -8,6 +8,7 @@ import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
+import { changeLeftMenu } from "./reponsive.js";
 
 
 export const mainContentMap = {
@@ -650,6 +651,10 @@ export function updateMainContent(mainContentKey) {
       generateFilter();
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
+
+      changeLeftMenu(".left-menu__title", ".left-menu__list");
+      changeLeftMenu(".left-search__title",".left-search__form-group" );
+      
       // Tự động nhấn mục "Tất cả"
       document.getElementById("tat-ca-left-menu").click();
     }

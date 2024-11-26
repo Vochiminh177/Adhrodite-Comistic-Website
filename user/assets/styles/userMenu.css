@@ -54,8 +54,8 @@
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 27px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* left: 50%; */
+  transform: translateX(-100%);
   z-index: 2;
   background-color: #fff;
   width: 240px;
@@ -164,3 +164,20 @@
   background-color: #fc8eac;
   color: #fff;
 }
+
+
+/* ================================ mobile */
+
+@media screen and (max-width:500px) {
+
+  .form-change-password,
+  .header__user-block{
+    width: 90vw;
+    max-width: 527px;
+  }
+  .form-user{
+    width: 90%;
+  }
+}
+
+
