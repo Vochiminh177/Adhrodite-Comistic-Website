@@ -112,3 +112,65 @@
   background: #fc8eac;
   border-color: #fc8eac;
 }
+
+/* ======================== reponsive cho mobile */
+
+@media screen and (max-width:600px) {
+
+  .contact .body__info{
+    display: block;
+  }
+  .contact  .info__detail{
+    padding: 0;
+    padding: 20px;
+  }
+  .contact .info__map{
+    width: 100%;
+  }
+
+  .contact .info__image{
+padding: 20px;
+  }
+  .contact .info__detail{
+    width: 100%;
+  }
+
+  .contact .body__request{
+    display: block;
+  }
+  .contact .request__logo{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  border-radius: 8px 8px 0 0;
+  }
+  .contact .request__send-request{
+    width: 100%;
+    padding: 20px 0;
+  }
+
+ 
+ }
+
+
+ 
+@media screen and (min-width:600px) and (max-width:850px) {
+
+  .contact .body__info{
+    display: block;
+  }
+  .contact  .info__detail{
+    width: 100%;
+    padding: 0;
+    padding: 20px;
+  }
+  .contact .info__map{
+    width: 100%;
+  }
+  
+  .contact .info__image{
+    width: 90%;  
+    margin:20px 20px;
+  }
+  
+ }

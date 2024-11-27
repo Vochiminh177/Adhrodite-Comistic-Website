@@ -181,3 +181,16 @@
   font-weight: 600;
 }
 /* ---------------------------------------- */
+
+
+@media screen and (max-width:500px) {
+
+  .form-change-password,
+  .header__user-block{
+    width: 90vw;
+    max-width: 527px;
+  }
+  .form-user{
+    width: 90%;
+  }
+}
