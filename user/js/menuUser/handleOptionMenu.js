@@ -98,7 +98,7 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
-  console.log(address.value);
+  console.log(userList[indexCurrentUserLogin]);
 
   userList[indexCurrentUserLogin].first_name = firstName.value;
   userList[indexCurrentUserLogin].last_name = lastName.value;

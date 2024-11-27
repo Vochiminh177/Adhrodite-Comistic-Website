@@ -284,9 +284,7 @@ function updatePaymentInformation(
                 <form action="" class="payment-information-info__form">
                   <div class="payment-information-info__form-group">
                       <input type="text" class="payment-information-info__name" placeholder="${
-                        userList[indexCurrentUserLogin].first_name +
-                        " " +
-                        userList[indexCurrentUserLogin].lastName
+                        userList[indexCurrentUserLogin].first_name && userList[indexCurrentUserLogin].last_name
                           ? userList[indexCurrentUserLogin].first_name +
                             " " +
                             userList[indexCurrentUserLogin].last_name
@@ -486,7 +484,7 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
     .querySelector(".shopping-cart__pay-button")
     .addEventListener("click", function () {
       //up userList lên local vì khi ấn nút này cần cập nhật giỏ hàng lên local (khúc này chưa cập nhật lên local nên việc xử lí không đồng bộ)
-      localStorage.setItem("userList", JSON.stringify(userList));
+      userList = JSON.parse(localStorage.getItem("userList"));
 
       if (userList[indexCurrentUserLogin].shoppingCart.length >= 1) {
         // Đưa về đầu trang
