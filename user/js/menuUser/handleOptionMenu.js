@@ -61,7 +61,7 @@ export function handleChangePassword() {
 }
 
 //hàm lưu thông tin người dùng
-export function handleSaveDateInformation(userStatusLoginIndex) {
+export function handleSaveDateInformation(indexCurrentUserLogin) {
   let userList = JSON.parse(localStorage.getItem("userList"));
 
   let firstName = document.querySelector(".form-user .first-name");
@@ -86,7 +86,7 @@ export function handleSaveDateInformation(userStatusLoginIndex) {
   }
 
   let check = userList.some((obj, i) => {
-    if (i != userStatusLoginIndex) return obj.phone === phone.value;
+    if (i != indexCurrentUserLogin) return obj.phone === phone.value;
   });
   if (check) {
     errorInput(phone, "*Lỗi! Đã tồn tại số điện thoại");
@@ -100,13 +100,13 @@ export function handleSaveDateInformation(userStatusLoginIndex) {
 
   console.log(address.value);
 
-  userList[userStatusLoginIndex].firstName = firstName.value;
-  userList[userStatusLoginIndex].lastName = lastName.value;
-  userList[userStatusLoginIndex].email = email.value;
-  userList[userStatusLoginIndex].phone = phone.value;
-  userList[userStatusLoginIndex].address = address.value;
-  userList[userStatusLoginIndex].full_info = true;
+  userList[indexCurrentUserLogin].first_name = firstName.value;
+  userList[indexCurrentUserLogin].last_name = lastName.value;
+  userList[indexCurrentUserLogin].email = email.value;
+  userList[indexCurrentUserLogin].phone = phone.value;
+  userList[indexCurrentUserLogin].address = address.value;
 
   localStorage.setItem("userList", JSON.stringify(userList));
+  console.log(userList);
   return true;
 }

@@ -9,7 +9,7 @@ import { err_input } from "../base/baseFunction.js";
 // }
 
 
-//hàm kiểm tra input giá cả và số lượng
+//hàm kiểm tra input số
 export function checkNumber(value){
     if(!isNaN(value)){
         return value == Math.round(value);
@@ -26,48 +26,46 @@ export function add_product(path_picture_admin){
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
     let quantity = document.querySelector(".quantity-add");
+    let discountQuantity =  document.querySelector(".quantity-discount-add");
+    let discountPercent = document.querySelector(".percent-discount-add");
     let file_picture = document.querySelector(".add-photo-button #file");
 
     //Nếu input rỗng
-    if(name.value == "" || price.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value ==""){
+    if(name.value == "" || price.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value =="" || discountPercent.value == "" || discountQuantity.value == ""){
         err_input(name);
         err_input(id);
         err_input(price);
         err_input(brand);
         err_input(description);
         err_input(quantity);
+        err_input(discountQuantity);
+        err_input(discountPercent);
         if(path_picture_admin.src == null){
+            console.log(path_picture_admin.src);
             err_input(file_picture);
         }
         return false;
     }
 
-    //check số giá bán và số lượng
+    //check số input
     let checkNum = true;
-    if(!checkNumber(price.value) || !checkNumber(quantity.value)){
+    if(!checkNumber(price.value) || price.value <= 0){
         checkNum = false;
-        if(!checkNumber(price.value) && !checkNumber(quantity.value)){
-            err_input(price, "Phải nhập số nguyên!");
-            err_input(quantity, "Phải nhập số nguyên!");
-        }
-        else if(!checkNumber(price.value)){
-            err_input(price, "Phải nhập số nguyên!");
-        }
-        else err_input(quantity, "Phải nhập số nguyên!");
+        err_input(price, "Phải nhập số nguyên dương")
     }
-    if(price.value<0 || quantity.value<0){
-        if(price.value<0 && quantity.value<0){
-            err_input(price, "Nhập số dương");
-            err_input(quantity, "Nhập số dương");
-        }
-        else if(price.value<0){
-            err_input(price, "Nhập số dương");
-        }
-        else {
-            err_input(quantity, "Nhập số dương");
-        }
-        return false;
+    if(!checkNumber(quantity.value) || quantity.value < 0){
+        checkNum = false;
+        err_input(quantity, "Phải nhập số nguyên dương!");
     }
+    if(!checkNumber(discountPercent.value) || discountPercent.value<0){
+        checkNum = false;
+        err_input(discountPercent, "Phải nhập số nguyên dương!");
+    }
+    if(!checkNumber(discountQuantity.value) || discountQuantity.value<0){
+        checkNum = false;
+        err_input(discountQuantity, "Phải nhập số nguyên dương!");
+    }
+    if(!checkNum) return false;
 
     //nếu trùng tên hoặc mã sản phẩm, sản phẩm đã tồn tại
     let check = {
@@ -129,7 +127,10 @@ export function add_product(path_picture_admin){
         categoryID: category.value,
         price: parseInt(price.value),
         desc: description.value,
-        quantity: parseInt(quantity.value)
+        quantity: parseInt(quantity.value), 
+        originQuantity: parseInt(quantity.value), //số lượng ban đầu không thay đổi
+        discountQuantity: parseInt(discountQuantity.value),
+        discountPercent: parseInt(discountPercent.value)
     }
 
     //update vào mảng và localStorage
@@ -177,10 +178,12 @@ export function edit_product(index, path_picture_admin) {
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
     let quantity = document.querySelector(".quantity-add");
+    let discountQuantity =  document.querySelector(".quantity-discount-add");
+    let discountPercent = document.querySelector(".percent-discount-add");
     let file_picture = document.querySelector(".add-photo-button #file");
 
     //Nếu input rỗng
-    if(name.value == "" || price.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value == ""){
+    if(name.value == "" || price.value == "" || brand.value == "" || description.value == "" || id.value == "" || path_picture_admin.src == null || quantity.value == "" ||  discountPercent.value == "" || discountQuantity.value == ""){
         err_input(name);
         err_input(id);
         err_input(price);
@@ -190,37 +193,30 @@ export function edit_product(index, path_picture_admin) {
             err_input(file_picture);
         }
         err_input(quantity);
+        err_input(discountPercent);
+        err_input(discountQuantity)
         return false;
     }
 
-    //check số giá bán
-    let checkNum = true;
-    if(!checkNumber(price.value) || !checkNumber(quantity.value)){
-        checkNum = false;
-        if(!checkNumber(price.value) && !checkNumber(quantity.value)){
-            err_input(price, "Phải nhập số nguyên!");
-            err_input(quantity, "Phải nhập số nguyên!");
-        }
-        else if(!checkNumber(price.value)){
-            err_input(price, "Phải nhập số nguyên!");
-        }
-        else err_input(quantity, "Phải nhập số nguyên!");
-    }
-    if(!checkNum) return false;
-
-    if(price.value<0 || quantity.value<0){
-        if(price.value<0 && quantity.value<0){
-            err_input(price, "Nhập số dương");
-            err_input(quantity, "Nhập số dương");
-        }
-        else if(price.value<0){
-            err_input(price, "Nhập số dương");
-        }
-        else {
-            err_input(quantity, "Nhập số dương");
-        }
-        return false;
-    }
+   //check số input
+   let checkNum = true;
+   if(!checkNumber(price.value) || price.value <= 0){
+       checkNum = false;
+       err_input(price, "Phải nhập số nguyên dương")
+   }
+   if(!checkNumber(quantity.value) || quantity.value < 0){
+       checkNum = false;
+       err_input(price, "Phải nhập số nguyên!");
+   }
+   if(!checkNumber(discountPercent.value) || discountPercent<0){
+       checkNum = false;
+       err_input(discountPercent, "Phải nhập số nguyên!");
+   }
+   if(!checkNumber(discountQuantity.value) || discountQuantity.value<0){
+       checkNum = false;
+       err_input(discountQuantity, "Phải nhập số nguyên!");
+   }
+   if(!checkNum) return false;
 
     //nếu trùng tên sản phẩm, sản phẩm đã tồn tại
     let check = {
@@ -281,6 +277,9 @@ export function edit_product(index, path_picture_admin) {
     productList[index].id = id.value;
     productList[index].src = path_picture_admin.src;
     productList[index].quantity = parseInt(quantity.value);
+    productList[index].originQuantity = parseInt(quantity.value);
+    productList[index].discountQuantity = parseInt(discountQuantity.value);
+    productList[index].discountPercent = parseInt(discountPercent.value);
 
     localStorage.setItem("productList", JSON.stringify(productList));
     return true;

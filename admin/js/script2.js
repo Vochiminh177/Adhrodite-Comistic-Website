@@ -178,7 +178,7 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-		let productList = JSON.parse(localStorage.getItem("productList"));
+		let productList = JSON.parse(localStorage.getItem("productList")) || [];
 		if(productList.length == 0){
 			productList = [...productItemArray];
 		}
@@ -200,8 +200,9 @@ export function showMain(sectionId) {
                             <input type="text" placeholder="Mã sản phẩm" class="id-add">
                             <input type="text" placeholder="Thương hiệu" class="brand-add">
                         </div>
-                        <div class="content-one-input">
+                        <div class="content-two-input">
                             <input type="text" placeholder="Tên sản phẩm" class="name-add">
+							<input type="text" placeholder="Số lượng" class="quantity-add">
                         </div>
                         <div class="content-two-input">
                             <select name="category" id="category-add">
@@ -216,8 +217,9 @@ export function showMain(sectionId) {
                             </select>
                             <input type="text" placeholder="Giá bán" class="price-add">
                         </div>
-                        <div class="content-one-input">
-                            <input type="text" placeholder="Số lượng" class="quantity-add">
+                        <div class="content-two-input">
+							<input type="text" placeholder="Giảm giá %" class="percent-discount-add">
+							<input type="text" placeholder="Số lượng giảm giá" class="quantity-discount-add">
                         </div>
                         <textarea name="" id="" placeholder="Miêu tả sản phẩm" class="description-add"></textarea>
                         <button class="btn btn-add">Lưu sản phẩm</button>
@@ -279,8 +281,13 @@ export function showMain(sectionId) {
                            <input type="text" placeholder="Nhập họ" class="firstname-customer">
                             <input type="text" placeholder="Nhập tên" class="lastname-customer" >
                         </div>
-                        <div class="content-one-input">
+                        <div class="content-two-input">
                             <input type="text" placeholder="Nhập số điện thoại" class="phone-customer">
+							<select id="type-customer">
+								<option value="0">Khách hàng</option>
+								<option value="1">Nhân viên</option>
+								<option value="2">Admin</option>
+							</select>
                         </div>
                         <button class="btn add-customer">Lưu khách hàng</button>
                     </div>

@@ -7,6 +7,25 @@ import { formatVietNamMoney } from "../common-js/common.js";
 
 //hàm tạo thông báo
 export function create_notification_user(mess) {
+  // if(!document.querySelector(".container-notice")){
+  //   let div = document.createElement("div");
+  //   div.className = "container-notice";
+  //   document.body.appendChild(div);
+  // }
+  // // if(document.querySelectorAll(".notice-user")){
+  // //   document.querySelectorAll(".notice-user").forEach((obj) => {
+  // //     obj.style.translate 
+  // //   })
+  // // }
+  // document.querySelector(".container-notice").innerHTML += `<p class="notice-user">${mess}</p>`;
+  // setTimeout(() => {
+  //   document.querySelectorAll(".notice-user").forEach((obj) => {
+  //     obj.classList.add("active");
+  //     setTimeout(() => {
+  //       obj.remove();
+  //     }, 3000);
+  //   });
+  // }, 100);
   let text = document.createElement("p");
   text.className = "notification";
   text.innerText = mess;
@@ -21,31 +40,28 @@ export function create_notification_user(mess) {
   text.style.padding = "10px 50px";
   text.style.fontSize = "2rem";
   text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-  text.style.transition =
-    "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
+  text.style.transition = "transform 0.4s ease";
   document.body.appendChild(text);
   setTimeout(() => {
     document.querySelector(".notification").style.transform =
       "translate(-10%, 50%)";
   }, 10);
-  setTimeout(() => {
-    document.querySelector(".notification").style.transform =
-      "translate(100%, 50%)";
-  }, 1000);
+  // setTimeout(() => {
+  //   document.querySelector(".notification").style.transform =
+  //     "translate(100%, 50%)";
+  // }, 1000);
   //xóa khỏi dom
   setTimeout(() => {
     document.querySelector(".notification").remove();
-  }, 2200);
+  }, 1000);
 }
 
 //-----------------------------------OPTION USER----------------------------------------
 // Hàm đăng xuất
-export function signOutUser(userStatusLoginIndex) {
-  let userList = JSON.parse(localStorage.getItem("userList"));
-  userList[userStatusLoginIndex].statusLogin = false;
+export function signOutUser() {
+  let indexCurrentUserLogin = -1;
+  localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
   create_notification_user("Đăng xuất thành công!");
-
-  localStorage.setItem("userList", JSON.stringify(userList));
   updateMainContent("home");
 }
 
@@ -90,25 +106,25 @@ export function changePassword() {
 }
 
 // Hàm hiện form khi ấn thông tin cá nhân trong menu-user
-export function showFormInformation(userList, userStatusLoginIndex) {
+export function showFormInformation(userList, indexCurrentUserLogin) {
   let formInformationUser = `
         <div class="form-user">
           <button class="exit-form-information-user">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
 
-            <input type="text" class="first-name" value="${userList[userStatusLoginIndex].first_name ? userList[userStatusLoginIndex].first_name : ""}" placeholder="Nhập họ">
-            <input type="text" class="last-name" value="${userList[userStatusLoginIndex].last_name ? userList[userStatusLoginIndex].last_name : ""}" placeholder="Nhập tên">
+            <input type="text" class="first-name" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Nhập họ">
+            <input type="text" class="last-name" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Nhập tên">
 
           </div>
           <div class="one-input">
-            <input type="text" class="phone" value="${userList[userStatusLoginIndex].phone ? userList[userStatusLoginIndex].phone : ""}" placeholder="Nhập số điện thoại">
+            <input type="text" class="phone" value="${userList[indexCurrentUserLogin].phone ? userList[indexCurrentUserLogin].phone : ""}" placeholder="Nhập số điện thoại">
           </div>
           <div class="one-input">
-            <input type="text" class="email" value="${userList[userStatusLoginIndex].email ? userList[userStatusLoginIndex].email : ""}" placeholder="Nhập email">
+            <input type="text" class="email" value="${userList[indexCurrentUserLogin].email ? userList[indexCurrentUserLogin].email : ""}" placeholder="Nhập email">
           </div>
           <div class="one-input">
-            <input type="text" class="address" value="${userList[userStatusLoginIndex].address ? userList[userStatusLoginIndex].address : ""}" placeholder="Nhập địa chỉ">
+            <input type="text" class="address" value="${userList[indexCurrentUserLogin].address ? userList[indexCurrentUserLogin].address : ""}" placeholder="Nhập địa chỉ">
           </div>
           <div class="one-input-btn">
             <a class="save-information">Lưu thông tin</a>
@@ -123,7 +139,7 @@ export function showFormInformation(userList, userStatusLoginIndex) {
 
   document.querySelector(".form-user .save-information").onclick = (e) => {
     e.preventDefault();
-    let result = handleSaveDateInformation(userStatusLoginIndex);
+    let result = handleSaveDateInformation(indexCurrentUserLogin);
     if (result) {
       create_notification_user("Lưu thành công!");
     }

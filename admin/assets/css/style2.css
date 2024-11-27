@@ -281,11 +281,7 @@ body {
 }
 
 /* ----------Hiệu---- */
-/*------ css phần thông báo lỗi input --*/
-.err-text::placeholder{
-    color: red;
-}
-/*------ ----- --*/
+
 
 
 

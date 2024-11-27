@@ -1,6 +1,6 @@
 import { signIn } from "../userUpdate/LoginSignUpUser.js";
 import { usersList } from "../../../database/database.js";
-import { showFormInformation, changePassword, signOutUser } from "../menuUser/optionMenu.js";
+import { showFormInformation, changePassword, signOutUser, create_notification_user } from "../menuUser/optionMenu.js";
 
 
 function resetInputForLoginAndSignup(){
@@ -81,7 +81,6 @@ function unShowUserFormInMenuHeader() {
 
 export function showUserFormInMenuHeader() {
   document.getElementById("user-click").addEventListener("click", function () {
-
     resetInputForLoginAndSignup();
     
     if (document.querySelector(".header__find-block-wrapper")) {
@@ -89,21 +88,10 @@ export function showUserFormInMenuHeader() {
     }
     // deleteAllFormCreatedFromJsUser();
     //hiển thị form đăng nhập, đăng ký
-    let userList = JSON.parse(localStorage.getItem("userList")) || [];
-    if (userList.length == 0) {
-      userList = [...usersList];
-    }
-    localStorage.setItem("userList", JSON.stringify(userList));
-
     // lấy vị trí người đăng nhập và trạng thái đăng nhập để hiện form
-    let userStatusLoginIndex = -1;
-    userList.forEach((obj, index) => {
-      if (obj.statusLogin == true) {
-        userStatusLoginIndex = index;
-      }
-    });
-
-    if (userStatusLoginIndex < 0) {
+    let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
+    let userList = JSON.parse(localStorage.getItem("userList"));
+    if (indexCurrentUserLogin < 0) {
       //nếu chưa có trạng thái đăng nhập
       // Tạo mới changeUserFormInMenuHeaderScript
       const changeUserFormInMenuHeaderScript = document.createElement("script");
@@ -149,19 +137,19 @@ export function showUserFormInMenuHeader() {
 
     // hiển thị info-user
     else {
-      showUserMenu(userList, userStatusLoginIndex);
+      showUserMenu(userList, indexCurrentUserLogin);
     }
   });
 }
 
 
 //hàm show menu profile
-function showUserMenu(userList, userStatusLoginIndex) {
+function showUserMenu(userList, indexCurrentUserLogin) {
   let check = document.querySelector(".header__user-menu"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
   if (!check) {
     let infoUser = `
             <h2 class="header__user-title">
-              ${userList[userStatusLoginIndex].username}
+              ${userList[indexCurrentUserLogin].username}
             </h2>
             <div class="header__user-menu-actions">
               <a href="" class="header__user-menu-action private-info">
@@ -187,7 +175,7 @@ function showUserMenu(userList, userStatusLoginIndex) {
     document.querySelector(".private-info").onclick = (e) => {
       e.preventDefault();
       document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
-      showFormInformation(userList, userStatusLoginIndex);
+      showFormInformation(userList, indexCurrentUserLogin);
     };
     //---------KHI ẤN THAY ĐỔI MẬT KHẨU
     document.querySelector(".change-password").onclick = (e) => {
@@ -199,7 +187,7 @@ function showUserMenu(userList, userStatusLoginIndex) {
     document.querySelector(".header__user-menu-action.sign-out").onclick = (e) => {
       e.preventDefault();
       document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
-      signOutUser(userStatusLoginIndex);
+      signOutUser();
     };
     //--------ẤN LỊCH SỬ MUA HÀNG
     // document.querySelector(".order-history-info").onclick = (e) => {

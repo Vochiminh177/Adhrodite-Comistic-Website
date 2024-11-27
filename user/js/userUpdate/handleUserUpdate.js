@@ -1,4 +1,5 @@
 import { usersList } from "../../../database/database.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 
 //hàm return về chuỗi placeholder ban đầu
 export function resetDefaultInputForUser(input){
@@ -66,7 +67,7 @@ export function handleSignIn() {
         userList = [...usersList];
         localStorage.setItem("userList", JSON.stringify(userList));
     }
-
+  
     let username = document.querySelector("#username");
     let password = document.querySelector("#password");
 
@@ -90,7 +91,6 @@ export function handleSignIn() {
         errorInput(username, "*Lỗi! Tài khoản không tồn tại");
         return false;
     }
-
     // kiểm tra  password giống không
     let p = false;
     if(check.password === password.value) p=true;
@@ -100,14 +100,23 @@ export function handleSignIn() {
         return false;
     }
 
-    // có thì đăng nhập thành công
-    userList.forEach((obj) => {
-        if(username.value === obj.username){
-            obj.statusLogin = true;
-            return;
-        }
+    //lấy vị trị của username trong userList
+    let indexOfUsername = userList.findIndex((obj) => {
+        return obj.username === username.value;
     });
-    localStorage.setItem("userList", JSON.stringify(userList));
+    //kiểm tra xem tài khoản thuộc loại gì
+    if(userList[indexOfUsername].type === "employer" || userList[indexOfUsername].type === "admin"){
+        create_notification_user("Tài khoản không thuộc loại khách hàng!");
+        return false;
+    }
+    //kiểm tra xem username có bị admin khóa hay không
+    if(userList[indexOfUsername].blockStatus){
+        create_notification_user("Tài khoản bị khóa!");
+        return false;
+    }
+
+    //update vị trí username của người dùng đang đăng nhập lên local
+    localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexOfUsername));
     return true;
 }
 
@@ -174,8 +183,8 @@ export function handleSignUp(){
     }
     console.log(userID);
     var data_obj = {
-        full_info: false,
-        statusLogin: false,
+        type: "customer",
+        bloclStatus: false,
         id: userID,
         username: username.value,
         password: password.value,

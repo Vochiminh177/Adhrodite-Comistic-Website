@@ -18,6 +18,7 @@ export function handleEditCustomer(index) {
     let phone = document.querySelector(".phone-customer");
     let firstName = document.querySelector(".firstname-customer");
     let lastName = document.querySelector(".lastname-customer");
+    let type = document.querySelector("#type-customer");
 
     let checkEmpty = false;
     if (username.value == "" || password.value == "" || phone.value == "" || firstName.value == "" || lastName.value == "") {
@@ -70,10 +71,16 @@ export function handleEditCustomer(index) {
 
     //nếu tất cả ổn
     userList[index].username = username.value;
-    userList[index].password = username.password;
+    userList[index].password = password.value;
     userList[index].phone = phone.value;
     userList[index].first_name = firstName.value;
     userList[index].last_name = lastName.value;
+    let objType = {
+        0: "customer",
+        1: "employer",
+        2: "admin"
+    }
+    userList[index].type = objType[type.value];
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
@@ -84,6 +91,7 @@ export function handleAddCustomer() {
     let phone = document.querySelector(".content-customer-add .phone-customer");
     let firstName = document.querySelector(".content-customer-add .firstname-customer");
     let lastName = document.querySelector(".content-customer-add .lastname-customer");
+    let type = document.querySelector(".content-customer-add #type-customer");
 
     let checkEmpty = false;
     if (username.value == "" || password.value == "" || phone.value == "" || firstName.value == "" || lastName.value == "") {
@@ -137,8 +145,15 @@ export function handleAddCustomer() {
         id = Math.floor(Math.random() * userList.length+1) + 1;
     }
     //nếu tất cả ổn
+    let objType = {
+        0: "customer",
+        1: "employer",
+        2: "admin"
+    }
+
     let data = {
-        full_info: true,
+        type: objType[type.value],
+        blockStatus: false,
         statusLogin: false,
         id: id,
         username: username.value,
@@ -151,4 +166,11 @@ export function handleAddCustomer() {
     userList.push(data);
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
+}
+
+export function handleBlockCustomer(index){
+    let userList = JSON.parse(localStorage.getItem("userList"));
+    if(userList[index].blockStatus) userList[index].blockStatus = false;
+    else userList[index].blockStatus = true;
+    localStorage.setItem("userList", JSON.stringify(userList));
 }

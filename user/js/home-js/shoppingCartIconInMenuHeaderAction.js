@@ -38,20 +38,9 @@ export function showShoppingCartFormInMenuHeader() {
     .getElementById("shopping-cart-click")
     .addEventListener("click", function () {
       deleteAllFormCreatedFromJsUser();
-      let userList = JSON.parse(localStorage.getItem("userList")) || [];
-      if(userList.length == 0){
-        userList = [...usersList];
-      }
-      localStorage.setItem("userList", JSON.stringify(userList));
-      let index_user_status_login = -1;
-      userList.forEach((obj, index) => {
-        if(obj.statusLogin){
-          index_user_status_login = index;
-          return;
-        }
-      });
+      let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
       //trạng thái có đăng nhập 
-      if(index_user_status_login > -1){
+      if(indexCurrentUserLogin > -1){
         updateStyleTags();
 
         // Hiển thị thông tin sản phẩm của Giỏ hàng

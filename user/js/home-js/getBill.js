@@ -72,9 +72,17 @@ function error_orderProduct(id_product) {
 }
 
 //hàm kiểm tra thông tin thanh toán
-function handle_order_information(userList, index_user_status_login) {
-  if (!userList[index_user_status_login].full_info) {
-    create_notification_user("Bạn cần bổ sung thông tin!");
+function handle_order_information(userList, indexCurrentUserLogin) {
+  if (!userList[indexCurrentUserLogin].first_name || !userList[indexCurrentUserLogin].last_name){
+    create_notification_user("Bạn cần bổ sung tên!");
+    return false;
+  }
+  if(!userList[indexCurrentUserLogin].phone){
+    create_notification_user("Bạn cần bổ sung số điện thoại");
+    return false;
+  }
+  if(!userList[indexCurrentUserLogin].address){
+    create_notification_user("Bạn cần bổ sung địa chỉ");
     return false;
   }
   if (
@@ -100,7 +108,7 @@ function handle_order_information(userList, index_user_status_login) {
 // hàm kiểm tra có đặt hàng thành công hay không
 function handle_order_product(
   userList,
-  userStatusLoginIndex,
+  indexCurrentUserLogin,
   productList,
   array_orderProduct
 ) {
@@ -136,15 +144,6 @@ function handle_order_product(
 
   create_notification_user("Đặt hàng thành công!");
   //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
-  //tạo id cho đơn hàng
-
-  // while (
-  //   userList[userStatusLoginIndex].ordersHistory.some((obj) => {
-  //     return obj.orderId == id_order;
-  //   })
-  // ) {
-  //   id_order = Math.floor(Math.random() * userList[userStatusLoginIndex].ordersHistory.length + 1) + 1;
-  // }
 
   //tạo thời gian đặt hàng
   let date_order = new Date();
@@ -183,26 +182,29 @@ function handle_order_product(
   const id_order = orderList.length + 1;
 
   let data = {
-    customerId: userList[userStatusLoginIndex].id,
+    isDelete: false,
+    customerId: userList[indexCurrentUserLogin].id,
     orderId: id_order,
     orderDate: date_order,
     orderAddressToShip: address,
-    orderStatus: "Pending",
+    orderStatus: "pending",
     orderMethod: purchase_method,
     orderTotalPrice:
-      calTotalProductItemPriceInShoppingCart(userList, userStatusLoginIndex) +
+      calTotalProductItemPriceInShoppingCart(userList, indexCurrentUserLogin) +
       18000,
-    orderProduct: userList[userStatusLoginIndex].shoppingCart,
+    orderProduct: userList[indexCurrentUserLogin].shoppingCart,
   };
 
   orderList.push(data);
 
   // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
-  setTimeout(() => {
-    userList[userStatusLoginIndex].shoppingCart = [];
-  }, 500);
-
+  // setTimeout(() => {
+  //   userList[indexCurrentUserLogin].shoppingCart = [];
+  //   localStorage.setItem("userList", JSON.stringify(userList));
+  // }, 500);
+  userList[indexCurrentUserLogin].shoppingCart = [];
   localStorage.setItem("userList", JSON.stringify(userList));
+
   localStorage.setItem("orderList", JSON.stringify(orderList));
   localStorage.setItem("productList", JSON.stringify(productList));
 
@@ -226,7 +228,7 @@ function comebackHomePage() {
 }
 
 // Hàm cập nhật thông tin hoá đơn
-function updateBill(userList, userStatusLoginIndex, array_orderProduct) {
+function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
   function createBillItems() {
     let items = "";
     for (let i = 0; i < array_orderProduct.length; i++) {
@@ -273,12 +275,12 @@ function updateBill(userList, userStatusLoginIndex, array_orderProduct) {
           <div class="bill__user-info">
             <h3 class="bill__sub-title">KHÁCH HÀNG</h3>
             <p class="bill__detail">${
-              userList[userStatusLoginIndex].firstName
-            } ${userList[userStatusLoginIndex].lastName}</p>
-            <p class="bill__detail">${userList[userStatusLoginIndex].email}</p>
-            <p class="bill__detail">${userList[userStatusLoginIndex].phone}</p>
+              userList[indexCurrentUserLogin].firstName
+            } ${userList[indexCurrentUserLogin].lastName}</p>
+            <p class="bill__detail">${userList[indexCurrentUserLogin].email}</p>
+            <p class="bill__detail">${userList[indexCurrentUserLogin].phone}</p>
             <p class="bill__detail">${
-              userList[userStatusLoginIndex].address
+              userList[indexCurrentUserLogin].address
             }</p>
           </div>
           <div class="bill__shop-info">
@@ -343,12 +345,7 @@ export function getBillInfo(array_orderProduct) {
     .addEventListener("click", function () {
       // lấy danh sách user từ local để lấy vị trí người đang đăng nhập
       let userList = JSON.parse(localStorage.getItem("userList"));
-      let userStatusLoginIndex;
-      userList.forEach((obj, index) => {
-        if (obj.statusLogin == true) {
-          userStatusLoginIndex = index;
-        }
-      });
+      let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
 
       // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
       let productList = JSON.parse(localStorage.getItem("productList")) || [];
@@ -358,12 +355,12 @@ export function getBillInfo(array_orderProduct) {
       }
 
       // hàm kiểm tra thông tin thanh toán
-      if (handle_order_information(userList, userStatusLoginIndex)) {
+      if (handle_order_information(userList, indexCurrentUserLogin)) {
         //hàm xử lí đơn người dùng đặt hàng
         //array_orderProduct được khai báo ở file getpayment-----------------
         let result = handle_order_product(
           userList,
-          userStatusLoginIndex,
+          indexCurrentUserLogin,
           productList,
           array_orderProduct
         );
@@ -371,7 +368,7 @@ export function getBillInfo(array_orderProduct) {
         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
         // updateBill();
         if (result) {
-          updateBill(userList, userStatusLoginIndex, array_orderProduct);
+          updateBill(userList, indexCurrentUserLogin, array_orderProduct);
         }
       }
     });

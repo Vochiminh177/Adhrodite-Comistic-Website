@@ -21,14 +21,11 @@
     padding-left: 6px;
     font-family: var(--main-border-radius);
 }
-.content-two-input {
+.content-two-input{
     display: flex;
     justify-content: space-between;
 }
-.content-two-input input {
-    width: 45%;
-} 
-.content-two-input select {
+.content-two-input input, select {
     width: 45%;
 } 
 .content-one-input input {
@@ -93,3 +90,9 @@
     color: #000;
 }
 /* ------------------------------------------ */
+
+/*------ css phần thông báo lỗi input --*/
+.err-text::placeholder{
+    color: red;
+}
+/*------ ----- --*/

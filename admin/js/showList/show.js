@@ -1,6 +1,6 @@
 import { productItemArray, usersList } from "../../../database/database.js"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
-import { deleteCustomer, editCustomer, searchUser } from "../updateCustomer/optionCustomer.js";
+import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
 
 function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
@@ -110,11 +110,17 @@ export function showListCustomer(start, end, currentPage, userList){
             <th class="id-user-list">Id</th>
             <th class="username-list">Tài khoản</th>
             <th class="fullname-list">Họ tên</th>
+            <th class="type-user">Loại</th>
             <th class="edit-user">Chỉnh sửa</th>
         </tr>
     </thead>
     `;
     let eleTbody = document.createElement("tbody");
+    let objType = {
+        customer: "Khách hàng",
+        employer: "Nhân viên",
+        admin: "Admin"
+    }
     userList.forEach((ele, index) => {
         if(index >= start && index < end){
             eleTbody.innerHTML += `
@@ -122,9 +128,11 @@ export function showListCustomer(start, end, currentPage, userList){
                     <td id="id-user">${ele.id}</td>
                     <td id="username">${ele.username}</td>
                     <td id="fullname">${(ele.first_name ? ele.first_name : 'chưa') + " " + (ele.last_name ? ele.last_name : 'có')}</td>
+                     <td id="fullname">${objType[ele.type]}</td>
                     <td>
                         <a href="" class="edit-customer" index-item=${index}>Sửa</a>
                         <a href="" class="delete-customer" index-item=${index}>Xóa</a>
+                        <a href="" class="block-customer" index-item=${index}>${ele.blockStatus ? "Mở khóa" : "Khóa"}</a>
                     </td>
                 </tr>
             `;
@@ -134,5 +142,6 @@ export function showListCustomer(start, end, currentPage, userList){
     document.querySelector(".content .content-customer-list table").innerHTML = user;
     deleteCustomer();
     editCustomer(currentPage);
-    searchUser();
+    searchCustomer();
+    blockCustomer();
 }

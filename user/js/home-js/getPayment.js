@@ -6,9 +6,10 @@ import {
 import { locationToSelectArray } from "../common-js/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 
 // Hàm trở về trang Giỏ hàng
-function clickToComebackShoppingCart(userList, userStatusLoginIndex) {
+function clickToComebackShoppingCart(userList, indexCurrentUserLogin) {
   document
     .querySelector(".payment-information-info__comeback-button")
     .addEventListener("click", function () {
@@ -19,7 +20,7 @@ function clickToComebackShoppingCart(userList, userStatusLoginIndex) {
       updateHeaderAndFooter("on");
 
       // Trở lại trang Giỏ hàng
-      comebackShoppingCart(userList, userStatusLoginIndex);
+      comebackShoppingCart(userList, indexCurrentUserLogin);
     });
 }
 
@@ -137,7 +138,7 @@ function updateUserAddressByInput() {
   });
 }
 // Hàm cho phép người dùng thay đổi địa chỉ giao hàng
-function updateChangeAddress(userList, userStatusLoginIndex) {
+function updateChangeAddress(userList, indexCurrentUserLogin) {
   const changeAddressForm = {
     list: `
       <ul class="payment-information-info__change-address-list">
@@ -193,7 +194,7 @@ function updateChangeAddress(userList, userStatusLoginIndex) {
           );
           addressInput.setAttribute(
             "placeholder",
-            userList[userStatusLoginIndex].address
+            userList[indexCurrentUserLogin].address
           );
         });
 
@@ -264,7 +265,7 @@ function updatePayFunction() {}
 // Hàm cập nhật thông tin thanh toán từ Giỏ hàng
 function updatePaymentInformation(
   userList,
-  userStatusLoginIndex,
+  indexCurrentUserLogin,
   array_orderProduct
 ) {
   const paymentInformationForm = `
@@ -283,31 +284,31 @@ function updatePaymentInformation(
                 <form action="" class="payment-information-info__form">
                   <div class="payment-information-info__form-group">
                       <input type="text" class="payment-information-info__name" placeholder="${
-                        userList[userStatusLoginIndex].firstName +
+                        userList[indexCurrentUserLogin].first_name +
                         " " +
-                        userList[userStatusLoginIndex].lastName
-                          ? userList[userStatusLoginIndex].firstName +
+                        userList[indexCurrentUserLogin].lastName
+                          ? userList[indexCurrentUserLogin].first_name +
                             " " +
-                            userList[userStatusLoginIndex].lastName
+                            userList[indexCurrentUserLogin].last_name
                           : "Nhập họ và tên"
                       }" readonly="">
                   </div>
                   <div class="payment-information-info__form-group">
                       <input type="email" class="payment-information-info__email" placeholder="${
-                        userList[userStatusLoginIndex].email
-                          ? userList[userStatusLoginIndex].email
+                        userList[indexCurrentUserLogin].email
+                          ? userList[indexCurrentUserLogin].email
                           : "Nhập email"
                       }" readonly="">
                       <input type="phone" class="payment-information-info__phone" placeholder="${
-                        userList[userStatusLoginIndex].phone
-                          ? userList[userStatusLoginIndex].phone
+                        userList[indexCurrentUserLogin].phone
+                          ? userList[indexCurrentUserLogin].phone
                           : "Nhập số điện thoại"
                       }" readonly="">
                   </div>
                   <div class="payment-information-info__form-group">
                       <input type="text" class="payment-information-info__address" placeholder="${
-                        userList[userStatusLoginIndex].address
-                          ? userList[userStatusLoginIndex].address
+                        userList[indexCurrentUserLogin].address
+                          ? userList[indexCurrentUserLogin].address
                           : "Nhập địa chỉ giao hàng"
                       }" readonly="">
                   </div>
@@ -373,7 +374,7 @@ function updatePaymentInformation(
                 Tạm tính <span id="temp-price">${formatVietNamMoney(
                   calTotalProductItemPriceInShoppingCart(
                     userList,
-                    userStatusLoginIndex
+                    indexCurrentUserLogin
                   )
                 )}đ</span>
                 </p>
@@ -385,7 +386,7 @@ function updatePaymentInformation(
                 Tổng cộng <span id="total-price">${formatVietNamMoney(
                   calTotalProductItemPriceInShoppingCart(
                     userList,
-                    userStatusLoginIndex
+                    indexCurrentUserLogin
                   ) + 18000
                 )}<u>đ</u></span>
             </p>
@@ -399,7 +400,7 @@ function updatePaymentInformation(
   mainContent.innerHTML = paymentInformationForm;
 
   // Thiết lập sự kiện cho phép người dùng thay đổi địa chỉ giao hàng
-  updateChangeAddress(userList, userStatusLoginIndex);
+  updateChangeAddress(userList, indexCurrentUserLogin);
 
   // Thiết lập sự kiện cho phép người dùng thay đổi phương thức thanh toán
   updatePayFunction();
@@ -423,7 +424,7 @@ function updatePaymentInformation(
   //   ele_1.style.padding = "10px";
   //   ele_1.style.margin = "10px 0px";
   //   ele_1.disabled = true;
-  //   ele_1.value = userList[userStatusLoginIndex].ma_the;
+  //   ele_1.value = userList[indexCurrentUserLogin].ma_the;
 
   //   let ele_2 = document.createElement("input");
   //   ele_2.type = "text";
@@ -432,7 +433,7 @@ function updatePaymentInformation(
   //   ele_2.style.padding = "10px";
   //   ele_2.style.margin = "5px 0px";
   //   ele_2.disabled = true;
-  //   ele_2.value = userList[userStatusLoginIndex].code_the;
+  //   ele_2.value = userList[indexCurrentUserLogin].code_the;
 
   //   let ele_3 = document.createElement("input");
   //   ele_3.type = "text";
@@ -441,7 +442,7 @@ function updatePaymentInformation(
   //   ele_3.style.padding = "10px";
   //   ele_3.style.margin = "5px 0px";
   //   ele_3.disabled = true;
-  //   ele_3.value = userList[userStatusLoginIndex].bank;
+  //   ele_3.value = userList[indexCurrentUserLogin].bank;
 
   //   document.querySelector(".purchase-atm").appendChild(ele_1);
   //   document.querySelector(".purchase-atm").appendChild(ele_2);
@@ -473,21 +474,21 @@ function updatePaymentInformation(
   // };
 
   // Tạo sự kiện để người dùng có thể trở về trang Giỏ hàng
-  clickToComebackShoppingCart(userList, userStatusLoginIndex);
+  clickToComebackShoppingCart(userList, indexCurrentUserLogin);
 
   // Tạo sự kiện để người dùng nhấn "Hoàn tất" thông tin giao hàng để hiện thị Hoá đơn
   getBillInfo(array_orderProduct);
 }
 
 // Hàm hiển thị thông tin thanh toán của người dùng
-export function getPaymentInformationInfo(userList, userStatusLoginIndex) {
+export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
   document
     .querySelector(".shopping-cart__pay-button")
     .addEventListener("click", function () {
       //up userList lên local vì khi ấn nút này cần cập nhật giỏ hàng lên local (khúc này chưa cập nhật lên local nên việc xử lí không đồng bộ)
       //localStorage.setItem("userList", JSON.stringify(userList));
 
-      if (userList[userStatusLoginIndex].shoppingCart.length >= 1) {
+      if (userList[indexCurrentUserLogin].shoppingCart.length >= 1) {
         // Đưa về đầu trang
         window.scrollTo(0, 0);
 
@@ -537,11 +538,11 @@ export function getPaymentInformationInfo(userList, userStatusLoginIndex) {
         // Cập nhật thông tin thanh toán
         updatePaymentInformation(
           userList,
-          userStatusLoginIndex,
+          indexCurrentUserLogin,
           array_orderProduct
         );
       } else {
-        window.alert(
+        create_notification_user(
           "Hiện tại, trong Giỏ hàng của bạn không có sản phẩm nào. Bạn hãy quay lại trang Sản phẩm và đặt mua một vài thứ nhé."
         );
       }
