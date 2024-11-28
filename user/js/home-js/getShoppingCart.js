@@ -171,11 +171,10 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
           }
            //obj để hiển thị tiếng việt tình trạng đơn hàng
           let dataOrderStatus = {
-            pending: "Đang chờ",
-            shipping: "Đang giao",
+            pending: "Đang chờ xử lý",
             shipped: "Đã giao",
-            confirm: "Đã xác nhận",
-            deleted: "Đã hủy"
+            accepted: "Đã xác nhận",
+            canceled: "Đã hủy"
           };
           const orderHistoryInfoForm = `
           <div class="order-history-info__overlay"></div>
@@ -284,7 +283,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
               // Xoá và cập nhật lại đơn hàng lên local
               if (removeIndex !== -1) {
                 orderList[removeIndex].isDelete = true;
-                orderList[removeIndex].orderStatus = "deleted";
+                orderList[removeIndex].orderStatus = "canceled";
                 localStorage.setItem("orderList", JSON.stringify(orderList));
               }
 
@@ -386,11 +385,10 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
   function createOrderHistoryItems() {
     //obj để hiển thị tiếng việt tình trạng đơn hàng
     let dataOrderStatus = {
-      pending: "Đang chờ",
-      shipping: "Đang giao",
+      pending: "Đang chờ xử lý",
       shipped: "Đã giao",
-      confirm: "Đã xác nhận",
-      deleted: "Đã hủy"
+      accepted: "Đã xác nhận",
+      canceled: "Đã hủy"
     };
     // Lấy lịch sử đơn hàng của user từ danh sách đơn hàng
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
