@@ -1,7 +1,7 @@
 import { productItemArray, usersList } from "../../../database/database.js"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
-import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrderDetails.js"
+import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
 function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
     let totalPage = Math.ceil(list.length / itemPerPage);
