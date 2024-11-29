@@ -1,8 +1,7 @@
 import { usersList, productItemArray} from "../../database/database.js";
-import { pagination, showListProduct, showListCustomer} from "./showList/show.js";
+import { pagination, showListProduct, showListCustomer, showListOrder } from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
 import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
-
 function start(){
 	anhMinh();
 }
@@ -174,9 +173,9 @@ export function showMain(sectionId) {
                     </div>
                     <table>
                     </table>
-                    <div class="list-page"></div>
                 </div>
             </div>
+			<div class="list-page"></div>
 		`;
 		let productList = JSON.parse(localStorage.getItem("productList")) || [];
 		if(productList.length == 0){
@@ -186,7 +185,77 @@ export function showMain(sectionId) {
 		addProduct();
 		filterProductAdmin();
 		pagination(productList, 1, showListProduct, "#main-content-product-list");
-	}
+	} else
+	if(sectionId === "main-content-order"){
+		document.querySelector('#main-content-order').innerHTML = `
+		<div class="title">
+			<div id="title-name">Danh sách đơn hàng</div>
+		</div>
+		<div class="content">
+			<table class="content-order-table">
+				<thead>
+					<tr>
+						<th>Mã Đơn Hàng</th>
+						<th>Mã Khách Hàng</th>
+						<th>Ngày Đặt</th>
+						<th>Tổng Cộng</th>
+						<th>Tình Trạng</th>
+						<th>Chi Tiết</th>
+					</tr>
+				</thead>
+
+				<tbody class="content-order-table-body">
+
+				</tbody>
+			</table>
+
+			<!-- Modal hiện chi tiết đơn hàng -->
+			<div id="order-details-modal" class="modal">
+				<div class="order-details-modal-content">
+					<a href="#" class="close-btn">&times;</a>
+					<div id="order-details-container">
+						<!-- Header đơn hàng -->
+						<header class="order-header" id="order-header">
+						</header>
+
+						<!-- Thông tin khách hàng -->
+						<section class="customer-info" id="customer-info">
+						</section>
+
+						<!-- Các sản phẩm -->
+						<section class="product-info" id="product-info">
+							<h3>Chi tiết Sản Phẩm</h3>
+							<table class="product-table">
+								<thead>
+									<tr>
+										<th>Mã sản phẩm</th>
+										<th>Số lượng</th>
+										<th>Đơn giá</th>
+										<th>Thành tiền</th>
+									</tr>
+								</thead>
+					
+								<tbody id="order-product-info-body">
+								</tbody>
+							</table>
+						</section>
+
+						<!-- Chi phí đơn hàng -->
+						<section class="order-cost" id="order-cost">
+						</section>
+
+						<!-- Thanh hành động-->
+						<div class="action-bar" id="action-bar">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="list-page"></div>
+		`;
+		const orderList = JSON.parse(localStorage.getItem('orderList'));
+		pagination(orderList, 1, showListOrder, "#main-content-order");
+	} else
 	if(sectionId === "main-content-product-add"){
 		document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">
@@ -234,7 +303,7 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-	}
+	} else
 	if(sectionId === "main-content-customer"){
 		document.querySelector("#main-content-customer").innerHTML = `
 			<div class="title">
@@ -251,10 +320,9 @@ export function showMain(sectionId) {
                     </div>
                     <table>
                     </table>
-                    <div class="list-page"></div>
                 </div>
-                
             </div>
+			<div class="list-page"></div>
 		`;
 		let userList = JSON.parse(localStorage.getItem("userList")) || [];
 		if(userList.length ==0){
@@ -263,7 +331,7 @@ export function showMain(sectionId) {
 		localStorage.setItem("userList", JSON.stringify(userList));
 		addCustomer();
 		pagination(userList, 1, showListCustomer, "#main-content-customer");
-	}
+	} else
 	if(sectionId === "main-content-customer-add"){
 		document.querySelector("#main-content-customer-add").innerHTML = `
 			<div class="title">

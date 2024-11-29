@@ -1,15 +1,15 @@
 import { productItemArray, usersList } from "../../../database/database.js"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
-
+import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrderDetails.js"
 function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
     let totalPage = Math.ceil(list.length / itemPerPage);
     // console.log(totalPage);
-    let firstPage = currentPage-2;
-    let lastPage = currentPage+2;
+    let firstPage = currentPage - 2;
+    let lastPage = currentPage + 2;
     if(firstPage <= 0){
-        firstPage=1;
+        firstPage = 1;
         lastPage = 5;
     }
     if(lastPage >= totalPage){
@@ -20,17 +20,17 @@ function createPage(list, currentPage, showList, main){
     eleUl.className = "listPage";
     eleUl.innerHTML += `<li><a href="" class="left-page"><</a></li>`;
     // console.log(firstPage, lastPage, totalPage)
-    for(let i=firstPage; i<=lastPage; i++){
+    for(let i = firstPage; i <= lastPage; i++){
         if(currentPage == i){
             eleUl.innerHTML += `<li><a href="" class="page-number active-page">${i}</a></li>`;
         }
         else eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
     }
     eleUl.innerHTML += `<li><a href="" class="right-page">></a></li>`;
-    document.querySelector(main).querySelector(".content .list-page").innerHTML = eleUl.outerHTML;
+    document.querySelector(main).querySelector(".list-page").innerHTML = eleUl.outerHTML;
     //------------------------------------------
     //-----In ra danh sách list---------
-    let start = (currentPage-1) * itemPerPage;
+    let start = (currentPage - 1) * itemPerPage;
     let end = start + itemPerPage;
     showList(start, end, currentPage, list);
     //------------------------------------------
@@ -144,4 +144,14 @@ export function showListCustomer(start, end, currentPage, userList){
     editCustomer(currentPage);
     searchCustomer();
     blockCustomer();
+}
+
+export function showListOrder(start, end, curentPage, orderList){  
+    document.querySelector('.content-order-table-body').innerHTML = "";
+    end = Math.min(end, orderList.length);
+    for(let i = start; i < end; i++){
+        createOrderRow(orderList[i]);
+    }
+
+    generateOrderEvents(start, end, orderList);
 }

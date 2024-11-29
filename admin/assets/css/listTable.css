@@ -27,7 +27,6 @@ th {
     text-align: center;
 }
 td {
-    word-wrap: break-word;
     padding: 15px;
     border: 1px solid #ddd;
     vertical-align: middle;

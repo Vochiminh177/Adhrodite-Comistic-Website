@@ -146,6 +146,7 @@ function handle_order_product(
   //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
 
   //tạo thời gian đặt hàng
+  // getMonth bắt đầu từ [0, 11]
   let date_order = new Date();
   date_order =
     date_order.getHours().toString() +
@@ -156,7 +157,7 @@ function handle_order_product(
     " " +
     date_order.getDate().toString() +
     "/" +
-    date_order.getMonth().toString() +
+    (date_order.getMonth() + 1).toString() + 
     "/" +
     date_order.getFullYear().toString();
 
