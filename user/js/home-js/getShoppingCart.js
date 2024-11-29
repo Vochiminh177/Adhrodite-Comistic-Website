@@ -6,14 +6,14 @@ import { create_notification_user } from "../menuUser/optionMenu.js";
 import { getPaymentInformationInfo } from "./getPayment.js";
 
 // Hàm trở về trang Giỏ hàng khi người dùng ấn vào "Giỏ hàng" ở trang Thông tin hoá đơn
-export function comebackShoppingCart(userList, userStatusLoginIndex) {
-  updateShoppingCart(userList, userStatusLoginIndex);
+export function comebackShoppingCart(userList, indexCurrentUserLogin) {
+  updateShoppingCart(userList, indexCurrentUserLogin);
 }
 
 // Hàm cập nhật thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
 function updateShoppingCartAfterActionsFromUser(
   userList,
-  userStatusLoginIndex
+  indexCurrentUserLogin
 ) {
   document
     .querySelectorAll(".shopping-cart__item")
@@ -34,10 +34,10 @@ function updateShoppingCartAfterActionsFromUser(
             if (currentQuantity >= 1) {
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity + 1;
-              userList[userStatusLoginIndex].shoppingCart[index].quantity =
+              userList[indexCurrentUserLogin].shoppingCart[index].quantity =
                 product.querySelector(".shopping-cart__number").value;
               localStorage.setItem("userList", JSON.stringify(userList));
-              updateShoppingCart(userList, userStatusLoginIndex);
+              updateShoppingCart(userList, indexCurrentUserLogin);
             }
           };
         }
@@ -52,19 +52,19 @@ function updateShoppingCartAfterActionsFromUser(
             if (currentQuantity >= 2) {
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity - 1;
-              userList[userStatusLoginIndex].shoppingCart[index].quantity =
+              userList[indexCurrentUserLogin].shoppingCart[index].quantity =
                 product.querySelector(".shopping-cart__number").value;
               localStorage.setItem("userList", JSON.stringify(userList));
-              updateShoppingCart(userList, userStatusLoginIndex);
+              updateShoppingCart(userList, indexCurrentUserLogin);
             }
           };
         }
         // Nếu loại bỏ
         if (action.getAttribute("data-shopping-cart-item-action") == "trash") {
           action.onclick = () => {
-            userList[userStatusLoginIndex].shoppingCart.splice(index, 1);
+            userList[indexCurrentUserLogin].shoppingCart.splice(index, 1);
             localStorage.setItem("userList", JSON.stringify(userList));
-            updateShoppingCart(userList, userStatusLoginIndex);
+            updateShoppingCart(userList, indexCurrentUserLogin);
           };
         }
         // Nếu điền trực tiếp số lượng input
@@ -76,10 +76,10 @@ function updateShoppingCartAfterActionsFromUser(
             if (currentQuantity >= 1) {
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity + 1;
-              userList[userStatusLoginIndex].shoppingCart[index].quantity =
+              userList[indexCurrentUserLogin].shoppingCart[index].quantity =
                 product.querySelector(".shopping-cart__number").value;
               localStorage.setItem("userList", JSON.stringify(userList));
-              updateShoppingCart(userList, userStatusLoginIndex);
+              updateShoppingCart(userList, indexCurrentUserLogin);
             }
           };
         }
@@ -88,26 +88,28 @@ function updateShoppingCartAfterActionsFromUser(
 }
 
 // Hàm xoá tất cả sản phẩm hiện có trong Giỏ hàng
-function removeAllProductInShoppingCart(userList, userStatusLoginIndex) {
+function removeAllProductInShoppingCart(userList, indexCurrentUserLogin) {
   document
     .querySelector(".shopping-cart__trash-all-button")
     .addEventListener("click", function () {
-      userList[userStatusLoginIndex].shoppingCart = [];
+      userList[indexCurrentUserLogin].shoppingCart = [];
       localStorage.setItem("userList", JSON.stringify(userList));
-      updateShoppingCart(userList, userStatusLoginIndex);
+      updateShoppingCart(userList, indexCurrentUserLogin);
     });
 }
 
 // Hàm xem chi tiết một đơn hàng trong Lịch sử mua hàng
-function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
+function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
   // Lấy ra Lịch sử mua hàng của người dùng hiện tại
   let orderList = JSON.parse(localStorage.getItem("orderList"));
   let ordersHistory = [];
   orderList.forEach((order) => {
-    if (order.customerId == userList[userStatusLoginIndexrsHistory].id) {
+    if (order.customerId == userList[indexCurrentUserLoginrsHistory].id) {
       ordersHistory.push(order);
     }
   });
+
+  
 
   // Nếu nhấn vào nút "Chi tiết" của một đơn hàng trong Lịch sử mua hàng
   document
@@ -152,7 +154,7 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
 
           // Hiển thị chi tiết đơn hàng
           function createProductItemInOrderHistoryItem() {
-            const orderProduct = ordersHistory[index].orderProduct;
+            const orderProduct = ordersHistory[ordersHistory.length - 1 - index].orderProduct; //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
             let items = "";
             for (let i = 0; i < orderProduct.length; i++) {
               if (i === orderProduct.length - 1) {
@@ -167,33 +169,40 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
             }
             return items;
           }
+           //obj để hiển thị tiếng việt tình trạng đơn hàng
+          let dataOrderStatus = {
+            pending: "Đang chờ xử lý",
+            shipped: "Đã giao",
+            accepted: "Đã xác nhận",
+            canceled: "Đã hủy"
+          };
           const orderHistoryInfoForm = `
           <div class="order-history-info__overlay"></div>
           <div class="order-history-info__content">
             <button class="order-history-info__exit-button">x</button>
             <h2 class="order-history-info__title">CHI TIẾT ĐƠN HÀNG</h2>
             <p class="order-history-info__order-id detail"><b>Mã đơn hàng:</b> ${
-              ordersHistory[index].orderId
+              ordersHistory[ordersHistory.length - 1 - index].orderId
             }</p>
             <p class="order-history-info__customer-id detail"><b>Mã khách hàng:</b> ${
-              ordersHistory[index].customerId
+              ordersHistory[ordersHistory.length - 1 - index].customerId
             }</p>
             <p class="order-history-info__order-date detail"><b>Thời gian đặt hàng:</b> ${
-              ordersHistory[index].orderDate
+              ordersHistory[ordersHistory.length - 1 - index].orderDate
             }</p>
             <p class="order-history-info__order-status detail"><b>Tình trạng:</b> ${
-              ordersHistory[index].orderStatus
+              dataOrderStatus[ordersHistory[ordersHistory.length - 1 - index].orderStatus]
             }</p>
             <p class="order-history-info__order-address-to-ship detail"><b>Địa chỉ giao hàng:</b> ${
-              ordersHistory[index].orderAddressToShip
+              ordersHistory[ordersHistory.length - 1 - index].orderAddressToShip
             }</p>
             <p class="order-history-info__order-ship-method detail"><b>Phương thức vận chuyển:</b> Giao hàng tận nơi</p>
             <p class="order-history-info__order-pay-method detail"><b>Phương thức thanh toán:</b> ${
-              ordersHistory[index].orderMethod
+              ordersHistory[ordersHistory.length - 1 - index].orderMethod
             }</p>
             <p class="order-history-info__order-product detail"><b>Danh sách sản phẩm đã đặt:</b> ${createProductItemInOrderHistoryItem()}</p>
             <p class="order-history-info__order-total-price detail"><b>Tổng số tiền thanh toán:</b> ${formatVietNamMoney(
-              ordersHistory[index].orderTotalPrice
+              ordersHistory[ordersHistory.length - 1 - index].orderTotalPrice
             )}đ</p>
           </div>
         `;
@@ -225,8 +234,8 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
   document
     .querySelectorAll(".order-history__trash-button")
     .forEach((obj, index) => {
-      if (ordersHistory[index].orderStatus != "Pending") {
-        obj.style.backgroundColor = "greenyellow";
+      if (ordersHistory[ordersHistory.length - 1 - index].orderStatus != "pending") { //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
+        obj.style.backgroundColor = "#ccc";
         obj.onclick = (e) => {
           e.preventDefault();
         };
@@ -250,37 +259,31 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
             questionDelete();
             document.querySelector(".form-question .yes").onclick = (e) => {
               e.preventDefault();
-
               // code mới của Huy
-              const orderList =
-                JSON.parse(localStorage.getItem("orderList")) || [];
+              const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
               let productList = JSON.parse(localStorage.getItem("productList"));
 
-              //hoàn số lượng của sản phẩm của shop (admin)
-              orderList.forEach((obj) => {
-                //obj là từng đơn hàng
-                obj.orderProduct.forEach((objOrderProduct) => {
-                  //objOrderProduct là từng sản phẩm của obj
-                  let index = productList.findIndex((objProductShop) => {
-                    //objProdcutShop là từng sản phẩm của shop
-                    return objProductShop.id === objOrderProduct.id;
-                  });
-                  productList[index].quantity += objOrderProduct.quantity;
-                  localStorage.setItem(
-                    "productList",
-                    JSON.stringify(productList)
-                  );
+              //hoàn số lượng của sản phẩm của shop (admin) - hiệu
+              console.log(ordersHistory[ordersHistory.length - 1 - index]);
+              ordersHistory[ordersHistory.length - 1 - index].orderProduct.forEach((objOrderProduct) => {
+                //objOrderProduct là từng sản phẩm của đơn hàng đang làm việc
+                let index = productList.findIndex((objProductShop) => {
+                  //objProdcutShop là từng sản phẩm của shop
+                  return objProductShop.id === objOrderProduct.id;
                 });
+                productList[index].quantity += objOrderProduct.quantity;
+                localStorage.setItem("productList", JSON.stringify(productList));
               });
-
+              
               // Tìm đơn hàng có ID cần xoá trên local
               let removeIndex = orderList.findIndex((order) => {
-                return order.orderId === ordersHistory[index].orderId;
+                return order.orderId === ordersHistory[ordersHistory.length - 1 - index].orderId;
               });
               // Array method findIndex: return first_index, otherwise -1
               // Xoá và cập nhật lại đơn hàng lên local
               if (removeIndex !== -1) {
-                orderList.splice(removeIndex, 1);
+                orderList[removeIndex].isDelete = true;
+                orderList[removeIndex].orderStatus = "canceled";
                 localStorage.setItem("orderList", JSON.stringify(orderList));
               }
 
@@ -294,9 +297,7 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
               e.preventDefault();
               document.querySelector(".container-question").remove();
             };
-            document.querySelector(
-              ".form-question .exit-form-detail-ordered-product"
-            ).onclick = () => {
+            document.querySelector(".form-question .exit-form-detail-ordered-product").onclick = () => {
               document.querySelector(".container-question").remove();
             };
           }
@@ -306,19 +307,19 @@ function showOrderItemInfo(userList, userStatusLoginIndexrsHistory) {
     });
 }
 
-function updateShoppingCart(userList, userStatusLoginIndex) {
+function updateShoppingCart(userList, indexCurrentUserLogin) {
   // Các sản phẩm đã được thêm vào Giỏ hàng tạo bởi HTML
   function createShoppingCartItems() {
     let items = "";
-    if (userList[userStatusLoginIndex].shoppingCart.length >= 1) {
+    if (userList[indexCurrentUserLogin].shoppingCart.length >= 1) {
       // Shopping-Cart Item
       for (
         let i = 0;
-        i < userList[userStatusLoginIndex].shoppingCart.length;
+        i < userList[indexCurrentUserLogin].shoppingCart.length;
         i++
       ) {
         const shoppingCartFromUser =
-          userList[userStatusLoginIndex].shoppingCart[i];
+          userList[indexCurrentUserLogin].shoppingCart[i];
         items += `
           <div
             class="shopping-cart__item"
@@ -380,20 +381,27 @@ function updateShoppingCart(userList, userStatusLoginIndex) {
     return items;
   }
 
-  // Danh sách sản phẩm đã đặt hàng nằm ở dưới giỏ hàng
+  // Danh sách sản phẩm đã đặt hàng nằm ở dưới chữ thanh toán
   function createOrderHistoryItems() {
+    //obj để hiển thị tiếng việt tình trạng đơn hàng
+    let dataOrderStatus = {
+      pending: "Đang chờ xử lý",
+      shipped: "Đã giao",
+      accepted: "Đã xác nhận",
+      canceled: "Đã hủy"
+    };
     // Lấy lịch sử đơn hàng của user từ danh sách đơn hàng
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
     const ordersHistory = [];
     orderList.forEach((order) => {
-      if (order.customerId === userList[userStatusLoginIndex].id) {
+      if (order.customerId === userList[indexCurrentUserLogin].id) {
         ordersHistory.push(order);
       }
     });
 
     let items = "";
     if (ordersHistory.length >= 1) {
-      for (let i = 0; i < ordersHistory.length; i++) {
+      for (let i = ordersHistory.length - 1; i >= 0; i--) {
         items += `
             <div class="order-history__item">
               <div class="order-history__column">
@@ -405,7 +413,7 @@ function updateShoppingCart(userList, userStatusLoginIndex) {
                 }</p>
               </div>
               <p class="order-history__status detail">${
-                ordersHistory[i].orderStatus
+                dataOrderStatus[ordersHistory[i].orderStatus]
               }</p>
               <p class="order-history__total-price detail">${formatVietNamMoney(
                 ordersHistory[i].orderTotalPrice
@@ -417,6 +425,11 @@ function updateShoppingCart(userList, userStatusLoginIndex) {
             </div>
           `;
       }
+      // document.querySelectorAll(".order-history__item .order-history__trash-button").forEach((obj) => {
+      //   if(obj.orderStatus != "pending"){
+      //     obj.style.backgroundColor = "#ccc";
+      //   }
+      // })
     } else {
       items = `<p class="order-history__inform">KHÔNG CÓ ĐƠN HÀNG NÀO ĐÃ ĐẶT</p>`;
     }
@@ -439,7 +452,7 @@ function updateShoppingCart(userList, userStatusLoginIndex) {
               Tổng số tiền: <b class="shopping-cart__total-price">${formatVietNamMoney(
                 calTotalProductItemPriceInShoppingCart(
                   userList,
-                  userStatusLoginIndex
+                  indexCurrentUserLogin
                 )
               )}<u>đ</u></b>
             </p>
@@ -468,35 +481,30 @@ function updateShoppingCart(userList, userStatusLoginIndex) {
   mainContentDiv.innerHTML = shoppingCartForm;
 
   // Cập nhật lại thông tin của Giỏ hàng sau khi người dùng thực hiển một vài chỉnh sửa
-  updateShoppingCartAfterActionsFromUser(userList, userStatusLoginIndex);
+  updateShoppingCartAfterActionsFromUser(userList, indexCurrentUserLogin);
 
   // Xoá tất cả sản phẩm trong Giỏ hàng khi người dùng nhấn "Xoá tất cả"
-  removeAllProductInShoppingCart(userList, userStatusLoginIndex);
+  removeAllProductInShoppingCart(userList, indexCurrentUserLogin);
 
   // Tạo mẫu thông tin để thanh toán khi người dùng nhấn vào "Thanh toán"
-  getPaymentInformationInfo(userList, userStatusLoginIndex);
+  getPaymentInformationInfo(userList, indexCurrentUserLogin);
 
   // Gán sự kiện cho nút xem chi tiết sản phẩm đã đặt hàng
   if (
     document.querySelectorAll(".order-history__show-info-button").length > 0
   ) {
-    showOrderItemInfo(userList, userStatusLoginIndex);
+    showOrderItemInfo(userList, indexCurrentUserLogin);
   }
 }
 
 // Hàm hiển thị thông tin của Giỏ hàng
 export function getShoppingCartInfo() {
-  let userList = JSON.parse(localStorage.getItem("userList")) || [];
-  let userStatusLoginIndex;
-  userList.forEach((obj, index) => {
-    if (obj.statusLogin) {
-      userStatusLoginIndex = index;
-    }
-  });
+  let userList = JSON.parse(localStorage.getItem("userList"));
+  let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"))
 
   // Đưa về đầu trang
   window.scroll(0, 0);
 
   // Tạo thông tin của Giỏ hàng bằng các thẻ html
-  updateShoppingCart(userList, userStatusLoginIndex);
+  updateShoppingCart(userList, indexCurrentUserLogin);
 }

@@ -18,7 +18,6 @@ export function signIn() {
       if (result) {
         //tạo thông báo
         create_notification_user("Đăng nhập thành công!");
-
         // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import
         const changeUserFormInMenuHeaderExistingScript = document.querySelector(
           ".change-user-form-in-menu-header-script"

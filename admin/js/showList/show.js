@@ -1,15 +1,15 @@
 import { productItemArray, usersList } from "../../../database/database.js"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
-import { deleteCustomer, editCustomer, searchUser } from "../updateCustomer/optionCustomer.js";
-
+import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
+import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
 function createPage(list, currentPage, showList, main){
     let itemPerPage = 3;
     let totalPage = Math.ceil(list.length / itemPerPage);
     // console.log(totalPage);
-    let firstPage = currentPage-2;
-    let lastPage = currentPage+2;
+    let firstPage = currentPage - 2;
+    let lastPage = currentPage + 2;
     if(firstPage <= 0){
-        firstPage=1;
+        firstPage = 1;
         lastPage = 5;
     }
     if(lastPage >= totalPage){
@@ -20,17 +20,17 @@ function createPage(list, currentPage, showList, main){
     eleUl.className = "listPage";
     eleUl.innerHTML += `<li><a href="" class="left-page"><</a></li>`;
     // console.log(firstPage, lastPage, totalPage)
-    for(let i=firstPage; i<=lastPage; i++){
+    for(let i = firstPage; i <= lastPage; i++){
         if(currentPage == i){
             eleUl.innerHTML += `<li><a href="" class="page-number active-page">${i}</a></li>`;
         }
         else eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
     }
     eleUl.innerHTML += `<li><a href="" class="right-page">></a></li>`;
-    document.querySelector(main).querySelector(".content .list-page").innerHTML = eleUl.outerHTML;
+    document.querySelector(main).querySelector(".list-page").innerHTML = eleUl.outerHTML;
     //------------------------------------------
     //-----In ra danh sách list---------
-    let start = (currentPage-1) * itemPerPage;
+    let start = (currentPage - 1) * itemPerPage;
     let end = start + itemPerPage;
     showList(start, end, currentPage, list);
     //------------------------------------------
@@ -110,11 +110,17 @@ export function showListCustomer(start, end, currentPage, userList){
             <th class="id-user-list">Id</th>
             <th class="username-list">Tài khoản</th>
             <th class="fullname-list">Họ tên</th>
+            <th class="type-user">Loại</th>
             <th class="edit-user">Chỉnh sửa</th>
         </tr>
     </thead>
     `;
     let eleTbody = document.createElement("tbody");
+    let objType = {
+        customer: "Khách hàng",
+        employer: "Nhân viên",
+        admin: "Admin"
+    }
     userList.forEach((ele, index) => {
         if(index >= start && index < end){
             eleTbody.innerHTML += `
@@ -122,9 +128,11 @@ export function showListCustomer(start, end, currentPage, userList){
                     <td id="id-user">${ele.id}</td>
                     <td id="username">${ele.username}</td>
                     <td id="fullname">${(ele.first_name ? ele.first_name : 'chưa') + " " + (ele.last_name ? ele.last_name : 'có')}</td>
+                     <td id="fullname">${objType[ele.type]}</td>
                     <td>
                         <a href="" class="edit-customer" index-item=${index}>Sửa</a>
                         <a href="" class="delete-customer" index-item=${index}>Xóa</a>
+                        <a href="" class="block-customer" index-item=${index}>${ele.blockStatus ? "Mở khóa" : "Khóa"}</a>
                     </td>
                 </tr>
             `;
@@ -134,5 +142,16 @@ export function showListCustomer(start, end, currentPage, userList){
     document.querySelector(".content .content-customer-list table").innerHTML = user;
     deleteCustomer();
     editCustomer(currentPage);
-    searchUser();
+    searchCustomer();
+    blockCustomer();
+}
+
+export function showListOrder(start, end, curentPage, orderList){  
+    document.querySelector('.content-order-table-body').innerHTML = "";
+    end = Math.min(end, orderList.length);
+    for(let i = start; i < end; i++){
+        createOrderRow(orderList[i]);
+    }
+
+    generateOrderEvents(start, end, orderList);
 }

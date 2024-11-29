@@ -44,6 +44,8 @@ export function reset_style_input(input){
     else if(input.className == "phone-customer") input.placeholder = "Nhập số điện thoại";
     else if(input.className == "firstname-customer") input.placeholder = "Nhập họ";
     else if(input.className == "lastname-customer") input.placeholder = "Nhập tên";
+    else if(input.className == "percent-discount-add") input.placeholder = "Giảm giá %";
+    else if(input.className == "quantity-discount") input.placeholder = "Số lượng giảm giá";
     else input.placeholder = "Nhập số lượng";
     input.style.borderColor = "#a94064";
 }
@@ -64,7 +66,6 @@ export function err_input(input, mess){
         }
     }
     else{
-
         if(input.value == ""){
             input.placeholder = "*Lỗi! Thiếu dữ liệu";
             input.style.borderColor = "red";

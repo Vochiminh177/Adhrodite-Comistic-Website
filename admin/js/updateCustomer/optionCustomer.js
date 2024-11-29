@@ -1,7 +1,7 @@
 
 import { createNotificationAdmin } from "../base/baseFunction.js";
 import { pagination, showListCustomer } from "../showList/show.js";
-import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer } from "./handleUpdateCustomer.js";
+import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer, handleBlockCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
 
 export function deleteCustomer() {
@@ -47,6 +47,12 @@ export function editCustomer(currentPage) {
             document.querySelector(".firstname-customer").value =  userList[index].first_name;
             document.querySelector(".lastname-customer").value =  userList[index].last_name;
             document.querySelector(".phone-customer").value =  userList[index].phone;
+            let objType = {
+                customer: 0,
+                employer: 1,
+                admin: 2
+            };
+            document.querySelector("#type-customer").value = objType[userList[index].type];
 
             document.querySelector(".comback-customer").onclick = (e) => {
                 e.preventDefault();
@@ -78,7 +84,6 @@ export function addCustomer(){
             let result = handleAddCustomer();
             if(result){
                 createNotificationAdmin("Thêm khách hàng thành công!");
-                document.querySelector(".main-content-customer-add").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
 				pagination(userList, Math.ceil(userList.length/3), showListCustomer, "#main-content-customer");
@@ -87,7 +92,7 @@ export function addCustomer(){
     }
 }
 
-export function searchUser(){
+export function searchCustomer(){
     document.querySelector(".search-customer a").onclick = (e) => {
         e.preventDefault();
         let value = document.querySelector(".search-customer input").value;
@@ -132,4 +137,39 @@ export function searchUser(){
         document.querySelector(".search-customer input").value = "";
         document.querySelector(".search-customer input").placeholder = "Nhập tên tài khoản";  
     }
+}
+
+export function blockCustomer(){
+    document.querySelectorAll(".block-customer").forEach((obj) => {
+        obj.onclick = (e) => {
+            e.preventDefault();
+            let userList = JSON.parse(localStorage.getItem("userList"));
+            let index = parseInt(obj.getAttribute("index-item"));
+            let currentPage;
+            if(index == 0) currentPage = 1;
+            else currentPage = Math.ceil(index/3);
+            let container = document.createElement("div");
+            container.className = "container-delete-customer";
+            container.innerHTML = `
+                <div class="form-delete-customer">
+                    <div class="content-delete-customer">
+                        <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
+                        <button class="yes">Có</button>
+                        <button class="no">Không</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(container);
+            document.querySelector(".container-delete-customer .no").onclick = () => {
+                document.querySelector(".container-delete-customer").remove();
+            };
+            document.querySelector(".container-delete-customer .yes").onclick = () => {
+                handleBlockCustomer(index);
+                document.querySelector(".container-delete-customer").remove();
+                userList = JSON.parse(localStorage.getItem("userList"));
+                pagination(userList, 1, showListCustomer, "#main-content-customer");
+                createNotificationAdmin(`${userList[index].blockStatus ? "Khóa" : "Mở khóa"} người dùng thành công`);
+            };
+        };
+    });
 }

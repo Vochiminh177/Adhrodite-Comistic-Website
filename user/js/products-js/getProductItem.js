@@ -45,14 +45,9 @@ function addProductItemToShoppingCart(productItemKey) {
     .addEventListener("click", function () {
       //lấy vị trí người dùng đang đăng nhập để lấy giỏ hàng
       let userList = JSON.parse(localStorage.getItem("userList"));
-      let userStatusLoginIndex = -1;
-      userList.forEach((obj, index) => {
-        if (obj.statusLogin) {
-          userStatusLoginIndex = index;
-        }
-      });
+      let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
 
-      if (userStatusLoginIndex < 0) {
+      if (indexCurrentUserLogin < 0) {
         create_notification_user("Bạn chưa đăng nhập!");
       } else {
         // lấy danh sách sản phẩm trên local
@@ -66,11 +61,11 @@ function addProductItemToShoppingCart(productItemKey) {
         let indexProductItem = -1;
         for (
           let i = 0;
-          i < userList[userStatusLoginIndex].shoppingCart.length;
+          i < userList[indexCurrentUserLogin].shoppingCart.length;
           i++
         ) {
           if (
-            userList[userStatusLoginIndex].shoppingCart[i].id ===
+            userList[indexCurrentUserLogin].shoppingCart[i].id ===
             productList[productItemKey].id
           ) {
             isExistingProductItem = true;
@@ -79,15 +74,15 @@ function addProductItemToShoppingCart(productItemKey) {
           }
         }
 
-        // console.log(userList[userStatusLoginIndex].shoppingCart[indexProductItem]);
+        // console.log(userList[indexCurrentUserLogin].shoppingCart[indexProductItem]);
         if (isExistingProductItem) {
           // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
-          userList[userStatusLoginIndex].shoppingCart[
+          userList[indexCurrentUserLogin].shoppingCart[
             indexProductItem
           ].quantity += 1;
         } else {
           // Nếu sản phẩm chưa có, thêm vào giỏ hàng với số lượng là 1
-          userList[userStatusLoginIndex].shoppingCart.push({
+          userList[indexCurrentUserLogin].shoppingCart.push({
             id: productList[productItemKey].id,
             src: productList[productItemKey].src,
             name: productList[productItemKey].name,

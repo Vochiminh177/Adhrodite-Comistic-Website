@@ -45,21 +45,32 @@
 }
 /* ------------------------------------------ */
 
-/* css phần tủy chỉnh 2 nút sửa xóa khách hàng của admin */
+/* css phần tủy chỉnh 3 nút sửa xóa khóa khách hàng của admin */
 .edit-customer{
     background-color: greenyellow;
     padding: 5px;
     font-weight: 400;
+    color: #000;
 }
-.edit-customer:focus{
+.edit-customer:hover{
     color: #fff;
 }
 .delete-customer{
+    background-color: #ccc;
+    padding: 5px;
+    font-weight: 400;
+    color: #000;
+}
+.delete-customer:hover{
+    color: #fff;
+}
+.block-customer{
     background-color: red;
+    color: #000;
     padding: 5px;
     font-weight: 400;
 }
-.delete-customer:focus{
+.block-customer:hover{
     color: #fff;
 }
 /* ----------------------------------------------------------- */
