@@ -198,10 +198,14 @@ function handle_order_product(
   orderList.push(data);
 
   // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
-  setTimeout(() => {
-    userList[userStatusLoginIndex].shoppingCart = [];
-  }, 500);
+  // setTimeout(() => {
+  //   userList[userStatusLoginIndex].shoppingCart = [];
+  // }, 500);
 
+  userList[userStatusLoginIndex].shoppingCart = [];
+
+
+  
   localStorage.setItem("userList", JSON.stringify(userList));
   localStorage.setItem("orderList", JSON.stringify(orderList));
   localStorage.setItem("productList", JSON.stringify(productList));

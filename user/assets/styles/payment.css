@@ -349,49 +349,19 @@ figure:has(.payment-information-products__image) {
 
 /* <=*/
 
+
+/* ==================== chung mobile  tablet */
+@media screen and (max-width:800px) {
+  .payment-information__content{
+    flex-direction: column-reverse;
+  }
+}
+
+
 /* =================== mobile */
 
 @media screen and (max-width:500px) {
 
-  .shopping-cart__item{
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    gap: 10px;
-  }
-  
-  .shopping-cart__content{
-    padding: 14px;
-  }
-  
-  figure:has(.shopping-cart__image) {
-    width: 25%;
-    height: 150px;  
-  }
-  .shopping-cart__image{
-    width: 100%;
-  }
-  .shopping-cart__column{
-    width: 70%;
-    box-sizing: border-box;
-    word-wrap: break-word;
-  }
-  .shopping-cart__name{
-    width: 100%;
-  }
-  .shopping-cart__quantity{
-    margin: 0;
-  }
-
-  .shopping-cart__product-total-price{
-    margin: 0;
-    text-align: center;
-    font-size: 2.2rem;
-  }
-  .shopping-cart__trash{
-    margin: 0;
-  }
-  
   
 
   /* --------------- thanh toán */
@@ -400,9 +370,6 @@ figure:has(.payment-information-products__image) {
     padding: 32px 0;
   }
 
-  .payment-information__content{
-    display: block;
-  }
   .payment-information__products{
     width: 100%;
   }
@@ -420,19 +387,7 @@ figure:has(.payment-information-products__image) {
 }
 
 @media screen and (min-width:500px) and (max-width:800px) {
-  /* .shopping-cart__item{
-    display: inline;
-  } */
 
-  figure:has(.shopping-cart__image) {
-    width: 50%;
-    height: auto;
-    margin: 0 auto;
-  
-  }
-  .shopping-cart__image{
-    width: 100px;
-  }
 
 
   /* --------------- thanh toán */
@@ -441,9 +396,6 @@ figure:has(.payment-information-products__image) {
     padding: 32px 32px;
   }
 
-  .payment-information__content{
-    display: block;
-  }
   .payment-information__products{
     width: 100%;
   }
@@ -461,3 +413,5 @@ figure:has(.payment-information-products__image) {
   .payment-information-products__image{
     width: 80px;
   }
+
+  

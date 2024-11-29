@@ -43,8 +43,8 @@ export function renderSaleProductList() {
                   product.price
                 )}<sub>đ</sub></del></b></br>
                 Giá mới: 
-                <b class="new">${formatVietNamMoney(
-                  product.price * (1 - product.percent)
+                <b class="new">${formatVietNamMoney(Math.round(product.price * (1 - product.percent) / 1000) * 1000
+                  
                 )}đ</b> 
               </p>
               <button

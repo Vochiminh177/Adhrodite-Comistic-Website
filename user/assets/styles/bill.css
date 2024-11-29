@@ -106,3 +106,36 @@
   text-align: justify;
   line-height: 1.28;
 }
+
+/* ================== */
+@media screen and (max-width:900px) {
+  .bill__info{
+    margin: 0;
+    width: 100%;
+  }
+}
+/* =================================mobile */
+
+
+@media screen and (max-width:700px) {
+  .bill__info{
+    margin: 0;
+    width: 100%;
+  }
+  .bill__slogan,
+  .bill__shop-info,
+  .bill__user-info,
+  .bill__column{
+    width: 100%;
+  }
+  .bill__row,
+  .bill__shop-info,
+  .bill__column:last-of-type {
+    text-align: center;
+  }
+  
+  .bill__row{
+    flex-direction: column;
+  }
+
+}
