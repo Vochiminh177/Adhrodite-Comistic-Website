@@ -1,4 +1,4 @@
-import { productItemArray, usersList } from "../../../database/database.js"
+import { productItemArray, userList } from "../../../database/database.js"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
 import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"

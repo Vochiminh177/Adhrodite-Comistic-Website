@@ -1,4 +1,4 @@
-import { usersList, productItemArray} from "../../database/database.js";
+import { userList, productItemArray} from "../../database/database.js";
 import { pagination, showListProduct, showListCustomer, showListOrder } from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
 import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
@@ -326,7 +326,7 @@ export function showMain(sectionId) {
 		`;
 		let userList = JSON.parse(localStorage.getItem("userList")) || [];
 		if(userList.length ==0){
-			userList = [...usersList];
+			userList = [...userList];
 		}
 		localStorage.setItem("userList", JSON.stringify(userList));
 		addCustomer();

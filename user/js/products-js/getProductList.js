@@ -1,4 +1,3 @@
-import { productItemArray } from "../../../database/database.js";
 import { getProductItemInfo } from "./getProductItem.js";
 import { updateLeftMenuStyle } from "./productsPageStyles.js";
 import { updateProductsPagination } from "./productsPagination.js";
@@ -159,8 +158,8 @@ function filterProducts() {
     maxPrice = parseInt(maxPrice.replace(/\./g, ""), 10);
   }
 
-  // let productList = JSON.parse(localStorage.getItem("productList"));
-  const filteredProducts = productItemArray.filter((product) => {
+  const productList = JSON.parse(localStorage.getItem("productList"));
+  const filteredProducts = productList.filter((product) => {
     if (productListKey !== "tat-ca" && productListKey !== product.categoryID) return false;
     if (product.price < minPrice || product.price > maxPrice) return false;
     if (

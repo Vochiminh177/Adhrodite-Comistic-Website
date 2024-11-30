@@ -4,7 +4,7 @@ import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import { generateFilter } from "../products-js/generateFilter.js";
-import { usersList } from "../../../database/database.js";
+import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
 
 
