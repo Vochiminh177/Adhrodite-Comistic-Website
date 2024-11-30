@@ -1285,4 +1285,9 @@ window.addEventListener("load", () => {
   if(tmpList === null || tmpList === undefined){
     localStorage.setItem("userList", JSON.stringify(userList));
   }
+
+  tmpList = JSON.parse(localStorage.getItem("productList"));
+  if(tmpList === null || tmpList === undefined){
+    localStorage.setItem("productList", JSON.stringify(productItemArray));
+  }
 });
