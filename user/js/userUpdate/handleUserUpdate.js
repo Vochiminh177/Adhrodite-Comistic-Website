@@ -1,4 +1,4 @@
-import { usersList } from "../../../database/database.js";
+import { userList } from "../../../database/database.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
 
 //hàm return về chuỗi placeholder ban đầu
@@ -64,7 +64,7 @@ export function errorInput(input, mess){
 export function handleSignIn() {
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
     if(userList.length == 0){
-        userList = [...usersList];
+        userList = [...userList];
         localStorage.setItem("userList", JSON.stringify(userList));
     }
   
@@ -124,7 +124,7 @@ export function handleSignIn() {
 export function handleSignUp(){
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
     if(userList.length == 0){
-        userList = [...usersList];
+        userList = [...userList];
         localStorage.setItem("userList", JSON.stringify(userList));
     }
 
