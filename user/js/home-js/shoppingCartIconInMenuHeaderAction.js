@@ -1,4 +1,4 @@
-import { usersList } from "../../../database/database.js";
+import { userList } from "../../../database/database.js";
 import { removeAllStyleTags } from "../common-js/common.js";
 import { getShoppingCartInfo } from "../home-js/getShoppingCart.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
