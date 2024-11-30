@@ -260,7 +260,106 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
 }
 
 // Hàm cho phép người dùng thay đổi phương thức thanh toán
-function updatePayFunction() {}
+function updatePayFunction(userList, indexCurrentUserLogin) {
+  const payFunctionForm = {
+    internet_banking: `
+      <figure><img src="./assets/images/internet-banking-qrcode.svg" alt="" class="payment-information-info__internet-banking-image"/></figure>
+      <div class="payment-information-info__internet-banking-details">
+        <p class="payment-information-info__internet-banking-detail"><b>Ngân hàng:</b> MB BANK</p>
+        <p class="payment-information-info__internet-banking-detail"><b>Tên tài khoản:</b> APHRODITE SHOP</p>
+        <p class="payment-information-info__internet-banking-detail"><b>Số tài khoản:</b> 0123456789</p>
+      </div>
+    `,
+    credit_card: `
+      <div class="payment-information-info__cards">
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="master-card" checked hidden>
+          <label for="master-card"> 
+            <i class="fa-brands fa-cc-mastercard"></i>
+          </label>
+        </div>
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="visa" hidden>
+          <label for="visa">
+            <i class="fa-brands fa-cc-visa"></i>
+          </label>
+        </div>
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="jcb" hidden>
+          <label for="jcb">
+            <i class="fa-brands fa-cc-jcb"></i>
+          </label>
+        </div>
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="discover" hidden>
+          <label for="discover">
+            <i class="fa-brands fa-cc-discover"></i>
+          </label>
+        </div>
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="paypal" hidden>
+          <label for="paypal">
+            <i class="fa-brands fa-cc-paypal"></i>
+          </label>
+        </div>
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="apple-pay" hidden>
+          <label for="apple-pay">
+          <i class="fa-brands fa-cc-apple-pay"></i>
+          </label>
+        </div>
+        <div class="payment-information-info__card">
+          <input type="radio" name="card" id="stripe" hidden>
+          <label for="stripe">
+            <i class="fa-brands fa-cc-stripe"></i>
+          </label>
+        </div>
+      </div>
+      <div class="payment-information-info__card-form-group">
+        <input type="text" name="card-id" id="card-id" placeholder="Nhập số thẻ">
+      </div>
+    `,
+  };
+
+  document
+    .querySelectorAll(
+      ".payment-information-info__block:nth-of-type(3) input[type='radio']"
+    )
+    .forEach((obj) => {
+      obj.addEventListener("click", function () {
+        const inputValue = obj.value;
+        if (inputValue === "cod") {
+          const payByInternetBankingDiv = document.querySelector(
+            ".payment-information-info__internet-banking-info"
+          );
+          const payByCreditCardDiv = document.querySelector(
+            ".payment-information-info__credit-card-info"
+          );
+          payByInternetBankingDiv.innerHTML = "";
+          payByCreditCardDiv.innerHTML = "";
+        } else if (inputValue === "internet-banking") {
+          const payByCreditCardDiv = document.querySelector(
+            ".payment-information-info__credit-card-info"
+          );
+          payByCreditCardDiv.innerHTML = "";
+          const payByInternetBankingDiv = document.querySelector(
+            ".payment-information-info__internet-banking-info"
+          );
+          payByInternetBankingDiv.innerHTML =
+            payFunctionForm["internet_banking"];
+        } else if (inputValue === "credit-card") {
+          const payByInternetBankingDiv = document.querySelector(
+            ".payment-information-info__internet-banking-info"
+          );
+          payByInternetBankingDiv.innerHTML = "";
+          const payByCreditCardDiv = document.querySelector(
+            ".payment-information-info__credit-card-info"
+          );
+          payByCreditCardDiv.innerHTML = payFunctionForm["credit_card"];
+        }
+      });
+    });
+}
 
 // Hàm cập nhật thông tin thanh toán từ Giỏ hàng
 function updatePaymentInformation(
@@ -269,128 +368,181 @@ function updatePaymentInformation(
   array_orderProduct
 ) {
   const paymentInformationForm = `
-      <div class="body__payment-information">
-        <div class="payment-information__header">
-            <h1 class="payment-information__icon">APHRODITE</h1>
-            <p class="payment-information__desc">
-            Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
-            </p>
+  <div class="body__payment-information">
+    <div class="payment-information__header">
+      <h1 class="payment-information__icon">APHRODITE</h1>
+      <p class="payment-information__desc">
+        Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
+      </p>
+    </div>
+    <div class="payment-information__content">
+      <div class="payment-information__info">
+        <h2 class="payment-information-info__title">
+          THÔNG TIN GIAO HÀNG
+        </h2>
+        <div class="payment-information-info__block">
+          <h3 class="payment-information-info__sub-title">
+            Thông tin khách hàng
+          </h3>
+          <form action="" class="payment-information-info__form">
+              <div class="payment-information-info__form-group">
+                  <input type="text" class="payment-information-info__name" placeholder="${
+                    userList[indexCurrentUserLogin].first_name &&
+                    userList[indexCurrentUserLogin].last_name
+                      ? userList[indexCurrentUserLogin].first_name +
+                        " " +
+                        userList[indexCurrentUserLogin].last_name
+                      : "Nhập họ và tên"
+                  }" readonly="">
+              </div>
+              <div class="payment-information-info__form-group">
+                  <input type="email" class="payment-information-info__email" placeholder="${
+                    userList[indexCurrentUserLogin].email
+                      ? userList[indexCurrentUserLogin].email
+                      : "Nhập email"
+                  }" readonly="">
+                  <input type="phone" class="payment-information-info__phone" placeholder="${
+                    userList[indexCurrentUserLogin].phone
+                      ? userList[indexCurrentUserLogin].phone
+                      : "Nhập số điện thoại"
+                  }" readonly="">
+              </div>
+              <div class="payment-information-info__form-group">
+                  <input type="text" class="payment-information-info__address" placeholder="${
+                    userList[indexCurrentUserLogin].address
+                      ? userList[indexCurrentUserLogin].address
+                      : "Nhập địa chỉ giao hàng"
+                  }" readonly="">
+              </div>
+            </form>
+          <div class="payment-information-info__change-address">
+            <a
+              href="#!"
+              class="payment-information-info__change-address-action"
+            >
+              Tuỳ chọn địa điểm giao hàng
+              <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div
+              class="payment-information-info__change-address-body"
+            ></div>
+          </div>
         </div>
-        <div class="payment-information__content">
-            <div class="payment-information__info">
-            <h2 class="payment-information-info__title">THÔNG TIN GIAO HÀNG</h2>
-            <div class="payment-information-info__block">
-                <h3 class="payment-information-info__sub-title">Thông tin khách hàng</h3>
-                <form action="" class="payment-information-info__form">
-                  <div class="payment-information-info__form-group">
-                      <input type="text" class="payment-information-info__name" placeholder="${
-                        userList[indexCurrentUserLogin].first_name && userList[indexCurrentUserLogin].last_name
-                          ? userList[indexCurrentUserLogin].first_name +
-                            " " +
-                            userList[indexCurrentUserLogin].last_name
-                          : "Nhập họ và tên"
-                      }" readonly="">
-                  </div>
-                  <div class="payment-information-info__form-group">
-                      <input type="email" class="payment-information-info__email" placeholder="${
-                        userList[indexCurrentUserLogin].email
-                          ? userList[indexCurrentUserLogin].email
-                          : "Nhập email"
-                      }" readonly="">
-                      <input type="phone" class="payment-information-info__phone" placeholder="${
-                        userList[indexCurrentUserLogin].phone
-                          ? userList[indexCurrentUserLogin].phone
-                          : "Nhập số điện thoại"
-                      }" readonly="">
-                  </div>
-                  <div class="payment-information-info__form-group">
-                      <input type="text" class="payment-information-info__address" placeholder="${
-                        userList[indexCurrentUserLogin].address
-                          ? userList[indexCurrentUserLogin].address
-                          : "Nhập địa chỉ giao hàng"
-                      }" readonly="">
-                  </div>
-                </form>
-                <div class="payment-information-info__change-address">
-                  <a href="#!" class="payment-information-info__change-address-action">
-                      Tuỳ chọn địa điểm giao hàng
-                      <i class="fa-solid fa-chevron-down"></i>
-                  </a>
-                  <div class="payment-information-info__change-address-body"></div>
-                </div>
+        <div class="payment-information-info__block">
+          <h3 class="payment-information-info__sub-title">
+            Phương thức vận chuyển
+          </h3>
+          <form action="" class="payment-information-info__form">
+            <div class="payment-information-info__form-group">
+              <input
+                type="radio"
+                name="ship"
+                value="ship"
+                id="ship"
+                checked
+                hidden
+              />
+              <label for="ship">
+                <i class="fa-solid fa-truck"></i>Giao hàng tận nơi
+                <span class="ship-price">18.000đ</span>
+              </label>
             </div>
-            <div class="payment-information-info__block">
-                <h3 class="payment-information-info__sub-title">Phương thức vận chuyển</h3>
-                <form action="" class="payment-information-info__form">
-                <div class="payment-information-info__form-group">
-                    <input type="radio" name="ship" value="ship" id="ship" checked="" hidden="">
-                    <label for="ship">
-                    <i class="fa-solid fa-truck"></i>Giao hàng tận nơi
-                    <span class="ship-price">18.000đ</span>
-                    </label>
-                </div>
-                </form>
+          </form>
+        </div>
+        <div class="payment-information-info__block">
+          <h3 class="payment-information-info__sub-title">
+            Phương thức thanh toán
+          </h3>
+          <form
+            action=""
+            class="payment-information-info__form purchase-method"
+          >
+            <div class="payment-information-info__form-group">
+              <input
+                type="radio"
+                name="pay"
+                value="cod"
+                id="cod"
+                checked
+                hidden
+              />
+              <label for="cod">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                Thanh toán khi giao hàng (COD)
+              </label>
             </div>
-            <div class="payment-information-info__block">
-                <h3 class="payment-information-info__sub-title">Phương thức thanh toán</h3>
-                <form action="" class="payment-information-info__form purchase-method">
-                <div class="payment-information-info__form-group">
-                    <input type="radio" name="pay" value="cod" id="cod" checked="" hidden="">
-                    <label for="cod">
-                    <i class="fa-solid fa-hand-holding-dollar"></i>
-                    Thanh toán khi giao hàng (COD)
-                    </label>
-                </div>
-                <div class="payment-information-info__form-group">
-                    <input type="radio" name="pay" value="internet-banking" id="internet-banking" hidden="">
-                    <label for="internet-banking">
-                    <i class="fa-solid fa-hand-holding-dollar"></i>
-                    Thanh toán qua chuyển khoản
-                    </label>
-                </div>
-                <div class="payment-information-info__form-group purchase-atm">
-                    <input type="radio" name="pay" value="credit-card" id="credit-card" hidden="">
-                    <label class="label-atm" for="credit-card">
-                    <i class="fa-solid fa-credit-card"></i>Thanh toán qua thẻ
-                    </label>
-                </div>
-                </form>
+            <div class="payment-information-info__form-group">
+              <input
+                type="radio"
+                name="pay"
+                value="internet-banking"
+                id="internet-banking"
+                hidden
+              />
+              <label for="internet-banking">
+                <i class="fa-solid fa-qrcode"></i>
+                Thanh toán qua chuyển khoản
+              </label>
+              <div
+                class="payment-information-info__internet-banking-info"
+              ></div>
             </div>
-            <div class="payment-information-info__row">
-                <button class="payment-information-info__comeback-button">Giỏ hàng</button>
-                <button class="payment-information-info__submit btn">
-                  Hoàn tất đơn hàng
-                </button>
+            <div
+              class="payment-information-info__form-group purchase-atm"
+            >
+              <input
+                type="radio"
+                name="pay"
+                value="credit-card"
+                id="credit-card"
+                hidden
+              />
+              <label class="label-atm" for="credit-card">
+                <i class="fa-solid fa-credit-card"></i>Thanh toán qua thẻ
+              </label>
+              <div
+                class="payment-information-info__credit-card-info"
+              ></div>
             </div>
-            </div>
-            <div class="payment-information__products">
-            <div class="payment-information-products__list">${createPaymentInformationItems(
-              array_orderProduct
-            )}</div>
-            <div class="payment-information-products__calculation">
-                <p class="payment-information-products__temp-price">
-                Tạm tính <span id="temp-price">${formatVietNamMoney(
-                  calTotalProductItemPriceInShoppingCart(
-                    userList,
-                    indexCurrentUserLogin
-                  )
-                )}đ</span>
-                </p>
-                <p class="payment-information-products__ship-price">
-                Phí vận chuyển <span id="ship-price">18.000đ</span>
-                </p>
-            </div>
-            <p class="payment-information-products__total-price">
-                Tổng cộng <span id="total-price">${formatVietNamMoney(
-                  calTotalProductItemPriceInShoppingCart(
-                    userList,
-                    indexCurrentUserLogin
-                  ) + 18000
-                )}<u>đ</u></span>
-            </p>
-            </div>
+          </form>
+        </div>
+        <div class="payment-information-info__row">
+          <button class="payment-information-info__comeback-button">
+            Giỏ hàng
+          </button>
+          <button class="payment-information-info__submit btn">
+            Hoàn tất đơn hàng
+          </button>
         </div>
       </div>
+      <div class="payment-information__products">
+        <div class="payment-information-products__list">${createPaymentInformationItems(
+          array_orderProduct
+        )}</div>
+        <div class="payment-information-products__calculation">
+          <p class="payment-information-products__temp-price">
+            Tạm tính <span id="temp-price">${formatVietNamMoney(
+              calTotalProductItemPriceInShoppingCart(
+                userList,
+                indexCurrentUserLogin
+              )
+            )}đ</span>
+          </p>
+          <p class="payment-information-products__ship-price">
+            Phí vận chuyển <span id="ship-price">18.000đ</span>
+          </p>
+        </div>
+        <p class="payment-information-products__total-price">
+            Tổng cộng <span id="total-price">${formatVietNamMoney(
+              calTotalProductItemPriceInShoppingCart(
+                userList,
+                indexCurrentUserLogin
+              ) + 18000
+            )}<u>đ</u></span>
+        </p>
+      </div>
+    </div>
+  </div>
   `;
 
   // Cập nhật thông tin thanh toán ở body (main-content)
@@ -401,75 +553,7 @@ function updatePaymentInformation(
   updateChangeAddress(userList, indexCurrentUserLogin);
 
   // Thiết lập sự kiện cho phép người dùng thay đổi phương thức thanh toán
-  updatePayFunction();
-
-  // Thiết lập sự kiện cho phép người dùng thay đổi phương thức thanh toán
-  // // gán sự kiện chọn thanh toán qua thẻ
-  // document.querySelector("#credit-card").onclick = () => {
-  //   let form_purchase_method = document.querySelector(".purchase-method");
-  //   let array_input_text =
-  //     form_purchase_method.querySelectorAll("input[type=text]");
-  //   if (array_input_text.length != 0) {
-  //     array_input_text.forEach((obj) => {
-  //       obj.remove();
-  //     });
-  //   }
-
-  //   let ele_1 = document.createElement("input");
-  //   ele_1.type = "text";
-  //   ele_1.style.borderBottom = "1px solid #000";
-  //   ele_1.style.width = "100%";
-  //   ele_1.style.padding = "10px";
-  //   ele_1.style.margin = "10px 0px";
-  //   ele_1.disabled = true;
-  //   ele_1.value = userList[indexCurrentUserLogin].ma_the;
-
-  //   let ele_2 = document.createElement("input");
-  //   ele_2.type = "text";
-  //   ele_2.style.borderBottom = "1px solid #000";
-  //   ele_2.style.width = "100%";
-  //   ele_2.style.padding = "10px";
-  //   ele_2.style.margin = "5px 0px";
-  //   ele_2.disabled = true;
-  //   ele_2.value = userList[indexCurrentUserLogin].code_the;
-
-  //   let ele_3 = document.createElement("input");
-  //   ele_3.type = "text";
-  //   ele_3.style.borderBottom = "1px solid #000";
-  //   ele_3.style.width = "100%";
-  //   ele_3.style.padding = "10px";
-  //   ele_3.style.margin = "5px 0px";
-  //   ele_3.disabled = true;
-  //   ele_3.value = userList[indexCurrentUserLogin].bank;
-
-  //   document.querySelector(".purchase-atm").appendChild(ele_1);
-  //   document.querySelector(".purchase-atm").appendChild(ele_2);
-  //   document.querySelector(".purchase-atm").appendChild(ele_3);
-  // };
-
-  // // gán sự kiện khi chọn chuyển khoản
-  // document.querySelector("#internet-banking").onclick = () => {
-  //   let form_purchase_method = document.querySelector(".purchase-method");
-  //   let array_input_text =
-  //     form_purchase_method.querySelectorAll("input[type=text]");
-  //   if (array_input_text.length != 0) {
-  //     array_input_text.forEach((obj) => {
-  //       obj.remove();
-  //     });
-  //   }
-  // };
-
-  // // gán sự kiện khi chọn tiền mặt
-  // document.querySelector("#cod").onclick = () => {
-  //   let form_purchase_method = document.querySelector(".purchase-method");
-  //   let array_input_text =
-  //     form_purchase_method.querySelectorAll("input[type=text]");
-  //   if (array_input_text.length != 0) {
-  //     array_input_text.forEach((obj) => {
-  //       obj.remove();
-  //     });
-  //   }
-  // };
+  updatePayFunction(userList, indexCurrentUserLogin);
 
   // Tạo sự kiện để người dùng có thể trở về trang Giỏ hàng
   clickToComebackShoppingCart(userList, indexCurrentUserLogin);
