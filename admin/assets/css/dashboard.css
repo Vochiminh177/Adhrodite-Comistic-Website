@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+:root {
+    --poppins: "Poppins", sans-serif;
+
+    --pink1: #a94064;
+    --pink2: #db7699;
+    --pink3: #fbf4f4;
+    --light: #fff;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.dashboard-filter {
+    display: flex;
+    gap: 20px;
+    padding: 10px 15px 10px 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-item {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.dateLabel {
+    font-family: var(--poppins);
+    font-size: 16px;
+    color: #333;
+    white-space: nowrap;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.custom-date-input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    width: 150px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.custom-date-input:focus {
+    border-color: #007bff;
+    /* Đổi màu viền khi focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    /* Thêm hiệu ứng shadow khi focus */
+}
+
+
+@media (max-width: 768px) {
+    .dashboard-filter {
+        flex-wrap: wrap;
+    }
+
+    .filter-item {
+        width: 100%;
+    }
+}
+
+
+.dashboard-highlight {
+    width: fit-content;
+    background: var(--pink3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dashboard-highlight .dashboard-highlight-box {
+    background: #fff;
+    width: 240px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.dashboard-highlight .dashboard-highlight-box i {
+    font-size: 25px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background: #4e24d7;
+    margin-right: 15px;
+}
+
+.dashboard-highlight .dashboard-highlight-box:nth-child(1) i {
+    background: #4916f1;
+
+}
+
+.dashboard-highlight .dashboard-highlight-box:nth-child(2) i {
+    background: #5e34c0;
+
+}
+
+.dashboard-highlight .dashboard-highlight-box:nth-child(3) i {
+    background: #bb1169;
+
+}
+
+.dashboard-highlight .dashboard-highlight-box:nth-child(4) i {
+    background: #3abfe3;
+
+}
+
+.dashboard-highlight .dashboard-highlight-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.dashboard-highlight .dashboard-highlight-box span {
+    font-size: 15px;
+    color: lightslategray;
+}

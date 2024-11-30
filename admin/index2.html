@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,15 @@
     <link rel="stylesheet" href="assets/css/addProductCustomer.css">
     <link rel="stylesheet" href="assets/css/list_Customer.css">
     <link rel="stylesheet" href="assets/css/list_Product.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+
 
     <!--ICON-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <title>Admin</title>
 </head>
+
 <body>
     <section id="side-bar">
         <a href="#" class="brand">
@@ -27,7 +31,7 @@
             <li class="active">
                 <!-- <a href="#" onclick="showMain('main-content-dashboard')"> -->
                 <a href="#" class="dashboard_sidebar">
-                    <i class='bx bxs-doughnut-chart' ></i>
+                    <i class='bx bxs-doughnut-chart'></i>
                     <span class="text">Thống kê</span>
                 </a>
             </li>
@@ -79,15 +83,63 @@
                 </div>
             </form>
             <a href="#" class="profile">
-                <img src="assets/images/z5880225504504_c041459811d8195bff1d325a9c868597.png" >
+                <img src="assets/images/z5880225504504_c041459811d8195bff1d325a9c868597.png">
             </a>
         </nav>
 
         <main id="main-content-dashboard">
-            <h1>Dashboard</h1>
+            <div class="title">
+                <div id="title-name">Thống kê</div>
+            </div>
+            <div class="content">
+
+                <div class="dashboard-filter">
+                    <div class="filter-item">
+                        <label class="dateLabel">Từ ngày</label>
+                        <input type="date" id="from-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">  Đến ngày</label>
+                        <input type="date" id="to-date" class="custom-date-input">
+                    </div>
+                </div>
+
+                <div class="dashboard-highlight">
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-dollar'></i>
+                        <div>
+                            <h3>1,172,300</h3>
+                            <span>Tổng doanh thu</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-cart'></i>
+                        <div>
+                            <h3>1,172,300</h3>
+                            <span>Tổng đơn hàng</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <div>
+                            <h3>1,172,300</h3>
+                            <span>Bán chạy</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-down-arrow-alt'></i>
+                        <div>
+                            <h3>1,172,300</h3>
+                            <span>Bán chậm</span>
+                        </div>
+                    </div>
+                </div>
+                <table>
+                </table>
+            </div>
         </main>
 
-		<main id="main-content-product-list" style="display: none;">
+        <main id="main-content-product-list" style="display: none;">
             <!-- Nội dung ở đây -->
             <!-- <div class="title">
                 <div id="title-name">Danh sách sản phẩm</div>
@@ -111,7 +163,7 @@
                     <div class="list-page"></div>
                 </div>
             </div> -->
-		</main>
+        </main>
 
         <main id="main-content-product-add" style="display: none;">
             <!-- <div class="title">
@@ -168,7 +220,7 @@
 
                     </table>
                 </div>
-                
+
             </div>
         </main>
 
@@ -206,4 +258,5 @@
 
 
 </body>
+
 </html>

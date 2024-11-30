@@ -145,3 +145,67 @@ export function showListCustomer(start, end, currentPage, userList){
     searchCustomer();
     blockCustomer();
 }
+
+export function showProductStatistics(start, end, productList) {
+    // Tính tổng số lượng và doanh thu
+    let totalQuantity = 0;
+    let totalRevenue = 0;
+    let bestSellingProduct = null;
+    let leastSellingProduct = null;
+
+    // Tạo bảng HTML
+    let tableContent = `
+    <thead>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Thương hiệu</th>
+            <th>Danh mục</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Doanh thu</th>
+            <th>Tùy chọn</th>
+        </tr>
+    </thead>
+    `;
+
+    let eleTbody = document.createElement("tbody");
+    productList.forEach((product, index) => {
+        if (index >= start && index < end) {
+            let revenue = product.price * product.quantity;
+            totalQuantity += product.quantity;
+            totalRevenue += revenue;
+
+            // Kiểm tra sản phẩm bán chạy và ế nhất
+            if (!bestSellingProduct || product.quantity > bestSellingProduct.quantity) {
+                bestSellingProduct = product;
+            }
+            if (!leastSellingProduct || product.quantity < leastSellingProduct.quantity) {
+                leastSellingProduct = product;
+            }
+
+            // Thêm dòng sản phẩm vào bảng
+            eleTbody.innerHTML += `
+                <tr>
+                    <td><img style="width: 70px; height: 90%;" src="${product.src}"></td>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.brand}</td>
+                    <td>${product.category}</td>
+                    <td>${product.price.toLocaleString()} đ</td>
+                    <td>${product.quantity}</td>
+                    <td>${revenue.toLocaleString()} đ</td>
+                </tr>
+            `;
+        }
+    });
+
+    tableContent += eleTbody.outerHTML;
+    document.querySelector(".content .content-product-list table").innerHTML = tableContent;
+
+    // Hiển thị thống kê
+    console.log(`Tổng số lượng bán ra: ${totalQuantity}`);
+    console.log(`Tổng doanh thu: ${totalRevenue.toLocaleString()} đ`);
+    console.log(`Sản phẩm bán chạy nhất: ${bestSellingProduct?.name} (${bestSellingProduct?.quantity} cái)`);
+    console.log(`Sản phẩm ế nhất: ${leastSellingProduct?.name} (${leastSellingProduct?.quantity} cái)`);
+}
