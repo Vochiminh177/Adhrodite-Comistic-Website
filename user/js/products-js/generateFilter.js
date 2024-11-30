@@ -131,8 +131,7 @@ function updateSlider(minSliderValue, maxSliderValue) {
     ((minSliderValue - minLimit) * 100) / (maxLimit - minLimit);
   const maxPercent =
     ((maxSliderValue - minLimit) * 100) / (maxLimit - minLimit);
-  minThumb.style.left = `${minPercent}%`;
-  maxThumb.style.left = `${maxPercent}%`;
+
   rangeBar.style.left = `${minPercent}%`;
   rangeBar.style.width = `${maxPercent - minPercent}%`;
 }
