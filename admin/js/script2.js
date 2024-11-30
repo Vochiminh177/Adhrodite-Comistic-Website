@@ -253,7 +253,7 @@ export function showMain(sectionId) {
 		</div>
 		<div class="list-page"></div>
 		`;
-		const orderList = JSON.parse(localStorage.getItem('orderList'));
+		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 		pagination(orderList, 1, showListOrder, "#main-content-order");
 	} else
 	if(sectionId === "main-content-product-add"){

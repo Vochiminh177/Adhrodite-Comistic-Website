@@ -3,7 +3,7 @@ import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from ".
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
 import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
 function createPage(list, currentPage, showList, main){
-    let itemPerPage = 3;
+    let itemPerPage = 7;
     let totalPage = Math.ceil(list.length / itemPerPage);
     // console.log(totalPage);
     let firstPage = currentPage - 2;
@@ -37,12 +37,14 @@ function createPage(list, currentPage, showList, main){
     //--gán sự kiện----
     document.querySelector(main).querySelector(".left-page").onclick = (e) => {
         e.preventDefault();
+        document.getElementById('main-content-product-list').scrollTo(0, 0);
         if(currentPage-1>0){
             createPage(list, currentPage-1, showList, main);
         }
     };
     document.querySelector(main).querySelector(".right-page").onclick = (e) => {
         e.preventDefault();
+        document.getElementById('main-content-product-list').scrollTo(0, 0);
         if(currentPage+1<=totalPage){
             createPage(list, currentPage+1, showList, main);
         }
@@ -50,6 +52,7 @@ function createPage(list, currentPage, showList, main){
     document.querySelector(main).querySelectorAll(".page-number").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
+            document.getElementById('main-content-product-list').scrollTo(0, 0);
             createPage(list, parseInt(obj.textContent), showList, main);
         }
     });

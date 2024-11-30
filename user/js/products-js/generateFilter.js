@@ -92,7 +92,7 @@ export function generateFilter() {
 
   // Cập nhật thanh kéo lần đầu tiên
   resetDoubleSlider();
-
+  // Sự kiện khi sử dụng chuột để nhấn, thả, kéo
   minThumb.addEventListener("mousedown", () => {
     document.onmousemove = (event) => {
       updateThumbPosition(event, "min");
@@ -114,8 +114,32 @@ export function generateFilter() {
       document.onmouseup = "";
     };
   });
+
+  // Sự kiện khi sử dụng màn hình cảm ứng
+  minThumb.addEventListener("touchstart", () => {
+    document.ontouchmove = (event) => {
+      updateThumbPosition_touchscreen(event, "min");
+    };
+
+    document.ontouchend = () => {
+      document.ontouchmove = "";
+      document.ontouchend = "";
+    };
+  });
+
+  maxThumb.addEventListener("touchstart", () => {
+    document.ontouchmove = (event) => {
+      updateThumbPosition_touchscreen(event, "max");
+    };
+
+    document.ontouchend = () => {
+      document.ontouchmove = "";
+      document.ontouchend = "";
+    };
+  });
 }
 
+// Reset lại double slider
 export function resetDoubleSlider() {
     currentMinSlider = minLimit;
     currentMaxSlider = maxLimit;
@@ -126,6 +150,7 @@ export function resetDoubleSlider() {
     maxPrice.value = formatVietNamMoney(maxLimit);
 }
 
+// Hàm cập nhật lại độ dài của thanh giá trị
 function updateSlider(minSliderValue, maxSliderValue) {
   const minPercent =
     ((minSliderValue - minLimit) * 100) / (maxLimit - minLimit);
@@ -136,9 +161,40 @@ function updateSlider(minSliderValue, maxSliderValue) {
   rangeBar.style.width = `${maxPercent - minPercent}%`;
 }
 
+// Hàm cập nhật vị trí của các thumb
 function updateThumbPosition(event, thumbType) {
   const rect = doubleSlider.getBoundingClientRect();
   const percent = ((event.clientX - rect.left) / rect.width) * 100;
+  const value = minLimit + Math.floor((percent * (maxLimit - minLimit)) / 100);
+  const displayValue = Math.floor(value / step) * step;
+  if (thumbType === "min") {
+    if (value >= minLimit && value + gap <= currentMaxSlider) {
+      currentMinSlider = value;
+      updateSlider(currentMinSlider, currentMaxSlider);
+    }
+
+    if (displayValue >= minLimit && displayValue + gap <= currentMax) {
+      currentMin = displayValue;
+      minPrice.value = formatVietNamMoney(currentMin);
+    }
+  } else if (thumbType === "max") {
+    if (value <= maxLimit && value - gap >= currentMinSlider) {
+      currentMaxSlider = value;
+      updateSlider(currentMinSlider, currentMaxSlider);
+    }
+
+    if (displayValue <= maxLimit && displayValue - gap >= currentMin) {
+      currentMax = displayValue;
+      maxPrice.value = formatVietNamMoney(currentMax);
+    }
+  }
+}
+
+// Hàm dành cho màn hình cảm ứng
+function updateThumbPosition_touchscreen(event, thumbType) {
+  const rect = doubleSlider.getBoundingClientRect();
+  const clientX = event.targetTouches[0].clientX;
+  const percent = ((clientX - rect.left) / rect.width) * 100;
   const value = minLimit + Math.floor((percent * (maxLimit - minLimit)) / 100);
   const displayValue = Math.floor(value / step) * step;
   if (thumbType === "min") {
