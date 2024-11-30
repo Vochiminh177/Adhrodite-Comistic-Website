@@ -159,6 +159,7 @@ function filterProducts() {
     maxPrice = parseInt(maxPrice.replace(/\./g, ""), 10);
   }
 
+  // let productList = JSON.parse(localStorage.getItem("productList"));
   const filteredProducts = productItemArray.filter((product) => {
     if (productListKey !== "tat-ca" && productListKey !== product.categoryID) return false;
     if (product.price < minPrice || product.price > maxPrice) return false;

@@ -116,9 +116,13 @@ function clickToComebackProductList() {
 
 // Thông tin của một sản phẩm cụ thể
 export function updateProductItem(productItemKey) {
+  let productList = JSON.parse(localStorage.getItem("productList"));
   // Vị trí của sản phẩm trong mảng là stt (number) - 1
   productItemKey = productItemKey - 1;
-  if (productItemArray[productItemKey]) {
+  let newPrice = productList[productItemKey].price - (productList[productItemKey].price * productList[productItemKey].discountPercent / 100);
+  console.log(productList[productItemKey])
+  console.log(newPrice);
+  if (productList[productItemKey]) {
     // Đưa về đầu trang
     window.scrollTo(0, 0);
 
@@ -133,27 +137,27 @@ export function updateProductItem(productItemKey) {
           <div class="main-order__body">
             <div class="main-order__media">
               <img
-                src=${productItemArray[productItemKey].src}
+                src=${productList[productItemKey].src}
                 alt=""
                 class="main-order__image"
               />
             </div>
             <div class="main-order__content">
               <h2 class="main-order__product-title">
-              ${productItemArray[productItemKey].name}
+              ${productList[productItemKey].name}
               </h2>
               <div class="main-order__details">
                 <p class="main-order__detail">
-                  Mã sản phẩm: <b>${productItemArray[productItemKey].id}</b>
+                  Mã sản phẩm: <b>${productList[productItemKey].id}</b>
                 </p>
                 <p class="main-order__detail">
-                  Hãng: <b>${productItemArray[productItemKey].brand}</b>
+                  Hãng: <b>${productList[productItemKey].brand}</b>
                 </p>
                 <p class="main-order__detail">
-                  Danh mục: <b>${productItemArray[productItemKey].category}</b>
+                  Danh mục: <b>${productList[productItemKey].category}</b>
                 </p>
                 <p class="main-order__detail">Giá: <b>${formatVietNamMoney(
-                  productItemArray[productItemKey].price
+                  newPrice
                 )}đ</b></p>
                 <div class="main-order__row">
                   <p class="main-order__detail">Số lượng: </p>
@@ -176,7 +180,7 @@ export function updateProductItem(productItemKey) {
           <div class="main-info__content">
             <h2 class="info-content__title heading">THÔNG TIN CHI TIẾT</h2>
             <p class="info-content__desc">
-            ${productItemArray[productItemKey].desc}
+            ${productList[productItemKey].desc}
             </p>
           </div>
           <div class="main-info__rate">
@@ -243,13 +247,13 @@ export function updateProductItem(productItemKey) {
 export function getProductItemInfo() {
   let array = document.querySelectorAll(".main-products__item");
   array.forEach((obj) => {
-    obj.addEventListener("click", function (event) {
+    obj.onclick = (event) => {
       const productItemKey = parseInt(
         event.currentTarget.getAttribute("data-product")
       );
       if (productItemKey >= 0) {
         updateProductItem(productItemKey);
       }
-    });
+    };
   });
 }

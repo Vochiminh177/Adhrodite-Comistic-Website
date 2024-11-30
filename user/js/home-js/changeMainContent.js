@@ -656,7 +656,7 @@ export function updateMainContent(mainContentKey) {
       getProductListInfo();
 
       changeLeftMenu(".left-menu__title", ".left-menu__list");
-      changeLeftMenu(".left-search__title",".left-search__form-group" );
+      changeLeftMenu(".left-search__title",".left-search__form-group");
       
       // Tự động nhấn mục "Tất cả"
       document.getElementById("tat-ca-left-menu").click();
