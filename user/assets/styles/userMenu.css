@@ -73,7 +73,7 @@
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 27px;
-  left: 50%;
+  right: -120px;
   transform: translateX(-50%);
   z-index: 2;
   background-color: #fff;
@@ -183,7 +183,7 @@
 /* ---------------------------------------- */
 
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:800px) {
 
   .form-change-password,
   .header__user-block{

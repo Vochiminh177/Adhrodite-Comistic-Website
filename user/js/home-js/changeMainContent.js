@@ -173,6 +173,7 @@ export const mainContentMap = {
                 </a>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
+                  <button class="left-search-filter-close-btn">ĐÓNG</button>
                   <form name="left-search-filter__form" autocomple="off" class="left-search-filter__form">
                     <div class="left-search-filter__form-group">
                       <h4 class="left-search-filter__sub-title">Hãng</h4>
@@ -329,140 +330,145 @@ export const mainContentMap = {
                         </div>
                       </div>
                     </div>
-                    <div class="left-search-filter__row">
-                      <div class="left-search-filter__form-group">
-                        <h4 class="left-search-filter__sub-title">Sắp xếp</h4>
-                        <div class="left-search-filter__list">
-                          <div class="left-search-filter__item">
-                            <input
-                              name="sort"
-                              type="radio"
-                              id="sort-1"
-                              value="price-desc"
-                              hidden
-                            />
-                            <label for="sort-1"
-                              >Sắp xếp theo giá giảm dần</label
-                            >
+                    <div class="left-search-filter__columns">
+                      <div class="left-search-filter__column">
+                        <div class="left-search-filter__form-group">
+                          <h4 class="left-search-filter__sub-title">Sắp xếp</h4>
+                          <div class="left-search-filter__list">
+                            <div class="left-search-filter__item">
+                              <input
+                                name="sort"
+                                type="radio"
+                                id="sort-1"
+                                value="price-desc"
+                                hidden
+                              />
+                              <label for="sort-1"
+                                >Sắp xếp theo giá giảm dần</label
+                              >
+                            </div>
+                            <div class="left-search-filter__item">
+                              <input
+                                name="sort"
+                                type="radio"
+                                id="sort-2"
+                                value="price-asc"
+                                hidden
+                              />
+                              <label for="sort-2"
+                                >Sắp xếp theo giá tăng dần</label
+                              >
+                            </div>
                           </div>
-                          <div class="left-search-filter__item">
-                            <input
-                              name="sort"
-                              type="radio"
-                              id="sort-2"
-                              value="price-asc"
-                              hidden
-                            />
-                            <label for="sort-2"
-                              >Sắp xếp theo giá tăng dần</label
-                            >
+                        </div>
+                        <div class="left-search-filter__form-group">
+                          <h4 class="left-search-filter__sub-title">
+                            Trạng thái
+                          </h4>
+                          <div class="left-search-filter__list">
+                            <div class="left-search-filter__item">
+                              <input
+                                name="state"
+                                type="radio"
+                                id="state-1"
+                                value="state-1"
+                                hidden
+                              />
+                              <label for="state-1">Còn hàng</label>
+                            </div>
+                            <div class="left-search-filter__item">
+                              <input
+                                name="state"
+                                type="radio"
+                                id="state-2"
+                                value="state-2"
+                                hidden
+                              />
+                              <label for="state-2">Hết hàng</label>
+                            </div>
+                            <div class="left-search-filter__item">
+                              <input
+                                name="state"
+                                type="radio"
+                                id="state-3"
+                                value="state-3"
+                                hidden
+                              />
+                              <label for="state-3">Đang giảm giá</label>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="left-search-filter__form-group">
-                        <h4 class="left-search-filter__sub-title">Giá cả</h4>
-                        <div class="left-search-filter__list">
-                          <div class="left-search-filter__item">
-                            <input
-                              name="price"
-                              type="radio"
-                              id="price-1"
-                              value="0-199999"
-                              hidden
-                            />
-                            <label for="price-1">Giá dưới 200.000đ</label>
-                          </div>
-                          <div class="left-search-filter__item">
-                            <input
-                              name="price"
-                              type="radio"
-                              id="price-2"
-                              value="200000-400000"
-                              hidden
-                            />
-                            <label for="price-2"
-                              >Giá từ 200.000đ đến 400.000đ</label
-                            >
-                          </div>
-                          <div class="left-search-filter__item">
-                            <input
-                              name="price"
-                              type="radio"
-                              id="price-3"
-                              value="400001-INF"
-                              hidden
-                            />
-                            <label for="price-3">Giá trên 400.000đ</label>
-                          </div>
-                          <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">Hoặc chọn mức giá tuỳ ý</button>
-                          <div class="left-search-filter__item">
-                            <div class="left-search-filter__double-slider" id="double-slider">
-                              <div class="grey-bar"></div>
-                              <div class="range-bar" id="range-bar"></div>
-                              <div class="thumb" id="min-thumb"></div>
-                              <div class="thumb" id="max-thumb"></div>
-                              <div class="price-container" id="price-container">
-                                <input name="minPrice" class="min-price" id="min-price">
-                                <span>-</span>
-                                <input name="maxPrice" class="max-price" id="max-price">
+
+                      <div class="left-search-filter__column">
+                        <div class="left-search-filter__form-group">
+                          <h4 class="left-search-filter__sub-title">Giá cả</h4>
+                          <div class="left-search-filter__list">
+                            <div class="left-search-filter__item">
+                              <input
+                                name="price"
+                                type="radio"
+                                id="price-1"
+                                value="0-199999"
+                                hidden
+                              />
+                              <label for="price-1">Giá dưới 200.000đ</label>
+                            </div>
+                            <div class="left-search-filter__item">
+                              <input
+                                name="price"
+                                type="radio"
+                                id="price-2"
+                                value="200000-400000"
+                                hidden
+                              />
+                              <label for="price-2"
+                                >Giá từ 200.000đ đến 400.000đ</label
+                              >
+                            </div>
+                            <div class="left-search-filter__item">
+                              <input
+                                name="price"
+                                type="radio"
+                                id="price-3"
+                                value="400001-INF"
+                                hidden
+                              />
+                              <label for="price-3">Giá trên 400.000đ</label>
+                            </div>
+                            <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">Hoặc chọn mức giá tuỳ ý</button>
+                            <div class="left-search-filter__item">
+                              <div class="left-search-filter__double-slider" id="double-slider">
+                                <div class="grey-bar"></div>
+                                <div class="range-bar" id="range-bar">
+                                  <div class="thumb" id="min-thumb"></div>
+                                  <div class="thumb" id="max-thumb"></div>
+                                </div>
+                                <div class="price-container" id="price-container">
+                                  <input name="minPrice" class="min-price" id="min-price">
+                                  <span>-</span>
+                                  <input name="maxPrice" class="max-price" id="max-price">
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="left-search-filter__row">
-                      <div class="left-search-filter__form-group">
-                        <h4 class="left-search-filter__sub-title">
-                          Trạng thái
-                        </h4>
-                        <div class="left-search-filter__list">
-                          <div class="left-search-filter__item">
-                            <input
-                              name="state"
-                              type="radio"
-                              id="state-1"
-                              value="state-1"
-                              hidden
-                            />
-                            <label for="state-1">Còn hàng</label>
-                          </div>
-                          <div class="left-search-filter__item">
-                            <input
-                              name="state"
-                              type="radio"
-                              id="state-2"
-                              value="state-2"
-                              hidden
-                            />
-                            <label for="state-2">Hết hàng</label>
-                          </div>
-                          <div class="left-search-filter__item">
-                            <input
-                              name="state"
-                              type="radio"
-                              id="state-3"
-                              value="state-3"
-                              hidden
-                            />
-                            <label for="state-3">Đang giảm giá</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="left-search-filter__form-group buttons">
-                        <input
-                          type="submit"
-                          class="left-search-filter__button"
-                          value="Áp dụng"
-                          id="left-search-filter__apply"
-                        />
-                        <input
-                          type="reset"
-                          class="left-search-filter__button"
-                          value="Đặt lại"
-                          id="left-search-filter__reset"
-                        />
-                      </div>
+                    
+                    <div class="left-search-filter__form-group buttons">
+                      <input
+                        type="submit"
+                        class="left-search-filter__button"
+                        value="Áp dụng"
+                        id="left-search-filter__apply"
+                      />
+                      <input
+                        type="reset"
+                        class="left-search-filter__button"
+                        value="Đặt lại"
+                        id="left-search-filter__reset"
+                      />
                     </div>
                   </form>
                 </div>
@@ -616,8 +622,8 @@ export const mainContentMap = {
           </div>
         </form>
        </div>
-      </div>
     </div>
+  </div>
   `,
 };
 

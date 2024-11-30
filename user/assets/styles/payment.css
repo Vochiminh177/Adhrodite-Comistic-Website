@@ -161,7 +161,7 @@
 .payment-information-info__change-address-body .form-group + .form-group {
   margin-top: 6px;
 }
-.payment-information-info__form-group [type="radio"] + label {
+.payment-information-info__form-group > [type="radio"] + label {
   position: relative;
   display: flex;
   align-items: center;
@@ -170,7 +170,7 @@
   border-radius: 6px;
   color: #737373;
 }
-.payment-information-info__form-group [type="radio"] + label i {
+.payment-information-info__form-group > [type="radio"] + label i {
   display: inline-block;
   width: 36px;
   height: 36px;
@@ -181,7 +181,7 @@
   line-height: 36px;
   text-align: center;
 }
-.payment-information-info__form-group [type="radio"] + label::before {
+.payment-information-info__form-group > [type="radio"] + label::before {
   content: "";
   display: inline-block;
   width: 20px;
@@ -190,7 +190,7 @@
   border-radius: 50%;
   transition: border-color 0.3s, background-color 0.3s;
 }
-.payment-information-info__form-group [type="radio"] + label::after {
+.payment-information-info__form-group > [type="radio"] + label::after {
   content: "";
   position: absolute;
   top: 27px;
@@ -201,9 +201,54 @@
   background: #fff;
   border-radius: 50%;
 }
-.payment-information-info__form-group [type="radio"]:checked + label::before {
+.payment-information-info__form-group > [type="radio"]:checked + label::before {
   border-color: #fc8eac;
   background: #fc8eac;
+}
+figure:has(.payment-information-info__internet-banking-image) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.payment-information-info__internet-banking-image {
+  max-width: 200px;
+  max-height: 200px;
+}
+.payment-information-info__internet-banking-details {
+  margin-bottom: 12px;
+}
+.payment-information-info__internet-banking-detail b {
+  font-weight: 600;
+}
+.payment-information-info__internet-banking-detail
+  + .payment-information-info__internet-banking-detail {
+  margin-top: 6px;
+}
+.payment-information-info__cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.payment-information-info__card > [type="radio"] + label {
+  transition: color 0.2s;
+}
+.payment-information-info__card > [type="radio"] + label i {
+  font-size: 5rem;
+}
+.payment-information-info__card > [type="radio"]:checked + label {
+  color: #fc8eac;
+}
+.payment-information-info__card-form-group {
+  margin-top: 6px;
+}
+.payment-information-info__card-form-group > input {
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+}
+.payment-information-info__card-form-group > input:not(:placeholder-shown) {
+  border-color: #fc8eac;
 }
 .payment-information-info__row {
   display: flex;
@@ -237,6 +282,7 @@
   position: sticky;
   top: 32px;
   left: 0;
+  z-index: 2;
   width: 40%;
 }
 .payment-information-products__item,
@@ -349,115 +395,52 @@ figure:has(.payment-information-products__image) {
 
 /* <=*/
 
+/* ==================== chung mobile  tablet */
+@media screen and (max-width: 800px) {
+  .payment-information__content {
+    flex-direction: column-reverse;
+  }
+}
+
 /* =================== mobile */
 
-@media screen and (max-width:500px) {
-
-  .shopping-cart__item{
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    gap: 10px;
-  }
-  
-  .shopping-cart__content{
-    padding: 14px;
-  }
-  
-  figure:has(.shopping-cart__image) {
-    width: 25%;
-    height: 150px;  
-  }
-  .shopping-cart__image{
-    width: 100%;
-  }
-  .shopping-cart__column{
-    width: 70%;
-    box-sizing: border-box;
-    word-wrap: break-word;
-  }
-  .shopping-cart__name{
-    width: 100%;
-  }
-  .shopping-cart__quantity{
-    margin: 0;
-  }
-
-  .shopping-cart__product-total-price{
-    margin: 0;
-    text-align: center;
-    font-size: 2.2rem;
-  }
-  .shopping-cart__trash{
-    margin: 0;
-  }
-  
-  
-
+@media screen and (max-width: 500px) {
   /* --------------- thanh toán */
 
-  .body__payment-information{
+  .body__payment-information {
     padding: 32px 0;
   }
 
-  .payment-information__content{
-    display: block;
-  }
-  .payment-information__products{
+  .payment-information__products {
     width: 100%;
   }
- 
 
-  .payment-information-products__image{
+  .payment-information-products__image {
     width: 80px;
   }
-  .payment-information__info{
+  .payment-information__info {
     margin-top: 20px;
     width: 100%;
   }
-
-
 }
 
-@media screen and (min-width:500px) and (max-width:800px) {
-  /* .shopping-cart__item{
-    display: inline;
-  } */
-
-  figure:has(.shopping-cart__image) {
-    width: 50%;
-    height: auto;
-    margin: 0 auto;
-  
-  }
-  .shopping-cart__image{
-    width: 100px;
-  }
-
-
+@media screen and (min-width: 500px) and (max-width: 800px) {
   /* --------------- thanh toán */
 
-  .body__payment-information{
+  .body__payment-information {
     padding: 32px 32px;
   }
 
-  .payment-information__content{
-    display: block;
-  }
-  .payment-information__products{
+  .payment-information__products {
     width: 100%;
   }
- 
-  .payment-information__info{
+
+  .payment-information__info {
     margin-top: 20px;
     width: 100%;
   }
-  
-  
-  
 }
 
-
-  .payment-information-products__image{
-    width: 80px;
-  }
+.payment-information-products__image {
+  width: 80px;
+}
