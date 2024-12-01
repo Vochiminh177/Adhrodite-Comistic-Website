@@ -1,5 +1,6 @@
+import { productItemArray } from "../../../database/database.js";
 import { formatVietNamMoney } from "../common-js/common.js";
-import { salePopularProductArray } from "../common-js/database.js";
+import { salePopularProductArray as productList } from "../common-js/database.js";
 import { clickToProductItem } from "./homePageEvents.js";
 import { updateSaleProductPagination } from "./saleProductPagination.js";
 
@@ -16,46 +17,49 @@ export function renderSaleProductList() {
   // }
 
   let productsHTML = "";
+  let productList = JSON.parse(localStorage.getItem("productList")) || [];
+  
+  productList.forEach((product) => {
+    if(product.discountQuantity > 0){
+      let newPrice = Math.round(product.price - (product.price * product.discountPercent / 100));
 
-  salePopularProductArray.forEach((product) => {
-    let starsHTML = "";
-    for (let i = 0; i < 5; i++) {
-      starsHTML += `<i class="fa-solid fa-star ${
-        i < product.starNum ? "yellow" : ""
-      }"></i>`;
-    }
+      let starsHTML = "";
+      for (let i = 0; i < 5; i++) {
+        starsHTML += `<i class="fa-solid fa-star ${
+          i < product.starNum ? "yellow" : ""
+        }"></i>`;
+      }
 
-    productsHTML += `
-          <div class="sale-product__item" data-popular-product="${
-            product.categoryID
-          }">
-            <figure class="sale-product__media">
-              <div class="sale-product__item-percent"> -${
-                product.percent * 100
-              }%</div> 
-              <img src="${product.src}" alt="" class="sale-product__image" />
-            </figure>
-            <div class="sale-product__info">
-              <h3 class="sale-product__name line-clamp">${product.name}</h3>
-              <p class="sale-product__price">
-                Giá cũ:
-                <b class="old"><del>${formatVietNamMoney(
-                  product.price
-                )}<sub>đ</sub></del></b></br>
-                Giá mới: 
-                <b class="new">${formatVietNamMoney(Math.round(product.price * (1 - product.percent) / 1000) * 1000
-                  
-                )}đ</b> 
-              </p>
-              <button
-                href="javascript:void(0)"
-                class="sale-product__add-to-shopping-cart button-word"
-                data-id="${product.id}"
-              >
-                Thêm&nbsp;giỏ&nbsp;hàng
-              </button>
-            </div>
-          </div>`;
+      productsHTML += `
+            <div class="sale-product__item" data-popular-product="${
+              product.categoryID
+            }">
+              <figure class="sale-product__media">
+                <div class="sale-product__item-percent"> -${
+                  product.discountPercent
+                }%</div> 
+                <img src="${product.src}" alt="" class="sale-product__image" />
+              </figure>
+              <div class="sale-product__info">
+                <h3 class="sale-product__name line-clamp">${product.name}</h3>
+                <p class="sale-product__price">
+                  Giá cũ:
+                  <b class="old"><del>${formatVietNamMoney(
+                    product.price
+                  )}<sub>đ</sub></del></b></br>
+                  Giá mới: 
+                  <b class="new">${formatVietNamMoney(newPrice)}đ</b> 
+                </p>
+                <button
+                  href="javascript:void(0)"
+                  class="sale-product__add-to-shopping-cart button-word"
+                  data-id="${product.id}"
+                >
+                  Thêm&nbsp;giỏ&nbsp;hàng
+                </button>
+              </div>
+            </div>`;
+      }
   });
 
   productContainer.innerHTML = productsHTML;
@@ -103,7 +107,7 @@ export function renderSaleProductList() {
           shoppingCart[indexProductItem].quantity += 1;
         } else {
           // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
-          const productToAdd = salePopularProductArray.find(
+          const productToAdd = productList.find(
             (product) => product.id === id
           );
           if (productToAdd) {

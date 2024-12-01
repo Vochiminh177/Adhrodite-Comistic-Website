@@ -42,7 +42,7 @@ export function showShoppingCartFormInMenuHeader() {
       //trạng thái có đăng nhập 
       if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
         indexCurrentUserLogin = -1;
-        localStorage.setItem("indexCurrentUserLogin", JSON.stringify(b));
+        localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
       }
 
       if(indexCurrentUserLogin > -1){
