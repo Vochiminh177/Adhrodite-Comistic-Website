@@ -79,7 +79,7 @@ function addProductItemToShoppingCart(productItemKey) {
           // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
           userList[indexCurrentUserLogin].shoppingCart[
             indexProductItem
-          ].quantity += 1;
+          ].quantity += parseInt(document.querySelector(".main-order__number").value, 10);
         } else {
           // Nếu sản phẩm chưa có, thêm vào giỏ hàng với số lượng là 1
           userList[indexCurrentUserLogin].shoppingCart.push({
