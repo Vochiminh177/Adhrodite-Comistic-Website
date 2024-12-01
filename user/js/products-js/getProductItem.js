@@ -87,8 +87,10 @@ function addProductItemToShoppingCart(productItemKey) {
             src: productList[productItemKey].src,
             name: productList[productItemKey].name,
             price: productList[productItemKey].price,
-            quantity: productItemQuantity,
+            quantity: parseInt(productItemQuantity),
             category: productList[productItemKey].category,
+            discountQuantity: productList[productItemKey].discountQuantity,
+            discountPercent: productList[productItemKey].discountPercent
           });
         }
 

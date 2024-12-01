@@ -9,42 +9,6 @@ import {
 } from "../common-js/common.js";
 import { updateMainContent } from "./changeMainContent.js";
 
-// // Hàm cập nhật thông tin hoá đơn
-// function updateBill() {
-
-// }
-
-// export function getBillInfo(array_orderProduct, currentPage) {
-//   document
-//     .querySelector(".payment-information-info__submit")
-//     .addEventListener("click", function () {
-//       // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
-//       let productList = JSON.parse(localStorage.getItem('productList')) || [];
-//       if (productList.length == 0) {
-//         productList = [...productItemArray];
-//         localStorage.setItem("productList", JSON.stringify(productList));
-//       }
-
-//       //lấy danh sách user từ local để lấy vị trí người đang đăng nhập
-//       let userList = JSON.parse(localStorage.getItem("userList"));
-//       let index_user_status_login;
-//       userList.forEach((obj, index) => {
-//         if(obj.statusLogin){
-//           index_user_status_login = index;
-//         }
-//       });
-
-//       //hàm kiểm tra thông tin thanh toán
-//       if(handle_order_information(userList, index_user_status_login)){
-//         //hàm xử lí đơn người dùng đặt hàng
-//         handle_order_product(userList, index_user_status_login, productList, array_orderProduct);
-
-//         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
-//         updateBill();
-//       }
-//     });
-// }
-
 // hàm kiểm tra sản phẩm nào không đặt được, tô đỏ sản phẩm đó
 function error_orderProduct(id_product) {
   let array_products__item = document.querySelectorAll(
@@ -94,12 +58,10 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   }
 
   if (document.querySelector("#credit-card").checked) {
-    create_notification_user("Chưa xây dựng dữ liệu");
-    return false;
-  }
-  if (document.querySelector("#internet-banking").checked) {
-    create_notification_user("Chưa xây dựng dữ liệu");
-    return false;
+    if(document.querySelector("#card-id").value === ""){
+      create_notification_user("Bạn cần nhập số thẻ");
+      return false;
+    }
   }
 
   return true;
@@ -140,9 +102,24 @@ function handle_order_product(
     return false;
   }
 
-  //nếu người dùng đặt hàng thành công
+  //cập nhật lại discountQuantity của sản pảm của shop
+  array_orderProduct.forEach((obj) => {
+    let index = productList.findIndex((obj_product_in_shop) => {
+      return obj.id === obj_product_in_shop.id;
+    });
 
+    if(obj.quantity >= obj.discountQuantity){
+      productList[index].discountQuantity = 0;
+    }
+    else{
+      productList[index].discountQuantity -= obj.quantity;
+    }
+  });
+
+  //nếu người dùng đặt hàng thành công
   create_notification_user("Đặt hàng thành công!");
+  //cập nhật discountQuantity cho sản phẩm
+
   //tạo dữ liệu để push vào mảng đơn hàng chờ xử lí
 
   //tạo thời gian đặt hàng
@@ -170,6 +147,20 @@ function handle_order_product(
     if (obj.querySelector("input[type=radio]")) {
       if (obj.querySelector("input[type=radio]").checked) {
         purchase_method = obj.querySelector("label").textContent.trim();
+        if(purchase_method === "Thanh toán qua thẻ"){
+          let type;
+          document.querySelectorAll(".payment-information-info__cards .payment-information-info__card input").forEach((obj) => {
+            if(obj.checked){
+              console.log(obj);
+              type = obj.id;
+            }
+          })
+          purchase_method = {
+            name: "Thanh toán qua thẻ",
+            type: type,
+            code: document.querySelector("#card-id").value
+          }
+        }
       }
     }
   });
@@ -197,12 +188,6 @@ function handle_order_product(
   };
 
   orderList.push(data);
-
-  // xóa dữ liệu trong giỏ hàng, cần settimeout đẻ đồng bộ nếu không thì nó xóa trước khi gán ở dòng 204, Hiệu cũng không hiểu
-  // setTimeout(() => {
-  //   userList[indexCurrentUserLogin].shoppingCart = [];
-  //   localStorage.setItem("userList", JSON.stringify(userList));
-  // }, 500);
   userList[indexCurrentUserLogin].shoppingCart = [];
   localStorage.setItem("userList", JSON.stringify(userList));
 
@@ -344,16 +329,9 @@ export function getBillInfo(array_orderProduct) {
   document
     .querySelector(".payment-information-info__submit")
     .addEventListener("click", function () {
-      // lấy danh sách user từ local để lấy vị trí người đang đăng nhập
       let userList = JSON.parse(localStorage.getItem("userList"));
       let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
-
-      // lấy danh sách sản phẩm từ phía admin để đồng bộ, xử lí dữ liệu
-      let productList = JSON.parse(localStorage.getItem("productList")) || [];
-      if (productList.length == 0) {
-        productList = [...productItemArray];
-        localStorage.setItem("productList", JSON.stringify(productList));
-      }
+      let productList = JSON.parse(localStorage.getItem("productList"));
 
       // hàm kiểm tra thông tin thanh toán
       if (handle_order_information(userList, indexCurrentUserLogin)) {

@@ -17,11 +17,7 @@ export function renderSaleProductList() {
   // }
 
   let productsHTML = "";
-  let productList = JSON.parse(localStorage.getItem("product")) || [];
-  if(productList.length == 0){
-    productList = [...productItemArray];
-    localStorage.setItem("productList", JSON.stringify(productList));
-  }
+  let productList = JSON.parse(localStorage.getItem("productList")) || [];
   
   productList.forEach((product) => {
     if(product.discountQuantity > 0){
