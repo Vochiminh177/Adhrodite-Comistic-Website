@@ -121,9 +121,10 @@ export function updateProductItem(productItemKey) {
   let productList = JSON.parse(localStorage.getItem("productList"));
   // Vị trí của sản phẩm trong mảng là stt (number) - 1
   productItemKey = productItemKey - 1;
-  let newPrice = productList[productItemKey].price - (productList[productItemKey].price * productList[productItemKey].discountPercent / 100);
-  console.log(productList[productItemKey])
-  console.log(newPrice);
+  let newPrice = productList[productItemKey].price;
+  if(productList[productItemKey].discountQuantity > 0){
+    newPrice = productList[productItemKey].price - (productList[productItemKey].price * productList[productItemKey].discountPercent / 100);
+  } 
   if (productList[productItemKey]) {
     // Đưa về đầu trang
     window.scrollTo(0, 0);

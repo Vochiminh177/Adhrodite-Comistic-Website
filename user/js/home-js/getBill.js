@@ -229,7 +229,11 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
     }
     return items;
   }
-
+  let orderList = JSON.parse(localStorage.getItem("orderList"));
+  let totalPrice = 0;
+  array_orderProduct.forEach((obj) => {
+    totalPrice += obj.totalPrice;
+  })
   const billForm = `
     <div class="body__bill">
       <!-- Comeback Homepage -->
@@ -252,8 +256,8 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
           </div>
           <div class="bill__column">
             <h3 class="bill__title">HOÁ ĐƠN</h3>
-            <p class="bill__id">Mã hoá đơn: BILLxxxxx</p>
-            <p class="bill__date" id="date-bill">Ngày: dd/mm/yyyy</p>
+            <p class="bill__id">Mã hoá đơn: Bill${orderList[orderList.length-1].orderId}</p>
+            <p class="bill__date" id="date-bill">Thời gian: ${orderList[orderList.length-1].orderDate}</p>
           </div>
         </div>
         <!-- Info -->
@@ -296,7 +300,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
             </p>
             <p class="bill__total-price">
               Tổng tiền: <span class="bill__price">${formatVietNamMoney(
-                calTotalProductItemPrice(array_orderProduct) + 18000
+                totalPrice + 18000
               )}<u>đ</u></span>
             </p>
           </div>
