@@ -283,6 +283,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
 }
 
 function updateShoppingCart(userList, indexCurrentUserLogin) {
+  let totalPriceBottomLeftBody = 0;
   // Các sản phẩm đã được thêm vào Giỏ hàng tạo bởi HTML
   function createShoppingCartItems() {
     let productList = JSON.parse(localStorage.getItem("productList"));
@@ -307,16 +308,21 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
         let price=0;
         for(let k=0; k<shoppingCartFromUser.quantity; k++){
           productShoppingCartList[i].discountQuantity -= 1;
-          if(productShoppingCartList[i].discountQuantity>0){
+          if(productShoppingCartList[i].discountQuantity>=0){
             price += productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
           }
           else{
             price += productShoppingCartList[i].price;
           }
         }
-        
-        
-          // console.log(userList[indexCurrentUserLogin].shoppingCart[i].quantity);
+
+        totalPriceBottomLeftBody += price; //dòng 452, hiện tổng tiền
+        let newPrice = productShoppingCartList[i].price;
+        console.log(newPrice)
+        if(productShoppingCartList[i].discountQuantity>=0){
+          newPrice = productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
+        }
+
         items += `
           <div
             class="shopping-cart__item"
@@ -336,7 +342,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
               <p class="shopping-cart__details">
               ${shoppingCartFromUser.id} / ${
           shoppingCartFromUser.category
-        } / ${formatVietNamMoney(shoppingCartFromUser.price)}đ
+        } / ${newPrice}đ
               </p>
             </div>
             <div class="shopping-cart__quantity">
@@ -432,8 +438,9 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
     }
     return items;
   }
-
+ 
   // Thay đổi nội dung ở Body
+  
   const shoppingCartForm = `
     <div class="body__shopping-cart">
       <div class="shopping-cart__content">
@@ -447,10 +454,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
           <div class="shopping-cart__payment">
             <p class="shopping-cart__payment-info">
               Tổng số tiền: <b class="shopping-cart__total-price">${formatVietNamMoney(
-                calTotalProductItemPriceInShoppingCart(
-                  userList,
-                  indexCurrentUserLogin
-                )
+                totalPriceBottomLeftBody
               )}<u>đ</u></b>
             </p>
             <div class="shopping-cart__buttons">
