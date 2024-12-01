@@ -371,7 +371,7 @@ export const mainContentMap = {
                                 name="state"
                                 type="radio"
                                 id="state-1"
-                                value="state-1"
+                                value="available"
                                 hidden
                               />
                               <label for="state-1">Còn hàng</label>
@@ -381,7 +381,7 @@ export const mainContentMap = {
                                 name="state"
                                 type="radio"
                                 id="state-2"
-                                value="state-2"
+                                value="unavailable"
                                 hidden
                               />
                               <label for="state-2">Hết hàng</label>
@@ -391,7 +391,7 @@ export const mainContentMap = {
                                 name="state"
                                 type="radio"
                                 id="state-3"
-                                value="state-3"
+                                value="discounted"
                                 hidden
                               />
                               <label for="state-3">Đang giảm giá</label>
