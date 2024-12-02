@@ -27,7 +27,8 @@ function updateShoppingCartAfterActionsFromUser(
         if (
           action.getAttribute("data-shopping-cart-item-action") == "increment"
         ) {
-          action.onclick = () => {
+          action.onclick = (e) => {
+            e.preventDefault();
             let currentQuantity = parseInt(
               product.querySelector(".shopping-cart__number").value
             );
@@ -45,7 +46,8 @@ function updateShoppingCartAfterActionsFromUser(
         if (
           action.getAttribute("data-shopping-cart-item-action") == "decrement"
         ) {
-          action.onclick = () => {
+          action.onclick = (e) => {
+            e.preventDefault();
             let currentQuantity = parseInt(
               product.querySelector(".shopping-cart__number").value
             );
@@ -61,7 +63,8 @@ function updateShoppingCartAfterActionsFromUser(
         }
         // Nếu loại bỏ
         if (action.getAttribute("data-shopping-cart-item-action") == "trash") {
-          action.onclick = () => {
+          action.onclick = (e) => {
+            e.preventDefault();
             userList[indexCurrentUserLogin].shoppingCart.splice(index, 1);
             localStorage.setItem("userList", JSON.stringify(userList));
             updateShoppingCart(userList, indexCurrentUserLogin);
@@ -69,13 +72,14 @@ function updateShoppingCartAfterActionsFromUser(
         }
         // Nếu điền trực tiếp số lượng input
         if (action.getAttribute("data-shopping-cart-item-action") == "input") {
-          action.onchange = () => {
+          action.onchange = (e) => {
+            e.preventDefault();
             let currentQuantity = parseInt(
               product.querySelector(".shopping-cart__number").value
             );
             if (currentQuantity >= 1) {
               product.querySelector(".shopping-cart__number").value =
-                currentQuantity + 1;
+                currentQuantity;
               userList[indexCurrentUserLogin].shoppingCart[index].quantity =
                 product.querySelector(".shopping-cart__number").value;
               localStorage.setItem("userList", JSON.stringify(userList));
@@ -118,39 +122,6 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
       obj.onclick = (event) => {
         event.preventDefault();
         function showOrderDetail() {
-          //   function createProductItemInOrderHistoryItem() {
-          //     let ele = document.createElement("div");
-          //     ele.className = "list-order-product";
-          //     for (let i = 0; i < ordersHistory[index].orderProduct.length; i++) {
-          //       ele.innerHTML += `
-          //       <div class="order-product-item">
-          //         <div class="content-product-ordered">
-          //           <p id="name-product-ordered">Tên: ${ordersHistory[index].orderProduct[i].name}</p>
-          //           <p id="category-product-ordered">Danh mục: ${ordersHistory[index].orderProduct[i].category}</p>
-          //           <p id="price-product-ordered">Giá: ${ordersHistory[index].orderProduct[i].price}</p>
-          //           <p id="quantity-product-ordered">Số lượng: ${ordersHistory[index].orderProduct[i].quantity}</p>
-
-          //         </div>
-          //         <img style="width: 100px;  height:100px;" src=${ordersHistory[index].orderProduct[i].src}>
-          //       </div>
-          //     `;
-          //     }
-          //     return ele.outerHTML;
-          //   }
-          //   let container = document.createElement("div");
-          //   container.className = "container-detail-order";
-          //   container.innerHTML = `
-          //   <div class="form-detail-order">
-          //     <h2>CHI TIẾT ĐƠN HÀNG</h2>
-          //     <p>Tình trạng: ${ordersHistory[index].orderStatus}</p>
-          //     <p>Ngày đặt: ${ordersHistory[index].orderDate}</p>
-          //     <p>Mã đơn hàng: ${ordersHistory[index].orderId}</p>
-          //     <p>Địa chỉ: ${ordersHistory[index].orderAddressToShip}</p>
-          //     <p>Phương thức thanh toán: ${ordersHistory[index].orderMethod}</p>
-          //     <p>Danh sách sản phẩm đã mua:</p>
-          //     ${createProductItemInOrderHistoryItem()}
-          //   </div>
-          // `;
 
           // Hiển thị chi tiết đơn hàng
           function createProductItemInOrderHistoryItem() {
@@ -176,6 +147,10 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             accepted: "Đã xác nhận",
             canceled: "Đã hủy"
           };
+          let method = ordersHistory[ordersHistory.length - 1 - index].orderMethod;
+          if(typeof(ordersHistory[ordersHistory.length - 1 - index].orderMethod) === "object"){
+            method = ordersHistory[ordersHistory.length - 1 - index].orderMethod.name + " " + "_Loại: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.type + "_Mã thẻ: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.code;
+          }
           const orderHistoryInfoForm = `
           <div class="order-history-info__overlay"></div>
           <div class="order-history-info__content">
@@ -198,7 +173,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             }</p>
             <p class="order-history-info__order-ship-method detail"><b>Phương thức vận chuyển:</b> Giao hàng tận nơi</p>
             <p class="order-history-info__order-pay-method detail"><b>Phương thức thanh toán:</b> ${
-              ordersHistory[ordersHistory.length - 1 - index].orderMethod
+              method
             }</p>
             <p class="order-history-info__order-product detail"><b>Danh sách sản phẩm đã đặt:</b> ${createProductItemInOrderHistoryItem()}</p>
             <p class="order-history-info__order-total-price detail"><b>Tổng số tiền thanh toán:</b> ${formatVietNamMoney(
@@ -308,18 +283,46 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
 }
 
 function updateShoppingCart(userList, indexCurrentUserLogin) {
+  let totalPriceBottomLeftBody = 0;
   // Các sản phẩm đã được thêm vào Giỏ hàng tạo bởi HTML
   function createShoppingCartItems() {
+    let productList = JSON.parse(localStorage.getItem("productList"));
     let items = "";
     if (userList[indexCurrentUserLogin].shoppingCart.length >= 1) {
       // Shopping-Cart Item
+
+      //chứa các sản phẩm của shop, để lấy discountPercent, giảm giá....
+      let productShoppingCartList = [];
+      for (let i = 0; i < userList[indexCurrentUserLogin].shoppingCart.length; i++) {
+        const shoppingCartFromUser = userList[indexCurrentUserLogin].shoppingCart[i];
+        productShoppingCartList.push(productList.find((obj) => {
+          return obj.id === shoppingCartFromUser.id; 
+        }))
+      }
       for (
         let i = 0;
         i < userList[indexCurrentUserLogin].shoppingCart.length;
         i++
       ) {
-        const shoppingCartFromUser =
-          userList[indexCurrentUserLogin].shoppingCart[i];
+        const shoppingCartFromUser = userList[indexCurrentUserLogin].shoppingCart[i];
+        let price=0;
+        for(let k=0; k<shoppingCartFromUser.quantity; k++){
+          productShoppingCartList[i].discountQuantity -= 1;
+          if(productShoppingCartList[i].discountQuantity>=0){
+            price += productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
+          }
+          else{
+            price += productShoppingCartList[i].price;
+          }
+        }
+
+        totalPriceBottomLeftBody += price; //dòng 452, hiện tổng tiền
+        let newPrice = productShoppingCartList[i].price;
+        console.log(newPrice)
+        if(productShoppingCartList[i].discountQuantity>=0){
+          newPrice = productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
+        }
+
         items += `
           <div
             class="shopping-cart__item"
@@ -332,45 +335,49 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
                 class="shopping-cart__image"
               />
             </figure>
-            <div class="shopping-cart__column">
-              <h3 class="shopping-cart__name">
-                ${shoppingCartFromUser.name}
-              </h3>
-              <p class="shopping-cart__details">
-              ${shoppingCartFromUser.id} / ${
-          shoppingCartFromUser.category
-        } / ${formatVietNamMoney(shoppingCartFromUser.price)}đ
-              </p>
+            <div class="shopping-cart__info">
+              <div class="shopping-cart__column">
+                <h3 class="shopping-cart__name">
+                  ${shoppingCartFromUser.name}
+                </h3>
+                <p class="shopping-cart__details">
+                ${shoppingCartFromUser.id} / ${
+            shoppingCartFromUser.category
+          } / ${newPrice}đ
+                </p>
+              </div>
+              <div class="shopping-cart__detail">
+                <div class="shopping-cart__quantity">
+                  <a
+                    href="#!"
+                    class="shopping-cart__operator"
+                    data-shopping-cart-item-action="increment"
+                    >+</a
+                  ><input
+                    type="number"
+                    class="shopping-cart__number remove-arrow"
+                    value="${shoppingCartFromUser.quantity}"
+                    data-shopping-cart-item-action="input"
+                  /><a
+                    href="#!"
+                    class="shopping-cart__operator"
+                    data-shopping-cart-item-action="decrement"
+                    >-</a
+                  >
+                </div>
+                <p class="shopping-cart__product-total-price">
+                  ${formatVietNamMoney(
+                    price
+                  )}<u>đ</u>
+                </p>
+                <button
+                  class="shopping-cart__trash"
+                  data-shopping-cart-item-action="trash"
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
             </div>
-            <div class="shopping-cart__quantity">
-              <a
-                href="#!"
-                class="shopping-cart__operator"
-                data-shopping-cart-item-action="increment"
-                >+</a
-              ><input
-                type="number"
-                class="shopping-cart__number remove-arrow"
-                value="${shoppingCartFromUser.quantity}"
-                data-shopping-cart-item-action="input"
-              /><a
-                href="#!"
-                class="shopping-cart__operator"
-                data-shopping-cart-item-action="decrement"
-                >-</a
-              >
-            </div>
-            <p class="shopping-cart__product-total-price">
-              ${formatVietNamMoney(
-                shoppingCartFromUser.price * shoppingCartFromUser.quantity
-              )}<u>đ</u>
-            </p>
-            <button
-              class="shopping-cart__trash"
-              data-shopping-cart-item-action="trash"
-            >
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
           </div>
         `;
       }
@@ -435,8 +442,9 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
     }
     return items;
   }
-
+ 
   // Thay đổi nội dung ở Body
+  
   const shoppingCartForm = `
     <div class="body__shopping-cart">
       <div class="shopping-cart__content">
@@ -450,10 +458,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
           <div class="shopping-cart__payment">
             <p class="shopping-cart__payment-info">
               Tổng số tiền: <b class="shopping-cart__total-price">${formatVietNamMoney(
-                calTotalProductItemPriceInShoppingCart(
-                  userList,
-                  indexCurrentUserLogin
-                )
+                totalPriceBottomLeftBody
               )}<u>đ</u></b>
             </p>
             <div class="shopping-cart__buttons">

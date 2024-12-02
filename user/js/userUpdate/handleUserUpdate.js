@@ -1,4 +1,5 @@
 import { userList } from "../../../database/database.js";
+import { handleAdmin } from "../home-js/adminClick.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
 
 //hàm return về chuỗi placeholder ban đầu
@@ -19,7 +20,7 @@ export function resetDefaultInputForUser(input){
     if(input.className === "first-name") return "Nhập họ";
     if(input.className === "last-name") return "Nhập tên";
     if(input.className === "phone") return "Nhập số điện thoại";
-    if(input.className === "email-info") return "Nhập email";
+    if(input.className === "email") return "Nhập email";
     if(input.id === "username-change") return "Nhập tên tài khoản";
     if(input.id === "old-password-change") return "Nhập mật khẩu cũ";
     if(input.id === "new-password-change") return "Nhập mật khẩu mới";
@@ -105,7 +106,7 @@ export function handleSignIn() {
         return obj.username === username.value;
     });
     //kiểm tra xem tài khoản thuộc loại gì
-    if(userList[indexOfUsername].type === "employer" || userList[indexOfUsername].type === "admin"){
+    if(userList[indexOfUsername].type === "employer"){
         create_notification_user("Tài khoản không thuộc loại khách hàng!");
         return false;
     }
@@ -113,6 +114,10 @@ export function handleSignIn() {
     if(userList[indexOfUsername].blockStatus){
         create_notification_user("Tài khoản bị khóa!");
         return false;
+    }
+    if(userList[indexOfUsername].type === "admin"){
+        document.querySelector(".header__admin-icon").style.display = "block";
+        handleAdmin();
     }
 
     //update vị trí username của người dùng đang đăng nhập lên local

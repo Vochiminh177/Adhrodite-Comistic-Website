@@ -1,8 +1,7 @@
-import { productItemArray } from "../../../database/database.js";
 import { getProductItemInfo } from "./getProductItem.js";
 import { updateLeftMenuStyle } from "./productsPageStyles.js";
 import { updateProductsPagination } from "./productsPagination.js";
-import { resetDoubleSlider } from "./generateFilter.js";
+import { resetDoubleSlider , generateFilter } from "./generateFilter.js";
 // Hàm format lại các tên theo kiểu "a-b-c"
 import { replaceSpaceWithHyphen } from "../common-js/common.js";
 
@@ -22,7 +21,7 @@ function getLeftSearchInfo() {
     // Cập nhập lại tên hiện tại của sản phẩm cần tìm
     productItemName = leftSearchInput.value.trim().toLowerCase();
     filteredProducts = filterProducts();
-    updateProductList(filteredProducts);
+    updateProductList(filteredProducts, 1);
   });
 }
 
@@ -35,7 +34,7 @@ let chosenSort = "";
 // Giá thấp nhất
 let minPrice = 0;
 // Giá cao nhất
-let maxPrice = 2 ** 31;
+let maxPrice = 800000;
 // Trạng thái đã chọn
 let chosenStatus = "";
 // Danh sách sản phẩm đã lọc
@@ -62,7 +61,7 @@ function activateFilterSearch(){
   productItemName = "";
 
   filteredProducts = filterProducts();
-  updateProductList(filteredProducts);
+  updateProductList(filteredProducts, 1);
 }
 // Đặt lại các tiêu chí lọc
 function resetFilter(){
@@ -70,26 +69,7 @@ function resetFilter(){
     ele.checked = false;
   });
 }
-// Hàm so sánh dựa theo 'attribute' và 'sortType' để sắp xếp
-function customSort(attribute, sortType){
-  return function cmpFn(firstProduct, secondProduct){
-    if(sortType === 'asc'){
-      if(firstProduct[attribute] < secondProduct[attribute]){
-        return -1;
-      } else{
-        return 1;
-      }
-    }
 
-    if(sortType === 'desc'){
-      if(firstProduct[attribute] > secondProduct[attribute]){
-        return -1;
-      } else{
-        return 1;
-      }
-    }
-  }
-}
 // Hàm lấy thông tin từ Left Filter (Bộ lọc - Tìm kiếm nâng cao)
 function getLeftFilterInfo() {
   const applyButton = document.getElementById("left-search-filter__apply");
@@ -99,7 +79,7 @@ function getLeftFilterInfo() {
   });
 
   const resetButton = document.getElementById("left-search-filter__reset");
-  resetButton.addEventListener("click", () => {
+  resetButton.addEventListener("click", (event) => {
     event.preventDefault();
     resetFilter();
     resetDoubleSlider();
@@ -135,7 +115,7 @@ function getLeftMenuInfo() {
         // Cập nhật danh sách sản phẩm
         productListKey = leftMenuValue;
         filteredProducts = filterProducts();
-        updateProductList(filteredProducts);
+        updateProductList(filteredProducts, 1);
       }
     }
   });
@@ -148,7 +128,7 @@ function filterProducts() {
     const tmpString = chosenPrice.split("-");
     minPrice = parseInt(tmpString[0], 10);
     if (tmpString[1] === "INF") {
-      maxPrice = 2 ** 31;
+      maxPrice = 800000;
     } else {
       maxPrice = parseInt(tmpString[1], 10);
     }
@@ -159,7 +139,10 @@ function filterProducts() {
     maxPrice = parseInt(maxPrice.replace(/\./g, ""), 10);
   }
 
-  const filteredProducts = productItemArray.filter((product) => {
+  const productList = JSON.parse(localStorage.getItem("productList"));
+  const filteredProducts = productList.filter((product) => {
+    if(chosenStatus && !checkStatus(product, chosenStatus)) return false;
+    
     if (productListKey !== "tat-ca" && productListKey !== product.categoryID) return false;
     if (product.price < minPrice || product.price > maxPrice) return false;
     if (
@@ -168,8 +151,6 @@ function filterProducts() {
     ) return false;
 
     if (!product.name.toLowerCase().includes(productItemName)) return false;
-
-    // Chưa xét phần trạng thái
     return true;
   });
 
@@ -181,13 +162,49 @@ function filterProducts() {
   return filteredProducts;
 }
 
+function checkStatus(product, status){
+  if(status === "available"){
+    return product.quantity > 0;
+  }
+
+  if(status === "unavailable"){
+    return product.quantity <= 0;
+  }
+
+  if(status === "discounted"){
+    return product.discountQuantity > 0;
+  }
+}
+
+// Hàm so sánh dựa theo 'attribute' và 'sortType' để sắp xếp
+function customSort(attribute, sortType){
+  return function cmpFn(firstProduct, secondProduct){
+    if(sortType === 'asc'){
+      if(firstProduct[attribute] < secondProduct[attribute]){
+        return -1;
+      } else{
+        return 1;
+      }
+    }
+
+    if(sortType === 'desc'){
+      if(firstProduct[attribute] > secondProduct[attribute]){
+        return -1;
+      } else{
+        return 1;
+      }
+    }
+  };
+}
+
 // Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
-export function comebackProductList() {
-  updateProductList(filteredProducts);
+export function comebackProductList(currentPage) {
+  updateProductList(filteredProducts, currentPage);
+  generateFilter();
 }
 
 // Danh sách các sản phẩm được hiển thị theo tìm kiếm, bộ lọc, danh mục
-export function updateProductList(filteredProducts) {
+export function updateProductList(filteredProducts, currentPage) {
   // Main Products
   let mainProductsDiv = document.createElement("div");
   mainProductsDiv.className = "main__products";
@@ -256,7 +273,7 @@ export function updateProductList(filteredProducts) {
 
   if (filteredProductsLength > 0) {
     // Cập nhật hành động cho các nút phân trang sản phẩm
-    updateProductsPagination(filteredProducts, filteredProductsLength);
+    updateProductsPagination(filteredProducts, currentPage);
   }
 
   // Thiết lập hành động có thể xem "Chi tiết" cho các sản phẩm trong danh sách
@@ -274,7 +291,7 @@ export function getProductListInfo() {
   chosenSort = "";
   chosenStatus = "";
   minPrice = 0;
-  maxPrice = 2 ** 31;
+  maxPrice = 800000;
   
   // Gọi các sự kiện để cập nhật Danh sách sản phẩm
   getLeftSearchInfo();

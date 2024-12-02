@@ -21,8 +21,12 @@ function createProductItemWithHtml(product) {
   h3.className = "main-products__name";
   h3.textContent = `${product.name}`;
   const p2 = document.createElement("p");
+  let newPrice = product.price;
+  if(product.discountQuantity > 0){
+    newPrice = product.price - (product.price * product.discountPercent / 100);
+  }
   p2.className = "main-products__price";
-  p2.innerHTML = `${formatVietNamMoney(product.price)}đ`;
+  p2.innerHTML = `${formatVietNamMoney(newPrice)}đ`;
   const infoDiv = document.createElement("div");
   infoDiv.className = "main-products__info";
   infoDiv.appendChild(h3);

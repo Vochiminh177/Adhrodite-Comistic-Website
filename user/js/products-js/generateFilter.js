@@ -5,7 +5,7 @@ const step = 50000;
 // Chênh lệch nhỏ nhất
 const gap = 100000;
 let minLimit = 100000;
-let maxLimit = 1500000;
+let maxLimit = 800000;
 // Giá trị để sử dụng
 let currentMin = minLimit;
 let currentMax = maxLimit;
@@ -58,8 +58,10 @@ export function generateFilter() {
         "hidden"
       ) {
         doubleSlider.style.visibility = "visible";
+        document.getElementById("custom-price-button").classList.add("active");
       } else {
         doubleSlider.style.visibility = "hidden";
+        document.getElementById("custom-price-button").classList.remove("active");
       }
 
       // Khi chọn custom-price, các khoảng giá có sẵn bị reset
@@ -90,8 +92,6 @@ export function generateFilter() {
     maxPrice.value = formatVietNamMoney(maxPrice.value);
   });
 
-  // Cập nhật thanh kéo lần đầu tiên
-  resetDoubleSlider();
   // Sự kiện khi sử dụng chuột để nhấn, thả, kéo
   minThumb.addEventListener("mousedown", () => {
     document.onmousemove = (event) => {
@@ -166,9 +166,9 @@ function updateThumbPosition(event, thumbType) {
   const rect = doubleSlider.getBoundingClientRect();
   const percent = ((event.clientX - rect.left) / rect.width) * 100;
   const value = minLimit + Math.floor((percent * (maxLimit - minLimit)) / 100);
-  const displayValue = Math.floor(value / step) * step;
   if (thumbType === "min") {
-    if (value >= minLimit && value + gap <= currentMaxSlider) {
+    const displayValue = Math.ceil(value / step) * step;
+    if (value >= minLimit && displayValue + gap < currentMax) {
       currentMinSlider = value;
       updateSlider(currentMinSlider, currentMaxSlider);
     }
@@ -178,7 +178,8 @@ function updateThumbPosition(event, thumbType) {
       minPrice.value = formatVietNamMoney(currentMin);
     }
   } else if (thumbType === "max") {
-    if (value <= maxLimit && value - gap >= currentMinSlider) {
+    const displayValue = Math.floor(value / step) * step;
+    if (value <= maxLimit && displayValue - gap > currentMin) {
       currentMaxSlider = value;
       updateSlider(currentMinSlider, currentMaxSlider);
     }
@@ -196,9 +197,9 @@ function updateThumbPosition_touchscreen(event, thumbType) {
   const clientX = event.targetTouches[0].clientX;
   const percent = ((clientX - rect.left) / rect.width) * 100;
   const value = minLimit + Math.floor((percent * (maxLimit - minLimit)) / 100);
-  const displayValue = Math.floor(value / step) * step;
   if (thumbType === "min") {
-    if (value >= minLimit && value + gap <= currentMaxSlider) {
+    const displayValue = Math.ceil(value / step) * step;
+    if (value >= minLimit && displayValue + gap < currentMax) {
       currentMinSlider = value;
       updateSlider(currentMinSlider, currentMaxSlider);
     }
@@ -208,7 +209,8 @@ function updateThumbPosition_touchscreen(event, thumbType) {
       minPrice.value = formatVietNamMoney(currentMin);
     }
   } else if (thumbType === "max") {
-    if (value <= maxLimit && value - gap >= currentMinSlider) {
+    const displayValue = Math.floor(value / step) * step;
+    if (value <= maxLimit && displayValue - gap > currentMin) {
       currentMaxSlider = value;
       updateSlider(currentMinSlider, currentMaxSlider);
     }

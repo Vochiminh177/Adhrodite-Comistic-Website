@@ -11,9 +11,9 @@ export let productItemArray = [
     price: 200000,
     desc: `<b>EFFACLAR DUO+ M </b>từ <b>La Roche-Posay</b> là kem dưỡng chuyên biệt dành cho da mụn, giúp giảm mụn và ngăn ngừa tái phát. Sản phẩm chứa các thành phần nổi bật như Niacinamide (Vitamin B3) giúp làm dịu da và giảm viêm, LHA và Salicylic Acid có tác dụng tẩy tế bào chết nhẹ nhàng, ngăn ngừa tình trạng bí tắc lỗ chân lông, cùng Procerad hỗ trợ giảm thâm và làm sáng da. <b>EFFACLAR DUO+ M</b> không chỉ giúp kiểm soát dầu nhờn mà còn cải thiện các vấn đề da mụn nhạy cảm. Bạn nên sử dụng sản phẩm 1-2 lần mỗi ngày, thoa một lớp mỏng lên vùng da bị mụn để đạt hiệu quả tốt nhất.`,
     quantity: 15,
-    discountQuantity: 0,
-    discountPercent: 0,
-    originQuantity: 10
+    discountQuantity: 10,
+    discountPercent: 20,
+    originQuantity: 15
   },
   {
     number: 2,
@@ -636,6 +636,7 @@ export let productItemAddedToShoppingCart = [
 export function abc() {
   console.log(productItemAddedToShoppingCart);
 }
+
 
 //dữ liệu mảng user mặc định -- Hiệu
 export let userList = [
@@ -1284,5 +1285,10 @@ window.addEventListener("load", () => {
   tmpList = JSON.parse(localStorage.getItem("userList"));
   if(tmpList === null || tmpList === undefined){
     localStorage.setItem("userList", JSON.stringify(userList));
+  }
+
+  tmpList = JSON.parse(localStorage.getItem("productList"));
+  if(tmpList === null || tmpList === undefined){
+    localStorage.setItem("productList", JSON.stringify(productItemArray));
   }
 });

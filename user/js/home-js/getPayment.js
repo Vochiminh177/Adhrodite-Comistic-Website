@@ -52,7 +52,7 @@ function createPaymentInformationItems(array_orderProduct) {
                     </p>
                 </div>
                 <p class="payment-information-products__total-price-product">${formatVietNamMoney(
-                  array_orderProduct[i].price * array_orderProduct[i].quantity
+                  array_orderProduct[i].totalPrice
                 )}đ</p>
             </div>
             <span class="payment-information-products__numbers">${getQuantityFormat(
@@ -337,6 +337,8 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
           );
           payByInternetBankingDiv.innerHTML = "";
           payByCreditCardDiv.innerHTML = "";
+
+          // Hiệu lưu thông tin chỗ này
         } else if (inputValue === "internet-banking") {
           const payByCreditCardDiv = document.querySelector(
             ".payment-information-info__credit-card-info"
@@ -347,6 +349,8 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
           );
           payByInternetBankingDiv.innerHTML =
             payFunctionForm["internet_banking"];
+
+          // Hiệu lưu thông tin chỗ này
         } else if (inputValue === "credit-card") {
           const payByInternetBankingDiv = document.querySelector(
             ".payment-information-info__internet-banking-info"
@@ -356,6 +360,8 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
             ".payment-information-info__credit-card-info"
           );
           payByCreditCardDiv.innerHTML = payFunctionForm["credit_card"];
+
+          // Hiệu lưu thông tin chỗ này
         }
       });
     });
@@ -367,6 +373,12 @@ function updatePaymentInformation(
   indexCurrentUserLogin,
   array_orderProduct
 ) {
+  let totalPriceTamTinh=0;
+  array_orderProduct.forEach((obj) => {
+    totalPriceTamTinh +=obj.totalPrice;
+  })
+  console.log(totalPriceTamTinh);
+  
   const paymentInformationForm = `
   <div class="body__payment-information">
     <div class="payment-information__header">
@@ -393,26 +405,26 @@ function updatePaymentInformation(
                         " " +
                         userList[indexCurrentUserLogin].last_name
                       : "Nhập họ và tên"
-                  }" readonly="">
+                  }" readonly>
               </div>
               <div class="payment-information-info__form-group">
                   <input type="email" class="payment-information-info__email" placeholder="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
                       : "Nhập email"
-                  }" readonly="">
+                  }" readonly>
                   <input type="phone" class="payment-information-info__phone" placeholder="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
                       : "Nhập số điện thoại"
-                  }" readonly="">
+                  }" readonly>
               </div>
               <div class="payment-information-info__form-group">
                   <input type="text" class="payment-information-info__address" placeholder="${
                     userList[indexCurrentUserLogin].address
                       ? userList[indexCurrentUserLogin].address
                       : "Nhập địa chỉ giao hàng"
-                  }" readonly="">
+                  }" readonly>
               </div>
             </form>
           <div class="payment-information-info__change-address">
@@ -522,10 +534,7 @@ function updatePaymentInformation(
         <div class="payment-information-products__calculation">
           <p class="payment-information-products__temp-price">
             Tạm tính <span id="temp-price">${formatVietNamMoney(
-              calTotalProductItemPriceInShoppingCart(
-                userList,
-                indexCurrentUserLogin
-              )
+              totalPriceTamTinh
             )}đ</span>
           </p>
           <p class="payment-information-products__ship-price">
@@ -534,10 +543,7 @@ function updatePaymentInformation(
         </div>
         <p class="payment-information-products__total-price">
             Tổng cộng <span id="total-price">${formatVietNamMoney(
-              calTotalProductItemPriceInShoppingCart(
-                userList,
-                indexCurrentUserLogin
-              ) + 18000
+              totalPriceTamTinh + 18000
             )}<u>đ</u></span>
         </p>
       </div>
@@ -583,7 +589,7 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           ".shopping-cart__list .shopping-cart__item"
         );
 
-        array_shopping_cart__item.forEach((obj) => {
+        array_shopping_cart__item.forEach((obj, index) => {
           //lấy id của sản phẩm
           let string_details = obj.querySelector(
             ".shopping-cart__column .shopping-cart__details"
@@ -605,17 +611,27 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
             ".shopping-cart__column .shopping-cart__name"
           ).textContent;
           let src = obj.querySelector("img").src;
+
+          //do mảng shoppingCart trùng với array_order nên sài index được
+          let totalPrice = document.querySelectorAll(".shopping-cart__product-total-price")[index].textContent;
+          totalPrice = totalPrice.replaceAll("đ","").trim();
+          totalPrice = totalPrice.replaceAll(".", "");
+  
           let data = {
             id: id,
             price: price,
             category: category,
-            quantity: quantity,
-            name: name,
+            quantity: parseInt(quantity),
+            name: name.trim(),
             src: src,
+            totalPrice: parseInt(totalPrice),
+            discountQuantity: userList[indexCurrentUserLogin].shoppingCart[index].discountQuantity,
+            discountPercent: userList[indexCurrentUserLogin].shoppingCart[index].discountPercent 
           };
-
-          array_orderProduct.push(data); //mảng chứa những obj đơn hàng gồm id và quantity (giải quyết cho admin)
+          array_orderProduct.push(data); //mảng đơn hàng chứa những obj sản phẩm gồm id và quantity,... (giải quyết cho admin)
+          
         });
+        console.log(array_orderProduct)
 
         // Cập nhật thông tin thanh toán
         updatePaymentInformation(

@@ -13,15 +13,15 @@ export function createNotificationAdmin(mess) {
     text.style.padding = "10px 50px";
     text.style.fontSize = "1.5rem";
     text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-    text.style.transition = "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
+    text.style.transition = "transform 0.2s ease-in-out, opacity 0.5s ease-in-out";
     document.body.appendChild(text);
     setTimeout(() => {
         document.querySelector(".notification").style.transform = "translate(-5%, 10%)";
     }, 10);
     //tắt dần
-    setTimeout(() => {
-        document.querySelector(".notification").style.transform = "translate(100%, 10%)";
-    }, 1000);
+    // setTimeout(() => {
+    //     document.querySelector(".notification").style.transform = "translate(100%, 10%)";
+    // }, 2000);
     //xóa khỏi dom
     setTimeout(() => {
         document.querySelector(".notification").remove();
@@ -39,14 +39,14 @@ export function reset_style_input(input){
     else if(input.className == "price-add") input.placeholder = "Giá bán";
     else if(input.className == "quantity-add") input.placeholder = "Số lượng";
     else if(input.className == "description-add") input.placeholder = "Miêu tả sản phẩm";   
-    else if(input.className == "username-customer") input.placeholder = "Nhập tên tài khoản";
-    else if(input.className == "password-customer") input.placeholder = "Nhập mật khẩu";
-    else if(input.className == "phone-customer") input.placeholder = "Nhập số điện thoại";
-    else if(input.className == "firstname-customer") input.placeholder = "Nhập họ";
-    else if(input.className == "lastname-customer") input.placeholder = "Nhập tên";
+    else if(input.className == "username-customer") input.placeholder = "Tên tài khoản";
+    else if(input.className == "password-customer") input.placeholder = "Mật khẩu";
+    else if(input.className == "phone-customer") input.placeholder = "Số điện thoại";
+    else if(input.className == "firstname-customer") input.placeholder = "Họ";
+    else if(input.className == "lastname-customer") input.placeholder = "Tên đệm";
     else if(input.className == "percent-discount-add") input.placeholder = "Giảm giá %";
     else if(input.className == "quantity-discount") input.placeholder = "Số lượng giảm giá";
-    else input.placeholder = "Nhập số lượng";
+    else input.placeholder = "Số lượng sản phẩm";
     input.style.borderColor = "#a94064";
 }
 

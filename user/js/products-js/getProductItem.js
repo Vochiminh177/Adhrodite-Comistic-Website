@@ -7,7 +7,7 @@ import { generateFilter } from "./generateFilter.js";
 let productItemQuantity = 0;
 
 // Hàm thay đổi số lượng sản phẩm trước khi thêm vào Giỏ hàng
-function changeProductItemQuantity() {
+function changeProductItemQuantity(productList, productItemKey) {
   let number = document.querySelector(".main-order__number");
 
   // Nếu người dùng nhấn vào nút tăng/giảm
@@ -27,6 +27,16 @@ function changeProductItemQuantity() {
         }
       }
       number.value = `${productItemQuantity}`;
+
+      //css phần giảm giá
+      if(productItemQuantity > productList[productItemKey].discountQuantity){
+        document.querySelector(".originPrice").style.color = "black";
+        document.querySelector(".discountPrice").style.color = "#ccc";
+      }
+      else{
+        document.querySelector(".discountPrice").style.color = "black";
+        document.querySelector(".originPrice").style.color = "#ccc";
+      }
     });
   });
 
@@ -79,7 +89,7 @@ function addProductItemToShoppingCart(productItemKey) {
           // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
           userList[indexCurrentUserLogin].shoppingCart[
             indexProductItem
-          ].quantity += 1;
+          ].quantity += parseInt(document.querySelector(".main-order__number").value, 10);
         } else {
           // Nếu sản phẩm chưa có, thêm vào giỏ hàng với số lượng là 1
           userList[indexCurrentUserLogin].shoppingCart.push({
@@ -87,8 +97,10 @@ function addProductItemToShoppingCart(productItemKey) {
             src: productList[productItemKey].src,
             name: productList[productItemKey].name,
             price: productList[productItemKey].price,
-            quantity: productItemQuantity,
+            quantity: parseInt(productItemQuantity),
             category: productList[productItemKey].category,
+            discountQuantity: productList[productItemKey].discountQuantity,
+            discountPercent: productList[productItemKey].discountPercent
           });
         }
 
@@ -99,7 +111,7 @@ function addProductItemToShoppingCart(productItemKey) {
 }
 
 // Hàm trở về trang chứa danh sách sản phẩm trước đó
-function clickToComebackProductList() {
+function clickToComebackProductList(currentPage) {
   document
     .querySelector(".main-order__comeback")
     .addEventListener("click", function () {
@@ -110,15 +122,20 @@ function clickToComebackProductList() {
       generateFilter();
 
       // Trở về phần Danh sách sản phẩm
-      comebackProductList();
+      comebackProductList(currentPage);
     });
 }
 
 // Thông tin của một sản phẩm cụ thể
 export function updateProductItem(productItemKey) {
+  let productList = JSON.parse(localStorage.getItem("productList"));
   // Vị trí của sản phẩm trong mảng là stt (number) - 1
   productItemKey = productItemKey - 1;
-  if (productItemArray[productItemKey]) {
+  let newPrice = productList[productItemKey].price;
+  if(productList[productItemKey].discountQuantity > 0){
+    newPrice = productList[productItemKey].price - (productList[productItemKey].price * productList[productItemKey].discountPercent / 100);
+  } 
+  if (productList[productItemKey]) {
     // Đưa về đầu trang
     window.scrollTo(0, 0);
 
@@ -133,28 +150,31 @@ export function updateProductItem(productItemKey) {
           <div class="main-order__body">
             <div class="main-order__media">
               <img
-                src=${productItemArray[productItemKey].src}
+                src=${productList[productItemKey].src}
                 alt=""
                 class="main-order__image"
               />
             </div>
             <div class="main-order__content">
               <h2 class="main-order__product-title">
-              ${productItemArray[productItemKey].name}
+              ${productList[productItemKey].name}
               </h2>
               <div class="main-order__details">
                 <p class="main-order__detail">
-                  Mã sản phẩm: <b>${productItemArray[productItemKey].id}</b>
+                  Mã sản phẩm: <b>${productList[productItemKey].id}</b>
                 </p>
                 <p class="main-order__detail">
-                  Hãng: <b>${productItemArray[productItemKey].brand}</b>
+                  Hãng: <b>${productList[productItemKey].brand}</b>
                 </p>
                 <p class="main-order__detail">
-                  Danh mục: <b>${productItemArray[productItemKey].category}</b>
+                  Danh mục: <b>${productList[productItemKey].category}</b>
                 </p>
-                <p class="main-order__detail">Giá: <b>${formatVietNamMoney(
-                  productItemArray[productItemKey].price
+                <p class="main-order__detail originPrice">Giá: <b>${formatVietNamMoney(
+                  productList[productItemKey].price
                 )}đ</b></p>
+                <p class="main-order__detail discountPrice">Giá mới: <b>${formatVietNamMoney(
+                  newPrice
+                )}đ</b> Giảm: <b>${productList[productItemKey].discountPercent}%</b></p>
                 <div class="main-order__row">
                   <p class="main-order__detail">Số lượng: </p>
                   <input type="number" name="quantity" class="main-order__number remove-arrow" value="1"/>
@@ -176,7 +196,7 @@ export function updateProductItem(productItemKey) {
           <div class="main-info__content">
             <h2 class="info-content__title heading">THÔNG TIN CHI TIẾT</h2>
             <p class="info-content__desc">
-            ${productItemArray[productItemKey].desc}
+            ${productList[productItemKey].desc}
             </p>
           </div>
           <div class="main-info__rate">
@@ -224,18 +244,42 @@ export function updateProductItem(productItemKey) {
           </div>
         </div>`,
     };
+    let currentPageEle = document.querySelector('.main-products__number.active');
+    let currentPage = 1;
+    if(currentPageEle){
+      currentPage = parseInt(currentPageEle.getAttribute('data-page'), 10);
+    }
+    console.log(currentPage);
     const productItemDiv = document.getElementById("products-main");
     productItemDiv.innerHTML = productItemForm["item"];
 
+    // function addHr(tagP){
+    //   let hr = document.createElement("hr");
+    //   document.querySelector(tagP).appendChild(hr);
+    //   document.querySelector(tagP).style.position = "relative";
+    //   document.querySelector(tagP).style.color = "#ccc";
+    //   hr.style.position = "absolute";
+    //   hr.style.border = "1px solid #ccc";
+    //   hr.style.top = "5%";
+    //   hr.style.width = "50%";
+    // }
+    //css phần giá giảm
+    if(productList[productItemKey].discountQuantity <= 0){
+      document.querySelector(".discountPrice").style.display = "none";
+    }
+    else{
+      document.querySelector(".originPrice").style.color = "#ccc";
+    }
+
     // Khi người dùng nhấn các nút tăng/giảm số lượng sản phẩm
     productItemQuantity = 1;
-    changeProductItemQuantity();
+    changeProductItemQuantity(productList, productItemKey);
 
     // Khi người dùng nhấn nút "Thêm giỏ hàng"
     addProductItemToShoppingCart(productItemKey);
 
     // Khi người dùng nhấn nút "Quay lại"
-    clickToComebackProductList();
+    clickToComebackProductList(currentPage);
   }
 }
 
@@ -243,13 +287,13 @@ export function updateProductItem(productItemKey) {
 export function getProductItemInfo() {
   let array = document.querySelectorAll(".main-products__item");
   array.forEach((obj) => {
-    obj.addEventListener("click", function (event) {
+    obj.onclick = (event) => {
       const productItemKey = parseInt(
         event.currentTarget.getAttribute("data-product")
       );
       if (productItemKey >= 0) {
         updateProductItem(productItemKey);
       }
-    });
+    };
   });
 }

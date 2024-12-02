@@ -1,8 +1,9 @@
 import { userList, productItemArray } from "../../database/database.js";
 import { pagination, showListProduct, showListCustomer, showListOrder, showProductStatistics, generateProductStatistics } from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
-import { addProduct, filterProductAdmin } from "./updateProduct/OptionProduct.js";
-function start() {
+import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
+import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+function start(){
 	anhMinh();
 	// showMain("main-content-dashboard");
 }
@@ -56,6 +57,9 @@ function anhMinh() {
 			}
 			else if (item.className == "dashboard_sidebar") {
 				showMain("main-content-dashboard");
+			}
+			else{
+				location.assign(location.origin + "/user/index.html");
 			}
 		});
 	});
@@ -225,7 +229,7 @@ export function showMain(sectionId) {
 		<div class="title">
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
-		<div class="content">
+		<div class="content order">
 			<table class="content-order-table">
 				<thead>
 					<tr>
@@ -242,7 +246,7 @@ export function showMain(sectionId) {
 
 				</tbody>
 			</table>
-
+			<div class="order-filter-container" id="order-filter-container"></div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
 				<div class="order-details-modal-content">
@@ -287,11 +291,12 @@ export function showMain(sectionId) {
 		</div>
 		<div class="list-page"></div>
 		`;
-				const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-				pagination(orderList, 1, showListOrder, "#main-content-order");
-			} else
-				if (sectionId === "main-content-product-add") {
-					document.querySelector("#main-content-product-add").innerHTML = `
+		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+		pagination(orderList, 1, showListOrder, "#main-content-order");
+		generateOrderFilter();
+	} else
+	if(sectionId === "main-content-product-add"){
+		document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">
                 <h1>Thêm sản phẩm</h1>
                 <a class="comback-product">< Quay lại</a>
@@ -305,7 +310,7 @@ export function showMain(sectionId) {
                         </div>
                         <div class="content-two-input">
                             <input type="text" placeholder="Tên sản phẩm" class="name-add">
-							<input type="text" placeholder="Số lượng" class="quantity-add">
+							<input type="text" placeholder="Số lượng sản phẩm" class="quantity-add">
                         </div>
                         <div class="content-two-input">
                             <select name="category" id="category-add">
@@ -376,15 +381,15 @@ export function showMain(sectionId) {
                 <div class="content-customer-add">
                     <div id="left-input">
                         <div class="content-two-input">
-                            <input type="text" placeholder="Nhập tên tài khoản" class="username-customer">
-                            <input type="text" placeholder="Nhập mật khẩu" class="password-customer">
+                            <input type="text" placeholder="Tên tài khoản" class="username-customer">
+                            <input type="text" placeholder="Mật khẩu" class="password-customer">
                         </div>
                         <div class="content-two-input">
-                           <input type="text" placeholder="Nhập họ" class="firstname-customer">
-                            <input type="text" placeholder="Nhập tên" class="lastname-customer" >
+                           <input type="text" placeholder="Họ" class="firstname-customer">
+                            <input type="text" placeholder="Tên đệm" class="lastname-customer" >
                         </div>
                         <div class="content-two-input">
-                            <input type="text" placeholder="Nhập số điện thoại" class="phone-customer">
+                            <input type="text" placeholder="Số điện thoại" class="phone-customer">
 							<select id="type-customer">
 								<option value="0">Khách hàng</option>
 								<option value="1">Nhân viên</option>

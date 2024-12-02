@@ -76,40 +76,50 @@
   position: relative;
 }
 
+
 .header__find-block-wrapper {
   position: absolute;
-  width: 234px;
-  top: 27px;
-  left: 0px;
+  width: calc(100vw - 125px);
+  height: 50px;
+  max-width: 800px;
+  top: 51px;
+  right: -50px;
   visibility: hidden;
+  z-index: 1;
 }
+
 
 .header__find-block {
   display: flex;
   align-items: center;
   gap: 0 4px;
   position: relative;
-  background: #fff;
-  padding: 4px 6px;
+  background: #f2b7b7;
+  padding: 4px 10px;
+  height: 50px;
+  border-radius: 50px;
+
   border: 1px solid #ccc;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  /* border-top-left-radius: 5px;
+  border-top-right-radius: 5px; */
 }
 
 .header__find-input {
   display: inline-block;
-  width: 75%;
+  width: 80%;
+  height: 50px;
   padding-left: 4px;
   font-size: 15px;
 }
 
 .header__find-action {
   display: inline-block;
-  background: #000000;
-  width: 25%;
+  background: #dd7373;
+  width:  20%;
   height: 28px;
   margin-left: 0;
   color: #fff;
+  border-radius: 5px;
   line-height: 27px;
   text-align: center;
 }
@@ -128,7 +138,7 @@
   background-color: #fff;
   display: none;
   z-index: 9999;
-  max-height: 255px;
+  max-height: 350px;
   overflow: auto;
 }
 
@@ -136,6 +146,7 @@
   display: flex;
   align-items: center;
   padding: 10px;
+  height: 100px;
   cursor: pointer;
   border-bottom: 1px solid #efefef;
 }
@@ -149,13 +160,14 @@
 }
 
 #suggestions-list li img {
-  min-width: 35px;
-  max-width: 35px;
-  min-height: 35px;
-  max-height: 35px;
+  min-width: 75px;
+  max-width: 75px;
+  min-height: 75px;
+  max-height: 75px;
   object-fit: cover;
   margin-right: 10px;
   border-radius: 55%;
+  margin-left: 20px;
 }
 
 #suggestions-list li span {
@@ -164,7 +176,7 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 12px;
+  font-size: 18px;
   line-height: 1.2em;
 }
 
@@ -178,12 +190,12 @@
 }
 
 #suggestions-list li.HeaderSearch__product-not-found span:first-child {
-  font-size: 14px;
+  font-size: 1.7rem;
   font-style: italic;
 }
 
 #suggestions-list li.HeaderSearch__product-not-found span:last-child {
-  font-size: 15px;
+  font-size: 2.5rem;
 }
 
 .header__find-action:hover {
@@ -793,23 +805,38 @@ html, body {
 }
 
 
-/* =================reponsive mobile===================== */
-
-@media screen and (max-width: 500px) {
+body{
+  padding-top: 70px;
+}
+.header.sticky{
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+}
+/* ==========================chung cho mobile và tablet */
+@media screen and (max-width: 850px){
+ 
+  .header__navbar{
+    position: absolute;
+    display: block;
+    /* ẩn thanh navbar */
+    top: 75px;
+    background-color: #a94064;
+    border-radius: 5px;
+    left: -300px;
+    height: 100vh;
+    transition: left 0.3s ease; 
+    width: 200px;
+  }
   .header__menu{
     display: flex;
     justify-content: space-between;
   }
 
-  .header__navbar{
-    position: absolute;
-    display: none;
-    /* ẩn thanh navbar */
-    top: 5rem;
-    background-color: #a94064;
-    border-radius: 5px;
-    left: -25px;
-  }
+  .header__navbar.active {
+    left: -25px; /* Khi hiển thị, navbar di chuyển vào màn hình*/
+}
+
 
   .header__menu-toggle{
     display: block;
@@ -820,6 +847,17 @@ html, body {
     cursor: pointer;
   }
 
+}
+
+/* =================reponsive mobile===================== */
+
+@media screen and (max-width: 500px) {
+  
+  .header__find-block-wrapper{
+    width:100vw;
+    right: -100px;
+    border-radius: 0;
+  }
   .footer__content{
     display: block;
   }
@@ -897,6 +935,26 @@ html, body {
   .body__home .sale-product__title {
     font-size: 2rem;
   }
+  
+  .footer__desc,
+  .help__menu,
+  .footer__contacts{
+    font-size: 1.6rem;
+    width: 100%;
+  }
+ 
+  .help__title,
+  .footer__contacts {
+    margin-top: 2rem;
+  }
+
+  .copyright__info{
+    width: 100%;
+    margin: 0;
+  }
+  
+}
+@media screen and (max-width: 600px) {
   /* <=== Useful ===> */
   .body__home .home__useful {
     display: block;
@@ -924,52 +982,13 @@ html, body {
   .body__home .useful__desc {
     font-size: 1.6rem;
   }
-  .footer__desc,
-  .help__menu,
-  .footer__contacts{
-    font-size: 1.6rem;
-    width: 100%;
-  }
- 
-  .help__title,
-  .footer__contacts {
-    margin-top: 2rem;
-  }
-
-  .copyright__info{
-    width: 100%;
-    margin: 0;
-  }
-  
 }
 
 /*================== reponsive  cho ipad====================== */
 
 @media screen and (min-width: 500px) and (max-width:1030px) {
   
-  .header__menu {
-    justify-content: space-between;
-  }
-  .header__navbar{
-    display: none;
-    /* ẩn thanh navbar */
-    top: 5rem;
-    background-color: #a94064;
-    border-radius: 5px;
-  }
-  .header__icons{
-    margin-left: 0;
-  }
-
-  .header__menu-toggle{
-    display: block;
-    /* hiển thị dáu 3 gach */
-    
-    color: #fff;
-    margin-right: 10px;
-    font-size: 2rem;
-    cursor: pointer;
-  }
+ 
 
   
   .body__home .home__hero {
@@ -1095,4 +1114,3 @@ html, body {
     margin: 0;
   }
 }
-
