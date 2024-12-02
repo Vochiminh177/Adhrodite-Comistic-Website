@@ -7,7 +7,6 @@ import { generateFilter } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
 
-
 export const mainContentMap = {
   home: `
   <div class="body__home">
@@ -154,9 +153,6 @@ export const mainContentMap = {
             <div class="left__search">
               <h2 class="left-search__title heading">TÌM KIẾM</h2>
               <div class="left-search__form-group">
-                <label for="search">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </label>
                 <input
                   type="text"
                   id="left-search-input"
@@ -672,7 +668,7 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
   if (mainContentKey) {
     // Cập nhật lại style cho navbar
     updateNavbarStyle(mainContentKey);
-    
+
     // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
 
@@ -680,7 +676,7 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
     const displayStyle = window.getComputedStyle(element).display;
     if(displayStyle !== 'none') element.click();
 
-    if(mainContentKey === "products"){
+    if (mainContentKey === "products") {
       // Tự động nhấn mục "Tất cả" khi vào trang "sản phẩm" ở header
       document.getElementById("tat-ca-left-menu").click();
     }
@@ -688,10 +684,10 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
 });
 
 //hàm xóa các form tạo từ javascript
-export function deleteAllFormCreatedFromJsUser(){
-  if(document.querySelector(".header__user-menu")){
+export function deleteAllFormCreatedFromJsUser() {
+  if (document.querySelector(".header__user-menu")) {
     document.querySelector(".header__user-menu").remove();
   }
-  document.querySelector(".header__find-block-wrapper").style.visibility = "hidden";
+  document.querySelector(".header__find-block-wrapper").style.visibility =
+    "hidden";
 }
-
