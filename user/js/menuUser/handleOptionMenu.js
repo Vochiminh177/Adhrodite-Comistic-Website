@@ -9,7 +9,10 @@ function checkNumberPhone(value) {
 }
 
 //hàm kiểm tra định dạng email
-function checkEmail(email) {
+export function checkEmail(email) {
+  if(email.value.indexOf("@") === -1){
+    return false;
+  }
   const parts = email.split("@");
   
   // Kiểm tra cấu trúc email

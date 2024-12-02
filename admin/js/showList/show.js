@@ -1,4 +1,4 @@
-import { productItemArray, userList } from "../../../database/database.js"
+// import { productItemArray, userList } from "../../../user/./"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
 import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
@@ -84,7 +84,7 @@ export function showListProduct(start, end, currentPage, productList) {
         if(index>=start && index < end){
         eleTbody.innerHTML += `
             <tr>
-                <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
+                <td id="piture"><img style="width: 70px; height:90%;" src=../../../user/${ele.src}></td>
                 <td id="id">${ele.id}</td>
                 <td id="name">${ele.name}</td>
                 <td id="brand">${ele.brand}</td>
