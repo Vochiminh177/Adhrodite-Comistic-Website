@@ -275,6 +275,8 @@ export function searchProduct() {
             document.querySelector(".description-add").value = productList[i].desc;
             document.querySelector(".id-add").value = productList[i].id;
             document.querySelector(".quantity-add").value = productList[i].quantity;
+            document.querySelector(".percent-discount-add").value = productList[i].discountPercent;
+            document.querySelector(".quantity-discount-add").value = productList[i].discountQuantity;
             path_picture_admin.src = productList[i].src;
 
             let picture = document.querySelector(".image-show");

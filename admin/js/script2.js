@@ -271,7 +271,7 @@ export function showMain(sectionId) {
                         </div>
                         <div class="content-two-input">
                             <input type="text" placeholder="Tên sản phẩm" class="name-add">
-							<input type="text" placeholder="Số lượng" class="quantity-add">
+							<input type="text" placeholder="Số lượng sản phẩm" class="quantity-add">
                         </div>
                         <div class="content-two-input">
                             <select name="category" id="category-add">
@@ -342,15 +342,15 @@ export function showMain(sectionId) {
                 <div class="content-customer-add">
                     <div id="left-input">
                         <div class="content-two-input">
-                            <input type="text" placeholder="Nhập tên tài khoản" class="username-customer">
-                            <input type="text" placeholder="Nhập mật khẩu" class="password-customer">
+                            <input type="text" placeholder="Tên tài khoản" class="username-customer">
+                            <input type="text" placeholder="Mật khẩu" class="password-customer">
                         </div>
                         <div class="content-two-input">
-                           <input type="text" placeholder="Nhập họ" class="firstname-customer">
-                            <input type="text" placeholder="Nhập tên" class="lastname-customer" >
+                           <input type="text" placeholder="Họ" class="firstname-customer">
+                            <input type="text" placeholder="Tên đệm" class="lastname-customer" >
                         </div>
                         <div class="content-two-input">
-                            <input type="text" placeholder="Nhập số điện thoại" class="phone-customer">
+                            <input type="text" placeholder="Số điện thoại" class="phone-customer">
 							<select id="type-customer">
 								<option value="0">Khách hàng</option>
 								<option value="1">Nhân viên</option>
