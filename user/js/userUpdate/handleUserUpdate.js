@@ -105,8 +105,12 @@ export function handleSignIn() {
         return obj.username === username.value;
     });
     //kiểm tra xem tài khoản thuộc loại gì
-    if(userList[indexOfUsername].type === "employer" || userList[indexOfUsername].type === "admin"){
+    if(userList[indexOfUsername].type === "employer"){
         create_notification_user("Tài khoản không thuộc loại khách hàng!");
+        return false;
+    }
+    if(userList[indexOfUsername].type === "admin"){
+        location.assign(location.origin + "/admin/index2.html");
         return false;
     }
     //kiểm tra xem username có bị admin khóa hay không

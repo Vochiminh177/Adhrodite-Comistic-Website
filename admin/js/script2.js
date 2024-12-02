@@ -54,6 +54,9 @@ function anhMinh(){
 			else if(item.className == "customer_sidebar"){
 				showMain("main-content-customer");
 			}
+			else{
+				location.assign(location.origin + "/user/index.html");
+			}
 		});
 	});
 	//----------------------------------------------------------------
