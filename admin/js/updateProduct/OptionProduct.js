@@ -245,17 +245,18 @@ export function filterProductAdmin() {
             pagination(arr, 1, showListProduct, "#main-content-product-list");
             if (arr.length > 0) {
                 createNotificationAdmin("Lọc thành công");
+                if(document.querySelector("#main-content-product-list .content p")){
+                    document.querySelector("#main-content-product-list .content p").remove();
+                }
             }
             else {
                 createNotificationAdmin("Không có sản phẩm");
-                let p = document.createElement("p");
-                p.style.width = "100%";
-                p.style.textAlign = "center";
-                p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
-                p.style.fontSize = "2.5rem";
-                p.style.margin = "0x 50px";
-                document.querySelector(".content").appendChild(p);
-                document.querySelector(".content-product-list table").innerHTML = ``;
+                if(!document.querySelector("#main-content-product-list .content p")){
+                    let p = document.createElement("p");
+                    p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
+                    document.querySelector("#main-content-product-list .content").appendChild(p);
+                    document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";
+                }
             }
         };
     };
