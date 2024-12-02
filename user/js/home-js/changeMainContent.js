@@ -655,9 +655,9 @@ export function updateMainContent(mainContentKey) {
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
 
-      changeLeftMenu(".left-menu__title", ".left-menu__list");
-      changeLeftMenu(".left-search__title",".left-search__form-group");
-      
+      changeLeftMenu(".left-menu__title", ".left-menu__list", 'show-left-menu__list');
+      changeLeftMenu(".left-search__title",".left-search__form-group", 'show-left-search');
+        
       // Tự động nhấn mục "Tất cả"
       document.getElementById("tat-ca-left-menu").click();
     }
@@ -675,6 +675,10 @@ document.querySelector(".navbar").addEventListener("click", function (event) {
     
     // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
+
+    const element = document.querySelector('.header__menu-toggle');
+    const displayStyle = window.getComputedStyle(element).display;
+    if(displayStyle !== 'none') element.click();
 
     if(mainContentKey === "products"){
       // Tự động nhấn mục "Tất cả" khi vào trang "sản phẩm" ở header
