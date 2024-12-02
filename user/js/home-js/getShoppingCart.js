@@ -149,7 +149,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
           };
           let method = ordersHistory[ordersHistory.length - 1 - index].orderMethod;
           if(typeof(ordersHistory[ordersHistory.length - 1 - index].orderMethod) === "object"){
-            method = ordersHistory[ordersHistory.length - 1 - index].orderMethod.name + " " + "_Loại: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.type + "_Mã thẻ: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.code;
+            method = ordersHistory[ordersHistory.length - 1 - index].orderMethod.name + "_Loại: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.type + "_Mã thẻ: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.code;
           }
           const orderHistoryInfoForm = `
           <div class="order-history-info__overlay"></div>
@@ -239,7 +239,6 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
               let productList = JSON.parse(localStorage.getItem("productList"));
 
               //hoàn số lượng của sản phẩm của shop (admin) - hiệu
-              console.log(ordersHistory[ordersHistory.length - 1 - index]);
               ordersHistory[ordersHistory.length - 1 - index].orderProduct.forEach((objOrderProduct) => {
                 //objOrderProduct là từng sản phẩm của đơn hàng đang làm việc
                 let index = productList.findIndex((objProductShop) => {
@@ -247,6 +246,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
                   return objProductShop.id === objOrderProduct.id;
                 });
                 productList[index].quantity += objOrderProduct.quantity;
+                productList[index].discountQuantity += objOrderProduct.discountQuantity;
                 localStorage.setItem("productList", JSON.stringify(productList));
               });
               
@@ -318,7 +318,6 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
 
         totalPriceBottomLeftBody += price; //dòng 452, hiện tổng tiền
         let newPrice = productShoppingCartList[i].price;
-        console.log(newPrice)
         if(productShoppingCartList[i].discountQuantity>=0){
           newPrice = productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
         }

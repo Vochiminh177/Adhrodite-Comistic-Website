@@ -1,5 +1,6 @@
-import { userList } from "../../../database/database.js";
+
 import { handleAdmin } from "../home-js/adminClick.js";
+import { checkEmail } from "../menuUser/handleOptionMenu.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
 
 //hàm return về chuỗi placeholder ban đầu
@@ -64,10 +65,6 @@ export function errorInput(input, mess){
 // kiểm tra thông tin đăng nhập
 export function handleSignIn() {
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
-    if(userList.length == 0){
-        userList = [...userList];
-        localStorage.setItem("userList", JSON.stringify(userList));
-    }
   
     let username = document.querySelector("#username");
     let password = document.querySelector("#password");
@@ -128,10 +125,6 @@ export function handleSignIn() {
 //kiểm tra khi đăng ký
 export function handleSignUp(){
     let userList = JSON.parse(localStorage.getItem("userList")) || [];
-    if(userList.length == 0){
-        userList = [...userList];
-        localStorage.setItem("userList", JSON.stringify(userList));
-    }
 
     let username = document.querySelector(".username-signup");
     let password = document.querySelector(".password-signup");
@@ -139,12 +132,17 @@ export function handleSignUp(){
     let email = document.querySelector(".email-signup");
     let check_accept_privacy = document.querySelector(".accept-privacy");
 
-    if(username.value === "" || password.value === "" || !check_accept_privacy.checked || email.value == ""){
+    if(username.value === "" || password.value === "" || !check_accept_privacy.checked || email.value === ""){
         errorInput(username)
         errorInput(password);
         errorInput(second_password);
         errorInput(email);
         errorInput(check_accept_privacy);
+        return false;
+    }
+
+    if(!checkEmail(email)){
+        errorInput(email, "Cần nhập đúng định dạng email");
         return false;
     }
 

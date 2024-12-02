@@ -86,6 +86,7 @@ export function changePassword() {
           <button class="btn-save-change-password">Lưu thay đổi</button>
         </div>
       </div>
+      <div class="form-change-password-delete"></div>
     `;
   document.body.appendChild(ele);
 
@@ -100,6 +101,10 @@ export function changePassword() {
       ele.remove();
     }
   };
+
+  document.querySelector(".form-change-password-delete").onclick = () => {
+    document.querySelector(".container-change-password-user").remove();
+  }
 }
 
 // Hàm hiện form khi ấn thông tin cá nhân trong menu-user
@@ -123,10 +128,9 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
           <div class="one-input">
             <input type="text" class="address" value="${userList[indexCurrentUserLogin].address ? userList[indexCurrentUserLogin].address : ""}" placeholder="Nhập địa chỉ">
           </div>
-          <div class="one-input-btn">
-            <a class="save-information">Lưu thông tin</a>
-          </div>
+          <a class="save-information">Lưu thông tin</a>
         </div>
+        <div class="form-user-delete"></div>
     `;
   let ele = document.createElement("div");
   ele.className = "container-formInformation-user";
@@ -141,11 +145,12 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
       create_notification_user("Lưu thành công!");
     }
   };
-
-
   document.querySelector(".exit-form-information-user").onclick = () => {
     document.querySelector(".container-formInformation-user").remove();
   };
+  document.querySelector(".form-user-delete").onclick = () => {
+    document.querySelector(".container-formInformation-user").remove();
+  }
 }
 
 
