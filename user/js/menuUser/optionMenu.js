@@ -61,6 +61,7 @@ export function create_notification_user(mess) {
 export function signOutUser() {
   let indexCurrentUserLogin = -1;
   localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
+  document.querySelector(".header__admin-icon").style.display = "none";
   create_notification_user("Đăng xuất thành công!");
   updateMainContent("home");
 }

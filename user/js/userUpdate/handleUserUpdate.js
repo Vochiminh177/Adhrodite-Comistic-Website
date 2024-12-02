@@ -1,4 +1,5 @@
 import { userList } from "../../../database/database.js";
+import { handleAdmin } from "../home-js/adminClick.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
 
 //hàm return về chuỗi placeholder ban đầu
@@ -109,14 +110,13 @@ export function handleSignIn() {
         create_notification_user("Tài khoản không thuộc loại khách hàng!");
         return false;
     }
-    if(userList[indexOfUsername].type === "admin"){
-        location.assign(location.origin + "/admin/index2.html");
-        return false;
-    }
     //kiểm tra xem username có bị admin khóa hay không
     if(userList[indexOfUsername].blockStatus){
         create_notification_user("Tài khoản bị khóa!");
         return false;
+    }
+    if(userList[indexOfUsername].type === "admin"){
+        document.querySelector(".header__admin-icon").style.display = "block";
     }
 
     //update vị trí username của người dùng đang đăng nhập lên local
