@@ -2,6 +2,7 @@ import { userList, productItemArray} from "../../database/database.js";
 import { pagination, showListProduct, showListCustomer, showListOrder } from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
 import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
+import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 function start(){
 	anhMinh();
 }
@@ -194,7 +195,7 @@ export function showMain(sectionId) {
 		<div class="title">
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
-		<div class="content">
+		<div class="content order">
 			<table class="content-order-table">
 				<thead>
 					<tr>
@@ -211,7 +212,7 @@ export function showMain(sectionId) {
 
 				</tbody>
 			</table>
-
+			<div class="order-filter-container" id="order-filter-container"></div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
 				<div class="order-details-modal-content">
@@ -258,6 +259,7 @@ export function showMain(sectionId) {
 		`;
 		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 		pagination(orderList, 1, showListOrder, "#main-content-order");
+		generateOrderFilter();
 	} else
 	if(sectionId === "main-content-product-add"){
 		document.querySelector("#main-content-product-add").innerHTML = `
