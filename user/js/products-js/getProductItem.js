@@ -7,7 +7,7 @@ import { generateFilter } from "./generateFilter.js";
 let productItemQuantity = 0;
 
 // Hàm thay đổi số lượng sản phẩm trước khi thêm vào Giỏ hàng
-function changeProductItemQuantity() {
+function changeProductItemQuantity(productList, productItemKey) {
   let number = document.querySelector(".main-order__number");
 
   // Nếu người dùng nhấn vào nút tăng/giảm
@@ -27,6 +27,16 @@ function changeProductItemQuantity() {
         }
       }
       number.value = `${productItemQuantity}`;
+
+      //css phần giảm giá
+      if(productItemQuantity > productList[productItemKey].discountQuantity){
+        document.querySelector(".originPrice").style.color = "black";
+        document.querySelector(".discountPrice").style.color = "#ccc";
+      }
+      else{
+        document.querySelector(".discountPrice").style.color = "black";
+        document.querySelector(".originPrice").style.color = "#ccc";
+      }
     });
   });
 
@@ -159,9 +169,12 @@ export function updateProductItem(productItemKey) {
                 <p class="main-order__detail">
                   Danh mục: <b>${productList[productItemKey].category}</b>
                 </p>
-                <p class="main-order__detail">Giá: <b>${formatVietNamMoney(
-                  newPrice
+                <p class="main-order__detail originPrice">Giá: <b>${formatVietNamMoney(
+                  productList[productItemKey].price
                 )}đ</b></p>
+                <p class="main-order__detail discountPrice">Giá mới: <b>${formatVietNamMoney(
+                  newPrice
+                )}đ</b> Giảm: <b>${productList[productItemKey].discountPercent}%</b></p>
                 <div class="main-order__row">
                   <p class="main-order__detail">Số lượng: </p>
                   <input type="number" name="quantity" class="main-order__number remove-arrow" value="1"/>
@@ -234,9 +247,27 @@ export function updateProductItem(productItemKey) {
     const productItemDiv = document.getElementById("products-main");
     productItemDiv.innerHTML = productItemForm["item"];
 
+    // function addHr(tagP){
+    //   let hr = document.createElement("hr");
+    //   document.querySelector(tagP).appendChild(hr);
+    //   document.querySelector(tagP).style.position = "relative";
+    //   document.querySelector(tagP).style.color = "#ccc";
+    //   hr.style.position = "absolute";
+    //   hr.style.border = "1px solid #ccc";
+    //   hr.style.top = "5%";
+    //   hr.style.width = "50%";
+    // }
+    //css phần giá giảm
+    if(productList[productItemKey].discountQuantity <= 0){
+      document.querySelector(".discountPrice").style.display = "none";
+    }
+    else{
+      document.querySelector(".originPrice").style.color = "#ccc";
+    }
+
     // Khi người dùng nhấn các nút tăng/giảm số lượng sản phẩm
     productItemQuantity = 1;
-    changeProductItemQuantity();
+    changeProductItemQuantity(productList, productItemKey);
 
     // Khi người dùng nhấn nút "Thêm giỏ hàng"
     addProductItemToShoppingCart(productItemKey);

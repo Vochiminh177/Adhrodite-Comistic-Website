@@ -19,7 +19,7 @@ export function resetDefaultInputForUser(input){
     if(input.className === "first-name") return "Nhập họ";
     if(input.className === "last-name") return "Nhập tên";
     if(input.className === "phone") return "Nhập số điện thoại";
-    if(input.className === "email-info") return "Nhập email";
+    if(input.className === "email") return "Nhập email";
     if(input.id === "username-change") return "Nhập tên tài khoản";
     if(input.id === "old-password-change") return "Nhập mật khẩu cũ";
     if(input.id === "new-password-change") return "Nhập mật khẩu mới";
