@@ -335,45 +335,49 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
                 class="shopping-cart__image"
               />
             </figure>
-            <div class="shopping-cart__column">
-              <h3 class="shopping-cart__name">
-                ${shoppingCartFromUser.name}
-              </h3>
-              <p class="shopping-cart__details">
-              ${shoppingCartFromUser.id} / ${
-          shoppingCartFromUser.category
-        } / ${newPrice}đ
-              </p>
+            <div class="shopping-cart__info">
+              <div class="shopping-cart__column">
+                <h3 class="shopping-cart__name">
+                  ${shoppingCartFromUser.name}
+                </h3>
+                <p class="shopping-cart__details">
+                ${shoppingCartFromUser.id} / ${
+            shoppingCartFromUser.category
+          } / ${newPrice}đ
+                </p>
+              </div>
+              <div class="shopping-cart__detail">
+                <div class="shopping-cart__quantity">
+                  <a
+                    href="#!"
+                    class="shopping-cart__operator"
+                    data-shopping-cart-item-action="increment"
+                    >+</a
+                  ><input
+                    type="number"
+                    class="shopping-cart__number remove-arrow"
+                    value="${shoppingCartFromUser.quantity}"
+                    data-shopping-cart-item-action="input"
+                  /><a
+                    href="#!"
+                    class="shopping-cart__operator"
+                    data-shopping-cart-item-action="decrement"
+                    >-</a
+                  >
+                </div>
+                <p class="shopping-cart__product-total-price">
+                  ${formatVietNamMoney(
+                    price
+                  )}<u>đ</u>
+                </p>
+                <button
+                  class="shopping-cart__trash"
+                  data-shopping-cart-item-action="trash"
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
             </div>
-            <div class="shopping-cart__quantity">
-              <a
-                href="#!"
-                class="shopping-cart__operator"
-                data-shopping-cart-item-action="increment"
-                >+</a
-              ><input
-                type="number"
-                class="shopping-cart__number remove-arrow"
-                value="${shoppingCartFromUser.quantity}"
-                data-shopping-cart-item-action="input"
-              /><a
-                href="#!"
-                class="shopping-cart__operator"
-                data-shopping-cart-item-action="decrement"
-                >-</a
-              >
-            </div>
-            <p class="shopping-cart__product-total-price">
-              ${formatVietNamMoney(
-                price
-              )}<u>đ</u>
-            </p>
-            <button
-              class="shopping-cart__trash"
-              data-shopping-cart-item-action="trash"
-            >
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
           </div>
         `;
       }

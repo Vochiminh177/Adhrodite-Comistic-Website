@@ -337,6 +337,8 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
           );
           payByInternetBankingDiv.innerHTML = "";
           payByCreditCardDiv.innerHTML = "";
+
+          // Hiệu lưu thông tin chỗ này
         } else if (inputValue === "internet-banking") {
           const payByCreditCardDiv = document.querySelector(
             ".payment-information-info__credit-card-info"
@@ -347,6 +349,8 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
           );
           payByInternetBankingDiv.innerHTML =
             payFunctionForm["internet_banking"];
+
+          // Hiệu lưu thông tin chỗ này
         } else if (inputValue === "credit-card") {
           const payByInternetBankingDiv = document.querySelector(
             ".payment-information-info__internet-banking-info"
@@ -356,6 +360,8 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
             ".payment-information-info__credit-card-info"
           );
           payByCreditCardDiv.innerHTML = payFunctionForm["credit_card"];
+
+          // Hiệu lưu thông tin chỗ này
         }
       });
     });
@@ -399,26 +405,26 @@ function updatePaymentInformation(
                         " " +
                         userList[indexCurrentUserLogin].last_name
                       : "Nhập họ và tên"
-                  }" readonly="">
+                  }" readonly>
               </div>
               <div class="payment-information-info__form-group">
                   <input type="email" class="payment-information-info__email" placeholder="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
                       : "Nhập email"
-                  }" readonly="">
+                  }" readonly>
                   <input type="phone" class="payment-information-info__phone" placeholder="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
                       : "Nhập số điện thoại"
-                  }" readonly="">
+                  }" readonly>
               </div>
               <div class="payment-information-info__form-group">
                   <input type="text" class="payment-information-info__address" placeholder="${
                     userList[indexCurrentUserLogin].address
                       ? userList[indexCurrentUserLogin].address
                       : "Nhập địa chỉ giao hàng"
-                  }" readonly="">
+                  }" readonly>
               </div>
             </form>
           <div class="payment-information-info__change-address">

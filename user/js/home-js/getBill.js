@@ -37,15 +37,18 @@ function error_orderProduct(id_product) {
 
 //hàm kiểm tra thông tin thanh toán
 function handle_order_information(userList, indexCurrentUserLogin) {
-  if (!userList[indexCurrentUserLogin].first_name || !userList[indexCurrentUserLogin].last_name){
+  if (
+    !userList[indexCurrentUserLogin].first_name ||
+    !userList[indexCurrentUserLogin].last_name
+  ) {
     create_notification_user("Bạn cần bổ sung tên!");
     return false;
   }
-  if(!userList[indexCurrentUserLogin].phone){
+  if (!userList[indexCurrentUserLogin].phone) {
     create_notification_user("Bạn cần bổ sung số điện thoại");
     return false;
   }
-  if(!userList[indexCurrentUserLogin].address){
+  if (!userList[indexCurrentUserLogin].address) {
     create_notification_user("Bạn cần bổ sung địa chỉ");
     return false;
   }
@@ -58,7 +61,7 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   }
 
   if (document.querySelector("#credit-card").checked) {
-    if(document.querySelector("#card-id").value === ""){
+    if (document.querySelector("#card-id").value === "") {
       create_notification_user("Bạn cần nhập số thẻ");
       return false;
     }
@@ -108,10 +111,9 @@ function handle_order_product(
       return obj.id === obj_product_in_shop.id;
     });
 
-    if(obj.quantity >= obj.discountQuantity){
+    if (obj.quantity >= obj.discountQuantity) {
       productList[index].discountQuantity = 0;
-    }
-    else{
+    } else {
       productList[index].discountQuantity -= obj.quantity;
     }
   });
@@ -134,7 +136,7 @@ function handle_order_product(
     " " +
     date_order.getDate().toString() +
     "/" +
-    (date_order.getMonth() + 1).toString() + 
+    (date_order.getMonth() + 1).toString() +
     "/" +
     date_order.getFullYear().toString();
 
@@ -147,19 +149,23 @@ function handle_order_product(
     if (obj.querySelector("input[type=radio]")) {
       if (obj.querySelector("input[type=radio]").checked) {
         purchase_method = obj.querySelector("label").textContent.trim();
-        if(purchase_method === "Thanh toán qua thẻ"){
+        if (purchase_method === "Thanh toán qua thẻ") {
           let type;
-          document.querySelectorAll(".payment-information-info__cards .payment-information-info__card input").forEach((obj) => {
-            if(obj.checked){
-              console.log(obj);
-              type = obj.id;
-            }
-          })
+          document
+            .querySelectorAll(
+              ".payment-information-info__cards .payment-information-info__card input"
+            )
+            .forEach((obj) => {
+              if (obj.checked) {
+                console.log(obj);
+                type = obj.id;
+              }
+            });
           purchase_method = {
             name: "Thanh toán qua thẻ",
             type: type,
-            code: document.querySelector("#card-id").value
-          }
+            code: document.querySelector("#card-id").value,
+          };
         }
       }
     }
@@ -233,7 +239,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
   let totalPrice = 0;
   array_orderProduct.forEach((obj) => {
     totalPrice += obj.totalPrice;
-  })
+  });
   const billForm = `
     <div class="body__bill">
       <!-- Comeback Homepage -->
@@ -256,8 +262,12 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
           </div>
           <div class="bill__column">
             <h3 class="bill__title">HOÁ ĐƠN</h3>
-            <p class="bill__id">Mã hoá đơn: Bill${orderList[orderList.length-1].orderId}</p>
-            <p class="bill__date" id="date-bill">Thời gian: ${orderList[orderList.length-1].orderDate}</p>
+            <p class="bill__id">Mã hoá đơn: Bill${
+              orderList[orderList.length - 1].orderId
+            }</p>
+            <p class="bill__date" id="date-bill">Thời gian: ${
+              orderList[orderList.length - 1].orderDate
+            }</p>
           </div>
         </div>
         <!-- Info -->
@@ -308,6 +318,9 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
         <!-- Payment Function -->
         <div class="bill__payment-function">
           <h3 class="bill__sub-title">PHƯƠNG THỨC THANH TOÁN</h3>
+          <p class="bill__detail"> Loại phương thức: ${
+            orderList[orderList.length - 1].orderMethod
+          }</p>
         </div>
         <!-- Thankyou -->
         <div class="bill__thankyou">
@@ -334,7 +347,9 @@ export function getBillInfo(array_orderProduct) {
     .querySelector(".payment-information-info__submit")
     .addEventListener("click", function () {
       let userList = JSON.parse(localStorage.getItem("userList"));
-      let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+      let indexCurrentUserLogin = JSON.parse(
+        localStorage.getItem("indexCurrentUserLogin")
+      );
       let productList = JSON.parse(localStorage.getItem("productList"));
 
       // hàm kiểm tra thông tin thanh toán
