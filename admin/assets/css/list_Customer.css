@@ -36,6 +36,7 @@
     cursor: pointer;
     font-weight: 300;
     background-color: #fff;
+    color: #000;
     transition: background 0.2;
 }
 .form-delete-customer button:hover{

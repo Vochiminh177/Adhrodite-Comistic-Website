@@ -19,7 +19,7 @@ export function resetDefaultInputForUser(input){
     if(input.className === "first-name") return "Nhập họ";
     if(input.className === "last-name") return "Nhập tên";
     if(input.className === "phone") return "Nhập số điện thoại";
-    if(input.className === "email-info") return "Nhập email";
+    if(input.className === "email") return "Nhập email";
     if(input.id === "username-change") return "Nhập tên tài khoản";
     if(input.id === "old-password-change") return "Nhập mật khẩu cũ";
     if(input.id === "new-password-change") return "Nhập mật khẩu mới";
@@ -105,8 +105,12 @@ export function handleSignIn() {
         return obj.username === username.value;
     });
     //kiểm tra xem tài khoản thuộc loại gì
-    if(userList[indexOfUsername].type === "employer" || userList[indexOfUsername].type === "admin"){
+    if(userList[indexOfUsername].type === "employer"){
         create_notification_user("Tài khoản không thuộc loại khách hàng!");
+        return false;
+    }
+    if(userList[indexOfUsername].type === "admin"){
+        location.assign(location.origin + "/admin/index2.html");
         return false;
     }
     //kiểm tra xem username có bị admin khóa hay không

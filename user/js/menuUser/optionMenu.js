@@ -74,10 +74,6 @@ export function changePassword() {
         <div class="content-change-password">
           <button class="exit-form-change-password-user">&times;</button>
           <p>Đổi mật khẩu</p>
-          <div class="username-change">
-            <label for="username-change"></label>
-            <input type="text" id="username-change" placeholder="Nhập tên tài khoản">
-          </div>
           <div class="old-password-change">
             <label for="old-password-change"></label>
             <input type="text" id="old-password-change" placeholder="Nhập mật khẩu cũ">

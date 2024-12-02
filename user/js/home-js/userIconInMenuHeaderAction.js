@@ -12,6 +12,7 @@ function resetInputForLoginAndSignup(){
     document.querySelector("#user-form .password-login").placeholder = "Nhập mật khẩu";
     document.querySelector("#user-form .password-login").classList.remove("err-text");
     document.querySelector("#user-form .password-login").style.borderBottom = "1px solid #ccc";
+    document.querySelector("#user-form .password-login").value = "";
   }
   if(document.querySelector(".username-signup")){
     document.querySelector(".username-signup").placeholder = "Nhập tên tài khoản";
@@ -34,6 +35,7 @@ function resetInputForLoginAndSignup(){
     document.querySelector("#second-password").style.borderBottom = "1px solid #ccc";
 
     document.querySelector(".accept-privacy").parentElement.querySelector("p").style = "black";
+    document.querySelector(".accept-privacy").checked = false;
   }
 }
 
@@ -81,8 +83,6 @@ function unShowUserFormInMenuHeader() {
 
 export function showUserFormInMenuHeader() {
   document.getElementById("user-click").addEventListener("click", function () {
-    resetInputForLoginAndSignup();
-    
     if (document.querySelector(".header__find-block-wrapper")) {
       document.querySelector(".header__find-block-wrapper").style.visibility = "hidden";
     }
@@ -91,8 +91,9 @@ export function showUserFormInMenuHeader() {
     // lấy vị trí người đăng nhập và trạng thái đăng nhập để hiện form
     let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
     let userList = JSON.parse(localStorage.getItem("userList"));
+    //nếu chưa đăng nhập
     if (indexCurrentUserLogin < 0) {
-      //nếu chưa có trạng thái đăng nhập
+      resetInputForLoginAndSignup();
       // Tạo mới changeUserFormInMenuHeaderScript
       const changeUserFormInMenuHeaderScript = document.createElement("script");
 
