@@ -1,4 +1,4 @@
-import { productItemArray, userList } from "../../../database/database.js"
+// import { productItemArray, userList } from "../../../user/./"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
 import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
@@ -102,7 +102,7 @@ export function showListProduct(start, end, currentPage, productList) {
         if (index >= start && index < end) {
             eleTbody.innerHTML += `
             <tr>
-                <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
+                <td id="piture"><img style="width: 70px; height:90%;" src=../../../user/${ele.src}></td>
                 <td id="id">${ele.id}</td>
                 <td id="name">${ele.name}</td>
                 <td id="brand">${ele.brand}</td>
@@ -203,6 +203,8 @@ export function generateProductStatistics(orderList) {
         });
     });
 
+    console.log(productReport); 
+
     // Chuyển đổi thành mảng và sắp xếp theo doanh thu giảm dần
     return Object.values(productReport).sort((a, b) => b.totalRevenue - a.totalRevenue);
 }
@@ -230,7 +232,7 @@ export function showProductStatistics(start, end, currentPage, productStatistics
             eleTbody.innerHTML += `
             <tr>
                 <td>${product.id}</td>
-                <td><img src="${product.src}" style="width:50px;height:50px;"></td>
+                <td><img src=${product.src} style="weidth: 70px; height:70px;"></td>
                 <td>${product.price.toLocaleString()}</td>
                 <td>${product.totalQuantity}</td>
                 <td>${product.totalRevenue.toLocaleString()}</td>

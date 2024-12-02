@@ -377,7 +377,6 @@ function updatePaymentInformation(
   array_orderProduct.forEach((obj) => {
     totalPriceTamTinh +=obj.totalPrice;
   })
-  console.log(totalPriceTamTinh);
   
   const paymentInformationForm = `
   <div class="body__payment-information">
@@ -631,7 +630,6 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           array_orderProduct.push(data); //mảng đơn hàng chứa những obj sản phẩm gồm id và quantity,... (giải quyết cho admin)
           
         });
-        console.log(array_orderProduct)
 
         // Cập nhật thông tin thanh toán
         updatePaymentInformation(
