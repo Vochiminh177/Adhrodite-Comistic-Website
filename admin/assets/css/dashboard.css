@@ -132,7 +132,7 @@ html {
 .dashboard-highlight .dashboard-highlight-box, .dashboard-highlight-box-product {
     background: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 270px;
+    width: 280px;
     padding: 15px 20px;
     border-radius: 8px;
     display: flex;
@@ -163,8 +163,13 @@ html {
 
 }
 
-.dashboard-highlight .dashboard-highlight-box-product i {
+.dashboard-highlight .dashboard-highlight-box:nth-child(2) i {
     background: #bb1169;
+
+}
+
+.dashboard-highlight .dashboard-highlight-box-product i {
+    background: #79a3eb;
 
 }
 
