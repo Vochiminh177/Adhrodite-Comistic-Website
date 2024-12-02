@@ -1,19 +1,7 @@
-import { productItemArray } from "../../../database/database.js";
 import { updateProductItem } from "../products-js/getProductItem.js";
 import { updateProductList } from "../products-js/getProductList.js";
 import { updateMainContent } from "./changeMainContent.js";
 import { updateNavbarStyle } from "../common-js/common.js";
-// Lớp bao thanh tìm kiếm và danh sách gợi ý
-const userBlock = document.getElementById("find-block-wrapper");
-
-// Thanh tìm kiếm
-const searchInput = document.getElementById("find-header");
-
-// Nút tìm kiếm
-const searchButton = document.getElementById("find-action");
-
-// Danh sách gợi ý
-const suggestionsList = document.getElementById("suggestions-list");
 
 let hasProductSuggestion = false;
 let searchTerm = "";
@@ -23,8 +11,14 @@ let searchTerm = "";
 function goToProductDetails(productItemKey) {
   updateMainContent("products");
   updateNavbarStyle("products");
+
+  const findContainer = document.querySelector(".header__find-container");
+  findContainer.remove();
+
+  const leftSearchInput = document.getElementById("left-search-input");
+  leftSearchInput.value = searchTerm;
+  leftSearchInput.focus();
   updateProductItem(productItemKey);
-  document.getElementById("left-search-input").focus();
 }
 
 /*-----------FUNCTION-----------*/
@@ -32,9 +26,14 @@ function goToProductDetails(productItemKey) {
 function goToProductPageWithSearchTerm(searchTerm) {
   updateMainContent("products");
   updateNavbarStyle("products");
+
+  const findContainer = document.querySelector(".header__find-container");
+  findContainer.remove();
+
   const leftSearchInput = document.getElementById("left-search-input");
   leftSearchInput.value = searchTerm;
   leftSearchInput.focus();
+
   const filteredProducts = filterProducts(searchTerm);
   updateProductList(filteredProducts, 1);
 }
@@ -42,7 +41,8 @@ function goToProductPageWithSearchTerm(searchTerm) {
 /*-----------FUNCTION-----------*/
 // Reset lại khung tìm kiếm ở header
 function resetFindBlock() {
-  userBlock.style.visibility = "hidden";
+  const searchInput = document.getElementById("find-input");
+  const suggestionsList = document.getElementById("suggestions-list");
   searchInput.value = "";
   suggestionsList.innerHTML = "";
   suggestionsList.style.display = "none";
@@ -51,18 +51,30 @@ function resetFindBlock() {
 /*-----------FUNCTION-----------*/
 // Thêm sự kiện cho các elements
 function setupEventListeners() {
+  // Lớp bao thanh tìm kiếm và danh sách gợi ý
+  const userBlock = document.getElementById("find-block");
+
+  // Thanh tìm kiếm
+  const searchInput = document.getElementById("find-input");
+
+  // Nút tìm kiếm
+  // const searchButton = document.getElementById("find-action");
+
+  // Danh sách gợi ý
+  const suggestionsList = document.getElementById("suggestions-list");
+
   /*--------EVENT--------*/
   // Sự kiện 'click' ở nút 'Tìm'
-  searchButton.addEventListener("click", () => {
-    if (hasProductSuggestion) {
-      goToProductPageWithSearchTerm(searchTerm);
-    } else {
-      searchTerm = "";
-      goToProductPageWithSearchTerm(searchTerm);
-    }
+  // searchButton.addEventListener("click", () => {
+  //   if (hasProductSuggestion) {
+  //     goToProductPageWithSearchTerm(searchTerm);
+  //   } else {
+  //     searchTerm = "";
+  //     goToProductPageWithSearchTerm(searchTerm);
+  //   }
 
-    resetFindBlock();
-  });
+  //   resetFindBlock();
+  // });
 
   /*--------EVENT--------*/
   // Sự kiện 'keypress' nút 'ENTER'
@@ -109,7 +121,6 @@ function setupEventListeners() {
           resetFindBlock();
         }, 100);
       }
-
     }
   });
 
@@ -121,6 +132,7 @@ function setupEventListeners() {
 /*-----------FUNCTION-----------*/
 // Hàm gọi các hàm để xử lý tìm kiếm
 function headerSearch() {
+  const searchInput = document.getElementById("find-input");
   hasProductSuggestion = false;
   searchTerm = searchInput.value.trim().toLowerCase();
   const filteredProducts = filterProducts(searchTerm);
@@ -140,6 +152,7 @@ function filterProducts(searchTerm) {
 /*-----------FUNCTION-----------*/
 // Hiển thị các sản phẩm gợi ý
 function showProductSuggestions(filteredProducts, searchTerm) {
+  const suggestionsList = document.getElementById("suggestions-list");
   suggestionsList.innerHTML = "";
   const firstFiveSuggestions = filteredProducts.slice(0, 5);
   if (searchTerm && firstFiveSuggestions.length > 0) {
@@ -179,6 +192,7 @@ function createSuggestionLi(product) {
 /*-----------FUNCTION-----------*/
 // Hiện ra 5 sản phẩm gợi ý đầu tiên
 function showFirstFiveSuggestions(firstFiveSuggestions) {
+  const suggestionsList = document.getElementById("suggestions-list");
   firstFiveSuggestions.forEach((product) => {
     const li = createSuggestionLi(product);
 
@@ -189,6 +203,7 @@ function showFirstFiveSuggestions(firstFiveSuggestions) {
 /*-----------FUNCTION-----------*/
 // Nếu lượng sản phẩm gợi ý lớn hơn 5, hiện nút "tìm kiếm thêm"
 function handleMoreThanFiveSuggestions(searchTerm) {
+  const suggestionsList = document.getElementById("suggestions-list");
   const li = document.createElement("li");
 
   li.className = "HeaderSearch__show-more-products";
@@ -201,6 +216,7 @@ function handleMoreThanFiveSuggestions(searchTerm) {
 /*-----------FUNCTION-----------*/
 // Khi không tìm thấy sản phẩm
 function handleSuggestionNotFound() {
+  const suggestionsList = document.getElementById("suggestions-list");
   const li = document.createElement("li");
   li.className = "HeaderSearch__product-not-found";
 
@@ -214,20 +230,73 @@ function handleSuggestionNotFound() {
 
 /*-----------EXPORT_FUNCTION-----------*/
 // Sự kiện khi người dùng nhấn vào icon tìm kiếm trên Header
+// export function showFindFormInMenuHeader() {
+//   document.getElementById("find-click").addEventListener("click", function () {
+//     if (document.querySelector(".header__user-menu")) {
+//       document.querySelector(".header__user-menu").remove();
+//     }
+//     if (
+//       getComputedStyle(userBlock).getPropertyValue("visibility") === "visible"
+//     ) {
+//       userBlock.style.visibility = "hidden";
+//     } else {
+//       userBlock.style.visibility = "visible";
+//       searchInput.focus();
+//     }
+//   });
+
+//   setupEventListeners();
+// }
+
+// Ẩn đi form Đăng nhập - Đăng ký
+function unShowFindFormInMenuHeader() {
+  const findContainer = document.querySelector(".header__find-container");
+  document
+    .querySelector(".header__find-overlay")
+    .addEventListener("click", function () {
+      findContainer.remove();
+    });
+  document
+    .querySelector(".header__find-exit")
+    .addEventListener("click", function () {
+      findContainer.remove();
+    });
+}
+
 export function showFindFormInMenuHeader() {
   document.getElementById("find-click").addEventListener("click", function () {
-    if(document.querySelector(".header__user-menu")){
+    if (document.querySelector(".header__user-menu")) {
       document.querySelector(".header__user-menu").remove();
     }
-    if (
-      getComputedStyle(userBlock).getPropertyValue("visibility") === "visible"
-    ) {
-      userBlock.style.visibility = "hidden";
-    } else {
-      userBlock.style.visibility = "visible";
-      searchInput.focus();
-    }
-  });
 
-  setupEventListeners();
+    const findContainerInner = `
+          <div class="header__find-block" id="find-block">
+            <div class="header__find-header">
+              <h2 class="header__find-title">TÌM KIẾM</h2>
+              <button class="header__find-exit" id="find-exit">x</button>
+            </div>
+            <div class="header__find-body">
+              <input
+                type="text"
+                name="find-input"
+                id="find-input"
+                class="header__find-input"
+                placeholder="Tìm kiếm sản phẩm..."
+                autocomplete="off"
+              />
+              <ul id="suggestions-list"></ul>
+            </div>
+          </div>
+        <div class="header__find-overlay"></div>
+  `;
+    const findContainerDiv = document.createElement("div");
+    findContainerDiv.className = "header__find-container";
+    findContainerDiv.id = "find-container";
+    findContainerDiv.innerHTML = findContainerInner;
+    document.body.appendChild(findContainerDiv);
+
+    unShowFindFormInMenuHeader();
+
+    setupEventListeners();
+  });
 }

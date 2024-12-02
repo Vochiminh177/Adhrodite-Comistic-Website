@@ -1,11 +1,6 @@
-
-import {
-    handleSignUp,
-    handleSignIn,
-  } from "../userUpdate/handleUserUpdate.js";
-  import { create_notification_user } from "../menuUser/optionMenu.js";
-  import { updateForm } from "../home-js/changeUserFormInMenuHeader.js";
-
+import { handleSignUp, handleSignIn } from "../userUpdate/handleUserUpdate.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
+import { updateForm } from "../home-js/userIconInMenuHeaderAction.js";
 
 // hàm đăng nhập
 export function signIn() {
@@ -16,30 +11,18 @@ export function signIn() {
 
       //nếu đăng nhập thành công
       if (result) {
-        //tạo thông báo
+        // tạo thông báo
         create_notification_user("Đăng nhập thành công!");
-        // Xóa changeUserFormInMenuHeaderScript--------Xem hàm trong phần import
-        const changeUserFormInMenuHeaderExistingScript = document.querySelector(
-          ".change-user-form-in-menu-header-script"
-        );
-        if (changeUserFormInMenuHeaderExistingScript) {
-          changeUserFormInMenuHeaderExistingScript.remove();
-        }
 
         // ẩn form
-        const userContainer = document.getElementById("user-container");
-        const userOverlay = document.getElementById("user-overlay");
-        const userBlock = document.getElementById("user-block");
-        const userExit = document.getElementById("user-exit");
-        userContainer.style.visibility = "hidden";
-        userBlock.style.visibility = "hidden";
-        userExit.style.visibility = "hidden";
-        userOverlay.style.visibility = "hidden";
-        // --------------------------------------------------------
+        const userContainerDiv = document.querySelector(
+          ".header__user-container"
+        );
+        userContainerDiv.remove();
 
+        //
         document.querySelector("#username").value = "";
         document.querySelector("#password").value = "";
-        // document.querySelector("#remember-user-account").checked = false;
       }
     };
   }

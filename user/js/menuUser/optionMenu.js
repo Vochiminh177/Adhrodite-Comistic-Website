@@ -14,7 +14,7 @@ export function create_notification_user(mess) {
   // }
   // // if(document.querySelectorAll(".notice-user")){
   // //   document.querySelectorAll(".notice-user").forEach((obj) => {
-  // //     obj.style.translate 
+  // //     obj.style.translate
   // //   })
   // // }
   // document.querySelector(".container-notice").innerHTML += `<p class="notice-user">${mess}</p>`;
@@ -60,8 +60,13 @@ export function create_notification_user(mess) {
 // Hàm đăng xuất
 export function signOutUser() {
   let indexCurrentUserLogin = -1;
-  localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
-  document.querySelector(".header__admin-icon").style.display = "none";
+  localStorage.setItem(
+    "indexCurrentUserLogin",
+    JSON.stringify(indexCurrentUserLogin)
+  );
+  document
+    .querySelector(".header__admin-icon")
+    .style.setProperty("visibility", "hidden");
   create_notification_user("Đăng xuất thành công!");
   updateMainContent("home");
 }
@@ -110,18 +115,38 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
 
-            <input type="text" class="first-name" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Nhập họ">
-            <input type="text" class="last-name" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Nhập tên">
+            <input type="text" class="first-name" value="${
+              userList[indexCurrentUserLogin].first_name
+                ? userList[indexCurrentUserLogin].first_name
+                : ""
+            }" placeholder="Nhập họ">
+            <input type="text" class="last-name" value="${
+              userList[indexCurrentUserLogin].last_name
+                ? userList[indexCurrentUserLogin].last_name
+                : ""
+            }" placeholder="Nhập tên">
 
           </div>
           <div class="one-input">
-            <input type="text" class="phone" value="${userList[indexCurrentUserLogin].phone ? userList[indexCurrentUserLogin].phone : ""}" placeholder="Nhập số điện thoại">
+            <input type="text" class="phone" value="${
+              userList[indexCurrentUserLogin].phone
+                ? userList[indexCurrentUserLogin].phone
+                : ""
+            }" placeholder="Nhập số điện thoại">
           </div>
           <div class="one-input">
-            <input type="text" class="email" value="${userList[indexCurrentUserLogin].email ? userList[indexCurrentUserLogin].email : ""}" placeholder="Nhập email">
+            <input type="text" class="email" value="${
+              userList[indexCurrentUserLogin].email
+                ? userList[indexCurrentUserLogin].email
+                : ""
+            }" placeholder="Nhập email">
           </div>
           <div class="one-input">
-            <input type="text" class="address" value="${userList[indexCurrentUserLogin].address ? userList[indexCurrentUserLogin].address : ""}" placeholder="Nhập địa chỉ">
+            <input type="text" class="address" value="${
+              userList[indexCurrentUserLogin].address
+                ? userList[indexCurrentUserLogin].address
+                : ""
+            }" placeholder="Nhập địa chỉ">
           </div>
           <div class="one-input-btn">
             <a class="save-information">Lưu thông tin</a>
@@ -133,7 +158,6 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
   ele.innerHTML = formInformationUser;
   document.body.appendChild(ele);
 
-
   document.querySelector(".form-user .save-information").onclick = (e) => {
     e.preventDefault();
     let result = handleSaveDateInformation(indexCurrentUserLogin);
@@ -142,12 +166,10 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
     }
   };
 
-
   document.querySelector(".exit-form-information-user").onclick = () => {
     document.querySelector(".container-formInformation-user").remove();
   };
 }
-
 
 // //hàm lịch sử mua hàng
 // export function showOrderHistory() {
@@ -318,7 +340,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
 
 //     arrayOrderDateDiv.forEach((objOrderDateDiv, indexOrderDateDiv) => {
 //         let arrayItemDiv = objOrderDateDiv.querySelectorAll(".shopping-cart__item");
-     
+
 //         arrayItemDiv.forEach((objItemDiv, indexItemDiv) => {
 //             objItemDiv.querySelector("button").onclick = () => {
 //                 userList[indexUserStatusLogin].ordersHistory[
