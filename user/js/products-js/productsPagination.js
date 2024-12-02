@@ -30,7 +30,7 @@ function focusCurrentPage(currentPage) {
 //Hàm cập nhật phân trang
 export function updateProductsPagination(
   filteredProducts,
-  filteredProductsLength
+  currentPage
 ) {
   
   // Lớp div chứa các nút trang
@@ -40,7 +40,7 @@ export function updateProductsPagination(
   const productsPerPage = 9;
 
   // Tổng số trang
-  const totalPages = Math.ceil(filteredProductsLength / productsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   // Số trang tối đa có thể hiển thị
   let maxPages = 7;
@@ -57,9 +57,6 @@ export function updateProductsPagination(
   // Trang đầu tiên và cuối cùng
   const firstPage = 1;
   const lastPage = totalPages;
-
-  // Trang hiện tại
-  let currentPage = 1;
 
   // Phân trang lần đầu tiên
   if (totalPages <= maxPages) {

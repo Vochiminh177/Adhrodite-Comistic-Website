@@ -3,7 +3,7 @@ import { getProductListInfo } from "../products-js/getProductList.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
-import { generateFilter } from "../products-js/generateFilter.js";
+import { generateFilter, resetDoubleSlider } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
 
@@ -648,6 +648,7 @@ export function updateMainContent(mainContentKey) {
     if (mainContentKey === "products") {
       // Tạo sự kiện cho bộ lọc
       generateFilter();
+      resetDoubleSlider();
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
 
