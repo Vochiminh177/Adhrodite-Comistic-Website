@@ -19,7 +19,7 @@ function checkEmail(email) {
 
   // Kiểm tra từng ký tự trong phần trước "@"
   for (const char of parts[0]) {
-      if (!((char >= 'a' && char <= 'z') || !(char >= 'A' && char <= 'Z') || !(char >= '0' && char <= '9'))) {
+      if (!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) {
           return false; // Ký tự không hợp lệ
       }
   }
