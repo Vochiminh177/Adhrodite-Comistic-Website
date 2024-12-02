@@ -117,6 +117,7 @@ export function handleSignIn() {
     }
     if(userList[indexOfUsername].type === "admin"){
         document.querySelector(".header__admin-icon").style.display = "block";
+        handleAdmin();
     }
 
     //update vị trí username của người dùng đang đăng nhập lên local
