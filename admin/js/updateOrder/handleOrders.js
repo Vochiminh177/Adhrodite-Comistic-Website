@@ -141,7 +141,7 @@ function createOrderDetails(order) {
     <p>Tên:&nbsp${customer.first_name + " " + customer.last_name}</p>
     <p>Email:&nbsp${customer.email}</p>
     <p>Số điện thoại:&nbsp${customer.phone}</p>
-    <p>Địa chỉ:&nbsp${customer.address}</p>
+    <p>Địa chỉ giao hàng:&nbsp${order.orderAddressToShip}</p>
   `;
 
   // Thông tin sản phẩm đã mua
@@ -163,7 +163,7 @@ function createOrderDetails(order) {
   orderCost.innerHTML = `
     <h3>Tóm Tắt Đơn Hàng</h3>
     <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-    <p>Phí vận chuyển:&nbsp${20000}</p>
+    <p>Phí vận chuyển:&nbsp${18000}</p>
     <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
   `;
 

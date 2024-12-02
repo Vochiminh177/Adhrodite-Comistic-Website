@@ -230,6 +230,7 @@ export function showMain(sectionId) {
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
 		<div class="content order">
+			<div class="table-container">
 			<table class="content-order-table">
 				<thead>
 					<tr>
@@ -246,6 +247,8 @@ export function showMain(sectionId) {
 
 				</tbody>
 			</table>
+			<div class="list-page"></div>
+			</div>
 			<div class="order-filter-container" id="order-filter-container"></div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
@@ -289,7 +292,6 @@ export function showMain(sectionId) {
 				</div>
 			</div>
 		</div>
-		<div class="list-page"></div>
 		`;
 		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 		pagination(orderList, 1, showListOrder, "#main-content-order");
