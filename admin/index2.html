@@ -100,8 +100,16 @@
                         <input type="date" id="from-date" class="custom-date-input">
                     </div>
                     <div class="filter-item">
-                        <label class="dateLabel">  Đến ngày</label>
+                        <label class="dateLabel">Đến ngày</label>
                         <input type="date" id="to-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Mã sản phẩm</label>
+                        <input type="text" id="product-id" class="custom-date-input">
+                    </div>
+                    <div class="filter-btn">
+                        <button type="submit" id="filterBtn">Lọc</button>
+                        <button type="reset" id="resetBtn">Xóa</button>
                     </div>
                 </div>
 
@@ -109,33 +117,48 @@
                     <div class="dashboard-highlight-box">
                         <i class='bx bx-dollar'></i>
                         <div>
-                            <h3>1,172,300</h3>
+                            <h3>Số liệu</h3>
                             <span>Tổng doanh thu</span>
                         </div>
                     </div>
                     <div class="dashboard-highlight-box">
                         <i class='bx bx-cart'></i>
                         <div>
-                            <h3>1,172,300</h3>
+                            <h3>Số liệu</h3>
                             <span>Tổng đơn hàng</span>
                         </div>
                     </div>
-                    <div class="dashboard-highlight-box">
-                        <i class='bx bx-up-arrow-alt'></i>
+                    <div class="dashboard-highlight-box-product">
+                        <img src="" alt="Sản phẩm" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
                         <div>
-                            <h3>1,172,300</h3>
+                            <h3>Id sản phẩm</h3>
                             <span>Bán chạy</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-highlight-box">
-                        <i class='bx bx-down-arrow-alt'></i>
-                        <div>
-                            <h3>1,172,300</h3>
-                            <span>Bán chậm</span>
                         </div>
                     </div>
                 </div>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Hình ảnh</th>
+                            <th>Giá sản phẩm</th>
+                            <th>Tổng đơn hàng</th>
+                            <th>Tổng doanh thu</th>
+                            <th>Tùy chỉnh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>hình ảnh</td>
+                            <td>giá sản phẩm</td>
+                            <td>tổng đơn hàng</td>
+                            <td>tổng doanh thu</td>
+                            <td>
+                                <button id="orderListBtn">Đơn hàng</button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </main>
@@ -232,23 +255,23 @@
 
                     </tbody>
                 </table>-->
-                <!-- Modal hiện chi tiết đơn hàng -->
-                <!-- <div id="order-details-modal" class="modal">
+            <!-- Modal hiện chi tiết đơn hàng -->
+            <!-- <div id="order-details-modal" class="modal">
                     <div class="order-details-modal-content">
                         <a href="#" class="close-btn">&times;</a>
                         <div id="order-details-container"> -->
-                            <!-- Header đơn hàng -->
-                            <!-- <header class="order-header" id="order-header">
+            <!-- Header đơn hàng -->
+            <!-- <header class="order-header" id="order-header">
 
                             </header> -->
-                        
-                            <!-- Thông tin khách hàng -->
-                            <!-- <section class="customer-info" id="customer-info">
+
+            <!-- Thông tin khách hàng -->
+            <!-- <section class="customer-info" id="customer-info">
 
                             </section> -->
-                        
-                            <!-- Các sản phẩm -->
-                            <!-- <section class="product-info" id="product-info">
+
+            <!-- Các sản phẩm -->
+            <!-- <section class="product-info" id="product-info">
                                 <h3>Chi tiết Sản Phẩm</h3>
                                 <table class="product-table">
                                     <thead>
@@ -264,14 +287,14 @@
                                     </tbody>
                                 </table>
                             </section> -->
-                        
-                            <!-- Chi phí đơn hàng -->
-                            <!-- <section class="order-cost" id="order-cost">
+
+            <!-- Chi phí đơn hàng -->
+            <!-- <section class="order-cost" id="order-cost">
 
                             </section> -->
-                        
-                            <!-- Thanh hành động-->
-                            <!-- <div class="action-bar" id="action-bar">
+
+            <!-- Thanh hành động-->
+            <!-- <div class="action-bar" id="action-bar">
 
                             </div>
 
@@ -280,11 +303,11 @@
                 </div>
             </div> -->
             <!-- <div class="list-page"></div> -->
-                <div class="content-order-list">
-                    <table>
+            <div class="content-order-list">
+                <table>
 
-                    </table>
-                </div>
+                </table>
+            </div>
 
             </div>
         </main>
@@ -319,6 +342,7 @@
         </main>
     </section>
     <script type="module" src="./js/script2.js"></script>
+    <script src="./js/dashboard.js"></script>
     <!-- <script type="module" src="js/product.js"></script> -->
 
 

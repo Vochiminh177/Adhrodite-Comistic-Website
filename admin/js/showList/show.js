@@ -2,65 +2,83 @@ import { productItemArray, userList } from "../../../database/database.js"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
 import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
-function createPage(list, currentPage, showList, main){
+function createPage(list, currentPage, showList, main) {
     let itemPerPage = 7;
     let totalPage = Math.ceil(list.length / itemPerPage);
-    // console.log(totalPage);
     let firstPage = currentPage - 2;
     let lastPage = currentPage + 2;
-    if(firstPage <= 0){
+
+    if (firstPage <= 0) {
         firstPage = 1;
         lastPage = 5;
     }
-    if(lastPage >= totalPage){
-        lastPage = totalPage;   
+    if (lastPage >= totalPage) {
+        lastPage = totalPage;
     }
+
     // Tạo listpage, số trang
     let eleUl = document.createElement("ul");
     eleUl.className = "listPage";
     eleUl.innerHTML += `<li><a href="" class="left-page"><</a></li>`;
-    // console.log(firstPage, lastPage, totalPage)
-    for(let i = firstPage; i <= lastPage; i++){
-        if(currentPage == i){
+    
+    // Tạo các số trang
+    for (let i = firstPage; i <= lastPage; i++) {
+        if (currentPage == i) {
             eleUl.innerHTML += `<li><a href="" class="page-number active-page">${i}</a></li>`;
+        } else {
+            eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
         }
-        else eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
     }
     eleUl.innerHTML += `<li><a href="" class="right-page">></a></li>`;
-    document.querySelector(main).querySelector(".list-page").innerHTML = eleUl.outerHTML;
+    
+    // Gán phần tử phân trang vào DOM
+    const listPageElement = document.querySelector(main).querySelector(".list-page");
+    if (listPageElement) {
+        listPageElement.innerHTML = eleUl.outerHTML;
+    }
+
     //------------------------------------------
-    //-----In ra danh sách list---------
+    //----- In ra danh sách list
     let start = (currentPage - 1) * itemPerPage;
     let end = start + itemPerPage;
     showList(start, end, currentPage, list);
     //------------------------------------------
-    //--gán sự kiện----
-    document.querySelector(main).querySelector(".left-page").onclick = (e) => {
-        e.preventDefault();
-        document.getElementById('main-content-product-list').scrollTo(0, 0);
-        if(currentPage-1>0){
-            createPage(list, currentPage-1, showList, main);
-        }
-    };
-    document.querySelector(main).querySelector(".right-page").onclick = (e) => {
-        e.preventDefault();
-        document.getElementById('main-content-product-list').scrollTo(0, 0);
-        if(currentPage+1<=totalPage){
-            createPage(list, currentPage+1, showList, main);
-        }
-    };
-    document.querySelector(main).querySelectorAll(".page-number").forEach((obj) => {
+
+    //-- Gán sự kiện cho các nút phân trang
+    const leftPageButton = document.querySelector(main).querySelector(".left-page");
+    const rightPageButton = document.querySelector(main).querySelector(".right-page");
+    const pageNumberButtons = document.querySelector(main).querySelectorAll(".page-number");
+
+    if (leftPageButton) {
+        leftPageButton.onclick = (e) => {
+            e.preventDefault();
+            if (currentPage - 1 > 0) {
+                createPage(list, currentPage - 1, showList, main);
+            }
+        };
+    }
+
+    if (rightPageButton) {
+        rightPageButton.onclick = (e) => {
+            e.preventDefault();
+            if (currentPage + 1 <= totalPage) {
+                createPage(list, currentPage + 1, showList, main);
+            }
+        };
+    }
+
+    pageNumberButtons.forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
-            document.getElementById('main-content-product-list').scrollTo(0, 0);
             createPage(list, parseInt(obj.textContent), showList, main);
-        }
+        };
     });
 }
 
-export function pagination(list, currentPage, showList, main){
+export function pagination(list, currentPage, showList, main) {
     createPage(list, currentPage, showList, main);
 }
+
 
 export function showListProduct(start, end, currentPage, productList) {
 
@@ -81,8 +99,8 @@ export function showListProduct(start, end, currentPage, productList) {
     `;
     let eleTbody = document.createElement("tbody");
     productList.forEach((ele, index) => {
-        if(index>=start && index < end){
-        eleTbody.innerHTML += `
+        if (index >= start && index < end) {
+            eleTbody.innerHTML += `
             <tr>
                 <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
                 <td id="id">${ele.id}</td>
@@ -106,7 +124,7 @@ export function showListProduct(start, end, currentPage, productList) {
     searchProduct();
 }
 
-export function showListCustomer(start, end, currentPage, userList){
+export function showListCustomer(start, end, currentPage, userList) {
     let user = `
     <thead>
         <tr>
@@ -125,7 +143,7 @@ export function showListCustomer(start, end, currentPage, userList){
         admin: "Admin"
     }
     userList.forEach((ele, index) => {
-        if(index >= start && index < end){
+        if (index >= start && index < end) {
             eleTbody.innerHTML += `
                 <tr>
                     <td id="id-user">${ele.id}</td>
@@ -149,76 +167,80 @@ export function showListCustomer(start, end, currentPage, userList){
     blockCustomer();
 }
 
-export function showListOrder(start, end, curentPage, orderList){  
+export function showListOrder(start, end, curentPage, orderList) {
     document.querySelector('.content-order-table-body').innerHTML = "";
     end = Math.min(end, orderList.length);
-    for(let i = start; i < end; i++){
+    for (let i = start; i < end; i++) {
         createOrderRow(orderList[i]);
     }
 
     generateOrderEvents(start, end, orderList);
 }
 
-export function showProductStatistics(start, end, productList) {
-    // Tính tổng số lượng và doanh thu
-    let totalQuantity = 0;
-    let totalRevenue = 0;
-    let bestSellingProduct = null;
-    let leastSellingProduct = null;
+// hàm thống kê dữ liệu từ giỏ hàng
+export function generateProductStatistics(orderList) {
+    let productReport = {};
 
-    // Tạo bảng HTML
+    orderList.forEach(order => {
+        order.orderProduct.forEach(product => {
+            let productId = product.id;
+
+            if (!productReport[productId]) {
+                productReport[productId] = {
+                    id: productId,
+                    name: product.name,
+                    src: product.src,
+                    price: product.price,
+                    totalQuantity: 0,
+                    totalRevenue: 0,
+                    orderCount: 0
+                };
+            }
+
+            productReport[productId].totalQuantity += parseInt(product.quantity);
+            productReport[productId].totalRevenue += product.price * product.quantity;
+            productReport[productId].orderCount++;
+        });
+    });
+
+    // Chuyển đổi thành mảng và sắp xếp theo doanh thu giảm dần
+    return Object.values(productReport).sort((a, b) => b.totalRevenue - a.totalRevenue);
+}
+
+// hàm tạo bảng thống kê từ dữ liệu phân tích được 
+export function showProductStatistics(start, end, currentPage, productStatistics) {
+
+    // console.log("Start: ", start, "End: ", end, "Product Statistics: ", productStatistics);
     let tableContent = `
     <thead>
         <tr>
             <th>Mã sản phẩm</th>
-            <th>Tên sản phẩm</th>
-            <th>Thương hiệu</th>
-            <th>Danh mục</th>
-            <th>Giá</th>
-            <th>Số lượng</th>
-            <th>Doanh thu</th>
-            <th>Tùy chọn</th>
+            <th>Hình ảnh</th>
+            <th>Giá sản phẩm</th>
+            <th>Tổng đơn hàng</th>
+            <th>Tổng doanh thu</th>
+            <th>Tùy chỉnh</th>
         </tr>
-    </thead>
-    `;
+    </thead>`;
 
     let eleTbody = document.createElement("tbody");
-    productList.forEach((product, index) => {
+
+    productStatistics.forEach((product, index) => {
         if (index >= start && index < end) {
-            let revenue = product.price * product.quantity;
-            totalQuantity += product.quantity;
-            totalRevenue += revenue;
-
-            // Kiểm tra sản phẩm bán chạy và ế nhất
-            if (!bestSellingProduct || product.quantity > bestSellingProduct.quantity) {
-                bestSellingProduct = product;
-            }
-            if (!leastSellingProduct || product.quantity < leastSellingProduct.quantity) {
-                leastSellingProduct = product;
-            }
-
-            // Thêm dòng sản phẩm vào bảng
             eleTbody.innerHTML += `
-                <tr>
-                    <td><img style="width: 70px; height: 90%;" src="${product.src}"></td>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.brand}</td>
-                    <td>${product.category}</td>
-                    <td>${product.price.toLocaleString()} đ</td>
-                    <td>${product.quantity}</td>
-                    <td>${revenue.toLocaleString()} đ</td>
-                </tr>
-            `;
+            <tr>
+                <td>${product.id}</td>
+                <td><img src="${product.src}" style="width:50px;height:50px;"></td>
+                <td>${product.price.toLocaleString()}</td>
+                <td>${product.totalQuantity}</td>
+                <td>${product.totalRevenue.toLocaleString()}</td>
+                <td>
+                    <button id="orderListBtn" index-item=${index}>Đơn hàng</button>
+                </td>
+            </tr>`;
         }
     });
 
     tableContent += eleTbody.outerHTML;
-    document.querySelector(".content .content-product-list table").innerHTML = tableContent;
-
-    // Hiển thị thống kê
-    console.log(`Tổng số lượng bán ra: ${totalQuantity}`);
-    console.log(`Tổng doanh thu: ${totalRevenue.toLocaleString()} đ`);
-    console.log(`Sản phẩm bán chạy nhất: ${bestSellingProduct?.name} (${bestSellingProduct?.quantity} cái)`);
-    console.log(`Sản phẩm ế nhất: ${leastSellingProduct?.name} (${leastSellingProduct?.quantity} cái)`);
+    document.querySelector(".dashboardTable").innerHTML = tableContent;
 }

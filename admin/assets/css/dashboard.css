@@ -29,7 +29,7 @@ html {
 
 .dashboard-filter {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     padding: 10px 15px 10px 15px;
     background: #fff;
     border-radius: 8px;
@@ -42,7 +42,7 @@ html {
 
 .filter-item {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
 }
 
@@ -86,32 +86,66 @@ html {
     }
 }
 
+.filter-btn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#filterBtn,
+#resetBtn {
+    font-family: var(--poppins);
+    background-color: rgb(237, 171, 203);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#filterBtn:hover,
+#resetBtn:hover {
+    background-color: #a9a9a9;
+    /* Màu sáng hơn */
+    transform: scale(1.05);
+    /* Phóng to nhẹ */
+}
+
+#filterBtn:active,
+#resetBtn:active {
+    background-color: #808080;
+    /* Màu tối hơn */
+    transform: scale(0.95);
+    /* Nhỏ lại nhẹ */
+}
 
 .dashboard-highlight {
     width: fit-content;
     background: var(--pink3);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.dashboard-highlight .dashboard-highlight-box {
+.dashboard-highlight .dashboard-highlight-box, .dashboard-highlight-box-product {
     background: #fff;
-    width: 240px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 270px;
     padding: 15px 20px;
     border-radius: 8px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     margin-right: 25px;
 }
 
 .dashboard-highlight .dashboard-highlight-box i {
-    font-size: 25px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+    font-size: 30px;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
     border-radius: 50%;
     text-align: center;
     color: #fff;
@@ -129,23 +163,42 @@ html {
 
 }
 
-.dashboard-highlight .dashboard-highlight-box:nth-child(3) i {
+.dashboard-highlight .dashboard-highlight-box-product i {
     background: #bb1169;
 
 }
 
-.dashboard-highlight .dashboard-highlight-box:nth-child(4) i {
-    background: #3abfe3;
-
-}
-
-.dashboard-highlight .dashboard-highlight-box h3 {
-    font-size: 18px;
-    font-weight: 600;
+.dashboard-highlight .dashboard-highlight-box h3, .dashboard-highlight-box-product h3 {
+    font-size: 20px;
+    font-weight: 500;
     margin-bottom: 15px;
 }
 
-.dashboard-highlight .dashboard-highlight-box span {
-    font-size: 15px;
-    color: lightslategray;
+.dashboard-highlight .dashboard-highlight-box span, .dashboard-highlight-box-product span {
+    font-size: 17px;
+    color: rgb(99, 119, 140);
+}
+
+#filterBtn,
+#resetBtn {
+    font-family: var(--poppins);
+    background-color: rgb(237, 171, 203);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#orderListBtn {
+    font-family: var(--poppins);
+    background-color: rgb(237, 171, 203);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#orderListBtn:hover {
+    background-color: #a9a9a9;
 }
