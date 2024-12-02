@@ -36,7 +36,7 @@ function goToProductPageWithSearchTerm(searchTerm) {
   leftSearchInput.value = searchTerm;
   leftSearchInput.focus();
   const filteredProducts = filterProducts(searchTerm);
-  updateProductList(filteredProducts);
+  updateProductList(filteredProducts, 1);
 }
 
 /*-----------FUNCTION-----------*/

@@ -1,7 +1,7 @@
 import { getProductItemInfo } from "./getProductItem.js";
 import { updateLeftMenuStyle } from "./productsPageStyles.js";
 import { updateProductsPagination } from "./productsPagination.js";
-import { resetDoubleSlider } from "./generateFilter.js";
+import { resetDoubleSlider , generateFilter } from "./generateFilter.js";
 // Hàm format lại các tên theo kiểu "a-b-c"
 import { replaceSpaceWithHyphen } from "../common-js/common.js";
 
@@ -21,7 +21,7 @@ function getLeftSearchInfo() {
     // Cập nhập lại tên hiện tại của sản phẩm cần tìm
     productItemName = leftSearchInput.value.trim().toLowerCase();
     filteredProducts = filterProducts();
-    updateProductList(filteredProducts);
+    updateProductList(filteredProducts, 1);
   });
 }
 
@@ -34,7 +34,7 @@ let chosenSort = "";
 // Giá thấp nhất
 let minPrice = 0;
 // Giá cao nhất
-let maxPrice = 2 ** 31;
+let maxPrice = 800000;
 // Trạng thái đã chọn
 let chosenStatus = "";
 // Danh sách sản phẩm đã lọc
@@ -61,7 +61,7 @@ function activateFilterSearch(){
   productItemName = "";
 
   filteredProducts = filterProducts();
-  updateProductList(filteredProducts);
+  updateProductList(filteredProducts, 1);
 }
 // Đặt lại các tiêu chí lọc
 function resetFilter(){
@@ -115,7 +115,7 @@ function getLeftMenuInfo() {
         // Cập nhật danh sách sản phẩm
         productListKey = leftMenuValue;
         filteredProducts = filterProducts();
-        updateProductList(filteredProducts);
+        updateProductList(filteredProducts, 1);
       }
     }
   });
@@ -128,7 +128,7 @@ function filterProducts() {
     const tmpString = chosenPrice.split("-");
     minPrice = parseInt(tmpString[0], 10);
     if (tmpString[1] === "INF") {
-      maxPrice = 2 ** 31;
+      maxPrice = 800000;
     } else {
       maxPrice = parseInt(tmpString[1], 10);
     }
@@ -198,12 +198,13 @@ function customSort(attribute, sortType){
 }
 
 // Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
-export function comebackProductList() {
-  updateProductList(filteredProducts);
+export function comebackProductList(currentPage) {
+  updateProductList(filteredProducts, currentPage);
+  generateFilter();
 }
 
 // Danh sách các sản phẩm được hiển thị theo tìm kiếm, bộ lọc, danh mục
-export function updateProductList(filteredProducts) {
+export function updateProductList(filteredProducts, currentPage) {
   // Main Products
   let mainProductsDiv = document.createElement("div");
   mainProductsDiv.className = "main__products";
@@ -272,7 +273,7 @@ export function updateProductList(filteredProducts) {
 
   if (filteredProductsLength > 0) {
     // Cập nhật hành động cho các nút phân trang sản phẩm
-    updateProductsPagination(filteredProducts, filteredProductsLength);
+    updateProductsPagination(filteredProducts, currentPage);
   }
 
   // Thiết lập hành động có thể xem "Chi tiết" cho các sản phẩm trong danh sách
@@ -290,7 +291,7 @@ export function getProductListInfo() {
   chosenSort = "";
   chosenStatus = "";
   minPrice = 0;
-  maxPrice = 2 ** 31;
+  maxPrice = 800000;
   
   // Gọi các sự kiện để cập nhật Danh sách sản phẩm
   getLeftSearchInfo();
