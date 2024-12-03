@@ -222,9 +222,10 @@ export function showMain(sectionId) {
                     </div>
                     <table>
                     </table>
+					<div class="list-page"></div>
                 </div>
             </div>
-			<div class="list-page"></div>
+		
 		`;
 			let productList = JSON.parse(localStorage.getItem("productList")) || [];
 			if (productList.length == 0) {
@@ -373,9 +374,10 @@ export function showMain(sectionId) {
                     </div>
                     <table>
                     </table>
+					<div class="list-page"></div>
                 </div>
             </div>
-			<div class="list-page"></div>
+	
 		`;
 						let userList = JSON.parse(localStorage.getItem("userList"));
 						localStorage.setItem("userList", JSON.stringify(userList));

@@ -195,7 +195,6 @@ export function handleSignUp() {
   ) {
     userID = Math.floor(Math.random() * userList.length + 1) + 1;
   }
-  console.log(userID);
   var data_obj = {
     type: "customer",
     bloclStatus: false,
