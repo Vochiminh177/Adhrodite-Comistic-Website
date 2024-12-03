@@ -334,7 +334,15 @@ export function showMain(sectionId) {
 								</tbody>
 							</table>
 						</section>
-
+						<!-- Chi phí đơn hàng -->
+						< <section class="order-cost" id="order-cost">
+			
+						</section>
+			
+						<!-- Thanh hành động-->
+						<div class="action-bar" id="action-bar">
+			
+						</div>
 					</div>
 				</div>
 			</div>

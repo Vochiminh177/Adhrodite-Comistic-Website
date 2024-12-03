@@ -52,7 +52,6 @@ export function generateOrderEvents(start, end, orderList) {
 
   // Tạo sự kiện cho các nút in, xác nhận, huỷ, xác nhận đã giao
   function generateOrderButtonsEvents(orderIndex) {
-    const printBtn = document.querySelector(".order-print-btn");
     const confirmBtn = document.querySelector(".order-confirm-btn");
     const cancelBtn = document.querySelector(".order-cancel-btn");
     const shippedBtn = document.querySelector(".order-shipped-btn");
