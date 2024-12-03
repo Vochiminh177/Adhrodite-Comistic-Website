@@ -15,6 +15,7 @@ table {
     padding: 12px;
     border-collapse: collapse;
     table-layout: fixed;
+    background-color: #fff;
 }
 th {
     font-weight: bold;

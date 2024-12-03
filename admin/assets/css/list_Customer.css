@@ -1,127 +1,182 @@
-*{
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
 /* css phần thông báo có muốn xóa người dùng không */
-
-.container-delete-customer{
-    z-index: 10000;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+.customer-title {
+  padding-bottom: 20px;
+  font-family: var(--poppins);
+  font-size: 25px;
 }
-.form-delete-customer{
-    padding: 20px;
-    background-color: #fff;
+.container-delete-customer {
+  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.form-delete-customer span{
-    font-size: 2rem;
-    height: 40px;
-    line-height: 40px;
-    font-weight: 700;
+.form-delete-customer {
+  padding: 20px;
+  background-color: #fff;
 }
-.form-delete-customer button{
-    border: none;
-    width: 10rem;
-    font-size: 1.2rem;
-    margin: 0px 20px;
-    padding: 10px 0px;
-    cursor: pointer;
-    font-weight: 300;
-    background-color: #fff;
-    color: #000;
-    transition: background 0.2;
+.form-delete-customer span {
+  font-size: 2rem;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 700;
 }
-.form-delete-customer button:hover{
-    background-color: #a94064;
-    color: #fff;
-    font-weight: 500;
+.form-delete-customer button {
+  border: none;
+  width: 10rem;
+  font-size: 1.2rem;
+  margin: 0px 20px;
+  padding: 10px 0px;
+  cursor: pointer;
+  font-weight: 300;
+  background-color: #fff;
+  color: #000;
+  transition: background-color 0.2;
+}
+.form-delete-customer button:hover {
+  background-color: #a94064;
+  color: #fff;
+  font-weight: 500;
 }
 /* ------------------------------------------ */
 
 /* css phần tủy chỉnh 3 nút sửa xóa khóa khách hàng của admin */
-.edit-customer{
-    background-color: greenyellow;
-    padding: 5px;
-    font-weight: 400;
-    color: #000;
+.edit-customer {
+  background-color: rgb(95, 255, 47);
+  padding: 5px;
+  font-weight: 400;
+  color: #000;
 }
-.edit-customer:hover{
-    color: #fff;
+.edit-customer:hover {
+  color: #fff;
 }
-.delete-customer{
-    background-color: #ccc;
-    padding: 5px;
-    font-weight: 400;
-    color: #000;
+.delete-customer {
+  background-color: #ccc;
+  padding: 5px;
+  font-weight: 400;
+  color: #000;
 }
-.delete-customer:hover{
-    color: #fff;
+.delete-customer:hover {
+  color: #fff;
 }
-.block-customer{
-    background-color: red;
-    color: #000;
-    padding: 5px;
-    font-weight: 400;
+.block-customer {
+  background-color: red;
+  color: #000;
+  padding: 5px;
+  font-weight: 400;
 }
-.block-customer:hover{
-    color: #fff;
+.block-customer:hover {
+  color: #fff;
 }
 /* ----------------------------------------------------------- */
 /* css phần cột id của bảng */
-.content-customer-list table th:first-child{
-    width: 10%;
+.content-customer-list table th:first-child {
+  width: 10%;
 }
 /* ------------------------------ */
 
 /* css chỉnh phẩn quay lại trong chỉnh sửa khách hàng*/
-#main-content-customer-edit .title, #main-content-customer-add .title{
-    justify-content: unset;
+#main-content-customer-edit .title,
+#main-content-customer-add .title {
+  justify-content: unset;
 }
-#main-content-customer-edit .title a, #main-content-customer-add .title a{
-    margin-left: 20px;
-    color: #ccc;    
-    font-size: 1.5rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: color 0.2s ease;
+#main-content-customer-edit .title a,
+#main-content-customer-add .title a {
+  margin-left: 20px;
+  color: #ccc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
-#main-content-customer-edit .title a:hover, #main-content-customer-add .title a:hover{
-    color: #000;
+#main-content-customer-edit .title a:hover,
+#main-content-customer-add .title a:hover {
+  color: #000;
+}
+/* ------------------------------------------ */
+.customer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+/* css phần tìm kiếm */
+.search-customer input {
+  padding: 10px;
+  font-size: 1rem;
+  /* width: 100%; */
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: background-color 0.2s ease;
+}
+.search-customer input:hover {
+  background-color: #ccc;
+}
+.search-customer a {
+  margin-left: 10px;
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease;
+}
+.search-customer a:hover {
+  background-color: #a94064;
 }
 /* ------------------------------------------ */
 
-/* css phần tìm kiếm */
-.search-customer{
-    margin: 10px 0px;
-    /* width: 50%; */
+/* ================= chung cho mobile và table */
+@media screen and (max-width: 700px) {
+  .content-customer-list table th {
+    display: none;
+  }
+  .content-customer-list table td {
+    display: flex;
+  }
+  .content-customer-list table tr {
+  }
+  .content-customer-list table tr {
+    padding-top: 18px;
+    display: block;
+  }
+
+  .content-customer-list table tr:nth-of-type(2n) {
+    background-color: #f9f4f6;
+  }
+
+  .content-customer-list td::before {
+    font-weight: 700;
+    width: 40%;
+    text-align: left;
+  }
+  .content-customer-list table td:nth-of-type(1)::before {
+    content: "Id khách hàng";
+  }
+  .content-customer-list table td:nth-of-type(2)::before {
+    content: "Tài Khoản";
+  }
+  .content-customer-list table td:nth-of-type(3)::before {
+    content: "Họ tên";
+  }
+  .content-customer-list table td:nth-of-type(4)::before {
+    content: "Loại";
+  }
+
+  .content-customer-list table td:nth-of-type(5)::before {
+    content: "Chỉnh sửa";
+  }
+  .delete-customer,
+  .block-customer {
+    margin-left: 20px;
+  }
 }
-.search-customer input{
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    border-bottom: 1px solid #a94064;
-    outline: none;
-    transition: background 0.2s ease;
-}
-.search-customer input:hover{
-    background-color: #ccc;
-}
-.search-customer a{
-    margin-left: 10px;
-    background-color: #a94064;
-    color: #fff;
-    padding: 5px 10px;
-    transition: background 0.2s ease;
-}
-.search-customer a:hover{
-    background-color: #000;
-}
-/* ------------------------------------------ */
