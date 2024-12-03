@@ -24,6 +24,7 @@ export function generateOrderFilter(){
         <div class="order-filter-group">
         <label for="district-sort">Sắp xếp quận</label>
         <select id="district-sort" name="order-district-sort">
+            <option value="tat-ca">Không xếp</option>
             <option value="asc">A - Z</option>
             <option value="desc">Z - A</option>
         </select>
@@ -45,6 +46,7 @@ export function generateOrderFilter(){
         const startDate = orderFilterForm["start-date"].value;
         const endDate = orderFilterForm["end-date"].value;
         const orderStatus = orderFilterForm["order-status"].value;
+        const orderSort = orderFilterForm["order-district-sort"];
         const orderList = JSON.parse(localStorage.getItem("orderList"));
         console.log(startDate);
         console.log(endDate);
@@ -72,7 +74,12 @@ export function generateOrderFilter(){
 
             return true;
         });
+        if(orderSort === "asc"){
+            
+        } else
+        if(orderSort === "desc"){
 
+        }
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 

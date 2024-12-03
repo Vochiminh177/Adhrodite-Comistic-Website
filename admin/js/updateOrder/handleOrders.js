@@ -171,23 +171,15 @@ function createOrderDetails(order) {
   const actionBar = document.getElementById("action-bar");
   if (order.orderStatus === "pending") {
     actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-      <button class="order-confirm-btn">Xác nhận đơn hàng</button>
-      <button class="order-cancel-btn">Hủy đơn hàng</button>
+      <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
+      <button class="order-btn order-cancel-btn">Hủy đơn hàng</button>
       `;
   } else if (order.orderStatus === "accepted") {
     actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-      <button class="order-shipped-btn">Xác nhận giao thành công</button>
+      <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
     `;
   } else if (order.orderStatus === "shipped") {
-    actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-    `;
-  } else if (order.orderStatus === "canceled") {
-    actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-    `;
+    actionBar.innerHTML = ``;
   }
 }
 
