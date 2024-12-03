@@ -162,26 +162,30 @@ function createOrderDetails(order) {
 
   // Thông tin giá tiền
   const orderCost = document.getElementById("order-cost");
-  orderCost.innerHTML = `
-    <h3>Tóm Tắt Đơn Hàng</h3>
-    <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-    <p>Phí vận chuyển:&nbsp${18000}</p>
-    <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
-  `;
-
+  if(orderCost){
+    orderCost.innerHTML = `
+      <h3>Tóm Tắt Đơn Hàng</h3>
+      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
+      <p>Phí vận chuyển:&nbsp${20000}</p>
+      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
+    `;
+  }
+  
   // Các nút in, xác nhận, huỷ, xác nhận đã giao
   const actionBar = document.getElementById("action-bar");
-  if (order.orderStatus === "pending") {
-    actionBar.innerHTML = `
-      <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
-      <button class="order-btn order-cancel-btn">Hủy đơn hàng</button>
+  if(actionBar){
+    if (order.orderStatus === "pending") {
+      actionBar.innerHTML = `
+        <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
+        <button class="order-btn order-cancel-btn">Hủy đơn hàng</button>
+        `;
+    } else if (order.orderStatus === "accepted") {
+      actionBar.innerHTML = `
+        <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
       `;
-  } else if (order.orderStatus === "accepted") {
-    actionBar.innerHTML = `
-      <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
-    `;
-  } else if (order.orderStatus === "shipped") {
-    actionBar.innerHTML = ``;
+    } else if (order.orderStatus === "shipped") {
+      actionBar.innerHTML = ``;
+    }
   }
 }
 

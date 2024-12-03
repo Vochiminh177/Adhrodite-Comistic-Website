@@ -277,7 +277,8 @@ body {
     font-size: 25px;
 }
 .content {
-    background-color: var(--pink3);
+    /* background-color: var(--pink3); */
+    background-color: #fff;
 }
 
 /* ----------Hiệu---- */

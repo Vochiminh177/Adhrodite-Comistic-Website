@@ -142,7 +142,7 @@ html {
 }
 
 .dashboard-highlight .dashboard-highlight-box i {
-    font-size: 30px;
+    font-size: 40px;
     width: 80px;
     height: 80px;
     line-height: 80px;
@@ -195,7 +195,7 @@ html {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#orderListBtn {
+.order-list-btn {
     font-family: var(--poppins);
     background-color: rgb(237, 171, 203);
     color: black;
@@ -204,6 +204,6 @@ html {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
-#orderListBtn:hover {
+.order-list-btn:hover {
     background-color: #a9a9a9;
 }

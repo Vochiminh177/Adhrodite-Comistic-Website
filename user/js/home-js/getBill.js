@@ -333,9 +333,9 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
             !checkMethod
               ? method
               : method.name +
-                "Thể loại: " +
+                " Thể loại: " +
                 method.type +
-                "Mã số thẻ: " +
+                " Mã số thẻ: " +
                 method.code
           }</p>
         </div>

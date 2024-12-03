@@ -381,6 +381,8 @@ export function showUserFormInMenuHeader() {
       userContainerDiv.innerHTML = userContainerInner;
       document.body.appendChild(userContainerDiv);
 
+      updateForm("login")
+
       // Thiết lập sự kiện ẩn đi form
       unShowUserFormInMenuHeader();
 
@@ -392,7 +394,7 @@ export function showUserFormInMenuHeader() {
 
       // Thiết lập sự kiện cho phép người dùng Đăng nhập - Đăng ký
       signIn();
-      signUp();
+      // signUp();
     } else {
       // Nếu đang đăng nhập một tài khoản
       showUserMenu(userList, indexCurrentUserLogin);
