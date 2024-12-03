@@ -1,5 +1,6 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder } from "../showList/show.js"
+import { getDistrictOfOrder } from "./orderFilter.js";
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
@@ -8,6 +9,7 @@ export function createOrderRow(order) {
       <td>${order.orderId}</td>
       <td>${order.customerId}</td>
       <td>${order.orderDate}</td>
+      <td>${getDistrictOfOrder(order)}</td>
       <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
       <td>
         <p class="status-label ${order.orderStatus}">
@@ -141,7 +143,7 @@ function createOrderDetails(order) {
     <p>Tên:&nbsp${customer.first_name + " " + customer.last_name}</p>
     <p>Email:&nbsp${customer.email}</p>
     <p>Số điện thoại:&nbsp${customer.phone}</p>
-    <p>Địa chỉ:&nbsp${customer.address}</p>
+    <p>Địa chỉ giao hàng:&nbsp${order.orderAddressToShip}</p>
   `;
 
   // Thông tin sản phẩm đã mua
@@ -163,7 +165,7 @@ function createOrderDetails(order) {
   orderCost.innerHTML = `
     <h3>Tóm Tắt Đơn Hàng</h3>
     <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-    <p>Phí vận chuyển:&nbsp${20000}</p>
+    <p>Phí vận chuyển:&nbsp${18000}</p>
     <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
   `;
 
@@ -171,23 +173,15 @@ function createOrderDetails(order) {
   const actionBar = document.getElementById("action-bar");
   if (order.orderStatus === "pending") {
     actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-      <button class="order-confirm-btn">Xác nhận đơn hàng</button>
-      <button class="order-cancel-btn">Hủy đơn hàng</button>
+      <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
+      <button class="order-btn order-cancel-btn">Hủy đơn hàng</button>
       `;
   } else if (order.orderStatus === "accepted") {
     actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-      <button class="order-shipped-btn">Xác nhận giao thành công</button>
+      <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
     `;
   } else if (order.orderStatus === "shipped") {
-    actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-    `;
-  } else if (order.orderStatus === "canceled") {
-    actionBar.innerHTML = `
-      <button class="order-print-btn">In Hóa Đơn</button>
-    `;
+    actionBar.innerHTML = ``;
   }
 }
 

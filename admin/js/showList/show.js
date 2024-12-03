@@ -203,6 +203,8 @@ export function generateProductStatistics(orderList) {
         });
     });
 
+    console.log(productReport); 
+
     // Chuyển đổi thành mảng và sắp xếp theo doanh thu giảm dần
     return Object.values(productReport).sort((a, b) => b.totalRevenue - a.totalRevenue);
 }
@@ -230,7 +232,7 @@ export function showProductStatistics(start, end, currentPage, productStatistics
             eleTbody.innerHTML += `
             <tr>
                 <td>${product.id}</td>
-                <td><img src="${product.src}" style="width:50px;height:50px;"></td>
+                <td><img src=${product.src} style="weidth: 70px; height:70px;"></td>
                 <td>${product.price.toLocaleString()}</td>
                 <td>${product.totalQuantity}</td>
                 <td>${product.totalRevenue.toLocaleString()}</td>

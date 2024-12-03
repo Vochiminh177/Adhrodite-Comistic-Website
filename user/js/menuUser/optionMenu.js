@@ -3,7 +3,6 @@ import {
   handleSaveDateInformation,
 } from "./handleOptionMenu.js";
 import { updateMainContent } from "../home-js/changeMainContent.js";
-import { formatVietNamMoney } from "../common-js/common.js";
 
 //hàm tạo thông báo
 export function create_notification_user(mess) {
@@ -14,7 +13,7 @@ export function create_notification_user(mess) {
   // }
   // // if(document.querySelectorAll(".notice-user")){
   // //   document.querySelectorAll(".notice-user").forEach((obj) => {
-  // //     obj.style.translate 
+  // //     obj.style.translate
   // //   })
   // // }
   // document.querySelector(".container-notice").innerHTML += `<p class="notice-user">${mess}</p>`;
@@ -60,8 +59,11 @@ export function create_notification_user(mess) {
 // Hàm đăng xuất
 export function signOutUser() {
   let indexCurrentUserLogin = -1;
-  localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
-  document.querySelector(".header__admin-icon").style.display = "none";
+  localStorage.setItem(
+    "indexCurrentUserLogin",
+    JSON.stringify(indexCurrentUserLogin)
+  );
+  document.querySelector(".header__admin-icon").style.visibility = "hidden";
   create_notification_user("Đăng xuất thành công!");
   updateMainContent("home");
 }
@@ -86,11 +88,14 @@ export function changePassword() {
           <button class="btn-save-change-password">Lưu thay đổi</button>
         </div>
       </div>
-      <div class="form-change-password-delete"></div>
+      <div class="overlay-change-password"></div>
     `;
   document.body.appendChild(ele);
 
   document.querySelector(".exit-form-change-password-user").onclick = () => {
+    ele.remove();
+  };
+  document.querySelector(".overlay-change-password").onclick = () => {
     ele.remove();
   };
 
@@ -101,10 +106,6 @@ export function changePassword() {
       ele.remove();
     }
   };
-
-  document.querySelector(".form-change-password-delete").onclick = () => {
-    document.querySelector(".container-change-password-user").remove();
-  }
 }
 
 // Hàm hiện form khi ấn thông tin cá nhân trong menu-user
@@ -115,28 +116,56 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
 
-            <input type="text" class="first-name" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Nhập họ">
-            <input type="text" class="last-name" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Nhập tên">
+            <input type="text" class="first-name" value="${
+              userList[indexCurrentUserLogin].first_name
+                ? userList[indexCurrentUserLogin].first_name
+                : ""
+            }" placeholder="Nhập họ">
+            <input type="text" class="last-name" value="${
+              userList[indexCurrentUserLogin].last_name
+                ? userList[indexCurrentUserLogin].last_name
+                : ""
+            }" placeholder="Nhập tên">
 
           </div>
           <div class="one-input">
-            <input type="text" class="phone" value="${userList[indexCurrentUserLogin].phone ? userList[indexCurrentUserLogin].phone : ""}" placeholder="Nhập số điện thoại">
+            <input type="text" class="phone" value="${
+              userList[indexCurrentUserLogin].phone
+                ? userList[indexCurrentUserLogin].phone
+                : ""
+            }" placeholder="Nhập số điện thoại">
           </div>
           <div class="one-input">
-            <input type="text" class="email" value="${userList[indexCurrentUserLogin].email ? userList[indexCurrentUserLogin].email : ""}" placeholder="Nhập email">
+            <input type="text" class="email" value="${
+              userList[indexCurrentUserLogin].email
+                ? userList[indexCurrentUserLogin].email
+                : ""
+            }" placeholder="Nhập email">
           </div>
           <div class="one-input">
-            <input type="text" class="address" value="${userList[indexCurrentUserLogin].address ? userList[indexCurrentUserLogin].address : ""}" placeholder="Nhập địa chỉ">
+            <input type="text" class="address" value="${
+              userList[indexCurrentUserLogin].address
+                ? userList[indexCurrentUserLogin].address
+                : ""
+            }" placeholder="Nhập địa chỉ">
           </div>
-          <a class="save-information">Lưu thông tin</a>
+          <div class="one-input-btn">
+            <a class="save-information">Lưu thông tin</a>
+          </div>
         </div>
-        <div class="form-user-delete"></div>
+        <div class="overlay-user"></div>
     `;
   let ele = document.createElement("div");
   ele.className = "container-formInformation-user";
   ele.innerHTML = formInformationUser;
   document.body.appendChild(ele);
 
+  document.querySelector(".exit-form-information-user").onclick = () => {
+    ele.remove();
+  };
+  document.querySelector(".overlay-user").onclick = () => {
+    ele.remove();
+  };
 
   document.querySelector(".form-user .save-information").onclick = (e) => {
     e.preventDefault();
@@ -145,14 +174,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
       create_notification_user("Lưu thành công!");
     }
   };
-  document.querySelector(".exit-form-information-user").onclick = () => {
-    document.querySelector(".container-formInformation-user").remove();
-  };
-  document.querySelector(".form-user-delete").onclick = () => {
-    document.querySelector(".container-formInformation-user").remove();
-  }
 }
-
 
 // //hàm lịch sử mua hàng
 // export function showOrderHistory() {
@@ -323,7 +345,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
 
 //     arrayOrderDateDiv.forEach((objOrderDateDiv, indexOrderDateDiv) => {
 //         let arrayItemDiv = objOrderDateDiv.querySelectorAll(".shopping-cart__item");
-     
+
 //         arrayItemDiv.forEach((objItemDiv, indexItemDiv) => {
 //             objItemDiv.querySelector("button").onclick = () => {
 //                 userList[indexUserStatusLogin].ordersHistory[

@@ -1,150 +1,233 @@
-import { signIn } from "../userUpdate/LoginSignUpUser.js";
-import { userList } from "../../../database/database.js";
-import { showFormInformation, changePassword, signOutUser, create_notification_user } from "../menuUser/optionMenu.js";
+import { signIn, signUp } from "../userUpdate/LoginSignUpUser.js";
+import {
+  showFormInformation,
+  changePassword,
+  signOutUser,
+} from "../menuUser/optionMenu.js";
 
-
-function resetInputForLoginAndSignup(){
-  if(document.querySelector("#user-form .username-login")){
-    document.querySelector("#user-form .username-login").placeholder = "Nhập tên tài khoản";
+// Cập nhật lại giá trị của các thẻ input
+function resetInputInLoginAndLogoutForm() {
+  if (document.querySelector("#user-form .username-login")) {
+    document.querySelector("#user-form .username-login").placeholder =
+      "Nhập tên tài khoản";
     document.querySelector("#user-form .username-login").value = "";
-    document.querySelector("#user-form .username-login").classList.remove("err-text");
-    document.querySelector("#user-form .username-login").style.borderBottom = "1px solid #ccc";
-    document.querySelector("#user-form .password-login").placeholder = "Nhập mật khẩu";
-    document.querySelector("#user-form .password-login").classList.remove("err-text");
-    document.querySelector("#user-form .password-login").style.borderBottom = "1px solid #ccc";
+    document
+      .querySelector("#user-form .username-login")
+      .classList.remove("err-text");
+    document.querySelector("#user-form .username-login").style.borderBottom =
+      "1px solid #ccc";
+    document.querySelector("#user-form .password-login").placeholder =
+      "Nhập mật khẩu";
+    document
+      .querySelector("#user-form .password-login")
+      .classList.remove("err-text");
+    document.querySelector("#user-form .password-login").style.borderBottom =
+      "1px solid #ccc";
     document.querySelector("#user-form .password-login").value = "";
   }
-  if(document.querySelector(".username-signup")){
-    document.querySelector(".username-signup").placeholder = "Nhập tên tài khoản";
-    document.querySelector(".username-signup").classList.remove("err-text");
-    document.querySelector(".username-signup").style.borderBottom = "1px solid #ccc";
-    document.querySelector(".username-signup").value = "";
-    document.querySelector(".email-signup").placeholder = "Nhập email";
-    document.querySelector(".email-signup").classList.remove("err-text");
-    document.querySelector(".email-signup").style.borderBottom = "1px solid #ccc";
-    document.querySelector(".email-signup").value = "";
+  if (document.querySelector("#user-form .username-signup")) {
+    document.querySelector("#user-form .username-signup").placeholder =
+      "Nhập tên tài khoản";
+    document
+      .querySelector("#user-form .username-signup")
+      .classList.remove("err-text");
+    document.querySelector("#user-form .username-signup").style.borderBottom =
+      "1px solid #ccc";
+    document.querySelector("#user-form .username-signup").value = "";
+    document.querySelector("#user-form .email-signup").placeholder =
+      "Nhập email";
+    document
+      .querySelector("#user-form .email-signup")
+      .classList.remove("err-text");
+    document.querySelector("#user-form .email-signup").style.borderBottom =
+      "1px solid #ccc";
+    document.querySelector("#user-form .email-signup").value = "";
 
-    document.querySelector("#first-password").placeholder = "Nhập tên tài khoản";
-    document.querySelector("#first-password").value = "";
-    document.querySelector("#first-password").classList.remove("err-text");
-    document.querySelector("#first-password").style.borderBottom = "1px solid #ccc";
+    document.querySelector("#user-form #first-password").placeholder =
+      "Nhập tên tài khoản";
+    document.querySelector("#user-form #first-password").value = "";
+    document
+      .querySelector("#user-form #first-password")
+      .classList.remove("err-text");
+    document.querySelector("#user-form #first-password").style.borderBottom =
+      "1px solid #ccc";
 
-    document.querySelector("#second-password").placeholder = "Nhập tên tài khoản";
-    document.querySelector("#second-password").classList.remove("err-text");
-    document.querySelector("#second-password").value = "";
-    document.querySelector("#second-password").style.borderBottom = "1px solid #ccc";
+    document.querySelector("#user-form #second-password").placeholder =
+      "Nhập tên tài khoản";
+    document
+      .querySelector("#user-form #second-password")
+      .classList.remove("err-text");
+    document.querySelector("#user-form #second-password").value = "";
+    document.querySelector("#user-form #second-password").style.borderBottom =
+      "1px solid #ccc";
 
-    document.querySelector(".accept-privacy").parentElement.querySelector("p").style = "black";
+    document
+      .querySelector(".accept-privacy")
+      .parentElement.querySelector("p").style = "black";
     document.querySelector(".accept-privacy").checked = false;
   }
 }
 
-// Sự kiện khi người dùng nhấn vào icon hình nhân trên Header
-
+// Ẩn đi form Đăng nhập - Đăng ký
 function unShowUserFormInMenuHeader() {
-  function unShow() {
-    // Xóa changeUserFormInMenuHeaderScript
-    const changeUserFormInMenuHeaderExistingScript = document.querySelector(
-      ".change-user-form-in-menu-header-script"
-    );
-    if (changeUserFormInMenuHeaderExistingScript) {
-      changeUserFormInMenuHeaderExistingScript.remove();
-    }
-
-    // Xử lý sự kiện
-    const userContainer = document.getElementById("user-container");
-    const userOverlay = document.getElementById("user-overlay");
-    const userBlock = document.getElementById("user-block");
-    const userExit = document.getElementById("user-exit");
-    if (
-      getComputedStyle(userContainer).getPropertyValue("visibility") ===
-      "visible" &&
-      getComputedStyle(userOverlay).getPropertyValue("visibility") ===
-      "visible" &&
-      getComputedStyle(userBlock).getPropertyValue("visibility") ===
-      "visible" &&
-      getComputedStyle(userExit).getPropertyValue("visibility") === "visible"
-    ) {
-      userContainer.style.visibility = "hidden";
-      userOverlay.style.visibility = "hidden";
-      userBlock.style.visibility = "hidden";
-      userExit.style.visibility = "hidden";
-    }
-  }
+  const userFormDiv = document.querySelector(".header__user-container");
   document
-    .getElementById("user-overlay")
+    .querySelector(".header__user-overlay")
     .addEventListener("click", function () {
-      unShow();
+      userFormDiv.remove();
     });
-  document.getElementById("user-exit").addEventListener("click", function () {
-    unShow();
-  });
+  document
+    .querySelector(".header__user-exit")
+    .addEventListener("click", function () {
+      userFormDiv.remove();
+    });
 }
 
-export function showUserFormInMenuHeader() {
-  document.getElementById("user-click").addEventListener("click", function () {
-    if (document.querySelector(".header__find-block-wrapper")) {
-      document.querySelector(".header__find-block-wrapper").style.visibility = "hidden";
-    }
-    // deleteAllFormCreatedFromJsUser();
-    //hiển thị form đăng nhập, đăng ký
-    // lấy vị trí người đăng nhập và trạng thái đăng nhập để hiện form
-    let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
-    let userList = JSON.parse(localStorage.getItem("userList"));
-    //nếu chưa đăng nhập
-    if (indexCurrentUserLogin < 0) {
-      resetInputForLoginAndSignup();
-      // Tạo mới changeUserFormInMenuHeaderScript
-      const changeUserFormInMenuHeaderScript = document.createElement("script");
+// Cập lại form Đăng nhập - Đăng ký
+export function updateForm(userFormKey) {
+  const userFormMap = {
+    login: ` <form action="" autocomplete="off" class="header__user-form">
+      <div class="header__form-group">
+        <label for="username"><p>Tên tài khoản</p></label>
+        <input
+          type="text"
+          id="username"
+          class="username-login"
+          placeholder="Nhập tên tài khoản"
+        />
+      </div>
+      <div class="header__form-group">
+        <label for="password"><p>Mật khẩu</p></label>
+        <input
+          type="password"
+          id="password"
+          class="password-login"
+          placeholder="Nhập mật khẩu"
+        />
+      </div>
+      <div class="header__form-group">
+        <input type="submit" value="Đăng nhập" class="btn-signin"/>
+      </div>
+    </form>
+    <div class="header__user-contacts">
+      <p class="header__user-contacts-title">Hoặc</p>
+      <div class="header__user-contacts-block">
+        <a href="javascript:void(0)" class="header__user-contact">
+          <i
+            class="fa-brands fa-facebook-f header__user-contact-icon"
+          ></i>
+          <p class="header__user-contact-sub-title">Facebook</p>
+        </a>
+        <a href="javascript:void(0)" class="header__user-contact">
+          <i
+            class="fa-brands fa-google header__user-contact-icon"
+          ></i>
+          <p class="header__user-contact-sub-title">Google</p>
+        </a>
+      </div>
+    </div>`,
+    register: `<form action="" autocomplete="off" class="header__user-form">
+    <div class="header__form-group">
+      <label for="username">
+        <p>Nhập tên tài khoản</p>
+      </label>
+      <input
+        type="text"
+        id="username"
+        placeholder="Nhập tên tài khoản"
+        class="username-signup"
+      />
+    </div>
+    <div class="header__form-group">
+      <label for="email">Nhập email</label>
+      <input type="email" id="email" placeholder="Nhập email" class="email-signup"/>
+    </div>
+    <div class="header__form-group">
+      <label for="first-password">
+        <p>Nhập mật khẩu</p>
+      </label>
+      <input
+        type="password"
+        id="first-password"
+        class="password-signup"
+        placeholder="Nhập mật khẩu"
+      />
+    </div>
+    <div class="header__form-group">
+      <label for="second-password">
+        <p>Nhập lại mật khẩu</p>
+      </label>
+      <input
+        type="password"
+        id="second-password"
+        placeholder="Nhập lại mật khẩu"
+      />
+    </div>
+    <div class="header__form-group privacy-checkbox">
+        <input
+          type="checkbox"
+          id="remember-user-account"
+          hidden
+          class="accept-privacy"
+        />
+        <label for="remember-user-account">
+          <p>Tôi đồng ý với <u>điều khoản</u> và <u>dịch vụ</u></p>
+        </label>
+      </div>
+    <div class="header__form-group">
+      <input type="submit" value="Đăng ký" class="btn-signup"/>
+    </div>
+  </form>
+  </div>`,
+  };
+  const userFormDiv = document.getElementById("user-form");
+  if (userFormKey) {
+    const reverseUserFormKey = {
+      login: `register`,
+      register: `login`,
+    };
+    const style = document.createElement("style");
+    style.innerHTML = `
+            .header__user-action#${reverseUserFormKey[userFormKey]} {
+                color: #000;
+            }
+            .header__user-action#${reverseUserFormKey[userFormKey]}::after {
+                opacity: 0;
+                background: #000;
+            }
+            .header__user-action#${userFormKey} {
+                color: #a94064;
+            }
+            .header__user-action#${userFormKey}::after {
+                opacity: 1;
+                background: #a94064;
+            }
+        `;
+    document.head.appendChild(style);
+    userFormDiv.innerHTML = userFormMap[userFormKey];
+  }
+}
 
-      changeUserFormInMenuHeaderScript.type = "module";
-
-      changeUserFormInMenuHeaderScript.src =
-        "./js/home-js/changeUserFormInMenuHeader.js";
-      changeUserFormInMenuHeaderScript.className =
-        "change-user-form-in-menu-header-script";
-      document.body.appendChild(changeUserFormInMenuHeaderScript);
-
-      // Xử lý sự kiện
-      const userContainer = document.getElementById("user-container");
-      const userOverlay = document.getElementById("user-overlay");
-      const userBlock = document.getElementById("user-block");
-      const userExit = document.getElementById("user-exit");
-      if (
-        getComputedStyle(userContainer).getPropertyValue("visibility") ===
-        "visible" &&
-        getComputedStyle(userBlock).getPropertyValue("visibility") ===
-        "visible" &&
-        getComputedStyle(userOverlay).getPropertyValue("visibility") ===
-        "visible" &&
-        getComputedStyle(userExit).getPropertyValue("visibility") === "visible"
-      ) {
-        userContainer.style.visibility = "hidden";
-        userOverlay.style.visibility = "hidden";
-        userBlock.style.visibility = "hidden";
-        userExit.style.visibility = "hidden";
-      } else {
-        userContainer.style.visibility = "visible";
-        userOverlay.style.visibility = "visible";
-        userBlock.style.visibility = "visible";
-        userExit.style.visibility = "visible";
-
-        unShowUserFormInMenuHeader();
+// Hàm khi nhấn Đăng nhập - Đăng ký
+function clickToLoginOrLogout() {
+  document
+    .querySelector(".main-user-form-body")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      const userFormKey = event.target.getAttribute("data-user-form");
+      if (userFormKey) {
+        updateForm(userFormKey);
+        //nếu là đăng ký thì xử lí đăng ký
+        if (userFormKey == "register") {
+          signUp();
+        } else {
+          signIn();
+        }
       }
-      
-      resetInputForLoginAndSignup();
-      signIn();
-    }
-
-    // hiển thị info-user
-    else {
-      showUserMenu(userList, indexCurrentUserLogin);
-    }
-  });
+    });
 }
 
-
-//hàm show menu profile
+// hàm show menu profile
 function showUserMenu(userList, indexCurrentUserLogin) {
   let check = document.querySelector(".header__user-menu"); //để kiểm tra đang hiện form hay không, nếu có thì xóa, nếu không thì tạo form
   if (!check) {
@@ -185,7 +268,9 @@ function showUserMenu(userList, indexCurrentUserLogin) {
       changePassword();
     };
     //-----KHI ẤN ĐĂNG XUẤT
-    document.querySelector(".header__user-menu-action.sign-out").onclick = (e) => {
+    document.querySelector(".header__user-menu-action.sign-out").onclick = (
+      e
+    ) => {
       e.preventDefault();
       document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
       signOutUser();
@@ -203,3 +288,114 @@ function showUserMenu(userList, indexCurrentUserLogin) {
   }
 }
 
+export function showUserFormInMenuHeader() {
+  document.getElementById("user-click").addEventListener("click", function () {
+    let indexCurrentUserLogin =
+      JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
+    let userList = JSON.parse(localStorage.getItem("userList"));
+    // Nếu chưa đăng nhập
+    if (indexCurrentUserLogin < 0) {
+      const userContainerInner = `
+      <div class="header__user-block">
+        <button class="header__user-exit">x</button>
+        <div class="header__user-actions main-user-form-body">
+          <a
+            href="javascript:void(0)"
+            class="header__user-action"
+            id="login"
+            data-user-form="login"
+          >
+            Đăng nhập
+          </a>
+          <a
+            href="javascript:void(0)"
+            class="header__user-action a-signup"
+            id="register"
+            data-user-form="register"
+          >
+            Đăng ký
+          </a>
+        </div>
+        <div class="header__user-body" id="user-form">
+          <form
+            action=""
+            autocomplete="off"
+            class="header__user-form"
+          >
+            <div class="header__form-group">
+              <label for="username">Tên tài khoản</label>
+              <input
+                type="text"
+                id="username"
+                class="username-login"
+                placeholder="Nhập tên tài khoản"
+              />
+            </div>
+            <div class="header__form-group">
+              <label for="password">Mật khẩu</label>
+              <input
+                type="password"
+                id="password"
+                class="password-login"
+                placeholder="Nhập mật khẩu"
+              />
+            </div>
+
+            <div class="header__form-group">
+              <input
+                type="submit"
+                value="Đăng nhập"
+                class="btn-signin"
+              />
+            </div>
+          </form>
+          <div class="header__user-contacts">
+            <p class="header__user-contacts-title">Hoặc</p>
+            <div class="header__user-contacts-block">
+              <a
+                href="javascript:void(0)"
+                class="header__user-contact"
+              >
+                <i
+                  class="fa-brands fa-facebook-f header__user-contact-icon"
+                ></i>
+                <p class="header__user-contact-sub-title">Facebook</p>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="header__user-contact"
+              >
+                <i
+                  class="fa-brands fa-google header__user-contact-icon"
+                ></i>
+                <p class="header__user-contact-sub-title">Google</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header__user-overlay"></div>
+    `;
+      const userContainerDiv = document.createElement("div");
+      userContainerDiv.className = "header__user-container";
+      userContainerDiv.innerHTML = userContainerInner;
+      document.body.appendChild(userContainerDiv);
+
+      // Thiết lập sự kiện ẩn đi form
+      unShowUserFormInMenuHeader();
+
+      // Khi người dùng nhấn vào mục Đăng nhập - Đăng ký
+      clickToLoginOrLogout();
+
+      // Cập nhật lại giá trị của các thẻ
+      resetInputInLoginAndLogoutForm();
+
+      // Thiết lập sự kiện cho phép người dùng Đăng nhập - Đăng ký
+      signIn();
+      signUp();
+    } else {
+      // Nếu đang đăng nhập một tài khoản
+      showUserMenu(userList, indexCurrentUserLogin);
+    }
+  });
+}

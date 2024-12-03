@@ -180,8 +180,8 @@ function handle_order_product(
   const id_order = orderList.length + 1;
 
   let totalPrice = document.querySelector("#temp-price").textContent;
-  totalPrice = totalPrice.replaceAll("đ","");
-  totalPrice = totalPrice.replaceAll(".","");
+  totalPrice = totalPrice.replaceAll("đ", "");
+  totalPrice = totalPrice.replaceAll(".", "");
 
   let data = {
     isDelete: false,
@@ -191,8 +191,7 @@ function handle_order_product(
     orderAddressToShip: address,
     orderStatus: "pending",
     orderMethod: purchase_method,
-    orderTotalPrice:
-      (parseInt(totalPrice) + 18000),
+    orderTotalPrice: parseInt(totalPrice) + 18000,
     orderProduct: userList[indexCurrentUserLogin].shoppingCart,
   };
 
@@ -232,7 +231,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
           <td>${array_orderProduct[i].id}</td>
           <td align="left">${array_orderProduct[i].name}</td>
           <td>${array_orderProduct[i].quantity}</td>
-          <td>${array_orderProduct[i].price}đ</td>
+          <td>${formatVietNamMoney(array_orderProduct[i].price)}đ</td>
         </tr>
       `;
     }
@@ -245,10 +244,10 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
     totalPrice += obj.totalPrice;
   });
   //lấy phương thức nếu mã thẻ
-  let method = orderList[orderList.length-1].orderMethod;
+  let method = orderList[orderList.length - 1].orderMethod;
   let checkMethod = false; //phục vụ cho dòng 328
-  console.log(typeof(method))
-  if(typeof(method) === "object"){
+  console.log(typeof method);
+  if (typeof method === "object") {
     checkMethod = true;
   }
   const billForm = `
@@ -329,7 +328,16 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
         <!-- Payment Function -->
         <div class="bill__payment-function">
           <h3 class="bill__sub-title">PHƯƠNG THỨC THANH TOÁN</h3>
-          <p class="bill__detail"> Loại phương thức: ${!checkMethod ? method : method.name + " Thể loại: " + method.type + " Mã số thẻ: " + method.code}</p>
+
+          <p class="bill__detail"> Loại phương thức: ${
+            !checkMethod
+              ? method
+              : method.name +
+                "Thể loại: " +
+                method.type +
+                "Mã số thẻ: " +
+                method.code
+          }</p>
         </div>
         <!-- Thankyou -->
         <div class="bill__thankyou">

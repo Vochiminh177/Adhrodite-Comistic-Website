@@ -94,6 +94,15 @@
             </li>
           </ul>
           <div class="header__icons">
+            <div class="header__admin-icon">
+              <a
+                href="#"
+                class="header__action"
+                id="admin-click"
+              >
+                <i class="fas fa-cog header__icon"></i>
+              </a>
+            </div>
             <div class="header__find-icon">
               <a
                 href="javascript:void(0)"
@@ -102,22 +111,6 @@
               >
                 <i class="fa-solid fa-magnifying-glass header__icon"></i>
               </a>
-              <div class="header__find-block-wrapper" id="find-block-wrapper">
-                <div class="header__find-block" id="find-block">
-                  <input
-                    type="text"
-                    name="find-header"
-                    id="find-header"
-                    class="header__find-input"
-                    placeholder="Tìm kiếm sản phẩm..."
-                    autocomplete="off"
-                  />
-                  <button class="header__find-action" id="find-action">
-                    Tìm
-                  </button>
-                </div>
-                <ul id="suggestions-list"></ul>
-              </div>
             </div>
             <div class="header__shopping-cart-icon">
               <a
@@ -135,107 +128,6 @@
                 id="user-click"
               >
                 <i class="fa-solid fa-user header__icon"></i>
-              </a>
-              <div class="header__container" id="user-container">
-                <div class="header__user-block" id="user-block">
-                  <button class="header__exit" id="user-exit">x</button>
-                  <div class="header__user-actions main-user-form-body">
-                    <a
-                      href="javascript:void(0)"
-                      class="header__user-action"
-                      id="login"
-                      data-user-form="login"
-                    >
-                      Đăng nhập
-                    </a>
-                    <a
-                      href="javascript:void(0)"
-                      class="header__user-action a-signup"
-                      id="register"
-                      data-user-form="register"
-                    >
-                      Đăng ký
-                    </a>
-                  </div>
-                  <div class="header__user-body" id="user-form">
-                    <form
-                      action=""
-                      autocomplete="off"
-                      class="header__user-form"
-                    >
-                      <div class="header__form-group">
-                        <label for="username">Tên tài khoản</label>
-                        <input
-                          type="text"
-                          id="username"
-                          class="username-login"
-                          placeholder="Nhập tên tài khoản"
-                        />
-                      </div>
-                      <div class="header__form-group">
-                        <label for="password">Mật khẩu</label>
-                        <input
-                          type="password"
-                          id="password"
-                          class="password-login"
-                          placeholder="Nhập mật khẩu"
-                        />
-                      </div>
-                      <!-- <div class="header__form-group">
-                        <input
-                          type="checkbox"
-                          id="remember-user-account"
-                          hidden
-                        />
-                        <label
-                          for="remember-user-account"
-                          class="remember-password"
-                          >Ghi nhớ mật khẩu</label
-                        >
-                      </div> -->
-                      <div class="header__form-group">
-                        <input
-                          type="submit"
-                          value="Đăng nhập"
-                          class="btn-signin"
-                        />
-                      </div>
-                    </form>
-                    <div class="header__user-contacts">
-                      <p class="header__user-contacts-title">Hoặc</p>
-                      <div class="header__user-contacts-block">
-                        <a
-                          href="javascript:void(0)"
-                          class="header__user-contact"
-                        >
-                          <i
-                            class="fa-brands fa-facebook-f header__user-contact-icon"
-                          ></i>
-                          <p class="header__user-contact-sub-title">Facebook</p>
-                        </a>
-                        <a
-                          href="javascript:void(0)"
-                          class="header__user-contact"
-                        >
-                          <i
-                            class="fa-brands fa-google header__user-contact-icon"
-                          ></i>
-                          <p class="header__user-contact-sub-title">Google</p>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="header__overlay" id="user-overlay"></div>
-              </div>
-            </div>
-            <div class="header__admin-icon" style="display: none;">
-              <a
-                href="#"
-                class="header__action"
-                id="admin-click"
-              >
-                <i class="fas fa-cog header__icon"></i>
               </a>
             </div>
           </div>
@@ -429,6 +321,7 @@
       </div>
     </footer>
 
+    <!-- Javascript -->
     <script src="./js/home-js/changeMainContent.js" type="module"></script>
     <script src="./js/home-js/headerEvents.js" type="module"></script>
     <script src="./js/home-js/homePageEvents.js" type="module"></script>

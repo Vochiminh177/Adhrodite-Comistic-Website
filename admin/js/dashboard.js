@@ -1,70 +1,45 @@
+export function updateDashboardHighlights(orderList, productStatistics) {
+    // Tổng doanh thu
+    // const totalRevenue = orderList.reduce((sum, order) => {
+    //     const price = parseFloat(order.orderTotalPrice); 
+    //     return sum + price;
+    // }, 0);
 
-const storedOrderList = JSON.parse(localStorage.getItem("orderList"));
-const productStatistics = generateProductStatistics(storedOrderList);
-console.log(productStatistics);
-// hàm thống kê dữ liệu từ giỏ hàng
-export function generateProductStatistics(orderList) {
-    let productReport = {};
+    const totalRevenue = orderList.reduce((sum, order, index) => {
+        const price = parseFloat(order.orderTotalPrice) || 0; // Kiểm tra giá trị chuyển đổi
+        console.log(`Bước ${index + 1}:`);
+        console.log(`- Giá trị đơn hàng hiện tại: ${order.orderTotalPrice}`);
+        console.log(`- Giá trị sau khi parseFloat: ${price}`);
+        console.log(`- Tổng trước khi cộng: ${sum}`);
+        const newSum = sum + price;
+        console.log(`- Tổng sau khi cộng: ${newSum}`);
+        console.log('--------------------------------------');
+        return newSum;
+    }, 0);
+    
+    console.log(`Tổng doanh thu cuối cùng: ${totalRevenue}`);
+    
 
-    orderList.forEach(order => {
-        order.orderProduct.forEach(product => {
-            let productId = product.id;
+    // Tổng đơn hàng
+    const totalOrders = orderList.length;
 
-            if (!productReport[productId]) {
-                productReport[productId] = {
-                    id: productId,
-                    name: product.name,
-                    src: product.src,
-                    price: product.price,
-                    totalQuantity: 0,
-                    totalRevenue: 0,
-                    orderCount: 0
-                };
-            }
+    // Tổng số khách hàng duy nhất
+    const uniqueCustomerIds = [...new Set(orderList.map(order => order.customerId))];
+    const totalCustomers = uniqueCustomerIds.length;
 
-            productReport[productId].totalQuantity += parseInt(product.quantity);
-            productReport[productId].totalRevenue += product.price * product.quantity;
-            productReport[productId].orderCount++;
-        });
-    });
+    // Sản phẩm bán chạy nhất dựa vào doanh thu
+    const bestSellingProduct = productStatistics.length > 0 ? productStatistics[0] : null;
 
-    // Chuyển đổi thành mảng và sắp xếp theo doanh thu giảm dần
-    return Object.values(productReport).sort((a, b) => b.totalRevenue - a.totalRevenue);
-}
+    // Cập nhật DOM
+    document.querySelectorAll(".dashboard-highlight-box")[0].querySelector("h3").textContent = `${totalRevenue.toLocaleString()} đ`;
+    document.querySelectorAll(".dashboard-highlight-box")[1].querySelector("h3").textContent = totalOrders;
+    document.querySelectorAll(".dashboard-highlight-box")[2].querySelector("h3").textContent = totalCustomers;
 
-// hàm tạo bảng thống kê từ dữ liệu phân tích được 
-export function showProductStatistics(start, end, curentPage, productStatistics) {
-    let tableContent = `
-    <thead>
-        <tr>
-            <th>Mã sản phẩm</th>
-            <th>Hình ảnh</th>
-            <th>Giá sản phẩm</th>
-            <th>Tổng đơn hàng</th>
-            <th>Tổng doanh thu</th>
-            <th>Tùy chỉnh</th>
-        </tr>
-    </thead>`;
+    if (bestSellingProduct) {
+        const productImageElement = document.querySelector(".dashboard-highlight-box-product img");
+        const productIdElement = document.querySelector("#productId");
 
-    let eleTbody = document.createElement('tbody');
-
-    productStatistics.forEach((product, index) => {
-        if (index >= start && index < end) {
-            eleTbody.innerHTML += `
-            <tr>
-                <td>${product.id}</td>
-                <td><img src="${product.src}" alt="${product.name}" style="width:50px;height:50px;"></td>
-                <td>${product.price.toLocaleString()}</td>
-                <td>${product.totalQuantity}</td>
-                <td>${product.totalRevenue.toLocaleString()}</td>
-                <td>
-                    <button id="orderListBtn" index-item=${index}>Đơn hàng</button>
-                    <button onclick="editProduct('${product.id}')">Chỉnh sửa</button>
-                </td>
-            </tr>`;
-        }
-    });
-
-    tableContent += eleTbody.outerHTML;
-    document.querySelector(".content table").innerHTML = tableContent;
+        productImageElement.src = bestSellingProduct.src; // Đảm bảo truy cập đúng thuộc tính chứa hình ảnh
+        productIdElement.textContent = bestSellingProduct.id;
+    }
 }

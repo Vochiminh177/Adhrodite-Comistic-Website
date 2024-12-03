@@ -3,7 +3,10 @@ import { getProductListInfo } from "../products-js/getProductList.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
 import { renderPopularProductList } from "./popularProductRender.js.js";
 import { renderSaleProductList } from "./saleProductRender.js";
-import { generateFilter, resetDoubleSlider } from "../products-js/generateFilter.js";
+import {
+  generateFilter,
+  resetDoubleSlider,
+} from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
 
@@ -652,9 +655,17 @@ export function updateMainContent(mainContentKey) {
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
 
-      changeLeftMenu(".left-menu__title", ".left-menu__list", 'show-left-menu__list');
-      changeLeftMenu(".left-search__title",".left-search__form-group", 'show-left-search');
-        
+      changeLeftMenu(
+        ".left-menu__title",
+        ".left-menu__list",
+        "show-left-menu__list"
+      );
+      changeLeftMenu(
+        ".left-search__title",
+        ".left-search__form-group",
+        "show-left-search"
+      );
+
       // Tự động nhấn mục "Tất cả"
       document.getElementById("tat-ca-left-menu").click();
     }
@@ -664,18 +675,22 @@ export function updateMainContent(mainContentKey) {
 // Tạo sự kiện khi người dùng muốn chuyển trang trên header
 document.querySelector(".navbar").addEventListener("click", function (event) {
   event.preventDefault();
-  deleteAllFormCreatedFromJsUser();
   const mainContentKey = event.target.getAttribute("data-main-content");
   if (mainContentKey) {
+    // Xoá user menu nếu đang hiển thị
+    if (document.querySelector(".header__user-menu")) {
+      document.querySelector(".header__user-menu").remove();
+    }
+
     // Cập nhật lại style cho navbar
     updateNavbarStyle(mainContentKey);
 
     // Thay đổi nội dung của trang
     updateMainContent(mainContentKey);
 
-    const element = document.querySelector('.header__menu-toggle');
+    const element = document.querySelector(".header__menu-toggle");
     const displayStyle = window.getComputedStyle(element).display;
-    if(displayStyle !== 'none') element.click();
+    if (displayStyle !== "none") element.click();
 
     if (mainContentKey === "products") {
       // Tự động nhấn mục "Tất cả" khi vào trang "sản phẩm" ở header
@@ -689,6 +704,4 @@ export function deleteAllFormCreatedFromJsUser() {
   if (document.querySelector(".header__user-menu")) {
     document.querySelector(".header__user-menu").remove();
   }
-  document.querySelector(".header__find-block-wrapper").style.visibility =
-    "hidden";
 }

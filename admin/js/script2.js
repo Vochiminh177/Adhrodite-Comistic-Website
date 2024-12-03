@@ -3,6 +3,7 @@ import { pagination, showListProduct, showListCustomer, showListOrder, showProdu
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
 import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+import {updateDashboardHighlights} from "./dashboard.js";
 function start(){
 	anhMinh();
 	// showMain("main-content-dashboard");
@@ -160,15 +161,22 @@ export function showMain(sectionId) {
                     <div class="dashboard-highlight-box">
                         <i class='bx bx-dollar'></i>
                         <div>
-                            <h3>Số liệu</h3>
+                            <h3></h3>
                             <span>Tổng doanh thu</span>
                         </div>
                     </div>
                     <div class="dashboard-highlight-box">
                         <i class='bx bx-cart'></i>
                         <div>
-                            <h3>Số liệu</h3>
+                            <h3></h3>
                             <span>Tổng đơn hàng</span>
+                        </div>
+                    </div>
+					<div class="dashboard-highlight-box">
+                        <i class='bx bxs-user'></i>
+                        <div>
+                            <h3></h3>
+                            <span>Số khách hàng</span>
                         </div>
                     </div>
                     <div class="dashboard-highlight-box-product">
@@ -183,10 +191,13 @@ export function showMain(sectionId) {
                 <table class="dashboardTable">
                 </table>
             </div>
+			<div class="list-page"></div>
 		`;
 
 		let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+		console.log(orderList);
 		let productStatistics = generateProductStatistics(orderList);
+		updateDashboardHighlights(orderList,productStatistics);
 		pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
 
 	} else
@@ -230,12 +241,14 @@ export function showMain(sectionId) {
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
 		<div class="content order">
+			<div class="table-container">
 			<table class="content-order-table">
 				<thead>
 					<tr>
 						<th>Mã Đơn Hàng</th>
 						<th>Mã Khách Hàng</th>
 						<th>Ngày Đặt</th>
+						<th>Quận</th>
 						<th>Tổng Cộng</th>
 						<th>Tình Trạng</th>
 						<th>Chi Tiết</th>
@@ -246,6 +259,8 @@ export function showMain(sectionId) {
 
 				</tbody>
 			</table>
+			<div class="list-page"></div>
+			</div>
 			<div class="order-filter-container" id="order-filter-container"></div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
@@ -289,7 +304,6 @@ export function showMain(sectionId) {
 				</div>
 			</div>
 		</div>
-		<div class="list-page"></div>
 		`;
 		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 		pagination(orderList, 1, showListOrder, "#main-content-order");
