@@ -830,6 +830,9 @@ body {
 /* =================reponsive mobile===================== */
 
 @media screen and (max-width: 500px) {
+  .header__find-block {
+    inset: 0 0 0 0;
+  }
   .header__find-block-wrapper {
     width: 100vw;
     right: -100px;

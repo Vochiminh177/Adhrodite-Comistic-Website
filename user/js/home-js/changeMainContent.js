@@ -172,7 +172,6 @@ export const mainContentMap = {
                 </a>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
-                  <button class="left-search-filter-close-btn">ĐÓNG</button>
                   <form name="left-search-filter__form" autocomple="off" class="left-search-filter__form">
                     <div class="left-search-filter__form-group">
                       <h4 class="left-search-filter__sub-title">Hãng</h4>
@@ -444,9 +443,9 @@ export const mainContentMap = {
                                   <div class="thumb" id="max-thumb"></div>
                                 </div>
                                 <div class="price-container" id="price-container">
-                                  <input name="minPrice" class="min-price" id="min-price">
+                                  <input name="minPrice" class="min-price" id="min-price" readonly>
                                   <span>-</span>
-                                  <input name="maxPrice" class="max-price" id="max-price">
+                                  <input name="maxPrice" class="max-price" id="max-price" readonly>
                                 </div>
                               </div>
                             </div>
