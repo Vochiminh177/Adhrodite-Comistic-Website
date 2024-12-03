@@ -163,6 +163,7 @@ function createOrderDetails(order) {
   // Thông tin giá tiền
   const orderCost = document.getElementById("order-cost");
   if(orderCost){
+    console.log(orderCost);
     orderCost.innerHTML = `
       <h3>Tóm Tắt Đơn Hàng</h3>
       <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
@@ -184,7 +185,9 @@ function createOrderDetails(order) {
         <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
       `;
     } else if (order.orderStatus === "shipped") {
-      actionBar.innerHTML = ``;
+      actionBar.innerHTML = "";
+    } else if (order.orderStatus === "canceled"){
+      actionBar.innerHTML = "";
     }
   }
 }
