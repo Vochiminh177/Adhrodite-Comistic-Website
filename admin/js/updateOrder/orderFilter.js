@@ -84,8 +84,11 @@ export function generateOrderFilter(){
     });
 
     resetBtn.addEventListener('click', (event) => {
-        // event.preventDefault();
-        applyBtn.click();
+        setTimeout(() => {
+            applyBtn.click();
+            10;
+        })
+        
     });
 }
 
@@ -95,7 +98,20 @@ function compareDate(orderDate, startDate, endDate){
     }
 
     let tmp = orderDate.split(" ")[1].split("/");
-    orderDate = tmp.reverse().join("-");
+    orderDate = "";
+    orderDate += tmp[2] + "-";
+    if(tmp[1].length === 1){
+        orderDate += ("0" + tmp[1] + "-");
+    } else{
+        orderDate += (tmp[1] + "-");
+    }
+
+    if(tmp[0].length === 1){
+        orderDate += ("0" + tmp[0]);
+    } else{
+        orderDate += tmp[0];
+    }
+
     if(startDate !== "tat-ca" && endDate !== "tat-ca"){
         const d1 = new Date(startDate);
         const d2 = new Date(orderDate);
@@ -120,6 +136,7 @@ function compareDate(orderDate, startDate, endDate){
     if(endDate === "tat-ca"){
         const d1 = new Date(startDate);
         const d2 = new Date(orderDate);
+        console.log(startDate + " " + orderDate);
         console.log(d1.getTime() + " " + d2.getTime());
         if(d1.getTime() <= d2.getTime()){
             return true;
