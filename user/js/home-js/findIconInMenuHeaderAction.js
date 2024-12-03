@@ -43,9 +43,13 @@ function goToProductPageWithSearchTerm(searchTerm) {
 function resetFindBlock() {
   const searchInput = document.getElementById("find-input");
   const suggestionsList = document.getElementById("suggestions-list");
-  searchInput.value = "";
-  suggestionsList.innerHTML = "";
-  suggestionsList.style.display = "none";
+  if(searchInput){
+    searchInput.value = "";
+  }
+  if(suggestionsList){
+    suggestionsList.innerHTML = "";
+    suggestionsList.style.display = "none";
+  }
 }
 
 /*-----------FUNCTION-----------*/

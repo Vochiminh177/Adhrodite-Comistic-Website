@@ -46,10 +46,9 @@ export function generateOrderFilter(){
         const startDate = orderFilterForm["start-date"].value;
         const endDate = orderFilterForm["end-date"].value;
         const orderStatus = orderFilterForm["order-status"].value;
-        const orderSort = orderFilterForm["order-district-sort"];
+        const orderSort = orderFilterForm["order-district-sort"].value;
         const orderList = JSON.parse(localStorage.getItem("orderList"));
-        console.log(startDate);
-        console.log(endDate);
+
         const filteredOrders = orderList.filter((order) => {
             if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
             if(!startDate && !endDate){
@@ -71,20 +70,22 @@ export function generateOrderFilter(){
                     return false;
                 }
             }
-
             return true;
         });
+        // console.log(orderSort);
         if(orderSort === "asc"){
-            
+            filteredOrders.sort(cmpFuncAsc);
         } else
         if(orderSort === "desc"){
-
+            filteredOrders.sort(cmpFuncDesc);
         }
+        // console.log(filteredOrders);
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 
     resetBtn.addEventListener('click', (event) => {
-        event.preventDefault();
+        // event.preventDefault();
+        applyBtn.click();
     });
 }
 
@@ -93,73 +94,81 @@ function compareDate(orderDate, startDate, endDate){
         return true;
     }
 
-    let tmp = orderDate.split(" ").split("/");
-    let orderDay = parseInt(tmp[0], 10);
-    let orderMonth = parseInt(tmp[1], 10);
-    let orderYear = parseInt(tmp[2], 10);
-    
-    let startDay = 0;
-    let startMonth = 0;
-    let startYear = 0;
-
-    let endDay = 0;
-    let endMonth = 0;
-    let endYear = 0;
-    
-    if(startDate === "tat-ca"){
-        tmp = endDate.split("-");
-        endDay = parseInt(tmp[0], 10);
-        endMonth = parseInt(tmp[1], 10);
-        endYear = parseInt(tmp[2], 10);
-
-        if(orderYear <= endYear){
-            if(orderMonth <= endMonth){
-                if(orderDay <= endDay){
-                    return true;
-                }
-            }
+    let tmp = orderDate.split(" ")[1].split("/");
+    orderDate = tmp.reverse().join("-");
+    if(startDate !== "tat-ca" && endDate !== "tat-ca"){
+        const d1 = new Date(startDate);
+        const d2 = new Date(orderDate);
+        const d3 = new Date(endDate);
+        if(d1.getTime() <= d2.getTime() && d2.getTime() <= d3.getTime()){
+            return true;
         }
+
+        return false;
+    }
+
+    if(startDate === "tat-ca"){
+        const d2 = new Date(orderDate);
+        const d3 = new Date(endDate);
+        if(d2.getTime() <= d3.getTime()){
+            return true;
+        }
+
+        return false;
     }
 
     if(endDate === "tat-ca"){
-        tmp = startDate.split("-");
-        startDay = parseInt(tmp[0], 10);
-        startMonth = parseInt(tmp[1], 10);
-        startYear = parseInt(tmp[2], 10);
-        if(startYear <= orderYear){
-            if(startMonth <= orderMonth){
-                if(startDay <= orderDay){
-                    return true;
-                }
-            }
+        const d1 = new Date(startDate);
+        const d2 = new Date(orderDate);
+        console.log(d1.getTime() + " " + d2.getTime());
+        if(d1.getTime() <= d2.getTime()){
+            return true;
         }
-    }
 
-    if(startYear <= orderYear && orderYear <= endYear){
-        if(startMonth <= orderMonth && orderMonth <= endMonth){
-            if(startDay <= orderDay && orderDay <= endDay){
-                return true;
-            }
-        }
+        return false;
     }
-
-    return false;
 }
 
-function getDistrictOfOrder(order){
-    console.log(order.orderAddressToShip);
-    const arr  = order.orderAddressToShip.trim().replace(",", " ").replace(/\s+/g, " ").split(" ");
+function cmpFuncAsc(first, second){
+    first = getDistrictOfOrder(first);
+    second = getDistrictOfOrder(second);
+    if(first === "Chưa rõ") return 1;
+    if(second === "Chưa rõ") return -1;
+    return first.localeCompare(second);
+}
+function cmpFuncDesc(first, second){
+    first = getDistrictOfOrder(first);
+    second = getDistrictOfOrder(second);
+    if(first === "Chưa rõ") return 1;
+    if(second === "Chưa rõ") return -1;
+    return second.localeCompare(first);
+}
+
+export function getDistrictOfOrder(order){
+    const arr  = order.orderAddressToShip.split(",");
+    // console.log(arr);
     let district = "";
-    const arrLength = arr.lenth;
+    const arrLength = arr.length;
     for(let i = 0; i < arrLength; i++){
-        if(arr[i].toLowerCase() === "quận"){
-            if(i + 1 < arrLength){
-                district = arr[i + 1];
-                break;
-            }
+        if(arr[i].toLowerCase().includes("quận")){
+            district = arr[i];
+            break;
         }
     }
-    return tmp;
+
+    if(district !== ""){ 
+        district = district.trim().replace(/\s+/g, " ").toLowerCase();
+        const tmp = district.split(" ");
+
+        const newTmp = tmp.map((word) => {
+            return word[0].toUpperCase() + word.slice(1).toLowerCase();
+        });
+        district = newTmp.join(" ");
+    }
+    if(district.trim() === ""){
+        district = "Chưa rõ";
+    }
+    return district;
 }
 
 

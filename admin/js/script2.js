@@ -248,6 +248,7 @@ export function showMain(sectionId) {
 						<th>Mã Đơn Hàng</th>
 						<th>Mã Khách Hàng</th>
 						<th>Ngày Đặt</th>
+						<th>Quận</th>
 						<th>Tổng Cộng</th>
 						<th>Tình Trạng</th>
 						<th>Chi Tiết</th>

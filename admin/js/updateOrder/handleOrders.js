@@ -1,5 +1,6 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder } from "../showList/show.js"
+import { getDistrictOfOrder } from "./orderFilter.js";
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
@@ -8,6 +9,7 @@ export function createOrderRow(order) {
       <td>${order.orderId}</td>
       <td>${order.customerId}</td>
       <td>${order.orderDate}</td>
+      <td>${getDistrictOfOrder(order)}</td>
       <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
       <td>
         <p class="status-label ${order.orderStatus}">
