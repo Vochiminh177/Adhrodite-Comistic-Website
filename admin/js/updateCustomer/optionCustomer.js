@@ -65,7 +65,7 @@ export function editCustomer(currentPage) {
                     document.querySelector(".container-form-user-add-edit").remove();
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
-                    showMain("main-content-customer");
+                    // showMain("main-content-customer");
 				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
@@ -97,7 +97,7 @@ export function addCustomer(){
                 document.querySelector(".container-form-user-add-edit").remove();
                 createNotificationAdmin("Thêm khách hàng thành công!");
                 let userList = JSON.parse(localStorage.getItem("userList"));
-                showMain("main-content-customer");
+                // showMain("main-content-customer");
 				pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
             }
         }
@@ -108,36 +108,66 @@ export function searchCustomer(){
     document.querySelector(".search-customer a").onclick = (e) => {
         e.preventDefault();
         let value = document.querySelector(".search-customer input").value;
+        console.log(value);
         let userList = JSON.parse(localStorage.getItem("userList"));
         let i = userList.findIndex((obj) => {
             return obj.username.toLowerCase() === value.toLowerCase();
         });
-        
+
         if(i>=0){
+      
             let currentPage;
-            if(i=0){
+            if(i===0){
                 currentPage = 1;
             } 
-            else currentPage = Math.ceil(i/3);
-
-            showMain("main-content-customer-add");
-            document.querySelector(".username-customer").value = userList[i].username;
-            document.querySelector(".password-customer").value = userList[i].password;
-            document.querySelector(".firstname-customer").value =  userList[i].first_name;
-            document.querySelector(".lastname-customer").value =  userList[i].last_name;
-            document.querySelector(".phone-customer").value =  userList[i].phone;
-
-            document.querySelector(".comback-customer").onclick = (e) => {
-                e.preventDefault();
-                showMain("main-content-customer");
+            else{
+                currentPage = Math.ceil((i+1)/7);
             }
+            // showMain("main-content-customer-add");
+            // document.querySelector(".username-customer").value = userList[i].username;
+            // document.querySelector(".password-customer").value = userList[i].password;
+            // document.querySelector(".firstname-customer").value =  userList[i].first_name;
+            // document.querySelector(".lastname-customer").value =  userList[i].last_name;
+            // document.querySelector(".phone-customer").value =  userList[i].phone;
+
+            // document.querySelector(".comback-customer").onclick = (e) => {
+            //     e.preventDefault();
+            //     showMain("main-content-customer");
+            // }
+            // document.querySelector(".add-customer").onclick = () => {
+            //     let result = handleEditCustomer(i);
+            //     if(result){
+            //         createNotificationAdmin("Sửa thông tin thành công!");
+            //         userList = JSON.parse(localStorage.getItem("userList"));
+            //         showMain("main-content-customer");
+			// 	    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
+            //     }
+            // }
+            createFormAddEdit();
+            document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
+            console.log(userList[i].username);
+            console.log(i);
+            document.querySelector(".container-form-user-add-edit .password-customer").value = userList[i].password;
+            // if(userList[i].first_name){
+            console.log(userList[i].first_name);
+            // }
+            document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[i].first_name;
+            document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
+            document.querySelector(".container-form-user-add-edit .phone-customer").value =  userList[i].phone;
+            document.querySelector(".container-form-user-add-edit .email-customer").value =  userList[i].email;
+            let objType = {
+                customer: 0,
+                employer: 1,
+                admin: 2
+            };
+            document.querySelector(".container-form-user-add-edit #type-customer").value = objType[userList[i].type];
             document.querySelector(".add-customer").onclick = () => {
                 let result = handleEditCustomer(i);
                 if(result){
+                    document.querySelector(".container-form-user-add-edit").remove();
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
-                    showMain("main-content-customer");
-				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
+                    pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
                 }
             }
         }

@@ -13,7 +13,10 @@ import {
   filterProductAdmin,
 } from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
-import { updateDashboardHighlights } from "./dashboard.js";
+import {
+  updateDashboardHighlights,
+  dashboardFilter,
+} from "./base/baseFunction.js";
 function start() {
   anhMinh();
   // showMain("main-content-dashboard");
@@ -161,7 +164,7 @@ export function showMain(sectionId) {
                         <button type="reset" id="resetBtn">Xóa</button>
                     </div>
                 </div>
-
+			<div id="dashboard-main">
                 <div class="dashboard-highlight">
                     <div class="dashboard-highlight-box">
                         <i class='bx bx-dollar'></i>
@@ -203,12 +206,53 @@ export function showMain(sectionId) {
     console.log(orderList);
     let productStatistics = generateProductStatistics(orderList);
     updateDashboardHighlights(orderList, productStatistics);
+    dashboardFilter();
     pagination(
       productStatistics,
       1,
       showProductStatistics,
       "#main-content-dashboard"
     );
+  } else if (sectionId === "main-content-dashboard-orderList") {
+    document.querySelector("#main-content-dashboard-orderList").innerHTML = `
+		<div class="title">
+                <h1>Danh sách đơn hàng</h1>
+                <a class="comeback-product">< Quay lại</a>
+            </div>
+            <div class="content">
+                <div class="dashboard-filter">
+                    <div class="filter-item">
+                        <label class="dateLabel">Từ ngày</label>
+                        <input type="date" id="from-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Đến ngày</label>
+                        <input type="date" id="to-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-btn">
+                        <button type="submit" id="filterBtn">Lọc</button>
+                        <button type="reset" id="resetBtn">Xóa</button>
+                    </div>
+                </div>
+			<div id="dashboard-main">
+                <table class="content-order-table">
+				<thead>
+					<tr>
+						<th>Mã Đơn Hàng</th>
+						<th>Mã Khách Hàng</th>
+						<th>Ngày Đặt</th>
+						<th>Tổng Cộng</th>
+						<th>Tình Trạng</th>
+						<th>Chi Tiết</th>
+					</tr>
+				</thead>
+				<tbody class="content-order-table-body">
+
+				</tbody>
+			</table>
+            </div>
+			<div class="list-page"></div>
+		`;
   } else if (sectionId === "main-content-product-list") {
     document.querySelector("#main-content-product-list").innerHTML = `
 			 <div class="title">
@@ -230,9 +274,10 @@ export function showMain(sectionId) {
                     </div>
                     <table class="product-list-table">
                     </table>
+					<div class="list-page"></div>
                 </div>
             </div>
-			<div class="list-page"></div>
+		
 		`;
     let productList = JSON.parse(localStorage.getItem("productList")) || [];
     if (productList.length == 0) {
@@ -299,13 +344,14 @@ export function showMain(sectionId) {
 								</tbody>
 							</table>
 						</section>
-
 						<!-- Chi phí đơn hàng -->
-						<section class="order-cost" id="order-cost">
+						< <section class="order-cost" id="order-cost">
+			
 						</section>
-
+			
 						<!-- Thanh hành động-->
 						<div class="action-bar" id="action-bar">
+			
 						</div>
 					</div>
 				</div>
@@ -376,9 +422,10 @@ export function showMain(sectionId) {
                 <div class="content-customer-list">
                     <table class="content-customer-table">
                     </table>
+					<div class="list-page"></div>
                 </div>
             </div>
-			<div class="list-page"></div>
+	
 		`;
     let userList = JSON.parse(localStorage.getItem("userList"));
     localStorage.setItem("userList", JSON.stringify(userList));

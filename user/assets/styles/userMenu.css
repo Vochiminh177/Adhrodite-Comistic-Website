@@ -82,7 +82,7 @@
   text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  padding: 0px;
+  padding: 10px;
 }
 .save-information:hover {
   background-color: #fc8eac;

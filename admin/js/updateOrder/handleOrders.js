@@ -52,18 +52,15 @@ export function generateOrderEvents(start, end, orderList) {
 
   // Tạo sự kiện cho các nút in, xác nhận, huỷ, xác nhận đã giao
   function generateOrderButtonsEvents(orderIndex) {
-    const printBtn = document.querySelector(".order-print-btn");
     const confirmBtn = document.querySelector(".order-confirm-btn");
     const cancelBtn = document.querySelector(".order-cancel-btn");
     const shippedBtn = document.querySelector(".order-shipped-btn");
-
-    if (printBtn) {
-    }
 
     if (confirmBtn) {
       confirmBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "accepted");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
 
@@ -71,6 +68,7 @@ export function generateOrderEvents(start, end, orderList) {
       cancelBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "canceled");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
 
@@ -78,6 +76,7 @@ export function generateOrderEvents(start, end, orderList) {
       shippedBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "shipped");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
   }
@@ -162,26 +161,33 @@ function createOrderDetails(order) {
 
   // Thông tin giá tiền
   const orderCost = document.getElementById("order-cost");
-  orderCost.innerHTML = `
-    <h3>Tóm Tắt Đơn Hàng</h3>
-    <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-    <p>Phí vận chuyển:&nbsp${18000}</p>
-    <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
-  `;
-
-  // Các nút in, xác nhận, huỷ, xác nhận đã giao
-  const actionBar = document.getElementById("action-bar");
-  if (order.orderStatus === "pending") {
-    actionBar.innerHTML = `
-      <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
-      <button class="order-btn order-cancel-btn">Hủy đơn hàng</button>
-      `;
-  } else if (order.orderStatus === "accepted") {
-    actionBar.innerHTML = `
-      <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
+  if(orderCost){
+    console.log(orderCost);
+    orderCost.innerHTML = `
+      <h3>Tóm Tắt Đơn Hàng</h3>
+      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
+      <p>Phí vận chuyển:&nbsp${18000}</p>
+      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
     `;
-  } else if (order.orderStatus === "shipped") {
-    actionBar.innerHTML = ``;
+  }
+  
+  // Các nút xác nhận, huỷ, xác nhận đã giao
+  const actionBar = document.getElementById("action-bar");
+  if(actionBar){
+    if (order.orderStatus === "pending") {
+      actionBar.innerHTML = `
+        <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
+        <button class="order-btn order-cancel-btn">Hủy đơn hàng</button>
+        `;
+    } else if (order.orderStatus === "accepted") {
+      actionBar.innerHTML = `
+        <button class="order-btn order-shipped-btn">Xác nhận giao thành công</button>
+      `;
+    } else if (order.orderStatus === "shipped") {
+      actionBar.innerHTML = "";
+    } else if (order.orderStatus === "canceled"){
+      actionBar.innerHTML = "";
+    }
   }
 }
 
