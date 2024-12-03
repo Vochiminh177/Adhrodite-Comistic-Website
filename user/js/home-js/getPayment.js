@@ -3,7 +3,7 @@ import {
   formatVietNamMoney,
   calTotalProductItemPriceInShoppingCart,
 } from "../common-js/common.js";
-import { locationToSelectArray } from "../common-js/database.js";
+import { locationToSelectArray } from "../../../database/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
@@ -373,11 +373,11 @@ function updatePaymentInformation(
   indexCurrentUserLogin,
   array_orderProduct
 ) {
-  let totalPriceTamTinh=0;
+  let totalPriceTamTinh = 0;
   array_orderProduct.forEach((obj) => {
-    totalPriceTamTinh +=obj.totalPrice;
-  })
-  
+    totalPriceTamTinh += obj.totalPrice;
+  });
+
   const paymentInformationForm = `
   <div class="body__payment-information">
     <div class="payment-information__header">
@@ -612,10 +612,12 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           let src = obj.querySelector("img").src;
 
           //do mảng shoppingCart trùng với array_order nên sài index được
-          let totalPrice = document.querySelectorAll(".shopping-cart__product-total-price")[index].textContent;
-          totalPrice = totalPrice.replaceAll("đ","").trim();
+          let totalPrice = document.querySelectorAll(
+            ".shopping-cart__product-total-price"
+          )[index].textContent;
+          totalPrice = totalPrice.replaceAll("đ", "").trim();
           totalPrice = totalPrice.replaceAll(".", "");
-  
+
           let data = {
             id: id,
             price: price,
@@ -624,11 +626,14 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
             name: name.trim(),
             src: src,
             totalPrice: parseInt(totalPrice),
-            discountQuantity: userList[indexCurrentUserLogin].shoppingCart[index].discountQuantity,
-            discountPercent: userList[indexCurrentUserLogin].shoppingCart[index].discountPercent 
+            discountQuantity:
+              userList[indexCurrentUserLogin].shoppingCart[index]
+                .discountQuantity,
+            discountPercent:
+              userList[indexCurrentUserLogin].shoppingCart[index]
+                .discountPercent,
           };
           array_orderProduct.push(data); //mảng đơn hàng chứa những obj sản phẩm gồm id và quantity,... (giải quyết cho admin)
-          
         });
 
         // Cập nhật thông tin thanh toán

@@ -13,7 +13,7 @@ export let productItemArray = [
     quantity: 15,
     discountQuantity: 10,
     discountPercent: 20,
-    originQuantity: 15
+    originQuantity: 15,
   },
   {
     number: 2,
@@ -28,7 +28,7 @@ export let productItemArray = [
     quantity: 3,
     discountQuantity: 0,
     discountPercent: 0,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 3,
@@ -41,9 +41,9 @@ export let productItemArray = [
     price: 400000,
     desc: `<b>EFFACLAR DUO+ M </b>từ <b>La Roche-Posay</b> là kem dưỡng chuyên biệt dành cho da mụn, giúp giảm mụn và ngăn ngừa tái phát. Sản phẩm chứa các thành phần nổi bật như Niacinamide (Vitamin B3) giúp làm dịu da và giảm viêm, LHA và Salicylic Acid có tác dụng tẩy tế bào chết nhẹ nhàng, ngăn ngừa tình trạng bí tắc lỗ chân lông, cùng Procerad hỗ trợ giảm thâm và làm sáng da. <b>EFFACLAR DUO+ M</b> không chỉ giúp kiểm soát dầu nhờn mà còn cải thiện các vấn đề da mụn nhạy cảm. Bạn nên sử dụng sản phẩm 1-2 lần mỗi ngày, thoa một lớp mỏng lên vùng da bị mụn để đạt hiệu quả tốt nhất.`,
     quantity: 2,
-    discountQuantity: 5, 
+    discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 4,
@@ -58,7 +58,7 @@ export let productItemArray = [
     quantity: 1,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 5,
@@ -73,7 +73,7 @@ export let productItemArray = [
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 6,
@@ -88,7 +88,7 @@ export let productItemArray = [
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 7,
@@ -103,7 +103,7 @@ export let productItemArray = [
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 8,
@@ -118,7 +118,7 @@ export let productItemArray = [
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 9,
@@ -134,7 +134,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 10,
@@ -149,7 +149,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 11,
@@ -164,7 +164,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 12,
@@ -179,7 +179,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 13,
@@ -194,7 +194,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 14,
@@ -209,7 +209,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 15,
@@ -224,7 +224,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 16,
@@ -239,7 +239,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 17,
@@ -254,7 +254,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 18,
@@ -269,7 +269,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 19,
@@ -284,7 +284,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 20,
@@ -299,7 +299,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 21,
@@ -314,7 +314,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 22,
@@ -329,7 +329,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 23,
@@ -344,7 +344,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 24,
@@ -359,7 +359,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
 
   {
@@ -375,7 +375,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 26,
@@ -390,7 +390,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 27,
@@ -405,7 +405,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 28,
@@ -420,7 +420,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 29,
@@ -435,7 +435,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 30,
@@ -450,7 +450,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 31,
@@ -465,7 +465,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 32,
@@ -480,7 +480,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 33,
@@ -495,7 +495,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 34,
@@ -510,7 +510,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 35,
@@ -525,7 +525,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 36,
@@ -540,7 +540,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 37,
@@ -555,7 +555,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 38,
@@ -570,7 +570,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 39,
@@ -585,7 +585,7 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     quantity: 6,
     discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
+    originQuantity: 10,
   },
   {
     number: 40,
@@ -598,10 +598,10 @@ Ngoài ra với phiên bản mới, Santagift được bổ sung tinh chất ch�
     price: 389000,
     desc: `<b>Phấn phủ siêu mịn, kiềm dầu Fresh White Sand by TENAMYD Pure White Powder SPF 15 </b> Là một loại phấn phủ trang điểm siêu mịn. Phấn tinh chế với hạt phấn trắng siêu mịn giúp làm sáng da, che phủ tuyệt hảo trên da mặt với độ bền cao, không gây bóng nhờn cho da và bảo vệ da khi ra nắng.0`,
     quantity: 6,
-    discountQuantity: 5,  
+    discountQuantity: 5,
     discountPercent: 10,
-    originQuantity: 10
-  }
+    originQuantity: 10,
+  },
 ];
 
 // Mảng chứa các sản phẩm (khi thêm vào giỏ hàng)
@@ -613,7 +613,7 @@ export let productItemAddedToShoppingCart = [
     category: "Sửa rửa mặt",
     price: 200000,
     quantity: 1,
-    discountQuantity: 5
+    discountQuantity: 5,
   },
   {
     id: "APh00003",
@@ -632,11 +632,6 @@ export let productItemAddedToShoppingCart = [
     quantity: 1,
   },
 ];
-
-export function abc() {
-  console.log(productItemAddedToShoppingCart);
-}
-
 
 //dữ liệu mảng user mặc định -- Hiệu
 export let userList = [
@@ -680,18 +675,18 @@ export let userList = [
     ],
   },
   {
-    "type": "customer",
-    "blockStatus": false,
-    "id": 2,
-    "username": "user2",
-    "password": "password2",
-    "email": "user2@example.com",
-    "remember_password": false,
-    "first_name": "Andrew",
-    "last_name": "Huy",
-    "phone": "1234567891",
-    "address": "TPHCM",
-    "shoppingCart": []
+    type: "customer",
+    blockStatus: false,
+    id: 2,
+    username: "user2",
+    password: "password2",
+    email: "user2@example.com",
+    remember_password: false,
+    first_name: "Andrew",
+    last_name: "Huy",
+    phone: "1234567891",
+    address: "TPHCM",
+    shoppingCart: [],
   },
   {
     type: "admin",
@@ -717,31 +712,31 @@ export let userList = [
     ],
   },
   {
-    "type": "customer",
-    "bloclStatus": false,
-    "id": 4,
-    "username": "NoPaintNoGain",
-    "password": "123",
-    "email": "No@gmail.com",
-    "first_name": "No",
-    "last_name": "game",
-    "phone": "1234567892",
-    "shoppingCart": [],
-    "address": "from HCM with love"
+    type: "customer",
+    bloclStatus: false,
+    id: 4,
+    username: "NoPaintNoGain",
+    password: "123",
+    email: "No@gmail.com",
+    first_name: "No",
+    last_name: "game",
+    phone: "1234567892",
+    shoppingCart: [],
+    address: "from HCM with love",
   },
   {
-    "type": "customer",
-    "bloclStatus": false,
-    "id": 5,
-    "username": "nguoithanhcong",
-    "password": "123",
-    "email": "a@gmail.com",
-    "first_name": "thanh",
-    "last_name": "cong",
-    "phone": "1234567888",
-    "shoppingCart": [],
-    "address": "from anywhere"
-  }
+    type: "customer",
+    bloclStatus: false,
+    id: 5,
+    username: "nguoithanhcong",
+    password: "123",
+    email: "a@gmail.com",
+    first_name: "thanh",
+    last_name: "cong",
+    phone: "1234567888",
+    shoppingCart: [],
+    address: "from anywhere",
+  },
 ];
 
 // Đối tượng chứa thông tin cơ bản của người dùng
@@ -754,541 +749,689 @@ export let basicInformationFromUser = {
 
 const orderList = [
   {
-    "isDelete": false,
-    "customerId": 2,
-    "orderId": 1,
-    "orderDate": "23:4:17 30/11/2024",
-    "orderAddressToShip": "TPHCM",
-    "orderStatus": "pending",
-    "orderMethod": "Thanh toán khi giao hàng (COD)",
-    "orderTotalPrice": 1068000,
-    "orderProduct": [
+    isDelete: false,
+    customerId: 2,
+    orderId: 1,
+    orderDate: "23:4:17 30/11/2024",
+    orderAddressToShip: "TPHCM",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 1068000,
+    orderProduct: [
       {
-          "id": "APh00002",
-          "src": "./assets/images/facewash-image-2.jpg",
-          "name": "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
-          "price": 150000,
-          "quantity": "3",
-          "category": "Sửa rửa mặt"
+        id: "APh00002",
+        src: "./assets/images/facewash-image-2.jpg",
+        name: "Sữa Rửa Mặt Simple Giúp Da Sạch Thoáng 150ml",
+        price: 150000,
+        quantity: "3",
+        category: "Sửa rửa mặt",
       },
       {
-          "id": "APh00001",
-          "src": "./assets/images/facewash-image-1.jpg",
-          "name": "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-          "price": 200000,
-          "quantity": 1,
-          "category": "Sửa rửa mặt"
+        id: "APh00001",
+        src: "./assets/images/facewash-image-1.jpg",
+        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+        price: 200000,
+        quantity: 1,
+        category: "Sửa rửa mặt",
       },
       {
-          "id": "APh00003",
-          "src": "./assets/images/acnecream-image-1.jpg",
-          "name": "Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar Duo+ M",
-          "price": 400000,
-          "quantity": 1,
-          "category": "Kem trị mụn"
-      }
-    ]
+        id: "APh00003",
+        src: "./assets/images/acnecream-image-1.jpg",
+        name: "Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar Duo+ M",
+        price: 400000,
+        quantity: 1,
+        category: "Kem trị mụn",
+      },
+    ],
   },
   {
-    "isDelete": false,
-    "customerId": 2,
-    "orderId": 2,
-    "orderDate": "23:4:41 30/11/2024",
-    "orderAddressToShip": "TPHCM",
-    "orderStatus": "pending",
-    "orderMethod": "Thanh toán khi giao hàng (COD)",
-    "orderTotalPrice": 1568000,
-    "orderProduct": [
-        {
-            "id": "APh00036",
-            "src": "./assets/images/phan-image-1.jpg",
-            "name": "Phấn phủ Geo trắng Sempre Happy & Please Pact",
-            "price": 309000,
-            "quantity": 1,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00037",
-            "src": "./assets/images/phan-image-2.jpg",
-            "name": "Bảng phấn mắt Makeup Revolution - Reloaded Velvet Rose - 15x 0.04oz.(us)/1.1g",
-            "price": 339000,
-            "quantity": 1,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00038",
-            "src": "./assets/images/phan-image-3.jpg",
-            "name": "Phấn tươi essence soft touch mousse 16g – Đức",
-            "price": 378000,
-            "quantity": 1,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00021",
-            "src": "./assets/images/serum-image-1.jpg",
-            "name": "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
-            "price": 289000,
-            "quantity": 1,
-            "category": "Serum"
-        },
-        {
-            "id": "APh00022",
-            "src": "./assets/images/serum-image-2.jpg",
-            "name": "Serum La Roche-Posay - Hyalu B5 Serum - 30 ml",
-            "price": 235000,
-            "quantity": 1,
-            "category": "Serum"
-        }
-    ]
+    isDelete: false,
+    customerId: 2,
+    orderId: 2,
+    orderDate: "23:4:41 30/11/2024",
+    orderAddressToShip: "TPHCM",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 1568000,
+    orderProduct: [
+      {
+        id: "APh00036",
+        src: "./assets/images/phan-image-1.jpg",
+        name: "Phấn phủ Geo trắng Sempre Happy & Please Pact",
+        price: 309000,
+        quantity: 1,
+        category: "Phấn",
+      },
+      {
+        id: "APh00037",
+        src: "./assets/images/phan-image-2.jpg",
+        name: "Bảng phấn mắt Makeup Revolution - Reloaded Velvet Rose - 15x 0.04oz.(us)/1.1g",
+        price: 339000,
+        quantity: 1,
+        category: "Phấn",
+      },
+      {
+        id: "APh00038",
+        src: "./assets/images/phan-image-3.jpg",
+        name: "Phấn tươi essence soft touch mousse 16g – Đức",
+        price: 378000,
+        quantity: 1,
+        category: "Phấn",
+      },
+      {
+        id: "APh00021",
+        src: "./assets/images/serum-image-1.jpg",
+        name: "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
+        price: 289000,
+        quantity: 1,
+        category: "Serum",
+      },
+      {
+        id: "APh00022",
+        src: "./assets/images/serum-image-2.jpg",
+        name: "Serum La Roche-Posay - Hyalu B5 Serum - 30 ml",
+        price: 235000,
+        quantity: 1,
+        category: "Serum",
+      },
+    ],
   },
   {
-      "isDelete": false,
-      "customerId": 2,
-      "orderId": 3,
-      "orderDate": "23:5:56 30/11/2024",
-      "orderAddressToShip": "TPHCM",
-      "orderStatus": "pending",
-      "orderMethod": "Thanh toán khi giao hàng (COD)",
-      "orderTotalPrice": 5042000,
-      "orderProduct": [
-          {
-              "id": "APh00001",
-              "src": "./assets/images/facewash-image-1.jpg",
-              "name": "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
-              "price": 200000,
-              "quantity": 1,
-              "category": "Sửa rửa mặt"
-          },
-          {
-              "id": "APh00011",
-              "src": "./assets/images/toner-imag1.jpg",
-              "name": "Klairs Supple Preparation Unscented",
-              "price": 352000,
-              "quantity": 3,
-              "category": "toner"
-          },
-          {
-              "id": "APh00017",
-              "src": "./assets/images/tay-trang-imag2.jpg",
-              "name": "tẩy trang L'Oreal Micellar Water 3-in-1 cho da dầu nhạy cảm",
-              "price": 341000,
-              "quantity": 5,
-              "category": "Tẩy trang"
-          },
-          {
-              "id": "APh00021",
-              "src": "./assets/images/serum-image-1.jpg",
-              "name": "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
-              "price": 289000,
-              "quantity": 3,
-              "category": "Serum"
-          },
-          {
-              "id": "APh00012",
-              "src": "./assets/images/toner-imag2.png",
-              "name": "Acleon Clarifying Toning Lotion cấp ẩm cho da dầu ",
-              "price": 299000,
-              "quantity": 4,
-              "category": "toner"
-          }
-      ]
+    isDelete: false,
+    customerId: 2,
+    orderId: 3,
+    orderDate: "23:5:56 30/11/2024",
+    orderAddressToShip: "TPHCM",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 5042000,
+    orderProduct: [
+      {
+        id: "APh00001",
+        src: "./assets/images/facewash-image-1.jpg",
+        name: "Sữa rửa mặt CeraVe sạch sâu cho da thường đến da dầu",
+        price: 200000,
+        quantity: 1,
+        category: "Sửa rửa mặt",
+      },
+      {
+        id: "APh00011",
+        src: "./assets/images/toner-imag1.jpg",
+        name: "Klairs Supple Preparation Unscented",
+        price: 352000,
+        quantity: 3,
+        category: "toner",
+      },
+      {
+        id: "APh00017",
+        src: "./assets/images/tay-trang-imag2.jpg",
+        name: "tẩy trang L'Oreal Micellar Water 3-in-1 cho da dầu nhạy cảm",
+        price: 341000,
+        quantity: 5,
+        category: "Tẩy trang",
+      },
+      {
+        id: "APh00021",
+        src: "./assets/images/serum-image-1.jpg",
+        name: "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
+        price: 289000,
+        quantity: 3,
+        category: "Serum",
+      },
+      {
+        id: "APh00012",
+        src: "./assets/images/toner-imag2.png",
+        name: "Acleon Clarifying Toning Lotion cấp ẩm cho da dầu ",
+        price: 299000,
+        quantity: 4,
+        category: "toner",
+      },
+    ],
   },
   {
-      "isDelete": false,
-      "customerId": 2,
-      "orderId": 4,
-      "orderDate": "23:6:50 30/11/2024",
-      "orderAddressToShip": "TPHCM",
-      "orderStatus": "pending",
-      "orderMethod": "Thanh toán khi giao hàng (COD)",
-      "orderTotalPrice": 1891000,
-      "orderProduct": [
-          {
-              "id": "APh00031",
-              "src": "./assets/images/son-image-1.jpg",
-              "name": "KSon Gel TechnoSatin",
-              "price": 239000,
-              "quantity": 1,
-              "category": "Son"
-          },
-          {
-              "id": "APh00035",
-              "src": "./assets/images/son-image-5.jpg",
-              "name": "Son Tint Clio Crystal Glam Tint -11 Mellow Fig",
-              "price": 289000,
-              "quantity": 1,
-              "category": "Son"
-          },
-          {
-              "id": "APh00033",
-              "src": "./assets/images/son-image-3.png",
-              "name": "Son lì Naris Ailus Be Brave mịn môi, màu cam rạng rỡ",
-              "price": 269000,
-              "quantity": "5",
-              "category": "Son"
-          }
-      ]
+    isDelete: false,
+    customerId: 2,
+    orderId: 4,
+    orderDate: "23:6:50 30/11/2024",
+    orderAddressToShip: "TPHCM",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 1891000,
+    orderProduct: [
+      {
+        id: "APh00031",
+        src: "./assets/images/son-image-1.jpg",
+        name: "KSon Gel TechnoSatin",
+        price: 239000,
+        quantity: 1,
+        category: "Son",
+      },
+      {
+        id: "APh00035",
+        src: "./assets/images/son-image-5.jpg",
+        name: "Son Tint Clio Crystal Glam Tint -11 Mellow Fig",
+        price: 289000,
+        quantity: 1,
+        category: "Son",
+      },
+      {
+        id: "APh00033",
+        src: "./assets/images/son-image-3.png",
+        name: "Son lì Naris Ailus Be Brave mịn môi, màu cam rạng rỡ",
+        price: 269000,
+        quantity: "5",
+        category: "Son",
+      },
+    ],
   },
   {
-      "isDelete": false,
-      "customerId": 4,
-      "orderId": 5,
-      "orderDate": "23:10:23 30/11/2024",
-      "orderAddressToShip": "from HCM with love",
-      "orderStatus": "pending",
-      "orderMethod": "Thanh toán khi giao hàng (COD)",
-      "orderTotalPrice": 1692000,
-      "orderProduct": [
-          {
-              "id": "APh00025",
-              "src": "./assets/images/serum-image-5.jpg",
-              "name": "Serum Trị Nám Trắng Da La Roche Posay Mela B3 30ml",
-              "price": 279000,
-              "quantity": 6,
-              "category": "Serum"
-          }
-      ]
+    isDelete: false,
+    customerId: 4,
+    orderId: 5,
+    orderDate: "23:10:23 30/11/2024",
+    orderAddressToShip: "from HCM with love",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 1692000,
+    orderProduct: [
+      {
+        id: "APh00025",
+        src: "./assets/images/serum-image-5.jpg",
+        name: "Serum Trị Nám Trắng Da La Roche Posay Mela B3 30ml",
+        price: 279000,
+        quantity: 6,
+        category: "Serum",
+      },
+    ],
   },
   {
-      "isDelete": false,
-      "customerId": 4,
-      "orderId": 6,
-      "orderDate": "23:10:36 30/11/2024",
-      "orderAddressToShip": "from HCM with love",
-      "orderStatus": "pending",
-      "orderMethod": "Thanh toán khi giao hàng (COD)",
-      "orderTotalPrice": 1557000,
-      "orderProduct": [
-          {
-              "id": "APh00021",
-              "src": "./assets/images/serum-image-1.jpg",
-              "name": "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
-              "price": 289000,
-              "quantity": 1,
-              "category": "Serum"
-          },
-          {
-              "id": "APh00022",
-              "src": "./assets/images/serum-image-2.jpg",
-              "name": "Serum La Roche-Posay - Hyalu B5 Serum - 30 ml",
-              "price": 235000,
-              "quantity": "4",
-              "category": "Serum"
-          },
-          {
-              "id": "APh00019",
-              "src": "./assets/images/tay-trang-imag4.jpeg",
-              "name": "Tẩy Trang Simple Làm Sạch Bụi Bẩn Và Lớp Trang Điểm 200ml",
-              "price": 310000,
-              "quantity": 1,
-              "category": "Tẩy trang"
-          }
-      ]
+    isDelete: false,
+    customerId: 4,
+    orderId: 6,
+    orderDate: "23:10:36 30/11/2024",
+    orderAddressToShip: "from HCM with love",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 1557000,
+    orderProduct: [
+      {
+        id: "APh00021",
+        src: "./assets/images/serum-image-1.jpg",
+        name: "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
+        price: 289000,
+        quantity: 1,
+        category: "Serum",
+      },
+      {
+        id: "APh00022",
+        src: "./assets/images/serum-image-2.jpg",
+        name: "Serum La Roche-Posay - Hyalu B5 Serum - 30 ml",
+        price: 235000,
+        quantity: "4",
+        category: "Serum",
+      },
+      {
+        id: "APh00019",
+        src: "./assets/images/tay-trang-imag4.jpeg",
+        name: "Tẩy Trang Simple Làm Sạch Bụi Bẩn Và Lớp Trang Điểm 200ml",
+        price: 310000,
+        quantity: 1,
+        category: "Tẩy trang",
+      },
+    ],
   },
   {
-      "isDelete": false,
-      "customerId": 4,
-      "orderId": 7,
-      "orderDate": "23:11:0 30/11/2024",
-      "orderAddressToShip": "from HCM with love",
-      "orderStatus": "pending",
-      "orderMethod": "Thanh toán khi giao hàng (COD)",
-      "orderTotalPrice": 327000,
-      "orderProduct": [
-          {
-              "id": "APh00036",
-              "src": "./assets/images/phan-image-1.jpg",
-              "name": "Phấn phủ Geo trắng Sempre Happy & Please Pact",
-              "price": 309000,
-              "quantity": 1,
-              "category": "Phấn"
-          }
-      ]
+    isDelete: false,
+    customerId: 4,
+    orderId: 7,
+    orderDate: "23:11:0 30/11/2024",
+    orderAddressToShip: "from HCM with love",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 327000,
+    orderProduct: [
+      {
+        id: "APh00036",
+        src: "./assets/images/phan-image-1.jpg",
+        name: "Phấn phủ Geo trắng Sempre Happy & Please Pact",
+        price: 309000,
+        quantity: 1,
+        category: "Phấn",
+      },
+    ],
   },
   {
-      "isDelete": false,
-      "customerId": 4,
-      "orderId": 8,
-      "orderDate": "23:11:12 30/11/2024",
-      "orderAddressToShip": "from HCM with love",
-      "orderStatus": "pending",
-      "orderMethod": "Thanh toán khi giao hàng (COD)",
-      "orderTotalPrice": 293000,
-      "orderProduct": [
-          {
-              "id": "APh00008",
-              "src": "./assets/images/face-washimage-5.jpg",
-              "name": "Sữa Rửa Mặt Simple Detox Purifying Face Wash 150ml",
-              "price": 275000,
-              "quantity": 1,
-              "category": "Sửa rửa mặt"
-          }
-      ]
+    isDelete: false,
+    customerId: 4,
+    orderId: 8,
+    orderDate: "23:11:12 30/11/2024",
+    orderAddressToShip: "from HCM with love",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 293000,
+    orderProduct: [
+      {
+        id: "APh00008",
+        src: "./assets/images/face-washimage-5.jpg",
+        name: "Sữa Rửa Mặt Simple Detox Purifying Face Wash 150ml",
+        price: 275000,
+        quantity: 1,
+        category: "Sửa rửa mặt",
+      },
+    ],
   },
   {
-    "isDelete": false,
-    "customerId": 5,
-    "orderId": 9,
-    "orderDate": "0:22:31 1/12/2024",
-    "orderAddressToShip": "from anywhere",
-    "orderStatus": "pending",
-    "orderMethod": "Thanh toán khi giao hàng (COD)",
-    "orderTotalPrice": 1266000,
-    "orderProduct": [
-        {
-            "id": "APh00010",
-            "src": "./assets/images/acnecream-image-5.png",
-            "name": "Kem giảm mụn ngừa thâm sẹo Sakura Acne Clearing Cream",
-            "price": 212000,
-            "quantity": 2,
-            "category": "Kem trị mụn"
-        },
-        {
-            "id": "APh00003",
-            "src": "./assets/images/acnecream-image-1.jpg",
-            "name": "Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar Duo+ M",
-            "price": 400000,
-            "quantity": 1,
-            "category": "Kem trị mụn"
-        },
-        {
-            "id": "APh00005",
-            "src": "./assets/images/acnecream-image-3.jpg",
-            "name": "Gel Giảm Mụn Alcom Derma Forte Advanced 15g",
-            "price": 212000,
-            "quantity": 1,
-            "category": "Kem trị mụn"
-        },
-        {
-            "id": "APh00009",
-            "src": "./assets/images/acnecream-image-4.jpg",
-            "name": "Gel giảm mụn và thâm Gamma SANTAGIFT (20g)",
-            "price": 212000,
-            "quantity": 1,
-            "category": "Kem trị mụn"
-        }
-    ]
+    isDelete: false,
+    customerId: 5,
+    orderId: 9,
+    orderDate: "0:22:31 1/12/2024",
+    orderAddressToShip: "from anywhere",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 1266000,
+    orderProduct: [
+      {
+        id: "APh00010",
+        src: "./assets/images/acnecream-image-5.png",
+        name: "Kem giảm mụn ngừa thâm sẹo Sakura Acne Clearing Cream",
+        price: 212000,
+        quantity: 2,
+        category: "Kem trị mụn",
+      },
+      {
+        id: "APh00003",
+        src: "./assets/images/acnecream-image-1.jpg",
+        name: "Kem Dưỡng La Roche-Posay Giảm Mụn Hiệu Quả 40ml Effaclar Duo+ M",
+        price: 400000,
+        quantity: 1,
+        category: "Kem trị mụn",
+      },
+      {
+        id: "APh00005",
+        src: "./assets/images/acnecream-image-3.jpg",
+        name: "Gel Giảm Mụn Alcom Derma Forte Advanced 15g",
+        price: 212000,
+        quantity: 1,
+        category: "Kem trị mụn",
+      },
+      {
+        id: "APh00009",
+        src: "./assets/images/acnecream-image-4.jpg",
+        name: "Gel giảm mụn và thâm Gamma SANTAGIFT (20g)",
+        price: 212000,
+        quantity: 1,
+        category: "Kem trị mụn",
+      },
+    ],
   },
   {
-    "isDelete": false,
-    "customerId": 5,
-    "orderId": 10,
-    "orderDate": "0:22:40 1/12/2024",
-    "orderAddressToShip": "from anywhere",
-    "orderStatus": "pending",
-    "orderMethod": "Thanh toán khi giao hàng (COD)",
-    "orderTotalPrice": 765000,
-    "orderProduct": [
-        {
-            "id": "APh00026",
-            "src": "./assets/images/kem-duong-am-image-1.png",
-            "name": "Kem dưỡng ẩm , dịu da kích ứng Phasilab Instant Calm Cream 40ml",
-            "price": 289000,
-            "quantity": 1,
-            "category": "Kem dưỡng ẩm"
-        },
-        {
-            "id": "APh00027",
-            "src": "./assets/images/kem-duong-am-image-2.png",
-            "name": "Kem Dưỡng Ẩm Cho Da Khô Nhạy Cảm Atoderm Cream 200ml",
-            "price": 229000,
-            "quantity": 1,
-            "category": "Kem dưỡng ẩm"
-        },
-        {
-            "id": "APh00028",
-            "src": "./assets/images/kem-duong-am-image-3.png",
-            "name": "Kem dưỡng Phục hồi & Tiêu Nhiệt Beyond Angel Aqua Cica Cream",
-            "price": 229000,
-            "quantity": 1,
-            "category": "Kem dưỡng ẩm"
-        }
-    ]
+    isDelete: false,
+    customerId: 5,
+    orderId: 10,
+    orderDate: "0:22:40 1/12/2024",
+    orderAddressToShip: "from anywhere",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 765000,
+    orderProduct: [
+      {
+        id: "APh00026",
+        src: "./assets/images/kem-duong-am-image-1.png",
+        name: "Kem dưỡng ẩm , dịu da kích ứng Phasilab Instant Calm Cream 40ml",
+        price: 289000,
+        quantity: 1,
+        category: "Kem dưỡng ẩm",
+      },
+      {
+        id: "APh00027",
+        src: "./assets/images/kem-duong-am-image-2.png",
+        name: "Kem Dưỡng Ẩm Cho Da Khô Nhạy Cảm Atoderm Cream 200ml",
+        price: 229000,
+        quantity: 1,
+        category: "Kem dưỡng ẩm",
+      },
+      {
+        id: "APh00028",
+        src: "./assets/images/kem-duong-am-image-3.png",
+        name: "Kem dưỡng Phục hồi & Tiêu Nhiệt Beyond Angel Aqua Cica Cream",
+        price: 229000,
+        quantity: 1,
+        category: "Kem dưỡng ẩm",
+      },
+    ],
   },
   {
-    "isDelete": false,
-    "customerId": 5,
-    "orderId": 11,
-    "orderDate": "0:22:49 1/12/2024",
-    "orderAddressToShip": "from anywhere",
-    "orderStatus": "pending",
-    "orderMethod": "Thanh toán khi giao hàng (COD)",
-    "orderTotalPrice": 795000,
-    "orderProduct": [
-        {
-            "id": "APh00031",
-            "src": "./assets/images/son-image-1.jpg",
-            "name": "KSon Gel TechnoSatin",
-            "price": 239000,
-            "quantity": 1,
-            "category": "Son"
-        },
-        {
-            "id": "APh00032",
-            "src": "./assets/images/son-image-2.jpg",
-            "name": "Son kem Black Rouge Airfit Velvet Tint Ver 6 BLUEMING GARDEN – A31 Đỏ nâu trầm",
-            "price": 269000,
-            "quantity": 1,
-            "category": "Son"
-        },
-        {
-            "id": "APh00033",
-            "src": "./assets/images/son-image-3.png",
-            "name": "Son lì Naris Ailus Be Brave mịn môi, màu cam rạng rỡ",
-            "price": 269000,
-            "quantity": 100,
-            "category": "Son"
-        }
-    ]
+    isDelete: false,
+    customerId: 5,
+    orderId: 11,
+    orderDate: "0:22:49 1/12/2024",
+    orderAddressToShip: "from anywhere",
+    orderStatus: "pending",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 795000,
+    orderProduct: [
+      {
+        id: "APh00031",
+        src: "./assets/images/son-image-1.jpg",
+        name: "KSon Gel TechnoSatin",
+        price: 239000,
+        quantity: 1,
+        category: "Son",
+      },
+      {
+        id: "APh00032",
+        src: "./assets/images/son-image-2.jpg",
+        name: "Son kem Black Rouge Airfit Velvet Tint Ver 6 BLUEMING GARDEN – A31 Đỏ nâu trầm",
+        price: 269000,
+        quantity: 1,
+        category: "Son",
+      },
+      {
+        id: "APh00033",
+        src: "./assets/images/son-image-3.png",
+        name: "Son lì Naris Ailus Be Brave mịn môi, màu cam rạng rỡ",
+        price: 269000,
+        quantity: 100,
+        category: "Son",
+      },
+    ],
   },
   {
-    "isDelete": false,
-    "customerId": 5,
-    "orderId": 12,
-    "orderDate": "0:23:16 1/12/2024",
-    "orderAddressToShip": "from anywhere",
-    "orderStatus": "shipped",
-    "orderMethod": "Thanh toán khi giao hàng (COD)",
-    "orderTotalPrice": 4548000,
-    "orderProduct": [
-        {
-            "id": "APh00036",
-            "src": "./assets/images/phan-image-1.jpg",
-            "name": "Phấn phủ Geo trắng Sempre Happy & Please Pact",
-            "price": 309000,
-            "quantity": 11,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00037",
-            "src": "./assets/images/phan-image-2.jpg",
-            "name": "Bảng phấn mắt Makeup Revolution - Reloaded Velvet Rose - 15x 0.04oz.(us)/1.1g",
-            "price": 339000,
-            "quantity": 12,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00038",
-            "src": "./assets/images/phan-image-3.jpg",
-            "name": "Phấn tươi essence soft touch mousse 16g – Đức",
-            "price": 378000,
-            "quantity": 199,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00039",
-            "src": "./assets/images/phan-image-4.jpg",
-            "name": "Phấn phủ trắng da White Extreme",
-            "price": 389000,
-            "quantity": 19,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00040",
-            "src": "./assets/images/phan-image-5.jpg",
-            "name": "Phấn phủ siêu mịn, kiềm dầu Fresh White Sand by TENAMYD Pure White Powder SPF 15",
-            "price": 389000,
-            "quantity": 1,
-            "category": "Phấn"
-        },
-        {
-            "id": "APh00031",
-            "src": "./assets/images/son-image-1.jpg",
-            "name": "KSon Gel TechnoSatin",
-            "price": 239000,
-            "quantity": 29,
-            "category": "Son"
-        },
-        {
-            "id": "APh00032",
-            "src": "./assets/images/son-image-2.jpg",
-            "name": "Son kem Black Rouge Airfit Velvet Tint Ver 6 BLUEMING GARDEN – A31 Đỏ nâu trầm",
-            "price": 269000,
-            "quantity": 15,
-            "category": "Son"
-        },
-        {
-            "id": "APh00033",
-            "src": "./assets/images/son-image-3.png",
-            "name": "Son lì Naris Ailus Be Brave mịn môi, màu cam rạng rỡ",
-            "price": 269000,
-            "quantity": 11,
-            "category": "Son"
-        },
-        {
-            "id": "APh00035",
-            "src": "./assets/images/son-image-5.jpg",
-            "name": "Son Tint Clio Crystal Glam Tint -11 Mellow Fig",
-            "price": 289000,
-            "quantity": 1,
-            "category": "Son"
-        },
-        {
-            "id": "APh00034",
-            "src": "./assets/images/son-image-4.jpg",
-            "name": "Son Kem Lì Hàn Quốc Thuần Chay, Mịn Mượt Lâu Trôi FOIF Daily Velvet Tint",
-            "price": 279000,
-            "quantity": 12,
-            "category": "Son"
-        },
-        {
-            "id": "APh00021",
-            "src": "./assets/images/serum-image-1.jpg",
-            "name": "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
-            "price": 289000,
-            "quantity": 19,
-            "category": "Serum"
-        },
-        {
-            "id": "APh00022",
-            "src": "./assets/images/serum-image-2.jpg",
-            "name": "Serum La Roche-Posay - Hyalu B5 Serum - 30 ml",
-            "price": 235000,
-            "quantity": 11,
-            "category": "Serum"
-        },
-        {
-            "id": "APh00023",
-            "src": "./assets/images/serum-image-3.jpg",
-            "name": "Serum Torriden Dive In Cấp Ẩm Phục Hồi Da",
-            "price": 289000,
-            "quantity": 1,
-            "category": "Serum"
-        },
-        {
-            "id": "APh00024",
-            "src": "./assets/images/serum-image-4.jpeg",
-            "name": "Serum Dưỡng Sáng Da, Mờ Thâm Mụn & Nám Loreal Paris Glycolic Melasyl 8% ",
-            "price": 289000,
-            "quantity": 1,
-            "category": "Serum"
-        },
-        {
-            "id": "APh00025",
-            "src": "./assets/images/serum-image-5.jpg",
-            "name": "Serum Trị Nám Trắng Da La Roche Posay Mela B3 30ml",
-            "price": 279000,
-            "quantity": 12,
-            "category": "Serum"
-        }
-    ]
-  }
+    isDelete: false,
+    customerId: 5,
+    orderId: 12,
+    orderDate: "0:23:16 1/12/2024",
+    orderAddressToShip: "from anywhere",
+    orderStatus: "shipped",
+    orderMethod: "Thanh toán khi giao hàng (COD)",
+    orderTotalPrice: 4548000,
+    orderProduct: [
+      {
+        id: "APh00036",
+        src: "./assets/images/phan-image-1.jpg",
+        name: "Phấn phủ Geo trắng Sempre Happy & Please Pact",
+        price: 309000,
+        quantity: 11,
+        category: "Phấn",
+      },
+      {
+        id: "APh00037",
+        src: "./assets/images/phan-image-2.jpg",
+        name: "Bảng phấn mắt Makeup Revolution - Reloaded Velvet Rose - 15x 0.04oz.(us)/1.1g",
+        price: 339000,
+        quantity: 12,
+        category: "Phấn",
+      },
+      {
+        id: "APh00038",
+        src: "./assets/images/phan-image-3.jpg",
+        name: "Phấn tươi essence soft touch mousse 16g – Đức",
+        price: 378000,
+        quantity: 199,
+        category: "Phấn",
+      },
+      {
+        id: "APh00039",
+        src: "./assets/images/phan-image-4.jpg",
+        name: "Phấn phủ trắng da White Extreme",
+        price: 389000,
+        quantity: 19,
+        category: "Phấn",
+      },
+      {
+        id: "APh00040",
+        src: "./assets/images/phan-image-5.jpg",
+        name: "Phấn phủ siêu mịn, kiềm dầu Fresh White Sand by TENAMYD Pure White Powder SPF 15",
+        price: 389000,
+        quantity: 1,
+        category: "Phấn",
+      },
+      {
+        id: "APh00031",
+        src: "./assets/images/son-image-1.jpg",
+        name: "KSon Gel TechnoSatin",
+        price: 239000,
+        quantity: 29,
+        category: "Son",
+      },
+      {
+        id: "APh00032",
+        src: "./assets/images/son-image-2.jpg",
+        name: "Son kem Black Rouge Airfit Velvet Tint Ver 6 BLUEMING GARDEN – A31 Đỏ nâu trầm",
+        price: 269000,
+        quantity: 15,
+        category: "Son",
+      },
+      {
+        id: "APh00033",
+        src: "./assets/images/son-image-3.png",
+        name: "Son lì Naris Ailus Be Brave mịn môi, màu cam rạng rỡ",
+        price: 269000,
+        quantity: 11,
+        category: "Son",
+      },
+      {
+        id: "APh00035",
+        src: "./assets/images/son-image-5.jpg",
+        name: "Son Tint Clio Crystal Glam Tint -11 Mellow Fig",
+        price: 289000,
+        quantity: 1,
+        category: "Son",
+      },
+      {
+        id: "APh00034",
+        src: "./assets/images/son-image-4.jpg",
+        name: "Son Kem Lì Hàn Quốc Thuần Chay, Mịn Mượt Lâu Trôi FOIF Daily Velvet Tint",
+        price: 279000,
+        quantity: 12,
+        category: "Son",
+      },
+      {
+        id: "APh00021",
+        src: "./assets/images/serum-image-1.jpg",
+        name: "Serum Ngừa Mụn, Giảm Thâm The Ordinary Niacinamide 10% + Zinc 1% (30ml)",
+        price: 289000,
+        quantity: 19,
+        category: "Serum",
+      },
+      {
+        id: "APh00022",
+        src: "./assets/images/serum-image-2.jpg",
+        name: "Serum La Roche-Posay - Hyalu B5 Serum - 30 ml",
+        price: 235000,
+        quantity: 11,
+        category: "Serum",
+      },
+      {
+        id: "APh00023",
+        src: "./assets/images/serum-image-3.jpg",
+        name: "Serum Torriden Dive In Cấp Ẩm Phục Hồi Da",
+        price: 289000,
+        quantity: 1,
+        category: "Serum",
+      },
+      {
+        id: "APh00024",
+        src: "./assets/images/serum-image-4.jpeg",
+        name: "Serum Dưỡng Sáng Da, Mờ Thâm Mụn & Nám Loreal Paris Glycolic Melasyl 8% ",
+        price: 289000,
+        quantity: 1,
+        category: "Serum",
+      },
+      {
+        id: "APh00025",
+        src: "./assets/images/serum-image-5.jpg",
+        name: "Serum Trị Nám Trắng Da La Roche Posay Mela B3 30ml",
+        price: 279000,
+        quantity: 12,
+        category: "Serum",
+      },
+    ],
+  },
 ];
 
+// Mảng chứa thông tin của tỉnh thành, quận huyện, phường xã để nhập địa chỉ cho người dùng
+export const locationToSelectArray = [
+  {
+    name: "Chọn Tỉnh thành",
+    id: "default-city",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Hà Nội",
+    id: "hanoi",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+      {
+        name: "Quận Hoàn Kiếm",
+        id: "hoankiem",
+        wards: [
+          { name: "Phường Hàng Bạc", id: "hangbac" },
+          { name: "Phường Hàng Bồ", id: "hangbo" },
+          { name: "Phường Hàng Mã", id: "hangma" },
+        ],
+      },
+      {
+        name: "Quận Ba Đình",
+        id: "badinh",
+        wards: [
+          { name: "Phường Ngọc Hà", id: "ngocha" },
+          { name: "Phường Kim Mã", id: "kimma" },
+          { name: "Phường Liễu Giai", id: "lieugiai" },
+        ],
+      },
+      {
+        name: "Quận Cầu Giấy",
+        id: "caugiay",
+        wards: [
+          { name: "Phường Dịch Vọng", id: "dichvong" },
+          { name: "Phường Nghĩa Tân", id: "nghiatan" },
+          { name: "Phường Mai Dịch", id: "maidich" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "TP Hồ Chí Minh",
+    id: "tphcm",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+      {
+        name: "Quận 1",
+        id: "quan1",
+        wards: [
+          { name: "Phường Bến Nghé", id: "bennghe" },
+          { name: "Phường Bến Thành", id: "benthanh" },
+          { name: "Phường Nguyễn Thái Bình", id: "nguyenthaibinh" },
+        ],
+      },
+      {
+        name: "Quận 3",
+        id: "quan3",
+        wards: [
+          { name: "Phường 1", id: "phuong1" },
+          { name: "Phường 5", id: "phuong5" },
+          { name: "Phường 7", id: "phuong7" },
+        ],
+      },
+      {
+        name: "Quận 10",
+        id: "quan10",
+        wards: [
+          { name: "Phường 10", id: "phuong10" },
+          { name: "Phường 15", id: "phuong15" },
+          { name: "Phường 8", id: "phuong8" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Đà Nẵng",
+    id: "danang",
+    districts: [
+      {
+        name: "Chọn Quận / Huyện",
+        id: "default-district",
+        wards: [
+          {
+            name: "Chọn Phường / Xã",
+            id: "default-ward",
+          },
+        ],
+      },
+      {
+        name: "Quận Hải Châu",
+        id: "haichau",
+        wards: [
+          { name: "Phường Thạch Thang", id: "thachthang" },
+          { name: "Phường Hải Châu 1", id: "haichau1" },
+          { name: "Phường Hải Châu 2", id: "haichau2" },
+        ],
+      },
+      {
+        name: "Quận Sơn Trà",
+        id: "sontra",
+        wards: [
+          { name: "Phường An Hải Bắc", id: "anhainorth" },
+          { name: "Phường An Hải Tây", id: "anhaitay" },
+          { name: "Phường Nại Hiên Đông", id: "naihiendong" },
+        ],
+      },
+      {
+        name: "Quận Ngũ Hành Sơn",
+        id: "nguhanhson",
+        wards: [
+          { name: "Phường Hòa Hải", id: "hoahai" },
+          { name: "Phường Mỹ An", id: "myan" },
+          { name: "Phường Khuê Mỹ", id: "khuemy" },
+        ],
+      },
+    ],
+  },
+];
 
 window.addEventListener("load", () => {
   let tmpList = JSON.parse(localStorage.getItem("orderList"));
-  if(tmpList === null || tmpList === undefined){
+  if (tmpList === null || tmpList === undefined) {
     localStorage.setItem("orderList", JSON.stringify(orderList));
   }
 
   tmpList = JSON.parse(localStorage.getItem("userList"));
-  if(tmpList === null || tmpList === undefined){
+  if (tmpList === null || tmpList === undefined) {
     localStorage.setItem("userList", JSON.stringify(userList));
   }
 
   tmpList = JSON.parse(localStorage.getItem("productList"));
-  if(tmpList === null || tmpList === undefined){
+  if (tmpList === null || tmpList === undefined) {
     localStorage.setItem("productList", JSON.stringify(productItemArray));
   }
 });

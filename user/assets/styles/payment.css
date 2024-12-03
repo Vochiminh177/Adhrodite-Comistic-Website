@@ -22,7 +22,7 @@
 }
 /* <== payment-information Info ===> */
 .payment-information__info {
-  width: 60%;
+  width: 64%;
   padding: 26px 28px 32px;
   border-radius: 8px;
   background: #fff;
@@ -283,7 +283,7 @@ figure:has(.payment-information-info__internet-banking-image) {
   top: 32px;
   left: 0;
   z-index: 2;
-  width: 40%;
+  width: 36%;
 }
 .payment-information-products__item,
 .payment-information-products__body {
