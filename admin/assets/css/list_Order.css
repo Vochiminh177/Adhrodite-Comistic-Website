@@ -4,21 +4,8 @@
     align-items: flex-start;
 }
 .table-container{
-    width: 65%;
+    width: 71%;
 }
-.content-order-table th:nth-child(1),
-.content-order-table th:nth-child(2){
-    width: 11%;
-}
-
-.content-order-table th{
-    width: calc(80% / 3);
-}
-
-.content-order-table th:last-child{
-    width: 9%;
-}
-
 .content-order-table-body .status-label{
     width: 73%;
     margin: 0 auto;
@@ -135,7 +122,7 @@
 
 
 .order-filter-container {
-    width: calc(35% - 32px);
+    width: calc(29% - 32px);
     margin: 0px 16px;
     padding: 20px;
     background: #fff;
