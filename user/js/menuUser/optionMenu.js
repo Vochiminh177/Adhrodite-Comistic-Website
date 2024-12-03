@@ -3,7 +3,6 @@ import {
   handleSaveDateInformation,
 } from "./handleOptionMenu.js";
 import { updateMainContent } from "../home-js/changeMainContent.js";
-import { formatVietNamMoney } from "../common-js/common.js";
 
 //hàm tạo thông báo
 export function create_notification_user(mess) {
@@ -64,9 +63,7 @@ export function signOutUser() {
     "indexCurrentUserLogin",
     JSON.stringify(indexCurrentUserLogin)
   );
-  document
-    .querySelector(".header__admin-icon")
-    .style.setProperty("visibility", "hidden");
+  document.querySelector(".header__admin-icon").style.visibility = "hidden";
   create_notification_user("Đăng xuất thành công!");
   updateMainContent("home");
 }

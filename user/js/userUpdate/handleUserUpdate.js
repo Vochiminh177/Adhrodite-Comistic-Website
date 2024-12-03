@@ -1,10 +1,10 @@
-import { userList } from "../../../database/database.js";
 import { handleAdmin } from "../home-js/adminClick.js";
+import { checkEmail } from "../menuUser/handleOptionMenu.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
+import { userList } from "../../../database/database.js";
 
 //hàm return về chuỗi placeholder ban đầu
 export function resetDefaultInputForUser(input) {
-  input.style.borderBottom = "1px solid #ccc";
   input.classList.remove("err-text");
   if (input.className === "username-change") {
     return "Nhập tên tài khoản";
@@ -31,7 +31,7 @@ export function errorInput(input, mess) {
     let parent = input.parentElement;
     if (!input.checked) {
       parent.querySelector("p").style.color = "red";
-      input.onfocus = () => {
+      input.onclick = () => {
         parent.querySelector("p").style.color = "black";
       };
     }
@@ -41,7 +41,6 @@ export function errorInput(input, mess) {
   input.classList.add("err-text");
 
   if (mess) {
-    input.style.borderBottom = "1px solid red";
     input.value = "";
     input.placeholder = mess;
     input.onfocus = () => {
@@ -51,8 +50,8 @@ export function errorInput(input, mess) {
   }
   //nếu input rỗng
   if (input.value == "") {
-    input.style.borderBottom = "1px solid red";
     input.placeholder = "*Lỗi! Không được để trống";
+    input.style.color = "#000";
     input.onfocus = () => {
       input.placeholder = resetDefaultInputForUser(input);
     };
@@ -134,10 +133,6 @@ export function handleSignIn() {
 //kiểm tra khi đăng ký
 export function handleSignUp() {
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
-  if (userList.length == 0) {
-    userList = [...userList];
-    localStorage.setItem("userList", JSON.stringify(userList));
-  }
 
   let username = document.querySelector(".username-signup");
   let password = document.querySelector(".password-signup");
@@ -149,13 +144,18 @@ export function handleSignUp() {
     username.value === "" ||
     password.value === "" ||
     !check_accept_privacy.checked ||
-    email.value == ""
+    email.value === ""
   ) {
     errorInput(username);
     errorInput(password);
     errorInput(second_password);
     errorInput(email);
     errorInput(check_accept_privacy);
+    return false;
+  }
+
+  if (!checkEmail(email)) {
+    errorInput(email, "Cần nhập đúng định dạng email");
     return false;
   }
 
@@ -216,5 +216,85 @@ export function handleSignUp() {
   //thêm vào mảng
   userList.push(data_obj);
   localStorage.setItem("userList", JSON.stringify(userList));
+
   return true;
 }
+
+// let username = document.querySelector(".username-signup");
+// let password = document.querySelector(".password-signup");
+// let second_password = document.querySelector("#second-password");
+// let email = document.querySelector(".email-signup");
+// let check_accept_privacy = document.querySelector(".accept-privacy");
+
+// if (
+//   username.value === "" ||
+//   password.value === "" ||
+//   !check_accept_privacy.checked ||
+//   email.value == ""
+// ) {
+//   errorInput(username);
+//   errorInput(password);
+//   errorInput(second_password);
+//   errorInput(email);
+//   errorInput(check_accept_privacy);
+//   return false;
+// }
+
+// //kiểm tra xem tài khoản đã tồn tại chưa
+// let check = {
+//   status: false,
+//   mess_username: null,
+//   mess_email: null,
+// };
+// userList.forEach((obj) => {
+//   if (obj.username === username.value) {
+//     check.mess_username = "*Tên đăng nhập đã tồn tại!";
+//     check.status = true;
+//     return;
+//   }
+// });
+// userList.forEach((obj) => {
+//   if (obj.email === email.value) {
+//     check.mess_email = "*Email đã tồn tại!";
+//     check.status = true;
+//     return;
+//   }
+// });
+// if (check.status) {
+//   console.log(check.mess_username);
+//   errorInput(username, check.mess_username);
+//   errorInput(email, check.mess_email);
+//   return false;
+// }
+
+// if (password.value != second_password.value) {
+//   errorInput(second_password, "*Lỗi! Mật khẩu cần giống nhau");
+//   return false;
+// }
+
+// let userID = userList[0].id;
+// while (
+//   userList.some((obj) => {
+//     return obj.id == userID;
+//   })
+// ) {
+//   userID = Math.floor(Math.random() * userList.length + 1) + 1;
+// }
+// console.log(userID);
+// var data_obj = {
+//   type: "customer",
+//   bloclStatus: false,
+//   id: userID,
+//   username: username.value,
+//   password: password.value,
+//   email: email.value,
+//   first_name: null,
+//   last_name: null,
+//   phone: null,
+//   shoppingCart: [],
+// };
+
+// //thêm vào mảng
+// userList.push(data_obj);
+// localStorage.setItem("userList", JSON.stringify(userList));
+// return true;

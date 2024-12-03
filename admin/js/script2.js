@@ -1,39 +1,40 @@
-import { userList, productItemArray} from "../../database/database.js";
-import { pagination, showListProduct, showListCustomer, showListOrder } from "./showList/show.js";
+import { userList, productItemArray } from "../../database/database.js";
+import { pagination, showListProduct, showListCustomer, showListOrder, showProductStatistics, generateProductStatistics } from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
 import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+import {updateDashboardHighlights} from "./dashboard.js";
 function start(){
 	anhMinh();
+	// showMain("main-content-dashboard");
 }
-
 
 start();
 
-function deleteMainCreatedFromJs(){
-	if(document.querySelector(".main-content-customer-edit")){
+function deleteMainCreatedFromJs() {
+	if (document.querySelector(".main-content-customer-edit")) {
 		document.querySelector(".main-content-customer-edit").remove();
 	}
-	if(document.querySelector(".main-content-customer-add")){
+	if (document.querySelector(".main-content-customer-add")) {
 		document.querySelector(".main-content-customer-add").remove();
 	}
 }
 
-function anhMinh(){
+function anhMinh() {
 
 	//click option của thanh bên
 	const allSideMenu = document.querySelectorAll('#side-bar .side-menu li a');
 
-	allSideMenu.forEach(item=> {
+	allSideMenu.forEach(item => {
 		const li = item.parentElement;
 
-		item.addEventListener('click', function(e) {
+		item.addEventListener('click', function (e) {
 			e.preventDefault();
-			allSideMenu.forEach(i=> {
+			allSideMenu.forEach(i => {
 				i.parentElement.classList.remove('active');
 			})
 			li.classList.add('active');
-			allSideMenu.forEach(i=> {
+			allSideMenu.forEach(i => {
 				i.parentElement.classList.remove('active-mobile');
 			})
 			li.classList.add('active-mobile');
@@ -46,14 +47,17 @@ function anhMinh(){
 			});
 			// deleteMainCreatedFromJs();
 			//hiển thị main của option được chọn
-			if(item.className == "product_sidebar"){
+			if (item.className == "product_sidebar") {
 				showMain("main-content-product-list");
 			}
-			else if(item.className == "order_sidebar"){
+			else if (item.className == "order_sidebar") {
 				showMain("main-content-order");
 			}
-			else if(item.className == "customer_sidebar"){
+			else if (item.className == "customer_sidebar") {
 				showMain("main-content-customer");
+			}
+			else if (item.className == "dashboard_sidebar") {
+				showMain("main-content-dashboard");
 			}
 			else{
 				location.assign(location.origin + "/user/index.html");
@@ -77,10 +81,10 @@ function anhMinh(){
 	const searchForm = document.querySelector('#content nav form');
 
 	searchButton.addEventListener('click', function (e) {
-		if(window.innerWidth < 576) {
+		if (window.innerWidth < 576) {
 			e.preventDefault();
 			searchForm.classList.toggle('show');
-			if(searchForm.classList.contains('show')) {
+			if (searchForm.classList.contains('show')) {
 				searchButtonIcon.classList.replace('bx-search', 'bx-x');
 			} else {
 				searchButtonIcon.classList.replace('bx-x', 'bx-search');
@@ -88,15 +92,15 @@ function anhMinh(){
 		}
 	});
 
-	if(window.innerWidth < 768) {
+	if (window.innerWidth < 768) {
 		sidebar.classList.add('hide');
-	} else if(window.innerWidth > 576) {
+	} else if (window.innerWidth > 576) {
 		searchButtonIcon.classList.replace('bx-x', 'bx-search');
 		searchForm.classList.remove('show');
 	}
 
 	window.addEventListener('resize', function () {
-		if(this.innerWidth > 576) {
+		if (this.innerWidth > 576) {
 			searchButtonIcon.classList.replace('bx-x', 'bx-search');
 			searchForm.classList.remove('show');
 		}
@@ -105,7 +109,7 @@ function anhMinh(){
 	const switchMode = document.getElementById('switch-mode');
 
 	switchMode.addEventListener('change', function () {
-		if(this.checked) {
+		if (this.checked) {
 			document.body.classList.add('pink1');
 		} else {
 			document.body.classList.remove('pink1');
@@ -113,51 +117,92 @@ function anhMinh(){
 	});
 }
 
-// function option(){
-// 	const allSideMenu = document.querySelectorAll('#side-bar .side-menu li a');
-
-// 	allSideMenu.forEach(item=> {
-// 		const li = item.parentElement;
-
-// 		item.addEventListener('click', function() {
-// 			allSideMenu.forEach(i=> {
-// 				i.parentElement.classList.remove('active');
-// 			})
-// 			li.classList.add('active');
-
-
-// 			//khi click option nào thì hiện main của option đó ở thanh menu
-// 			//ẩn tất cả phần tử main không liên quan
-// 			document.querySelectorAll('main').forEach(section => {
-// 				section.style.display = 'none';
-// 			});
-
-// 			//hiện thị main của option được chọn
-// 			//nếu option là sản phẩm
-// 			if(item.className == "product_sidebar"){
-// 				showMain("main-content-product-list");
-// 				showListProduct();
-// 				addProduct();
-// 			}
-// 			else console.log("khong");
-// 		});
-// 	});
-// }
 
 export function showMain(sectionId) {
-    // Ẩn tất cả các phần tử main
-    const sections = document.querySelectorAll('main');
-    sections.forEach(section => {
-        section.style.display = 'none';
-    });
+	console.log(document.querySelector(".dashboardTable"));  // Kiểm tra phần tử có tồn tại trong DOM
+	// Ẩn tất cả các phần tử main
+	const sections = document.querySelectorAll('main');
+	sections.forEach(section => {
+		section.style.display = 'none';
+	});
 
-    // Hiển thị phần tử main được chọn
-    const activeSection = document.getElementById(sectionId);
-    if (activeSection) {
-        activeSection.style.display = 'block';
-    }
-	if(sectionId === "main-content-product-list"){
-		document.querySelector("#main-content-product-list").innerHTML = `
+	// Hiển thị phần tử main được chọn
+	const activeSection = document.getElementById(sectionId);
+	if (activeSection) {
+		activeSection.style.display = 'block';
+	}
+	if (sectionId === "main-content-dashboard") {
+		document.querySelector("#main-content-dashboard").innerHTML = `
+		<div class="title">
+                <div id="title-name">Thống kê</div>
+            </div>
+            <div class="content">
+
+                <div class="dashboard-filter">
+                    <div class="filter-item">
+                        <label class="dateLabel">Từ ngày</label>
+                        <input type="date" id="from-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Đến ngày</label>
+                        <input type="date" id="to-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Mã sản phẩm</label>
+                        <input type="text" id="product-id" class="custom-date-input">
+                    </div>
+                    <div class="filter-btn">
+                        <button type="submit" id="filterBtn">Lọc</button>
+                        <button type="reset" id="resetBtn">Xóa</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-highlight">
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-dollar'></i>
+                        <div>
+                            <h3></h3>
+                            <span>Tổng doanh thu</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-cart'></i>
+                        <div>
+                            <h3></h3>
+                            <span>Tổng đơn hàng</span>
+                        </div>
+                    </div>
+					<div class="dashboard-highlight-box">
+                        <i class='bx bxs-user'></i>
+                        <div>
+                            <h3></h3>
+                            <span>Số khách hàng</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box-product">
+                        <img src="" alt="Sản phẩm" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+                        <div>
+                            <h3 id="productId"></h3>
+                            <span>Bán chạy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="dashboardTable">
+                </table>
+            </div>
+			<div class="list-page"></div>
+		`;
+
+		let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+		console.log(orderList);
+		let productStatistics = generateProductStatistics(orderList);
+		updateDashboardHighlights(orderList,productStatistics);
+		pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
+
+	} else
+		if (sectionId === "main-content-product-list") {
+			document.querySelector("#main-content-product-list").innerHTML = `
 			 <div class="title">
                 <div id="title-name">Danh sách sản phẩm</div>
                 <div>
@@ -181,21 +226,22 @@ export function showMain(sectionId) {
             </div>
 			<div class="list-page"></div>
 		`;
-		let productList = JSON.parse(localStorage.getItem("productList")) || [];
-		if(productList.length == 0){
-			productList = [...productItemArray];
-		}
-		localStorage.setItem("productList", JSON.stringify(productList));
-		addProduct();
-		filterProductAdmin();
-		pagination(productList, 1, showListProduct, "#main-content-product-list");
-	} else
-	if(sectionId === "main-content-order"){
-		document.querySelector('#main-content-order').innerHTML = `
+			let productList = JSON.parse(localStorage.getItem("productList")) || [];
+			if (productList.length == 0) {
+				productList = [...productItemArray];
+			}
+			localStorage.setItem("productList", JSON.stringify(productList));
+			addProduct();
+			filterProductAdmin();
+			pagination(productList, 1, showListProduct, "#main-content-product-list");
+		} else
+			if (sectionId === "main-content-order") {
+				document.querySelector('#main-content-order').innerHTML = `
 		<div class="title">
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
 		<div class="content order">
+			<div class="table-container">
 			<table class="content-order-table">
 				<thead>
 					<tr>
@@ -212,6 +258,8 @@ export function showMain(sectionId) {
 
 				</tbody>
 			</table>
+			<div class="list-page"></div>
+			</div>
 			<div class="order-filter-container" id="order-filter-container"></div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
@@ -255,7 +303,6 @@ export function showMain(sectionId) {
 				</div>
 			</div>
 		</div>
-		<div class="list-page"></div>
 		`;
 		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 		pagination(orderList, 1, showListOrder, "#main-content-order");
@@ -308,9 +355,9 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-	} else
-	if(sectionId === "main-content-customer"){
-		document.querySelector("#main-content-customer").innerHTML = `
+				} else
+					if (sectionId === "main-content-customer") {
+						document.querySelector("#main-content-customer").innerHTML = `
 			<div class="title">
                 <div id="title-name">Danh Sách Khách Hàng</div>
                 <div>
@@ -329,16 +376,16 @@ export function showMain(sectionId) {
             </div>
 			<div class="list-page"></div>
 		`;
-		let userList = JSON.parse(localStorage.getItem("userList")) || [];
-		if(userList.length ==0){
-			userList = [...userList];
-		}
-		localStorage.setItem("userList", JSON.stringify(userList));
-		addCustomer();
-		pagination(userList, 1, showListCustomer, "#main-content-customer");
-	} else
-	if(sectionId === "main-content-customer-add"){
-		document.querySelector("#main-content-customer-add").innerHTML = `
+						let userList = JSON.parse(localStorage.getItem("userList")) || [];
+						if (userList.length == 0) {
+							userList = [...userList];
+						}
+						localStorage.setItem("userList", JSON.stringify(userList));
+						addCustomer();
+						pagination(userList, 1, showListCustomer, "#main-content-customer");
+					} else
+						if (sectionId === "main-content-customer-add") {
+							document.querySelector("#main-content-customer-add").innerHTML = `
 			<div class="title">
                 <h1>Thêm khách hàng</h1>
                 <a class="comback-customer">< Quay lại</a>
@@ -367,6 +414,6 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-	}
+						}
 }
 

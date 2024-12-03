@@ -105,7 +105,6 @@ export function updateForm(userFormKey) {
           placeholder="Nhập mật khẩu"
         />
       </div>
-     
       <div class="header__form-group">
         <input type="submit" value="Đăng nhập" class="btn-signin"/>
       </div>

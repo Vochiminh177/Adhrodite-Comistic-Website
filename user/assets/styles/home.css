@@ -276,7 +276,7 @@
 }
 .header__user-form {
   padding: 0 20px;
-  margin-top: 28px;
+  margin-top: 36px;
 }
 .header__form-group:not(:first-of-type, :last-of-type) {
   margin-top: 32px;
@@ -288,40 +288,28 @@
   font-size: 2.2rem;
 }
 .header__form-group input:not([type="checkbox"], [type="submit"]) {
-  color: #ccc;
+  color: #000;
   font-size: 2rem;
 }
 .header__form-group input:not([type="checkbox"], [type="submit"]) {
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #000 !important;
   padding: 12px 14px;
 }
-.header__form-group:has(
-    input:not([type="checkbox"], [type="submit"]):not(:placeholder-shown)
-  )
-  label {
-  color: #fc8eac;
-}
-
-.header__form-group
-  input:not([type="checkbox"], [type="submit"]):not(:placeholder-shown) {
-  color: #000;
-  border-color: #fc8eac;
-}
-.header__form-group [type="checkbox"] + label {
+.header__form-group.privacy-checkbox [type="checkbox"] + label {
   position: relative;
   display: flex;
   align-items: center;
   gap: 6px 12px;
 }
-.header__form-group [type="checkbox"] + label::before {
+.header__form-group.privacy-checkbox [type="checkbox"] + label::before {
   content: "";
   display: inline-block;
   width: 16px;
   height: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #000;
 }
-.header__form-group [type="checkbox"] + label::after {
+.header__form-group.privacy-checkbox [type="checkbox"] + label::after {
   content: "";
   display: inline-block;
   position: absolute;
@@ -333,9 +321,9 @@
   border-bottom: 3px solid #fff;
   transform: rotate(-45deg);
 }
-.header__form-group [type="checkbox"]:checked + label::before {
-  border-color: #fc8eac;
-  background: #fc8eac;
+.header__form-group.privacy-checkbox [type="checkbox"]:checked + label::before {
+  border-color: #000;
+  background: #000;
 }
 .header__form-group:has([type="submit"]) {
   display: flex;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,15 @@
     <link rel="stylesheet" href="assets/css/list_Customer.css">
     <link rel="stylesheet" href="assets/css/list_Product.css">
     <link rel="stylesheet" href="assets/css/list_Order.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+
+
     <!--ICON-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <title>Admin</title>
 </head>
+
 <body>
     <section id="side-bar">
         <a href="#" class="brand">
@@ -27,7 +32,7 @@
             <li class="active">
                 <!-- <a href="#" onclick="showMain('main-content-dashboard')"> -->
                 <a href="#" class="dashboard_sidebar">
-                    <i class='bx bxs-doughnut-chart' ></i>
+                    <i class='bx bxs-doughnut-chart'></i>
                     <span class="text">Thống kê</span>
                 </a>
             </li>
@@ -79,15 +84,86 @@
                 </div>
             </form>
             <a href="#" class="profile">
-                <img src="assets/images/z5880225504504_c041459811d8195bff1d325a9c868597.png" >
+                <img src="assets/images/z5880225504504_c041459811d8195bff1d325a9c868597.png">
             </a>
         </nav>
 
         <main id="main-content-dashboard">
-            <h1>Dashboard</h1>
+            <div class="title">
+                <div id="title-name">Thống kê</div>
+            </div>
+            <div class="content">
+
+                <div class="dashboard-filter">
+                    <div class="filter-item">
+                        <label class="dateLabel">Từ ngày</label>
+                        <input type="date" id="from-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Đến ngày</label>
+                        <input type="date" id="to-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Mã sản phẩm</label>
+                        <input type="text" id="product-id" class="custom-date-input">
+                    </div>
+                    <div class="filter-btn">
+                        <button type="submit" id="filterBtn">Lọc</button>
+                        <button type="reset" id="resetBtn">Xóa</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-highlight">
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-dollar'></i>
+                        <div>
+                            <h3>Số liệu</h3>
+                            <span>Tổng doanh thu</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box">
+                        <i class='bx bx-cart'></i>
+                        <div>
+                            <h3>Số liệu</h3>
+                            <span>Tổng đơn hàng</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-highlight-box-product">
+                        <img src="" alt="Sản phẩm" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+                        <div>
+                            <h3>Id sản phẩm</h3>
+                            <span>Bán chạy</span>
+                        </div>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Hình ảnh</th>
+                            <th>Giá sản phẩm</th>
+                            <th>Tổng đơn hàng</th>
+                            <th>Tổng doanh thu</th>
+                            <th>Tùy chỉnh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>hình ảnh</td>
+                            <td>giá sản phẩm</td>
+                            <td>tổng đơn hàng</td>
+                            <td>tổng doanh thu</td>
+                            <td>
+                                <button id="orderListBtn">Đơn hàng</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
 
-		<main id="main-content-product-list" style="display: none;">
+        <main id="main-content-product-list" style="display: none;">
             <!-- Nội dung ở đây -->
             <!-- <div class="title">
                 <div id="title-name">Danh sách sản phẩm</div>
@@ -111,7 +187,7 @@
                     <div class="list-page"></div>
                 </div>
             </div> -->
-		</main>
+        </main>
 
         <main id="main-content-product-add" style="display: none;">
             <!-- <div class="title">
@@ -185,18 +261,18 @@
                     <div class="order-details-modal-content">
                         <a href="#" class="close-btn">&times;</a>
                         <div id="order-details-container"> -->
-                            <!-- Header đơn hàng -->
-                            <!-- <header class="order-header" id="order-header">
+            <!-- Header đơn hàng -->
+            <!-- <header class="order-header" id="order-header">
 
                             </header> -->
-                        
-                            <!-- Thông tin khách hàng -->
-                            <!-- <section class="customer-info" id="customer-info">
+
+            <!-- Thông tin khách hàng -->
+            <!-- <section class="customer-info" id="customer-info">
 
                             </section> -->
-                        
-                            <!-- Các sản phẩm -->
-                            <!-- <section class="product-info" id="product-info">
+
+            <!-- Các sản phẩm -->
+            <!-- <section class="product-info" id="product-info">
                                 <h3>Chi tiết Sản Phẩm</h3>
                                 <table class="product-table">
                                     <thead>
@@ -212,14 +288,14 @@
                                     </tbody>
                                 </table>
                             </section> -->
-                        
-                            <!-- Chi phí đơn hàng -->
-                            <!-- <section class="order-cost" id="order-cost">
+
+            <!-- Chi phí đơn hàng -->
+            <!-- <section class="order-cost" id="order-cost">
 
                             </section> -->
-                        
-                            <!-- Thanh hành động-->
-                            <!-- <div class="action-bar" id="action-bar">
+
+            <!-- Thanh hành động-->
+            <!-- <div class="action-bar" id="action-bar">
 
                             </div>
 
@@ -228,6 +304,13 @@
                 </div>
             </div> -->
             <!-- <div class="list-page"></div> -->
+            <div class="content-order-list">
+                <table>
+
+                </table>
+            </div>
+
+            </div>
         </main>
 
         <main id="main-content-customer" style="display: none;">
@@ -260,8 +343,10 @@
         </main>
     </section>
     <script type="module" src="./js/script2.js"></script>
+    <script src="./js/dashboard.js"></script>
     <!-- <script type="module" src="js/product.js"></script> -->
 
 
 </body>
+
 </html>

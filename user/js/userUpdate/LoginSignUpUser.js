@@ -34,10 +34,9 @@ export function signUp() {
     e.preventDefault();
     let result = handleSignUp();
     if (result) {
+      create_notification_user("Đăng ký thành công!");
       updateForm("login");
       signIn();
-      //tạo phần tử p (thông báo khi đăng ký thành công)
-      create_notification_user("Đăng ký thành công!");
     }
   };
 }

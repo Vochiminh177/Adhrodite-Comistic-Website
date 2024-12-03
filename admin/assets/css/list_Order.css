@@ -1,6 +1,10 @@
 .content.order{
     display: flex;
-
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.table-container{
+    width: 65%;
 }
 .content-order-table th:nth-child(1),
 .content-order-table th:nth-child(2){
@@ -140,10 +144,8 @@ button {
 /* Tổng quát */
 /* Bộ lọc chính */
 .order-filter-container {
-    height: 55%;
+    width: calc(35% - 32px);
     margin: 0px 16px;
-    width: 600px;
-    max-width: 600px;
     padding: 20px;
     background: #fff;
     box-shadow: 0 0 5px 5px rgba(0 , 0, 0, 0.1);

@@ -193,7 +193,6 @@ export function filterProductAdmin() {
         let selectBrand = document.createElement("select");
         selectBrand.id = "select-product-filter-brand";
         selectBrand.innerHTML += `<option value="-1">Không chọn</option>`;
-        console.log(array)
         array.forEach((obj, index) => {
             selectBrand.innerHTML += `<option value="${index}">${obj}</option>`;
             })
@@ -219,7 +218,7 @@ export function filterProductAdmin() {
             let arr = [];
             arr = productList.filter((obj) => {
                 return (categoryID === '-1' || categoryID === obj.categoryID)
-                    && (brand === "-1" || brand === obj.brand)
+                    && (brand === "Không chọn" || brand === obj.brand)
                     && (isNaN(number) || obj.quantity <= number);
             });
             return arr;
@@ -228,7 +227,13 @@ export function filterProductAdmin() {
         document.querySelector(".filter-product .content-filter a").onclick = (e) => {
             e.preventDefault();
             let categoryID = document.querySelector("#select-product-filter-category").value;
-            let brand = document.querySelector("#select-product-filter-brand").value;
+            let brandSelect = document.querySelector("#select-product-filter-brand").value;
+            let brand;
+            document.querySelectorAll("#select-product-filter-brand option").forEach((obj) => {
+                if(obj.value === brandSelect){
+                    brand = obj.textContent
+                };
+            });
             let number = document.querySelector("#input-filter-quantity").value;
 
             if (!checkNumber(number) || number < 0) {
@@ -240,9 +245,18 @@ export function filterProductAdmin() {
             pagination(arr, 1, showListProduct, "#main-content-product-list");
             if (arr.length > 0) {
                 createNotificationAdmin("Lọc thành công");
+                if(document.querySelector("#main-content-product-list .content p")){
+                    document.querySelector("#main-content-product-list .content p").remove();
+                }
             }
             else {
                 createNotificationAdmin("Không có sản phẩm");
+                if(!document.querySelector("#main-content-product-list .content p")){
+                    let p = document.createElement("p");
+                    p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
+                    document.querySelector("#main-content-product-list .content").appendChild(p);
+                    document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";
+                }
             }
         };
     };
