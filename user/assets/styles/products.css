@@ -637,11 +637,6 @@
     margin-top: 32px;
   }
 
-  .body__products .main-products__list {
-    display: flex;
-    justify-content: center;
-  }
-
   .body__products figure:has(.main-products__image) {
     height: 200px;
     overflow: hidden;
@@ -734,11 +729,6 @@
   .body__products .main-products__body {
     margin-left: 0;
   }
-  .body__products .main-products__list {
-    display: flex;
-    justify-content: center;
-  }
-
   .body__products .main-products__item {
     width: 250px;
     margin: 0;

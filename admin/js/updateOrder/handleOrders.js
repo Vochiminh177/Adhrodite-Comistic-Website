@@ -57,13 +57,11 @@ export function generateOrderEvents(start, end, orderList) {
     const cancelBtn = document.querySelector(".order-cancel-btn");
     const shippedBtn = document.querySelector(".order-shipped-btn");
 
-    if (printBtn) {
-    }
-
     if (confirmBtn) {
       confirmBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "accepted");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
 
@@ -71,6 +69,7 @@ export function generateOrderEvents(start, end, orderList) {
       cancelBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "canceled");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
 
@@ -78,6 +77,7 @@ export function generateOrderEvents(start, end, orderList) {
       shippedBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "shipped");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
   }
