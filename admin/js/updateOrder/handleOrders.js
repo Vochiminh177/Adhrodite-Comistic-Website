@@ -166,12 +166,12 @@ function createOrderDetails(order) {
     orderCost.innerHTML = `
       <h3>Tóm Tắt Đơn Hàng</h3>
       <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-      <p>Phí vận chuyển:&nbsp${20000}</p>
-      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
+      <p>Phí vận chuyển:&nbsp${18000}</p>
+      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
     `;
   }
   
-  // Các nút in, xác nhận, huỷ, xác nhận đã giao
+  // Các nút xác nhận, huỷ, xác nhận đã giao
   const actionBar = document.getElementById("action-bar");
   if(actionBar){
     if (order.orderStatus === "pending") {
