@@ -88,10 +88,14 @@ export function changePassword() {
           <button class="btn-save-change-password">Lưu thay đổi</button>
         </div>
       </div>
+      <div class="overlay-change-password"></div>
     `;
   document.body.appendChild(ele);
 
   document.querySelector(".exit-form-change-password-user").onclick = () => {
+    ele.remove();
+  };
+  document.querySelector(".overlay-change-password").onclick = () => {
     ele.remove();
   };
 
@@ -149,11 +153,19 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
             <a class="save-information">Lưu thông tin</a>
           </div>
         </div>
+        <div class="overlay-user"></div>
     `;
   let ele = document.createElement("div");
   ele.className = "container-formInformation-user";
   ele.innerHTML = formInformationUser;
   document.body.appendChild(ele);
+
+  document.querySelector(".exit-form-information-user").onclick = () => {
+    ele.remove();
+  };
+  document.querySelector(".overlay-user").onclick = () => {
+    ele.remove();
+  };
 
   document.querySelector(".form-user .save-information").onclick = (e) => {
     e.preventDefault();
@@ -161,10 +173,6 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
     if (result) {
       create_notification_user("Lưu thành công!");
     }
-  };
-
-  document.querySelector(".exit-form-information-user").onclick = () => {
-    document.querySelector(".container-formInformation-user").remove();
   };
 }
 
