@@ -363,14 +363,12 @@ export function showMain(sectionId) {
             </div>
 			<div class="list-page"></div>
 		`;
-						let userList = JSON.parse(localStorage.getItem("userList")) || [];
-						if (userList.length == 0) {
-							userList = [...userList];
-						}
+						let userList = JSON.parse(localStorage.getItem("userList"));
 						localStorage.setItem("userList", JSON.stringify(userList));
 						addCustomer();
 						pagination(userList, 1, showListCustomer, "#main-content-customer");
-					} else
+					} 
+					else
 						if (sectionId === "main-content-customer-add") {
 							document.querySelector("#main-content-customer-add").innerHTML = `
 			<div class="title">

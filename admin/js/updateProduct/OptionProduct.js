@@ -43,7 +43,7 @@ export function addProduct() {
                 showMain("main-content-product-list");
                 createNotificationAdmin("Thêm sản phẩm thành công!");
                 let productList = JSON.parse(localStorage.getItem("productList"));
-                pagination(productList, Math.ceil(productList.length / 3), showListProduct, "#main-content-product-list");
+                pagination(productList, Math.ceil(productList.length / 7), showListProduct, "#main-content-product-list");
                 path_picture_admin.src = null;
             }
            

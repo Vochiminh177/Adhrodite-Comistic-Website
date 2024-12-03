@@ -146,7 +146,7 @@ export function handleSignUp(){
         return false;
     }
 
-    //kiểm tra xem tài khoản đã tồn tại chưa
+    //kiểm tra xem tài khoản và email đã tồn tại chưa
     let check = {
         status: false,
         mess_username: null,
@@ -156,18 +156,15 @@ export function handleSignUp(){
         if(obj.username === username.value){
             check.mess_username = "*Tên đăng nhập đã tồn tại!"
             check.status = true;
-            return;
         }
     });
     userList.forEach((obj) => {
         if(obj.email === email.value){
             check.mess_email = "*Email đã tồn tại!";
             check.status = true;
-            return;
         }
     });
     if(check.status){
-        console.log(check.mess_username);
         errorInput(username, check.mess_username);
         errorInput(email, check.mess_email);
         return false;
@@ -184,7 +181,7 @@ export function handleSignUp(){
     })) {
         userID = Math.floor(Math.random() * userList.length + 1) + 1;
     }
-    console.log(userID);
+
     var data_obj = {
         type: "customer",
         bloclStatus: false,

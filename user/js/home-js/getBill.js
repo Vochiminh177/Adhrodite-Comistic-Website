@@ -329,7 +329,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
         <!-- Payment Function -->
         <div class="bill__payment-function">
           <h3 class="bill__sub-title">PHƯƠNG THỨC THANH TOÁN</h3>
-          <p class="bill__detail"> Loại phương thức: ${!checkMethod ? method : method.name + "Thể loại: " + method.type + "Mã số thẻ: " + method.code}</p>
+          <p class="bill__detail"> Loại phương thức: ${!checkMethod ? method : method.name + " Thể loại: " + method.type + " Mã số thẻ: " + method.code}</p>
         </div>
         <!-- Thankyou -->
         <div class="bill__thankyou">

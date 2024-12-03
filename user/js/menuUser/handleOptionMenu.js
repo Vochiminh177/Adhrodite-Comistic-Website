@@ -10,7 +10,7 @@ function checkNumberPhone(value) {
 
 //hàm kiểm tra định dạng email
 export function checkEmail(email) {
-  if(email.value.indexOf("@") === -1){
+  if(email.indexOf("@") === -1){
     return false;
   }
   const parts = email.split("@");
@@ -82,6 +82,10 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
+  if (phone.value < 0 || !checkNumberPhone(phone.value)) {
+    errorInput(phone, "Cần nhập đúng định dạng số điện thoại");
+    return false;
+  }
   let check = userList.some((obj, i) => {
     if (i != indexCurrentUserLogin) return obj.phone === phone.value;
   });
@@ -90,13 +94,15 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
-  if (phone.value < 0 || !checkNumberPhone(phone.value)) {
-    errorInput(phone, "Cần nhập đúng định dạng số điện thoại");
-    return false;
-  }
-
   if(!checkEmail(email.value)){
     errorInput(email, "Email cần đúng định dạng");
+    return false;
+  }
+  let checkExistEmail = userList.some((obj, i) => {
+    if (i != indexCurrentUserLogin) return obj.email === email.value;
+  });
+  if(checkExistEmail) {
+    errorInput(email, "Email đã tồn tại");
     return false;
   }
 

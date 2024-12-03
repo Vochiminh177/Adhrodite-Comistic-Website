@@ -1,3 +1,4 @@
+
 import { err_input } from "../base/baseFunction.js";
 
 function checkNumberPhone(value){
@@ -13,21 +14,22 @@ export function handleDeleteCustomer(index) {
 }
 
 export function handleEditCustomer(index) {
-    let username = document.querySelector(".username-customer");
-    let password = document.querySelector(".password-customer");
-    let phone = document.querySelector(".phone-customer");
-    let firstName = document.querySelector(".firstname-customer");
-    let lastName = document.querySelector(".lastname-customer");
-    let type = document.querySelector("#type-customer");
+    let username = document.querySelector(".container-form-user-add-edit .username-customer");
+    let password = document.querySelector(".container-form-user-add-edit .password-customer");
+    let phone = document.querySelector(".container-form-user-add-edit .phone-customer");
+    let firstName = document.querySelector(".container-form-user-add-edit .firstname-customer");
+    let lastName = document.querySelector(".container-form-user-add-edit .lastname-customer");
+    let type = document.querySelector(".container-form-user-add-edit #type-customer");
+    let email = document.querySelector(".container-form-user-add-edit .email-customer");
 
-    let checkEmpty = false;
-    if (username.value == "" || password.value == "" || phone.value == "" || firstName.value == "" || lastName.value == "") {
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "") {
         err_input(username);
         err_input(password);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);
-        checkEmpty = true;
+        err_input(email);
+        return false;
     }
 
     //nếu không đúng số điện thoại
@@ -67,7 +69,38 @@ export function handleEditCustomer(index) {
         return false;
     }
 
-    if (checkEmpty) return false; //nếu input bị rỗng
+    //kiểm tra email
+    function checkEmail(email) {
+        if(email.indexOf("@") === -1){
+          return false;
+        }
+        const parts = email.split("@");
+        
+        // Kiểm tra cấu trúc email
+        if (parts.length !== 2 || parts[1] !== "gmail.com") {
+            return false;
+        }
+      
+        // Kiểm tra từng ký tự trong phần trước "@"
+        for (const char of parts[0]) {
+            if (!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) {
+                return false; // Ký tự không hợp lệ
+            }
+        }
+        
+        return true; // Email hợp lệ
+      }
+    if(!checkEmail(email.value)){
+        err_input(email, "Email cần đúng định dạng");
+        return false;
+    }
+    let checkExistEmail = userList.some((obj, i) => {
+        if(i !== index) return obj.email === email.value;
+    });
+    if(checkExistEmail) {
+        err_input(email, "Email đã tồn tại");
+        return false;
+    }
 
     //nếu tất cả ổn
     userList[index].username = username.value;
@@ -81,28 +114,29 @@ export function handleEditCustomer(index) {
         2: "admin"
     }
     userList[index].type = objType[type.value];
+    userList[index].email = email.value;
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
 
 export function handleAddCustomer() {
-    let username = document.querySelector(".content-customer-add .username-customer");
-    let password = document.querySelector(".content-customer-add .password-customer");
-    let phone = document.querySelector(".content-customer-add .phone-customer");
-    let firstName = document.querySelector(".content-customer-add .firstname-customer");
-    let lastName = document.querySelector(".content-customer-add .lastname-customer");
-    let type = document.querySelector(".content-customer-add #type-customer");
+    let username = document.querySelector(".container-form-user-add-edit .username-customer");
+    let password = document.querySelector(".container-form-user-add-edit .password-customer");
+    let phone = document.querySelector(".container-form-user-add-edit .phone-customer");
+    let firstName = document.querySelector(".container-form-user-add-edit .firstname-customer");
+    let lastName = document.querySelector(".container-form-user-add-edit .lastname-customer");
+    let type = document.querySelector(".container-form-user-add-edit #type-customer");
+    let email = document.querySelector(".container-form-user-add-edit .email-customer");
 
-    let checkEmpty = false;
-    if (username.value == "" || password.value == "" || phone.value == "" || firstName.value == "" || lastName.value == "") {
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email === "") {
         err_input(username);
         err_input(password);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);
-        checkEmpty = true;
+        err_input(email);
+        return false;
     }
-    if (checkEmpty) return false; //nếu input bị rỗng
 
     //nếu không đúng số điện thoại
     let checkPhone = checkNumberPhone(phone.value);
@@ -138,13 +172,49 @@ export function handleAddCustomer() {
         }
         return false;
     }
+
+
+    //kiểm tra email
+    function checkEmail(email) {
+        if(email.indexOf("@") === -1){
+          return false;
+        }
+        const parts = email.split("@");
+        
+        // Kiểm tra cấu trúc email
+        if (parts.length !== 2 || parts[1] !== "gmail.com") {
+            return false;
+        }
+      
+        // Kiểm tra từng ký tự trong phần trước "@"
+        for (const char of parts[0]) {
+            if (!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) {
+                return false; // Ký tự không hợp lệ
+            }
+        }
+        
+        return true; // Email hợp lệ
+      }
+    if(!checkEmail(email.value)){
+        err_input(email, "Email cần đúng định dạng");
+        return false;
+    }
+    let checkExistEmail = userList.some((obj, i) => {
+        return obj.email === email.value;
+    });
+    if(checkExistEmail) {
+    err_input(email, "Email đã tồn tại");
+    return false;
+    }
+
+    //nếu tất cả ổn
     let id = userList[0].id;
     while(userList.some((obj) => {
         return obj.id == id;
     })){
         id = Math.floor(Math.random() * userList.length+1) + 1;
     }
-    //nếu tất cả ổn
+
     let objType = {
         0: "customer",
         1: "employer",
@@ -158,6 +228,7 @@ export function handleAddCustomer() {
         id: id,
         username: username.value,
         password: password.value,
+        email: email.value,
         first_name: firstName.value,
         last_name: lastName.value,
         phone: phone.value,

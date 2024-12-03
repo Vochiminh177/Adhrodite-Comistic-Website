@@ -150,7 +150,7 @@ body {
     position: relative;
     width: calc(100% - 230px);
     left: 230px;
-    transition: .3s ease;
+    transition: 0.3s ease;
 }
 #side-bar.hide ~ #content {
 	width: calc(100% - 60px);
