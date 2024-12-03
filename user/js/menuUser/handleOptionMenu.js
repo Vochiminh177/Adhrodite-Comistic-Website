@@ -10,43 +10,49 @@ function checkNumberPhone(value) {
 
 //hàm kiểm tra định dạng email
 export function checkEmail(email) {
-  if(email.value.indexOf("@") === -1){
+
+  if (email.value.indexOf("@") === -1) {
     return false;
   }
-  const parts = email.split("@");
-  
+  const parts = email.value.split("@");
+
   // Kiểm tra cấu trúc email
   if (parts.length !== 2 || parts[1] !== "gmail.com") {
-      return false;
+    return false;
   }
 
   // Kiểm tra từng ký tự trong phần trước "@"
   for (const char of parts[0]) {
-      if (!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) {
-          return false; // Ký tự không hợp lệ
-      }
+    if (
+      !(
+        (char >= "a" && char <= "z") ||
+        (char >= "A" && char <= "Z") ||
+        (char >= "0" && char <= "9")
+      )
+    ) {
+      return false; // Ký tự không hợp lệ
+    }
   }
-  
+
   return true; // Email hợp lệ
 }
 //hàm đổi mật khẩu
 export function handleChangePassword() {
   let userList = JSON.parse(localStorage.getItem("userList"));
-  let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+  let indexCurrentUserLogin = JSON.parse(
+    localStorage.getItem("indexCurrentUserLogin")
+  );
   let oldPassword = document.querySelector("#old-password-change");
   let newPassword = document.querySelector("#new-password-change");
 
-  if (
-    oldPassword.value == "" ||
-    newPassword.value == ""
-  ) {
+  if (oldPassword.value == "" || newPassword.value == "") {
     errorInput(oldPassword);
     errorInput(newPassword);
     return false;
   }
-  
+
   // kiểm tra có password giống không
-  if(userList[indexCurrentUserLogin].password !== oldPassword.value){
+  if (userList[indexCurrentUserLogin].password !== oldPassword.value) {
     errorInput(oldPassword, "Mật khẩu không chính xác");
     return false;
   }
@@ -82,6 +88,10 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
+  if (phone.value < 0 || !checkNumberPhone(phone.value)) {
+    errorInput(phone, "Cần nhập đúng định dạng số điện thoại");
+    return false;
+  }
   let check = userList.some((obj, i) => {
     if (i != indexCurrentUserLogin) return obj.phone === phone.value;
   });
@@ -95,8 +105,15 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
-  if(!checkEmail(email.value)){
+  if (!checkEmail(email)) {
     errorInput(email, "Email cần đúng định dạng");
+    return false;
+  }
+  let checkExistEmail = userList.some((obj, i) => {
+    if (i != indexCurrentUserLogin) return obj.email === email.value;
+  });
+  if(checkExistEmail) {
+    errorInput(email, "Email đã tồn tại");
     return false;
   }
 

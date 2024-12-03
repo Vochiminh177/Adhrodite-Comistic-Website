@@ -22,7 +22,7 @@
 }
 /* <== payment-information Info ===> */
 .payment-information__info {
-  width: 60%;
+  width: 64%;
   padding: 26px 28px 32px;
   border-radius: 8px;
   background: #fff;
@@ -283,7 +283,7 @@ figure:has(.payment-information-info__internet-banking-image) {
   top: 32px;
   left: 0;
   z-index: 2;
-  width: 40%;
+  width: 36%;
 }
 .payment-information-products__item,
 .payment-information-products__body {
@@ -297,18 +297,18 @@ figure:has(.payment-information-info__internet-banking-image) {
   padding: 8px 0 8px 10px;
 }
 .payment-information-products__list {
-  max-height: 320px;
+  max-height: 400px;
   overflow-y: auto;
 }
 .payment-information-products__item {
   position: relative;
-  height: calc(100% / 4);
+  height: calc(100% / 5);
 }
 .payment-information-products__item:first-of-type {
   margin-top: 12px;
 }
 .payment-information-products__item + .payment-information-products__item {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 figure:has(.payment-information-products__image) {
   margin-right: 14px;
@@ -322,18 +322,18 @@ figure:has(.payment-information-products__image) {
   object-fit: contain;
 }
 .payment-information-products__name {
-  width: 308px;
-  height: 28px;
+  max-height: 28px;
   font-size: 1.4rem;
   font-weight: 600;
+  line-height: 1.2;
 }
 .payment-information-products__details {
-  margin-top: 4px;
+  margin-top: 8px;
   color: #777;
   font-size: 1.3rem;
 }
 .payment-information-products__total-price-product {
-  margin-top: 6px;
+  margin-top: 10px;
   font-weight: 600;
 }
 .payment-information-products__numbers {

@@ -263,9 +263,10 @@ export function showMain(sectionId) {
                     </div>
                     <table>
                     </table>
+					<div class="list-page"></div>
                 </div>
             </div>
-			<div class="list-page"></div>
+		
 		`;
 			let productList = JSON.parse(localStorage.getItem("productList")) || [];
 			if (productList.length == 0) {
@@ -282,12 +283,14 @@ export function showMain(sectionId) {
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
 		<div class="content order">
+			<div class="table-container">
 			<table class="content-order-table">
 				<thead>
 					<tr>
 						<th>Mã Đơn Hàng</th>
 						<th>Mã Khách Hàng</th>
 						<th>Ngày Đặt</th>
+						<th>Quận</th>
 						<th>Tổng Cộng</th>
 						<th>Tình Trạng</th>
 						<th>Chi Tiết</th>
@@ -298,6 +301,8 @@ export function showMain(sectionId) {
 
 				</tbody>
 			</table>
+			<div class="list-page"></div>
+			</div>
 			<div class="order-filter-container" id="order-filter-container"></div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
@@ -334,7 +339,6 @@ export function showMain(sectionId) {
 				</div>
 			</div>
 		</div>
-		<div class="list-page"></div>
 		`;
 		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 		pagination(orderList, 1, showListOrder, "#main-content-order");
@@ -404,18 +408,17 @@ export function showMain(sectionId) {
                     </div>
                     <table>
                     </table>
+					<div class="list-page"></div>
                 </div>
             </div>
-			<div class="list-page"></div>
+	
 		`;
-						let userList = JSON.parse(localStorage.getItem("userList")) || [];
-						if (userList.length == 0) {
-							userList = [...userList];
-						}
+						let userList = JSON.parse(localStorage.getItem("userList"));
 						localStorage.setItem("userList", JSON.stringify(userList));
 						addCustomer();
 						pagination(userList, 1, showListCustomer, "#main-content-customer");
-					} else
+					} 
+					else
 						if (sectionId === "main-content-customer-add") {
 							document.querySelector("#main-content-customer-add").innerHTML = `
 			<div class="title">

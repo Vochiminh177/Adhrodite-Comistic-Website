@@ -36,18 +36,19 @@ export function reset_style_input(input){
     if(input.className == "id-add"){
         input.placeholder = "Mã sản phẩm";
     }
-    else if(input.className == "brand-add") input.placeholder = "Thương hiệu";
-    else if(input.className == "name-add") input.placeholder = "Tên sản phẩm";
-    else if(input.className == "price-add") input.placeholder = "Giá bán";
-    else if(input.className == "quantity-add") input.placeholder = "Số lượng";
-    else if(input.className == "description-add") input.placeholder = "Miêu tả sản phẩm";   
-    else if(input.className == "username-customer") input.placeholder = "Tên tài khoản";
-    else if(input.className == "password-customer") input.placeholder = "Mật khẩu";
-    else if(input.className == "phone-customer") input.placeholder = "Số điện thoại";
-    else if(input.className == "firstname-customer") input.placeholder = "Họ";
-    else if(input.className == "lastname-customer") input.placeholder = "Tên đệm";
-    else if(input.className == "percent-discount-add") input.placeholder = "Giảm giá %";
-    else if(input.className == "quantity-discount") input.placeholder = "Số lượng giảm giá";
+    else if(input.className === "brand-add") input.placeholder = "Thương hiệu";
+    else if(input.className === "name-add") input.placeholder = "Tên sản phẩm";
+    else if(input.className === "price-add") input.placeholder = "Giá bán";
+    else if(input.className === "quantity-add") input.placeholder = "Số lượng";
+    else if(input.className === "description-add") input.placeholder = "Miêu tả sản phẩm";   
+    else if(input.className === "username-customer") input.placeholder = "Tên tài khoản";
+    else if(input.className === "password-customer") input.placeholder = "Mật khẩu";
+    else if(input.className === "phone-customer") input.placeholder = "Số điện thoại";
+    else if(input.className === "firstname-customer") input.placeholder = "Họ";
+    else if(input.className === "lastname-customer") input.placeholder = "Tên đệm";
+    else if(input.className === "email-customer") input.placeholder = "Email";
+    else if(input.className === "percent-discount-add") input.placeholder = "Giảm giá %";
+    else if(input.className === "quantity-discount") input.placeholder = "Số lượng giảm giá";
     else input.placeholder = "Số lượng sản phẩm";
     input.style.borderColor = "#a94064";
 }

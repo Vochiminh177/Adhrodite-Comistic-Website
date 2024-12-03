@@ -16,7 +16,7 @@ let userList = JSON.parse(localStorage.getItem("userList"));
 let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
 if(indexCurrentUserLogin != -1){
     if(userList[indexCurrentUserLogin].type === "admin"){
-        document.querySelector(".header__admin-icon").style.display = "block";
+        document.querySelector(".header__admin-icon").style.visibility = "visible";
         handleAdmin();
     }
 }

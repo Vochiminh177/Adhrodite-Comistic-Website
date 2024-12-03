@@ -113,8 +113,6 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
     }
   });
 
-  
-
   // Nếu nhấn vào nút "Chi tiết" của một đơn hàng trong Lịch sử mua hàng
   document
     .querySelectorAll(".order-history__show-info-button")
@@ -122,34 +120,72 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
       obj.onclick = (event) => {
         event.preventDefault();
         function showOrderDetail() {
-
           // Hiển thị chi tiết đơn hàng
           function createProductItemInOrderHistoryItem() {
-            const orderProduct = ordersHistory[ordersHistory.length - 1 - index].orderProduct; //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
-            let items = "";
+            const orderProduct =
+              ordersHistory[ordersHistory.length - 1 - index].orderProduct; //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
+            console.log(orderProduct);
+            let items = "</br>";
             for (let i = 0; i < orderProduct.length; i++) {
-              if (i === orderProduct.length - 1) {
-                items += `${orderProduct[i].id} - ${orderProduct[i].name} - ${
-                  orderProduct[i].quantity
-                } - ${formatVietNamMoney(orderProduct[i].price)}đ`;
-              } else {
-                items += `${orderProduct[i].id} - ${orderProduct[i].name} - ${
-                  orderProduct[i].quantity
-                } - ${formatVietNamMoney(orderProduct[i].price)}đ, `;
+              let discountNumbers = 0,
+                noDiscountNumbers = 0;
+              if (orderProduct[i].discountQuantity < orderProduct[i].quantity) {
+                discountNumbers = orderProduct[i].discountQuantity;
+                noDiscountNumbers = orderProduct[i].quantity - discountNumbers;
+                if (discountNumbers > 0) {
+                  items += `+ ${orderProduct[i].id} - ${
+                    orderProduct[i].name
+                  } - ${discountNumbers} - ${formatVietNamMoney(
+                    orderProduct[i].price -
+                      (orderProduct[i].price *
+                        orderProduct[i].discountPercent) /
+                        100
+                  )}đ (-${orderProduct[i].discountPercent}%)</br>`;
+                }
+                if (noDiscountNumbers > 0) {
+                  items += `+ ${orderProduct[i].id} - ${
+                    orderProduct[i].name
+                  } - ${noDiscountNumbers} - ${formatVietNamMoney(
+                    orderProduct[i].price
+                  )}đ</br>`;
+                }
+              } else if (
+                orderProduct[i].discountQuantity >= orderProduct[i].quantity
+              ) {
+                discountNumbers = orderProduct[i].quantity;
+                if (discountNumbers > 0) {
+                  items += `+ ${orderProduct[i].id} - ${
+                    orderProduct[i].name
+                  } - ${discountNumbers} - ${formatVietNamMoney(
+                    orderProduct[i].price -
+                      (orderProduct[i].price *
+                        orderProduct[i].discountPercent) /
+                        100
+                  )}đ (-${orderProduct[i].discountPercent}%)</br>`;
+                }
               }
             }
             return items;
           }
-           //obj để hiển thị tiếng việt tình trạng đơn hàng
+          //obj để hiển thị tiếng việt tình trạng đơn hàng
           let dataOrderStatus = {
             pending: "Đang chờ xử lý",
             shipped: "Đã giao",
             accepted: "Đã xác nhận",
-            canceled: "Đã hủy"
+            canceled: "Đã hủy",
           };
-          let method = ordersHistory[ordersHistory.length - 1 - index].orderMethod;
-          if(typeof(ordersHistory[ordersHistory.length - 1 - index].orderMethod) === "object"){
-            method = ordersHistory[ordersHistory.length - 1 - index].orderMethod.name + "_Loại: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.type + "_Mã thẻ: " + ordersHistory[ordersHistory.length - 1 - index].orderMethod.code;
+          let method =
+            ordersHistory[ordersHistory.length - 1 - index].orderMethod;
+          if (
+            typeof ordersHistory[ordersHistory.length - 1 - index]
+              .orderMethod === "object"
+          ) {
+            method =
+              ordersHistory[ordersHistory.length - 1 - index].orderMethod.name +
+              "_Loại: " +
+              ordersHistory[ordersHistory.length - 1 - index].orderMethod.type +
+              "_Mã thẻ: " +
+              ordersHistory[ordersHistory.length - 1 - index].orderMethod.code;
           }
           const orderHistoryInfoForm = `
           <div class="order-history-info__overlay"></div>
@@ -166,15 +202,15 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
               ordersHistory[ordersHistory.length - 1 - index].orderDate
             }</p>
             <p class="order-history-info__order-status detail"><b>Tình trạng:</b> ${
-              dataOrderStatus[ordersHistory[ordersHistory.length - 1 - index].orderStatus]
+              dataOrderStatus[
+                ordersHistory[ordersHistory.length - 1 - index].orderStatus
+              ]
             }</p>
             <p class="order-history-info__order-address-to-ship detail"><b>Địa chỉ giao hàng:</b> ${
               ordersHistory[ordersHistory.length - 1 - index].orderAddressToShip
             }</p>
             <p class="order-history-info__order-ship-method detail"><b>Phương thức vận chuyển:</b> Giao hàng tận nơi</p>
-            <p class="order-history-info__order-pay-method detail"><b>Phương thức thanh toán:</b> ${
-              method
-            }</p>
+            <p class="order-history-info__order-pay-method detail"><b>Phương thức thanh toán:</b> ${method}</p>
             <p class="order-history-info__order-product detail"><b>Danh sách sản phẩm đã đặt:</b> ${createProductItemInOrderHistoryItem()}</p>
             <p class="order-history-info__order-total-price detail"><b>Tổng số tiền thanh toán:</b> ${formatVietNamMoney(
               ordersHistory[ordersHistory.length - 1 - index].orderTotalPrice
@@ -209,7 +245,10 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
   document
     .querySelectorAll(".order-history__trash-button")
     .forEach((obj, index) => {
-      if (ordersHistory[ordersHistory.length - 1 - index].orderStatus != "pending") { //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
+      if (
+        ordersHistory[ordersHistory.length - 1 - index].orderStatus != "pending"
+      ) {
+        //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
         obj.style.backgroundColor = "#ccc";
         obj.onclick = (e) => {
           e.preventDefault();
@@ -235,24 +274,34 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             document.querySelector(".form-question .yes").onclick = (e) => {
               e.preventDefault();
               // code mới của Huy
-              const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+              const orderList =
+                JSON.parse(localStorage.getItem("orderList")) || [];
               let productList = JSON.parse(localStorage.getItem("productList"));
 
               //hoàn số lượng của sản phẩm của shop (admin) - hiệu
-              ordersHistory[ordersHistory.length - 1 - index].orderProduct.forEach((objOrderProduct) => {
+              ordersHistory[
+                ordersHistory.length - 1 - index
+              ].orderProduct.forEach((objOrderProduct) => {
                 //objOrderProduct là từng sản phẩm của đơn hàng đang làm việc
                 let index = productList.findIndex((objProductShop) => {
                   //objProdcutShop là từng sản phẩm của shop
                   return objProductShop.id === objOrderProduct.id;
                 });
                 productList[index].quantity += objOrderProduct.quantity;
-                productList[index].discountQuantity += objOrderProduct.discountQuantity;
-                localStorage.setItem("productList", JSON.stringify(productList));
+                productList[index].discountQuantity +=
+                  objOrderProduct.discountQuantity;
+                localStorage.setItem(
+                  "productList",
+                  JSON.stringify(productList)
+                );
               });
-              
+
               // Tìm đơn hàng có ID cần xoá trên local
               let removeIndex = orderList.findIndex((order) => {
-                return order.orderId === ordersHistory[ordersHistory.length - 1 - index].orderId;
+                return (
+                  order.orderId ===
+                  ordersHistory[ordersHistory.length - 1 - index].orderId
+                );
               });
               // Array method findIndex: return first_index, otherwise -1
               // Xoá và cập nhật lại đơn hàng lên local
@@ -272,7 +321,9 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
               e.preventDefault();
               document.querySelector(".container-question").remove();
             };
-            document.querySelector(".form-question .exit-form-detail-ordered-product").onclick = () => {
+            document.querySelector(
+              ".form-question .exit-form-detail-ordered-product"
+            ).onclick = () => {
               document.querySelector(".container-question").remove();
             };
           }
@@ -293,33 +344,46 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
 
       //chứa các sản phẩm của shop, để lấy discountPercent, giảm giá....
       let productShoppingCartList = [];
-      for (let i = 0; i < userList[indexCurrentUserLogin].shoppingCart.length; i++) {
-        const shoppingCartFromUser = userList[indexCurrentUserLogin].shoppingCart[i];
-        productShoppingCartList.push(productList.find((obj) => {
-          return obj.id === shoppingCartFromUser.id; 
-        }))
+      for (
+        let i = 0;
+        i < userList[indexCurrentUserLogin].shoppingCart.length;
+        i++
+      ) {
+        const shoppingCartFromUser =
+          userList[indexCurrentUserLogin].shoppingCart[i];
+        productShoppingCartList.push(
+          productList.find((obj) => {
+            return obj.id === shoppingCartFromUser.id;
+          })
+        );
       }
       for (
         let i = 0;
         i < userList[indexCurrentUserLogin].shoppingCart.length;
         i++
       ) {
-        const shoppingCartFromUser = userList[indexCurrentUserLogin].shoppingCart[i];
-        let price=0;
-        for(let k=0; k<shoppingCartFromUser.quantity; k++){
+        const shoppingCartFromUser =
+          userList[indexCurrentUserLogin].shoppingCart[i];
+        let price = 0;
+        for (let k = 0; k < shoppingCartFromUser.quantity; k++) {
           productShoppingCartList[i].discountQuantity -= 1;
-          if(productShoppingCartList[i].discountQuantity>=0){
-            price += productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
-          }
-          else{
+          if (productShoppingCartList[i].discountQuantity >= 0) {
+            price +=
+              (productShoppingCartList[i].price *
+                (100 - productShoppingCartList[i].discountPercent)) /
+              100;
+          } else {
             price += productShoppingCartList[i].price;
           }
         }
 
         totalPriceBottomLeftBody += price; //dòng 452, hiện tổng tiền
         let newPrice = productShoppingCartList[i].price;
-        if(productShoppingCartList[i].discountQuantity>=0){
-          newPrice = productShoppingCartList[i].price * (100 - productShoppingCartList[i].discountPercent) / 100;
+        if (productShoppingCartList[i].discountQuantity >= 0) {
+          newPrice =
+            (productShoppingCartList[i].price *
+              (100 - productShoppingCartList[i].discountPercent)) /
+            100;
         }
 
         items += `
@@ -341,8 +405,8 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
                 </h3>
                 <p class="shopping-cart__details">
                 ${shoppingCartFromUser.id} / ${
-            shoppingCartFromUser.category
-          } / ${newPrice}đ
+          shoppingCartFromUser.category
+        } / ${newPrice}đ
                 </p>
               </div>
               <div class="shopping-cart__detail">
@@ -365,9 +429,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
                   >
                 </div>
                 <p class="shopping-cart__product-total-price">
-                  ${formatVietNamMoney(
-                    price
-                  )}<u>đ</u>
+                  ${formatVietNamMoney(price)}<u>đ</u>
                 </p>
                 <button
                   class="shopping-cart__trash"
@@ -394,7 +456,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
       pending: "Đang chờ xử lý",
       shipped: "Đã giao",
       accepted: "Đã xác nhận",
-      canceled: "Đã hủy"
+      canceled: "Đã hủy",
     };
     // Lấy lịch sử đơn hàng của user từ danh sách đơn hàng
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
@@ -441,9 +503,9 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
     }
     return items;
   }
- 
+
   // Thay đổi nội dung ở Body
-  
+
   const shoppingCartForm = `
     <div class="body__shopping-cart">
       <div class="shopping-cart__content">
@@ -504,7 +566,9 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
 // Hàm hiển thị thông tin của Giỏ hàng
 export function getShoppingCartInfo() {
   let userList = JSON.parse(localStorage.getItem("userList"));
-  let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"))
+  let indexCurrentUserLogin = JSON.parse(
+    localStorage.getItem("indexCurrentUserLogin")
+  );
 
   // Đưa về đầu trang
   window.scroll(0, 0);

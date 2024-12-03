@@ -1,20 +1,11 @@
 .content.order{
     display: flex;
-
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
-.content-order-table th:nth-child(1),
-.content-order-table th:nth-child(2){
-    width: 11%;
+.table-container{
+    width: 71%;
 }
-
-.content-order-table th{
-    width: calc(80% / 3);
-}
-
-.content-order-table th:last-child{
-    width: 9%;
-}
-
 .content-order-table-body .status-label{
     width: 73%;
     margin: 0 auto;
@@ -113,13 +104,6 @@
 .action-bar .order-print-btn{
     margin-right: auto;
 }
-button {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    color: white;
-}
 .order-confirm-btn {
     background-color: #28a745;
     margin-right: 5px;
@@ -136,21 +120,16 @@ button {
     background-color: #6c757d;
 }
 
-/*Order filter*/
-/* Tổng quát */
-/* Bộ lọc chính */
+
 .order-filter-container {
-    height: 55%;
+    width: calc(29% - 32px);
     margin: 0px 16px;
-    width: 600px;
-    max-width: 600px;
     padding: 20px;
     background: #fff;
     box-shadow: 0 0 5px 5px rgba(0 , 0, 0, 0.1);
     border-radius: 8px;
 }
 
-/* Các nhóm bộ lọc */
 .order-filter-group {
     margin-bottom: 15px;
 }
@@ -165,21 +144,18 @@ button {
 .order-filter-group input,
 .order-filter-group select {
     width: 100%;
-    padding: 10px;
-    font-size: 14px;
+    padding: 3px;
+    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border-radius: 5px;
     transition: border-color 0.3s ease;
 }
 
 .order-filter-group input:focus,
 .order-filter-group select:focus {
-    border-color: #007bff;
-    outline: none;
+    border-color: blue;
 }
 
-/* Hành động bộ lọc */
 .order-filter-actions {
     display: flex;
     justify-content: space-between;
@@ -193,17 +169,13 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    color: white;
 }
 
 /* Nút áp dụng bộ lọc */
 .order-btn-apply {
-    background-color: #007bff;
+    background-color: blue;
     color: #fff;
-}
-
-.order-btn-filter:hover {
-    background-color: #0056b3;
 }
 
 /* Nút reset */
@@ -214,16 +186,4 @@ button {
 
 .order-btn-reset:hover {
     background-color: #c33b29;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .order-filter-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .order-btn {
-        width: 100%;
-    }
 }
