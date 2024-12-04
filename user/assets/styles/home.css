@@ -121,19 +121,6 @@
   width: 100%;
   padding: 14px 16px;
 }
-
-/* .header__find-action {
-  display: inline-block;
-  background: #dd7373;
-  width: 20%;
-  height: 28px;
-  margin-left: 0;
-  color: #fff;
-  border-radius: 5px;
-  line-height: 27px;
-  text-align: center;
-} */
-
 #suggestions-list {
   list-style-type: none;
   padding: 0;
@@ -199,9 +186,17 @@
 #suggestions-list li.HeaderSearch__product-not-found span:last-child {
   font-size: 2.5rem;
 }
-
+.header__find-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__find-action {
+  font-size: 2.4rem;
+  cursor: pointer;
+}
 .header__find-action:hover {
-  background: #fc8eac;
+  color: #fc8eac;
 }
 .header__user-icon {
   position: relative;

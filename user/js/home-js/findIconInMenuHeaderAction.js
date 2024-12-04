@@ -294,6 +294,14 @@ export function showFindFormInMenuHeader() {
                 autocomplete="off"
               />
               <ul id="suggestions-list"></ul>
+              <div class="header__find-pagination">
+                <a class="header__find-action to-left">
+                  <i class="fa-solid fa-arrow-left"></i> Trở về
+                </a>
+                <a class="header__find-action to-right">
+                  Kế tiếp <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
             </div>
           </div>
         <div class="header__find-overlay"></div>

@@ -43,8 +43,8 @@
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  /* max-width: 55vw; */
-  max-height: 91vh;
+  width: 60%;
+  max-height: 93%;
   overflow: auto;
 }
 #order-details-modal .close-btn {
@@ -145,8 +145,6 @@ button {
 }
 
 /*Order filter*/
-/* Tổng quát */
-/* Bộ lọc chính */
 .order-filter-container {
   width: 20%;
   height: 55%;
@@ -280,7 +278,7 @@ button {
   }
 
   .order-details-modal-content {
-    width: 534px;
+    width: 100%;
     margin: 0;
   }
   .order-filter-container {
@@ -326,10 +324,9 @@ button {
     font-weight: 700;
   }
 
-  .order-details-modal-content {
-    top: 50px;
-    width: 60%;
-  }
+  /* .order-details-modal-content { */
+    /* top: 50px; */
+  /* } */
   .order-filter-container {
     width: calc(100% - 30px);
     margin-top: 10px;
@@ -347,9 +344,6 @@ button {
   .order-filter-container {
     margin-top: 20px;
     justify-content: center;
-  }
-  .order-details-modal-content {
-    width: 60%;
   }
   .content-order-table {
     margin-top: 24px;
