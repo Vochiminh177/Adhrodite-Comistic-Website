@@ -30,6 +30,9 @@
 .contact .info__detail p b {
   font-weight: 600;
 }
+.contact .info__map {
+  padding: 20px;
+}
 /* <=== Request ===> */
 .contact .body__request {
   display: flex;
@@ -115,62 +118,35 @@
 
 /* ======================== reponsive cho mobile */
 
-@media screen and (max-width:600px) {
-
-  .contact .body__info{
-    display: block;
+@media screen and (max-width: 600px) {
+  .contact .body__info,
+  .contact .body__request {
+    flex-direction: column;
   }
-  .contact  .info__detail{
-    padding: 0;
+  .contact .info__detail,
+  .contact .request__send-request {
+    width: 100%;
+    height: 400px;
     padding: 20px;
   }
-  .contact .info__map{
-    width: 100%;
+  .contact .info__detail {
+    position: relative;
+  }
+  .contact .info__block {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
   }
 
-  .contact .info__image{
-padding: 20px;
+  .contact .info__map,
+  .contact .request__logo {
+    display: none;
   }
-  .contact .info__detail{
-    width: 100%;
-  }
+}
 
-  .contact .body__request{
-    display: block;
-  }
-  .contact .request__logo{
-    width: 100%;
-    height: auto;
-    padding: 10px;
-  border-radius: 8px 8px 0 0;
-  }
-  .contact .request__send-request{
-    width: 100%;
-    padding: 20px 0;
-  }
-
- 
- }
-
-
- 
-@media screen and (min-width:600px) and (max-width:850px) {
-
-  .contact .body__info{
-    display: block;
-  }
-  .contact  .info__detail{
-    width: 100%;
-    padding: 0;
+@media screen and (min-width: 600px) and (max-width: 850px) {
+  .contact .info__detail {
     padding: 20px;
   }
-  .contact .info__map{
-    width: 100%;
-  }
-  
-  .contact .info__image{
-    width: 90%;  
-    margin:20px 20px;
-  }
-  
- }
+}

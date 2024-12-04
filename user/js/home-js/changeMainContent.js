@@ -15,13 +15,15 @@ export const mainContentMap = {
   <div class="body__home">
     <div class="home__hero">
       <div class="hero__rectangle">
-        <h1 class="hero__title heading-lv1">
-          Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
-        </h1>
-        <p class="hero__desc desc-lv1">
-          Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
-          lựa chọn được phong cách sống cho riêng mình.
-        </p>
+        <div class="hero__content">
+          <h1 class="hero__title heading-lv1">
+            Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
+          </h1>
+          <p class="hero__desc desc-lv1">
+            Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
+            lựa chọn được phong cách sống cho riêng mình.
+          </p>
+        </div>
       </div>
     </div>
     <div class="home__popular-menu">
@@ -176,7 +178,6 @@ export const mainContentMap = {
                     <div class="left-search-filter__form-group">
                       <h4 class="left-search-filter__sub-title">Hãng</h4>
                       <div class="left-search-filter__brands">
-                        
                       </div>
                     </div>
                     <div class="left-search-filter__columns">
@@ -425,12 +426,14 @@ export const mainContentMap = {
   <div class="contact">
     <div class="body__info">
       <div class="info__detail">
-        <h2 class="detail__title">Liên hệ với chúng tôi</h2>
-        <p class="detail__location">
-          <b>Địa chỉ: </b>273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh
-        </p>
-        <p class="detail__email"><b>Email: </b>nhom1SGU@gmail.com</p>
-        <p class="detail__phone"><b>Số điện thoại: </b>+ " "84+ 0123456789</p>
+        <div class="info__block">
+          <h2 class="detail__title">Liên hệ với chúng tôi</h2>
+          <p class="detail__location">
+            <b>Địa chỉ: </b>273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh
+          </p>
+          <p class="detail__email"><b>Email: </b>nhom1SGU@gmail.com</p>
+          <p class="detail__phone"><b>Số điện thoại: </b>84+ 0123456789</p>
+        </div>
       </div>
       <figure class="info__map">
        <img
