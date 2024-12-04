@@ -24,6 +24,11 @@ export function resetDefaultInputForUser(input) {
   if (input.id === "username-change") return "Nhập tên tài khoản";
   if (input.id === "old-password-change") return "Nhập mật khẩu cũ";
   if (input.id === "new-password-change") return "Nhập mật khẩu mới";
+  if(input.className === "payment-information-info__firstName") return "Họ";
+  if(input.className === "payment-information-info__lastName") return "Tên";
+  if(input.className === "payment-information-info__email") return "Email";
+  if(input.className === "payment-information-info__address") return "Số nhà và đường";
+  if(input.className === "payment-information-info__phone") return "Số điện thoại";
 }
 //hàm báo lỗi input
 export function errorInput(input, mess) {
@@ -50,7 +55,7 @@ export function errorInput(input, mess) {
   }
   //nếu input rỗng
   if (input.value == "") {
-    input.placeholder = "*Lỗi! Không được để trống";
+    input.placeholder = "Thiếu dữ liệu!";
     input.style.color = "#000";
     input.onfocus = () => {
       input.placeholder = resetDefaultInputForUser(input);

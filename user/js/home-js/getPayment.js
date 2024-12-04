@@ -238,7 +238,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
               const addressInput = document.querySelector(
                 ".payment-information-info__address"
               );
-              addressInput.setAttribute("placeholder", newAddress);
+              addressInput.setAttribute("value", newAddress);
 
               // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
               changeAddressAction.style.color = "#ccc";
@@ -378,6 +378,9 @@ function updatePaymentInformation(
     totalPriceTamTinh += obj.totalPrice;
   });
 
+
+
+
   const paymentInformationForm = `
   <div class="body__payment-information">
     <div class="payment-information__header">
@@ -397,33 +400,29 @@ function updatePaymentInformation(
           </h3>
           <form action="" class="payment-information-info__form">
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__name" placeholder="${
-                    userList[indexCurrentUserLogin].first_name &&
-                    userList[indexCurrentUserLogin].last_name
-                      ? userList[indexCurrentUserLogin].first_name +
-                        " " +
-                        userList[indexCurrentUserLogin].last_name
-                      : "Nhập họ và tên"
-                  }" readonly>
+                  <input type="text" class="payment-information-info__firstName" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Họ">
+                  <input type="text" class="payment-information-info__lastName" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Tên">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="email" class="payment-information-info__email" placeholder="${
+                  <input type="email" class="payment-information-info__email" 
+                  value="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
-                      : "Nhập email"
-                  }" readonly>
-                  <input type="phone" class="payment-information-info__phone" placeholder="${
+                      : ""}"
+                  placeholder="Email">
+                  <input type="phone" class="payment-information-info__phone" value="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
-                      : "Nhập số điện thoại"
-                  }" readonly>
+                      : ""
+                  }"
+                  placeholder="Số điện thoại">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__address" placeholder="${
+                  <input type="text" class="payment-information-info__address" value="${
                     userList[indexCurrentUserLogin].address
                       ? userList[indexCurrentUserLogin].address
-                      : "Nhập địa chỉ giao hàng"
-                  }" readonly>
+                      : ""}" 
+                    placeholder="Số nhà và đường">
               </div>
             </form>
           <div class="payment-information-info__change-address">

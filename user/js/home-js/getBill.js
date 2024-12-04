@@ -8,6 +8,8 @@ import {
   calTotalProductItemPrice,
 } from "../common-js/common.js";
 import { updateMainContent } from "./changeMainContent.js";
+import { errorInput } from "../userUpdate/handleUserUpdate.js";
+import { checkEmail } from "../menuUser/handleOptionMenu.js";
 
 // hàm kiểm tra sản phẩm nào không đặt được, tô đỏ sản phẩm đó
 function error_orderProduct(id_product) {
@@ -37,29 +39,35 @@ function error_orderProduct(id_product) {
 
 //hàm kiểm tra thông tin thanh toán
 function handle_order_information(userList, indexCurrentUserLogin) {
-  if (
-    !userList[indexCurrentUserLogin].first_name ||
-    !userList[indexCurrentUserLogin].last_name
-  ) {
-    create_notification_user("Bạn cần bổ sung tên!");
-    return false;
-  }
-  if (!userList[indexCurrentUserLogin].phone) {
-    create_notification_user("Bạn cần bổ sung số điện thoại");
-    return false;
-  }
-  if (!userList[indexCurrentUserLogin].address) {
-    create_notification_user("Bạn cần bổ sung địa chỉ");
-    return false;
-  }
-  if (
-    document.querySelector(".payment-information-info__address").placeholder ===
-    ""
-  ) {
-    create_notification_user("Bạn cần bổ sung địa chỉ giao hàng");
-    return false;
-  }
+  let firstName = document.querySelector(".payment-information-info__firstName");
+  let lastName = document.querySelector(".payment-information-info__lastName");
+  let email = document.querySelector(".payment-information-info__email");
+  let phone = document.querySelector(".payment-information-info__phone");
+  let address = document.querySelector(".payment-information-info__address");
+  function checkNumber(value){
+    if(!isNaN(value)){
+        return value == Math.round(value);
+    }
+}
 
+  if (
+    firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || address.value === ""
+  ) {
+    errorInput(firstName);
+    errorInput(lastName);
+    errorInput(email);
+    errorInput(phone);
+    errorInput(address);
+    return false;
+  }
+  if(!checkNumber(phone.value)){
+    errorInput(phone, "Sai định dạng");
+    return false;
+  }
+  if(!checkEmail(email)){
+    errorInput(email, "Sai định dạng");
+    return false;
+  }
   if (document.querySelector("#credit-card").checked) {
     if (document.querySelector("#card-id").value === "") {
       create_notification_user("Bạn cần nhập số thẻ");
@@ -67,6 +75,11 @@ function handle_order_information(userList, indexCurrentUserLogin) {
     }
   }
 
+  userList[indexCurrentUserLogin].first_name = firstName.value;
+  userList[indexCurrentUserLogin].last_name = lastName.value;
+  userList[indexCurrentUserLogin].phone = phone.value;
+  userList[indexCurrentUserLogin].address = address.value;
+  userList[indexCurrentUserLogin].email = email.value;
   return true;
 }
 
