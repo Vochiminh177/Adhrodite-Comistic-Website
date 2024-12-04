@@ -79,7 +79,6 @@
   width: 600px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
   overflow: auto;
-  max-height: 355px;
 }
 .body__products .left-search-filter__form-group {
   margin-top: 16px;
@@ -621,6 +620,7 @@
     position: absolute;
     width: 70vw;
     left: calc(-1*calc( calc(100vw - (24px*2 + 32px))/2 - 100px));
+    max-height: 370px;
   }
 
   .body__products .left-search-filter__form-group{
@@ -651,7 +651,9 @@
   .body__products {
     display: block;
   }
-
+  .body__products .main-products__list {
+    justify-content: center;
+  }
   .body__products .products__left {
     align-items: flex-start;
     gap: 0 32px;
@@ -711,6 +713,7 @@
     position: absolute;
     width: calc(100vw - 24px*2);
     left: calc(-1*calc( calc(100vw - (24px*2 + 32px))/2 - 50px));
+    max-height: 355px;
   }
   .body__products .left-search-filter__columns {
     flex-direction: column;
