@@ -263,27 +263,27 @@
     #content main .title #title-name, .title h1{
         display: none;
     }
-    .content-product-list table th:first-child, td:first-child, th:nth-child(2), td:nth-child(2), th:nth-child(6), td:nth-child(6), th:nth-child(4), td:nth-child(4),th:nth-child(5), td:nth-child(5){
+    #main-content-product-list .content-product-list table th:first-child, td:first-child, th:nth-child(2), td:nth-child(2), th:nth-child(6), td:nth-child(6), th:nth-child(4), td:nth-child(4),th:nth-child(5), td:nth-child(5){
         display: none;
     }
-    .content-product-list table th:nth-child(7){
+    #main-content-product-list .content-product-list table th:nth-child(7){
         width: 15%;
     }
-    .content-product-list table th:last-child{
+    #main-content-product-list .content-product-list table th:last-child{
         width: 30%;
     }
-    .content-product-list table th{
+    #main-content-product-list .content-product-list table th{
         font-size: 0.8rem;
     }
-    .content-product-list table th:nth-child(3){
+    #main-content-product-list .content-product-list table th:nth-child(3){
         font-size: 1.1rem;
     }
-    .content-product-list table td:last-child{
+    #main-content-product-list .content-product-list table td:last-child{
         padding: 0px;
     }
-    .list-page li{
+    #main-content-product-list .list-page li{
         margin: 10px;
-    }
+    } */
 /* -----------------------------------------     */
 
 /* css phần hỏi trước khi xóa sản phẩm */

@@ -46,9 +46,9 @@ function createPaymentInformationItems(array_orderProduct) {
                       array_orderProduct[i].name
                     }</h3>
                     <p class="payment-information-products__details">
-                        ${array_orderProduct[i].id} / ${
+                        <br> ${array_orderProduct[i].id} <br> ${
       array_orderProduct[i].category
-    } / ${formatVietNamMoney(array_orderProduct[i].price)}đ
+    } <br> ${array_orderProduct[i].price}
                     </p>
                 </div>
                 <p class="payment-information-products__total-price-product">${formatVietNamMoney(
@@ -599,9 +599,6 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           let id = array_split[0].trim(); // lấy chuỗi id sản phẩm và loại bỏ 2 khoảng trắng
           let category = array_split[1].trim();
           let price = array_split[2].trim();
-
-          price = price.replaceAll("đ", "");
-          price = price.replaceAll(".", "");
 
           let quantity = obj.querySelector(
             ".shopping-cart__quantity .shopping-cart__number"
