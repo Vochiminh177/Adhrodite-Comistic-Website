@@ -17,8 +17,8 @@ function error_orderProduct(id_product) {
   array_products__item.forEach((obj) => {
     let array_details = obj.querySelector(
       ".payment-information-products__details"
-    ).textContent;
-    let array_string = array_details.split("/");
+    ).textContent.trim();
+    let array_string = array_details.split(" ");
     let id = array_string[0].trim();
 
     if (id === id_product) {
@@ -226,14 +226,98 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
   function createBillItems() {
     let items = "";
     for (let i = 0; i < array_orderProduct.length; i++) {
-      items += `
-        <tr>
-          <td>${array_orderProduct[i].id}</td>
-          <td align="left">${array_orderProduct[i].name}</td>
-          <td>${array_orderProduct[i].quantity}</td>
-          <td>${formatVietNamMoney(array_orderProduct[i].price)}đ</td>
-        </tr>
-      `;
+      let stringPrice = array_orderProduct[i].price;
+      console.log(stringPrice);
+      stringPrice = stringPrice.split(" ");
+      stringPrice[0] = stringPrice[0].replaceAll("đ", "");
+      stringPrice[0] = stringPrice[0].replaceAll(".", "");
+      console.log(stringPrice[0]);
+      console.log(array_orderProduct[i].price)
+      // if(array_orderProduct[i].discountQuantity < array_orderProduct[i].quantity && array_orderProduct[i].discountQuantity !== 0){
+      //   console.log(123);
+      //   //nếu không có giảm giá từ ban đầu
+      //   if(array_orderProduct[i].discountQuantity === 0){
+      //     items += `
+      //     <tr>
+      //       <td>${array_orderProduct[i].id}</td>
+      //       <td align="left">${array_orderProduct[i].name}</td>
+      //       <td>${array_orderProduct[i].quantity}</td>
+      //       <td>${stringPrice[0]}đ</td>
+      //     </tr>
+      //   `;
+      //   }
+      //   else{
+      //     for(let j=0; j<array_orderProduct[i].discountQuantity; j++){
+      //       console.log(parseInt(stringPrice[0]))
+      //       items += `
+      //       <tr>
+      //         <td>${array_orderProduct[i].id}</td>
+      //         <td align="left">${array_orderProduct[i].name}</td>
+      //         <td>${array_orderProduct[i].quantity}</td>
+      //         <td>${parseInt(stringPrice[0])*(100-array_orderProduct[i].discountPercent)/100} (${array_orderProduct[i].discountPercent}%)</td>
+      //       </tr>
+      //       `;
+      //     }
+      //     for(let k=j; k<array_orderProduct[i].quantity - array_orderProduct[i].discountQuantity; k++){
+      //       items += `
+      //       <tr>
+      //         <td>${array_orderProduct[i].id}</td>
+      //         <td align="left">${array_orderProduct[i].name}</td>
+      //         <td>${array_orderProduct[i].quantity}</td>
+      //         <td>${stringPrice[0]}đ</td>
+      //       </tr>
+      //       `;
+      //     }
+      //   }
+      // }
+      // else{
+      //   if(array_orderProduct[i].discountPercent !== 0){
+      //     items += `
+      //       <tr>
+      //         <td>${array_orderProduct[i].id}</td>
+      //         <td align="left">${array_orderProduct[i].name}</td>
+      //         <td>${array_orderProduct[i].quantity}</td>
+      //         <td>${formatVietNamMoney(stringPrice[0])}đ ${stringPrice[1]}</td>
+      //       </tr>
+      //     `;
+      //   }
+      //   else{
+      //     items += `
+      //     <tr>
+      //       <td>${array_orderProduct[i].id}</td>
+      //       <td align="left">${array_orderProduct[i].name}</td>
+      //       <td>${array_orderProduct[i].quantity}</td>
+      //       <td>${formatVietNamMoney(stringPrice[0])}đ</td>
+      //     </tr>
+      //   `;
+      //   }
+      // }
+      if(array_orderProduct[i].discountQuantity < array_orderProduct[i].quantity && array_orderProduct[i].discountQuantity !== 0){
+        items += `
+          <tr>
+            <td>${array_orderProduct[i].id}</td>
+            <td align="left">${array_orderProduct[i].name}</td>
+            <td>${array_orderProduct[i].discountQuantity}</td>
+            <td>${formatVietNamMoney(parseInt(stringPrice[0]) * (100 - array_orderProduct[i].discountQuantity) / 100)}đ</td>
+          </tr>
+          <tr>
+            <td>${array_orderProduct[i].id}</td>
+            <td align="left">${array_orderProduct[i].name}</td>
+            <td>${array_orderProduct[i].quantity-array_orderProduct[i].discountQuantity}</td>
+            <td>${array_orderProduct[i].price}</td>
+          </tr>
+        `;
+      }
+      else{
+        items += `
+           <tr>
+            <td>${array_orderProduct[i].id}</td>
+            <td align="left">${array_orderProduct[i].name}</td>
+            <td>${array_orderProduct[i].quantity}</td>
+            <td>${array_orderProduct[i].price}</td>
+          </tr>
+        `;
+      }
     }
     return items;
   }
