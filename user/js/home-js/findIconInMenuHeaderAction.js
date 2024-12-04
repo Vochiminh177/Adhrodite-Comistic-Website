@@ -3,12 +3,12 @@ import { updateProductList } from "../products-js/getProductList.js";
 import { updateMainContent } from "./changeMainContent.js";
 import { updateNavbarStyle } from "../common-js/common.js";
 
-let hasProductSuggestion = false;
-let searchTerm = "";
+let headerHasProductSuggestion = false;
+let headerSearchTerm = "";
 
 /*-----------FUNCTION-----------*/
 // Đi vào chi tiết sản phẩm khi bấm vào gợi ý
-function goToProductDetails(productItemKey) {
+function goToProductDetails(productItemKey, headerSearchTerm) {
   updateMainContent("products");
   updateNavbarStyle("products");
 
@@ -16,14 +16,14 @@ function goToProductDetails(productItemKey) {
   findContainer.remove();
 
   const leftSearchInput = document.getElementById("left-search-input");
-  leftSearchInput.value = searchTerm;
+  leftSearchInput.value = headerSearchTerm;
   leftSearchInput.focus();
   updateProductItem(productItemKey);
 }
 
 /*-----------FUNCTION-----------*/
 // Đi vào trang sản phẩm với từ khoá
-function goToProductPageWithSearchTerm(searchTerm) {
+function goToProductPageWithheaderSearchTerm(headerSearchTerm) {
   updateMainContent("products");
   updateNavbarStyle("products");
 
@@ -31,10 +31,10 @@ function goToProductPageWithSearchTerm(searchTerm) {
   findContainer.remove();
 
   const leftSearchInput = document.getElementById("left-search-input");
-  leftSearchInput.value = searchTerm;
+  leftSearchInput.value = headerSearchTerm;
   leftSearchInput.focus();
 
-  const filteredProducts = filterProducts(searchTerm);
+  const filteredProducts = filterProducts(headerSearchTerm);
   updateProductList(filteredProducts, 1);
 }
 
@@ -68,13 +68,17 @@ function setupEventListeners() {
   const suggestionsList = document.getElementById("suggestions-list");
 
   /*--------EVENT--------*/
+  // Sự kiện 'input' ở thanh tìm kiếm
+  searchInput.addEventListener("input", headerSearch);
+
+  /*--------EVENT--------*/
   // Sự kiện 'click' ở nút 'Tìm'
   // searchButton.addEventListener("click", () => {
-  //   if (hasProductSuggestion) {
-  //     goToProductPageWithSearchTerm(searchTerm);
+  //   if (headerHasProductSuggestion) {
+  //     goToProductPageWithheaderSearchTerm(headerSearchTerm);
   //   } else {
-  //     searchTerm = "";
-  //     goToProductPageWithSearchTerm(searchTerm);
+  //     headerSearchTerm = "";
+  //     goToProductPageWithheaderSearchTerm(headerSearchTerm);
   //   }
 
   //   resetFindBlock();
@@ -84,11 +88,11 @@ function setupEventListeners() {
   // Sự kiện 'keypress' nút 'ENTER'
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
-      if (hasProductSuggestion) {
-        goToProductPageWithSearchTerm(searchTerm);
+      if (headerHasProductSuggestion) {
+        goToProductPageWithheaderSearchTerm(headerSearchTerm);
       } else {
-        searchTerm = "";
-        goToProductPageWithSearchTerm(searchTerm);
+        headerSearchTerm = "";
+        goToProductPageWithheaderSearchTerm(headerSearchTerm);
       }
 
       resetFindBlock();
@@ -104,14 +108,14 @@ function setupEventListeners() {
       if (closestLi.matches(".HeaderSearch__show-more-products")) {
         // Bấm vào nút "hiển thị thêm"
         setTimeout(() => {
-          goToProductPageWithSearchTerm(searchTerm);
+          goToProductPageWithheaderSearchTerm(headerSearchTerm);
           resetFindBlock();
         }, 100);
       } else if (closestLi.matches(".HeaderSearch__product-not-found")) {
         // Bấm vào nút 'sản phẩm khác'
-        searchTerm = "";
+        headerSearchTerm = "";
         setTimeout(() => {
-          goToProductPageWithSearchTerm(searchTerm);
+          goToProductPageWithheaderSearchTerm(headerSearchTerm);
           resetFindBlock();
         }, 100);
       } else {
@@ -127,60 +131,72 @@ function setupEventListeners() {
       }
     }
   });
-
-  /*--------EVENT--------*/
-  // Sự kiện 'input' ở thanh tìm kiếm
-  searchInput.addEventListener("input", headerSearch);
 }
 
 /*-----------FUNCTION-----------*/
 // Hàm gọi các hàm để xử lý tìm kiếm
 function headerSearch() {
   const searchInput = document.getElementById("find-input");
-  hasProductSuggestion = false;
-  searchTerm = searchInput.value.trim().toLowerCase();
-  const filteredProducts = filterProducts(searchTerm);
-  showProductSuggestions(filteredProducts, searchTerm);
+  headerHasProductSuggestion = false;
+  headerSearchTerm = searchInput.value.trim().toLowerCase();
+  const filteredProducts = filterProducts(headerSearchTerm);
+  showProductSuggestions(filteredProducts, headerSearchTerm);
 }
 
 /*-----------FUNCTION-----------*/
 // Lọc sản phẩm
-function filterProducts(searchTerm) {
+function filterProducts(headerSearchTerm) {
   const productList = JSON.parse(localStorage.getItem("productList"));
   const filteredProducts = productList.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm)
+    product.name.toLowerCase().includes(headerSearchTerm)
   );
   return filteredProducts;
 }
 
 /*-----------FUNCTION-----------*/
 // Hiển thị các sản phẩm gợi ý
-function showProductSuggestions(filteredProducts, searchTerm) {
+function showProductSuggestions(filteredProducts, headerSearchTerm) {
+  const limitQuantity = 5;
   const suggestionsList = document.getElementById("suggestions-list");
   suggestionsList.innerHTML = "";
-  // const firstFiveSuggestions = filteredProducts.slice(0, 5);
-  if (searchTerm && filteredProducts.length > 0) {
-    hasProductSuggestion = true;
-    // showFirstFiveSuggestions(firstFiveSuggestions);
+  const filteredProductsLength = filteredProducts.length;
+  
+  // Tìm thấy sản phẩm
+  if(filteredProductsLength > 0){
+    // Giới hạn hiện thị sản phẩm
+    for(let i = 0; i < Math.min(5, filteredProductsLength); i++){
+      const li = createSuggestionLi(filteredProducts[i]);
+      suggestionsList.appendChild(li);
+    }
 
-    // if (filteredProducts.length > 5) {
-    //   handleMoreThanFiveSuggestions(searchTerm);
-    // }
-    filteredProducts.forEach((product) => {
-    const li = createSuggestionLi(product);
-
-    suggestionsList.appendChild(li);
-  });
+    // Xem thêm các sản phẩm
+    if(filteredProductsLength > limitQuantity){
+      const li = document.createElement("li");
+      li.className = "HeaderSearch__show-more-products";
+      li.innerHTML = `
+        <span>Xem thêm ${filteredProductsLength - limitQuantity} sản phẩm</span>
+      `;
+      suggestionsList.appendChild(li);
+    }
     suggestionsList.style.display = "block";
-    suggestionsList.scrollTo(0, 0);
-  } 
-  // else if (searchTerm) {
-    // handleSuggestionNotFound();
-
-  //   suggestionsList.style.display = "block";
-  // } else {
-  //   suggestionsList.style.display = "none";
-  // }
+  } else{ 
+    // Không tìm thấy sản phẩm
+    const li = document.createElement("li");
+    li.className = "HeaderSearch__product-not-found";
+  
+    li.innerHTML = `
+      <span>Không tìm thấy sản phẩm...</span><br>
+      <span>Xem các sản phẩm khác</span>
+    `;
+  
+    suggestionsList.appendChild(li);
+    
+  }
+  suggestionsList.style.display = "block";
+  if(headerSearchTerm === ""){
+    suggestionsList.style.display = "none";
+  }
+  suggestionsList.scrollTo(0, 0);
 }
 
 /*-----------FUNCTION-----------*/
@@ -196,45 +212,6 @@ function createSuggestionLi(product) {
   `;
 
   return li;
-}
-
-/*-----------FUNCTION-----------*/
-// Hiện ra 5 sản phẩm gợi ý đầu tiên
-function showFirstFiveSuggestions(firstFiveSuggestions) {
-  const suggestionsList = document.getElementById("suggestions-list");
-  firstFiveSuggestions.forEach((product) => {
-    const li = createSuggestionLi(product);
-
-    suggestionsList.appendChild(li);
-  });
-}
-
-/*-----------FUNCTION-----------*/
-// Nếu lượng sản phẩm gợi ý lớn hơn 5, hiện nút "tìm kiếm thêm"
-function handleMoreThanFiveSuggestions(searchTerm) {
-  const suggestionsList = document.getElementById("suggestions-list");
-  const li = document.createElement("li");
-
-  li.className = "HeaderSearch__show-more-products";
-  li.innerHTML = `
-    <span>Tìm kiếm thêm cho '${searchTerm}'</span>
-  `;
-  suggestionsList.appendChild(li);
-}
-
-/*-----------FUNCTION-----------*/
-// Khi không tìm thấy sản phẩm
-function handleSuggestionNotFound() {
-  const suggestionsList = document.getElementById("suggestions-list");
-  const li = document.createElement("li");
-  li.className = "HeaderSearch__product-not-found";
-
-  li.innerHTML = `
-    <span>Không tìm thấy kết quả</span><br>
-    <span>Xem các sản phẩm khác</span>
-  `;
-
-  suggestionsList.appendChild(li);
 }
 
 /*-----------EXPORT_FUNCTION-----------*/
@@ -294,14 +271,6 @@ export function showFindFormInMenuHeader() {
                 autocomplete="off"
               />
               <ul id="suggestions-list"></ul>
-              <div class="header__find-pagination">
-                <a class="header__find-action to-left">
-                  <i class="fa-solid fa-arrow-left"></i> Trở về
-                </a>
-                <a class="header__find-action to-right">
-                  Kế tiếp <i class="fa-solid fa-arrow-right"></i>
-                </a>
-              </div>
             </div>
           </div>
         <div class="header__find-overlay"></div>
