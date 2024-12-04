@@ -58,16 +58,21 @@ function anhMinh() {
       });
       // deleteMainCreatedFromJs();
       //hiển thị main của option được chọn
-      if (item.className == "product_sidebar") {
+      if (item.className === "product_sidebar") {
         showMain("main-content-product-list");
-      } else if (item.className == "order_sidebar") {
+      } else if (item.className === "order_sidebar") {
         showMain("main-content-order");
-      } else if (item.className == "customer_sidebar") {
+      } else if (item.className === "account_sidebar") {
         showMain("main-content-customer");
-      } else if (item.className == "dashboard_sidebar") {
+      } else if (item.className === "dashboard_sidebar") {
         showMain("main-content-dashboard");
-      } else {
+      } 
+      else if(item.className === "customer_sidebar"){
         location.assign(location.origin + "/user/index.html");
+      }
+      else {
+        localStorage.setItem("indexCurrentUserLogin",JSON.stringify(-1));
+        location.assign(location.origin + "/admin/index.html");
       }
     });
   });
@@ -77,9 +82,11 @@ function anhMinh() {
   const menuBar = document.querySelector("#content nav .bx.bx-menu");
   const sidebar = document.getElementById("side-bar");
 
-  menuBar.addEventListener("click", function () {
-    sidebar.classList.toggle("hide");
-  });
+  if(menuBar){
+    menuBar.addEventListener("click", function () {
+      sidebar.classList.toggle("hide");
+    });
+  }
 
   const searchButton = document.querySelector(
     "#content nav form .form-input button"
@@ -89,45 +96,50 @@ function anhMinh() {
   );
   const searchForm = document.querySelector("#content nav form");
 
-  searchButton.addEventListener("click", function (e) {
-    if (window.innerWidth < 576) {
-      e.preventDefault();
-      searchForm.classList.toggle("show");
-      if (searchForm.classList.contains("show")) {
-        searchButtonIcon.classList.replace("bx-search", "bx-x");
-      } else {
-        searchButtonIcon.classList.replace("bx-x", "bx-search");
+  if(searchButton){
+    searchButton.addEventListener("click", function (e) {
+      if (window.innerWidth < 576) {
+        e.preventDefault();
+        searchForm.classList.toggle("show");
+        if (searchForm.classList.contains("show")) {
+          searchButtonIcon.classList.replace("bx-search", "bx-x");
+        } else {
+          searchButtonIcon.classList.replace("bx-x", "bx-search");
+        }
       }
-    }
-  });
-
-  if (window.innerWidth < 768) {
-    sidebar.classList.add("hide");
-  } else if (window.innerWidth > 576) {
-    searchButtonIcon.classList.replace("bx-x", "bx-search");
-    searchForm.classList.remove("show");
+    });
   }
 
-  window.addEventListener("resize", function () {
-    if (this.innerWidth > 576) {
+  if(searchButton && searchForm){
+    if (window.innerWidth < 768) {
+      sidebar.classList.add("hide");
+    } else if (window.innerWidth > 576) {
       searchButtonIcon.classList.replace("bx-x", "bx-search");
       searchForm.classList.remove("show");
     }
-  });
+
+    window.addEventListener("resize", function () {
+      if (this.innerWidth > 576) {
+        searchButtonIcon.classList.replace("bx-x", "bx-search");
+        searchForm.classList.remove("show");
+      }
+    });
+  }
 
   const switchMode = document.getElementById("switch-mode");
-
-  switchMode.addEventListener("change", function () {
-    if (this.checked) {
-      document.body.classList.add("pink1");
-    } else {
-      document.body.classList.remove("pink1");
-    }
-  });
+  if(switchMode){
+    switchMode.addEventListener("change", function () {
+      if (this.checked) {
+        document.body.classList.add("pink1");
+      } else {
+        document.body.classList.remove("pink1");
+      }
+    });
+  }
 }
 
 export function showMain(sectionId) {
-  console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
+  // console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
   // Ẩn tất cả các phần tử main
   const sections = document.querySelectorAll("main");
   sections.forEach((section) => {
@@ -203,7 +215,7 @@ export function showMain(sectionId) {
 		`;
 
     let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
-    console.log(orderList);
+
     let productStatistics = generateProductStatistics(orderList);
     updateDashboardHighlights(orderList, productStatistics);
     dashboardFilter();

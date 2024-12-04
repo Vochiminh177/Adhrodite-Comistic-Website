@@ -8,7 +8,7 @@ function createPage(list, currentPage, showList, main) {
     let totalPage = Math.ceil(list.length / itemPerPage);
 
     let pageList = main + " .list-page"
-    console.log(pageList)
+
     if(totalPage === 1){
         document.querySelector(pageList).style.display = "none";
     }
@@ -213,7 +213,7 @@ export function generateProductStatistics(orderList) {
         });
     });
 
-    console.log(productReport); 
+    // console.log(productReport); 
 
     // Chuyển đổi thành mảng và sắp xếp theo doanh thu giảm dần
     return Object.values(productReport).sort((a, b) => b.totalRevenue - a.totalRevenue);

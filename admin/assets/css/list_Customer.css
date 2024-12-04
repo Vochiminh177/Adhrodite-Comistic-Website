@@ -4,6 +4,11 @@
   padding: 0px;
 }
 
+#main-content-customer #title-name{
+  width: 100%;
+  text-align: center;
+}
+
 /* css phần thông báo có muốn xóa người dùng không */
 .customer-title {
   padding-bottom: 20px;

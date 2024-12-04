@@ -12,7 +12,7 @@
 }
 #left-input input, select {
     height: 40px;
-    border: solid 1px var(--pink1);
+    border: solid 1px #000;
     background-color: whitesmoke;
     margin-bottom: 20px;
     outline: none;
@@ -35,7 +35,7 @@
     width: 100%;
     outline: none;
     padding: 6px;
-    border: solid 1px var(--pink1);
+    border: solid 1px #000;
     border-radius: var(--main-border-radius);
     font-family: var(--main-border-radius);
     margin-bottom: 20px;
@@ -49,6 +49,10 @@
     border-radius: var(--main-border-radius);
     font-family: var(--poppins);
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.content-product-row .btn:hover{
+    background-color: #a94064;
 }
 
 /* #right-input {
