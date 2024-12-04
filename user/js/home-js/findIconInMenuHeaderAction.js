@@ -158,24 +158,29 @@ function filterProducts(searchTerm) {
 function showProductSuggestions(filteredProducts, searchTerm) {
   const suggestionsList = document.getElementById("suggestions-list");
   suggestionsList.innerHTML = "";
-  const firstFiveSuggestions = filteredProducts.slice(0, 5);
-  if (searchTerm && firstFiveSuggestions.length > 0) {
+  // const firstFiveSuggestions = filteredProducts.slice(0, 5);
+  if (searchTerm && filteredProducts.length > 0) {
     hasProductSuggestion = true;
-    showFirstFiveSuggestions(firstFiveSuggestions);
+    // showFirstFiveSuggestions(firstFiveSuggestions);
 
-    if (filteredProducts.length > 5) {
-      handleMoreThanFiveSuggestions(searchTerm);
-    }
+    // if (filteredProducts.length > 5) {
+    //   handleMoreThanFiveSuggestions(searchTerm);
+    // }
+    filteredProducts.forEach((product) => {
+    const li = createSuggestionLi(product);
 
+    suggestionsList.appendChild(li);
+  });
     suggestionsList.style.display = "block";
     suggestionsList.scrollTo(0, 0);
-  } else if (searchTerm) {
-    handleSuggestionNotFound();
+  } 
+  // else if (searchTerm) {
+    // handleSuggestionNotFound();
 
-    suggestionsList.style.display = "block";
-  } else {
-    suggestionsList.style.display = "none";
-  }
+  //   suggestionsList.style.display = "block";
+  // } else {
+  //   suggestionsList.style.display = "none";
+  // }
 }
 
 /*-----------FUNCTION-----------*/
@@ -299,6 +304,7 @@ export function showFindFormInMenuHeader() {
     findContainerDiv.innerHTML = findContainerInner;
     document.body.appendChild(findContainerDiv);
 
+    document.getElementById("find-input").focus();
     unShowFindFormInMenuHeader();
 
     setupEventListeners();
