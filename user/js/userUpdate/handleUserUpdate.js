@@ -68,10 +68,6 @@ export function errorInput(input, mess) {
 // kiểm tra thông tin đăng nhập
 export function handleSignIn() {
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
-  if (userList.length == 0) {
-    userList = [...userList];
-    localStorage.setItem("userList", JSON.stringify(userList));
-  }
 
   let username = document.getElementById("username");
   let password = document.getElementById("password");
@@ -111,7 +107,7 @@ export function handleSignIn() {
     return obj.username === username.value;
   });
   //kiểm tra xem tài khoản thuộc loại gì
-  if (userList[indexOfUsername].type === "employer") {
+  if (userList[indexOfUsername].type !== "customer") {
     create_notification_user("Tài khoản không thuộc loại khách hàng!");
     return false;
   }
@@ -120,12 +116,12 @@ export function handleSignIn() {
     create_notification_user("Tài khoản bị khóa!");
     return false;
   }
-  if (userList[indexOfUsername].type === "admin") {
-    document
-      .querySelector(".header__admin-icon")
-      .style.setProperty("visibility", "visible");
-    handleAdmin();
-  }
+  // if (userList[indexOfUsername].type === "admin") {
+  //   document
+  //     .querySelector(".header__admin-icon")
+  //     .style.setProperty("visibility", "visible");
+  //   handleAdmin();
+  // }
 
   //update vị trí username của người dùng đang đăng nhập lên local
   localStorage.setItem(

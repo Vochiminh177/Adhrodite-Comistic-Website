@@ -120,6 +120,7 @@ export function searchCustomer(){
             document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
             document.querySelector(".container-form-user-add-edit .phone-customer").value =  userList[i].phone;
             document.querySelector(".container-form-user-add-edit .email-customer").value =  userList[i].email;
+            document.querySelector(".container-form-user-add-edit .address-customer").value =  userList[i].address;
             let objType = {
                 customer: 0,
                 employer: 1,
