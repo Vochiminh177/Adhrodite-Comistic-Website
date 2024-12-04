@@ -1,7 +1,8 @@
 // import { productItemArray, userList } from "../../../user/./"
 import { deleteProduct, editProduct, filterProductAdmin, searchProduct } from "../updateProduct/OptionProduct.js";
 import { blockCustomer, deleteCustomer, editCustomer, searchCustomer } from "../updateCustomer/optionCustomer.js";
-import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js"
+import { createOrderRow, generateOrderEvents } from "../updateOrder/handleOrders.js";
+import {showResult} from "../base/baseFunction.js";
 function createPage(list, currentPage, showList, main) {
     let itemPerPage = 7;
     let totalPage = Math.ceil(list.length / itemPerPage);
@@ -102,7 +103,7 @@ export function showListProduct(start, end, currentPage, productList) {
         if (index >= start && index < end) {
             eleTbody.innerHTML += `
             <tr>
-                <td id="piture"><img style="width: 70px; height:90%;" src=${ele.src}></td>
+                <td id="piture"><img src=${ele.src}></td>
                 <td id="id">${ele.id}</td>
                 <td id="name">${ele.name}</td>
                 <td id="brand">${ele.brand}</td>
@@ -212,7 +213,6 @@ export function generateProductStatistics(orderList) {
 // hàm tạo bảng thống kê từ dữ liệu phân tích được 
 export function showProductStatistics(start, end, currentPage, productStatistics) {
 
-    // console.log("Start: ", start, "End: ", end, "Product Statistics: ", productStatistics);
     let tableContent = `
     <thead>
         <tr>
@@ -232,12 +232,12 @@ export function showProductStatistics(start, end, currentPage, productStatistics
             eleTbody.innerHTML += `
             <tr>
                 <td>${product.id}</td>
-                <td><img src=${product.src} style="weidth: 70px; height:70px;"></td>
+                <td><img src="${product.src}" style="width: 70px; height:70px;"></td>
                 <td>${product.price.toLocaleString()}</td>
                 <td>${product.totalQuantity}</td>
                 <td>${product.totalRevenue.toLocaleString()}</td>
                 <td>
-                    <button id="orderListBtn" index-item=${index}>Đơn hàng</button>
+                    <button class="order-list-btn" data-product-id="${product.id}">Đơn hàng</button>
                 </td>
             </tr>`;
         }
@@ -245,4 +245,6 @@ export function showProductStatistics(start, end, currentPage, productStatistics
 
     tableContent += eleTbody.outerHTML;
     document.querySelector(".dashboardTable").innerHTML = tableContent;
+
+    showResult(currentPage);
 }

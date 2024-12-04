@@ -1,138 +1,146 @@
 import { userList, productItemArray } from "../../database/database.js";
-import { pagination, showListProduct, showListCustomer, showListOrder, showProductStatistics, generateProductStatistics } from "./showList/show.js";
+import {
+  pagination,
+  showListProduct,
+  showListCustomer,
+  showListOrder,
+  showProductStatistics,
+  generateProductStatistics,
+} from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
-import {addProduct, filterProductAdmin} from "./updateProduct/OptionProduct.js";
+import {
+  addProduct,
+  filterProductAdmin,
+} from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
-import {updateDashboardHighlights} from "./dashboard.js";
-function start(){
-	anhMinh();
-	// showMain("main-content-dashboard");
+import {
+  updateDashboardHighlights,
+  dashboardFilter,
+} from "./base/baseFunction.js";
+function start() {
+  anhMinh();
+  // showMain("main-content-dashboard");
 }
 
 start();
 
 function deleteMainCreatedFromJs() {
-	if (document.querySelector(".main-content-customer-edit")) {
-		document.querySelector(".main-content-customer-edit").remove();
-	}
-	if (document.querySelector(".main-content-customer-add")) {
-		document.querySelector(".main-content-customer-add").remove();
-	}
+  if (document.querySelector(".main-content-customer-edit")) {
+    document.querySelector(".main-content-customer-edit").remove();
+  }
+  if (document.querySelector(".main-content-customer-add")) {
+    document.querySelector(".main-content-customer-add").remove();
+  }
 }
 
 function anhMinh() {
+  //click option của thanh bên
+  const allSideMenu = document.querySelectorAll("#side-bar .side-menu li a");
 
-	//click option của thanh bên
-	const allSideMenu = document.querySelectorAll('#side-bar .side-menu li a');
+  allSideMenu.forEach((item) => {
+    const li = item.parentElement;
 
-	allSideMenu.forEach(item => {
-		const li = item.parentElement;
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+      allSideMenu.forEach((i) => {
+        i.parentElement.classList.remove("active");
+      });
+      li.classList.add("active");
+      allSideMenu.forEach((i) => {
+        i.parentElement.classList.remove("active-mobile");
+      });
+      li.classList.add("active-mobile");
 
-		item.addEventListener('click', function (e) {
-			e.preventDefault();
-			allSideMenu.forEach(i => {
-				i.parentElement.classList.remove('active');
-			})
-			li.classList.add('active');
-			allSideMenu.forEach(i => {
-				i.parentElement.classList.remove('active-mobile');
-			})
-			li.classList.add('active-mobile');
+      //khi click option nào thì hiện main của option đó ở thanh menu
+      //ẩn tất cả phần tử main không liên quan
+      document.querySelectorAll("main").forEach((section) => {
+        section.style.display = "none";
+      });
+      // deleteMainCreatedFromJs();
+      //hiển thị main của option được chọn
+      if (item.className == "product_sidebar") {
+        showMain("main-content-product-list");
+      } else if (item.className == "order_sidebar") {
+        showMain("main-content-order");
+      } else if (item.className == "customer_sidebar") {
+        showMain("main-content-customer");
+      } else if (item.className == "dashboard_sidebar") {
+        showMain("main-content-dashboard");
+      } else {
+        location.assign(location.origin + "/user/index.html");
+      }
+    });
+  });
+  //----------------------------------------------------------------
 
+  // TOGGLE SIDEBAR
+  const menuBar = document.querySelector("#content nav .bx.bx-menu");
+  const sidebar = document.getElementById("side-bar");
 
-			//khi click option nào thì hiện main của option đó ở thanh menu
-			//ẩn tất cả phần tử main không liên quan
-			document.querySelectorAll('main').forEach(section => {
-				section.style.display = 'none';
-			});
-			// deleteMainCreatedFromJs();
-			//hiển thị main của option được chọn
-			if (item.className == "product_sidebar") {
-				showMain("main-content-product-list");
-			}
-			else if (item.className == "order_sidebar") {
-				showMain("main-content-order");
-			}
-			else if (item.className == "customer_sidebar") {
-				showMain("main-content-customer");
-			}
-			else if (item.className == "dashboard_sidebar") {
-				showMain("main-content-dashboard");
-			}
-			else{
-				location.assign(location.origin + "/user/index.html");
-			}
-		});
-	});
-	//----------------------------------------------------------------
+  menuBar.addEventListener("click", function () {
+    sidebar.classList.toggle("hide");
+  });
 
-	// TOGGLE SIDEBAR
-	const menuBar = document.querySelector('#content nav .bx.bx-menu');
-	const sidebar = document.getElementById('side-bar');
+  const searchButton = document.querySelector(
+    "#content nav form .form-input button"
+  );
+  const searchButtonIcon = document.querySelector(
+    "#content nav form .form-input button .bx"
+  );
+  const searchForm = document.querySelector("#content nav form");
 
-	menuBar.addEventListener('click', function () {
-		sidebar.classList.toggle('hide');
-	});
+  searchButton.addEventListener("click", function (e) {
+    if (window.innerWidth < 576) {
+      e.preventDefault();
+      searchForm.classList.toggle("show");
+      if (searchForm.classList.contains("show")) {
+        searchButtonIcon.classList.replace("bx-search", "bx-x");
+      } else {
+        searchButtonIcon.classList.replace("bx-x", "bx-search");
+      }
+    }
+  });
 
+  if (window.innerWidth < 768) {
+    sidebar.classList.add("hide");
+  } else if (window.innerWidth > 576) {
+    searchButtonIcon.classList.replace("bx-x", "bx-search");
+    searchForm.classList.remove("show");
+  }
 
+  window.addEventListener("resize", function () {
+    if (this.innerWidth > 576) {
+      searchButtonIcon.classList.replace("bx-x", "bx-search");
+      searchForm.classList.remove("show");
+    }
+  });
 
-	const searchButton = document.querySelector('#content nav form .form-input button');
-	const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
-	const searchForm = document.querySelector('#content nav form');
+  const switchMode = document.getElementById("switch-mode");
 
-	searchButton.addEventListener('click', function (e) {
-		if (window.innerWidth < 576) {
-			e.preventDefault();
-			searchForm.classList.toggle('show');
-			if (searchForm.classList.contains('show')) {
-				searchButtonIcon.classList.replace('bx-search', 'bx-x');
-			} else {
-				searchButtonIcon.classList.replace('bx-x', 'bx-search');
-			}
-		}
-	});
-
-	if (window.innerWidth < 768) {
-		sidebar.classList.add('hide');
-	} else if (window.innerWidth > 576) {
-		searchButtonIcon.classList.replace('bx-x', 'bx-search');
-		searchForm.classList.remove('show');
-	}
-
-	window.addEventListener('resize', function () {
-		if (this.innerWidth > 576) {
-			searchButtonIcon.classList.replace('bx-x', 'bx-search');
-			searchForm.classList.remove('show');
-		}
-	});
-
-	const switchMode = document.getElementById('switch-mode');
-
-	switchMode.addEventListener('change', function () {
-		if (this.checked) {
-			document.body.classList.add('pink1');
-		} else {
-			document.body.classList.remove('pink1');
-		}
-	});
+  switchMode.addEventListener("change", function () {
+    if (this.checked) {
+      document.body.classList.add("pink1");
+    } else {
+      document.body.classList.remove("pink1");
+    }
+  });
 }
 
-
 export function showMain(sectionId) {
-	console.log(document.querySelector(".dashboardTable"));  // Kiểm tra phần tử có tồn tại trong DOM
-	// Ẩn tất cả các phần tử main
-	const sections = document.querySelectorAll('main');
-	sections.forEach(section => {
-		section.style.display = 'none';
-	});
+  console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
+  // Ẩn tất cả các phần tử main
+  const sections = document.querySelectorAll("main");
+  sections.forEach((section) => {
+    section.style.display = "none";
+  });
 
-	// Hiển thị phần tử main được chọn
-	const activeSection = document.getElementById(sectionId);
-	if (activeSection) {
-		activeSection.style.display = 'block';
-	}
-	if (sectionId === "main-content-dashboard") {
-		document.querySelector("#main-content-dashboard").innerHTML = `
+  // Hiển thị phần tử main được chọn
+  const activeSection = document.getElementById(sectionId);
+  if (activeSection) {
+    activeSection.style.display = "block";
+  }
+  if (sectionId === "main-content-dashboard") {
+    document.querySelector("#main-content-dashboard").innerHTML = `
 		<div class="title">
                 <div id="title-name">Thống kê</div>
             </div>
@@ -156,7 +164,7 @@ export function showMain(sectionId) {
                         <button type="reset" id="resetBtn">Xóa</button>
                     </div>
                 </div>
-
+			<div id="dashboard-main">
                 <div class="dashboard-highlight">
                     <div class="dashboard-highlight-box">
                         <i class='bx bx-dollar'></i>
@@ -194,20 +202,61 @@ export function showMain(sectionId) {
 			<div class="list-page"></div>
 		`;
 
-		let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-		console.log(orderList);
-		let productStatistics = generateProductStatistics(orderList);
-		updateDashboardHighlights(orderList,productStatistics);
-		pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
-
-	} else
-		if (sectionId === "main-content-product-list") {
-			document.querySelector("#main-content-product-list").innerHTML = `
-			 <div class="title">
-                <div id="title-name">Danh sách sản phẩm</div>
-                <div>
-                    <button class="btn btn-add-product">Thêm sản phẩm</button>
+    let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+    console.log(orderList);
+    let productStatistics = generateProductStatistics(orderList);
+    updateDashboardHighlights(orderList, productStatistics);
+    dashboardFilter();
+    pagination(
+      productStatistics,
+      1,
+      showProductStatistics,
+      "#main-content-dashboard"
+    );
+  } else if (sectionId === "main-content-dashboard-orderList") {
+    document.querySelector("#main-content-dashboard-orderList").innerHTML = `
+		<div class="title">
+                <h1>Danh sách đơn hàng</h1>
+                <a class="comeback-product">< Quay lại</a>
+            </div>
+            <div class="content">
+                <div class="dashboard-filter">
+                    <div class="filter-item">
+                        <label class="dateLabel">Từ ngày</label>
+                        <input type="date" id="from-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label class="dateLabel">Đến ngày</label>
+                        <input type="date" id="to-date" class="custom-date-input">
+                    </div>
+                    <div class="filter-btn">
+                        <button type="submit" id="filterBtn">Lọc</button>
+                        <button type="reset" id="resetBtn">Xóa</button>
+                    </div>
                 </div>
+			<div id="dashboard-main">
+                <table class="content-order-table">
+				<thead>
+					<tr>
+						<th>Mã Đơn Hàng</th>
+						<th>Mã Khách Hàng</th>
+						<th>Ngày Đặt</th>
+						<th>Tổng Cộng</th>
+						<th>Tình Trạng</th>
+						<th>Chi Tiết</th>
+					</tr>
+				</thead>
+				<tbody class="content-order-table-body">
+
+				</tbody>
+			</table>
+            </div>
+			<div class="list-page"></div>
+		`;
+  } else if (sectionId === "main-content-product-list") {
+    document.querySelector("#main-content-product-list").innerHTML = `
+			 <div class="title">
+                <h2 id="title-name">Danh sách sản phẩm</h2>
             </div>
             <div class="filter-product">
                 <a href="">Bộ lọc</a>
@@ -216,28 +265,30 @@ export function showMain(sectionId) {
             </div>
             <div class="content">
                 <div class="content-product-list">
-                    <div class="search-product">
-                        <input type="text" id="search-product-input" placeholder="Nhập mã sản phẩm">
-                        <a href="">Tìm kiếm</a>
+                    <div class="content-product-row">
+                        <div class="search-product">
+                        	<input type="text" id="search-product-input" placeholder="Nhập mã sản phẩm">
+	                        <a href="">Tìm kiếm</a>
+                        </div>
+						<button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
-                    <table>
+                    <table class="product-list-table">
                     </table>
 					<div class="list-page"></div>
                 </div>
             </div>
 		
 		`;
-			let productList = JSON.parse(localStorage.getItem("productList")) || [];
-			if (productList.length == 0) {
-				productList = [...productItemArray];
-			}
-			localStorage.setItem("productList", JSON.stringify(productList));
-			addProduct();
-			filterProductAdmin();
-			pagination(productList, 1, showListProduct, "#main-content-product-list");
-		} else
-			if (sectionId === "main-content-order") {
-				document.querySelector('#main-content-order').innerHTML = `
+    let productList = JSON.parse(localStorage.getItem("productList")) || [];
+    if (productList.length == 0) {
+      productList = [...productItemArray];
+    }
+    localStorage.setItem("productList", JSON.stringify(productList));
+    addProduct();
+    filterProductAdmin();
+    pagination(productList, 1, showListProduct, "#main-content-product-list");
+  } else if (sectionId === "main-content-order") {
+    document.querySelector("#main-content-order").innerHTML = `
 		<div class="title">
 			<div id="title-name">Danh sách đơn hàng</div>
 		</div>
@@ -293,25 +344,25 @@ export function showMain(sectionId) {
 								</tbody>
 							</table>
 						</section>
-
 						<!-- Chi phí đơn hàng -->
-						<section class="order-cost" id="order-cost">
+						< <section class="order-cost" id="order-cost">
+			
 						</section>
-
+			
 						<!-- Thanh hành động-->
 						<div class="action-bar" id="action-bar">
+			
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		`;
-		const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-		pagination(orderList, 1, showListOrder, "#main-content-order");
-		generateOrderFilter();
-	} else
-	if(sectionId === "main-content-product-add"){
-		document.querySelector("#main-content-product-add").innerHTML = `
+    const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+    pagination(orderList, 1, showListOrder, "#main-content-order");
+    generateOrderFilter();
+  } else if (sectionId === "main-content-product-add") {
+    document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">
                 <h1>Thêm sản phẩm</h1>
                 <a class="comback-product">< Quay lại</a>
@@ -357,36 +408,31 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-				} else
-					if (sectionId === "main-content-customer") {
-						document.querySelector("#main-content-customer").innerHTML = `
-			<div class="title">
-                <div id="title-name">Danh Sách Khách Hàng</div>
-                <div>
-                    <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
-                </div>
-            </div>
+  } else if (sectionId === "main-content-customer") {
+    document.querySelector("#main-content-customer").innerHTML = `
+            <h2 id="title-name" class="customer-title">Danh Sách Khách Hàng</h2>
             <div class="content">
+				<div class="customer-row">
+					<div class="search-customer">
+						<input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
+						<a href="">Tìm kiếm</a>
+					</div>
+					<button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
+				</div>
                 <div class="content-customer-list">
-                    <div class="search-customer">
-                        <input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
-                        <a href="">Tìm kiếm</a>
-                    </div>
-                    <table>
+                    <table class="content-customer-table">
                     </table>
 					<div class="list-page"></div>
                 </div>
             </div>
 	
 		`;
-						let userList = JSON.parse(localStorage.getItem("userList"));
-						localStorage.setItem("userList", JSON.stringify(userList));
-						addCustomer();
-						pagination(userList, 1, showListCustomer, "#main-content-customer");
-					} 
-					else
-						if (sectionId === "main-content-customer-add") {
-							document.querySelector("#main-content-customer-add").innerHTML = `
+    let userList = JSON.parse(localStorage.getItem("userList"));
+    localStorage.setItem("userList", JSON.stringify(userList));
+    addCustomer();
+    pagination(userList, 1, showListCustomer, "#main-content-customer");
+  } else if (sectionId === "main-content-customer-add") {
+    document.querySelector("#main-content-customer-add").innerHTML = `
 			<div class="title">
                 <h1>Thêm khách hàng</h1>
                 <a class="comback-customer">< Quay lại</a>
@@ -415,6 +461,5 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-						}
+  }
 }
-

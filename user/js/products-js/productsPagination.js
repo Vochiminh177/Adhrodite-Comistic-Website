@@ -32,166 +32,173 @@ export function updateProductsPagination(
   filteredProducts,
   currentPage
 ) {
-  
   // Lớp div chứa các nút trang
   const numbersDiv = document.getElementById("main-products-numbers");
 
   // Số sản phẩm mỗi trang
-  const productsPerPage = 9;
+  const productsPerPage = 12;
 
   // Tổng số trang
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-  // Số trang tối đa có thể hiển thị
-  let maxPages = 7;
-  // Ràng buộc: {3 <= maxPages <= totalPages}
-  maxPages = Math.max(maxPages, 3);
-  maxPages = Math.min(maxPages, totalPages);
-
-  // Số trang tối đa có thể hiển thị ở giữa (firstPage ... maxMiddlePages ... lastPage)
-  const maxMiddlePages = maxPages - 2;
-
-  // Số trang phía bên trái so với currentPage
-  const leftSidePages = Math.floor((maxMiddlePages - 1) / 2);
-
-  // Trang đầu tiên và cuối cùng
-  const firstPage = 1;
-  const lastPage = totalPages;
-
-  // Phân trang lần đầu tiên
-  if (totalPages <= maxPages) {
-    handleLessEuqalThanMaxPages();
-  } else {
-    createPageButtons(currentPage);
-  }
-  updatePage(currentPage);
-
-  /*-----------FUNCTION-----------*/
-  // Cập nhật lại trang (hiển thị sản phẩm, các nút trang)
-  function updatePage(currentPage) {
-    window.scrollTo(0, 0);
+  if(totalPages === 1){
     const paginatedProducts = filteredProducts.slice(
       productsPerPage * (currentPage - 1),
       productsPerPage * currentPage
     );
+      showPaginatedProducts(paginatedProducts);
+      document.getElementById("main-products-pagination").remove();
+  } else{
+    // Số trang tối đa có thể hiển thị
+    let maxPages = 5;
+    // Ràng buộc: {3 <= maxPages <= totalPages}
+    maxPages = Math.max(maxPages, 3);
+    maxPages = Math.min(maxPages, totalPages);
 
-    // Hiển thị sản phẩm trên 1 trang
-    showPaginatedProducts(paginatedProducts);
-    getProductItemInfo();
+    // Số trang tối đa có thể hiển thị ở giữa (firstPage ... maxMiddlePages ... lastPage)
+    const maxMiddlePages = maxPages - 2;
+
+    // Số trang phía bên trái so với currentPage
+    const leftSidePages = Math.floor((maxMiddlePages - 1) / 2);
+
+    // Trang đầu tiên và cuối cùng
+    const firstPage = 1;
+    const lastPage = totalPages;
+
+    // Phân trang lần đầu tiên
     if (totalPages <= maxPages) {
-      // Các nút trang có sẵn, không cần tạo lại
-      // Chỉ cần focus vào currentPage
-      focusCurrentPage(currentPage);
+      handleLessEuqalThanMaxPages();
     } else {
-      // Tạo lại các nút trang
       createPageButtons(currentPage);
     }
-  }
+    updatePage(currentPage);
 
-  /*-----------FUNCTION-----------*/
-  // Tạo các nút trang
-  function createPageButtons(currentPage) {
-    numbersDiv.innerHTML = "";
+    /*-----------FUNCTION-----------*/
+    // Cập nhật lại trang (hiển thị sản phẩm, các nút trang)
+    function updatePage(currentPage) {
+      window.scrollTo(0, 0);
+      const paginatedProducts = filteredProducts.slice(
+        productsPerPage * (currentPage - 1),
+        productsPerPage * currentPage
+      );
 
-    // Mặc định sẽ luôn có firstPage và lastPage
-    // Chỉ cần tính toán cho các trang hiện thị ở giữa
-    let start = Math.max(currentPage - leftSidePages, 2);
-    let end = start + maxMiddlePages - 1;
-
-    if (end > lastPage - 1) {
-      start -= end - (lastPage - 1);
-      end = lastPage - 1;
-    }
-
-    // Tạo trang đầu tiên
-    createPageButtonELe(firstPage);
-
-    // Tạo các trang giữa
-    createMiddlePageButtons(start, end);
-
-    // Tạo trang cuối cùng
-    createPageButtonELe(lastPage);
-  }
-
-  /*-----------FUNCTION-----------*/
-  // Tạo element 'button' cho trang thứ ${index}
-  function createPageButtonELe(index) {
-    const numberButton = document.createElement("button");
-    numberButton.className = "main-products__number";
-    numberButton.textContent = `${index}`;
-    numberButton.dataset.page = `${index}`;
-
-    if (currentPage === index) {
-      // Focus vào nút trang
-      numberButton.classList.add("active");
-    }
-
-    numbersDiv.appendChild(numberButton);
-  }
-
-  /*-----------FUNCTION-----------*/
-  // Tạo các nút trang ở giữa - (không bao gồm firstPage và lastPage)
-  function createMiddlePageButtons(start, end) {
-    if (start > firstPage + 1) {
-      createEllipsis();
-    }
-
-    for (let i = start; i <= end; i++) {
-      createPageButtonELe(i);
-    }
-
-    if (end < lastPage - 1) {
-      createEllipsis();
-    }
-  }
-
-  /*-----------FUNCTION-----------*/
-  // Tạo dấu chấm lửng
-  function createEllipsis() {
-    const span = document.createElement("span");
-    span.textContent = "...";
-    span.classList.add("ellipsis");
-    numbersDiv.appendChild(span);
-  }
-
-  /*-----------FUNCTION-----------*/
-  // Khi tổng trang <= số trang hiển thị tối đa
-  // totalPages <= maxPages
-  // -> chỉ cần hiển thị các nút trang bình thường, không cần dấu chấm lửng
-  function handleLessEuqalThanMaxPages() {
-    numbersDiv.innerHTML = "";
-    for (let i = firstPage; i <= lastPage; i++) {
-      createPageButtonELe(i);
-    }
-  }
-
-  // Nếu nhấn vào nút chuyển sang trái
-  document
-    .getElementById("main-products-left-button")
-    .addEventListener("click", function () {
-      if (currentPage > 1 && currentPage <= totalPages) {
-        currentPage--;
-        updatePage(currentPage);
+      // Hiển thị sản phẩm trên 1 trang
+      showPaginatedProducts(paginatedProducts);
+      getProductItemInfo();
+      if (totalPages <= maxPages) {
+        // Các nút trang có sẵn, không cần tạo lại
+        // Chỉ cần focus vào currentPage
+        focusCurrentPage(currentPage);
+      } else {
+        // Tạo lại các nút trang
+        createPageButtons(currentPage);
       }
-    });
+    }
 
-  // Nếu nhấn vào nút chuyển trang là số thứ tự
-  document
-    .getElementById("main-products-numbers")
-    .addEventListener("click", (event) => {
-      if (event.target.matches("button.main-products__number")) {
-        currentPage = parseInt(event.target.getAttribute("data-page"), 10);
-        updatePage(currentPage);
-      }
-    });
+    /*-----------FUNCTION-----------*/
+    // Tạo các nút trang
+    function createPageButtons(currentPage) {
+      numbersDiv.innerHTML = "";
 
-  // Nếu nhấn vào nút chuyển sang phải
-  document
-    .getElementById("main-products-right-button")
-    .addEventListener("click", function () {
-      if (currentPage >= 1 && currentPage < totalPages) {
-        currentPage++;
-        updatePage(currentPage);
+      // Mặc định sẽ luôn có firstPage và lastPage
+      // Chỉ cần tính toán cho các trang hiện thị ở giữa
+      let start = Math.max(currentPage - leftSidePages, 2);
+      let end = start + maxMiddlePages - 1;
+
+      if (end > lastPage - 1) {
+        start -= end - (lastPage - 1);
+        end = lastPage - 1;
       }
-    });
+
+      // Tạo trang đầu tiên
+      createPageButtonELe(firstPage);
+
+      // Tạo các trang giữa
+      createMiddlePageButtons(start, end);
+
+      // Tạo trang cuối cùng
+      createPageButtonELe(lastPage);
+    }
+
+    /*-----------FUNCTION-----------*/
+    // Tạo element 'button' cho trang thứ ${index}
+    function createPageButtonELe(index) {
+      const numberButton = document.createElement("button");
+      numberButton.className = "main-products__number";
+      numberButton.textContent = `${index}`;
+      numberButton.dataset.page = `${index}`;
+
+      if (currentPage === index) {
+        // Focus vào nút trang
+        numberButton.classList.add("active");
+      }
+
+      numbersDiv.appendChild(numberButton);
+    }
+
+    /*-----------FUNCTION-----------*/
+    // Tạo các nút trang ở giữa - (không bao gồm firstPage và lastPage)
+    function createMiddlePageButtons(start, end) {
+      if (start > firstPage + 1) {
+        createEllipsis();
+      }
+
+      for (let i = start; i <= end; i++) {
+        createPageButtonELe(i);
+      }
+
+      if (end < lastPage - 1) {
+        createEllipsis();
+      }
+    }
+
+    /*-----------FUNCTION-----------*/
+    // Tạo dấu chấm lửng
+    function createEllipsis() {
+      const span = document.createElement("span");
+      span.textContent = "...";
+      span.classList.add("ellipsis");
+      numbersDiv.appendChild(span);
+    }
+
+    /*-----------FUNCTION-----------*/
+    // Khi tổng trang <= số trang hiển thị tối đa
+    // totalPages <= maxPages
+    // -> chỉ cần hiển thị các nút trang bình thường, không cần dấu chấm lửng
+    function handleLessEuqalThanMaxPages() {
+      numbersDiv.innerHTML = "";
+      for (let i = firstPage; i <= lastPage; i++) {
+        createPageButtonELe(i);
+      }
+    }
+
+    // Nếu nhấn vào nút chuyển sang trái
+    document
+      .getElementById("main-products-left-button")
+      .addEventListener("click", function () {
+        if (currentPage > 1 && currentPage <= totalPages) {
+          currentPage--;
+          updatePage(currentPage);
+        }
+      });
+
+    // Nếu nhấn vào nút chuyển trang là số thứ tự
+    document
+      .getElementById("main-products-numbers")
+      .addEventListener("click", (event) => {
+        if (event.target.matches("button.main-products__number")) {
+          currentPage = parseInt(event.target.getAttribute("data-page"), 10);
+          updatePage(currentPage);
+        }
+      });
+
+    // Nếu nhấn vào nút chuyển sang phải
+    document
+      .getElementById("main-products-right-button")
+      .addEventListener("click", function () {
+        if (currentPage >= 1 && currentPage < totalPages) {
+          currentPage++;
+          updatePage(currentPage);
+        }
+      });
+  }     
 }
