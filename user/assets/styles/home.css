@@ -86,6 +86,7 @@
   height: 100vh;
   padding: 24px 26px;
   inset: 0 0 0 66%;
+  overflow: auto;
 }
 .header__find-header {
   display: flex;

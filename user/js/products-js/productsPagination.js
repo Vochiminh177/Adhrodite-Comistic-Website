@@ -39,8 +39,7 @@ export function updateProductsPagination(
   const productsPerPage = 12;
 
   // Tổng số trang
-  const totalPages = 1;
-  // Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   if(totalPages === 1){
     const paginatedProducts = filteredProducts.slice(
       productsPerPage * (currentPage - 1),
