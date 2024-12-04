@@ -28,6 +28,7 @@ export function deleteCustomer() {
                 handleDeleteCustomer(index);
                 document.querySelector(".container-delete-customer").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
+                showMain("main-content-customer");
                 pagination(userList, 1, showListCustomer, "#main-content-customer");
             };
         };
@@ -46,6 +47,7 @@ export function editCustomer(currentPage) {
             document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[index].first_name;
             document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[index].last_name;
             document.querySelector(".container-form-user-add-edit .phone-customer").value =  userList[index].phone;
+            document.querySelector(".container-form-user-add-edit .address-customer").value =  userList[index].address;
             let objType = {
                 customer: 0,
                 employer: 1,
@@ -65,7 +67,7 @@ export function editCustomer(currentPage) {
                     document.querySelector(".container-form-user-add-edit").remove();
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
-                    // showMain("main-content-customer");
+                    showMain("main-content-customer");
 				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
@@ -75,21 +77,6 @@ export function editCustomer(currentPage) {
 
 export function addCustomer(){
     document.querySelector("#main-content-customer .btn-add-customer").onclick = () =>{
-        // showMain("main-content-customer-add");
-        // document.querySelector(".comback-customer").onclick = (e) => {
-        //     e.preventDefault();
-        //     showMain("main-content-customer");
-        // }
-
-        // document.querySelector(".add-customer").onclick = () => {
-        //     let result = handleAddCustomer();
-        //     if(result){
-        //         createNotificationAdmin("Thêm khách hàng thành công!");
-        //         let userList = JSON.parse(localStorage.getItem("userList"));
-        //         showMain("main-content-customer");
-		// 		pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
-        //     }
-        // }
         createFormAddEdit();
         document.querySelector(".container-form-user-add-edit .add-customer").onclick = () => {
             let result = handleAddCustomer();
@@ -97,7 +84,7 @@ export function addCustomer(){
                 document.querySelector(".container-form-user-add-edit").remove();
                 createNotificationAdmin("Thêm khách hàng thành công!");
                 let userList = JSON.parse(localStorage.getItem("userList"));
-                // showMain("main-content-customer");
+                showMain("main-content-customer");
 				pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
             }
         }
@@ -123,34 +110,12 @@ export function searchCustomer(){
             else{
                 currentPage = Math.ceil((i+1)/7);
             }
-            // showMain("main-content-customer-add");
-            // document.querySelector(".username-customer").value = userList[i].username;
-            // document.querySelector(".password-customer").value = userList[i].password;
-            // document.querySelector(".firstname-customer").value =  userList[i].first_name;
-            // document.querySelector(".lastname-customer").value =  userList[i].last_name;
-            // document.querySelector(".phone-customer").value =  userList[i].phone;
 
-            // document.querySelector(".comback-customer").onclick = (e) => {
-            //     e.preventDefault();
-            //     showMain("main-content-customer");
-            // }
-            // document.querySelector(".add-customer").onclick = () => {
-            //     let result = handleEditCustomer(i);
-            //     if(result){
-            //         createNotificationAdmin("Sửa thông tin thành công!");
-            //         userList = JSON.parse(localStorage.getItem("userList"));
-            //         showMain("main-content-customer");
-			// 	    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
-            //     }
-            // }
             createFormAddEdit();
             document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
             console.log(userList[i].username);
             console.log(i);
             document.querySelector(".container-form-user-add-edit .password-customer").value = userList[i].password;
-            // if(userList[i].first_name){
-            console.log(userList[i].first_name);
-            // }
             document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[i].first_name;
             document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
             document.querySelector(".container-form-user-add-edit .phone-customer").value =  userList[i].phone;
@@ -161,12 +126,14 @@ export function searchCustomer(){
                 admin: 2
             };
             document.querySelector(".container-form-user-add-edit #type-customer").value = objType[userList[i].type];
+
             document.querySelector(".add-customer").onclick = () => {
                 let result = handleEditCustomer(i);
                 if(result){
                     document.querySelector(".container-form-user-add-edit").remove();
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
+                    showMain("main-content-customer")
                     pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
                 }
             }
@@ -239,6 +206,7 @@ function createFormAddEdit(){
                 </select>
             </div>
             <div class="content-one-input"><input type="text" placeholder="Email" class="email-customer"></div>
+            <div class="content-one-input"><input type="text" placeholder="Địa chỉ" class="address-customer"></div>
             <button class="btn add-customer">Lưu khách hàng</button>
         </div>
         <div class="form-user-add-edit-delete"></div>

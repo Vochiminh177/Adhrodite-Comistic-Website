@@ -143,7 +143,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     list: `
       <ul class="payment-information-info__change-address-list">
         <li class="payment-information-info__change-address-item from-user-info">
-          Nhập từ thông tin cá nhân
+          Nhập địa chỉ từ lần đặt trước
         </li>
         <li class="payment-information-info__change-address-item from-user-input">
           Nhập từ bàn phím
@@ -193,9 +193,12 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
             ".payment-information-info__address"
           );
           addressInput.setAttribute(
-            "placeholder",
-            userList[indexCurrentUserLogin].address
+            "value",
+            userList[indexCurrentUserLogin].address ? userList[indexCurrentUserLogin].address : ""
           );
+          if(addressInput.value === ""){
+            create_notification_user("Bạn chưa đặt hàng lần nào");
+          }
         });
 
       // Sự kiện khi nhập từ bàn phím

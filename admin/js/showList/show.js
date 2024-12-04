@@ -6,6 +6,14 @@ import {showResult} from "../base/baseFunction.js";
 function createPage(list, currentPage, showList, main) {
     let itemPerPage = 7;
     let totalPage = Math.ceil(list.length / itemPerPage);
+
+    let pageList = main + " .list-page"
+    console.log(pageList)
+    if(totalPage === 1){
+        document.querySelector(pageList).style.display = "none";
+    }
+    else document.querySelector(pageList).style.display = "block";
+
     let firstPage = currentPage - 2;
     let lastPage = currentPage + 2;
 
@@ -77,6 +85,7 @@ function createPage(list, currentPage, showList, main) {
 }
 
 export function pagination(list, currentPage, showList, main) {
+
     createPage(list, currentPage, showList, main);
 }
 

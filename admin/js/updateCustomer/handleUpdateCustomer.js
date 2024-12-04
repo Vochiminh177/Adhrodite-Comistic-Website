@@ -21,14 +21,16 @@ export function handleEditCustomer(index) {
     let lastName = document.querySelector(".container-form-user-add-edit .lastname-customer");
     let type = document.querySelector(".container-form-user-add-edit #type-customer");
     let email = document.querySelector(".container-form-user-add-edit .email-customer");
+    let address = document.querySelector(".container-form-user-add-edit .address-customer");
 
-    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "") {
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || address.value === "") {
         err_input(username);
         err_input(password);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);
         err_input(email);
+        err_input(address);
         return false;
     }
 
@@ -115,6 +117,7 @@ export function handleEditCustomer(index) {
     }
     userList[index].type = objType[type.value];
     userList[index].email = email.value;
+    userList[index].address = address.value;
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
@@ -127,14 +130,16 @@ export function handleAddCustomer() {
     let lastName = document.querySelector(".container-form-user-add-edit .lastname-customer");
     let type = document.querySelector(".container-form-user-add-edit #type-customer");
     let email = document.querySelector(".container-form-user-add-edit .email-customer");
+    let address = document.querySelector(".container-form-user-add-edit .address-customer");
 
-    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email === "") {
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email === "" || address === "") {
         err_input(username);
         err_input(password);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);
         err_input(email);
+        err_input(address);
         return false;
     }
 
@@ -173,29 +178,7 @@ export function handleAddCustomer() {
         return false;
     }
 
-
-    //kiểm tra email
-    function checkEmail(email) {
-        if(email.indexOf("@") === -1){
-          return false;
-        }
-        const parts = email.split("@");
-        
-        // Kiểm tra cấu trúc email
-        if (parts.length !== 2 || parts[1] !== "gmail.com") {
-            return false;
-        }
-      
-        // Kiểm tra từng ký tự trong phần trước "@"
-        for (const char of parts[0]) {
-            if (!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) {
-                return false; // Ký tự không hợp lệ
-            }
-        }
-        
-        return true; // Email hợp lệ
-      }
-    if(!checkEmail(email.value)){
+    if(!checkEmail(email)){
         err_input(email, "Email cần đúng định dạng");
         return false;
     }
@@ -229,6 +212,7 @@ export function handleAddCustomer() {
         username: username.value,
         password: password.value,
         email: email.value,
+        address: address.value,
         first_name: firstName.value,
         last_name: lastName.value,
         phone: phone.value,
@@ -245,3 +229,60 @@ export function handleBlockCustomer(index){
     else userList[index].blockStatus = true;
     localStorage.setItem("userList", JSON.stringify(userList));
 }
+
+function checkEmail(email) {
+    //kiểm tra số dấu @
+    let point = 0;
+    for(const char of email.value){
+      if(char === "@") point++;
+    }
+    if(point > 1){
+      return false;
+    }
+  
+    if (email.value.indexOf("@") === -1) {
+      return false;
+    }
+    const parts = email.value.split("@");
+  
+    // Kiểm tra 2 bên @
+    if (parts.length !== 2) {
+      return false;
+    }
+  
+    // Kiểm tra từng ký tự trong phần trước "@"
+    for (const char of parts[0]) {
+      if (
+        !(
+          (char >= "a" && char <= "z") ||
+          (char >= "A" && char <= "Z") ||
+          (char >= "0" && char <= "9")
+        )
+      ) {
+        return false; // Ký tự không hợp lệ
+      }
+    }
+  
+    // kiểm tra nếu trước @ toàn số
+    let checkAllNumberDigital = true;
+    for(const char of parts[0]){
+      if(!(char >=0 && char <= 9)){
+        checkAllNumberDigital = false;
+      }
+    }
+    if(checkAllNumberDigital) return false;
+  
+    //kiểm tra sau @
+    let indexPoint = parts[1].indexOf(".");
+    let index = parts[1].indexOf("@");
+    let veri = parts[1].slice(indexPoint, parts[1].length);
+    let beforePoint = parts[1].slice(index, indexPoint);
+
+    for(const char of beforePoint){
+        if(!(char >= "a" && char <= "z")) return false;
+    }
+
+    if(veri !== ".com" && veri !== ".com.vn") return false;
+  
+    return true; // Email hợp lệ
+  }

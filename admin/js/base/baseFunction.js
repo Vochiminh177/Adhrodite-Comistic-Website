@@ -49,6 +49,7 @@ export function reset_style_input(input){
     else if(input.className === "email-customer") input.placeholder = "Email";
     else if(input.className === "percent-discount-add") input.placeholder = "Giảm giá %";
     else if(input.className === "quantity-discount") input.placeholder = "Số lượng giảm giá";
+    else if(input.className === "address-customer") input.placeholder = "Địa chỉ";
     else input.placeholder = "Số lượng sản phẩm";
     input.style.borderColor = "#a94064";
 }
