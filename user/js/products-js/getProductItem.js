@@ -61,6 +61,29 @@ function changeProductItemQuantity(productList, productItemKey) {
     .querySelector(".main-order__number")
     .addEventListener("input", function () {
       productItemQuantity = number.value;
+
+      //css phần giảm giá
+      if (productItemQuantity > productList[productItemKey].discountQuantity) {
+        const originPrice = document.querySelector(".originPrice");
+        originPrice.style.color = "black";
+        originPrice.style.fontSize = "2.2rem";
+        originPrice.style.textDecoration = "none";
+
+        const discountPrice = document.querySelector(".discountPrice");
+        discountPrice.style.color = "#ccc";
+        discountPrice.style.fontSize = "1.8rem";
+        discountPrice.style.textDecoration = "line-through";
+      } else {
+        const discountPrice = document.querySelector(".discountPrice");
+        discountPrice.style.color = "black";
+        discountPrice.style.fontSize = "2.2rem";
+        discountPrice.style.textDecoration = "none";
+
+        const originPrice = document.querySelector(".originPrice");
+        originPrice.style.color = "#ccc";
+        originPrice.style.fontSize = "1.8rem";
+        originPrice.style.textDecoration = "line-through";
+      }
     });
 }
 

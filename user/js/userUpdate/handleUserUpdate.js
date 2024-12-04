@@ -42,8 +42,7 @@ export function errorInput(input, mess) {
     }
     return;
   }
-  //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
-  input.classList.add("err-text");
+
 
   if (mess) {
     input.value = "";
@@ -51,6 +50,8 @@ export function errorInput(input, mess) {
     input.onfocus = () => {
       input.placeholder = resetDefaultInputForUser(input);
     };
+      //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
+  input.classList.add("err-text");
     return;
   }
   //nếu input rỗng
@@ -60,6 +61,8 @@ export function errorInput(input, mess) {
     input.onfocus = () => {
       input.placeholder = resetDefaultInputForUser(input);
     };
+      //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
+  input.classList.add("err-text");
     return;
   }
   //còn lại không có lỗi

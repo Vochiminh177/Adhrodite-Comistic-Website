@@ -49,6 +49,10 @@
     border-radius: var(--main-border-radius);
     font-family: var(--poppins);
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.content-product-row .btn:hover{
+    background-color: #a94064;
 }
 
 /* #right-input {

@@ -139,7 +139,7 @@ function anhMinh() {
 }
 
 export function showMain(sectionId) {
-  console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
+  // console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
   // Ẩn tất cả các phần tử main
   const sections = document.querySelectorAll("main");
   sections.forEach((section) => {
@@ -215,7 +215,7 @@ export function showMain(sectionId) {
 		`;
 
     let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
-    console.log(orderList);
+
     let productStatistics = generateProductStatistics(orderList);
     updateDashboardHighlights(orderList, productStatistics);
     dashboardFilter();

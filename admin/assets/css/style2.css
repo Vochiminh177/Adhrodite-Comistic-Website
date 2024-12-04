@@ -276,6 +276,10 @@ body {
     font-family: var(--poppins);
     font-size: 25px;
 }
+.title #title-name{
+    width: 100%;
+    text-align: center;
+}
 
 /* ----------Hiệu---- */
 

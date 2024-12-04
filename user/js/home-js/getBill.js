@@ -68,6 +68,14 @@ function handle_order_information(userList, indexCurrentUserLogin) {
     errorInput(email, "Sai định dạng");
     return false;
   }
+  
+  let index = address.value.indexOf(",");
+  let street = address.value.slice(0, index);
+  if(street.length === 0){
+    errorInput(address, "Cần nhập số nhà và đường");
+    return false;
+  }
+
   if (document.querySelector("#credit-card").checked) {
     if (document.querySelector("#card-id").value === "") {
       create_notification_user("Bạn cần nhập số thẻ");
@@ -189,7 +197,7 @@ function handle_order_product(
     ".payment-information-info__address"
   ).placeholder;
 
-  const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+  const orderList = JSON.parse(localStorage.getItem("orderList"));
   const id_order = orderList.length + 1;
 
   let totalPrice = document.querySelector("#temp-price").textContent;
@@ -245,7 +253,11 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
       stringPrice[0] = stringPrice[0].replaceAll("đ", "");
       stringPrice[0] = stringPrice[0].replaceAll(".", "");
       // Lấy % giảm giá
-      if (stringPrice.length > 1) {
+      if (stringPrice.length === 2) {
+        stringPrice[1] = stringPrice[1].replaceAll("%", "");
+        stringPrice[1] = stringPrice[1].replaceAll(")", "");
+      }
+      if(stringPrice.length > 2){
         stringPrice[3] = stringPrice[3].replaceAll("%", "");
         stringPrice[3] = stringPrice[3].replaceAll(")", "");
       }

@@ -152,9 +152,6 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     `,
     item2: `
       <div class="form-group">
-        <input type="text" class="street" placeholder="Nhập địa chỉ"/>
-      </div>
-      <div class="form-group">
         <select class="city"><option></option></select>
         <select class="district"><option></option></select>
         <select class="ward"><option></option></select>
@@ -217,7 +214,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
             .querySelector(".comeback-change-address-list-button")
             .addEventListener("click", function () {
               // Số nhà, tên đường
-              const streetInfo = document.querySelector(".street").value;
+              // const streetInfo = document.querySelector(".street").value;
               // Phường hoặc Xã
               const wardInfo =
                 document.querySelector(".ward :checked").innerText;
@@ -228,20 +225,24 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
               const cityInfo =
                 document.querySelector(".city :checked").innerText;
               // Biến tổng hợp lại các thông tin trên
-              let newAddress =
-                streetInfo +
-                ", " +
-                wardInfo +
-                ", " +
-                districtInfo +
-                ", " +
-                cityInfo;
 
-              // Cập nhật lại thông tin địa chỉ
-              const addressInput = document.querySelector(
-                ".payment-information-info__address"
-              );
-              addressInput.setAttribute("value", newAddress);
+              if(wardInfo !== "Chọn Phường / Xã" && districtInfo !== "Chọn Quận / Huyện" && cityInfo !== "Chọn Tỉnh thành"){
+                let newAddress =
+                  wardInfo +
+                  ", " +
+                  districtInfo +
+                  ", " +
+                  cityInfo;
+
+                // Cập nhật lại thông tin địa chỉ
+                document.querySelector(
+                  ".payment-information-info__address"
+                ).value += ", " + newAddress;
+              }
+              else{
+                create_notification_user("Cần chọn địa chỉ hợp lý")
+              }
+    
 
               // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
               changeAddressAction.style.color = "#ccc";

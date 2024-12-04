@@ -252,7 +252,9 @@ export function filterProductAdmin() {
             else {
                 createNotificationAdmin("Không có sản phẩm");
                 if(!document.querySelector("#main-content-product-list .content p")){
+                    document.querySelector(".list-page").style.display = "none";
                     let p = document.createElement("p");
+                    p.className = "dont-have-product";
                     p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
                     document.querySelector("#main-content-product-list .content").appendChild(p);
                     document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";
