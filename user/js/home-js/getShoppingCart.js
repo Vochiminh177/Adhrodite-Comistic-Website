@@ -140,7 +140,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
                       (orderProduct[i].price *
                         orderProduct[i].discountPercent) /
                         100
-                  )}đ (-${orderProduct[i].discountPercent}%)</br>`;
+                  )}đ (${orderProduct[i].discountPercent}%)</br>`;
                 }
                 if (noDiscountNumbers > 0) {
                   items += `+ ${orderProduct[i].id} - ${
@@ -161,7 +161,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
                       (orderProduct[i].price *
                         orderProduct[i].discountPercent) /
                         100
-                  )}đ (-${orderProduct[i].discountPercent}%)</br>`;
+                  )}đ (${orderProduct[i].discountPercent}%)</br>`;
                 }
               }
             }
@@ -341,16 +341,17 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
     let items = "";
     if (userList[indexCurrentUserLogin].shoppingCart.length >= 1) {
       // Shopping-Cart Item
-    
+
       //chứa các sản phẩm của shop, để lấy discountPercent, giảm giá....
       let productShoppingCartList = [];
 
-      
-      for (let i = 0;
+      for (
+        let i = 0;
         i < userList[indexCurrentUserLogin].shoppingCart.length;
         i++
       ) {
-        const shoppingCartFromUser = userList[indexCurrentUserLogin].shoppingCart[i];
+        const shoppingCartFromUser =
+          userList[indexCurrentUserLogin].shoppingCart[i];
         productShoppingCartList.push(
           productList.find((obj) => {
             return obj.id === shoppingCartFromUser.id;
@@ -361,11 +362,10 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
       //mảng chứa true false để nhận biết và hiển thị giá gốc ban đầu
       let arr = [];
       userList[indexCurrentUserLogin].shoppingCart.forEach((obj) => {
-        if(obj.discountQuantity > 0){
+        if (obj.discountQuantity > 0) {
           arr.push(false);
-        }
-        else arr.push(true);
-      })
+        } else arr.push(true);
+      });
 
       for (
         let i = 0;
@@ -376,7 +376,8 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
         let discountOfProduct = 0;
         //tính totalPrice góc trái dưới
         let price = 0;
-        const shoppingCartFromUser = userList[indexCurrentUserLogin].shoppingCart[i];
+        const shoppingCartFromUser =
+          userList[indexCurrentUserLogin].shoppingCart[i];
 
         //tính tổng tiền all đơn hàng + tổng giá trị của mỗi đơn hàng
         for (let k = 0; k < shoppingCartFromUser.quantity; k++) {
@@ -386,26 +387,26 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
               (productShoppingCartList[i].price *
                 (100 - productShoppingCartList[i].discountPercent)) /
               100;
-              discountOfProduct++;
+            discountOfProduct++;
           } else {
             price += productShoppingCartList[i].price;
           }
         }
         totalPriceBottomLeftBody += price; //dòng 452, hiện tổng tiền
-        let newPrice = productShoppingCartList[i].price; //giá trị của một sản phẩm 
+        let newPrice = productShoppingCartList[i].price; //giá trị của một sản phẩm
 
         if (productShoppingCartList[i].discountQuantity >= 0) {
-            newPrice =
-              (productShoppingCartList[i].price *
-                (100 - productShoppingCartList[i].discountPercent)) /
-              100;
-            checkDiscountQuantity = true;
-        } 
+          newPrice =
+            (productShoppingCartList[i].price *
+              (100 - productShoppingCartList[i].discountPercent)) /
+            100;
+          checkDiscountQuantity = true;
+        }
 
         // if(productShoppingCartList[i].discountQuantity === 0){
         //   if(!checkDiscountQuantity){
         //     checkZeroDiscountQuantity = true;
-        //   } 
+        //   }
         // }
 
         items += `
@@ -428,7 +429,21 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
                 <p class="shopping-cart__details">
                 ${shoppingCartFromUser.id} / ${
           shoppingCartFromUser.category
-        } / ${arr[i] ? formatVietNamMoney(productShoppingCartList[i].price) + "đ" : (checkDiscountQuantity ? formatVietNamMoney(newPrice) + "đ (" + productShoppingCartList[i].discountPercent +"%)" : formatVietNamMoney(productShoppingCartList[i].price) + "đ ("+ discountOfProduct + " - " + productShoppingCartList[i].discountPercent + "%)")}
+        } / ${
+          arr[i]
+            ? formatVietNamMoney(productShoppingCartList[i].price) + "đ"
+            : checkDiscountQuantity
+            ? formatVietNamMoney(newPrice) +
+              "đ (" +
+              productShoppingCartList[i].discountPercent +
+              "%)"
+            : formatVietNamMoney(productShoppingCartList[i].price) +
+              "đ (" +
+              discountOfProduct +
+              " - " +
+              productShoppingCartList[i].discountPercent +
+              "%)"
+        }
                 </p>
               </div>
               <div class="shopping-cart__detail">

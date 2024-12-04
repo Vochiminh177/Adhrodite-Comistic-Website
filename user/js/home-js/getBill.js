@@ -15,9 +15,9 @@ function error_orderProduct(id_product) {
     ".payment-information-products__item"
   );
   array_products__item.forEach((obj) => {
-    let array_details = obj.querySelector(
-      ".payment-information-products__details"
-    ).textContent.trim();
+    let array_details = obj
+      .querySelector(".payment-information-products__details")
+      .textContent.trim();
     let array_string = array_details.split(" ");
     let id = array_string[0].trim();
 
@@ -227,12 +227,15 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
     let items = "";
     for (let i = 0; i < array_orderProduct.length; i++) {
       let stringPrice = array_orderProduct[i].price;
-      console.log(stringPrice);
       stringPrice = stringPrice.split(" ");
+      // Lấy gía tiền
       stringPrice[0] = stringPrice[0].replaceAll("đ", "");
       stringPrice[0] = stringPrice[0].replaceAll(".", "");
-      console.log(stringPrice[0]);
-      console.log(array_orderProduct[i].price)
+      // Lấy % giảm giá
+      if (stringPrice.length > 1) {
+        stringPrice[3] = stringPrice[3].replaceAll("%", "");
+        stringPrice[3] = stringPrice[3].replaceAll(")", "");
+      }
       // if(array_orderProduct[i].discountQuantity < array_orderProduct[i].quantity && array_orderProduct[i].discountQuantity !== 0){
       //   console.log(123);
       //   //nếu không có giảm giá từ ban đầu
@@ -292,29 +295,38 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
       //   `;
       //   }
       // }
-      if(array_orderProduct[i].discountQuantity < array_orderProduct[i].quantity && array_orderProduct[i].discountQuantity !== 0){
+      if (
+        array_orderProduct[i].discountQuantity <
+          array_orderProduct[i].quantity &&
+        array_orderProduct[i].discountQuantity !== 0
+      ) {
         items += `
           <tr>
             <td>${array_orderProduct[i].id}</td>
             <td align="left">${array_orderProduct[i].name}</td>
             <td>${array_orderProduct[i].discountQuantity}</td>
-            <td>${formatVietNamMoney(parseInt(stringPrice[0]) * (100 - array_orderProduct[i].discountQuantity) / 100)}đ</td>
+            <td>${formatVietNamMoney(
+              parseInt(stringPrice[0]) -
+                (parseInt(stringPrice[0]) * parseInt(stringPrice[3])) / 100
+            )}đ</td>
           </tr>
           <tr>
             <td>${array_orderProduct[i].id}</td>
             <td align="left">${array_orderProduct[i].name}</td>
-            <td>${array_orderProduct[i].quantity-array_orderProduct[i].discountQuantity}</td>
-            <td>${array_orderProduct[i].price}</td>
+            <td>${
+              array_orderProduct[i].quantity -
+              array_orderProduct[i].discountQuantity
+            }</td>
+            <td>${formatVietNamMoney(parseInt(stringPrice[0]))}đ</td>
           </tr>
         `;
-      }
-      else{
+      } else {
         items += `
            <tr>
             <td>${array_orderProduct[i].id}</td>
             <td align="left">${array_orderProduct[i].name}</td>
             <td>${array_orderProduct[i].quantity}</td>
-            <td>${array_orderProduct[i].price}</td>
+            <td>${formatVietNamMoney(parseInt(stringPrice[0]))}đ</td>
           </tr>
         `;
       }
