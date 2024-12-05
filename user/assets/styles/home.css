@@ -579,7 +579,7 @@
 }
 .body__home .sale-product__body {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 .body__home .sale-product__list {
   --columns: 3;
