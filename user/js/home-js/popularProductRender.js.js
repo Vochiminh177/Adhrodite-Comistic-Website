@@ -78,7 +78,7 @@ export function renderPopularProductList() {
         let isExistingProductItem = false;
         let indexProductItem = -1;
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng của người dùng chưa
-        const shoppingCart = userList[userStatusLoginIndex].shoppingCart;
+        const shoppingCart = userList[indexCurrentUserLogin].shoppingCart;
         for (let i = 0; i < shoppingCart.length; i++) {
           if (shoppingCart[i].id === id) {
             isExistingProductItem = true;

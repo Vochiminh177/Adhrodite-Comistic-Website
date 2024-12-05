@@ -10,7 +10,8 @@ import {
 } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
-
+import { updateSaleProductPaginationWhenChangeToHome } from "./saleProductPagination.js"
+import { updatePopularProductPaginationWhenChangeToHome } from "./popularProductPagination.js"
 export const mainContentMap = {
   home: `
   <div class="body__home">
@@ -499,6 +500,8 @@ export function updateMainContent(mainContentKey) {
       renderPopularMenuList();
       renderPopularProductList();
       renderSaleProductList();
+      updateSaleProductPaginationWhenChangeToHome();
+      updatePopularProductPaginationWhenChangeToHome();
     }
 
     // Nếu nội dung thay đổi là trang Sản phẩm

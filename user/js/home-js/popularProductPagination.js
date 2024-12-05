@@ -120,3 +120,17 @@ function doUpdatePopularProductPagination(quantityAllowToDisplay){
     if (paginationDivExisting) paginationDivExisting.remove();
   }
 }
+
+export function updatePopularProductPaginationWhenChangeToHome(){
+  if(window.innerWidth > 1000){
+    doUpdatePopularProductPagination(4);
+  } else
+  if(window.innerWidth > 725){
+    doUpdatePopularProductPagination(3);
+  } else
+  if(window.innerWidth > 500){
+    doUpdatePopularProductPagination(2);
+  } else{
+    doUpdatePopularProductPagination(1);
+  }
+}

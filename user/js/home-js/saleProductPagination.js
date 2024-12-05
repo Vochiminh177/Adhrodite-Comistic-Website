@@ -106,3 +106,14 @@ function doUpdateSaleProductPagination(quantityAllowToDisplay){
     saleProductHeader.appendChild(titleH2);
   }
 }
+
+export function updateSaleProductPaginationWhenChangeToHome(){
+  if(window.innerWidth > 900){
+    doUpdateSaleProductPagination(3);
+  } else
+  if(window.innerWidth > 500){
+    doUpdateSaleProductPagination(2);
+  }else{
+    doUpdateSaleProductPagination(1);
+  }
+}
