@@ -6,6 +6,7 @@ import { renderSaleProductList } from "./saleProductRender.js";
 import {
   generateFilter,
   resetDoubleSlider,
+  generateBrands
 } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
@@ -504,6 +505,7 @@ export function updateMainContent(mainContentKey) {
     if (mainContentKey === "products") {
       // Tạo sự kiện cho bộ lọc
       generateFilter();
+      generateBrands();
       resetDoubleSlider();
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();
