@@ -29,9 +29,16 @@ export function resetDefaultInputForUser(input) {
   if(input.className === "payment-information-info__email") return "Email";
   if(input.className === "payment-information-info__address") return "Số nhà và đường";
   if(input.className === "payment-information-info__phone") return "Số điện thoại";
+  if(input.className === "street") return "Số nhà và đường"
 }
 //hàm báo lỗi input
-export function errorInput(input, mess) {
+export function errorInput(input, mess, checkSelect) {
+  if(checkSelect){
+    console.log(input);
+    input.parentElement.style.border = "2px solid red";
+    return;
+  }
+
   if (input.type == "checkbox") {
     let parent = input.parentElement;
     if (!input.checked) {

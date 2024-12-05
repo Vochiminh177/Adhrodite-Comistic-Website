@@ -7,6 +7,7 @@ import { locationToSelectArray } from "../../../database/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
+import { errorInput } from "../userUpdate/handleUserUpdate.js";
 
 // Hàm trở về trang Giỏ hàng
 function clickToComebackShoppingCart(userList, indexCurrentUserLogin) {
@@ -152,6 +153,9 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     `,
     item2: `
       <div class="form-group">
+        <input type="text" class="street" placeholder="Nhập số nhà và đường"/>
+      </div>
+      <div class="form-group">
         <select class="city"><option></option></select>
         <select class="district"><option></option></select>
         <select class="ward"><option></option></select>
@@ -189,10 +193,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
           const addressInput = document.querySelector(
             ".payment-information-info__address"
           );
-          addressInput.setAttribute(
-            "value",
-            userList[indexCurrentUserLogin].address ? userList[indexCurrentUserLogin].address : ""
-          );
+          addressInput.value = userList[indexCurrentUserLogin].address;
           if(addressInput.value === ""){
             create_notification_user("Bạn chưa đặt hàng lần nào");
           }
@@ -214,7 +215,11 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
             .querySelector(".comeback-change-address-list-button")
             .addEventListener("click", function () {
               // Số nhà, tên đường
-              // const streetInfo = document.querySelector(".street").value;
+              const streetInfo = document.querySelector(".street").value;
+              if(streetInfo === ""){
+                errorInput(document.querySelector(".street"));
+                return;
+              }
               // Phường hoặc Xã
               const wardInfo =
                 document.querySelector(".ward :checked").innerText;
@@ -228,6 +233,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
 
               if(wardInfo !== "Chọn Phường / Xã" && districtInfo !== "Chọn Quận / Huyện" && cityInfo !== "Chọn Tỉnh thành"){
                 let newAddress =
+                streetInfo + ", " +
                   wardInfo +
                   ", " +
                   districtInfo +
@@ -237,10 +243,20 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
                 // Cập nhật lại thông tin địa chỉ
                 document.querySelector(
                   ".payment-information-info__address"
-                ).value += ", " + newAddress;
+                ).value = newAddress;
               }
               else{
-                create_notification_user("Cần chọn địa chỉ hợp lý")
+                if(cityInfo === "Chọn Tỉnh thành"){
+                  errorInput(document.querySelector(".city :checked"), null, true);
+                  errorInput(document.querySelector(".district :checked"), null, true);
+                  errorInput(document.querySelector(".ward :checked"), null, true);
+                }
+                else if(districtInfo === "Chọn Quận / Huyện"){
+                  errorInput(document.querySelector(".district :checked"), null, true);
+                  errorInput(document.querySelector(".ward :checked"), null, true);
+                }
+                else  errorInput(document.querySelector(".ward :checked"), null, true);
+                return;
               }
     
 
@@ -426,7 +442,7 @@ function updatePaymentInformation(
                     userList[indexCurrentUserLogin].address
                       ? userList[indexCurrentUserLogin].address
                       : ""}" 
-                    placeholder="Số nhà và đường">
+                    placeholder="Địa chỉ">
               </div>
             </form>
           <div class="payment-information-info__change-address">

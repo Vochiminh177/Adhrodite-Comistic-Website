@@ -137,6 +137,7 @@
 .payment-information-info__change-address-body
   .form-group:nth-of-type(1)
   input {
+    border-radius: 5px;
   width: 100%;
   border: 1px solid #ccc;
   padding: 4px 6px;

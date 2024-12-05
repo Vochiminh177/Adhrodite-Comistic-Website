@@ -72,7 +72,7 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   let index = address.value.indexOf(",");
   let street = address.value.slice(0, index);
   if(street.length === 0){
-    errorInput(address, "Cần nhập số nhà và đường");
+    errorInput(address, "Cần nhập địa chỉ");
     return false;
   }
 
@@ -83,11 +83,7 @@ function handle_order_information(userList, indexCurrentUserLogin) {
     }
   }
 
-  userList[indexCurrentUserLogin].first_name = firstName.value;
-  userList[indexCurrentUserLogin].last_name = lastName.value;
-  userList[indexCurrentUserLogin].phone = phone.value;
-  userList[indexCurrentUserLogin].address = address.value;
-  userList[indexCurrentUserLogin].email = email.value;
+
   return true;
 }
 
@@ -504,6 +500,20 @@ export function getBillInfo(array_orderProduct) {
         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
         // updateBill();
         if (result) {
+          let firstName = document.querySelector(".payment-information-info__firstName");
+          let lastName = document.querySelector(".payment-information-info__lastName");
+          let email = document.querySelector(".payment-information-info__email");
+          let phone = document.querySelector(".payment-information-info__phone");
+          let address = document.querySelector(".payment-information-info__address");
+
+          userList[indexCurrentUserLogin].first_name = firstName.value;
+          userList[indexCurrentUserLogin].last_name = lastName.value;
+          userList[indexCurrentUserLogin].phone = phone.value;
+          userList[indexCurrentUserLogin].address = address.value;
+          userList[indexCurrentUserLogin].email = email.value;
+
+          localStorage.setItem("userList", JSON.stringify(userList));
+
           updateBill(userList, indexCurrentUserLogin, array_orderProduct);
         }
       }
