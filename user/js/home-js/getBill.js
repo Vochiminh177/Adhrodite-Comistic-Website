@@ -192,7 +192,7 @@ function handle_order_product(
   //address để ship
   let address = document.querySelector(
     ".payment-information-info__address"
-  ).placeholder;
+  ).value;
 
   const orderList = JSON.parse(localStorage.getItem("orderList"));
   const id_order = orderList.length + 1;
