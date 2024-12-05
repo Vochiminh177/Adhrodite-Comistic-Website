@@ -36,6 +36,9 @@ export function errorInput(input, mess, checkSelect) {
   if(checkSelect){
     console.log(input);
     input.parentElement.style.border = "2px solid red";
+    input.parentElement.onfocus = () => {
+      input.parentElement.style.border = "2px solid #000";
+    }
     return;
   }
 

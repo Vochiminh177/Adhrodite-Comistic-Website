@@ -143,6 +143,11 @@
   padding: 4px 6px;
   margin-top: 8px;
 }
+.payment-information-info__change-address-body
+  .form-group:nth-of-type(1)
+  input.err-text{
+  border: 1px solid red;
+}
 .payment-information-info__change-address-body .form-group:nth-of-type(2) {
   display: flex;
   justify-content: space-between;
