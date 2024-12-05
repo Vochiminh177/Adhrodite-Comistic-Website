@@ -335,10 +335,16 @@ export function showMain(sectionId) {
 						<header class="order-header" id="order-header">
 						</header>
 
-						<!-- Thông tin khách hàng -->
-						<section class="customer-info" id="customer-info">
-						</section>
+            <div class="order-customer-info-and-cost-wrapper">
+              <!-- Thông tin khách hàng -->
+              <section class="customer-info" id="customer-info">
 
+              </section>
+              <!-- Chi phí đơn hàng -->
+              <section class="order-cost" id="order-cost">
+        
+              </section>
+            </div>
 						<!-- Các sản phẩm -->
 						<section class="product-info" id="product-info">
 							<h3>Chi tiết Sản Phẩm</h3>
@@ -355,10 +361,6 @@ export function showMain(sectionId) {
 								<tbody id="order-product-info-body">
 								</tbody>
 							</table>
-						</section>
-						<!-- Chi phí đơn hàng -->
-						< <section class="order-cost" id="order-cost">
-			
 						</section>
 			
 						<!-- Thanh hành động-->
