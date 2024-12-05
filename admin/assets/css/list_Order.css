@@ -1,6 +1,12 @@
 .content.order {
   display: flex;
-  /* align-items: flex-start; */
+  align-items: flex-start;
+}
+.content.order .table-container {
+  width: 72%;
+}
+.content.order .order-filter-container {
+  width: 28%;
 }
 .content-order-table th:last-child {
   width: 7%;
@@ -8,6 +14,7 @@
 .content-order-table-body > .status-label {
   margin: 0 auto;
 }
+
 .bx-list-ul {
   color: blue;
   font-size: 1.3rem;
@@ -92,7 +99,7 @@
   background-color: #9370db;
   color: white;
 }
-.order-customer-info-and-cost-wrapper{
+.order-customer-info-and-cost-wrapper {
   display: flex;
   justify-content: space-between;
 }
@@ -132,9 +139,6 @@ button {
 
 .order-print-btn {
   background-color: #6c757d;
-}
-.content.order .table-container {
-  width: 80%;
 }
 
 /*Order filter*/
@@ -280,17 +284,24 @@ button {
   }
 }
 
-/* ======================== table */
-@media screen and (min-width: 600px) and (max-width: 1000px) {
+/* ======================= chung cho moble and table */
+
+@media screen and (max-width: 600px) {
+  .content-order-table-body {
+  }
+  .content.order .table-container {
+    margin-top: 20px;
+  }
   .content.order {
-    /* display: block; */
-    width: 80%;
-    margin: 0 auto;
     flex-direction: column-reverse;
-    align-items: center;
   }
   .content-order-table th {
     display: none;
+  }
+
+  .content-order-table-body table tr {
+    margin: 100px;
+    padding-top: 50px;
   }
   .content-order-table td {
     display: flex;
@@ -300,6 +311,7 @@ button {
     font-weight: 700;
     width: 150px;
   }
+
   .content-order-table td:nth-of-type(1)::before {
     content: "Mã đơn hàng";
     font-weight: 700;
@@ -316,30 +328,101 @@ button {
     content: "Giá bán";
     font-weight: 700;
   }
+  .content-order-table td:nth-of-type(5)::before {
+    content: "Tổng cộng";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(6)::before {
+    content: "Trạng thái";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(7)::before {
+    content: "Chi tiết";
+    font-weight: 700;
+  }
 
-  /* .order-details-modal-content { */
-    /* top: 50px; */
-  /* } */
+  .order-details-modal-content {
+    width: 100%;
+    margin-top: 100px;
+  }
+  .table-container,
   .order-filter-container {
-    width: calc(100% - 30px);
-    margin-top: 10px;
+    width: 100% !important;
+    margin: 0;
+  }
+  .content-order-table-body tr:nth-of-type(2n) {
+    background-color: #f9f0f0;
+  }
+}
+
+/* ======================== table */
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+  .content.order {
+    margin: 0 auto;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .content-order-table th {
+    display: none;
+  }
+  .content-order-table td {
+    display: flex;
+    text-align: left;
+  }
+  .content-order-table td::before {
+    font-weight: 700;
+    width: 150px;
+  }
+  .content-order-table .content-order-table-body td:first-child {
+    margin-top: 50px;
+  }
+  .content-order-table-body td:nth-of-type(1)::before {
+    content: "Mã đơn hàng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(2)::before {
+    content: "Mã khách hang";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(3)::before {
+    content: "Ngày đặt hàng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(4)::before {
+    content: "Giá bán";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(5)::before {
+    content: "Tổng cộng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(6)::before {
+    content: "Tình Trạng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(7)::before {
+    content: "Chi tiết";
+    font-weight: 700;
+  }
+  .content-order-table-body tr:nth-of-type(2n) {
+    background-color: #f9f0f0;
+  }
+
+  .order-details-modal-content {
+    top: 50px;
+    width: 80%;
+  }
+  .table-container,
+  .order-filter-container {
+    width: 100% !important;
+  }
+  .content.order .table-container {
+    margin-top: 20px;
   }
 }
 @media screen and (min-width: 1000px) and (max-width: 1300px) {
-  .content-order-table th{
-    font-size: 1rem;
-  }
-  .content.order .status-label{
-    width: 86px;
-    height: 45px;
-    line-height: 31px;
-  }
-  .content.order .status-label.pending{
-    height: 45px;
-    line-height: unset;
-  }
   .content.order .table-container,
-  .order-filter-container {
+  .content.order .order-filter-container {
     width: 100%;
   }
   .content.order {

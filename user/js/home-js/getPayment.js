@@ -218,7 +218,6 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
               const streetInfo = document.querySelector(".street").value;
               if(streetInfo === ""){
                 errorInput(document.querySelector(".street"));
-                return;
               }
               // Phường hoặc Xã
               const wardInfo =
@@ -248,12 +247,9 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
               else{
                 if(cityInfo === "Chọn Tỉnh thành"){
                   errorInput(document.querySelector(".city :checked"), null, true);
-                  errorInput(document.querySelector(".district :checked"), null, true);
-                  errorInput(document.querySelector(".ward :checked"), null, true);
                 }
                 else if(districtInfo === "Chọn Quận / Huyện"){
                   errorInput(document.querySelector(".district :checked"), null, true);
-                  errorInput(document.querySelector(".ward :checked"), null, true);
                 }
                 else  errorInput(document.querySelector(".ward :checked"), null, true);
                 return;
@@ -336,7 +332,7 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
         </div>
       </div>
       <div class="payment-information-info__card-form-group">
-        <input type="text" name="card-id" id="card-id" placeholder="Nhập số thẻ">
+        <input type="text" name="card-id" id="card-id" placeholder="Mã thẻ">
       </div>
     `,
   };
