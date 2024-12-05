@@ -1,6 +1,9 @@
 .content.order {
   display: flex;
 }
+.content.order #title-name{
+  font-size: 1.7rem;
+}
 .content.order .table-container {
   width: calc(72% - 16px);
   margin-right: 16px;
@@ -34,12 +37,12 @@
   margin-bottom: 16px;
 }
 .order-statistic-container h2{
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: center;
   margin-bottom: 16px;
 }
 .order-statistic-container span{
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   color: #555;
 }
 .order-statistic-group{
@@ -57,8 +60,9 @@
   border-radius: 8px;
 }
 .order-filter-container h2{
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: center;
+  margin-bottom: 16px;
 }
 #order-filter-form {
   /* max-width: 600px; */
@@ -453,6 +457,9 @@
   .content.order .order-filter-container {
     width: 100%;
   }
+  .content.order .table-container{
+    margin-right: 0px;
+  }
   .content.order {
     flex-direction: column-reverse;
     align-items: center;
@@ -460,6 +467,10 @@
   .order-filter-container {
     margin-top: 20px;
     justify-content: center;
+    
+  }
+  .order-statistic-container{
+    margin-bottom: 0px;
   }
   .content-order-table {
     margin-top: 24px;
@@ -467,6 +478,7 @@
   .order-filter-statistic-container{
     flex-direction: row-reverse;
     width: 100%;
+    margin-bottom: 32px;
   }
   .order-filter-container{
     margin-top: 0px;

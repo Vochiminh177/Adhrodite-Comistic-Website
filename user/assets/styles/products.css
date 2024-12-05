@@ -244,6 +244,7 @@
   font-size: 2rem;
   font-weight: 600;
   transition: background-color 0.2s;
+  cursor: pointer;
 }
 .body__products .left-search-filter__button:nth-child(2) {
   margin-right: 0px;

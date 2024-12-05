@@ -74,6 +74,23 @@ export function generateOrderEvents(start, end, orderList) {
         updateOrderStatus(orderIndex, "canceled");
         document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
+
+      const productList = JSON.parse(localStorage.getItem("productList"));
+      const orderedProducts = orderList[orderIndex].orderProduct;
+      orderedProducts.forEach((orderedProduct) => {
+        const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
+        if (toRestoreIndex !== -1) {
+          productList[toRestoreIndex].discountQuantity += Math.min(
+            orderedProduct.discountQuantity,
+            orderedProduct.quantity
+          );
+          
+          productList[toRestoreIndex].quantity +=
+            orderedProduct.quantity -
+            Math.min(orderedProduct.discountQuantity, orderedProduct.quantity);
+        }
+      });
+      localStorage.setItem("productList", JSON.stringify(productList));
     }
 
     if (shippedBtn) {
