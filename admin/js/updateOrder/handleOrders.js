@@ -1,6 +1,7 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
-import { showListOrder } from "../showList/show.js"
+import { showListOrder, pagination} from "../showList/show.js"
 import { getDistrictOfOrder } from "./orderFilter.js";
+import { changeOrderStatusQuantity } from "./orderStatistic.js"
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
@@ -8,13 +9,16 @@ export function createOrderRow(order) {
     <tr>
       <td>${order.orderId}</td>
       <td>${order.customerId}</td>
-      <td>${order.orderDate}</td>
+      <td>
+        <p>${order.orderDate.split(" ")[1]}</p>
+        <p>${order.orderDate.split(" ")[0]}</p>
+      </td>
       <td>${getDistrictOfOrder(order)}</td>
       <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
       <td>
-        <p class="status-label ${order.orderStatus}">
-          ${translateOrderStatus(order.orderStatus)}
-        </p>
+        <div class="status-label ${order.orderStatus}">
+          <span>${translateOrderStatus(order.orderStatus)}</span>
+        </div>
       </td>
       <td><a href="#" class="details-btn"><i class='bx bx-list-ul'></i></a></td>
     </tr>
@@ -55,7 +59,7 @@ export function generateOrderEvents(start, end, orderList) {
     const confirmBtn = document.querySelector(".order-confirm-btn");
     const cancelBtn = document.querySelector(".order-cancel-btn");
     const shippedBtn = document.querySelector(".order-shipped-btn");
-
+    const deleteBtn = document.querySelector(".order-delete-btn");
     if (confirmBtn) {
       confirmBtn.onclick = (event) => {
         event.preventDefault();
@@ -79,6 +83,26 @@ export function generateOrderEvents(start, end, orderList) {
         document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
+
+    if(deleteBtn){
+      deleteBtn.onclick = (event) => {
+        event.preventDefault();
+        const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
+        const toDeleteIndex = localStorageOrderList.findIndex(
+          (order) => orderList[orderIndex].orderId === order.orderId
+        );
+
+        if(toDeleteIndex !== -1){
+          localStorageOrderList.splice(toDeleteIndex, 1);
+          // orderList.splice(toDeleteIndex, 1);
+          localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
+          pagination(localStorageOrderList, 1, showListOrder, "#main-content-order");
+          document.getElementById("order-details-modal").style.display = "none";
+          changeOrderStatusQuantity();
+        }
+      }
+
+    }
   }
 
   // Cập nhật lại tình trạng đơn hàng
@@ -99,6 +123,7 @@ export function generateOrderEvents(start, end, orderList) {
     localStorage.setItem("orderList", JSON.stringify(orderList));
     showListOrder(start, end, 0, orderList);
     createOrderDetails(orderList[orderIndex]);
+    changeOrderStatusQuantity();
     generateOrderButtonsEvents(orderIndex);
   }
 }
@@ -129,9 +154,9 @@ function createOrderDetails(order) {
     <h2>Chi tiết đơn hàng #${order.orderId}</h2>
     <div class="order-status">
         <span>Tình trạng:</span>
-        <span class="status-label ${order.orderStatus}">
-          ${translateOrderStatus(order.orderStatus)}
-        </span>
+        <div class="status-label ${order.orderStatus}">
+          <span>${translateOrderStatus(order.orderStatus)}</span>
+        </div>
     </div>
   `;
 
@@ -210,7 +235,7 @@ function createOrderDetails(order) {
     } else if (order.orderStatus === "shipped") {
       actionBar.innerHTML = "";
     } else if (order.orderStatus === "canceled"){
-      actionBar.innerHTML = "";
+      actionBar.innerHTML = `<button class="order-btn order-delete-btn">Xoá đơn hàng</button>`;
     }
   }
 }

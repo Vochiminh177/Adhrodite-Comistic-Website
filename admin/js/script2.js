@@ -13,6 +13,7 @@ import {
   filterProductAdmin,
 } from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+import { generateOrderStatistic } from "./updateOrder/orderStatistic.js";
 import {
   updateDashboardHighlights,
   dashboardFilter,
@@ -142,6 +143,7 @@ export function showMain(sectionId) {
   const sections = document.querySelectorAll("main");
   sections.forEach((section) => {
     section.style.display = "none";
+    section.innerHTML = "";
   });
 
   // Hiển thị phần tử main được chọn
@@ -299,31 +301,34 @@ export function showMain(sectionId) {
     pagination(productList, 1, showListProduct, "#main-content-product-list");
   } else if (sectionId === "main-content-order") {
     document.querySelector("#main-content-order").innerHTML = `
-		<div class="title">
-			<div id="title-name">Danh sách đơn hàng</div>
-		</div>
 		<div class="content order">
 			<div class="table-container">
-			<table class="content-order-table">
-				<thead>
-					<tr>
-						<th>Mã Đơn Hàng</th>
-						<th>Mã Khách Hàng</th>
-						<th>Ngày Đặt</th>
-						<th>Quận</th>
-						<th>Tổng Cộng</th>
-						<th>Tình Trạng</th>
-						<th>Chi Tiết</th>
-					</tr>
-				</thead>
+        <div class="title">
+          <div id="title-name">Danh sách đơn hàng</div>
+        </div>
+        <table class="content-order-table">
+          <thead>
+            <tr>
+              <th>Mã Đơn Hàng</th>
+              <th>Mã Khách Hàng</th>
+              <th>Ngày Đặt</th>
+              <th>Quận</th>
+              <th>Tổng Cộng</th>
+              <th>Tình Trạng</th>
+              <th>Chi Tiết</th>
+            </tr>
+          </thead>
 
-				<tbody class="content-order-table-body">
+          <tbody class="content-order-table-body">
 
-				</tbody>
-			</table>
-			<div class="list-page"></div>
+          </tbody>
+        </table>
+        <div class="list-page"></div>
 			</div>
-			<div class="order-filter-container" id="order-filter-container"></div>
+      <div class="order-filter-statistic-container">
+        <div class="order-statistic-container" id="order-statistic-container"></div>
+        <div class="order-filter-container" id="order-filter-container"></div>
+      </div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
 				<div class="order-details-modal-content">
@@ -373,6 +378,7 @@ export function showMain(sectionId) {
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
+    generateOrderStatistic();
   } else if (sectionId === "main-content-product-add") {
     document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">

@@ -2,6 +2,7 @@ import { pagination, showListOrder } from "../showList/show.js";
 export function generateOrderFilter(){
     const orderFilterContainer = document.getElementById('order-filter-container');
     orderFilterContainer.innerHTML = `
+        <h2>Bộ lọc</h2>
         <form id="order-filter-form" name="order-filter-form">
         <div class="order-filter-group">
             <label for="start-date">Ngày đầu</label>

@@ -1,23 +1,136 @@
 .content.order {
   display: flex;
-  align-items: flex-start;
 }
 .content.order .table-container {
-  width: 72%;
+  width: calc(72% - 16px);
+  margin-right: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  min-height: 699px;
 }
-.content.order .order-filter-container {
-  width: 28%;
-}
+
 .content-order-table th:last-child {
   width: 7%;
 }
-.content-order-table-body > .status-label {
-  margin: 0 auto;
-}
-
 .bx-list-ul {
   color: blue;
   font-size: 1.3rem;
+}
+.order-filter-statistic-container{
+  display: flex;
+  flex-direction: column;
+  width: 28%;
+}
+/* Order Statistic */
+.order-statistic-container{
+  width: 100%;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.order-statistic-container h2{
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.order-statistic-container span{
+  font-size: 1.2rem;
+  color: #555;
+}
+.order-statistic-group{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #d4c7c7;
+  margin-bottom: 16px;
+}
+/*Order filter*/
+.order-filter-container {
+  width: 100%;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+.order-filter-container h2{
+  font-size: 2rem;
+  text-align: center;
+}
+#order-filter-form {
+  /* max-width: 600px; */
+  margin: 0 auto;
+}
+
+/* Các nhóm bộ lọc */
+.order-filter-group {
+  margin-bottom: 16px;
+}
+
+.order-filter-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.order-filter-group input,
+.order-filter-group select {
+  width: 100%;
+  padding: 3px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.order-filter-group input:focus,
+.order-filter-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Hành động bộ lọc */
+.order-filter-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Nút áp dụng bộ lọc */
+.order-btn-apply {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.order-btn-filter:hover {
+  background-color: #0056b3;
+}
+
+/* Nút reset */
+.order-btn-reset {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.order-btn-reset:hover {
+  background-color: #c33b29;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .order-filter-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .order-btn {
+    width: 100%;
+  }
 }
 /* Modal styles */
 .modal {
@@ -36,7 +149,7 @@
   background-color: white;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
   width: 60%;
   max-height: 93%;
   overflow: auto;
@@ -80,7 +193,13 @@
 .status-label {
   text-align: center;
   padding: 7px 7px;
-  border-radius: 5px;
+  border-radius: 6px;
+  width: 75%;
+  height: 55px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .status-label.pending {
@@ -118,11 +237,13 @@
 .action-bar .order-print-btn {
   margin-right: auto;
 }
-button {
-  padding: 10px 20px;
+.order-btn {
+  padding: 10px 15px;
+  font-size: 0.9rem;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
+  transition: background-color 0.3s ease;
   color: white;
 }
 .order-confirm-btn {
@@ -137,102 +258,9 @@ button {
   background-color: #dc3545;
 }
 
-.order-print-btn {
+.order-delete-btn {
   background-color: #6c757d;
 }
-
-/*Order filter*/
-.order-filter-container {
-  width: 20%;
-  height: 55%;
-  margin: 16px 16px 0;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-#order-filter-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Các nhóm bộ lọc */
-.order-filter-group {
-  margin-bottom: 15px;
-}
-
-.order-filter-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.order-filter-group input,
-.order-filter-group select {
-  width: 100%;
-  padding: 3px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border-color 0.3s ease;
-}
-
-.order-filter-group input:focus,
-.order-filter-group select:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Hành động bộ lọc */
-.order-filter-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.order-btn {
-  padding: 10px 15px;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Nút áp dụng bộ lọc */
-.order-btn-apply {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.order-btn-filter:hover {
-  background-color: #0056b3;
-}
-
-/* Nút reset */
-.order-btn-reset {
-  background-color: #f44336;
-  color: #fff;
-}
-
-.order-btn-reset:hover {
-  background-color: #c33b29;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .order-filter-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .order-btn {
-    width: 100%;
-  }
-}
-
 /* ======================= chung cho moble and table */
 
 @media screen and (max-width: 600px) {
@@ -435,5 +463,13 @@ button {
   }
   .content-order-table {
     margin-top: 24px;
+  }
+  .order-filter-statistic-container{
+    flex-direction: row-reverse;
+    width: 100%;
+  }
+  .order-filter-container{
+    margin-top: 0px;
+    margin-right: 16px;
   }
 }
