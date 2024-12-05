@@ -23,6 +23,10 @@ function changeProductItemQuantity(productList, productItemKey) {
       // Lấy ra nội dung mà nút hiển thị
       const countButtonKey = event.currentTarget.textContent;
       if (countButtonKey == "+") {
+        if(productItemQuantity > productList[productItemKey].quantity){
+          create_notification_user("Hàng tồn không đủ");
+          return;
+        }
         productItemQuantity++;
       } else {
         if (productItemQuantity >= 2) {
@@ -83,6 +87,11 @@ function changeProductItemQuantity(productList, productItemKey) {
         originPrice.style.color = "#ccc";
         originPrice.style.fontSize = "1.8rem";
         originPrice.style.textDecoration = "line-through";
+      }
+
+      if(productItemQuantity > productList[productItemKey].quantity){
+        create_notification_user("Hàng tồn không đủ");
+        return;
       }
     });
 }
