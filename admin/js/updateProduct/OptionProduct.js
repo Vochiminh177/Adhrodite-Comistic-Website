@@ -19,7 +19,7 @@ function handlePicture_admin() {
         reader.readAsDataURL(inputPicture.files[0]);
         reader.onload = (e) => {
             path_picture_admin.src = e.target.result;
-            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 100%; height: auto;">`;
         }
     };
 }

@@ -1440,42 +1440,22 @@ const products = JSON.parse(localStorage.getItem("productList"));
 export const brands = [
   {
     name: "loreal",
-    src: "./assets/images/brand-logo-1.jpg"
+    src: "./assets/images/brand-logo-1.jpg",
   },
   {
-    name: "clinique",
-    src: "./assets/images/brand-logo-2.jpg"
+    name: "bioderma",
+    src: "./assets/images/brand-logo-2.jpg",
   },
   {
-    name: "mac",
-    src: "./assets/images/brand-logo-3.jpg"
+    name: "simple",
+    src: "./assets/images/brand-logo-3.jpg",
   },
   {
-    name: "maybelline",
-    src: "./assets/images/brand-logo-4.jpg"
+    name: "klairs",
+    src: "./assets/images/brand-logo-4.jpg",
   },
   {
-    name: "shu-uemura",
-    src: "./assets/images/brand-logo-5.jpg"
+    name: "cerave",
+    src: "./assets/images/brand-logo-5.jpg",
   },
-  {
-    name: "sk-ii",
-    src:"./assets/images/brand-logo-6.jpg"
-  },
-  {
-    name: "olay",
-    src: "./assets/images/brand-logo-7.jpg"
-  },
-  {
-    name: "revlon",
-    src: "./assets/images/brand-logo-8.jpg"
-  },
-  {
-    name: "estee-lauder",
-    src: "./assets/images/brand-logo-9.jpg"
-  },
-  {
-    name: "dove",
-    src: "./assets/images/brand-logo-10.jpg"
-  }
 ];

@@ -66,12 +66,10 @@ function anhMinh() {
         showMain("main-content-customer");
       } else if (item.className === "dashboard_sidebar") {
         showMain("main-content-dashboard");
-      } 
-      else if(item.className === "customer_sidebar"){
+      } else if (item.className === "customer_sidebar") {
         location.assign(location.origin + "/user/index.html");
-      }
-      else {
-        localStorage.setItem("indexCurrentUserLogin",JSON.stringify(-1));
+      } else {
+        localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
         location.assign(location.origin + "/admin/index.html");
       }
     });
@@ -82,7 +80,7 @@ function anhMinh() {
   const menuBar = document.querySelector("#content nav .bx.bx-menu");
   const sidebar = document.getElementById("side-bar");
 
-  if(menuBar){
+  if (menuBar) {
     menuBar.addEventListener("click", function () {
       sidebar.classList.toggle("hide");
     });
@@ -96,7 +94,7 @@ function anhMinh() {
   );
   const searchForm = document.querySelector("#content nav form");
 
-  if(searchButton){
+  if (searchButton) {
     searchButton.addEventListener("click", function (e) {
       if (window.innerWidth < 576) {
         e.preventDefault();
@@ -110,7 +108,7 @@ function anhMinh() {
     });
   }
 
-  if(searchButton && searchForm){
+  if (searchButton && searchForm) {
     if (window.innerWidth < 768) {
       sidebar.classList.add("hide");
     } else if (window.innerWidth > 576) {
@@ -127,7 +125,7 @@ function anhMinh() {
   }
 
   const switchMode = document.getElementById("switch-mode");
-  if(switchMode){
+  if (switchMode) {
     switchMode.addEventListener("change", function () {
       if (this.checked) {
         document.body.classList.add("pink1");
@@ -385,39 +383,70 @@ export function showMain(sectionId) {
                 <div class="content-product-add">
                     <div id="left-input">
                         <div class="content-two-input">
-                            <input type="text" placeholder="Mã sản phẩm" class="id-add">
-                            <input type="text" placeholder="Thương hiệu" class="brand-add">
+                            <div class="content-two-input-group">
+                              <label for="id-add">Mã sản phẩm</label>
+                              <input type="text" placeholder="Mã sản phẩm" id="id-add" class="id-add">
+                            </div>
+                            <div class="content-two-input-group">
+                              <label for="brand-add">Thương hiệu</label>
+                              <input type="text" placeholder="Thương hiệu" id="brand-add" class="brand-add">
+                            </div>
                         </div>
                         <div class="content-two-input">
-                            <input type="text" placeholder="Tên sản phẩm" class="name-add">
-							<input type="text" placeholder="Số lượng sản phẩm" class="quantity-add">
+                          <div class="content-two-input-group">
+                            <label for="name-add">Tên sản phẩm</label>
+                            <input type="text" placeholder="Tên sản phẩm" id="name-add" class="name-add">
+                          </div>
+                          <div class="content-two-input-group">
+                            <label for="quantity-add">Số lượng sản phẩm</label>
+                            <input type="text" placeholder="Số lượng sản phẩm" id="quantity-add" class="quantity-add">
+                          </div>
                         </div>
                         <div class="content-two-input">
-                            <select name="category" id="category-add">
-                                <option value="kem-tri-mun">Kem trị mụn</option>
-                                <option value="sua-rua-mat">Sữa rửa mặt</option>
-                                <option value="son">Son</option>
-                                <option value="phan">Phấn</option>
-                                <option value="toner">Toner</option>
-                                <option value="sereum">Sereum</option>
-                                <option value="kem-duong-am">Kem dưỡng ẩm</option>
-                                <option value="tay-trang">Tẩy trang</option>
-                            </select>
-                            <input type="text" placeholder="Giá bán" class="price-add">
+                          <div class="content-two-input-group">
+                            <label for="category-add">Loại sản phẩm</label>
+                            <select name="category" id="category-add" id="category-add">
+                                  <option value="kem-tri-mun">Kem trị mụn</option>
+                                  <option value="sua-rua-mat">Sữa rửa mặt</option>
+                                  <option value="son">Son</option>
+                                  <option value="phan">Phấn</option>
+                                  <option value="toner">Toner</option>
+                                  <option value="sereum">Sereum</option>
+                                  <option value="kem-duong-am">Kem dưỡng ẩm</option>
+                                  <option value="tay-trang">Tẩy trang</option>
+                              </select>
+                          </div>
+                          <div class="content-two-input-group">
+                            <label for="price-add">Giá bán</label>
+                            <input type="text" placeholder="Giá bán" id="price-add" class="price-add">
+                          </div>
                         </div>
                         <div class="content-two-input">
-							<input type="text" placeholder="Giảm giá %" class="percent-discount-add">
-							<input type="text" placeholder="Số lượng giảm giá" class="quantity-discount-add">
+                        <div class="content-two-input-group">
+                          <label for="percent-discount-add">Giảm giá (%)</label>
+                          <input type="text" placeholder="Giảm giá (%)" id="percent-discount-add" class="percent-discount-add">
                         </div>
-                        <textarea name="" id="" placeholder="Miêu tả sản phẩm" class="description-add"></textarea>
-                        <button class="btn btn-add">Lưu sản phẩm</button>
-                    </div>
+                        <div class="content-two-input-group">
+                          <label for="quantity-discount-add">Số lượng giảm giá</label>
+                          <input type="text" placeholder="Số lượng giảm giá" id="quantity-discount-add" class="quantity-discount-add">
+                        </div>
+                      </div>
+                        <div class="content-one-input-group">
+                          <label for="description-add">Miêu tả sản phẩm</label>
+                          <textarea name="" id="" placeholder="Miêu tả sản phẩm" id="description-add" class="description-add" style="resize: none; height: 200px"></textarea>
+                        </div>
+                        <div class="content-one-input-group">
+                          <button class="btn btn-add">Lưu sản phẩm</button>
+                        </div>
+                      </div>
                     <div id="right-input">
                         <div class="add-photo-button">
-                            <label for="file"><i class='bx bxs-folder-plus' ></i>  Ảnh sản phẩm</label>
+                            <label for="file"><i class='bx bxs-folder-plus' ></i> Ảnh sản phẩm</label>
                             <input id="file" type="file" accept="image/*">
                         </div>
-                        <div class="image-show"></div>
+                        <div class="image-show">
+                          <img src="./assets/images/no-image.png" alt="Ảnh sản phẩm" style="width: 100%; height: 568px;">
+                        </div>
                     </div>
                 </div>
             </div>
