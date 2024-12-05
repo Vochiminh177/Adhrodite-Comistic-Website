@@ -757,6 +757,9 @@
 .contacts__phone {
   margin-top: 12px;
 }
+.contacts__email {
+  word-break: break-word;
+}
 .footer__contacts {
   width: 23.4%;
 }

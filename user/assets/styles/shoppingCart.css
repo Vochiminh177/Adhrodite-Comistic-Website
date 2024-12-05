@@ -392,7 +392,17 @@ figure:has(.shopping-cart__image) {
 }
 
 /* ================== mobile */
-
+@media screen and (max-width: 400px) {
+  .order-history__title::before,
+  .order-history__title::after {
+    display: none;
+  }
+}
+@media screen and (max-width: 450px) {
+  .shopping-cart__buttons {
+    flex-direction: column;
+  }
+}
 @media screen and (max-width: 600px) {
   .shopping-cart__item {
     display: block;
@@ -454,7 +464,7 @@ figure:has(.shopping-cart__image) {
   .shopping-cart__payment-info {
     width: 100%;
     text-align: center;
-  } 
+  }
   .shopping-cart__buttons {
     margin-top: 12px;
   }
