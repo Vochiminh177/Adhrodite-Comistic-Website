@@ -792,6 +792,39 @@
 .header__menu-toggle {
   display: none;
 }
+.container-notification {
+  position: fixed;
+  height: 50%;
+  overflow: hidden;
+  top: 20px;
+  right: 1%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex; /* Bật Flexbox */
+  flex-direction: column;
+  gap: 10px; /* Khoảng cách giữa các thẻ <p> */
+  width: 20%;
+}
+
+.container-notification p {
+  border-radius: 5px;
+  font-size: 2.2rem;
+  background-color: #FFC1CC;
+  color: #333;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+  transform: translate(110%, 0);
+  transition: transform 0.2s ease;
+}
+
+.container-notification p.active {
+  transform: translate(0, 0);
+}
+
+
 
 /* ==========================chung cho mobile và tablet */
 @media screen and (max-width: 850px) {

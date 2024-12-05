@@ -1,4 +1,5 @@
 import { updateMainContent } from "../home-js/changeMainContent.js"
+import { create_notification_user } from "../menuUser/optionMenu.js";
 // Hàm tạo sự kiện khi người dùng nhấn vào "Danh mục nổi bậc"
 export function clickToPopularMenu() {
   let array = document.querySelectorAll(".popular-menu__item");
@@ -22,6 +23,7 @@ export function clickToProductItem() {
   );
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
+      
       // Chuyển sang trang "Sản phẩm"
       updateMainContent("products");
 
