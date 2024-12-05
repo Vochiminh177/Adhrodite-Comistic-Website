@@ -1,209 +1,248 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 :root {
-    --poppins: "Poppins", sans-serif;
+  --poppins: "Poppins", sans-serif;
 
-    --pink1: #a94064;
-    --pink2: #db7699;
-    --pink3: #fbf4f4;
-    --light: #fff;
+  --pink1: #a94064;
+  --pink2: #db7699;
+  --pink3: #fbf4f4;
+  --light: #fff;
 }
 
 html {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .dashboard-filter {
-    display: flex;
-    gap: 30px;
-    padding: 10px 15px 10px 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    width: fit-content;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  gap: 30px;
+  padding: 10px 15px 10px 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
 }
 
 .filter-item {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .dateLabel {
-    font-family: var(--poppins);
-    font-size: 16px;
-    color: #333;
-    white-space: nowrap;
-    margin: 0;
-    display: flex;
-    align-items: center;
+  font-family: var(--poppins);
+  font-size: 16px;
+  color: #333;
+  white-space: nowrap;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .custom-date-input {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    width: 150px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    outline: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  width: 150px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
 }
 
 .custom-date-input:focus {
-    border-color: #007bff;
-    /* Đổi màu viền khi focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    /* Thêm hiệu ứng shadow khi focus */
+  border-color: #007bff;
+  /* Đổi màu viền khi focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* Thêm hiệu ứng shadow khi focus */
 }
 
-
 @media (max-width: 768px) {
-    .dashboard-filter {
-        flex-wrap: wrap;
-    }
+  .dashboard-filter {
+    flex-wrap: wrap;
+  }
 
-    .filter-item {
-        width: 100%;
-    }
+  .filter-item {
+    width: 100%;
+  }
 }
 
 .filter-btn {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 #filterBtn,
 #resetBtn {
-    font-family: var(--poppins);
-    background-color: rgb(237, 171, 203);
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: var(--poppins);
+  background-color: rgb(237, 171, 203);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #filterBtn:hover,
 #resetBtn:hover {
-    background-color: #a9a9a9;
-    /* Màu sáng hơn */
-    transform: scale(1.05);
-    /* Phóng to nhẹ */
+  background-color: #a9a9a9;
+  /* Màu sáng hơn */
+  transform: scale(1.05);
+  /* Phóng to nhẹ */
 }
 
 #filterBtn:active,
 #resetBtn:active {
-    background-color: #808080;
-    /* Màu tối hơn */
-    transform: scale(0.95);
-    /* Nhỏ lại nhẹ */
+  background-color: #808080;
+  /* Màu tối hơn */
+  transform: scale(0.95);
+  /* Nhỏ lại nhẹ */
 }
 
 .dashboard-highlight {
-    width: fit-content;
-    background: var(--pink3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+  width: fit-content;
+  background: var(--pink3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-.dashboard-highlight .dashboard-highlight-box, .dashboard-highlight-box-product {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 25px;
+.dashboard-highlight .dashboard-highlight-box,
+.dashboard-highlight-box-product {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 25px;
 }
 
 .dashboard-highlight .dashboard-highlight-box i {
-    font-size: 40px;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    background: #4e24d7;
-    margin-right: 15px;
+  font-size: 40px;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  background: #4e24d7;
+  margin-right: 15px;
 }
 
 .dashboard-highlight .dashboard-highlight-box:nth-child(1) i {
-    background: #4916f1;
-
+  background: #4916f1;
 }
 
 .dashboard-highlight .dashboard-highlight-box:nth-child(2) i {
-    background: #5e34c0;
-
+  background: #5e34c0;
 }
 
 .dashboard-highlight .dashboard-highlight-box:nth-child(2) i {
-    background: #bb1169;
-
+  background: #bb1169;
 }
 
 .dashboard-highlight .dashboard-highlight-box-product i {
-    background: #79a3eb;
-
+  background: #79a3eb;
 }
 
-.dashboard-highlight .dashboard-highlight-box h3, .dashboard-highlight-box-product h3 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 15px;
+.dashboard-highlight .dashboard-highlight-box h3,
+.dashboard-highlight-box-product h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 15px;
 }
 
-.dashboard-highlight .dashboard-highlight-box span, .dashboard-highlight-box-product span {
-    font-size: 17px;
-    color: rgb(99, 119, 140);
+.dashboard-highlight .dashboard-highlight-box span,
+.dashboard-highlight-box-product span {
+  font-size: 17px;
+  color: rgb(99, 119, 140);
 }
 
 #filterBtn,
 #resetBtn {
-    font-family: var(--poppins);
-    background-color: rgb(237, 171, 203);
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: var(--poppins);
+  background-color: rgb(237, 171, 203);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .order-list-btn {
-    font-family: var(--poppins);
-    background-color: rgb(237, 171, 203);
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: var(--poppins);
+  background-color: rgb(237, 171, 203);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .order-list-btn:hover {
-    background-color: #a9a9a9;
+  background-color: #a9a9a9;
+}
+
+@media screen and (max-width: 700px) {
+  .dashboardTable th {
+    display: none;
+  }
+
+  .dashboardTable td {
+    display: flex;
+  }
+  .dashboardTable td:before {
+    font-weight: 700;
+    width: 150px;
+    text-align: left;
+    margin-left: 15%;
+  }
+  .dashboardTable tr:nth-of-type(2n) {
+    background-color: #f9f0f0;
+  }
+  .dashboardTable td:nth-of-type(1)::before {
+    content: "Mã";
+  }
+  .dashboardTable td:first-child {
+    margin-top: 50px;
+  }
+  .dashboardTable td:nth-of-type(2) img {
+    width: 120px;
+    margin: 0 auto;
+  }
+  .dashboardTable td:nth-of-type(3)::before {
+    content: "Giá";
+  }
+  .dashboardTable td:nth-of-type(4)::before {
+    content: "Tổng đơn hàng";
+  }
+  .dashboardTable td:nth-of-type(5)::before {
+    content: "Tổng danh thu";
+  }
+  .dashboardTable td:nth-of-type(6)::before {
+    content: "Tuỳ chỉnh";
+  }
 }

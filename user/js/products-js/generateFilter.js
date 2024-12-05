@@ -3,9 +3,9 @@ import { brands } from "../../../database/database.js"
 // Bước nhảy
 const step = 50000;
 // Chênh lệch nhỏ nhất
-const gap = 100000;
+const gap = 50000;
 let minLimit = 100000;
-let maxLimit = 800000;
+let maxLimit = 900000;
 // Giá trị để sử dụng
 let currentMin = minLimit;
 let currentMax = maxLimit;
@@ -34,30 +34,6 @@ export function generateFilter() {
         "none"
       ) {
         filterContentBlock.style.display = "block";
-        const brandsContainer = document.querySelector(".body__products .left-search-filter__brands");
-        brandsContainer.innerHTML = "";
-        brands.forEach((brand) => {
-          const div = document.createElement("div");
-          div.classList.add("left-search-filter__brand");
-          const input = document.createElement("input");
-          input.setAttribute("name", "brand");
-          input.setAttribute("type", "checkbox");
-          input.setAttribute("id", brand.name.toLowerCase())
-          input.setAttribute("value", brand.name.toLowerCase())
-          input.setAttribute("hidden", "");
-          const label = document.createElement("label");
-          label.setAttribute("for", brand.name.toLowerCase());
-          label.innerHTML = `
-            <img
-              src=${brand.src}
-              alt=""
-            />
-          `;
-          div.appendChild(input);
-          div.appendChild(label);
-          brandsContainer.appendChild(div);
-          
-        });
       } else {
         filterContentBlock.style.display = "none";
       }
@@ -244,4 +220,31 @@ function updateThumbPosition_touchscreen(event, thumbType) {
       maxPrice.value = formatVietNamMoney(currentMax);
     }
   }
+}
+
+export function generateBrands(){
+  const brandsContainer = document.querySelector(".body__products .left-search-filter__brands");
+  brandsContainer.innerHTML = "";
+  brands.forEach((brand) => {
+    const div = document.createElement("div");
+    div.classList.add("left-search-filter__brand");
+    const input = document.createElement("input");
+    input.setAttribute("name", "brand");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("id", brand.name.toLowerCase())
+    input.setAttribute("value", brand.name.toLowerCase())
+    input.setAttribute("hidden", "");
+    const label = document.createElement("label");
+    label.setAttribute("for", brand.name.toLowerCase());
+    label.innerHTML = `
+      <img
+        src=${brand.src}
+        alt=""
+      />
+    `;
+    div.appendChild(input);
+    div.appendChild(label);
+    brandsContainer.appendChild(div);
+    
+  });
 }

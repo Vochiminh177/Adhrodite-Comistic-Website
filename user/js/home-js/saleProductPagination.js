@@ -20,18 +20,18 @@ window.addEventListener('load', () => {
   }
 });
 // Hàm tạo sự kiện phân trang cho Khuyến mãi
-export function updateSaleProductPagination() {
+export function updateSaleProductPagination() {}
 
-}
 function doUpdateSaleProductPagination(quantityAllowToDisplay){
-  let productList = JSON.parse(localStorage.getItem("productList")) || [];
-  let saleProductList = productList.filter((product) => product.discountQuantity > 0);
   const saleProductHeader = document.querySelector(".sale-product__header");
-  if (saleProductHeader) saleProductHeader.innerHTML = "";
+  const saleProductList = document.querySelector(".sale-product__list");
 
-  const saleProductLength = saleProductList.length;
+  if(!saleProductHeader || !saleProductList) return;
+  let productList = JSON.parse(localStorage.getItem("productList")) || [];
+  let saleProducts = productList.filter((product) => product.discountQuantity > 0);
+
+  const saleProductLength = saleProducts.length;
   if (saleProductLength > quantityAllowToDisplay) {
-    const saleProductList = document.querySelector(".sale-product__list");
     // Tạo các phần tử trong header của sale-product
     let arrowLeftButton = document.createElement("button");
     arrowLeftButton.id = "sale-product-to-left";
@@ -44,6 +44,7 @@ function doUpdateSaleProductPagination(quantityAllowToDisplay){
     arrowRightButton.id = "sale-product-to-right";
     arrowRightButton.className = "sale-product__to-right button-word";
     arrowRightButton.innerHTML = `<i class="fa-solid fa-arrow-right"></i>`;
+    saleProductHeader.innerHTML = "";
     saleProductHeader.appendChild(arrowLeftButton);
     saleProductHeader.appendChild(titleH2);
     saleProductHeader.appendChild(arrowRightButton);
