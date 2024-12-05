@@ -2,23 +2,10 @@
   display: flex;
   /* align-items: flex-start; */
 }
-.content-order-table th:nth-child(1),
-.content-order-table th:nth-child(2) {
-  width: 6%;
-}
-.content-order-table th:nth-child(6) {
-  width: 10%;
-}
-
-.content-order-table th {
-  width: calc(100% / 7);
-}
-
 .content-order-table th:last-child {
-  width: 4%;
+  width: 7%;
 }
-
-.content-order-table-body .status-label {
+.content-order-table-body > .status-label {
   margin: 0 auto;
 }
 .bx-list-ul {
@@ -51,7 +38,7 @@
   position: absolute;
   top: 9px;
   right: 9px;
-  font-size: 25px;
+  font-size: 2rem;
   cursor: pointer;
 }
 
@@ -84,6 +71,7 @@
   gap: 11px;
 }
 .status-label {
+  text-align: center;
   padding: 7px 7px;
   border-radius: 5px;
 }
@@ -104,6 +92,10 @@
   background-color: #9370db;
   color: white;
 }
+.order-customer-info-and-cost-wrapper{
+  display: flex;
+  justify-content: space-between;
+}
 .order-header,
 .customer-info,
 .product-info,
@@ -114,6 +106,7 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  margin-top: 16px;
 }
 .action-bar .order-print-btn {
   margin-right: auto;
@@ -174,8 +167,8 @@ button {
 .order-filter-group input,
 .order-filter-group select {
   width: 100%;
-  padding: 10px;
-  font-size: 14px;
+  padding: 3px;
+  font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   transition: border-color 0.3s ease;
@@ -197,7 +190,7 @@ button {
 
 .order-btn {
   padding: 10px 15px;
-  font-size: 14px;
+  font-size: 0.9rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -333,6 +326,18 @@ button {
   }
 }
 @media screen and (min-width: 1000px) and (max-width: 1300px) {
+  .content-order-table th{
+    font-size: 1rem;
+  }
+  .content.order .status-label{
+    width: 86px;
+    height: 45px;
+    line-height: 31px;
+  }
+  .content.order .status-label.pending{
+    height: 45px;
+    line-height: unset;
+  }
   .content.order .table-container,
   .order-filter-container {
     width: 100%;
