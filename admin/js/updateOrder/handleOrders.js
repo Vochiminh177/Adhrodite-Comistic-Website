@@ -145,24 +145,9 @@ function createOrderDetails(order) {
     <p>Địa chỉ giao hàng:&nbsp${order.orderAddressToShip}</p>
   `;
 
-  // Thông tin sản phẩm đã mua
-  const productInfoBody = document.getElementById("order-product-info-body");
-  productInfoBody.innerHTML = "";
-  order.orderProduct.forEach((product) => {
-    productInfoBody.innerHTML += `
-    <tr>
-      <td>${product.id}</td>
-      <td>${product.quantity}</td>
-      <td>${formatVietNamMoney(product.price)}</td>
-      <td>${formatVietNamMoney(product.price * product.quantity)}</td>
-    </tr>
-    `;
-  });
-
   // Thông tin giá tiền
   const orderCost = document.getElementById("order-cost");
   if(orderCost){
-    console.log(orderCost);
     orderCost.innerHTML = `
       <h3>Tóm Tắt Đơn Hàng</h3>
       <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
@@ -170,6 +155,45 @@ function createOrderDetails(order) {
       <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
     `;
   }
+
+  // Thông tin sản phẩm đã mua
+  const productInfoBody = document.getElementById("order-product-info-body");
+  productInfoBody.innerHTML = "";
+  order.orderProduct.forEach((product) => {
+    if(product.discountQuantity > 0){
+      const currentDiscountQuantity = Math.min(product.discountQuantity, product.quantity);
+      const currentDiscountPercent = ((100 - product.discountPercent) / 100);
+      productInfoBody.innerHTML += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${currentDiscountQuantity}</td>
+        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}</td>
+        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}</td>
+      </tr>
+      `;
+
+      if(product.quantity > currentDiscountQuantity){
+        productInfoBody.innerHTML += `
+        <tr>
+          <td>${product.id}</td>
+          <td>${product.quantity - currentDiscountQuantity}</td>
+          <td>${formatVietNamMoney(product.price)}</td>
+          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}</td>
+        </tr>
+        `;
+      }
+    } else{
+      productInfoBody.innerHTML += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${product.quantity}</td>
+        <td>${formatVietNamMoney(product.price)}</td>
+        <td>${formatVietNamMoney(product.price * product.quantity)}</td>
+      </tr>
+      `;
+    }
+
+  });
   
   // Các nút xác nhận, huỷ, xác nhận đã giao
   const actionBar = document.getElementById("action-bar");

@@ -77,28 +77,28 @@ function doUpdatePopularProductPagination(quantityAllowToDisplay){
           timesNumberAllowToClickFromLeft <= timesNumberAllowToClick
           ) {
             popularProductList.style = `transform: translateX(-${
-            (timesNumberAllowToClickFromLeft - 1) * (width / columns - gap + gap / columns + gap)
+            (timesNumberAllowToClickFromLeft - 1) * (width / columns + gap / columns)
           }px)`;
           timesNumberAllowToClickFromLeft--;
           timesNumberAllowToClickFromRight++;
         }
       }
 
-    document
-      .getElementById("popular-product-to-right")
-      .onclick = function () {
-        if (
-          timesNumberAllowToClickFromRight > 0 &&
-          timesNumberAllowToClickFromRight <= timesNumberAllowToClick
-        ) {
-          popularProductList.style = `transform: translateX(-${
-            (timesNumberAllowToClickFromLeft + 1) * (width / columns - gap + gap / columns + gap)
-          }px)`;
-          timesNumberAllowToClickFromLeft++;
-          timesNumberAllowToClickFromRight--;
+      document
+        .getElementById("popular-product-to-right")
+        .onclick = function () {
+          if (
+            timesNumberAllowToClickFromRight > 0 &&
+            timesNumberAllowToClickFromRight <= timesNumberAllowToClick
+          ) {
+            popularProductList.style = `transform: translateX(-${
+              (timesNumberAllowToClickFromLeft + 1) * (width / columns + gap / columns)
+            }px)`;
+            timesNumberAllowToClickFromLeft++;
+            timesNumberAllowToClickFromRight--;
+          }
         }
       }
-    }
     const rect = document.querySelector(".popular-product__list").getBoundingClientRect();
     if(quantityAllowToDisplay === 4){
       applyScrollWidth(rect.width, 4, 24);
