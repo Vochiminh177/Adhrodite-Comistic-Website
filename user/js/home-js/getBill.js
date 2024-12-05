@@ -44,11 +44,11 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   let email = document.querySelector(".payment-information-info__email");
   let phone = document.querySelector(".payment-information-info__phone");
   let address = document.querySelector(".payment-information-info__address");
-  function checkNumber(value){
+  function checkNumberPhone(value){
     if(!isNaN(value)){
-        return value == Math.round(value);
+        return value == Math.round(value) && value.length == 10;
     }
-}
+  } 
 
   if (
     firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || address.value === ""
@@ -60,7 +60,7 @@ function handle_order_information(userList, indexCurrentUserLogin) {
     errorInput(address);
     return false;
   }
-  if(!checkNumber(phone.value)){
+  if(!checkNumberPhone(phone.value)){
     errorInput(phone, "Sai định dạng");
     return false;
   }
@@ -79,6 +79,7 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   if (document.querySelector("#credit-card").checked) {
     if (document.querySelector("#card-id").value === "") {
       create_notification_user("Bạn cần nhập số thẻ");
+      errorInput(document.querySelector("#card-id"));
       return false;
     }
   }

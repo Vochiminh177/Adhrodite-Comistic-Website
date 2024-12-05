@@ -332,7 +332,7 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
         </div>
       </div>
       <div class="payment-information-info__card-form-group">
-        <input type="text" name="card-id" id="card-id" placeholder="Nhập số thẻ">
+        <input type="text" name="card-id" id="card-id" placeholder="Mã thẻ">
       </div>
     `,
   };
