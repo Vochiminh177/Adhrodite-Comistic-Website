@@ -3,9 +3,9 @@ import { brands } from "../../../database/database.js"
 // Bước nhảy
 const step = 50000;
 // Chênh lệch nhỏ nhất
-const gap = 100000;
+const gap = 50000;
 let minLimit = 100000;
-let maxLimit = 800000;
+let maxLimit = 900000;
 // Giá trị để sử dụng
 let currentMin = minLimit;
 let currentMax = maxLimit;

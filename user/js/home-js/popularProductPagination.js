@@ -1,8 +1,7 @@
 import { popularProductArray } from "../common-js/database.js";
 
-export function updatePopularProductPagination() {
-  
-}
+export function updatePopularProductPagination() {}
+
 window.addEventListener('resize', () => {
   if(window.innerWidth > 1000){
     doUpdatePopularProductPagination(4);
@@ -33,15 +32,16 @@ window.addEventListener('load', () => {
 function doUpdatePopularProductPagination(quantityAllowToDisplay){
   const popularProductLength = popularProductArray.length;
   if (popularProductLength > quantityAllowToDisplay) {
-    
-    let h2 = document.createElement("h2");
-    h2.classList.add("popular-product__title");
-    h2.classList.add("heading-lv2");
-    h2.textContent = "Các sản phẩm nổi bật";
     const popularProductHeader = document.querySelector(
       ".popular-product__header"
     );
     const popularProductList = document.querySelector(".popular-product__list");
+    if(!popularProductHeader || !popularProductList) return;
+
+    let h2 = document.createElement("h2");
+    h2.classList.add("popular-product__title");
+    h2.classList.add("heading-lv2");
+    h2.textContent = "Các sản phẩm nổi bật";
 
     // Tạo các icon để có thể chuyển trang khi có 5 sản phẩm nổi bật
     let arrowLeftButton = document.createElement("button");
