@@ -1,8 +1,8 @@
-import { productItemArray } from "../../../database/database.js";
+
 import { formatVietNamMoney } from "../common-js/common.js";
-import { salePopularProductArray as productList } from "../common-js/database.js";
 import { clickToProductItem } from "./homePageEvents.js";
 import { updateSaleProductPagination } from "./saleProductPagination.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 
 export function renderSaleProductList() {
   const productContainer = document.querySelector(".sale-product__list");
@@ -69,26 +69,18 @@ export function renderSaleProductList() {
   document
     .querySelectorAll(".sale-product__add-to-shopping-cart")
     .forEach((button) => {
-      button.addEventListener("click", function (e) {
+      button.onclick = (e) => {
         e.stopPropagation();
 
         let userList = JSON.parse(localStorage.getItem("userList"));
-        let userStatusLoginIndex;
-
-        // Tìm người dùng đang đăng nhập
-        userList.forEach((user, index) => {
-          if (user.status_login) {
-            userStatusLoginIndex = index;
-          }
-        });
-
-        // Nếu không có người dùng đăng nhập
-        if (userStatusLoginIndex === undefined) {
-          alert("Bạn cần đăng nhập để đặt hàng.");
-          return; // Dừng lại nếu chưa đăng nhập
+        let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+  
+        if(indexCurrentUserLogin === -1){
+          create_notification_user("Bạn chưa đăng nhập");
+          return;
         }
 
-        const shoppingCart = userList[userStatusLoginIndex].shoppingCart;
+        const shoppingCart = userList[indexCurrentUserLogin].shoppingCart;
         const id = e.currentTarget.getAttribute("data-id");
         let isExistingProductItem = false;
         let indexProductItem = -1;
@@ -124,8 +116,8 @@ export function renderSaleProductList() {
 
         // Cập nhật `localStorage` với `userList` đã sửa đổi
         localStorage.setItem("userList", JSON.stringify(userList));
-        alert("Sản phẩm đã được thêm vào giỏ hàng.");
-      });
+        create_notification_user("Thêm thành công");
+      };
     });
 }
 
