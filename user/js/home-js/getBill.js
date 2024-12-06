@@ -8,6 +8,8 @@ import {
   calTotalProductItemPrice,
 } from "../common-js/common.js";
 import { updateMainContent } from "./changeMainContent.js";
+import { errorInput } from "../userUpdate/handleUserUpdate.js";
+import { checkEmail } from "../menuUser/handleOptionMenu.js";
 
 // hàm kiểm tra sản phẩm nào không đặt được, tô đỏ sản phẩm đó
 function error_orderProduct(id_product) {
@@ -15,10 +17,10 @@ function error_orderProduct(id_product) {
     ".payment-information-products__item"
   );
   array_products__item.forEach((obj) => {
-    let array_details = obj.querySelector(
-      ".payment-information-products__details"
-    ).textContent;
-    let array_string = array_details.split("/");
+    let array_details = obj
+      .querySelector(".payment-information-products__details")
+      .textContent.trim();
+    let array_string = array_details.split(" ");
     let id = array_string[0].trim();
 
     if (id === id_product) {
@@ -37,35 +39,51 @@ function error_orderProduct(id_product) {
 
 //hàm kiểm tra thông tin thanh toán
 function handle_order_information(userList, indexCurrentUserLogin) {
+  let firstName = document.querySelector(".payment-information-info__firstName");
+  let lastName = document.querySelector(".payment-information-info__lastName");
+  let email = document.querySelector(".payment-information-info__email");
+  let phone = document.querySelector(".payment-information-info__phone");
+  let address = document.querySelector(".payment-information-info__address");
+  function checkNumberPhone(value){
+    if(!isNaN(value)){
+        return value == Math.round(value) && value.length == 10;
+    }
+  } 
+
   if (
-    !userList[indexCurrentUserLogin].first_name ||
-    !userList[indexCurrentUserLogin].last_name
+    firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || address.value === ""
   ) {
-    create_notification_user("Bạn cần bổ sung tên!");
+    errorInput(firstName);
+    errorInput(lastName);
+    errorInput(email);
+    errorInput(phone);
+    errorInput(address);
     return false;
   }
-  if (!userList[indexCurrentUserLogin].phone) {
-    create_notification_user("Bạn cần bổ sung số điện thoại");
+  if(!checkNumberPhone(phone.value)){
+    errorInput(phone, "Sai định dạng");
     return false;
   }
-  if (!userList[indexCurrentUserLogin].address) {
-    create_notification_user("Bạn cần bổ sung địa chỉ");
+  if(!checkEmail(email)){
+    errorInput(email, "Sai định dạng");
     return false;
   }
-  if (
-    document.querySelector(".payment-information-info__address").placeholder ===
-    ""
-  ) {
-    create_notification_user("Bạn cần bổ sung địa chỉ giao hàng");
+  
+  let index = address.value.indexOf(",");
+  let street = address.value.slice(0, index);
+  if(street.length === 0){
+    errorInput(address, "Cần nhập địa chỉ");
     return false;
   }
 
   if (document.querySelector("#credit-card").checked) {
     if (document.querySelector("#card-id").value === "") {
       create_notification_user("Bạn cần nhập số thẻ");
+      errorInput(document.querySelector("#card-id"));
       return false;
     }
   }
+
 
   return true;
 }
@@ -174,9 +192,9 @@ function handle_order_product(
   //address để ship
   let address = document.querySelector(
     ".payment-information-info__address"
-  ).placeholder;
+  ).value;
 
-  const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+  const orderList = JSON.parse(localStorage.getItem("orderList"));
   const id_order = orderList.length + 1;
 
   let totalPrice = document.querySelector("#temp-price").textContent;
@@ -226,14 +244,114 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
   function createBillItems() {
     let items = "";
     for (let i = 0; i < array_orderProduct.length; i++) {
-      items += `
-        <tr>
-          <td>${array_orderProduct[i].id}</td>
-          <td align="left">${array_orderProduct[i].name}</td>
-          <td>${array_orderProduct[i].quantity}</td>
-          <td>${formatVietNamMoney(array_orderProduct[i].price)}đ</td>
-        </tr>
-      `;
+      let stringPrice = array_orderProduct[i].price;
+      stringPrice = stringPrice.split(" ");
+      // Lấy gía tiền
+      stringPrice[0] = stringPrice[0].replaceAll("đ", "");
+      stringPrice[0] = stringPrice[0].replaceAll(".", "");
+      // Lấy % giảm giá
+      if (stringPrice.length === 2) {
+        stringPrice[1] = stringPrice[1].replaceAll("%", "");
+        stringPrice[1] = stringPrice[1].replaceAll(")", "");
+      }
+      if(stringPrice.length > 2){
+        stringPrice[3] = stringPrice[3].replaceAll("%", "");
+        stringPrice[3] = stringPrice[3].replaceAll(")", "");
+      }
+      // if(array_orderProduct[i].discountQuantity < array_orderProduct[i].quantity && array_orderProduct[i].discountQuantity !== 0){
+      //   console.log(123);
+      //   //nếu không có giảm giá từ ban đầu
+      //   if(array_orderProduct[i].discountQuantity === 0){
+      //     items += `
+      //     <tr>
+      //       <td>${array_orderProduct[i].id}</td>
+      //       <td align="left">${array_orderProduct[i].name}</td>
+      //       <td>${array_orderProduct[i].quantity}</td>
+      //       <td>${stringPrice[0]}đ</td>
+      //     </tr>
+      //   `;
+      //   }
+      //   else{
+      //     for(let j=0; j<array_orderProduct[i].discountQuantity; j++){
+      //       console.log(parseInt(stringPrice[0]))
+      //       items += `
+      //       <tr>
+      //         <td>${array_orderProduct[i].id}</td>
+      //         <td align="left">${array_orderProduct[i].name}</td>
+      //         <td>${array_orderProduct[i].quantity}</td>
+      //         <td>${parseInt(stringPrice[0])*(100-array_orderProduct[i].discountPercent)/100} (${array_orderProduct[i].discountPercent}%)</td>
+      //       </tr>
+      //       `;
+      //     }
+      //     for(let k=j; k<array_orderProduct[i].quantity - array_orderProduct[i].discountQuantity; k++){
+      //       items += `
+      //       <tr>
+      //         <td>${array_orderProduct[i].id}</td>
+      //         <td align="left">${array_orderProduct[i].name}</td>
+      //         <td>${array_orderProduct[i].quantity}</td>
+      //         <td>${stringPrice[0]}đ</td>
+      //       </tr>
+      //       `;
+      //     }
+      //   }
+      // }
+      // else{
+      //   if(array_orderProduct[i].discountPercent !== 0){
+      //     items += `
+      //       <tr>
+      //         <td>${array_orderProduct[i].id}</td>
+      //         <td align="left">${array_orderProduct[i].name}</td>
+      //         <td>${array_orderProduct[i].quantity}</td>
+      //         <td>${formatVietNamMoney(stringPrice[0])}đ ${stringPrice[1]}</td>
+      //       </tr>
+      //     `;
+      //   }
+      //   else{
+      //     items += `
+      //     <tr>
+      //       <td>${array_orderProduct[i].id}</td>
+      //       <td align="left">${array_orderProduct[i].name}</td>
+      //       <td>${array_orderProduct[i].quantity}</td>
+      //       <td>${formatVietNamMoney(stringPrice[0])}đ</td>
+      //     </tr>
+      //   `;
+      //   }
+      // }
+      if (
+        array_orderProduct[i].discountQuantity <
+          array_orderProduct[i].quantity &&
+        array_orderProduct[i].discountQuantity !== 0
+      ) {
+        items += `
+          <tr>
+            <td>${array_orderProduct[i].id}</td>
+            <td align="left">${array_orderProduct[i].name}</td>
+            <td>${array_orderProduct[i].discountQuantity}</td>
+            <td>${formatVietNamMoney(
+              parseInt(stringPrice[0]) -
+                (parseInt(stringPrice[0]) * parseInt(stringPrice[3])) / 100
+            )}đ</td>
+          </tr>
+          <tr>
+            <td>${array_orderProduct[i].id}</td>
+            <td align="left">${array_orderProduct[i].name}</td>
+            <td>${
+              array_orderProduct[i].quantity -
+              array_orderProduct[i].discountQuantity
+            }</td>
+            <td>${formatVietNamMoney(parseInt(stringPrice[0]))}đ</td>
+          </tr>
+        `;
+      } else {
+        items += `
+           <tr>
+            <td>${array_orderProduct[i].id}</td>
+            <td align="left">${array_orderProduct[i].name}</td>
+            <td>${array_orderProduct[i].quantity}</td>
+            <td>${formatVietNamMoney(parseInt(stringPrice[0]))}đ</td>
+          </tr>
+        `;
+      }
     }
     return items;
   }
@@ -383,6 +501,20 @@ export function getBillInfo(array_orderProduct) {
         // Cập nhật thông tin hoá đơn khi người dùng hoàn tất việc mua hàng
         // updateBill();
         if (result) {
+          let firstName = document.querySelector(".payment-information-info__firstName");
+          let lastName = document.querySelector(".payment-information-info__lastName");
+          let email = document.querySelector(".payment-information-info__email");
+          let phone = document.querySelector(".payment-information-info__phone");
+          let address = document.querySelector(".payment-information-info__address");
+
+          userList[indexCurrentUserLogin].first_name = firstName.value;
+          userList[indexCurrentUserLogin].last_name = lastName.value;
+          userList[indexCurrentUserLogin].phone = phone.value;
+          userList[indexCurrentUserLogin].address = address.value;
+          userList[indexCurrentUserLogin].email = email.value;
+
+          localStorage.setItem("userList", JSON.stringify(userList));
+
           updateBill(userList, indexCurrentUserLogin, array_orderProduct);
         }
       }

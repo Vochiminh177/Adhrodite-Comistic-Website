@@ -23,6 +23,10 @@ function changeProductItemQuantity(productList, productItemKey) {
       // Lấy ra nội dung mà nút hiển thị
       const countButtonKey = event.currentTarget.textContent;
       if (countButtonKey == "+") {
+        if(productItemQuantity > productList[productItemKey].quantity){
+          create_notification_user("Hàng tồn không đủ");
+          return;
+        }
         productItemQuantity++;
       } else {
         if (productItemQuantity >= 2) {
@@ -61,6 +65,34 @@ function changeProductItemQuantity(productList, productItemKey) {
     .querySelector(".main-order__number")
     .addEventListener("input", function () {
       productItemQuantity = number.value;
+
+      //css phần giảm giá
+      if (productItemQuantity > productList[productItemKey].discountQuantity) {
+        const originPrice = document.querySelector(".originPrice");
+        originPrice.style.color = "black";
+        originPrice.style.fontSize = "2.2rem";
+        originPrice.style.textDecoration = "none";
+
+        const discountPrice = document.querySelector(".discountPrice");
+        discountPrice.style.color = "#ccc";
+        discountPrice.style.fontSize = "1.8rem";
+        discountPrice.style.textDecoration = "line-through";
+      } else {
+        const discountPrice = document.querySelector(".discountPrice");
+        discountPrice.style.color = "black";
+        discountPrice.style.fontSize = "2.2rem";
+        discountPrice.style.textDecoration = "none";
+
+        const originPrice = document.querySelector(".originPrice");
+        originPrice.style.color = "#ccc";
+        originPrice.style.fontSize = "1.8rem";
+        originPrice.style.textDecoration = "line-through";
+      }
+
+      if(productItemQuantity > productList[productItemKey].quantity){
+        create_notification_user("Hàng tồn không đủ");
+        return;
+      }
     });
 }
 
@@ -79,6 +111,11 @@ function addProductItemToShoppingCart(productItemKey) {
       } else {
         // lấy danh sách sản phẩm trên local
         let productList = JSON.parse(localStorage.getItem("productList"));
+        let valueOfinputQuantity = parseInt(document.querySelector(".remove-arrow").value);
+        if(valueOfinputQuantity > productList[productItemKey].quantity){
+          create_notification_user("Hàng tồn không đủ");
+          return;
+        }
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
         let isExistingProductItem = false;
         let indexProductItem = -1;
@@ -201,6 +238,7 @@ export function updateProductItem(productItemKey) {
                     <button class="main-order__count increment">+</button>
                     <button class="main-order__count decrement">-</button>
                   </div>
+                  <p class="quantity-details" style="font-size: 2.2rem; margin-left: 5%;">SL: ${productList[productItemKey].quantity}</p>
                 </div>
               </div>
               <button

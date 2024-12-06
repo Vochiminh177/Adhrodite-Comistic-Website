@@ -2,6 +2,7 @@ import { pagination, showListOrder } from "../showList/show.js";
 export function generateOrderFilter(){
     const orderFilterContainer = document.getElementById('order-filter-container');
     orderFilterContainer.innerHTML = `
+        <h2>Bộ lọc</h2>
         <form id="order-filter-form" name="order-filter-form">
         <div class="order-filter-group">
             <label for="start-date">Ngày đầu</label>
@@ -48,7 +49,7 @@ export function generateOrderFilter(){
         const orderStatus = orderFilterForm["order-status"].value;
         const orderSort = orderFilterForm["order-district-sort"].value;
         const orderList = JSON.parse(localStorage.getItem("orderList"));
-
+        
         const filteredOrders = orderList.filter((order) => {
             if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
             if(!startDate && !endDate){
@@ -96,27 +97,15 @@ function compareDate(orderDate, startDate, endDate){
     if(startDate === "tat-ca" && endDate === "tat-ca"){
         return true;
     }
-
+    // orderDate hh:mm:ss dd/mm/yyyy
+    // startDate, endDate yyyy-mm-dd
     let tmp = orderDate.split(" ")[1].split("/");
-    orderDate = "";
-    orderDate += tmp[2] + "-";
-    if(tmp[1].length === 1){
-        orderDate += ("0" + tmp[1] + "-");
-    } else{
-        orderDate += (tmp[1] + "-");
-    }
-
-    if(tmp[0].length === 1){
-        orderDate += ("0" + tmp[0]);
-    } else{
-        orderDate += tmp[0];
-    }
-
+    tmp[2] = tmp[2].padStart(4, "0");
+    tmp[1] = tmp[1].padStart(2, "0");
+    tmp[0] = tmp[0].padStart(2, "0");
+    orderDate = tmp.reverse().join("-");
     if(startDate !== "tat-ca" && endDate !== "tat-ca"){
-        const d1 = new Date(startDate);
-        const d2 = new Date(orderDate);
-        const d3 = new Date(endDate);
-        if(d1.getTime() <= d2.getTime() && d2.getTime() <= d3.getTime()){
+        if(startDate <= orderDate && orderDate <= endDate){
             return true;
         }
 
@@ -124,9 +113,7 @@ function compareDate(orderDate, startDate, endDate){
     }
 
     if(startDate === "tat-ca"){
-        const d2 = new Date(orderDate);
-        const d3 = new Date(endDate);
-        if(d2.getTime() <= d3.getTime()){
+        if(orderDate <= endDate){
             return true;
         }
 
@@ -134,11 +121,7 @@ function compareDate(orderDate, startDate, endDate){
     }
 
     if(endDate === "tat-ca"){
-        const d1 = new Date(startDate);
-        const d2 = new Date(orderDate);
-        console.log(startDate + " " + orderDate);
-        console.log(d1.getTime() + " " + d2.getTime());
-        if(d1.getTime() <= d2.getTime()){
+        if(startDate <= orderDate){
             return true;
         }
 

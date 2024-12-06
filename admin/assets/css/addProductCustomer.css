@@ -1,159 +1,176 @@
 /*them san pham*/
 :root {
-    --main-border-radius: 5px;
-    --pink1: #a94064;
-    --poppins: "Poppins", sans-serif;
+  --main-border-radius: 5px;
+  --pink1: #a94064;
+  --poppins: "Poppins", sans-serif;
 }
-.content-product-add, .content-customer-add {
-    display: grid;
-    grid-template-columns: 55% 45%;
-    padding: 12px;
-    column-gap: 20px;
+.content-product-add,
+.content-customer-add {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  padding: 12px;
+  column-gap: 20px;
 }
-#left-input input, select {
-    height: 40px;
-    border: solid 1px var(--pink1);
-    background-color: whitesmoke;
-    margin-bottom: 20px;
-    outline: none;
-    border-radius: var(--main-border-radius);
-    padding-left: 6px;
-    font-family: var(--main-border-radius);
+#left-input input,
+select {
+  height: 40px;
+  border: solid 1px #000;
+  background-color: whitesmoke;
+  margin-bottom: 20px;
+  outline: none;
+  border-radius: var(--main-border-radius);
+  padding-left: 6px;
+  font-family: var(--main-border-radius);
 }
-.content-two-input{
-    display: flex;
-    justify-content: space-between;
+.content-two-input {
+  display: flex;
+  align-items: center;
+  gap: 48px;
 }
-.content-two-input input, select {
-    width: 45%;
-} 
-.content-one-input input {
-    width: 100%;
+.content-two-input-group {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.content-two-input-group :is(input, select) {
+  width: 100%;
+  margin-top: 8px;
+}
+.content-one-input-group :is(textarea, button) {
+  width: 100%;
+  margin-top: 8px;
 }
 #left-input textarea {
-    height: 100px;
-    width: 100%;
-    outline: none;
-    padding: 6px;
-    border: solid 1px var(--pink1);
-    border-radius: var(--main-border-radius);
-    font-family: var(--main-border-radius);
-    margin-bottom: 20px;
-    background-color: whitesmoke;
+  height: 100px;
+  width: 100%;
+  outline: none;
+  padding: 6px;
+  border: solid 1px #000;
+  border-radius: var(--main-border-radius);
+  font-family: var(--main-border-radius);
+  margin-bottom: 20px;
+  background-color: whitesmoke;
 }
 .btn {
-    padding: 10px 12px;
-    background-color: rgb(28, 9, 17);
-    color: whitesmoke;
-    border: none;
-    border-radius: var(--main-border-radius);
-    font-family: var(--poppins);
-    cursor: pointer;
+  padding: 10px 12px;
+  background-color: rgb(28, 9, 17);
+  color: whitesmoke;
+  border: none;
+  border-radius: var(--main-border-radius);
+  font-family: var(--poppins);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.content-product-row .btn:hover {
+  background-color: #a94064;
 }
 
 /* #right-input {
 } */
 #right-input input {
-    display: none;
+  display: none;
 }
 #right-input label {
-    padding: 10px 12px;
-    height: 40px;
-    margin-bottom: 20px;
-    background-color: black;
-    color: whitesmoke;
-    cursor: pointer;
-    border-radius: var(--main-border-radius);
-    font-family: var(--poppins);
-    display: inline-block;
+  padding: 10px 12px;
+  height: 40px;
+  margin-bottom: 20px;
+  background-color: black;
+  color: whitesmoke;
+  cursor: pointer;
+  border-radius: var(--main-border-radius);
+  font-family: var(--poppins);
+  display: inline-block;
 }
 
 .image-show {
-    min-height: 100px;
+  border: 1px solid #000;
+  height: 570px;
 }
-
 
 /* css chỉnh phẩn quay lại trong thêm sản phẩm */
-#main-content-product-add .title, .main-content-product-add .title{
-    justify-content: unset;
+#main-content-product-add .title,
+.main-content-product-add .title {
+  justify-content: unset;
 }
-#main-content-product-add .title a, .main-content-product-add .title a{
-    margin-left: 20px;
-    color: #ccc;    
-    font-size: 1.5rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: color 0.2s ease;
+#main-content-product-add .title a,
+.main-content-product-add .title a {
+  margin-left: 20px;
+  color: #ccc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
-#main-content-product-add .title a:hover, .main-content-product-add .title a:hover{
-    color: #000;
+#main-content-product-add .title a:hover,
+.main-content-product-add .title a:hover {
+  color: #000;
 }
 /* ------------------------------------------ */
 
 /*------ css phần thông báo lỗi input --*/
-.err-text::placeholder{
-    color: red;
+.err-text::placeholder {
+  color: red;
 }
 /*------ ----- --*/
 
-
-.container-form-user-add-edit{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(0, 0, 0, 0.5);
+.container-form-user-add-edit {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, 0.5);
 }
-.form-user-add-edit-delete{
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    position: absolute;
+.form-user-add-edit-delete {
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  position: absolute;
 }
-.form-user-add-edit{
-    z-index: 10000;
-    background-color: #fff;
-    padding: 20px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
+.form-user-add-edit {
+  z-index: 10000;
+  background-color: #fff;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
 }
-.form-user-add-edit a{
-    position: absolute;
-    right: 0.5%;
-    top: -0.5%;
-    font-size: 1.5rem;
-    cursor: pointer;
+.form-user-add-edit a {
+  position: absolute;
+  right: 0.5%;
+  top: -0.5%;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
-.form-user-add-edit input{
-    padding: 10px;
-    width: 45%;
-    height: 40px;
-    border: solid 1px var(--pink1);
-    background-color: whitesmoke;
-    margin-bottom: 20px;
-    outline: none;
-    border-radius: var(--main-border-radius);
-    padding-left: 6px;
-    font-family: var(--main-border-radius);
-    /* font-size: 1rem; */
-    font-family: var(--poppins);
+.form-user-add-edit input {
+  padding: 10px;
+  width: 45%;
+  height: 40px;
+  border: solid 1px #000;
+  background-color: whitesmoke;
+  margin-bottom: 20px;
+  outline: none;
+  border-radius: var(--main-border-radius);
+  padding-left: 6px;
+  font-family: var(--main-border-radius);
+  /* font-size: 1rem; */
+  font-family: var(--poppins);
 }
-.form-user-add-edit select{
-    /* font-size: 1rem; */
-    font-family: var(--poppins);
+.form-user-add-edit select {
+  /* font-size: 1rem; */
+  font-family: var(--poppins);
 }
-.form-user-add-edit .content-one-input input{
-    width: 100%;
+.form-user-add-edit .content-one-input input {
+  width: 100%;
 }
-.form-user-add-edit .content-two-input, .content-one-input{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.form-user-add-edit .content-two-input,
+.content-one-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

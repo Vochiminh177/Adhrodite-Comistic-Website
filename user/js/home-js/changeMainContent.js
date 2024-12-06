@@ -1,27 +1,31 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
-import { renderPopularProductList } from "./popularProductRender.js.js";
+import { renderPopularProductList } from "./popularProductRender.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import {
   generateFilter,
   resetDoubleSlider,
+  generateBrands
 } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
-
+import { updateSaleProductPaginationWhenChangeToHome } from "./saleProductPagination.js"
+import { updatePopularProductPaginationWhenChangeToHome } from "./popularProductPagination.js"
 export const mainContentMap = {
   home: `
   <div class="body__home">
     <div class="home__hero">
       <div class="hero__rectangle">
-        <h1 class="hero__title heading-lv1">
-          Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
-        </h1>
-        <p class="hero__desc desc-lv1">
-          Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
-          lựa chọn được phong cách sống cho riêng mình.
-        </p>
+        <div class="hero__content">
+          <h1 class="hero__title heading-lv1">
+            Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
+          </h1>
+          <p class="hero__desc desc-lv1">
+            Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
+            lựa chọn được phong cách sống cho riêng mình.
+          </p>
+        </div>
       </div>
     </div>
     <div class="home__popular-menu">
@@ -169,6 +173,7 @@ export const mainContentMap = {
                     class="fa-solid fa-filter"
                     class="left-search-filter__icon"
                   ></i>
+                  <span class="filter-criteria-count" id="filter-criteria-count">0</span>
                 </a>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
@@ -176,156 +181,6 @@ export const mainContentMap = {
                     <div class="left-search-filter__form-group">
                       <h4 class="left-search-filter__sub-title">Hãng</h4>
                       <div class="left-search-filter__brands">
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="loreal"
-                            value="loreal"
-                            hidden
-                          />
-                          <label for="loreal">
-                            <img
-                              src="./assets/images/brand-logo-1.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="clinique"
-                            value="clinique"
-                            hidden
-                          />
-                          <label for="clinique">
-                            <img
-                              src="./assets/images/brand-logo-2.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="mac"
-                            value="mac"
-                            hidden
-                          />
-                          <label for="mac">
-                            <img
-                              src="./assets/images/brand-logo-3.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="maybelline"
-                            value="maybelline"
-                            hidden
-                          />
-                          <label for="maybelline">
-                            <img
-                              src="./assets/images/brand-logo-4.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="shu-uemura"
-                            value="shu-uemura"
-                            hidden
-                          />
-                          <label for="shu-uemura">
-                            <img
-                              src="./assets/images/brand-logo-5.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="sk-ii"
-                            value="sk-ii"
-                            hidden
-                          />
-                          <label for="sk-ii">
-                            <img
-                              src="./assets/images/brand-logo-6.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="olay"
-                            value="olay"
-                            hidden
-                          />
-                          <label for="olay">
-                            <img
-                              src="./assets/images/brand-logo-7.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="revlon"
-                            value="revlon"
-                            hidden
-                          />
-                          <label for="revlon">
-                            <img
-                              src="./assets/images/brand-logo-8.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="estee-lauder"
-                            value="estee-lauder"
-                            hidden
-                          />
-                          <label for="estee-lauder">
-                            <img
-                              src="./assets/images/brand-logo-9.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
-                        <div class="left-search-filter__brand">
-                          <input
-                            name="brand"
-                            type="checkbox"
-                            id="dove"
-                            value="dove"
-                            hidden
-                          />
-                          <label for="dove">
-                            <img
-                              src="./assets/images/brand-logo-10.jpg"
-                              alt=""
-                            />
-                          </label>
-                        </div>
                       </div>
                     </div>
                     <div class="left-search-filter__columns">
@@ -434,7 +289,9 @@ export const mainContentMap = {
                               />
                               <label for="price-3">Giá trên 400.000đ</label>
                             </div>
-                            <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">Hoặc chọn mức giá tuỳ ý</button>
+                            <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">
+                              <i class='bx bxs-down-arrow'></i><span>Hoặc chọn mức giá tuỳ ý</span>
+                            </button>
                             <div class="left-search-filter__item">
                               <div class="left-search-filter__double-slider" id="double-slider">
                                 <div class="grey-bar"></div>
@@ -574,12 +431,14 @@ export const mainContentMap = {
   <div class="contact">
     <div class="body__info">
       <div class="info__detail">
-        <h2 class="detail__title">Liên hệ với chúng tôi</h2>
-        <p class="detail__location">
-          <b>Địa chỉ: </b>273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh
-        </p>
-        <p class="detail__email"><b>Email: </b>nhom1SGU@gmail.com</p>
-        <p class="detail__phone"><b>Số điện thoại: </b>+ " "84+ 0123456789</p>
+        <div class="info__block">
+          <h2 class="detail__title">Liên hệ với chúng tôi</h2>
+          <p class="detail__location">
+            <b>Địa chỉ: </b>273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh
+          </p>
+          <p class="detail__email"><b>Email: </b>nhom1SGU@gmail.com</p>
+          <p class="detail__phone"><b>Số điện thoại: </b>84+ 0123456789</p>
+        </div>
       </div>
       <figure class="info__map">
        <img
@@ -644,12 +503,15 @@ export function updateMainContent(mainContentKey) {
       renderPopularMenuList();
       renderPopularProductList();
       renderSaleProductList();
+      updateSaleProductPaginationWhenChangeToHome();
+      updatePopularProductPaginationWhenChangeToHome();
     }
 
     // Nếu nội dung thay đổi là trang Sản phẩm
     if (mainContentKey === "products") {
       // Tạo sự kiện cho bộ lọc
       generateFilter();
+      generateBrands();
       resetDoubleSlider();
       // Tạo sự kiện cho các danh mục sản phẩm
       getProductListInfo();

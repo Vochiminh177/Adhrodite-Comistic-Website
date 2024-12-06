@@ -1,191 +1,200 @@
 /* css phần bộ lọc */
-#main-content-product-list .filter-product{
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+#main-content-product-list .filter-product {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.filter-product a{
-    cursor: pointer;
-    background-color: #a94064;
-    color: #fff;
-    font-size: 1rem;
-    transition: backgrounđ 0.2s ease;
-    padding: 10px;
+.filter-product a {
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  padding: 10px;
+  border-radius: 5px;
 }
-.filter-product a:hover{
-    background-color: #000;
+.filter-product a:hover {
+  background-color: #a94064;
 }
-.filter-product .content-filter{
-    display: flex;
-    align-items: center;
-    width: 0px;
-    background-color: #fff;
-    transition: width 0.5s ease;
-    overflow: hidden;
-    border-radius: 10px;
-    padding: 10px 0px;
-    justify-content: space-evenly;
+.filter-product .content-filter {
+  display: flex;
+  align-items: center;
+  width: 0px;
+  background-color: #fff;
+  transition: width 0.5s ease;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 10px 0px;
+  justify-content: space-evenly;
 }
-.filter-product .content-filter.active{
-    padding: 10px;
-    width: 90%;
+.filter-product .content-filter.active {
+  width: 90%;
 }
-.filter-product #select-product-filter-category, #select-product-filter-brand, #input-filter-quantity{
-    font-size: 0.8rem;
-    overflow: auto;
-    margin: 0px 5px;
-    padding: 10px;
+.filter-product #select-product-filter-category,
+#select-product-filter-brand,
+#input-filter-quantity {
+  font-size: 0.8rem;
+  overflow: auto;
+  margin: 0px;
+  padding: 10px;
+  width: 30%;
 }
-#input-filter-quantity{
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #a94064;
-    width: 30%;
+#input-filter-quantity {
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #a94064;
 }
 
 /* ------------------------------------ */
 
 /*------ css phần thông báo xác nhận muốn xóa sản phẩm --*/
- .container-delete-confirm{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); 
-    top: 0px;
-    z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container-delete-confirm {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0px;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-delete-confirm{
-    width: 524px;
-    background-color: #fff;
-    padding: 30px 10px;
-    border-radius: 10px;
-    /* opacity: 1; */
-    transition: opacity 0.2s ease-in-out;
-    position: relative;
+.form-delete-confirm {
+  width: 524px;
+  background-color: #fff;
+  padding: 30px 10px;
+  border-radius: 10px;
+  /* opacity: 1; */
+  transition: opacity 0.2s ease-in-out;
+  position: relative;
 }
-.exit-confirm-delete{
-    position: absolute;
-    top: 0%;
-    right: 0%;
-    font-size: 2rem;
-    color: #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 10px;
+.exit-confirm-delete {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  font-size: 2rem;
+  color: #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
 }
-.content-delete-confirm{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+.content-delete-confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
-.content-delete{
-    width: 100%;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.content-delete {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
-.content-delete label{
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #a94064;
+.content-delete label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #a94064;
 }
-.content-delete input{
-    padding: 10px;
-    font-size: 1.3rem;
-    border: none;
-    border-bottom: 2px solid #a94064;
-    outline: none;
-}
-
-.content-delete-confirm .btndelete{
-    font-size: 1rem;
-    padding: 10px 20px;
-    font-weight: 700;
-    background-color: #db7699;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+.content-delete input {
+  padding: 10px;
+  font-size: 1.3rem;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
 }
 
-.content-delete-confirm button:hover{
-    background-color: #000;
-    color: #fff;
-} 
+.content-delete-confirm .btndelete {
+  font-size: 1rem;
+  padding: 10px 20px;
+  font-weight: 700;
+  background-color: #db7699;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.content-delete-confirm button:hover {
+  background-color: #000;
+  color: #fff;
+}
 
 /*------ ----- --*/
 
-
 /* css phần tủy chỉnh sửa hoặc xóa sản phẩm */
-.edit-product{
-    background-color: greenyellow;
-    padding: 5px;
-    font-weight: 400;
+.edit-product {
+  background-color: greenyellow;
+  padding: 5px;
+  font-weight: 400;
+  width: 100px;
+  margin: 5px 0;
 }
-.edit-product:hover{
-    color: #fff;
+.edit-product:hover {
+  color: #fff;
 }
-.delete-product{
-    background-color: red;
-    padding: 5px;
-    font-weight: 400;
+.delete-product {
+  margin: 5px 0;
+  width: 100px;
+  background-color: red;
+  padding: 5px;
+  font-weight: 400;
 }
-.delete-product:hover{
-    color: #fff;
+.delete-product:hover {
+  color: #fff;
 }
 /* ----------------------------------------------- */
-/* css phần tìm kiếm */
-.search-product{
-    margin: 10px 0px;
-    /* width: 50%; */
+.content-product-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} /* css phần tìm kiếm */
+.search-product {
+  margin: 10px 0px;
+  /* width: 50%; */
 }
-.search-product input{
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    border-bottom: 1px solid #a94064;
-    outline: none;
-    transition: background 0.2s ease;
+.search-product input {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  transition: background 0.2s ease;
 }
-.search-product input:hover{
-    background-color: #ccc;
+.search-product input:hover {
+  background-color: #ccc;
 }
-.search-product a{
-    margin-left: 10px;
-    background-color: #a94064;
-    color: #fff;
-    padding: 5px 10px;
-    transition: background 0.2s ease;
+.search-product a {
+  border-radius: 5px;
+  margin-left: 10px;
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 1rem;
+  transition: background 0.2s ease;
 }
-.search-product a:hover{
-    background-color: #000;
-}
-/* ------------------------------------------*/
-#main-content-product-list .content p{
-    padding-bottom: 6%;
-    color: rgba(119, 119, 119, 0.2);
-    font-family: "Roboto";
-    font-size: 4.8rem;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: 0.4rem;
-    line-height: 1.2;
-    text-align: center;
-    width: 100%;
-    margin-top: 5%;
+.search-product a:hover {
+  background-color: #a94064;
 }
 
+.content .dont-have-product {
+  margin-top: 5%;
+  color: rgba(119, 119, 119, 0.2);
+  font-family: "Roboto";
+  font-size: 4.8rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.4rem;
+  line-height: 1.2;
+  text-align: center;
+}
+/* ------------------------------------------*/
 
 /* --------------------reponsive-------------------- */
 /* @media only screen and (min-width: 480px) and (max-width: 1040px){
-    .content-product-list table th:first-child, td:first-child, th:nth-child(3), td:nth-child(3), th:nth-child(6), td:nth-child(6){
+    .content-product-list .product-list-table th:first-child, td:first-child, th:nth-child(3), td:nth-child(3), th:nth-child(6), td:nth-child(6){
         display: none;
     }
     .content-product-list{
@@ -193,131 +202,397 @@
     }
 } */
 
-@media only screen and (min-width: 390px) and (max-width: 1040px){
-    body{
-        display: flex;
-        flex-direction: column;
-    }
-    body #side-bar.hide{
-        width: 100%;
-    }
-    body #side-bar{
-        position: unset;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        transition: height 0.5s ease;
-    }
-    #side-bar .brand{
-        padding: 0px;
-    }
-    #side-bar.hide .side-menu{
-        height: 0px;
-    }
-    #side-bar .side-menu{
-        margin: 0px;
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        height: 180px;
-        transition: height 0.5s ease;
-    }
-    #side-bar .side-menu li.active{
-        background: none;
-    }
-    #side-bar .side-menu li.active::after, .active::before{
-        display: none;
-    }
-    #side-bar .side-menu li{
-        margin: 0px;
-        width: calc(100%/2);
-    }
-    #side-bar .side-menu li a{
-        overflow: unset;
-    }
-    #side-bar .side-menu li.active-mobile{
-        border-bottom: 2px solid #fff;
-    }
+@media screen and (min-width: 700px) and (max-width: 1051px) {
+  .content-product-list .product-list-table th:nth-child(8) {
+    width: 120px;
+  }
+  .content-product-list .product-list-table td:nth-child(8) {
+    width: 120px;
+  }
+  body #side-bar.hide {
+    width: 100%;
+  }
+  body #side-bar {
+    position: unset;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    transition: height 0.5s ease;
+  }
+  #side-bar .brand {
+    padding: 0px;
+  }
+  #side-bar.hide .side-menu {
+    height: 0px;
+  }
+  #side-bar .side-menu {
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 180px;
+    transition: height 0.5s ease;
+  }
+  #side-bar .side-menu li.active {
+    background: none;
+  }
+  #side-bar .side-menu li.active::after,
+  .active::before {
+    display: none;
+  }
+  #side-bar .side-menu li {
+    margin: 0px;
+    width: calc(100% / 2);
+  }
+  #side-bar .side-menu li a {
+    overflow: unset;
+  }
+  #side-bar .side-menu li.active-mobile {
+    border-bottom: 2px solid #fff;
+  }
 
+  body #side-bar.hide ~ #content {
+    width: 100%;
+    position: unset;
+  }
+  body #content {
+    width: 100%;
+    position: unset;
+  }
+  #content nav::before,
+  nav::after {
+    display: none;
+  }
+  #content nav {
+    width: 100%;
+    padding: 15px;
+  }
+  #content main {
+    padding: 10px;
+  }
 
-    body #side-bar.hide ~ #content{
-        width: 100%;
-        position: unset;
-    }
-    body #content{
-        width: 100%;
-        position: unset;
-    }
-    #content nav::before, nav::after{
-        display: none;
-    }
-    #content nav{
-        width: 100%;
-        padding: 15px;
-    }
-    #content main{
-        padding: 10px;
-    }
+  /* css phần bảng danh sách sản phẩm */
+  /* #content main .title #title-name,
+  .title h1 {
+    display: none;
+  } */
+  /* .product-list-table
+  th:first-child,
+  td:first-child,
+  th:nth-child(6),
+  td:nth-child(6) */
+  /* th:nth-child(4) */
+  /* td:nth-child(4)  */
+  /* {
+    display: none;
+  } */
+  .content-product-list .product-list-table th:nth-child(1) {
+    width: 110px;
+  }
+  .content-product-list .product-list-table th:nth-child(2) {
+    width: 100px;
+  }
+  .content-product-list .product-list-table td:nth-child(2) {
+    width: 100px;
+  }
+  .content-product-list .product-list-table th:nth-child(3),
+  th:last-child {
+    /* min-width: 90px; */
 
-/* css phần bảng danh sách sản phẩm */
-    #content main .title #title-name, .title h1{
-        display: none;
-    }
-    .content-product-list table th:first-child, td:first-child, th:nth-child(2), td:nth-child(2), th:nth-child(6), td:nth-child(6), th:nth-child(4), td:nth-child(4),th:nth-child(5), td:nth-child(5){
-        display: none;
-    }
-    .content-product-list table th:nth-child(7){
-        width: 15%;
-    }
-    .content-product-list table th:last-child{
-        width: 30%;
-    }
-    .content-product-list table th{
-        font-size: 0.8rem;
-    }
-    .content-product-list table th:nth-child(3){
-        font-size: 1.1rem;
-    }
-    .content-product-list table td:last-child{
-        padding: 0px;
-    }
-    .list-page li{
-        margin: 10px;
-    }
-/* -----------------------------------------     */
+    width: 20%;
+  }
+  .content-product-list .product-list-table td:nth-child(6) {
+    width: 100px;
+  }
+  .content-product-list .product-list-table th {
+    font-size: 0.8rem;
+  }
+  .content-product-list .product-list-table th:nth-child(3) {
+    font-size: 1.1rem;
+  }
+  .content-product-list .product-list-table td:last-child,
+  th:last-child {
+    padding: 0px;
+  }
+  .list-page li {
+    margin: 10px;
+  }
+  /* -----------------------------------------     */
 
-/* css phần hỏi trước khi xóa sản phẩm */
-    .form-delete-confirm{
-        width: 90%;
-        padding: 10px;
-    }
-    .form-delete-confirm .content-delete{
-        margin: 0px;
-    }
-    .form-delete-confirm .content-delete input, .content-delete button, .content-delete label{
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .form-delete-confirm .content-delete{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+  /* css phần hỏi trước khi xóa sản phẩm */
+  .form-delete-confirm {
+    width: 90%;
+    padding: 10px;
+  }
+  .form-delete-confirm .content-delete {
+    margin: 0px;
+  }
+  .form-delete-confirm .content-delete input,
+  .content-delete button,
+  .content-delete label {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .form-delete-confirm .content-delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-
-/* css phần sửa thêm sản phẩm */
-    .content-product-add{
-        display: flex;
-        flex-direction: column;
-    }
-    #left-input{
-        margin-bottom: 20px;
-    }
-    #left-input input, textarea, select{
-        font-size: 1rem;
-    }
-/* ----------------------------------- */
-
-
+  /* css phần sửa thêm sản phẩm */
+  .content-product-add {
+    display: flex;
+    flex-direction: column;
+  }
+  #left-input {
+    margin-bottom: 20px;
+  }
+  #left-input input,
+  textarea,
+  select {
+    font-size: 1rem;
+  }
+  /* ----------------------------------- */
 }
 /* ------------------------------------------------------------ */
+
+/* khang sửa lại thêm css cho ảnh của san pham trong .product-list-table */
+/* style="width: 70px; height:90%;" */
+.content-product-list .product-list-table td:nth-of-type(1) img {
+  width: 70px;
+  height: 90%;
+}
+
+/* =============================mobile */
+
+@media screen and (max-width: 700px) {
+  .search-product input {
+    width: 50%;
+  }
+  .search-product a {
+    width: 20%;
+  }
+  .search-product {
+    width: calc(100% - 28px * 2 -50px);
+  }
+  .main-content-product-list {
+    padding: 0;
+  }
+  .nav-link {
+    display: none;
+  }
+  .content-product-list .product-list-table th {
+    display: none;
+  }
+
+  .content-product-list .product-list-table td {
+    display: flex;
+    text-align: left;
+  }
+  .content-product-list .product-list-table td::before {
+    font-weight: 700;
+    width: 100px;
+  }
+  .content-product-list .product-list-table td:first-child {
+    margin-top: 50px;
+  }
+  .content-product-list .product-list-table td:nth-of-type(1) img {
+    width: 120px;
+    margin: 0 auto;
+  }
+  .content-product-list .product-list-table td:nth-of-type(2)::before {
+    content: "Mã";
+    font-weight: 700;
+  }
+  .content-product-list .product-list-table td:nth-of-type(3)::before {
+    content: "Tên";
+    font-weight: 700;
+  }
+  .content-product-list .product-list-table td:nth-of-type(4)::before {
+    content: "Thương hiệu";
+    font-weight: 700;
+  }
+  .content-product-list .product-list-table td:nth-of-type(5)::before {
+    content: "Loại";
+    font-weight: 700;
+  }
+  .content-product-list .product-list-table td:nth-of-type(6)::before {
+    content: "Giá";
+    font-weight: 700;
+  }
+  .content-product-list .product-list-table td:nth-of-type(7)::before {
+    content: "Số Lượng";
+    font-weight: 700;
+  }
+
+  .content-product-list .product-list-table td:nth-of-type(8)::before {
+    content: "Tuỳ chỉnh";
+    font-weight: 700;
+    padding: 15px;
+  }
+
+  .delete-product,
+  .edit-product {
+    padding: 0;
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px 30px;
+    border-radius: 3px;
+  }
+
+  .delete-product {
+    margin-left: 30px;
+  }
+
+  body #side-bar.hide {
+    width: 100%;
+  }
+  body #side-bar {
+    position: unset;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    transition: height 0.5s ease;
+  }
+  #side-bar .brand {
+    padding: 0px;
+  }
+  #side-bar.hide .side-menu {
+    height: 0px;
+  }
+  #side-bar .side-menu {
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 180px;
+    transition: height 0.5s ease;
+  }
+  #side-bar .side-menu li.active {
+    background: none;
+  }
+  #side-bar .side-menu li.active::after,
+  .active::before {
+    display: none;
+  }
+  #side-bar .side-menu li {
+    margin: 0px;
+    width: calc(100% / 2);
+  }
+  #side-bar .side-menu li a {
+    overflow: unset;
+  }
+  #side-bar .side-menu li.active-mobile {
+    border-bottom: 2px solid #fff;
+  }
+
+  body #side-bar.hide ~ #content {
+    width: 100%;
+    position: unset;
+  }
+  body #content {
+    width: 100%;
+    position: unset;
+  }
+  #content nav::before,
+  nav::after {
+    display: none;
+  }
+  #content nav {
+    width: 100%;
+    padding: 15px;
+  }
+  #content main {
+    padding: 10px;
+  }
+
+  /* css phần bảng danh sách sản phẩm */
+  #content main .title #title-name,
+  .title h1 {
+    display: none;
+  }
+  .content-product-list .product-list-table th:first-child,
+  td:first-child,
+  th:nth-child(6),
+  td:nth-child(6),
+  th:nth-child(4),
+  td:nth-child(4) {
+    /* display: none; */
+  }
+  .content-product-list .product-list-table th:nth-child(2) {
+    width: 110px;
+  }
+  .content-product-list .product-list-table th:nth-child(7) {
+    width: 12%;
+  }
+  .content-product-list .product-list-table th:nth-child(5),
+  th:last-child {
+    min-width: 90px;
+    width: 20%;
+  }
+  .content-product-list .product-list-table th {
+    font-size: 0.8rem;
+  }
+  .content-product-list .product-list-table th:nth-child(3) {
+    font-size: 1.1rem;
+  }
+  .content-product-list .product-list-table td:last-child {
+    padding: 0px;
+  }
+  .list-page li {
+    margin: 10px;
+  }
+  /* -----------------------------------------     */
+
+  /* css phần hỏi trước khi xóa sản phẩm */
+  .form-delete-confirm {
+    width: 90%;
+    padding: 10px;
+  }
+  .form-delete-confirm .content-delete {
+    margin: 0px;
+  }
+  .form-delete-confirm .content-delete input,
+  .content-delete button,
+  .content-delete label {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .form-delete-confirm .content-delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* css phần sửa thêm sản phẩm */
+  .content-product-add {
+    display: flex;
+    flex-direction: column;
+  }
+  #left-input {
+    margin-bottom: 20px;
+  }
+  #left-input input,
+  textarea,
+  select {
+    font-size: 1rem;
+  }
+
+  .content-product-list .product-list-table th:nth-child(6),
+  td:nth-child(6) {
+    /* display: block; */
+  }
+}
+
+@media screen and (min-width: 1051px) {
+  .content-product-list .product-list-table th:nth-child(8) {
+    min-width: 120px;
+    width: 120px;
+  }
+  .content-product-list .product-list-table td:nth-child(8) {
+    min-width: 120px;
+    width: 120px;
+  }
+}

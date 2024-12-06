@@ -24,9 +24,25 @@ export function resetDefaultInputForUser(input) {
   if (input.id === "username-change") return "Nhập tên tài khoản";
   if (input.id === "old-password-change") return "Nhập mật khẩu cũ";
   if (input.id === "new-password-change") return "Nhập mật khẩu mới";
+  if(input.className === "payment-information-info__firstName") return "Họ";
+  if(input.className === "payment-information-info__lastName") return "Tên";
+  if(input.className === "payment-information-info__email") return "Email";
+  if(input.className === "payment-information-info__address") return "Địa chỉ";
+  if(input.className === "payment-information-info__phone") return "Số điện thoại";
+  if(input.id === "card-id") return "Mã thẻ"
+  if(input.className === "street") return "Số nhà và đường"
 }
 //hàm báo lỗi input
-export function errorInput(input, mess) {
+export function errorInput(input, mess, checkSelect) {
+  if(checkSelect){
+    console.log(input);
+    input.parentElement.style.border = "2px solid red";
+    input.parentElement.onfocus = () => {
+      input.parentElement.style.border = "2px solid #000";
+    }
+    return;
+  }
+
   if (input.type == "checkbox") {
     let parent = input.parentElement;
     if (!input.checked) {
@@ -37,8 +53,7 @@ export function errorInput(input, mess) {
     }
     return;
   }
-  //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
-  input.classList.add("err-text");
+
 
   if (mess) {
     input.value = "";
@@ -46,15 +61,19 @@ export function errorInput(input, mess) {
     input.onfocus = () => {
       input.placeholder = resetDefaultInputForUser(input);
     };
+      //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
+  input.classList.add("err-text");
     return;
   }
   //nếu input rỗng
   if (input.value == "") {
-    input.placeholder = "*Lỗi! Không được để trống";
+    input.placeholder = "Thiếu dữ liệu!";
     input.style.color = "#000";
     input.onfocus = () => {
       input.placeholder = resetDefaultInputForUser(input);
     };
+      //nếu là text, có tồn tại mess (trường hợp không phải input rỗng)
+  input.classList.add("err-text");
     return;
   }
   //còn lại không có lỗi
@@ -63,10 +82,6 @@ export function errorInput(input, mess) {
 // kiểm tra thông tin đăng nhập
 export function handleSignIn() {
   let userList = JSON.parse(localStorage.getItem("userList")) || [];
-  if (userList.length == 0) {
-    userList = [...userList];
-    localStorage.setItem("userList", JSON.stringify(userList));
-  }
 
   let username = document.getElementById("username");
   let password = document.getElementById("password");
@@ -106,7 +121,7 @@ export function handleSignIn() {
     return obj.username === username.value;
   });
   //kiểm tra xem tài khoản thuộc loại gì
-  if (userList[indexOfUsername].type === "employer") {
+  if (userList[indexOfUsername].type !== "customer") {
     create_notification_user("Tài khoản không thuộc loại khách hàng!");
     return false;
   }
@@ -115,12 +130,12 @@ export function handleSignIn() {
     create_notification_user("Tài khoản bị khóa!");
     return false;
   }
-  if (userList[indexOfUsername].type === "admin") {
-    document
-      .querySelector(".header__admin-icon")
-      .style.setProperty("visibility", "visible");
-    handleAdmin();
-  }
+  // if (userList[indexOfUsername].type === "admin") {
+  //   document
+  //     .querySelector(".header__admin-icon")
+  //     .style.setProperty("visibility", "visible");
+  //   handleAdmin();
+  // }
 
   //update vị trí username của người dùng đang đăng nhập lên local
   localStorage.setItem(

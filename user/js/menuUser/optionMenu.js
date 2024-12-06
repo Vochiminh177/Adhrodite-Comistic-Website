@@ -6,52 +6,33 @@ import { updateMainContent } from "../home-js/changeMainContent.js";
 
 //hàm tạo thông báo
 export function create_notification_user(mess) {
-  // if(!document.querySelector(".container-notice")){
-  //   let div = document.createElement("div");
-  //   div.className = "container-notice";
-  //   document.body.appendChild(div);
-  // }
-  // // if(document.querySelectorAll(".notice-user")){
-  // //   document.querySelectorAll(".notice-user").forEach((obj) => {
-  // //     obj.style.translate
-  // //   })
-  // // }
-  // document.querySelector(".container-notice").innerHTML += `<p class="notice-user">${mess}</p>`;
-  // setTimeout(() => {
-  //   document.querySelectorAll(".notice-user").forEach((obj) => {
-  //     obj.classList.add("active");
-  //     setTimeout(() => {
-  //       obj.remove();
-  //     }, 3000);
-  //   });
-  // }, 100);
-  let text = document.createElement("p");
-  text.className = "notification";
-  text.innerText = mess;
-  text.style.backgroundColor = "#ffff";
-  text.style.color = "#000";
-  text.style.fontWeight = "400";
-  text.style.position = "fixed";
-  text.style.right = "0px";
-  text.style.top = "0px";
-  text.style.transform = "translate(100%, 50%)";
-  text.style.zIndex = "100000";
-  text.style.padding = "10px 50px";
-  text.style.fontSize = "2rem";
-  text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-  text.style.transition = "transform 0.4s ease";
-  document.body.appendChild(text);
+  // Tạo container nếu chưa có
+  let container = document.querySelector(".container-notification");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "container-notification";
+    document.body.appendChild(container);
+  }
+
+  // Tạo thẻ <p> mới cho thông báo
+  const notification = document.createElement("p");
+  notification.className = "notification";
+  notification.textContent = mess;
+
+  // Thêm thẻ <p> vào container
+  container.appendChild(notification);
+
+  // Thêm class `active` để hiển thị thông báo
   setTimeout(() => {
-    document.querySelector(".notification").style.transform =
-      "translate(-10%, 50%)";
+    notification.classList.add("active");
   }, 10);
-  // setTimeout(() => {
-  //   document.querySelector(".notification").style.transform =
-  //     "translate(100%, 50%)";
-  // }, 1000);
-  //xóa khỏi dom
+
+  // Xóa thông báo sau 5 giây
   setTimeout(() => {
-    document.querySelector(".notification").remove();
+    notification.classList.remove("active");
+    setTimeout(() => {
+      notification.remove();
+    }, 200); // Đợi hiệu ứng biến mất trước khi xóa khỏi DOM
   }, 1000);
 }
 

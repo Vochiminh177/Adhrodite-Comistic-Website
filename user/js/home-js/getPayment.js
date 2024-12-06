@@ -7,6 +7,7 @@ import { locationToSelectArray } from "../../../database/database.js";
 import { comebackShoppingCart } from "./getShoppingCart.js";
 import { getBillInfo } from "./getBill.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
+import { errorInput } from "../userUpdate/handleUserUpdate.js";
 
 // Hàm trở về trang Giỏ hàng
 function clickToComebackShoppingCart(userList, indexCurrentUserLogin) {
@@ -46,9 +47,9 @@ function createPaymentInformationItems(array_orderProduct) {
                       array_orderProduct[i].name
                     }</h3>
                     <p class="payment-information-products__details">
-                        ${array_orderProduct[i].id} / ${
+                        <br> ${array_orderProduct[i].id} <br> ${
       array_orderProduct[i].category
-    } / ${formatVietNamMoney(array_orderProduct[i].price)}đ
+    } <br> ${array_orderProduct[i].price}
                     </p>
                 </div>
                 <p class="payment-information-products__total-price-product">${formatVietNamMoney(
@@ -143,7 +144,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     list: `
       <ul class="payment-information-info__change-address-list">
         <li class="payment-information-info__change-address-item from-user-info">
-          Nhập từ thông tin cá nhân
+          Nhập địa chỉ từ lần đặt trước
         </li>
         <li class="payment-information-info__change-address-item from-user-input">
           Nhập từ bàn phím
@@ -152,7 +153,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     `,
     item2: `
       <div class="form-group">
-        <input type="text" class="street" placeholder="Nhập địa chỉ"/>
+        <input type="text" class="street" placeholder="Nhập số nhà và đường"/>
       </div>
       <div class="form-group">
         <select class="city"><option></option></select>
@@ -192,10 +193,10 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
           const addressInput = document.querySelector(
             ".payment-information-info__address"
           );
-          addressInput.setAttribute(
-            "placeholder",
-            userList[indexCurrentUserLogin].address
-          );
+          addressInput.value = userList[indexCurrentUserLogin].address;
+          if(addressInput.value === ""){
+            create_notification_user("Bạn chưa đặt hàng lần nào");
+          }
         });
 
       // Sự kiện khi nhập từ bàn phím
@@ -215,6 +216,9 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
             .addEventListener("click", function () {
               // Số nhà, tên đường
               const streetInfo = document.querySelector(".street").value;
+              if(streetInfo === ""){
+                errorInput(document.querySelector(".street"));
+              }
               // Phường hoặc Xã
               const wardInfo =
                 document.querySelector(".ward :checked").innerText;
@@ -225,20 +229,32 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
               const cityInfo =
                 document.querySelector(".city :checked").innerText;
               // Biến tổng hợp lại các thông tin trên
-              let newAddress =
-                streetInfo +
-                ", " +
-                wardInfo +
-                ", " +
-                districtInfo +
-                ", " +
-                cityInfo;
 
-              // Cập nhật lại thông tin địa chỉ
-              const addressInput = document.querySelector(
-                ".payment-information-info__address"
-              );
-              addressInput.setAttribute("placeholder", newAddress);
+              if(wardInfo !== "Chọn Phường / Xã" && districtInfo !== "Chọn Quận / Huyện" && cityInfo !== "Chọn Tỉnh thành"){
+                let newAddress =
+                streetInfo + ", " +
+                  wardInfo +
+                  ", " +
+                  districtInfo +
+                  ", " +
+                  cityInfo;
+
+                // Cập nhật lại thông tin địa chỉ
+                document.querySelector(
+                  ".payment-information-info__address"
+                ).value = newAddress;
+              }
+              else{
+                if(cityInfo === "Chọn Tỉnh thành"){
+                  errorInput(document.querySelector(".city :checked"), null, true);
+                }
+                else if(districtInfo === "Chọn Quận / Huyện"){
+                  errorInput(document.querySelector(".district :checked"), null, true);
+                }
+                else  errorInput(document.querySelector(".ward :checked"), null, true);
+                return;
+              }
+    
 
               // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
               changeAddressAction.style.color = "#ccc";
@@ -316,7 +332,7 @@ function updatePayFunction(userList, indexCurrentUserLogin) {
         </div>
       </div>
       <div class="payment-information-info__card-form-group">
-        <input type="text" name="card-id" id="card-id" placeholder="Nhập số thẻ">
+        <input type="text" name="card-id" id="card-id" placeholder="Mã thẻ">
       </div>
     `,
   };
@@ -378,6 +394,9 @@ function updatePaymentInformation(
     totalPriceTamTinh += obj.totalPrice;
   });
 
+
+
+
   const paymentInformationForm = `
   <div class="body__payment-information">
     <div class="payment-information__header">
@@ -397,33 +416,29 @@ function updatePaymentInformation(
           </h3>
           <form action="" class="payment-information-info__form">
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__name" placeholder="${
-                    userList[indexCurrentUserLogin].first_name &&
-                    userList[indexCurrentUserLogin].last_name
-                      ? userList[indexCurrentUserLogin].first_name +
-                        " " +
-                        userList[indexCurrentUserLogin].last_name
-                      : "Nhập họ và tên"
-                  }" readonly>
+                  <input type="text" class="payment-information-info__firstName" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Họ">
+                  <input type="text" class="payment-information-info__lastName" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Tên">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="email" class="payment-information-info__email" placeholder="${
+                  <input type="email" class="payment-information-info__email" 
+                  value="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
-                      : "Nhập email"
-                  }" readonly>
-                  <input type="phone" class="payment-information-info__phone" placeholder="${
+                      : ""}"
+                  placeholder="Email">
+                  <input type="phone" class="payment-information-info__phone" value="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
-                      : "Nhập số điện thoại"
-                  }" readonly>
+                      : ""
+                  }"
+                  placeholder="Số điện thoại">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__address" placeholder="${
+                  <input type="text" class="payment-information-info__address" value="${
                     userList[indexCurrentUserLogin].address
                       ? userList[indexCurrentUserLogin].address
-                      : "Nhập địa chỉ giao hàng"
-                  }" readonly>
+                      : ""}" 
+                    placeholder="Địa chỉ">
               </div>
             </form>
           <div class="payment-information-info__change-address">
@@ -599,9 +614,6 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           let id = array_split[0].trim(); // lấy chuỗi id sản phẩm và loại bỏ 2 khoảng trắng
           let category = array_split[1].trim();
           let price = array_split[2].trim();
-
-          price = price.replaceAll("đ", "");
-          price = price.replaceAll(".", "");
 
           let quantity = obj.querySelector(
             ".shopping-cart__quantity .shopping-cart__number"

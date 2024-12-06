@@ -1,275 +1,270 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration:none;
+  text-decoration: none;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 :root {
-    --poppins: "Poppins", sans-serif;
+  --poppins: "Poppins", sans-serif;
 
-    --pink1: #a94064;
-    --pink2: #db7699;
-    --pink3: #fbf4f4;
-    --light: #fff;
+  --pink1: #a94064;
+  --pink2: #db7699;
+  --pink3: #fbf4f4;
+  --light: #fff;
 }
 
 html {
-	overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 body {
-    background: var(--pink3);
-    overflow-x: hidden;
+  background: var(--pink3);
+  overflow-x: hidden;
 }
 
 /* Side bar */
 #side-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 230px;
-    height: 100%;
-    background: var(--pink1);
-    z-index: 2000;
-    transition: 0.3s ease;
-	overflow-x: hidden;
-	scrollbar-width: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 230px;
+  height: 100%;
+  background: var(--pink1);
+  z-index: 2000;
+  transition: 0.3s ease;
+  overflow-x: hidden;
+  scrollbar-width: none;
 }
 #side-bar::--webkit-scrollbar {
-    display: none;
+  display: none;
 }
 #side-bar.hide {
-    width: 60px;
+  width: 60px;
 }
 #side-bar .brand {
-    font-size: 24px;
-    font-weight: 700;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    color: var(--light);
-    position: sticky;
-	top: 0;
-	left: 0;
-	background: var(--pink1);
-	z-index: 500;
-	padding-bottom: 20px;
-	box-sizing: content-box;
-
+  font-size: 24px;
+  font-weight: 700;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  color: var(--light);
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: var(--pink1);
+  z-index: 500;
+  padding-bottom: 20px;
+  box-sizing: content-box;
 }
 #side-bar .brand .bx {
-    min-width: 60px;
-    display: flex;
-    justify-content: center;
+  min-width: 60px;
+  display: flex;
+  justify-content: center;
 }
 #side-bar .side-menu {
-    width: 100%;
-    margin-top: 48px;
+  width: 100%;
+  margin-top: 48px;
 }
 #side-bar .side-menu li {
-    height: 48px;
-    background: transparent;
-    margin-left: 6px;
-    border-radius: 48px 0 0 48px;
-    padding: 4px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: normal;
+  height: 48px;
+  background: transparent;
+  margin-left: 6px;
+  border-radius: 48px 0 0 48px;
+  padding: 4px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 #side-bar .side-menu li.active {
-    background: var(--pink3);
-    position: relative;
+  background: var(--pink3);
+  position: relative;
 }
 #side-bar .side-menu li.active::before {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    top: -40px;
-    right: 0;
-    box-shadow: 20px 20px 0 var(--pink3);
-    z-index: -1;
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: -40px;
+  right: 0;
+  box-shadow: 20px 20px 0 var(--pink3);
+  z-index: -1;
 }
 #side-bar .side-menu li.active::after {
-	content: '';
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	bottom: -40px;
-	right: 0;
-	box-shadow: 20px -20px 0 var(--pink3);
-    z-index: -1;
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  bottom: -40px;
+  right: 0;
+  box-shadow: 20px -20px 0 var(--pink3);
+  z-index: -1;
 }
 #side-bar .side-menu li a {
-    width: 100%;
-    height: 100%;
-    background: var(--pink1);
-    display: flex;
-    align-items: center;
-    border-radius: 48px;
-    font-size: 16px;
-    color: var(--light);
-    white-space: nowrap;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: var(--pink1);
+  display: flex;
+  align-items: center;
+  border-radius: 48px;
+  font-size: 16px;
+  color: var(--light);
+  white-space: nowrap;
+  overflow: hidden;
 }
 #side-bar .side-menu.top li.active a {
-	color: var(--pink3);
+  color: var(--pink3);
 }
 #side-bar.hide .side-menu li a {
-	width: calc(48px - (4px * 2));
-	transition: width .3s ease;
+  width: calc(48px - (4px * 2));
+  transition: width 0.3s ease;
 }
 #side-bar .side-menu li :hover {
-    color: var(--pink3);
+  color: var(--pink3);
 }
 #side-bar .side-menu li a .bx {
-    min-width: calc(60px  - ((4px + 6px) * 2));
-    display: flex;
-    justify-content: center;
-
+  min-width: calc(60px - ((4px + 6px) * 2));
+  display: flex;
+  justify-content: center;
 }
 /* Side bar */
 
-
-
-
 /* Content */
 #content {
-    position: relative;
-    width: calc(100% - 230px);
-    left: 230px;
-    transition: 0.3s ease;
+  position: relative;
+  width: calc(100% - 230px);
+  left: 230px;
+  transition: 0.3s ease;
 }
 #side-bar.hide ~ #content {
-	width: calc(100% - 60px);
-	left: 60px;
+  width: calc(100% - 60px);
+  left: 60px;
 }
 
 /* Navbar */
 #content nav {
-    height: 56px;
-    background:  var(--pink1);
-    padding: 0 24px;
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    grid-gap: 24px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-    position: sticky;
-	top: 0;
-	left: 0;
-	z-index: 1000;
+  height: 56px;
+  background: var(--pink1);
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 #content nav::before {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    bottom: -40px;
-    left: 0;
-    border-radius: 50%;
-    box-shadow: -20px -20px 0 var(--pink1);
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: -40px;
+  left: 0;
+  border-radius: 50%;
+  box-shadow: -20px -20px 0 var(--pink1);
 }
 #content nav a {
-	color: var(--light);
+  color: var(--light);
 }
 #content nav .bx.bx-menu {
-	cursor: pointer;
-	color: var(--light);
+  cursor: pointer;
+  color: var(--light);
 }
 #content nav .nav-link {
-	font-size: 16px;
-	transition: .3s ease;
+  font-size: 16px;
+  transition: 0.3s ease;
 }
 #content nav .nav-link:hover {
-	color: var(--pink3);
+  color: var(--pink3);
 }
 #content nav form {
-	max-width: 400px;
-	width: 100%;
-	margin-right: auto;
+  max-width: 400px;
+  width: 100%;
+  margin-right: auto;
 }
 #content nav form .form-input {
-	display: flex;
-	align-items: center;
-	height: 36px;
+  display: flex;
+  align-items: center;
+  height: 36px;
 }
 #content nav form .form-input input {
-	flex-grow: 1;
-	padding: 0 16px;
-	height: 100%;
-	border: none;
-	background: var(--pink3);
-	border-radius: 36px 0 0 36px;
-	outline: none;
-	width: 100%;
-	color: black;
+  flex-grow: 1;
+  padding: 0 16px;
+  height: 100%;
+  border: none;
+  background: var(--pink3);
+  border-radius: 36px 0 0 36px;
+  outline: none;
+  width: 100%;
+  color: black;
 }
 #content nav form .form-input button {
-	width: 36px;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: var(--pink3);
-	color: black;
-	font-size: 18px;
-	border: none;
-	outline: none;
-	border-radius: 0 36px 36px 0;
-	cursor: pointer;
+  width: 36px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--pink3);
+  color: black;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border-radius: 0 36px 36px 0;
+  cursor: pointer;
 }
-#content nav .profile img{
-    width: 36px;
-    height: 36px;
-    object-fit: cover;
-    border-radius: 50%;
+#content nav .profile img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 #content nav .switch-mode {
-	display: block;
-	min-width: 50px;
-	height: 25px;
-	border-radius: 25px;
-	background: var(--pink3);
-	cursor: pointer;
-	position: relative;
+  display: block;
+  min-width: 50px;
+  height: 25px;
+  border-radius: 25px;
+  background: var(--pink3);
+  cursor: pointer;
+  position: relative;
 }
 #content nav .switch-mode::before {
-	content: '';
-	position: absolute;
-	top: 2px;
-	left: 2px;
-	bottom: 2px;
-	width: calc(25px - 4px);
-	background: var(--pink3);
-	border-radius: 50%;
-	transition: all .3s ease;
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  width: calc(25px - 4px);
+  background: var(--pink3);
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 #content nav #switch-mode:checked + .switch-mode::before {
-	left: calc(100% - (25px - 4px) - 2px);
+  left: calc(100% - (25px - 4px) - 2px);
 }
 /* Navbar */
 
 #content main {
-	width: 100%;
-	padding: 28px 28px;
-	font-family: "Poppins", sans-serif;
-	max-height: calc(100vh - 56px);
-	overflow-y: auto;
+  width: 100%;
+  padding: 28px 28px;
+  font-family: "Poppins", sans-serif;
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
 }
 
 .title {
@@ -286,76 +281,63 @@ body {
 
 /* ----------Hiệu---- */
 
-
-
-
-
 /* ----------Hiệu---- */
 
 /* Content */
 
-
-.content-product-list table tr:nth-of-type(2n){
-    background-color: #f9e8ee;
-}
-
 /* =============================mobile */
 
-@media screen and (max-width: 500px)  {
-    .nav-link{
-        display: none;
-    }
-    .content-product-list table th {
-        display:none;
-    }
+@media screen and (max-width: 500px) {
+  .nav-link {
+    display: none;
+  }
+  .content-product-list table th {
+    display: none;
+  }
 
-    .content-product-list table td {
-        display: flex;
-        text-align:left;
-    }
-    .content-product-list table td::before {
-        font-weight: 700;
-        width: 100px;
-    }
-    .content-product-list table td:first-child {
-        margin-top: 50px;
-    }
-    .content-product-list table td:nth-of-type(1) img {
-        width: 100px;
-    }
-    .content-product-list table td:nth-of-type(2)::before {
-        content: "Mã";
-        font-weight: 700;
-    }
-    .content-product-list table td:nth-of-type(3)::before {
-        content: "Tên";
-        font-weight: 700;
-    }
-  
-    .content-product-list table td:nth-of-type(4)::before {
-        content: "Thương hiệu";
-        font-weight: 700;
-    }
-    
-    .content-product-list table td:nth-of-type(5)::before {
-        content: "Loại";
-        font-weight: 700;
-    }
-    .content-product-list table td:nth-of-type(6)::before {
-        content: "Giá";
-        font-weight: 700;
-    }
-    .content-product-list table td:nth-of-type(7)::before {
-        content: "Số Lượng";
-        font-weight: 700;
-    }
+  .content-product-list table td {
+    display: flex;
+    text-align: left;
+  }
+  .content-product-list table td::before {
+    font-weight: 700;
+    width: 100px;
+  }
+  .content-product-list table td:first-child {
+    margin-top: 50px;
+  }
+  .content-product-list table td:nth-of-type(1) img {
+    width: 100px;
+  }
+  .content-product-list table td:nth-of-type(2)::before {
+    content: "Mã";
+    font-weight: 700;
+  }
+  .content-product-list table td:nth-of-type(3)::before {
+    content: "Tên";
+    font-weight: 700;
+  }
 
-    .content-product-list table td:nth-of-type(8)::before {
-        content: "Tuỳ chỉnh";
-        font-weight: 700;
-    }
-    
-    
+  .content-product-list table td:nth-of-type(4)::before {
+    content: "Thương hiệu";
+    font-weight: 700;
+  }
 
+  .content-product-list table td:nth-of-type(5)::before {
+    content: "Loại";
+    font-weight: 700;
+  }
+  .content-product-list table td:nth-of-type(6)::before {
+    content: "Giá";
+    font-weight: 700;
+  }
+  .content-product-list table td:nth-of-type(7)::before {
+    content: "Số Lượng";
+    font-weight: 700;
+  }
 
+  .content-product-list table td:nth-of-type(8)::before {
+    content: "Tuỳ chỉnh";
+    font-weight: 700;
+  }
 }

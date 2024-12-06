@@ -19,7 +19,7 @@ function handlePicture_admin() {
         reader.readAsDataURL(inputPicture.files[0]);
         reader.onload = (e) => {
             path_picture_admin.src = e.target.result;
-            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 100%; height: auto;">`;
         }
     };
 }
@@ -252,7 +252,9 @@ export function filterProductAdmin() {
             else {
                 createNotificationAdmin("Không có sản phẩm");
                 if(!document.querySelector("#main-content-product-list .content p")){
+                    document.querySelector(".list-page").style.display = "none";
                     let p = document.createElement("p");
+                    p.className = "dont-have-product";
                     p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
                     document.querySelector("#main-content-product-list .content").appendChild(p);
                     document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";

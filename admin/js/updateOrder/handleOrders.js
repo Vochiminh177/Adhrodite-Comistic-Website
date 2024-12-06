@@ -1,6 +1,7 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
-import { showListOrder } from "../showList/show.js"
+import { showListOrder, pagination} from "../showList/show.js"
 import { getDistrictOfOrder } from "./orderFilter.js";
+import { changeOrderStatusQuantity } from "./orderStatistic.js"
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
@@ -8,13 +9,16 @@ export function createOrderRow(order) {
     <tr>
       <td>${order.orderId}</td>
       <td>${order.customerId}</td>
-      <td>${order.orderDate}</td>
+      <td>
+        <p>${order.orderDate.split(" ")[1]}</p>
+        <p>${order.orderDate.split(" ")[0]}</p>
+      </td>
       <td>${getDistrictOfOrder(order)}</td>
       <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
       <td>
-        <p class="status-label ${order.orderStatus}">
-          ${translateOrderStatus(order.orderStatus)}
-        </p>
+        <div class="status-label ${order.orderStatus}">
+          <span>${translateOrderStatus(order.orderStatus)}</span>
+        </div>
       </td>
       <td><a href="#" class="details-btn"><i class='bx bx-list-ul'></i></a></td>
     </tr>
@@ -52,15 +56,15 @@ export function generateOrderEvents(start, end, orderList) {
 
   // Tạo sự kiện cho các nút in, xác nhận, huỷ, xác nhận đã giao
   function generateOrderButtonsEvents(orderIndex) {
-    const printBtn = document.querySelector(".order-print-btn");
     const confirmBtn = document.querySelector(".order-confirm-btn");
     const cancelBtn = document.querySelector(".order-cancel-btn");
     const shippedBtn = document.querySelector(".order-shipped-btn");
-
+    const deleteBtn = document.querySelector(".order-delete-btn");
     if (confirmBtn) {
       confirmBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "accepted");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
     }
 
@@ -68,14 +72,53 @@ export function generateOrderEvents(start, end, orderList) {
       cancelBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "canceled");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
+
+      const productList = JSON.parse(localStorage.getItem("productList"));
+      const orderedProducts = orderList[orderIndex].orderProduct;
+      orderedProducts.forEach((orderedProduct) => {
+        const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
+        if (toRestoreIndex !== -1) {
+          productList[toRestoreIndex].discountQuantity += Math.min(
+            orderedProduct.discountQuantity,
+            orderedProduct.quantity
+          );
+          
+          productList[toRestoreIndex].quantity +=
+            orderedProduct.quantity -
+            Math.min(orderedProduct.discountQuantity, orderedProduct.quantity);
+        }
+      });
+      localStorage.setItem("productList", JSON.stringify(productList));
     }
 
     if (shippedBtn) {
       shippedBtn.onclick = (event) => {
         event.preventDefault();
         updateOrderStatus(orderIndex, "shipped");
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
       };
+    }
+
+    if(deleteBtn){
+      deleteBtn.onclick = (event) => {
+        event.preventDefault();
+        const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
+        const toDeleteIndex = localStorageOrderList.findIndex(
+          (order) => orderList[orderIndex].orderId === order.orderId
+        );
+
+        if(toDeleteIndex !== -1){
+          localStorageOrderList.splice(toDeleteIndex, 1);
+          // orderList.splice(toDeleteIndex, 1);
+          localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
+          pagination(localStorageOrderList, 1, showListOrder, "#main-content-order");
+          document.getElementById("order-details-modal").style.display = "none";
+          changeOrderStatusQuantity();
+        }
+      }
+
     }
   }
 
@@ -97,6 +140,7 @@ export function generateOrderEvents(start, end, orderList) {
     localStorage.setItem("orderList", JSON.stringify(orderList));
     showListOrder(start, end, 0, orderList);
     createOrderDetails(orderList[orderIndex]);
+    changeOrderStatusQuantity();
     generateOrderButtonsEvents(orderIndex);
   }
 }
@@ -127,9 +171,9 @@ function createOrderDetails(order) {
     <h2>Chi tiết đơn hàng #${order.orderId}</h2>
     <div class="order-status">
         <span>Tình trạng:</span>
-        <span class="status-label ${order.orderStatus}">
-          ${translateOrderStatus(order.orderStatus)}
-        </span>
+        <div class="status-label ${order.orderStatus}">
+          <span>${translateOrderStatus(order.orderStatus)}</span>
+        </div>
     </div>
   `;
 
@@ -143,33 +187,57 @@ function createOrderDetails(order) {
     <p>Địa chỉ giao hàng:&nbsp${order.orderAddressToShip}</p>
   `;
 
+  // Thông tin giá tiền
+  const orderCost = document.getElementById("order-cost");
+  if(orderCost){
+    orderCost.innerHTML = `
+      <h3>Tóm Tắt Đơn Hàng</h3>
+      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
+      <p>Phí vận chuyển:&nbsp${18000}</p>
+      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
+    `;
+  }
+
   // Thông tin sản phẩm đã mua
   const productInfoBody = document.getElementById("order-product-info-body");
   productInfoBody.innerHTML = "";
   order.orderProduct.forEach((product) => {
-    productInfoBody.innerHTML += `
-    <tr>
-      <td>${product.id}</td>
-      <td>${product.quantity}</td>
-      <td>${formatVietNamMoney(product.price)}</td>
-      <td>${formatVietNamMoney(product.price * product.quantity)}</td>
-    </tr>
-    `;
-  });
+    if(product.discountQuantity > 0){
+      const currentDiscountQuantity = Math.min(product.discountQuantity, product.quantity);
+      const currentDiscountPercent = ((100 - product.discountPercent) / 100);
+      productInfoBody.innerHTML += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${currentDiscountQuantity}</td>
+        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}</td>
+        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}</td>
+      </tr>
+      `;
 
-  // Thông tin giá tiền
-  const orderCost = document.getElementById("order-cost");
-  if(orderCost){
-    console.log(orderCost);
-    orderCost.innerHTML = `
-      <h3>Tóm Tắt Đơn Hàng</h3>
-      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-      <p>Phí vận chuyển:&nbsp${20000}</p>
-      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 20000)}</p>
-    `;
-  }
+      if(product.quantity > currentDiscountQuantity){
+        productInfoBody.innerHTML += `
+        <tr>
+          <td>${product.id}</td>
+          <td>${product.quantity - currentDiscountQuantity}</td>
+          <td>${formatVietNamMoney(product.price)}</td>
+          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}</td>
+        </tr>
+        `;
+      }
+    } else{
+      productInfoBody.innerHTML += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${product.quantity}</td>
+        <td>${formatVietNamMoney(product.price)}</td>
+        <td>${formatVietNamMoney(product.price * product.quantity)}</td>
+      </tr>
+      `;
+    }
+
+  });
   
-  // Các nút in, xác nhận, huỷ, xác nhận đã giao
+  // Các nút xác nhận, huỷ, xác nhận đã giao
   const actionBar = document.getElementById("action-bar");
   if(actionBar){
     if (order.orderStatus === "pending") {
@@ -184,7 +252,7 @@ function createOrderDetails(order) {
     } else if (order.orderStatus === "shipped") {
       actionBar.innerHTML = "";
     } else if (order.orderStatus === "canceled"){
-      actionBar.innerHTML = "";
+      actionBar.innerHTML = `<button class="order-btn order-delete-btn">Xoá đơn hàng</button>`;
     }
   }
 }

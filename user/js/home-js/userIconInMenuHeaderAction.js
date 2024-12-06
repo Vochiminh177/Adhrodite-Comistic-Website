@@ -236,9 +236,6 @@ function showUserMenu(userList, indexCurrentUserLogin) {
               ${userList[indexCurrentUserLogin].username}
             </h2>
             <div class="header__user-menu-actions">
-              <a href="" class="header__user-menu-action private-info">
-                <p>Thông tin cá nhân</p>
-              </a>
               <a href="" class="header__user-menu-action change-password">
                 <p>Đổi mật khẩu</p>
               </a>
@@ -256,11 +253,11 @@ function showUserMenu(userList, indexCurrentUserLogin) {
     }, 10);
 
     //------KHI ẤN THÔNG TIN CÁ NHÂN
-    document.querySelector(".private-info").onclick = (e) => {
-      e.preventDefault();
-      document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
-      showFormInformation(userList, indexCurrentUserLogin);
-    };
+    // document.querySelector(".private-info").onclick = (e) => {
+    //   e.preventDefault();
+    //   document.querySelector(".header__user-menu").remove(); //xóa header__user-menu
+    //   showFormInformation(userList, indexCurrentUserLogin);
+    // };
     //---------KHI ẤN THAY ĐỔI MẬT KHẨU
     document.querySelector(".change-password").onclick = (e) => {
       e.preventDefault();

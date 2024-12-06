@@ -1,4 +1,10 @@
 /* <===== Payment Information =====> */
+.payment-information-info__form .payment-information-info__firstName {
+  margin-bottom: 10px;
+}
+.payment-information-info__form .err-text {
+  border: 1px solid red;
+}
 .body__payment-information {
   padding: 32px 58px;
 }
@@ -131,10 +137,16 @@
 .payment-information-info__change-address-body
   .form-group:nth-of-type(1)
   input {
+    border-radius: 5px;
   width: 100%;
   border: 1px solid #ccc;
   padding: 4px 6px;
   margin-top: 8px;
+}
+.payment-information-info__change-address-body
+  .form-group:nth-of-type(1)
+  input.err-text{
+  border: 1px solid red;
 }
 .payment-information-info__change-address-body .form-group:nth-of-type(2) {
   display: flex;
@@ -338,8 +350,8 @@ figure:has(.payment-information-products__image) {
 }
 .payment-information-products__numbers {
   position: absolute;
-  top: -10px;
-  left: 70px;
+  top: 5px;
+  left: 65px;
   width: 22px;
   height: 22px;
   background: #fc8eac;
@@ -400,45 +412,25 @@ figure:has(.payment-information-products__image) {
   .payment-information__content {
     flex-direction: column-reverse;
   }
+  .payment-information__products {
+    position: relative;
+    width: 100%;
+  }
+
+  .payment-information__info {
+    margin-top: 64px;
+    width: 100%;
+  }
 }
 
 /* =================== mobile */
 
 @media screen and (max-width: 500px) {
   /* --------------- thanh toán */
-
-  .body__payment-information {
-    padding: 32px 0;
-  }
-
-  .payment-information__products {
-    width: 100%;
-  }
-
-  .payment-information-products__image {
-    width: 80px;
-  }
-  .payment-information__info {
-    margin-top: 20px;
-    width: 100%;
-  }
 }
 
 @media screen and (min-width: 500px) and (max-width: 800px) {
   /* --------------- thanh toán */
-
-  .body__payment-information {
-    padding: 32px 32px;
-  }
-
-  .payment-information__products {
-    width: 100%;
-  }
-
-  .payment-information__info {
-    margin-top: 20px;
-    width: 100%;
-  }
 }
 
 .payment-information-products__image {

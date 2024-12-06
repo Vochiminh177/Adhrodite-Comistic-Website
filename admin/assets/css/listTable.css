@@ -1,22 +1,23 @@
-.title {
+ .title {
     display: flex;
     justify-content:space-between;
 }
-.title-name {
+ .title-name {
     text-align: center;
 }
-.content-product-add {
+ .content-product-add {
     display: flex;
     padding: 12px;
     column-gap: 5px
 }
-table {
+ table {
     width: 100%;
     padding: 12px;
     border-collapse: collapse;
     table-layout: fixed;
+    background-color: #fff;
 }
-th {
+ th {
     font-weight: bold;
     padding: 25px 5px;
     border: 1px solid #ddd;
@@ -26,26 +27,26 @@ th {
     vertical-align: middle;
     text-align: center;
 }
-td {
+ td {
     padding: 15px;
     border: 1px solid #ddd;
     vertical-align: middle;
     text-align: center;
-}
+} 
 /* css phần list page */
-.listPage{
+ .listPage{
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.listPage li{
+ .listPage li{
     margin: 10px 20px;
     border-radius: 100%;
     overflow: hidden;
     height: 30px;
     line-height: 30px;
 }
-.listPage li a{
+ .listPage li a{
     font-size: 1rem;
     font-weight: 200;
     padding: 10px;
@@ -53,14 +54,14 @@ td {
     /* background-color: #ccc; */
     transition: background 0.2s;
 }
-.listPage li a.active-page{
+ .listPage li a.active-page{
     background-color: #000;
     color: #fff;
     font-weight: 300;
 }
-.listPage li a:hover{
+ .listPage li a:hover{
     background-color: #000;
     color: #fff;
     font-weight: 300;
-}
+}  
 /* ------------------------- */

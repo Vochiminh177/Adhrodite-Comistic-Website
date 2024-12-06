@@ -1,189 +1,487 @@
-.content.order{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+.content.order {
+  display: flex;
 }
-.table-container{
-    width: 71%;
+.content.order #title-name{
+  font-size: 1.7rem;
 }
-.content-order-table-body .status-label{
-    width: 73%;
-    margin: 0 auto;
-}
-.bx-list-ul{
-    color: blue;
-    font-size: 1.3rem;
-}
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-}
-.order-details-modal-content {
-    position: relative;
-    margin: 29px auto;
-    background-color: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 55vw;
-    max-height: 91vh;
-    overflow: auto;
-}
-#order-details-modal .close-btn {
-    position: absolute;
-    top: 9px;
-    right: 9px;
-    font-size: 25px;
-    cursor: pointer;
+.content.order .table-container {
+  width: calc(72% - 16px);
+  margin-right: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  min-height: 699px;
 }
 
-.order-header {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.content-order-table th:last-child {
+  width: 7%;
 }
-
-.modal h2,
-.modal h3{
-    margin-bottom: 15px;
+.bx-list-ul {
+  color: blue;
+  font-size: 1.3rem;
 }
-.modal h2{
-    font-size: 1.8rem;
-    font-weight: 700;
+.order-filter-statistic-container{
+  display: flex;
+  flex-direction: column;
+  width: 28%;
 }
-
-.modal h3{
-    font-size: 1.2rem;
-    font-weight: 700;
+/* Order Statistic */
+.order-statistic-container{
+  width: 100%;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
 }
-#order-details-modal p {
-    margin-bottom: 9px;
+.order-statistic-container h2{
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 16px;
 }
-.order-status {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+.order-statistic-container span{
+  font-size: 0.9rem;
+  color: #555;
 }
-.status-label {
-    padding: 7px 7px;
-    border-radius: 5px;
+.order-statistic-group{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #d4c7c7;
+  margin-bottom: 16px;
 }
-
-.status-label.pending {
-    background-color: #ffc107;
-    color: white;
-}
-.status-label.accepted {
-    background-color: #28a745;
-    color: white;
-}
-.status-label.canceled {
-    background-color: #dc3545;
-    color: white;
-}
-.status-label.shipped {
-    background-color: #9370db;
-    color: white;
-}
-.order-header, .customer-info, .product-info, .order-cost {
-    margin-top: 25px;
-}
-.action-bar {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-.action-bar .order-print-btn{
-    margin-right: auto;
-}
-.order-confirm-btn {
-    background-color: #28a745;
-    margin-right: 5px;
-}
-.order-shipped-btn{
-    background-color: #9370db;
-}
-
-.order-cancel-btn {
-    background-color: #dc3545;
-}
-  
-.order-print-btn {
-    background-color: #6c757d;
-}
-
-
+/*Order filter*/
 .order-filter-container {
-    width: calc(29% - 32px);
-    margin: 0px 16px;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 5px 5px rgba(0 , 0, 0, 0.1);
-    border-radius: 8px;
+  width: 100%;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+.order-filter-container h2{
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+#order-filter-form {
+  /* max-width: 600px; */
+  margin: 0 auto;
 }
 
+/* Các nhóm bộ lọc */
 .order-filter-group {
-    margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .order-filter-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
 }
 
 .order-filter-group input,
 .order-filter-group select {
-    width: 100%;
-    padding: 3px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 3px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
 }
 
 .order-filter-group input:focus,
 .order-filter-group select:focus {
-    border-color: blue;
+  border-color: #007bff;
+  outline: none;
 }
 
+/* Hành động bộ lọc */
 .order-filter-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.order-btn {
-    padding: 10px 15px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }
 
 /* Nút áp dụng bộ lọc */
 .order-btn-apply {
-    background-color: blue;
-    color: #fff;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.order-btn-filter:hover {
+  background-color: #0056b3;
 }
 
 /* Nút reset */
 .order-btn-reset {
-    background-color: #f44336;
-    color: #fff;
+  background-color: #f44336;
+  color: #fff;
 }
 
 .order-btn-reset:hover {
-    background-color: #c33b29;
+  background-color: #c33b29;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .order-filter-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .order-btn {
+    width: 100%;
+  }
+}
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.order-details-modal-content {
+  position: relative;
+  margin: 29px auto;
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  max-height: 93%;
+  overflow: auto;
+}
+#order-details-modal .close-btn {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.order-header {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal h2,
+.modal h3 {
+  margin-bottom: 15px;
+}
+.modal h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.modal h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+#order-details-modal p {
+  margin-bottom: 9px;
+}
+.order-status {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.status-label {
+  text-align: center;
+  padding: 7px 7px;
+  border-radius: 6px;
+  width: 75%;
+  height: 55px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-label.pending {
+  background-color: #ffc107;
+  color: white;
+}
+.status-label.accepted {
+  background-color: #28a745;
+  color: white;
+}
+.status-label.canceled {
+  background-color: #dc3545;
+  color: white;
+}
+.status-label.shipped {
+  background-color: #9370db;
+  color: white;
+}
+.order-customer-info-and-cost-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.order-header,
+.customer-info,
+.product-info,
+.order-cost {
+  margin-top: 25px;
+}
+.action-bar {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 16px;
+}
+.action-bar .order-print-btn {
+  margin-right: auto;
+}
+.order-btn {
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+.order-confirm-btn {
+  background-color: #28a745;
+  margin-right: 5px;
+}
+.order-shipped-btn {
+  background-color: #9370db;
+}
+
+.order-cancel-btn {
+  background-color: #dc3545;
+}
+
+.order-delete-btn {
+  background-color: #6c757d;
+}
+/* ======================= chung cho moble and table */
+
+@media screen and (max-width: 600px) {
+  .content.order {
+    flex-direction: column;
+    margin: 0 auto;
+    flex-direction: column-reverse;
+  }
+  .content-order-table th {
+    display: none;
+  }
+
+  .content-order-table table tr {
+    display: block;
+    padding-top: 50px;
+  }
+  .content-order-table td {
+    display: flex;
+    text-align: left;
+  }
+  .content-order-table td::before {
+    font-weight: 700;
+    width: 150px;
+  }
+  .content-order-table td:nth-of-type(1)::before {
+    content: "Mã đơn hàng";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(2)::before {
+    content: "Mã khách hang";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(3)::before {
+    content: "Ngày đặt hàng";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(4)::before {
+    content: "Giá bán";
+    font-weight: 700;
+  }
+
+  .order-details-modal-content {
+    width: 100%;
+    margin: 0;
+  }
+  .order-filter-container {
+    width: calc(100% - 30px);
+    margin-top: 10px;
+  }
+}
+
+/* ======================= chung cho moble and table */
+
+@media screen and (max-width: 600px) {
+  .content-order-table-body {
+  }
+  .content.order .table-container {
+    margin-top: 20px;
+  }
+  .content.order {
+    flex-direction: column-reverse;
+  }
+  .content-order-table th {
+    display: none;
+  }
+
+  .content-order-table-body table tr {
+    margin: 100px;
+    padding-top: 50px;
+  }
+  .content-order-table td {
+    display: flex;
+    text-align: left;
+  }
+  .content-order-table td::before {
+    font-weight: 700;
+    width: 150px;
+  }
+
+  .content-order-table td:nth-of-type(1)::before {
+    content: "Mã đơn hàng";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(2)::before {
+    content: "Mã khách hang";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(3)::before {
+    content: "Ngày đặt hàng";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(4)::before {
+    content: "Giá bán";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(5)::before {
+    content: "Tổng cộng";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(6)::before {
+    content: "Trạng thái";
+    font-weight: 700;
+  }
+  .content-order-table td:nth-of-type(7)::before {
+    content: "Chi tiết";
+    font-weight: 700;
+  }
+
+  .order-details-modal-content {
+    width: 100%;
+    margin-top: 100px;
+  }
+  .table-container,
+  .order-filter-container {
+    width: 100% !important;
+    margin: 0;
+  }
+  .content-order-table-body tr:nth-of-type(2n) {
+    background-color: #f9f0f0;
+  }
+}
+
+/* ======================== table */
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+  .content.order {
+    margin: 0 auto;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .content-order-table th {
+    display: none;
+  }
+  .content-order-table td {
+    display: flex;
+    text-align: left;
+  }
+  .content-order-table td::before {
+    font-weight: 700;
+    width: 150px;
+  }
+  .content-order-table .content-order-table-body td:first-child {
+    margin-top: 50px;
+  }
+  .content-order-table-body td:nth-of-type(1)::before {
+    content: "Mã đơn hàng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(2)::before {
+    content: "Mã khách hang";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(3)::before {
+    content: "Ngày đặt hàng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(4)::before {
+    content: "Giá bán";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(5)::before {
+    content: "Tổng cộng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(6)::before {
+    content: "Tình Trạng";
+    font-weight: 700;
+  }
+  .content-order-table-body td:nth-of-type(7)::before {
+    content: "Chi tiết";
+    font-weight: 700;
+  }
+  .content-order-table-body tr:nth-of-type(2n) {
+    background-color: #f9f0f0;
+  }
+
+  .order-details-modal-content {
+    top: 50px;
+    width: 80%;
+  }
+  .table-container,
+  .order-filter-container {
+    width: 100% !important;
+  }
+  .content.order .table-container {
+    margin-top: 20px;
+  }
+}
+@media screen and (min-width: 1000px) and (max-width: 1300px) {
+  .content.order .table-container,
+  .content.order .order-filter-container {
+    width: 100%;
+  }
+  .content.order .table-container{
+    margin-right: 0px;
+  }
+  .content.order {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .order-filter-container {
+    margin-top: 20px;
+    justify-content: center;
+    
+  }
+  .order-statistic-container{
+    margin-bottom: 0px;
+  }
+  .content-order-table {
+    margin-top: 24px;
+  }
+  .order-filter-statistic-container{
+    flex-direction: row-reverse;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+  .order-filter-container{
+    margin-top: 0px;
+    margin-right: 16px;
+  }
 }

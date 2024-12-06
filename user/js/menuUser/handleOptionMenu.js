@@ -10,14 +10,22 @@ function checkNumberPhone(value) {
 
 //hàm kiểm tra định dạng email
 export function checkEmail(email) {
+  //kiểm tra số dấu chấm
+  let point = 0;
+  for(const char of email.value){
+    if(char === ".") point++;
+  }
+  if(point > 2){
+    return false;
+  }
 
   if (email.value.indexOf("@") === -1) {
     return false;
   }
   const parts = email.value.split("@");
 
-  // Kiểm tra cấu trúc email
-  if (parts.length !== 2 || parts[1] !== "gmail.com") {
+  // Kiểm tra 2 bên @
+  if (parts.length !== 2) {
     return false;
   }
 
@@ -33,6 +41,21 @@ export function checkEmail(email) {
       return false; // Ký tự không hợp lệ
     }
   }
+
+  // kiểm tra nếu trước @ toàn số
+  let checkAllNumberDigital = true;
+  for(const char of parts[0]){
+    if(!(char >=0 && char <= 9)){
+      checkAllNumberDigital = false;
+    }
+  }
+  if(checkAllNumberDigital) return false;
+
+  //kiểm tra sau @
+  let index = parts[1].indexOf(".");
+  let veri = parts[1].slice(index, parts[1].length);
+  console.log(veri);
+  if(veri !== ".com" && veri !== ".com.vn") return false;
 
   return true; // Email hợp lệ
 }

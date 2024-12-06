@@ -1,7 +1,17 @@
 import { userList, productItemArray } from "../../database/database.js";
-import { pagination, showListProduct, showListCustomer, showListOrder, showProductStatistics, generateProductStatistics, getNonPendingOrders } from "./showList/show.js";
+import {
+  pagination,
+  showListProduct,
+  showListCustomer,
+  showListOrder,
+  showProductStatistics,
+  generateProductStatistics, getNonPendingOrders,
+} from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
-import { addProduct, filterProductAdmin } from "./updateProduct/OptionProduct.js";
+import { 
+  addProduct,
+  filterProductAdmin ,
+} from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 import { updateDashboardHighlights, searchByProductId, filterByDate } from "./base/baseFunction.js";
 function start() {
@@ -11,12 +21,12 @@ function start() {
 start();
 
 function deleteMainCreatedFromJs() {
-	if (document.querySelector(".main-content-customer-edit")) {
-		document.querySelector(".main-content-customer-edit").remove();
-	}
-	if (document.querySelector(".main-content-customer-add")) {
-		document.querySelector(".main-content-customer-add").remove();
-	}
+  if (document.querySelector(".main-content-customer-edit")) {
+    document.querySelector(".main-content-customer-edit").remove();
+  }
+  if (document.querySelector(".main-content-customer-add")) {
+    document.querySelector(".main-content-customer-add").remove();
+  }
 }
 
 function anhMinh() {
@@ -26,113 +36,121 @@ function anhMinh() {
 	//click option của thanh bên
 	const allSideMenu = document.querySelectorAll('#side-bar .side-menu li a');
 
-	allSideMenu.forEach(item => {
-		const li = item.parentElement;
+  allSideMenu.forEach((item) => {
+    const li = item.parentElement;
 
-		item.addEventListener('click', function (e) {
-			e.preventDefault();
-			allSideMenu.forEach(i => {
-				i.parentElement.classList.remove('active');
-			})
-			li.classList.add('active');
-			allSideMenu.forEach(i => {
-				i.parentElement.classList.remove('active-mobile');
-			})
-			li.classList.add('active-mobile');
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+      allSideMenu.forEach((i) => {
+        i.parentElement.classList.remove("active");
+      });
+      li.classList.add("active");
+      allSideMenu.forEach((i) => {
+        i.parentElement.classList.remove("active-mobile");
+      });
+      li.classList.add("active-mobile");
 
+      //khi click option nào thì hiện main của option đó ở thanh menu
+      //ẩn tất cả phần tử main không liên quan
+      document.querySelectorAll("main").forEach((section) => {
+        section.style.display = "none";
+      });
+      // deleteMainCreatedFromJs();
+      //hiển thị main của option được chọn
+      if (item.className === "product_sidebar") {
+        showMain("main-content-product-list");
+      } else if (item.className === "order_sidebar") {
+        showMain("main-content-order");
+      } else if (item.className === "account_sidebar") {
+        showMain("main-content-customer");
+      } else if (item.className === "dashboard_sidebar") {
+        showMain("main-content-dashboard");
+      } else if (item.className === "customer_sidebar")  {
+        location.assign(location.origin + "/user/index.html");
+      } else {
+        localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
+        location.assign(location.origin + "/admin/index.html");
+      }
+    });
+  });
+  //----------------------------------------------------------------
 
-			//khi click option nào thì hiện main của option đó ở thanh menu
-			//ẩn tất cả phần tử main không liên quan
-			document.querySelectorAll('main').forEach(section => {
-				section.style.display = 'none';
-			});
-			// deleteMainCreatedFromJs();
-			//hiển thị main của option được chọn
-			if (item.className == "product_sidebar") {
-				showMain("main-content-product-list");
-			}
-			else if (item.className == "order_sidebar") {
-				showMain("main-content-order");
-			}
-			else if (item.className == "customer_sidebar") {
-				showMain("main-content-customer");
-			}
-			else if (item.className == "dashboard_sidebar") {
-				showMain("main-content-dashboard");
-			}
-			else {
-				location.assign(location.origin + "/user/index.html");
-			}
-		});
-	});
-	//----------------------------------------------------------------
+  // TOGGLE SIDEBAR
+  const menuBar = document.querySelector("#content nav .bx.bx-menu");
+  const sidebar = document.getElementById("side-bar");
 
-	// TOGGLE SIDEBAR
-	const menuBar = document.querySelector('#content nav .bx.bx-menu');
-	const sidebar = document.getElementById('side-bar');
+  if (menuBar) {
+    menuBar.addEventListener("click", function () {
+      sidebar.classList.toggle("hide");
+    });
+  }
 
-	menuBar.addEventListener('click', function () {
-		sidebar.classList.toggle('hide');
-	});
+  const searchButton = document.querySelector(
+    "#content nav form .form-input button"
+  );
+  const searchButtonIcon = document.querySelector(
+    "#content nav form .form-input button .bx"
+  );
+  const searchForm = document.querySelector("#content nav form");
 
+  if (searchButton) {
+    searchButton.addEventListener("click", function (e) {
+      if (window.innerWidth < 576) {
+        e.preventDefault();
+        searchForm.classList.toggle("show");
+        if (searchForm.classList.contains("show")) {
+          searchButtonIcon.classList.replace("bx-search", "bx-x");
+        } else {
+          searchButtonIcon.classList.replace("bx-x", "bx-search");
+        }
+      }
+    });
+  }
 
+  if (searchButton && searchForm) {
+    if (window.innerWidth < 768) {
+      sidebar.classList.add("hide");
+    } else if (window.innerWidth > 576) {
+      searchButtonIcon.classList.replace("bx-x", "bx-search");
+      searchForm.classList.remove("show");
+    }
 
-	const searchButton = document.querySelector('#content nav form .form-input button');
-	const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
-	const searchForm = document.querySelector('#content nav form');
+    window.addEventListener("resize", function () {
+      if (this.innerWidth > 576) {
+        searchButtonIcon.classList.replace("bx-x", "bx-search");
+        searchForm.classList.remove("show");
+      }
+    });
+  }
 
-	searchButton.addEventListener('click', function (e) {
-		if (window.innerWidth < 576) {
-			e.preventDefault();
-			searchForm.classList.toggle('show');
-			if (searchForm.classList.contains('show')) {
-				searchButtonIcon.classList.replace('bx-search', 'bx-x');
-			} else {
-				searchButtonIcon.classList.replace('bx-x', 'bx-search');
-			}
-		}
-	});
-
-	if (window.innerWidth < 768) {
-		sidebar.classList.add('hide');
-	} else if (window.innerWidth > 576) {
-		searchButtonIcon.classList.replace('bx-x', 'bx-search');
-		searchForm.classList.remove('show');
-	}
-
-	window.addEventListener('resize', function () {
-		if (this.innerWidth > 576) {
-			searchButtonIcon.classList.replace('bx-x', 'bx-search');
-			searchForm.classList.remove('show');
-		}
-	});
-
-	const switchMode = document.getElementById('switch-mode');
-
-	switchMode.addEventListener('change', function () {
-		if (this.checked) {
-			document.body.classList.add('pink1');
-		} else {
-			document.body.classList.remove('pink1');
-		}
-	});
+  const switchMode = document.getElementById("switch-mode");
+  if (switchMode) {
+    switchMode.addEventListener("change", function () {
+      if (this.checked) {
+        document.body.classList.add("pink1");
+      } else {
+        document.body.classList.remove("pink1");
+      }
+    });
+  }
 }
 
-
 export function showMain(sectionId) {
-	// Ẩn tất cả các phần tử main
-	const sections = document.querySelectorAll('main');
-	sections.forEach(section => {
-		section.style.display = 'none';
-	});
+  // console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
+  // Ẩn tất cả các phần tử main
+  const sections = document.querySelectorAll("main");
+  sections.forEach((section) => {
+    section.style.display = "none";
+    section.innerHTML = "";
+  });
 
-	// Hiển thị phần tử main được chọn
-	const activeSection = document.getElementById(sectionId);
-	if (activeSection) {
-		activeSection.style.display = 'block';
-	}
-	if (sectionId === "main-content-dashboard") {
-		document.querySelector("#main-content-dashboard").innerHTML = `
+  // Hiển thị phần tử main được chọn
+  const activeSection = document.getElementById(sectionId);
+  if (activeSection) {
+    activeSection.style.display = "block";
+  }
+  if (sectionId === "main-content-dashboard") {
+    document.querySelector("#main-content-dashboard").innerHTML = `
 		    <div class="title">
                 <div id="title-name">Thống kê</div>
 				<div class="form-input">
@@ -263,10 +281,7 @@ export function showMain(sectionId) {
 		if (sectionId === "main-content-product-list") {
 			document.querySelector("#main-content-product-list").innerHTML = `
 			 <div class="title">
-                <div id="title-name">Danh sách sản phẩm</div>
-                <div>
-                    <button class="btn btn-add-product">Thêm sản phẩm</button>
-                </div>
+                <h2 id="title-name">Danh sách sản phẩm</h2>
             </div>
             <div class="filter-product">
                 <a href="">Bộ lọc</a>
@@ -275,53 +290,58 @@ export function showMain(sectionId) {
             </div>
             <div class="content">
                 <div class="content-product-list">
-                    <div class="search-product">
-                        <input type="text" id="search-product-input" placeholder="Nhập mã sản phẩm">
-                        <a href="">Tìm kiếm</a>
+                    <div class="content-product-row">
+                        <div class="search-product">
+                        	<input type="text" id="search-product-input" placeholder="Nhập mã sản phẩm">
+	                        <a href="">Tìm kiếm</a>
+                        </div>
+						<button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
-                    <table>
+                    <table class="product-list-table">
                     </table>
 					<div class="list-page"></div>
                 </div>
             </div>
 		
 		`;
-			let productList = JSON.parse(localStorage.getItem("productList")) || [];
-			if (productList.length == 0) {
-				productList = [...productItemArray];
-			}
-			localStorage.setItem("productList", JSON.stringify(productList));
-			addProduct();
-			filterProductAdmin();
-			pagination(productList, 1, showListProduct, "#main-content-product-list");
-		} else
-			if (sectionId === "main-content-order") {
-				document.querySelector('#main-content-order').innerHTML = `
-		<div class="title">
-			<div id="title-name">Danh sách đơn hàng</div>
-		</div>
+    let productList = JSON.parse(localStorage.getItem("productList")) || [];
+    if (productList.length == 0) {
+      productList = [...productItemArray];
+    }
+    localStorage.setItem("productList", JSON.stringify(productList));
+    addProduct();
+    filterProductAdmin();
+    pagination(productList, 1, showListProduct, "#main-content-product-list");
+  } else if (sectionId === "main-content-order") {
+    document.querySelector("#main-content-order").innerHTML = `
 		<div class="content order">
 			<div class="table-container">
-			<table class="content-order-table">
-				<thead>
-					<tr>
-						<th>Mã Đơn Hàng</th>
-						<th>Mã Khách Hàng</th>
-						<th>Ngày Đặt</th>
-						<th>Quận</th>
-						<th>Tổng Cộng</th>
-						<th>Tình Trạng</th>
-						<th>Chi Tiết</th>
-					</tr>
-				</thead>
+        <div class="title">
+          <div id="title-name">Danh sách đơn hàng</div>
+        </div>
+        <table class="content-order-table">
+          <thead>
+            <tr>
+              <th>Mã Đơn Hàng</th>
+              <th>Mã Khách Hàng</th>
+              <th>Ngày Đặt</th>
+              <th>Quận</th>
+              <th>Tổng Cộng</th>
+              <th>Tình Trạng</th>
+              <th>Chi Tiết</th>
+            </tr>
+          </thead>
 
-				<tbody class="content-order-table-body">
+          <tbody class="content-order-table-body">
 
-				</tbody>
-			</table>
-			<div class="list-page"></div>
+          </tbody>
+        </table>
+        <div class="list-page"></div>
 			</div>
-			<div class="order-filter-container" id="order-filter-container"></div>
+      <div class="order-filter-statistic-container">
+        <div class="order-statistic-container" id="order-statistic-container"></div>
+        <div class="order-filter-container" id="order-filter-container"></div>
+      </div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
 				<div class="order-details-modal-content">
@@ -331,10 +351,16 @@ export function showMain(sectionId) {
 						<header class="order-header" id="order-header">
 						</header>
 
-						<!-- Thông tin khách hàng -->
-						<section class="customer-info" id="customer-info">
-						</section>
+            <div class="order-customer-info-and-cost-wrapper">
+              <!-- Thông tin khách hàng -->
+              <section class="customer-info" id="customer-info">
 
+              </section>
+              <!-- Chi phí đơn hàng -->
+              <section class="order-cost" id="order-cost">
+        
+              </section>
+            </div>
 						<!-- Các sản phẩm -->
 						<section class="product-info" id="product-info">
 							<h3>Chi tiết Sản Phẩm</h3>
@@ -352,26 +378,22 @@ export function showMain(sectionId) {
 								</tbody>
 							</table>
 						</section>
-					<!-- Chi phí đơn hàng -->
-            		<section class="order-cost" id="order-cost">
-
-					</section>
-
-        		    <!-- Thanh hành động-->
-            		 	<div class="action-bar" id="action-bar">
-
+			
+						<!-- Thanh hành động-->
+						<div class="action-bar" id="action-bar">
+			
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		`;
-				const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-				pagination(orderList, 1, showListOrder, "#main-content-order");
-				generateOrderFilter();
-			} else
-				if (sectionId === "main-content-product-add") {
-					document.querySelector("#main-content-product-add").innerHTML = `
+    const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+    pagination(orderList, 1, showListOrder, "#main-content-order");
+    generateOrderFilter();
+    generateOrderStatistic();
+  } else if (sectionId === "main-content-product-add") {
+    document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">
                 <h1>Thêm sản phẩm</h1>
                 <a class="comback-product">< Quay lại</a>
@@ -380,73 +402,99 @@ export function showMain(sectionId) {
                 <div class="content-product-add">
                     <div id="left-input">
                         <div class="content-two-input">
-                            <input type="text" placeholder="Mã sản phẩm" class="id-add">
-                            <input type="text" placeholder="Thương hiệu" class="brand-add">
+                            <div class="content-two-input-group">
+                              <label for="id-add">Mã sản phẩm</label>
+                              <input type="text" placeholder="Mã sản phẩm" id="id-add" class="id-add">
+                            </div>
+                            <div class="content-two-input-group">
+                              <label for="brand-add">Thương hiệu</label>
+                              <input type="text" placeholder="Thương hiệu" id="brand-add" class="brand-add">
+                            </div>
                         </div>
                         <div class="content-two-input">
-                            <input type="text" placeholder="Tên sản phẩm" class="name-add">
-							<input type="text" placeholder="Số lượng sản phẩm" class="quantity-add">
+                          <div class="content-two-input-group">
+                            <label for="name-add">Tên sản phẩm</label>
+                            <input type="text" placeholder="Tên sản phẩm" id="name-add" class="name-add">
+                          </div>
+                          <div class="content-two-input-group">
+                            <label for="quantity-add">Số lượng sản phẩm</label>
+                            <input type="text" placeholder="Số lượng sản phẩm" id="quantity-add" class="quantity-add">
+                          </div>
                         </div>
                         <div class="content-two-input">
-                            <select name="category" id="category-add">
-                                <option value="kem-tri-mun">Kem trị mụn</option>
-                                <option value="sua-rua-mat">Sữa rửa mặt</option>
-                                <option value="son">Son</option>
-                                <option value="phan">Phấn</option>
-                                <option value="toner">Toner</option>
-                                <option value="sereum">Sereum</option>
-                                <option value="kem-duong-am">Kem dưỡng ẩm</option>
-                                <option value="tay-trang">Tẩy trang</option>
-                            </select>
-                            <input type="text" placeholder="Giá bán" class="price-add">
+                          <div class="content-two-input-group">
+                            <label for="category-add">Loại sản phẩm</label>
+                            <select name="category" id="category-add" id="category-add">
+                                  <option value="kem-tri-mun">Kem trị mụn</option>
+                                  <option value="sua-rua-mat">Sữa rửa mặt</option>
+                                  <option value="son">Son</option>
+                                  <option value="phan">Phấn</option>
+                                  <option value="toner">Toner</option>
+                                  <option value="sereum">Sereum</option>
+                                  <option value="kem-duong-am">Kem dưỡng ẩm</option>
+                                  <option value="tay-trang">Tẩy trang</option>
+                              </select>
+                          </div>
+                          <div class="content-two-input-group">
+                            <label for="price-add">Giá bán</label>
+                            <input type="text" placeholder="Giá bán" id="price-add" class="price-add">
+                          </div>
                         </div>
                         <div class="content-two-input">
-							<input type="text" placeholder="Giảm giá %" class="percent-discount-add">
-							<input type="text" placeholder="Số lượng giảm giá" class="quantity-discount-add">
+                        <div class="content-two-input-group">
+                          <label for="percent-discount-add">Giảm giá (%)</label>
+                          <input type="text" placeholder="Giảm giá (%)" id="percent-discount-add" class="percent-discount-add">
                         </div>
-                        <textarea name="" id="" placeholder="Miêu tả sản phẩm" class="description-add"></textarea>
-                        <button class="btn btn-add">Lưu sản phẩm</button>
-                    </div>
+                        <div class="content-two-input-group">
+                          <label for="quantity-discount-add">Số lượng giảm giá</label>
+                          <input type="text" placeholder="Số lượng giảm giá" id="quantity-discount-add" class="quantity-discount-add">
+                        </div>
+                      </div>
+                        <div class="content-one-input-group">
+                          <label for="description-add">Miêu tả sản phẩm</label>
+                          <textarea name="" id="" placeholder="Miêu tả sản phẩm" id="description-add" class="description-add" style="resize: none; height: 200px"></textarea>
+                        </div>
+                        <div class="content-one-input-group">
+                          <button class="btn btn-add">Lưu sản phẩm</button>
+                        </div>
+                      </div>
                     <div id="right-input">
                         <div class="add-photo-button">
-                            <label for="file"><i class='bx bxs-folder-plus' ></i>  Ảnh sản phẩm</label>
+                            <label for="file"><i class='bx bxs-folder-plus' ></i> Ảnh sản phẩm</label>
                             <input id="file" type="file" accept="image/*">
                         </div>
-                        <div class="image-show"></div>
+                        <div class="image-show">
+                          <img src="./assets/images/no-image.png" alt="Ảnh sản phẩm" style="width: 100%; height: 568px;">
+                        </div>
                     </div>
                 </div>
             </div>
 		`;
-				} else
-					if (sectionId === "main-content-customer") {
-						document.querySelector("#main-content-customer").innerHTML = `
-			<div class="title">
-                <div id="title-name">Danh Sách Khách Hàng</div>
-                <div>
-                    <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
-                </div>
-            </div>
+  } else if (sectionId === "main-content-customer") {
+    document.querySelector("#main-content-customer").innerHTML = `
+            <h2 id="title-name" class="customer-title">Danh Sách Khách Hàng</h2>
             <div class="content">
+				<div class="customer-row">
+					<div class="search-customer">
+						<input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
+						<a href="">Tìm kiếm</a>
+					</div>
+					<button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
+				</div>
                 <div class="content-customer-list">
-                    <div class="search-customer">
-                        <input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
-                        <a href="">Tìm kiếm</a>
-                    </div>
-                    <table>
+                    <table class="content-customer-table">
                     </table>
 					<div class="list-page"></div>
                 </div>
             </div>
 	
 		`;
-						let userList = JSON.parse(localStorage.getItem("userList"));
-						localStorage.setItem("userList", JSON.stringify(userList));
-						addCustomer();
-						pagination(userList, 1, showListCustomer, "#main-content-customer");
-					}
-					else
-						if (sectionId === "main-content-customer-add") {
-							document.querySelector("#main-content-customer-add").innerHTML = `
+    let userList = JSON.parse(localStorage.getItem("userList"));
+    localStorage.setItem("userList", JSON.stringify(userList));
+    addCustomer();
+    pagination(userList, 1, showListCustomer, "#main-content-customer");
+  } else if (sectionId === "main-content-customer-add") {
+    document.querySelector("#main-content-customer-add").innerHTML = `
 			<div class="title">
                 <h1>Thêm khách hàng</h1>
                 <a class="comback-customer">< Quay lại</a>
@@ -475,6 +523,5 @@ export function showMain(sectionId) {
                 </div>
             </div>
 		`;
-						}
+  }
 }
-

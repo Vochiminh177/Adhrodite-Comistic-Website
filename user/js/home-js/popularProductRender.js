@@ -1,5 +1,6 @@
 import { formatVietNamMoney } from "../common-js/common.js";
 import { popularProductArray } from "../common-js/database.js";
+import { create_notification_user } from "../menuUser/optionMenu.js";
 import { clickToProductItem } from "./homePageEvents.js";
 import { updatePopularProductPagination } from "./popularProductPagination.js";
 
@@ -60,28 +61,24 @@ export function renderPopularProductList() {
   document
     .querySelectorAll(".popular-product__add-to-shopping-cart")
     .forEach((button) => {
-      button.addEventListener("click", function (e) {
-        e.stopPropagation(); // Ngăn chặn nổi bọt để không kích hoạt sự kiện trên phần tử cha
-      });
+      button.onclick = (e) => {
+        e.stopPropagation();
+       // Ngăn chặn nổi bọt để không kích hoạt sự kiện trên phần tử cha
+    
 
-      button.addEventListener("click", function (e) {
+      
         let userList = JSON.parse(localStorage.getItem("userList"));
-        let userStatusLoginIndex;
-        // Tìm vị trí của người dùng đang đăng nhập
-        userList.forEach((user, index) => {
-          if (user.status_login) {
-            userStatusLoginIndex = index;
-          }
-        });
-        if (userStatusLoginIndex === undefined) {
-          alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.");
+        let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+  
+        if(indexCurrentUserLogin === -1){
+          create_notification_user("Bạn chưa đăng nhập");
           return;
         }
         let id = e.currentTarget.getAttribute("data-id");
         let isExistingProductItem = false;
         let indexProductItem = -1;
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng của người dùng chưa
-        const shoppingCart = userList[userStatusLoginIndex].shoppingCart;
+        const shoppingCart = userList[indexCurrentUserLogin].shoppingCart;
         for (let i = 0; i < shoppingCart.length; i++) {
           if (shoppingCart[i].id === id) {
             isExistingProductItem = true;
@@ -110,8 +107,8 @@ export function renderPopularProductList() {
         }
         // Lưu cập nhật giỏ hàng vào `localStorage`
         localStorage.setItem("userList", JSON.stringify(userList));
-        alert("Sản phẩm đã được thêm vào giỏ hàng.");
-      });
+        create_notification_user("Thêm thành công");
+      };
     });
 }
 
