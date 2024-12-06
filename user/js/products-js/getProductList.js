@@ -2,8 +2,6 @@ import { getProductItemInfo } from "./getProductItem.js";
 import { updateLeftMenuStyle } from "./productsPageStyles.js";
 import { updateProductsPagination } from "./productsPagination.js";
 import { resetDoubleSlider , generateFilter } from "./generateFilter.js";
-// Hàm format lại các tên theo kiểu "a-b-c"
-import { replaceSpaceWithHyphen } from "../common-js/common.js";
 
 // Từ khoá chỉ tên sản phẩm cần tìm kiếm hiện tại
 let productItemName = "";
@@ -34,7 +32,7 @@ let chosenSort = "";
 // Giá thấp nhất
 let minPrice = 0;
 // Giá cao nhất
-let maxPrice = 800000;
+let maxPrice = 900000;
 // Trạng thái đã chọn
 let chosenStatus = "";
 // Danh sách sản phẩm đã lọc
@@ -62,6 +60,9 @@ function activateFilterSearch(){
 
   filteredProducts = filterProducts();
   updateProductList(filteredProducts, 1);
+  document.querySelector(
+    ".left-search-filter__content"
+  ).style.display = "none";
 }
 // Đặt lại các tiêu chí lọc
 function resetFilter(){
@@ -97,6 +98,9 @@ function getLeftMenuInfo() {
 
     // Nếu nhấn vào một mục con trong "Danh mục sản phẩm"
     if (event.target.matches("a.left-menu__action")) {
+      if(window.innerWidth <= 875){
+        leftMenuList.classList.remove("show-left-menu__list");
+      }
       const leftMenuValue = event.target.getAttribute("data-menu-product");
       if (leftMenuValue) {
         // Đặt lại bộ lọc
@@ -128,7 +132,7 @@ function filterProducts() {
     const tmpString = chosenPrice.split("-");
     minPrice = parseInt(tmpString[0], 10);
     if (tmpString[1] === "INF") {
-      maxPrice = 800000;
+      maxPrice = 900000;
     } else {
       maxPrice = parseInt(tmpString[1], 10);
     }
@@ -139,6 +143,13 @@ function filterProducts() {
     maxPrice = parseInt(maxPrice.replace(/\./g, ""), 10);
   }
 
+  let filterCriteriaCount = 0;
+  if(chosenSort) filterCriteriaCount++;
+  if(chosenStatus) filterCriteriaCount++;
+  if(chosenPrice) filterCriteriaCount++;
+  else if(minPrice > 100000 || maxPrice < 900000) filterCriteriaCount++;
+  filterCriteriaCount += chosenBrandsLength;
+  document.getElementById("filter-criteria-count").innerHTML = `${filterCriteriaCount}`;
   const productList = JSON.parse(localStorage.getItem("productList"));
   const filteredProducts = productList.filter((product) => {
     if(chosenStatus && !checkStatus(product, chosenStatus)) return false;
@@ -147,7 +158,7 @@ function filterProducts() {
     if (product.price < minPrice || product.price > maxPrice) return false;
     if (
       chosenBrandsLength > 0 &&
-      !chosenBrands.includes(replaceSpaceWithHyphen(product.brand))
+      !chosenBrands.includes((product.brand.toLowerCase()))
     ) return false;
 
     if (!product.name.toLowerCase().includes(productItemName)) return false;
@@ -291,7 +302,7 @@ export function getProductListInfo() {
   chosenSort = "";
   chosenStatus = "";
   minPrice = 0;
-  maxPrice = 800000;
+  maxPrice = 900000;
   
   // Gọi các sự kiện để cập nhật Danh sách sản phẩm
   getLeftSearchInfo();

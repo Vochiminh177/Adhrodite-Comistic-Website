@@ -1,7 +1,7 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
-import { renderPopularProductList } from "./popularProductRender.js.js";
+import { renderPopularProductList } from "./popularProductRender.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import {
   generateFilter,
@@ -10,7 +10,8 @@ import {
 } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
 import { changeLeftMenu } from "./reponsive.js";
-
+import { updateSaleProductPaginationWhenChangeToHome } from "./saleProductPagination.js"
+import { updatePopularProductPaginationWhenChangeToHome } from "./popularProductPagination.js"
 export const mainContentMap = {
   home: `
   <div class="body__home">
@@ -170,6 +171,7 @@ export const mainContentMap = {
                     class="fa-solid fa-filter"
                     class="left-search-filter__icon"
                   ></i>
+                  <span class="filter-criteria-count" id="filter-criteria-count">0</span>
                 </a>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
@@ -285,7 +287,9 @@ export const mainContentMap = {
                               />
                               <label for="price-3">Giá trên 400.000đ</label>
                             </div>
-                            <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">Hoặc chọn mức giá tuỳ ý</button>
+                            <button type="button" class="left-search-filter__custom-price-button" id="custom-price-button">
+                              <i class='bx bxs-down-arrow'></i><span>Hoặc chọn mức giá tuỳ ý</span>
+                            </button>
                             <div class="left-search-filter__item">
                               <div class="left-search-filter__double-slider" id="double-slider">
                                 <div class="grey-bar"></div>
@@ -497,6 +501,8 @@ export function updateMainContent(mainContentKey) {
       renderPopularMenuList();
       // renderPopularProductList();
       renderSaleProductList();
+      updateSaleProductPaginationWhenChangeToHome();
+      updatePopularProductPaginationWhenChangeToHome();
     }
 
     // Nếu nội dung thay đổi là trang Sản phẩm

@@ -15,7 +15,7 @@ import {
   createOrderRow,
   generateOrderEvents,
 } from "../updateOrder/handleOrders.js";
-import { showResult } from "../base/baseFunction.js";
+import { showOrdersListByProductId, filterByDate } from "../base/baseFunction.js";
 function createPage(list, currentPage, showList, main) {
   let itemPerPage = 7;
   let totalPage = Math.ceil(list.length / itemPerPage);
@@ -211,48 +211,80 @@ export function showListOrder(start, end, curentPage, orderList) {
   generateOrderEvents(start, end, orderList);
 }
 
+// hàm trả về các đơn không phải đang chờ"pending"
+export function getNonPendingOrders(orderList) {
+    return orderList.filter(order => order.orderStatus !== "pending" && order.orderStatus !== "canceled" );
+}
 // hàm thống kê dữ liệu từ giỏ hàng
 export function generateProductStatistics(orderList) {
   let productReport = {};
 
-  orderList.forEach((order) => {
-    order.orderProduct.forEach((product) => {
-      let productId = product.id;
+    orderList.forEach(order => {
+        if (order.orderStatus !== "pending" || order.orderStatus !== "canceled") {
+            order.orderProduct.forEach(product => {
+                let productId = product.id;
 
-      if (!productReport[productId]) {
-        productReport[productId] = {
-          id: productId,
-          name: product.name,
-          src: product.src,
-          price: product.price,
-          totalQuantity: 0,
-          totalRevenue: 0,
-          orderCount: 0,
-        };
-      }
+                if (!productReport[productId]) {
+                    productReport[productId] = {
+                        id: productId,
+                        name: product.name,
+                        src: product.src,
+                        price: product.price,
+                        totalQuantity: 0,
+                        totalRevenue: 0,
+                        orderCount: 0
 
-      productReport[productId].totalQuantity += parseInt(product.quantity);
-      productReport[productId].totalRevenue += product.price * product.quantity;
-      productReport[productId].orderCount++;
+                    };
+                }
+
+                productReport[productId].totalQuantity += parseInt(product.quantity);
+                productReport[productId].totalRevenue += product.price * product.quantity;
+                productReport[productId].orderCount++;
+            });
+        }
     });
-  });
-
-  // console.log(productReport);
-
-  // Chuyển đổi thành mảng và sắp xếp theo doanh thu giảm dần
-  return Object.values(productReport).sort(
-    (a, b) => b.totalRevenue - a.totalRevenue
-  );
+    return Object.values(productReport).sort((a, b) => b.totalRevenue - a.totalRevenue);
 }
 
-// hàm tạo bảng thống kê từ dữ liệu phân tích được
-export function showProductStatistics(
-  start,
-  end,
-  currentPage,
-  productStatistics
-) {
-  let tableContent = `
+export function generateCustomerStatistics(orderList, userList) {
+    let customerReport = {};
+
+    orderList.forEach(order => {
+        if (order.orderStatus !== "pending" && order.orderStatus !== "canceled") {
+            let customerId = order.customerId; 
+
+            if (!customerReport[customerId]) {
+                customerReport[customerId] = {
+                    customerId: customerId,
+                    totalSpent: 0, 
+                    orderCount: 0, 
+                    username: "",  
+                };
+            }
+
+            customerReport[customerId].orderCount++;
+            customerReport[customerId].totalSpent += order.orderTotalPrice;  
+        }
+    });
+
+    // Thêm tên người dùng từ userList vào customerReport
+    Object.keys(customerReport).forEach(customerId => {
+        // Tìm tên người dùng dựa trên customerId trong userList
+        const user = userList.find(user => user.id === customerId);
+        if (user) {
+            customerReport[customerId].username = user.username;
+        } else {
+            customerReport[customerId].username = "Unknown"; 
+        }
+    });
+
+    return Object.values(customerReport).sort((a, b) => b.totalSpent - a.totalSpent);
+}
+
+// hàm tạo bảng thống kê từ dữ liệu phân tích được 
+export function showProductStatistics(start, end, currentPage, productReport) {
+
+    let tableContent = `
     <thead>
         <tr>
             <th>Mã sản phẩm</th>
@@ -266,12 +298,12 @@ export function showProductStatistics(
 
   let eleTbody = document.createElement("tbody");
 
-  productStatistics.forEach((product, index) => {
-    if (index >= start && index < end) {
-      eleTbody.innerHTML += `
+    productReport.forEach((product, index) => {
+        if (index >= start && index < end) {
+            eleTbody.innerHTML += `
             <tr>
                 <td>${product.id}</td>
-                <td><img src="${product.src}" ></td>
+                <td><img src="${product.src}" style="width: 70px; height:70px;"></td>
                 <td>${product.price.toLocaleString()}</td>
                 <td>${product.totalQuantity}</td>
                 <td>${product.totalRevenue.toLocaleString()}</td>
@@ -280,8 +312,46 @@ export function showProductStatistics(
                 }">Đơn hàng</button>
                 </td>
             </tr>`;
-    }
-  });
+        }
+    });
+
+    tableContent += eleTbody.outerHTML;
+    document.querySelector(".dashboardTable").innerHTML = tableContent;
+    showOrdersListByProductId(currentPage);
+}
+
+export function showCustomerStatistics(start, end, currentPage, customerReport) {
+
+    let tableContent = `
+    <thead>
+        <tr>
+            <th>Mã khách hàng</th>
+            <th>Tên khách hàng/th>
+            <th>Tổng chi tiêu</th>
+            <th>Tổng đơn hàng</th>
+        </tr>
+    </thead>`;
+
+    let eleTbody = document.createElement("tbody");
+
+    customerReport.forEach((customer, index) => {
+        if (index >= start && index < end) {
+            eleTbody.innerHTML += `
+            <tr>
+            customerId: customerId,
+                    totalSpent: 0, 
+                    orderCount: 0, 
+                    username:
+                <td>${customer.customerId}</td>
+                <td>${customer.username}</td>
+                <td>${customer.totalSpent.toLocaleString()}</td>
+                <td>${customer.orderCount}</td>
+                <td>
+                    <button class="order-list-btn" data-product-id="${product.id}">Đơn hàng</button>
+                </td>
+            </tr>`;
+        }
+    });
 
   tableContent += eleTbody.outerHTML;
   document.querySelector(".dashboardTable").innerHTML = tableContent;

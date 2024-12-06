@@ -1,3 +1,4 @@
+let previousAmountOfSaleProducts = -1;
 window.addEventListener('resize', () => {
   if(window.innerWidth > 900){
     doUpdateSaleProductPagination(3);
@@ -19,6 +20,11 @@ window.addEventListener('load', () => {
     doUpdateSaleProductPagination(1);
   }
 });
+// Tạo sự kiện để có thể chuyển qua lại các sản phẩm
+let timesNumberAllowToClick = -1
+let timesNumberAllowToClickFromLeft = -1;
+let timesNumberAllowToClickFromRight = -1;
+
 // Hàm tạo sự kiện phân trang cho Khuyến mãi
 export function updateSaleProductPagination() {}
 
@@ -49,15 +55,8 @@ function doUpdateSaleProductPagination(quantityAllowToDisplay){
     saleProductHeader.appendChild(titleH2);
     saleProductHeader.appendChild(arrowRightButton);
 
-    // Tạo sự kiện để có thể chuyển qua lại các sản phẩm (mặc định cho phép hiển thị 4 sản phẩm)
-    let timesNumberAllowToClick = saleProductLength - quantityAllowToDisplay;
-    let timesNumberAllowToClickFromLeft = 0;
-    let timesNumberAllowToClickFromRight = timesNumberAllowToClick;
-
     function applyScrollWidth(width, columns, gap){
-      saleProductList.style = `transform: translateX(-${
-        (timesNumberAllowToClickFromLeft - 1) * (width / columns + gap / columns)
-      }px)`;
+      
       document
         .getElementById("sale-product-to-left")
         .onclick = function () {
@@ -90,12 +89,36 @@ function doUpdateSaleProductPagination(quantityAllowToDisplay){
       }
     const rect = document.querySelector(".sale-product__list").getBoundingClientRect();
     if(quantityAllowToDisplay === 3){
+      if(previousAmountOfSaleProducts !== 3){
+        // Tạo sự kiện để có thể chuyển qua lại các sản phẩm
+        saleProductList.style = `transform: translateX(0px)`;
+        previousAmountOfSaleProducts = 3;
+        timesNumberAllowToClick = saleProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
       applyScrollWidth(rect.width, 3, 30);
     } else
     if(quantityAllowToDisplay === 2){
+      if(previousAmountOfSaleProducts !== 2){
+        // Tạo sự kiện để có thể chuyển qua lại các sản phẩm
+        saleProductList.style = `transform: translateX(0px)`;
+        previousAmountOfSaleProducts = 2;
+        timesNumberAllowToClick = saleProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
       applyScrollWidth(rect.width, 2, 30);
     } else
     if(quantityAllowToDisplay === 1){
+      if(previousAmountOfSaleProducts !== 1){
+        // Tạo sự kiện để có thể chuyển qua lại các sản phẩm
+        saleProductList.style = `transform: translateX(0px)`;
+        previousAmountOfSaleProducts = 1;
+        timesNumberAllowToClick = saleProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
       applyScrollWidth(rect.width, 1, 30);
     }
     
@@ -104,5 +127,20 @@ function doUpdateSaleProductPagination(quantityAllowToDisplay){
     titleH2.className = "sale-product__title";
     titleH2.innerText = "Khuyến mãi";
     saleProductHeader.appendChild(titleH2);
+  }
+}
+
+export function updateSaleProductPaginationWhenChangeToHome(){
+  timesNumberAllowToClick = -1
+  timesNumberAllowToClickFromLeft = -1;
+  timesNumberAllowToClickFromRight = -1;
+  previousAmountOfSaleProducts = -1;
+  if(window.innerWidth > 900){
+    doUpdateSaleProductPagination(3);
+  } else
+  if(window.innerWidth > 500){
+    doUpdateSaleProductPagination(2);
+  }else{
+    doUpdateSaleProductPagination(1);
   }
 }

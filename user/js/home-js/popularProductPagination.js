@@ -1,7 +1,7 @@
 import { popularProductArray } from "../common-js/database.js";
 
 export function updatePopularProductPagination() {}
-
+let previousAmountOfPopularProducts = -1;
 window.addEventListener('resize', () => {
   if(window.innerWidth > 1000){
     doUpdatePopularProductPagination(4);
@@ -29,6 +29,11 @@ window.addEventListener('load', () => {
     doUpdatePopularProductPagination(1);
   }
 });
+
+// Tạo sự kiện để có thể chuyển qua lại các sản phẩm
+let timesNumberAllowToClick = -1;
+let timesNumberAllowToClickFromLeft = -1;
+let timesNumberAllowToClickFromRight = -1;
 function doUpdatePopularProductPagination(quantityAllowToDisplay){
   const popularProductLength = popularProductArray.length;
   if (popularProductLength > quantityAllowToDisplay) {
@@ -60,15 +65,49 @@ function doUpdatePopularProductPagination(quantityAllowToDisplay){
     popularProductHeader.appendChild(h2);
     popularProductHeader.appendChild(paginationDiv);
 
-    // Tạo sự kiện để có thể chuyển qua lại các sản phẩm (mặc định cho phép hiển thị 4 sản phẩm)
-    let timesNumberAllowToClick = popularProductLength - quantityAllowToDisplay;
-    let timesNumberAllowToClickFromLeft = 0;
-    let timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+    const rect = document.querySelector(".popular-product__list").getBoundingClientRect();
+    if(quantityAllowToDisplay === 4){
+      if(previousAmountOfPopularProducts !== 4){
+        popularProductList.style = `transform: translateX(0px)`;
+        previousAmountOfPopularProducts = 4;
+        timesNumberAllowToClick = popularProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
+      applyScrollWidth(rect.width, 4, 24);
+    } else
+    if(quantityAllowToDisplay === 3){
+      if(previousAmountOfPopularProducts !== 3){
+        popularProductList.style = `transform: translateX(0px)`;
+        previousAmountOfPopularProducts = 3;
+        timesNumberAllowToClick = popularProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
+      applyScrollWidth(rect.width, 3, 24);
+    } else
+    if(quantityAllowToDisplay === 2){
+      if(previousAmountOfPopularProducts !== 2){
+        popularProductList.style = `transform: translateX(0px)`;
+        previousAmountOfPopularProducts = 2;
+        timesNumberAllowToClick = popularProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
+      applyScrollWidth(rect.width, 2, 24);
+    } else
+    if(quantityAllowToDisplay === 1){
+      if(previousAmountOfPopularProducts !== 1){
+        popularProductList.style = `transform: translateX(0px)`;
+        previousAmountOfPopularProducts = 1;
+        timesNumberAllowToClick = popularProductLength - quantityAllowToDisplay;
+        timesNumberAllowToClickFromLeft = 0;
+        timesNumberAllowToClickFromRight = timesNumberAllowToClick;
+      }
+      applyScrollWidth(rect.width, 1, 24);
+    }
 
     function applyScrollWidth(width, columns, gap){
-      popularProductList.style = `transform: translateX(-${
-        (timesNumberAllowToClickFromLeft - 1) * (width / columns - gap + gap / columns + gap)
-      }px)`;
       document
       .getElementById("popular-product-to-left")
       .onclick = function () {
@@ -99,24 +138,28 @@ function doUpdatePopularProductPagination(quantityAllowToDisplay){
           }
         }
       }
-    const rect = document.querySelector(".popular-product__list").getBoundingClientRect();
-    if(quantityAllowToDisplay === 4){
-      applyScrollWidth(rect.width, 4, 24);
-    } else
-    if(quantityAllowToDisplay === 3){
-      applyScrollWidth(rect.width, 3, 24);
-    } else
-    if(quantityAllowToDisplay === 2){
-      applyScrollWidth(rect.width, 2, 24);
-    } else
-    if(quantityAllowToDisplay === 1){
-      applyScrollWidth(rect.width, 1, 24);
-    }
-
   } else {
     const paginationDivExisting = document.querySelector(
       ".popular-product__pagination"
     );
     if (paginationDivExisting) paginationDivExisting.remove();
+  }
+}
+
+export function updatePopularProductPaginationWhenChangeToHome(){
+  timesNumberAllowToClick = -1;
+  timesNumberAllowToClickFromLeft = -1;
+  timesNumberAllowToClickFromRight = -1;
+  previousAmountOfPopularProducts = -1;
+  if(window.innerWidth > 1000){
+    doUpdatePopularProductPagination(4);
+  } else
+  if(window.innerWidth > 725){
+    doUpdatePopularProductPagination(3);
+  } else
+  if(window.innerWidth > 500){
+    doUpdatePopularProductPagination(2);
+  } else{
+    doUpdatePopularProductPagination(1);
   }
 }

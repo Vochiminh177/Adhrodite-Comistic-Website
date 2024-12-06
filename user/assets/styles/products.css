@@ -64,6 +64,20 @@
   font-size: 2rem;
   transition: color 0.2s;
 }
+.body__products .filter-criteria-count{
+  position: absolute;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  top: -6px;
+  right: -6px;
+  text-align: center;
+
+}
 .body__products .left-search-filter__icon {
   pointer-events: none;
 }
@@ -174,8 +188,15 @@
 }
 /*double slider*/
 .body__products .left-search-filter__custom-price-button {
+  margin-top: 9px;
   width: 100%;
-  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.body__products .left-search-filter__custom-price-button i{
+  margin-right: 2px;
+  margin-top: 3px;
 }
 .body__products .left-search-filter__custom-price-button:hover {
   color: blue;
@@ -244,6 +265,7 @@
   font-size: 2rem;
   font-weight: 600;
   transition: background-color 0.2s;
+  cursor: pointer;
 }
 .body__products .left-search-filter__button:nth-child(2) {
   margin-right: 0px;
@@ -615,6 +637,13 @@
     position: absolute;
     top: 24px;
     right: 32px;
+  }
+  .body__products .left-search-filter__custom-price-button {
+    justify-content: flex-start;
+    padding: 0px;
+  }
+  .body__products .left-search-filter__double-slider input{
+    width: 75px;
   }
   .body__products .left-search-filter__content {
     position: absolute;

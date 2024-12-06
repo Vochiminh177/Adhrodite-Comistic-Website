@@ -5,22 +5,26 @@ import {
   showListCustomer,
   showListOrder,
   showProductStatistics,
-  generateProductStatistics,
+  generateProductStatistics, getNonPendingOrders,
 } from "./showList/show.js";
 import { addCustomer } from "./updateCustomer/optionCustomer.js";
-import {
+import { 
   addProduct,
-  filterProductAdmin,
+  filterProductAdmin ,
 } from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+
 import {
   updateDashboardHighlights,
   dashboardFilter,
   createNotificationAdmin,
 } from "./base/baseFunction.js";
+
+import { searchByProductId, filterByDate } from "./base/baseFunction.js";
+import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
+
 function start() {
-  anhMinh();
-  // showMain("main-content-dashboard");
+	anhMinh();
 }
 
 start();
@@ -35,8 +39,11 @@ function deleteMainCreatedFromJs() {
 }
 
 function anhMinh() {
-  //click option của thanh bên
-  const allSideMenu = document.querySelectorAll("#side-bar .side-menu li a");
+
+	showMain("main-content-dashboard");
+
+	//click option của thanh bên
+	const allSideMenu = document.querySelectorAll('#side-bar .side-menu li a');
 
   allSideMenu.forEach((item) => {
     const li = item.parentElement;
@@ -67,7 +74,7 @@ function anhMinh() {
         showMain("main-content-customer");
       } else if (item.className === "dashboard_sidebar") {
         showMain("main-content-dashboard");
-      } else if (item.className === "customer_sidebar") {
+      } else if (item.className === "customer_sidebar")  {
         location.assign(location.origin + "/user/index.html");
       } else {
         localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
@@ -147,6 +154,7 @@ export function showMain(sectionId) {
   const sections = document.querySelectorAll("main");
   sections.forEach((section) => {
     section.style.display = "none";
+    section.innerHTML = "";
   });
 
   // Hiển thị phần tử main được chọn
@@ -156,60 +164,43 @@ export function showMain(sectionId) {
   }
   if (sectionId === "main-content-dashboard") {
     document.querySelector("#main-content-dashboard").innerHTML = `
-		<div class="title">
+		    <div class="title">
                 <div id="title-name">Thống kê</div>
+				<div class="form-input">
+    				<input type="search" id="product-id" class="custom-date-input" placeholder="Mã sản phẩm">
+					<button type="submit" class="search-btn" id="searchBtn"><i class='bx bx-search'></i></button>
+				</div>
             </div>
             <div class="content">
 
-                <div class="dashboard-filter">
-                    <div class="filter-item">
-                        <label class="dateLabel">Từ ngày</label>
-                        <input type="date" id="from-date" class="custom-date-input">
-                    </div>
-                    <div class="filter-item">
-                        <label class="dateLabel">Đến ngày</label>
-                        <input type="date" id="to-date" class="custom-date-input">
-                    </div>
-                    <div class="filter-item">
-                        <label class="dateLabel">Mã sản phẩm</label>
-                        <input type="text" id="product-id" class="custom-date-input">
-                    </div>
-                    <div class="filter-btn">
-                        <button type="submit" id="filterBtn">Lọc</button>
-                        <button type="reset" id="resetBtn">Xóa</button>
-                    </div>
-                </div>
 			<div id="dashboard-main">
                 <div class="dashboard-highlight">
-                    <div class="dashboard-highlight-box">
-                        <i class='bx bx-dollar'></i>
-                        <div>
-                            <h3></h3>
-                            <span>Tổng doanh thu</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-highlight-box">
-                        <i class='bx bx-cart'></i>
-                        <div>
-                            <h3></h3>
-                            <span>Tổng đơn hàng</span>
-                        </div>
-                    </div>
-					<div class="dashboard-highlight-box">
-                        <i class='bx bxs-user'></i>
-                        <div>
-                            <h3></h3>
-                            <span>Số khách hàng</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-highlight-box-product">
-                        <img src="" alt="Sản phẩm" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
-                        <div>
-                            <h3 id="productId"></h3>
-                            <span>Bán chạy</span>
-                        </div>
-                    </div>
-                </div>
+    <div class="dashboard-highlight-box">
+        <i class='bx bx-dollar'></i>
+        <div>
+            <h3></h3>
+            <span>Tổng doanh thu</span>
+        </div>
+    </div>
+    <div class="dashboard-highlight-box">
+        <i class='bx bx-cart'></i>
+        <div>
+            <h3></h3>
+            <span>Tổng đơn hàng</span>
+        </div>
+    </div>
+    <div class="dashboard-highlight-box">
+    <h3>Top 3 mua sắm</h3>
+    <div id="topCustomersList"></div> <!-- Danh sách Top 3 Khách Hàng -->
+</div>
+    <div class="dashboard-highlight-box-product">
+        <img src="" alt="Sản phẩm" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+        <div>
+            <h3 id="productId"></h3>
+            <span>Bán chạy</span>
+        </div>
+    </div>
+</div>
 
                 <table class="dashboardTable">
                 </table>
@@ -217,59 +208,93 @@ export function showMain(sectionId) {
 			<div class="list-page"></div>
 		`;
 
-    let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+		let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+		console.log(orderList);
+		let doneOrderList = getNonPendingOrders(orderList);
+		console.log(doneOrderList);
+		let productStatistics = generateProductStatistics(orderList);
+		searchByProductId(productStatistics);
+		updateDashboardHighlights(doneOrderList, productStatistics);
+		pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
 
-    let productStatistics = generateProductStatistics(orderList);
-    updateDashboardHighlights(orderList, productStatistics);
-    dashboardFilter();
-    pagination(
-      productStatistics,
-      1,
-      showProductStatistics,
-      "#main-content-dashboard"
-    );
-  } else if (sectionId === "main-content-dashboard-orderList") {
-    document.querySelector("#main-content-dashboard-orderList").innerHTML = `
-		<div class="title">
-                <h1>Danh sách đơn hàng</h1>
-                <a class="comeback-product">< Quay lại</a>
-            </div>
-            <div class="content">
-                <div class="dashboard-filter">
-                    <div class="filter-item">
-                        <label class="dateLabel">Từ ngày</label>
-                        <input type="date" id="from-date" class="custom-date-input">
-                    </div>
-                    <div class="filter-item">
-                        <label class="dateLabel">Đến ngày</label>
-                        <input type="date" id="to-date" class="custom-date-input">
-                    </div>
-                    <div class="filter-btn">
-                        <button type="submit" id="filterBtn">Lọc</button>
-                        <button type="reset" id="resetBtn">Xóa</button>
-                    </div>
+	} else if (sectionId === "main-content-dashboard-orderList") {
+		document.querySelector("#main-content-dashboard-orderList").innerHTML = `
+<div class="title-dashboard-orderList">
+    <div class="dashboard-title">
+		<h1>Danh sách đơn hàng</h1>
+    	<a class="comeback-product">< Quay lại</a>
+	</div>
+    <div class="dashboard-filter">
+        <div class="filter-item">
+            <label class="dateLabel">Từ ngày</label>
+            <input type="date" id="from-date" class="custom-date-input">
+        </div>
+        <div class="filter-item">
+            <label class="dateLabel">Đến ngày</label>
+            <input type="date" id="to-date" class="custom-date-input">
+        </div>
+        <div class="filter-btn">
+            <button type="submit" id="filterBtn">Lọc</button>
+            <button type="reset" id="resetBtn">Xóa</button>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div id="dashboard-main">
+        <table class="content-order-table">
+            <thead>
+                <tr>
+                    <th>Mã Đơn Hàng</th>
+                    <th>Mã Khách Hàng</th>
+                    <th>Ngày Đặt</th>
+                    <th>Quận</th>
+                    <th>Tổng Cộng</th>
+                    <th>Tình Trạng</th>
+                    <th>Chi Tiết</th>
+                </tr>
+            </thead>
+            <tbody class="content-order-table-body">
+            </tbody>
+        </table>
+        <div id="order-details-modal" class="modal">
+            <div class="order-details-modal-content">
+                <a href="#" class="close-btn">&times;</a>
+                <div id="order-details-container">
+                    <!-- Header đơn hàng -->
+                    <header class="order-header" id="order-header">
+                    </header>
+
+                    <!-- Thông tin khách hàng -->
+                    <section class="customer-info" id="customer-info">
+                    </section>
+
+                    <!-- Các sản phẩm -->
+                    <section class="product-info" id="product-info">
+                        <h3>Chi tiết Sản Phẩm</h3>
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-product-info-body">
+                            </tbody>
+                        </table>
+                    </section>
                 </div>
-			<div id="dashboard-main">
-                <table class="content-order-table">
-				<thead>
-					<tr>
-						<th>Mã Đơn Hàng</th>
-						<th>Mã Khách Hàng</th>
-						<th>Ngày Đặt</th>
-						<th>Tổng Cộng</th>
-						<th>Tình Trạng</th>
-						<th>Chi Tiết</th>
-					</tr>
-				</thead>
-				<tbody class="content-order-table-body">
-
-				</tbody>
-			</table>
             </div>
-			<div class="list-page"></div>
+        </div>
+    </div>
+    <div class="list-page"></div>
+</div>
 		`;
-  } else if (sectionId === "main-content-product-list") {
-    document.querySelector("#main-content-product-list").innerHTML = `
+		filterByDate();
+	} else
+		if (sectionId === "main-content-product-list") {
+			document.querySelector("#main-content-product-list").innerHTML = `
 			 <div class="title">
                 <h2 id="title-name">Danh sách sản phẩm</h2>
             </div>
@@ -304,31 +329,34 @@ export function showMain(sectionId) {
     pagination(productList, 1, showListProduct, "#main-content-product-list");
   } else if (sectionId === "main-content-order") {
     document.querySelector("#main-content-order").innerHTML = `
-		<div class="title">
-			<div id="title-name">Danh sách đơn hàng</div>
-		</div>
 		<div class="content order">
 			<div class="table-container">
-			<table class="content-order-table">
-				<thead>
-					<tr>
-						<th>Mã Đơn Hàng</th>
-						<th>Mã Khách Hàng</th>
-						<th>Ngày Đặt</th>
-						<th>Quận</th>
-						<th>Tổng Cộng</th>
-						<th>Tình Trạng</th>
-						<th>Chi Tiết</th>
-					</tr>
-				</thead>
+        <div class="title">
+          <div id="title-name">Danh sách đơn hàng</div>
+        </div>
+        <table class="content-order-table">
+          <thead>
+            <tr>
+              <th>Mã Đơn Hàng</th>
+              <th>Mã Khách Hàng</th>
+              <th>Ngày Đặt</th>
+              <th>Quận</th>
+              <th>Tổng Cộng</th>
+              <th>Tình Trạng</th>
+              <th>Chi Tiết</th>
+            </tr>
+          </thead>
 
-				<tbody class="content-order-table-body">
+          <tbody class="content-order-table-body">
 
-				</tbody>
-			</table>
-			<div class="list-page"></div>
+          </tbody>
+        </table>
+        <div class="list-page"></div>
 			</div>
-			<div class="order-filter-container" id="order-filter-container"></div>
+      <div class="order-filter-statistic-container">
+        <div class="order-statistic-container" id="order-statistic-container"></div>
+        <div class="order-filter-container" id="order-filter-container"></div>
+      </div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="modal">
 				<div class="order-details-modal-content">
@@ -354,7 +382,7 @@ export function showMain(sectionId) {
 							<table class="product-table">
 								<thead>
 									<tr>
-										<th>Mã sản phẩm</th>
+						 					<th>Mã sản phẩm</th>
 										<th>Số lượng</th>
 										<th>Đơn giá</th>
 										<th>Thành tiền</th>
@@ -378,6 +406,7 @@ export function showMain(sectionId) {
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
+    generateOrderStatistic();
   } else if (sectionId === "main-content-product-add") {
     document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">

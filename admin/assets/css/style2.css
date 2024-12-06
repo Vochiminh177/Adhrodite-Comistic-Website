@@ -266,14 +266,17 @@ body {
   max-height: calc(100vh - 56px);
   overflow-y: auto;
 }
+
 .title {
-  padding-bottom: 20px;
-  font-family: var(--poppins);
-  font-size: 25px;
+    margin-bottom: 20px;
 }
 .title #title-name {
-  width: 100%;
-  text-align: center;
+    /* padding-top: 20px; */
+    font-family: var(--poppins);
+    font-size: 27px;
+}
+.content {
+    background-color: var(--pink3);
 }
 
 /* ----------Hiệu---- */
