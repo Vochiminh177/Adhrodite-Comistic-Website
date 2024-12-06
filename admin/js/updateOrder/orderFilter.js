@@ -5,6 +5,10 @@ export function generateOrderFilter(){
         <h2>Bộ lọc</h2>
         <form id="order-filter-form" name="order-filter-form">
         <div class="order-filter-group">
+            <label for="orderID-search">Tìm mã đơn hàng</label>
+            <input type="search" id="orderID-search" placeholder="Mã đơn hàng" name="orderID-search">
+        </div>
+        <div class="order-filter-group">
             <label for="start-date">Ngày đầu</label>
             <input type="date" id="start-date" name="start-date">
         </div>
@@ -41,7 +45,7 @@ export function generateOrderFilter(){
     const resetBtn = document.getElementById('order-reset-btn');
 
     applyBtn.addEventListener('click', (event) => {
-        event.preventDefault();
+        event.preventDefault(); 
     
         const orderFilterForm = document.forms["order-filter-form"];
         const startDate = orderFilterForm["start-date"].value;
@@ -49,8 +53,9 @@ export function generateOrderFilter(){
         const orderStatus = orderFilterForm["order-status"].value;
         const orderSort = orderFilterForm["order-district-sort"].value;
         const orderList = JSON.parse(localStorage.getItem("orderList"));
-        
+        const orderIDsearchTerm = orderFilterForm["orderID-search"].value;
         const filteredOrders = orderList.filter((order) => {
+            if(orderIDsearchTerm && orderIDsearchTerm !== (order.orderId + "")) return false;
             if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
             if(!startDate && !endDate){
                 if(!compareDate(order.orderDate, "tat-ca", "tat-ca")){
@@ -73,14 +78,14 @@ export function generateOrderFilter(){
             }
             return true;
         });
-        // console.log(orderSort);
+
         if(orderSort === "asc"){
             filteredOrders.sort(cmpFuncAsc);
         } else
         if(orderSort === "desc"){
             filteredOrders.sort(cmpFuncDesc);
         }
-        // console.log(filteredOrders);
+
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 

@@ -1,6 +1,7 @@
 .content.order {
   display: flex;
 }
+
 .content.order #title-name{
   font-size: 1.7rem;
 }
@@ -40,10 +41,13 @@
   font-size: 1.7rem;
   text-align: center;
   margin-bottom: 16px;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
 }
 .order-statistic-container span{
   font-size: 0.9rem;
   color: #555;
+  padding-bottom: 6px;
 }
 .order-statistic-group{
   display: flex;
@@ -63,6 +67,8 @@
   font-size: 1.7rem;
   text-align: center;
   margin-bottom: 16px;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
 }
 #order-filter-form {
   /* max-width: 600px; */
@@ -77,6 +83,7 @@
 .order-filter-group label {
   display: block;
   font-weight: bold;
+  font-size: 1.2rem;
   margin-bottom: 5px;
   color: #333;
 }
@@ -389,6 +396,18 @@
 
 /* ======================== table */
 @media screen and (min-width: 600px) and (max-width: 1000px) {
+  .order-filter-statistic-container{
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .order-statistic-container{
+    margin-bottom: 0px;
+    margin-right: 16px;
+  }
+  .content.order .table-container{
+    margin-right: 0px;
+  }
   .content.order {
     margin: 0 auto;
     flex-direction: column-reverse;

@@ -14,6 +14,7 @@ import {
 } from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 import { updateDashboardHighlights, searchByProductId, filterByDate } from "./base/baseFunction.js";
+import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 function start() {
 	anhMinh();
 }
