@@ -38,7 +38,6 @@ function deleteMainCreatedFromJs() {
 }
 
 function anhMinh() {
-
 	showMain("main-content-dashboard");
 
 	//click option của thanh bên
@@ -46,7 +45,6 @@ function anhMinh() {
 
   allSideMenu.forEach((item) => {
     const li = item.parentElement;
-
     item.addEventListener("click", function (e) {
       e.preventDefault();
       allSideMenu.forEach((i) => {
@@ -202,15 +200,26 @@ export function showMain(sectionId) {
 </div>
 
                 <table class="dashboardTable">
+                  <thead>
+                    <tr>
+                      <th>Mã sản phẩm</th>
+                      <th>Hình ảnh</th>
+                      <th>Giá sản phẩm</th>
+                      <th>Tổng đơn hàng</th>
+                      <th>Tổng doanh thu</th>
+                      <th>Tùy chỉnh</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
                 </table>
             </div>
 			<div class="list-page"></div>
 		`;
 
 		let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-		console.log(orderList);
+		// console.log(orderList);
 		let doneOrderList = getNonPendingOrders(orderList);
-		console.log(doneOrderList);
+		// console.log(doneOrderList);
 		let productStatistics = generateProductStatistics(orderList);
 		searchByProductId(productStatistics);
 		updateDashboardHighlights(doneOrderList, productStatistics);
@@ -240,54 +249,31 @@ export function showMain(sectionId) {
 </div>
 <div class="content">
     <div id="dashboard-main">
-        <table class="content-order-table">
+      <div class="content order">
+        <div class="table-container">
+          <div class="title">
+            <div id="title-name">Danh sách đơn hàng</div>
+          </div>
+          <table class="content-order-table">
             <thead>
-                <tr>
-                    <th>Mã Đơn Hàng</th>
-                    <th>Mã Khách Hàng</th>
-                    <th>Ngày Đặt</th>
-                    <th>Quận</th>
-                    <th>Tổng Cộng</th>
-                    <th>Tình Trạng</th>
-                    <th>Chi Tiết</th>
-                </tr>
+              <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Mã Khách Hàng</th>
+                <th>Ngày Đặt</th>
+                <th>Quận</th>
+                <th>Tổng Cộng</th>
+                <th>Tình Trạng</th>
+                <th>Chi Tiết</th>
+              </tr>
             </thead>
+
             <tbody class="content-order-table-body">
+
             </tbody>
-        </table>
-        <div id="order-details-modal" class="modal">
-            <div class="order-details-modal-content">
-                <a href="#" class="close-btn">&times;</a>
-                <div id="order-details-container">
-                    <!-- Header đơn hàng -->
-                    <header class="order-header" id="order-header">
-                    </header>
-
-                    <!-- Thông tin khách hàng -->
-                    <section class="customer-info" id="customer-info">
-                    </section>
-
-                    <!-- Các sản phẩm -->
-                    <section class="product-info" id="product-info">
-                        <h3>Chi tiết Sản Phẩm</h3>
-                        <table class="product-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn giá</th>
-                                    <th>Thành tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody id="order-product-info-body">
-                            </tbody>
-                        </table>
-                    </section>
-                </div>
-            </div>
-        </div>
+          </table>
+        <div class="list-page"></div>
+      </div>
     </div>
-    <div class="list-page"></div>
 </div>
 		`;
 		filterByDate();
@@ -312,6 +298,19 @@ export function showMain(sectionId) {
 						<button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
                     <table class="product-list-table">
+                        <thead>
+                          <tr>
+                              <th class="picture-list">Hình ảnh</th>
+                              <th class="id-list">Mã</th>
+                              <th class="name-list">Tên</th>
+                              <th class="brand-list">Thương hiệu</th>
+                              <th class="category-list">Danh mục</th>
+                              <th class="price-list">Giá</th>
+                              <th class="quantity-list">Số lượng</th>
+                              <th class="option-list">Tùy chỉnh</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
                     </table>
 					<div class="list-page"></div>
                 </div>
@@ -319,10 +318,7 @@ export function showMain(sectionId) {
 		
 		`;
     let productList = JSON.parse(localStorage.getItem("productList")) || [];
-    if (productList.length == 0) {
-      productList = [...productItemArray];
-    }
-    localStorage.setItem("productList", JSON.stringify(productList));
+
     addProduct();
     filterProductAdmin();
     pagination(productList, 1, showListProduct, "#main-content-product-list");
@@ -357,7 +353,7 @@ export function showMain(sectionId) {
         <div class="order-filter-container" id="order-filter-container"></div>
       </div>
 			<!-- Modal hiện chi tiết đơn hàng -->
-			<div id="order-details-modal" class="modal">
+			<div id="order-details-modal" class="order-details-modal">
 				<div class="order-details-modal-content">
 					<a href="#" class="close-btn">&times;</a>
 					<div id="order-details-container">
@@ -400,6 +396,16 @@ export function showMain(sectionId) {
 					</div>
 				</div>
 			</div>
+      <div class="order-confirm-modal" id="order-confirm-modal">
+      <div class="order-confirm-modal-content">
+        <a href="#" class="close-btn">&times;</a>
+          <p class="order-confirm-modal-message" id="order-confirm-modal-message"></p>
+          <div class="order-confirm-modal-buttons">
+            <button class="order-btn order-confirm-btn" id="order-confirm-confirm-btn">Xác nhận</button>
+            <button class="order-btn order-cancel-btn" id="order-confirm-cancel-btn">Huỷ</button>
+          </div>
+        </div>
+      </div>
 		</div>
 		`;
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
@@ -497,6 +503,16 @@ export function showMain(sectionId) {
 				</div>
                 <div class="content-customer-list">
                     <table class="content-customer-table">
+                      <thead>
+                        <tr>
+                            <th class="id-user-list">Id</th>
+                            <th class="username-list">Tài khoản</th>
+                            <th class="fullname-list">Họ tên</th>
+                            <th class="type-user">Loại</th>
+                            <th class="edit-user">Chỉnh sửa</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
                     </table>
 					<div class="list-page"></div>
                 </div>
