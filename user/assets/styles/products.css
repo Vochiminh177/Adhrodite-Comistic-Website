@@ -64,6 +64,20 @@
   font-size: 2rem;
   transition: color 0.2s;
 }
+.body__products .filter-criteria-count{
+  position: absolute;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  top: -6px;
+  right: -6px;
+  text-align: center;
+
+}
 .body__products .left-search-filter__icon {
   pointer-events: none;
 }

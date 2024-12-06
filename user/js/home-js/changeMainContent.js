@@ -1,7 +1,7 @@
 import { updateNavbarStyle } from "../common-js/common.js";
 import { getProductListInfo } from "../products-js/getProductList.js";
 import { renderPopularMenuList } from "./popularMenuRender.js";
-import { renderPopularProductList } from "./popularProductRender.js.js";
+import { renderPopularProductList } from "./popularProductRender.js";
 import { renderSaleProductList } from "./saleProductRender.js";
 import {
   generateFilter,
@@ -173,6 +173,7 @@ export const mainContentMap = {
                     class="fa-solid fa-filter"
                     class="left-search-filter__icon"
                   ></i>
+                  <span class="filter-criteria-count" id="filter-criteria-count">0</span>
                 </a>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
