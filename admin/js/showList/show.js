@@ -304,7 +304,7 @@ export function showProductStatistics(start, end, currentPage, productReport) {
             eleTbody.innerHTML += `
             <tr>
                 <td>${product.id}</td>
-                <td><img src="${product.src}" ></td>
+                <td><img src="${product.src}" style="width: 70px; height:70px;"></td>
                 <td>${product.price.toLocaleString()}</td>
                 <td>${product.totalQuantity}</td>
                 <td>${product.totalRevenue.toLocaleString()}</td>
