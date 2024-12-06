@@ -263,7 +263,7 @@ export function showMain(sectionId) {
                 <th>Ngày Đặt</th>
                 <th>Quận</th>
                 <th>Tổng Cộng</th>
-                <th>Tình Trạng</th>
+                <th>trạng thái</th>
                 <th>Chi Tiết</th>
               </tr>
             </thead>
@@ -338,7 +338,7 @@ export function showMain(sectionId) {
               <th>Ngày Đặt</th>
               <th>Quận</th>
               <th>Tổng Cộng</th>
-              <th>Tình Trạng</th>
+              <th>trạng thái</th>
               <th>Chi Tiết</th>
             </tr>
           </thead>
