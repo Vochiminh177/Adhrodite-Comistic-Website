@@ -271,14 +271,17 @@ body {
 	max-height: calc(100vh - 56px);
 	overflow-y: auto;
 }
-.title  {
-    padding-bottom: 20px;
+
+.title {
+    margin-bottom: 20px;
+}
+.title #title-name {
+    /* padding-top: 20px; */
     font-family: var(--poppins);
-    font-size: 25px;
+    font-size: 27px;
 }
 .content {
-    /* background-color: var(--pink3); */
-    background-color: #fff;
+    background-color: var(--pink3);
 }
 
 /* ----------Hiệu---- */

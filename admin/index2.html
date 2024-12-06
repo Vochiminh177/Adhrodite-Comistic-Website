@@ -88,79 +88,7 @@
             </a>
         </nav>
 
-        <main id="main-content-dashboard">
-            <div class="title">
-                <div id="title-name">Thống kê</div>
-            </div>
-            <div class="content">
-
-                <div class="dashboard-filter">
-                    <div class="filter-item">
-                        <label class="dateLabel">Từ ngày</label>
-                        <input type="date" id="from-date" class="custom-date-input">
-                    </div>
-                    <div class="filter-item">
-                        <label class="dateLabel">Đến ngày</label>
-                        <input type="date" id="to-date" class="custom-date-input">
-                    </div>
-                    <div class="filter-item">
-                        <label class="dateLabel">Mã sản phẩm</label>
-                        <input type="text" id="product-id" class="custom-date-input">
-                    </div>
-                    <div class="filter-btn">
-                        <button type="submit" id="filterBtn">Lọc</button>
-                        <button type="reset" id="resetBtn">Xóa</button>
-                    </div>
-                </div>
-
-                <div class="dashboard-highlight">
-                    <div class="dashboard-highlight-box">
-                        <i class='bx bx-dollar'></i>
-                        <div>
-                            <h3>Số liệu</h3>
-                            <span>Tổng doanh thu</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-highlight-box">
-                        <i class='bx bx-cart'></i>
-                        <div>
-                            <h3>Số liệu</h3>
-                            <span>Tổng đơn hàng</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-highlight-box-product">
-                        <img src="" alt="Sản phẩm" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
-                        <div>
-                            <h3>Id sản phẩm</h3>
-                            <span>Bán chạy</span>
-                        </div>
-                    </div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Hình ảnh</th>
-                            <th>Giá sản phẩm</th>
-                            <th>Tổng đơn hàng</th>
-                            <th>Tổng doanh thu</th>
-                            <th>Tùy chỉnh</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>id</td>
-                            <td>hình ảnh</td>
-                            <td>giá sản phẩm</td>
-                            <td>tổng đơn hàng</td>
-                            <td>tổng doanh thu</td>
-                            <td>
-                                <button id="orderListBtn">Đơn hàng</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <main id="main-content-dashboard" style="display: none;">
         </main>
 
         <main id="main-content-dashboard-orderList" style="display: none;">
@@ -258,9 +186,9 @@
 
                     </tbody>
                 </table>-->
-                <!-- <div class="order-filter-container" id="order-filter-container"></div> -->
-                <!-- Modal hiện chi tiết đơn hàng -->
-                <!-- <div id="order-details-modal" class="modal">
+            <!-- <div class="order-filter-container" id="order-filter-container"></div> -->
+            <!-- Modal hiện chi tiết đơn hàng -->
+            <!-- <div id="order-details-modal" class="modal">
                     <div class="order-details-modal-content">
                         <a href="#" class="close-btn">&times;</a>
                         <div id="order-details-container"> -->
