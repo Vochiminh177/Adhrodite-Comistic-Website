@@ -16,9 +16,22 @@
   min-height: 699px;
   border-radius: 8px;
 }
-
-.content-order-table th:last-child {
-  width: 7%;
+.content-order-table th:nth-child(1),
+.content-order-table th:nth-child(2) {
+  width: 12%;
+}
+.content-order-table th:nth-child(3){
+  width: 18%;
+}
+.content-order-table th:nth-child(4),
+.content-order-table th:nth-child(5){
+  width: 15%;
+}
+.content-order-table th:nth-child(6){
+  width: 18%;
+}
+.content-order-table th:nth-child(7){
+  width: 10%;
 }
 .bx-list-ul {
   color: blue;
