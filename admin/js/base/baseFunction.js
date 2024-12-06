@@ -1,4 +1,4 @@
-import {pagination, showListOrder} from "../showList/show.js";
+import {pagination, showListOrder, getNonPendingOrders} from "../showList/show.js";
 import {showMain} from "../script2.js";
 //hàm tạo thông báo
 export function createNotificationAdmin(mess) {
