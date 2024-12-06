@@ -99,10 +99,6 @@ export function updateDashboardHighlights(orderList, productStatistics) {
     // Tổng đơn hàng
     const totalOrders = orderList.length;
 
-    // Tổng số khách hàng duy nhất
-    const uniqueCustomerIds = [...new Set(orderList.map(order => order.customerId))];
-    const totalCustomers = uniqueCustomerIds.length;
-
     // Sản phẩm bán chạy nhất dựa vào doanh thu
     const bestSellingProduct = productStatistics.length > 0 ? productStatistics[0] : null;
 

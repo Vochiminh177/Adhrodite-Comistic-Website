@@ -281,7 +281,6 @@ export function generateCustomerStatistics(orderList, userList) {
     return Object.values(customerReport).sort((a, b) => b.totalSpent - a.totalSpent);
 }
 
-
 // hàm tạo bảng thống kê từ dữ liệu phân tích được 
 export function showProductStatistics(start, end, currentPage, productReport) {
 

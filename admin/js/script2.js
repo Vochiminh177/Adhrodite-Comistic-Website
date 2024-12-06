@@ -196,7 +196,9 @@ export function showMain(sectionId) {
 		`;
 
 		let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+		console.log(orderList);
 		let doneOrderList = getNonPendingOrders(orderList);
+		console.log(doneOrderList);
 		let productStatistics = generateProductStatistics(orderList);
 		searchByProductId(productStatistics);
 		updateDashboardHighlights(doneOrderList, productStatistics);
