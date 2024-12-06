@@ -105,26 +105,36 @@ function createPage(list, currentPage, showList, main) {
 }
 
 export function pagination(list, currentPage, showList, main) {
-  createPage(list, currentPage, showList, main);
+  if(list.length === 0){
+    if(main === "#main-content-order"){
+      // console.log(document.querySelector(".content-order-table-body"));
+      document.querySelector(".content-order-table-body").innerHTML = `
+        <td colspan="7">Không có đơn hàng nào</td>
+      `;
+    } else
+    if(main === "#main-content-product-list"){
+      document.querySelector(".product-list-table tbody").innerHTML = `
+        <td colspan="8">Không có sản phẩm nào</td>
+      `;
+    } else
+    if(main === "#main-content-dashboard"){
+      document.querySelector(".dashboardTable tbody").innerHTML = `
+        <td colspan="6">Không có sản phẩm nào được bán</td>
+      `;
+    } else
+    if(main === "#main-content-customer"){
+      document.querySelector(".content .content-customer-list table tbody").innerHTML = `
+        <td colspan="5">Không có tài khoản nào</td>
+      `;
+    }
+  } else{
+    createPage(list, currentPage, showList, main);
+  }
 }
 
 export function showListProduct(start, end, currentPage, productList) {
   //tạo danh sách sản phẩm từ mảng chèn vô bảng table
-  let product = `
-    <thead>
-        <tr>
-            <th class="picture-list">Hình ảnh</th>
-            <th class="id-list">Mã</th>
-            <th class="name-list">Tên</th>
-            <th class="brand-list">Thương hiệu</th>
-            <th class="category-list">Danh mục</th>
-            <th class="price-list">Giá</th>
-            <th class="quantity-list">Số lượng</th>
-            <th class="option-list">Tùy chỉnh</th>
-        </tr>
-    </thead>    
-    `;
-  let eleTbody = document.createElement("tbody");
+  let eleTbody = document.querySelector(".content .content-product-list table tbody");
   productList.forEach((ele, index) => {
     if (index >= start && index < end) {
       eleTbody.innerHTML += `
@@ -144,27 +154,13 @@ export function showListProduct(start, end, currentPage, productList) {
         `;
     }
   });
-  product += eleTbody.outerHTML;
-  document.querySelector(".content .content-product-list table").innerHTML =
-    product;
   deleteProduct(currentPage);
   editProduct(currentPage);
   searchProduct();
 }
 
 export function showListCustomer(start, end, currentPage, userList) {
-  let user = `
-    <thead>
-        <tr>
-            <th class="id-user-list">Id</th>
-            <th class="username-list">Tài khoản</th>
-            <th class="fullname-list">Họ tên</th>
-            <th class="type-user">Loại</th>
-            <th class="edit-user">Chỉnh sửa</th>
-        </tr>
-    </thead>
-    `;
-  let eleTbody = document.createElement("tbody");
+  let eleTbody = document.querySelector(".content .content-customer-list table tbody");
   let objType = {
     customer: "Khách hàng",
     employer: "Nhân viên",
@@ -192,9 +188,6 @@ export function showListCustomer(start, end, currentPage, userList) {
             `;
     }
   });
-  user += eleTbody.outerHTML;
-  document.querySelector(".content .content-customer-list table").innerHTML =
-    user;
   deleteCustomer(currentPage);
   editCustomer(currentPage);
   searchCustomer();
@@ -208,7 +201,7 @@ export function showListOrder(start, end, curentPage, orderList) {
     createOrderRow(orderList[i]);
   }
 
-  generateOrderEvents(start, end, orderList);
+  generateOrderEvents(start, end, curentPage, orderList);
 }
 
 // hàm trả về các đơn không phải đang chờ"pending"
@@ -283,20 +276,7 @@ export function generateCustomerStatistics(orderList, userList) {
 
 // hàm tạo bảng thống kê từ dữ liệu phân tích được 
 export function showProductStatistics(start, end, currentPage, productReport) {
-
-    let tableContent = `
-    <thead>
-        <tr>
-            <th>Mã sản phẩm</th>
-            <th>Hình ảnh</th>
-            <th>Giá sản phẩm</th>
-            <th>Tổng đơn hàng</th>
-            <th>Tổng doanh thu</th>
-            <th>Tùy chỉnh</th>
-        </tr>
-    </thead>`;
-
-  let eleTbody = document.createElement("tbody");
+  let eleTbody = document.querySelector(".dashboardTable tbody");
 
     productReport.forEach((product, index) => {
         if (index >= start && index < end) {
@@ -315,8 +295,6 @@ export function showProductStatistics(start, end, currentPage, productReport) {
         }
     });
 
-    tableContent += eleTbody.outerHTML;
-    document.querySelector(".dashboardTable").innerHTML = tableContent;
     showOrdersListByProductId(currentPage);
 }
 

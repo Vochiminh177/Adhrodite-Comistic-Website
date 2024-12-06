@@ -27,33 +27,23 @@ export function createOrderRow(order) {
 
 // Gán các sự kiện cho đơn hàng
 // Ẩn / hiện chi tiết đơn hàng, đổi tình trạng đơn hàng
-export function generateOrderEvents(start, end, orderList) {
+export function generateOrderEvents(start, end, curentPage, orderList) {
   // Tạo sự kiện xem chi tiết đơn hàng
   const detailEles = document.querySelectorAll(".details-btn");
-  detailEles.forEach((ele, idx) => {
-    ele.addEventListener("click", (event) => {
-      event.preventDefault();
-      const orderIndex = idx + start;
-      showOrderDetails(orderList[orderIndex]);
-      generateOrderButtonsEvents(orderIndex);
+  if(detailEles){
+    detailEles.forEach((ele, idx) => {
+      ele.addEventListener("click", (event) => {
+        event.preventDefault();
+        const orderIndex = idx + start;
+        showOrderDetails(orderList[orderIndex]);
+        generateOrderButtonsEvents(orderIndex);
+      });
     });
-  });
-
-  // Đóng modal khi nhấn vào nút tắt
-  const closeModalBtn = document.querySelector(".close-btn");
-  closeModalBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    closeOrderDetails();
-  });
-
-  // Đóng modal khi nhấn vào bên ngoài modal-content
-  const modal = document.getElementById("order-details-modal");
-  modal.onclick = (event) => {
-    if (event.target.matches(".modal")) {
-      modal.style.display = "none";
-    }
-  };
-
+  } else{
+    //console.error(`".details-btn not found!"`);
+  }
+  
+  closeModalEvents();
   // Tạo sự kiện cho các nút in, xác nhận, huỷ, xác nhận đã giao
   function generateOrderButtonsEvents(orderIndex) {
     const confirmBtn = document.querySelector(".order-confirm-btn");
@@ -63,62 +53,89 @@ export function generateOrderEvents(start, end, orderList) {
     if (confirmBtn) {
       confirmBtn.onclick = (event) => {
         event.preventDefault();
-        updateOrderStatus(orderIndex, "accepted");
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        showOrderConfirmModal(orderIndex, "accepted");
       };
     }
 
     if (cancelBtn) {
       cancelBtn.onclick = (event) => {
         event.preventDefault();
-        updateOrderStatus(orderIndex, "canceled");
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        showOrderConfirmModal(orderIndex, "canceled");
       };
-
-      const productList = JSON.parse(localStorage.getItem("productList"));
-      const orderedProducts = orderList[orderIndex].orderProduct;
-      orderedProducts.forEach((orderedProduct) => {
-        const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
-        if (toRestoreIndex !== -1) {
-          productList[toRestoreIndex].discountQuantity += Math.min(
-            orderedProduct.discountQuantity,
-            orderedProduct.quantity
-          );
-          
-          productList[toRestoreIndex].quantity +=
-            orderedProduct.quantity -
-            Math.min(orderedProduct.discountQuantity, orderedProduct.quantity);
-        }
-      });
-      localStorage.setItem("productList", JSON.stringify(productList));
     }
 
     if (shippedBtn) {
       shippedBtn.onclick = (event) => {
         event.preventDefault();
-        updateOrderStatus(orderIndex, "shipped");
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        showOrderConfirmModal(orderIndex, "shipped");
       };
     }
 
     if(deleteBtn){
       deleteBtn.onclick = (event) => {
         event.preventDefault();
-        const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
-        const toDeleteIndex = localStorageOrderList.findIndex(
-          (order) => orderList[orderIndex].orderId === order.orderId
-        );
+        showOrderConfirmModal(orderIndex, "delete");
+      }
+    }
+  }
 
-        if(toDeleteIndex !== -1){
-          localStorageOrderList.splice(toDeleteIndex, 1);
-          // orderList.splice(toDeleteIndex, 1);
-          localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
-          pagination(localStorageOrderList, 1, showListOrder, "#main-content-order");
-          document.getElementById("order-details-modal").style.display = "none";
-          changeOrderStatusQuantity();
+  function showOrderConfirmModal(orderIndex, newStatus){
+    const orderConfirmMessage = document.getElementById("order-confirm-modal-message");
+    if(orderConfirmMessage){
+      if(newStatus === "accepted"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã xác nhận đơn hàng ?`;
+      } else
+      if(newStatus === "canceled"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã huỷ đơn hàng ?`;
+      } else
+      if(newStatus === "shipped"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã giao đơn hàng ?`;
+      } else
+      if(newStatus === "delete"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã xoá đơn hàng ?`;
+      }
+    } else{
+      //console.error(`#order-confirm-message not found!`);
+    }
+    
+    const orderConfirmModal = document.getElementById("order-confirm-modal");
+    if(orderConfirmModal){
+      orderConfirmModal.style.display = "block";
+    } else{
+      //console.error(`#order-confirm-modal not found!`);
+    }
+  
+    const orderConfirmConfirmButton = document.getElementById("order-confirm-confirm-btn");
+    if(orderConfirmConfirmButton){
+      orderConfirmConfirmButton.onclick = (event) => {
+        event.preventDefault();
+        orderConfirmModal.style.display = "none";
+        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        if(newStatus === "accepted"){
+          updateOrderStatus(orderIndex, "accepted");
+        } else
+        if(newStatus === "canceled"){
+          updateOrderStatus(orderIndex, "canceled");
+        } else
+        if(newStatus === "shipped"){
+          updateOrderStatus(orderIndex, "shipped");
+        } else
+        if(newStatus === "delete"){
+          deleteOrder(orderIndex);
         }
       }
-
+    } else{
+      //console.error(`#order-confirm-confirm-btn not found`);
+    }
+  
+    const orderConfirmCancelButton = document.getElementById("order-confirm-cancel-btn");
+    if(orderConfirmCancelButton){
+      orderConfirmCancelButton.onclick = (event) => {
+        event.preventDefault();
+        orderConfirmModal.style.display = "none";
+      }
+    } else{
+      //console.error(`#order-confirm-cancel-btn not found!`);
     }
   }
 
@@ -143,6 +160,24 @@ export function generateOrderEvents(start, end, orderList) {
     changeOrderStatusQuantity();
     generateOrderButtonsEvents(orderIndex);
   }
+  function deleteOrder(orderIndex){
+    const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
+    const toDeleteIndex = localStorageOrderList.findIndex(
+      (order) => orderList[orderIndex].orderId === order.orderId
+    );
+
+    if(toDeleteIndex !== -1){
+      localStorageOrderList.splice(toDeleteIndex, 1);
+      localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
+      document.getElementById("order-details-modal").style.display = "none";
+      changeOrderStatusQuantity();
+        if(toDeleteIndex === localStorageOrderList.length){
+          pagination(localStorageOrderList, 1, showListOrder, "#main-content-order");  
+        } else{
+          pagination(localStorageOrderList, curentPage, showListOrder, "#main-content-order");
+        }
+    }
+  }
 }
 
 // Hiện lên chi tiết đơn hàng, modal-content
@@ -152,11 +187,6 @@ function showOrderDetails(order) {
   modal.style.display = "block";
 }
 
-// Ẩn chi tiết đơn hàng, modal-content
-function closeOrderDetails() {
-  const modal = document.getElementById("order-details-modal");
-  modal.style.display = "none";
-}
 
 // Tạo chi tiết đơn hàng, modal-content
 function createOrderDetails(order) {
@@ -270,4 +300,59 @@ function translateOrderStatus(orderStatus) {
   }
 
   return "";
+}
+
+function closeModalEvents(){
+  // Đóng modal khi nhấn vào nút tắt
+  const closeOrderDetailsModalBtn = document.querySelector(".order-details-modal .close-btn");
+  if(closeOrderDetailsModalBtn){
+    closeOrderDetailsModalBtn.onclick = (event) => {
+      event.preventDefault();
+      const modal = document.getElementById("order-details-modal");
+      if(modal){
+        modal.style.display = "none";
+      } else{
+        console.log(`#order-details-modal not found!`);
+      }
+    };
+  } else{
+    //console.error(`.order-details-modal .close-btn not found!`);
+  }
+
+  const closeOrderConfirmModalBtn = document.querySelector(".order-confirm-modal .close-btn");
+  if(closeOrderConfirmModalBtn){
+    closeOrderConfirmModalBtn.onclick = (event) => {
+      event.preventDefault();
+      const modal = document.getElementById("order-confirm-modal");
+      if(modal){
+        modal.style.display = "none";
+      } else{
+        //console.error(`order-confirm-modal not found!`);
+      }
+    }
+  } else{
+    //console.error(`order-confirm-modal .close-btn not found!`);
+  }
+  // Đóng modal khi nhấn vào bên ngoài modal-content
+  const orderDetailsmodal = document.getElementById("order-details-modal");
+  if(orderDetailsmodal){
+    orderDetailsmodal.onclick = (event) => {
+      if (event.target.matches(".order-details-modal")) {
+        orderDetailsmodal.style.display = "none";
+      }
+    };
+  } else{
+    //console.error(`#order-details-modal not found!`);
+  }
+
+  const orderConfirmModal = document.getElementById("order-confirm-modal");
+  if(orderConfirmModal){
+    orderConfirmModal.onclick = (event) => {
+      if(event.target.matches(".order-confirm-modal")){
+        orderConfirmModal.style.display = "none";
+      }
+    }
+  } else{
+    //console.error(`#order-confirm-modal not found!`);
+  }
 }
