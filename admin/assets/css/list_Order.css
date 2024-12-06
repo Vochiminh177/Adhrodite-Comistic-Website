@@ -90,21 +90,23 @@
 }
 
 /* Các nhóm bộ lọc */
-.order-filter-group {
+/* .order-filter-group {
   margin-bottom: 16px;
-}
+  display: flex;
+  justify-content: space-between;
+} */
 
-.order-filter-group label {
+#order-filter-form label {
   display: block;
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 5px;
   color: #333;
 }
-
-.order-filter-group input,
-.order-filter-group select {
+#order-filter-form input:not(input[type="submit"], input[type="reset"]),
+#order-filter-form select {
   width: 100%;
+  height: 35px;
   padding: 3px;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -112,21 +114,38 @@
   transition: border-color 0.3s ease;
   margin-bottom: 0px;
 }
-
-.order-filter-group input:focus,
-.order-filter-group select:focus {
+#order-filter-form input:focus,
+#order-filter-form select:focus {
   border-color: #007bff;
   outline: none;
 }
-
+.order-filter-orderID-search-container{
+  margin-bottom: 16px;
+}
+.order-filter-start-end-date-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.order-filter-start-end-date-container > *{
+  width: 48%;
+}
+.order-filter-order-status-container{
+  margin-bottom: 16px;
+}
+.order-filter-district-sort-container{
+  margin-bottom: 16px;
+}
 /* Hành động bộ lọc */
-.order-filter-actions {
+.order-filter-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
 }
-
+.order-filter-buttons > *{
+  width: 45%;
+}
 /* Nút áp dụng bộ lọc */
 .order-btn-apply {
   background-color: #007bff;
@@ -294,7 +313,7 @@
   border-radius: 8px;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
   width: 35%;
-  height: 15%;
+  height: 19%;
 }
 .order-confirm-modal-message{
   font-size: 1.4rem;
@@ -318,7 +337,7 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .order-filter-actions {
+  .order-filter-buttons {
     flex-direction: column;
     gap: 10px;
   }

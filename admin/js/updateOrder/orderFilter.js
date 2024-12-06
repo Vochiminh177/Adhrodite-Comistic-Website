@@ -4,19 +4,21 @@ export function generateOrderFilter(){
     orderFilterContainer.innerHTML = `
         <h2>Bộ lọc</h2>
         <form id="order-filter-form" name="order-filter-form">
-        <div class="order-filter-group">
-            <label for="orderID-search">Tìm mã đơn hàng</label>
-            <input type="search" id="orderID-search" placeholder="Mã đơn hàng" name="orderID-search">
-        </div>
-        <div class="order-filter-group">
-            <label for="start-date">Ngày đầu</label>
-            <input type="date" id="start-date" name="start-date">
-        </div>
-        <div class="order-filter-group">
-            <label for="end-date">Ngày cuối</label>
-            <input type="date" id="end-date" name="end-date">
-        </div>
-        <div class="order-filter-group">
+            <div class="order-filter-orderID-search-container">
+                <label for="orderID-search">Tìm mã đơn hàng</label>
+                <input type="search" id="orderID-search" placeholder="Mã đơn hàng" name="orderID-search">
+            </div>
+            <div class="order-filter-start-end-date-container">
+                <div class="order-filter-start-date-container">
+                    <label for="start-date">Ngày đầu</label>
+                    <input type="date" id="start-date" name="start-date">
+                </div>
+                <div class="order-filter-end-date-container">
+                    <label for="end-date">Ngày cuối</label>
+                    <input type="date" id="end-date" name="end-date">
+                </div>
+            </div>
+        <div class="order-filter-order-status-container">
             <label for="status">Trạng thái</label>
             <select id="status" name="order-status">
                 <option value="tat-ca">Tất cả</option>
@@ -26,15 +28,15 @@ export function generateOrderFilter(){
                 <option value="canceled">Đã huỷ</option>
             </select>
         </div>
-        <div class="order-filter-group">
-        <label for="district-sort">Sắp xếp quận</label>
-        <select id="district-sort" name="order-district-sort">
-            <option value="tat-ca">Không xếp</option>
-            <option value="asc">A - Z</option>
-            <option value="desc">Z - A</option>
-        </select>
-    </div>
-        <div class="order-filter-actions">
+        <div class="order-filter-district-sort-container">
+            <label for="district-sort">Sắp xếp quận</label>
+            <select id="district-sort" name="order-district-sort">
+                <option value="tat-ca">Không xếp</option>
+                <option value="asc">A - Z</option>
+                <option value="desc">Z - A</option>
+            </select>
+        </div>
+        <div class="order-filter-buttons">
             <input type="submit" class="order-btn order-btn-apply" id="order-apply-btn" value="Áp dụng"></input>
             <input type="reset" class="order-btn order-btn-reset" id="order-reset-btn" value="Đặt lại"></input>
         </div>
@@ -46,46 +48,7 @@ export function generateOrderFilter(){
 
     applyBtn.addEventListener('click', (event) => {
         event.preventDefault(); 
-    
-        const orderFilterForm = document.forms["order-filter-form"];
-        const startDate = orderFilterForm["start-date"].value;
-        const endDate = orderFilterForm["end-date"].value;
-        const orderStatus = orderFilterForm["order-status"].value;
-        const orderSort = orderFilterForm["order-district-sort"].value;
-        const orderList = JSON.parse(localStorage.getItem("orderList"));
-        const orderIDsearchTerm = orderFilterForm["orderID-search"].value;
-        const filteredOrders = orderList.filter((order) => {
-            if(orderIDsearchTerm && orderIDsearchTerm !== (order.orderId + "")) return false;
-            if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
-            if(!startDate && !endDate){
-                if(!compareDate(order.orderDate, "tat-ca", "tat-ca")){
-                    return false;
-                }
-            } else
-            if(!startDate){
-                if(!compareDate(order.orderDate, "tat-ca", endDate)){
-                    return false;
-                }
-            } else
-            if(!endDate){
-                if(!compareDate(order.orderDate, startDate, "tat-ca")){
-                    return false;
-               }
-            } else{
-                if(!compareDate(order.orderDate, startDate, endDate)){
-                    return false;
-                }
-            }
-            return true;
-        });
-
-        if(orderSort === "asc"){
-            filteredOrders.sort(cmpFuncAsc);
-        } else
-        if(orderSort === "desc"){
-            filteredOrders.sort(cmpFuncDesc);
-        }
-
+        const filteredOrders = filterOrders();
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 
@@ -96,6 +59,49 @@ export function generateOrderFilter(){
         })
         
     });
+}
+
+export function filterOrders(){
+    const orderFilterForm = document.forms["order-filter-form"];
+    const startDate = orderFilterForm["start-date"].value;
+    const endDate = orderFilterForm["end-date"].value;
+    const orderStatus = orderFilterForm["order-status"].value;
+    const orderSort = orderFilterForm["order-district-sort"].value;
+    const orderList = JSON.parse(localStorage.getItem("orderList"));
+    const orderIDsearchTerm = orderFilterForm["orderID-search"].value;
+    const filteredOrders = orderList.filter((order) => {
+        if(orderIDsearchTerm && orderIDsearchTerm !== (order.orderId + "")) return false;
+        if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
+        if(!startDate && !endDate){
+            if(!compareDate(order.orderDate, "tat-ca", "tat-ca")){
+                return false;
+            }
+        } else
+        if(!startDate){
+            if(!compareDate(order.orderDate, "tat-ca", endDate)){
+                return false;
+            }
+        } else
+        if(!endDate){
+            if(!compareDate(order.orderDate, startDate, "tat-ca")){
+                return false;
+            }
+        } else{
+            if(!compareDate(order.orderDate, startDate, endDate)){
+                return false;
+            }
+        }
+        return true;
+    });
+
+    if(orderSort === "asc"){
+        filteredOrders.sort(cmpFuncAsc);
+    } else
+    if(orderSort === "desc"){
+        filteredOrders.sort(cmpFuncDesc);
+    }
+
+    return filteredOrders;
 }
 
 function compareDate(orderDate, startDate, endDate){
