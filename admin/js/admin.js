@@ -1,24 +1,55 @@
 import { createNotificationAdmin, err_input } from "./base/baseFunction.js";
 
-loginAdmin();
-console.log(123);
+let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+let userList = JSON.parse(localStorage.getItem("userList"));
+if(indexCurrentUserLogin === -1){
+  document.querySelector("#side-bar").style.display = "none";
+  document.querySelector("#content").style.display = "none";
+  document.querySelector("#container-admin-login").style.display = "flex";
+  loginAdmin();
+}
+else if(userList[indexCurrentUserLogin].type !== "admin"){
+  document.querySelector("#side-bar").style.display = "none";
+  document.querySelector("#content").style.display = "none";
+  document.querySelector("#container-admin-login").style.display = "flex";
+  loginAdmin();
+}
+else{
+  document.querySelector("#side-bar").style.display = "block";
+  document.querySelector("#content").style.display = "block";
+  document.querySelector("#container-admin-login").style.display = "none";
+}
+
+
 
 function loginAdmin(){
     document.querySelector(".login").onclick = (e) => {
         e.preventDefault();
         let result = handleLoginAdmin();
         if(result){
-            location.assign(location.origin + "/admin/index2.html");  
-        }
-        else{
+              document.querySelector("#side-bar").style.display = "block";
+            document.querySelector("#content").style.display = "block";
+            document.querySelector("#container-admin-login").style.display = "none";
+            createNotificationAdmin("Đăng nhập thành công");
             document.querySelector("#account-admin").value = "";
             document.querySelector("#password-admin").value = "";
+            document.querySelector(".dashboard_sidebar").click();
+        }
+        else{
+          document.querySelector("#password-admin").value = "";
+          let userList = JSON.parse(localStorage.getItem("userList"));
+          if(userList.length === 0){
+            createNotificationAdmin("Lỗi rồi bạn ơi");
+          }
         }
     }
 }
 
 function handleLoginAdmin(){
     let userList = JSON.parse(localStorage.getItem("userList"));
+    if(userList.length === 0){
+      return false;
+    }
 
     let account = document.querySelector("#account-admin");
     let password = document.querySelector("#password-admin");

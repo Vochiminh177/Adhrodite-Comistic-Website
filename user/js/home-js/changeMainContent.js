@@ -14,91 +14,89 @@ import { changeLeftMenu } from "./reponsive.js";
 export const mainContentMap = {
   home: `
   <div class="body__home">
-    <div class="home__hero">
-      <div class="hero__rectangle">
-        <div class="hero__content">
-          <h1 class="hero__title heading-lv1">
-            Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
-          </h1>
-          <p class="hero__desc desc-lv1">
-            Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
-            lựa chọn được phong cách sống cho riêng mình.
-          </p>
+          <div class="home__hero">
+            <div class="hero__rectangle">
+              <h1 class="hero__title heading-lv1">
+                Làm đẹp không chỉ là một lựa chọn, mà là một phong cách sống.
+              </h1>
+              <p class="hero__desc desc-lv1">
+                Ở APHRODITE, chúng tôi cung cấp các sản phẩm giúp bạn dễ dàng
+                lựa chọn được phong cách sống cho riêng mình.
+              </p>
+            </div>
+          </div>
+          <div class="home__sale-product">
+            <div class="sale-product__header"></div>
+            <div class="sale-product__body">
+              <div class="sale-product__list"></div>
+            </div>
+          </div>
+          <div class="home__popular-menu">
+            <h2 class="popular-menu__title heading-lv2">
+              Các danh mục nổi bật
+            </h2>
+            <div class="popular-menu__list"></div>
+          </div>
+          <!-- <div class="home__popular-product">
+            <div class="popular-product__header">
+              <h2 class="popular-product__title heading-lv2">
+                Các sản phẩm nổi bật
+              </h2>
+            </div>
+            <div class="popular-product__body">
+              <div class="popular-product__list"></div>
+            </div>
+          </div> -->
+          <div class="home__useful">
+            <div class="useful__media">
+              <img
+                src="./assets/images/useful-image.jpg"
+                alt=""
+                class="useful__model"
+              />
+            </div>
+            <div class="useful__content">
+              <h2 class="useful__title heading-lv2">
+                Lợi ích khi mua sản phẩm từ chúng tôi
+              </h2>
+              <ul class="useful__list">
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Sản phẩm chính hãng:</b> Cam kết cung cấp các sản phẩm mỹ
+                    phẩm từ các thương hiệu uy tín và có nguồn gốc rõ ràng.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Đa dạng sản phẩm:</b> Cửa hàng có đầy đủ các sản phẩm từ
+                    skincare đến trang điểm, đáp ứng mọi nhu cầu làm đẹp của
+                    khách hàng.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Tư vấn chuyên nghiệp:</b> Đội ngũ nhân viên có kiến thức
+                    chuyên sâu sẽ hỗ trợ tư vấn sản phẩm phù hợp với loại da và
+                    nhu cầu cá nhân.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Ưu đãi hấp dẫn:</b> Luôn có các chương trình khuyến mãi
+                    và quà tặng kèm cho những đơn hàng lớn.
+                  </p>
+                </li>
+                <li class="useful__item">
+                  <p class="useful__desc">
+                    <b>Tư vấn chăm sóc da miễn phí:</b> Khách hàng có thể được
+                    tư vấn cách sử dụng mỹ phẩm và chăm sóc da hàng ngày hoàn
+                    toàn miễn phí.
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="home__popular-menu">
-      <h2 class="popular-menu__title heading-lv2">
-        Các danh mục nổi bật
-      </h2>
-      <div class="popular-menu__list"></div>
-    </div>
-    <div class="home__popular-product">
-      <div class="popular-product__header">
-        <h2 class="popular-product__title heading-lv2">
-          Các sản phẩm nổi bật
-        </h2>
-      </div>
-      <div class="popular-product__body">
-        <div class="popular-product__list"></div>
-      </div>
-    </div>
-    <div class="home__sale-product">
-      <div class="sale-product__header"></div>
-      <div class="sale-product__body">
-        <div class="sale-product__list"></div>
-      </div>
-    </div>
-    <div class="home__useful">
-      <div class="useful__media">
-        <img
-          src="./assets/images/useful-image.jpg"
-          alt=""
-          class="useful__model"
-        />
-      </div>
-      <div class="useful__content">
-        <h2 class="useful__title heading-lv2">
-          Lợi ích khi mua sản phẩm từ chúng tôi
-        </h2>
-        <ul class="useful__list">
-          <li class="useful__item">
-            <p class="useful__desc">
-              <b>Sản phẩm chính hãng:</b> Cam kết cung cấp các sản phẩm mỹ
-              phẩm từ các thương hiệu uy tín và có nguồn gốc rõ ràng.
-            </p>
-          </li>
-          <li class="useful__item">
-            <p class="useful__desc">
-              <b>Đa dạng sản phẩm:</b> Cửa hàng có đầy đủ các sản phẩm từ
-              skincare đến trang điểm, đáp ứng mọi nhu cầu làm đẹp của
-              khách hàng.
-            </p>
-          </li>
-          <li class="useful__item">
-            <p class="useful__desc">
-              <b>Tư vấn chuyên nghiệp:</b> Đội ngũ nhân viên có kiến thức
-              chuyên sâu sẽ hỗ trợ tư vấn sản phẩm phù hợp với loại da và
-              nhu cầu cá nhân.
-            </p>
-          </li>
-          <li class="useful__item">
-            <p class="useful__desc">
-              <b>Ưu đãi hấp dẫn:</b> Luôn có các chương trình khuyến mãi
-              và quà tặng kèm cho những đơn hàng lớn.
-            </p>
-          </li>
-          <li class="useful__item">
-            <p class="useful__desc">
-              <b>Tư vấn chăm sóc da miễn phí:</b> Khách hàng có thể được
-              tư vấn cách sử dụng mỹ phẩm và chăm sóc da hàng ngày hoàn
-              toàn miễn phí.
-            </p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
   `,
   about: `
     <div class="about">
@@ -497,7 +495,7 @@ export function updateMainContent(mainContentKey) {
     if (mainContentKey === "home") {
       // Tạo sự kiện cho phép người dùng nhấn vào "Danh mục nổi bậc"
       renderPopularMenuList();
-      renderPopularProductList();
+      // renderPopularProductList();
       renderSaleProductList();
     }
 

@@ -199,6 +199,22 @@
 .header__find-action:hover {
   color: #fc8eac;
 }
+.header__shopping-cart-icon {
+  position: relative;
+}
+.header__shopping-cart-notification {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+  color: #fff;
+  line-height: 12px;
+  text-align: center;
+  visibility: hidden;
+}
 .header__user-icon {
   position: relative;
 }
@@ -803,18 +819,19 @@
   display: flex; /* Bật Flexbox */
   flex-direction: column;
   gap: 10px; /* Khoảng cách giữa các thẻ <p> */
-  width: 20%;
+  /* width: 20%; */
 }
 
 .container-notification p {
   border-radius: 5px;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
+  height: 70px;
+  line-height: 70px;
   background-color: #FFC1CC;
   color: #333;
-  height: 50px;
-  line-height: 50px;
+  padding: 0px 10px;
   text-align: center;
-  width: 100%;
+  /* width: 100%; */
   margin-bottom: 20px;
   transform: translate(110%, 0);
   transition: transform 0.2s ease;
@@ -828,6 +845,10 @@
 
 /* ==========================chung cho mobile và tablet */
 @media screen and (max-width: 850px) {
+  .container-notification p{
+    font-size: 1.7rem;
+    padding: 0 5px;
+  }
   .header__main-icon {
     position: absolute;
     top: 50%;
@@ -871,6 +892,10 @@
 /* =================reponsive mobile===================== */
 
 @media screen and (max-width: 500px) {
+  .container-notification p{
+    font-size: 1.5rem;
+    padding: 0 5px;
+  }
   /* <=== Popular Menu List ===> */
   .body__home .popular-menu__list {
     --columns: 1;
@@ -890,6 +915,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .container-notification p{
+    font-size: 1.5rem;
+    padding: 0 5px;
+  }
   /* <=== Hero ===> */
   .body__home .home__hero {
     display: none !important;

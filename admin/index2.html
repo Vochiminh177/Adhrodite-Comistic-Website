@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/list_Product.css">
     <link rel="stylesheet" href="assets/css/list_Order.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 
     <!--ICON-->
@@ -23,7 +24,7 @@
 </head>
 
 <body>
-    <section id="side-bar">
+    <section id="side-bar" style="display: none;">
         <a href="#" class="brand">
             <i class='bx bx-home-smile'></i>
             <span class="name-brand">APHRODITE</span>
@@ -73,7 +74,7 @@
 
     </section>
 
-    <section id="content">
+    <section id="content" style="display: none;">
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="profile">
@@ -338,6 +339,21 @@
             <h1>Dang xuat</h1>
         </main>
     </section>
+
+    <div id="container-admin-login" style="display: flex;">
+        <div class="form-login-admin">
+            <h2>ĐĂNG NHẬP</h2>
+            <div class="account-admin">
+            <input type="text" id="account-admin" placeholder="Tài khoản admin">
+            </div>
+            <div class="password-admin">
+            <input type="password" id="password-admin" placeholder="Mật khẩu">
+            </div>
+            <a href="" class="login">Đăng nhập</a>
+        </div>
+    </div>
+
+    <script type="module" src="./js/admin.js"></script>
     <script type="module" src="./js/script2.js"></script>
     <script src="./js/dashboard.js"></script>
     <!-- <script type="module" src="js/product.js"></script> -->

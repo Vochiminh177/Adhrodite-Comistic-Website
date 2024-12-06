@@ -16,6 +16,7 @@ import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 import {
   updateDashboardHighlights,
   dashboardFilter,
+  createNotificationAdmin,
 } from "./base/baseFunction.js";
 function start() {
   anhMinh();
@@ -70,7 +71,11 @@ function anhMinh() {
         location.assign(location.origin + "/user/index.html");
       } else {
         localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
-        location.assign(location.origin + "/admin/index.html");
+        createNotificationAdmin("Đăng xuất thành công");
+        document.querySelector("#side-bar").style.display = "none";
+            document.querySelector("#content").style.display = "none";
+            document.querySelector("#container-admin-login").style.display = "flex";
+
       }
     });
   });

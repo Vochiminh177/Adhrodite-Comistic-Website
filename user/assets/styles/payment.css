@@ -436,3 +436,35 @@ figure:has(.payment-information-products__image) {
 .payment-information-products__image {
   width: 80px;
 }
+.city,
+.district,
+.ward{
+  width: 170px;
+}
+
+.payment-information-info__change-address
+.payment-information-info__change-address-body .form-group:nth-of-type(2){
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.payment-information-info__cards{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-evenly;
+}
+
+/* @media screen and (max-width: 700px)  { */
+  /* .payment-information-info__cards
+  .payment-information-info__card{
+    width: 200px;
+  }
+} */
+/*   */
+
+.payment-information-info__block:nth-of-type(2) {
+  margin-top: 48px;
+}

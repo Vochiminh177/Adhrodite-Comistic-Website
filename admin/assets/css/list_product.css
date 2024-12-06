@@ -44,7 +44,7 @@
   font-size: 1rem;
   border: none;
   outline: none;
-  border-bottom: 1px solid #a94064;
+  border-bottom: 1px solid #000;
 }
 
 /* ------------------------------------ */
@@ -366,6 +366,51 @@
 /* =============================mobile */
 
 @media screen and (max-width: 700px) {
+  .filter-product{
+    position: relative;
+  }
+  .filter-product .content-filter.active {
+    /* width: 90%; */
+    position: absolute;
+    top: 0px;
+    left: 65px;
+    width: calc(100% - 65px);
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+    background-color: #f8e9ef;
+  }
+  .filter-product #select-product-filter-category,
+  #select-product-filter-brand,
+  #input-filter-quantity {
+    width: calc(100% - 30px);
+    border-radius: 4px;
+  }
+
+
+  /* .content-filter.active{
+  } */
+
+  .search-product  {
+    width: 100%;
+  }
+  .search-product input{
+    width: calc(100% - 110px);
+  }
+
+  .btn.btn-add-product{
+    width: 100%;
+  }
+  .search-product a {
+    width: 30px;
+  }
+  .search-product {
+    width: calc(100% - 28px*2 -50px);
+  }
+  .content-product-row{
+    display: flex;
+    flex-direction: column-reverse;
+  }
   .search-product input {
     width: 50%;
   }

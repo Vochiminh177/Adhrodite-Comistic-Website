@@ -53,6 +53,9 @@
   color: #fff;
   font-weight: 500;
 }
+.btn-add-customer {
+  margin-bottom: 8px;
+}
 /* ------------------------------------------ */
 
 /* css phần tủy chỉnh 3 nút sửa xóa khóa khách hàng của admin */
@@ -157,6 +160,17 @@
 
 /* ================= chung cho mobile và table */
 @media screen and (max-width: 700px) {
+  .customer-row{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .search-customer{
+    width: 100%;  
+  }
+  .search-customer input{
+    width: calc(100% - 106px);
+    
+  } 
   .content-customer-list table th {
     display: none;
   }

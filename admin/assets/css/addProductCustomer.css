@@ -27,6 +27,9 @@ select {
   align-items: center;
   gap: 48px;
 }
+.content-two-input select {
+  width: 45%;
+}
 .content-two-input-group {
   display: flex;
   flex-direction: column;
@@ -138,7 +141,8 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: 50%;
+  min-width: 650px;
 }
 .form-user-add-edit a {
   position: absolute;
@@ -173,4 +177,28 @@ select {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+@media screen and (max-width: 700px) {
+  .form-user-add-edit{
+    width: calc(100% - 40px);
+    min-width: 0;
+    gap: 40px;
+  }
+  .content-two-input{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-two-input select,
+  .content-two-input input{
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .content-one-input input{
+    margin-bottom: 0;
+  }
+  .type-customer{
+    justify-content: flex-end;
+  }
 }

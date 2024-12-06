@@ -44,7 +44,7 @@ function createPage(list, currentPage, showList, main) {
 
   // Tạo các số trang
   for (let i = firstPage; i <= lastPage; i++) {
-    if (currentPage == i) {
+    if (currentPage === i) {
       eleUl.innerHTML += `<li><a href="" class="page-number active-page">${i}</a></li>`;
     } else {
       eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
@@ -147,7 +147,7 @@ export function showListProduct(start, end, currentPage, productList) {
   product += eleTbody.outerHTML;
   document.querySelector(".content .content-product-list table").innerHTML =
     product;
-  deleteProduct();
+  deleteProduct(currentPage);
   editProduct(currentPage);
   searchProduct();
 }
@@ -195,10 +195,10 @@ export function showListCustomer(start, end, currentPage, userList) {
   user += eleTbody.outerHTML;
   document.querySelector(".content .content-customer-list table").innerHTML =
     user;
-  deleteCustomer();
+  deleteCustomer(currentPage);
   editCustomer(currentPage);
   searchCustomer();
-  blockCustomer();
+  blockCustomer(currentPage);
 }
 
 export function showListOrder(start, end, curentPage, orderList) {

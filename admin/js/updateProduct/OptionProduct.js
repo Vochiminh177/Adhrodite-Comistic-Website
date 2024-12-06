@@ -55,7 +55,7 @@ export function addProduct() {
 }
 
 //chức năng xóa sản phẩm của admin -HIỆU
-export function deleteProduct() {
+export function deleteProduct(currentPage) {
     document.querySelectorAll(".delete-product").forEach((obj) => {
         obj.addEventListener("click", (e) => {
             e.preventDefault();
@@ -100,7 +100,10 @@ export function deleteProduct() {
                     ele.remove();
                     createNotificationAdmin("Xóa sản phẩm thành công!");
                     let productList = JSON.parse(localStorage.getItem("productList"));
-                    pagination(productList, 1, showListProduct, "#main-content-product-list");
+                    if(index === (productList.length)){
+                        currentPage = 1;
+                    }
+                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
                 }
             };
         });
@@ -257,7 +260,7 @@ export function filterProductAdmin() {
                     p.className = "dont-have-product";
                     p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
                     document.querySelector("#main-content-product-list .content").appendChild(p);
-                    document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";
+                    // document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";
                 }
             }
         };

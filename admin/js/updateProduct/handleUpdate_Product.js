@@ -244,13 +244,13 @@ function checkErrorForAddAndEdit(path_picture_admin){
    let checkNum = true;
    if(!checkNumber(price.value) || price.value <= 0){
        checkNum = false;
-       err_input(price, "Phải nhập số nguyên dương")
+       err_input(price, "Phải nhập số nguyên")
    }
    if(!checkNumber(quantity.value) || quantity.value < 0){
        checkNum = false;
-       err_input(price, "Phải nhập số nguyên!");
+       err_input(quantity, "Phải nhập số nguyên!");
    }
-   if(!checkNumber(discountPercent.value) || discountPercent<0){
+   if(!checkNumber(discountPercent.value) || discountPercent.value < 0){
        checkNum = false;
        err_input(discountPercent, "Phải nhập số nguyên!");
    }

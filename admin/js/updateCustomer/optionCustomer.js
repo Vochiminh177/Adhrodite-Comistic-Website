@@ -4,7 +4,7 @@ import { pagination, showListCustomer } from "../showList/show.js";
 import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer, handleBlockCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
 
-export function deleteCustomer() {
+export function deleteCustomer(currentPage) {
     document.querySelectorAll(".delete-customer").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
@@ -29,7 +29,19 @@ export function deleteCustomer() {
                 document.querySelector(".container-delete-customer").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
-                pagination(userList, 1, showListCustomer, "#main-content-customer");
+              
+                if(userList.length === 0){
+                    document.querySelector("#main-content-customer .list-page").style.display = "none";
+                    // let p = document.querySelector("p");
+                    // p.textContent = "KHÔNG "
+                    return;
+                } 
+                
+                if(index === (userList.length)){
+                    currentPage = 1;
+                }
+                
+                pagination(userList, currentPage, showListCustomer, "#main-content-customer");
             };
         };
     });
@@ -149,7 +161,7 @@ export function searchCustomer(){
     }
 }
 
-export function blockCustomer(){
+export function blockCustomer(currentPage){
     document.querySelectorAll(".block-customer").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
@@ -177,7 +189,7 @@ export function blockCustomer(){
                 handleBlockCustomer(index);
                 document.querySelector(".container-delete-customer").remove();
                 userList = JSON.parse(localStorage.getItem("userList"));
-                pagination(userList, 1, showListCustomer, "#main-content-customer");
+                pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 createNotificationAdmin(`${userList[index].blockStatus ? "Khóa" : "Mở khóa"} người dùng thành công`);
             };
         };
