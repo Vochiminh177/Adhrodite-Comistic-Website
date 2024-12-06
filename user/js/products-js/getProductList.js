@@ -60,6 +60,9 @@ function activateFilterSearch(){
 
   filteredProducts = filterProducts();
   updateProductList(filteredProducts, 1);
+  document.querySelector(
+    ".left-search-filter__content"
+  ).style.display = "none";
 }
 // Đặt lại các tiêu chí lọc
 function resetFilter(){
@@ -74,9 +77,6 @@ function getLeftFilterInfo() {
   applyButton.addEventListener("click", (event) => {
     event.preventDefault();
     activateFilterSearch();
-    document.querySelector(
-      ".left-search-filter__content"
-    ).style.display = "none";
   });
 
   const resetButton = document.getElementById("left-search-filter__reset");
@@ -98,6 +98,9 @@ function getLeftMenuInfo() {
 
     // Nếu nhấn vào một mục con trong "Danh mục sản phẩm"
     if (event.target.matches("a.left-menu__action")) {
+      if(window.innerWidth <= 875){
+        leftMenuList.classList.remove("show-left-menu__list");
+      }
       const leftMenuValue = event.target.getAttribute("data-menu-product");
       if (leftMenuValue) {
         // Đặt lại bộ lọc

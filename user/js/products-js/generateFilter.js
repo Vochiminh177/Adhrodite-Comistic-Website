@@ -53,15 +53,18 @@ export function generateFilter() {
     .addEventListener("click", (event) => {
       event.preventDefault();
       // Ẩn/hiện double slider
+      const customerPriceBtn = document.getElementById("custom-price-button");
       if (
         getComputedStyle(doubleSlider).getPropertyValue("visibility") ===
         "hidden"
       ) {
         doubleSlider.style.visibility = "visible";
-        document.getElementById("custom-price-button").classList.add("active");
+        customerPriceBtn.classList.add("active");
+        customerPriceBtn.innerHTML = `<i class='bx bxs-up-arrow'></i>Hoặc chọn mức giá tuỳ ý`;
       } else {
         doubleSlider.style.visibility = "hidden";
-        document.getElementById("custom-price-button").classList.remove("active");
+        customerPriceBtn.classList.remove("active");
+        customerPriceBtn.innerHTML = `<i class='bx bxs-down-arrow'></i>Hoặc chọn mức giá tuỳ ý`;
       }
 
       // Khi chọn custom-price, các khoảng giá có sẵn bị reset

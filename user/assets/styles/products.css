@@ -188,8 +188,15 @@
 }
 /*double slider*/
 .body__products .left-search-filter__custom-price-button {
+  margin-top: 9px;
   width: 100%;
-  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.body__products .left-search-filter__custom-price-button i{
+  margin-right: 2px;
+  margin-top: 3px;
 }
 .body__products .left-search-filter__custom-price-button:hover {
   color: blue;
@@ -630,6 +637,13 @@
     position: absolute;
     top: 24px;
     right: 32px;
+  }
+  .body__products .left-search-filter__custom-price-button {
+    justify-content: flex-start;
+    padding: 0px;
+  }
+  .body__products .left-search-filter__double-slider input{
+    width: 75px;
   }
   .body__products .left-search-filter__content {
     position: absolute;
