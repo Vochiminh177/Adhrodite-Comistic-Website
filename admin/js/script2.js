@@ -16,7 +16,6 @@ import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 
 import {
   updateDashboardHighlights,
-  dashboardFilter,
   createNotificationAdmin,
 } from "./base/baseFunction.js";
 

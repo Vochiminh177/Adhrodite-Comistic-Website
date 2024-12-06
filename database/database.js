@@ -1958,6 +1958,11 @@ window.addEventListener("load", () => {
   if (tmpList === null || tmpList === undefined) {
     localStorage.setItem("productList", JSON.stringify(productItemArray));
   }
+
+  let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+  if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
+    localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
+  }
 });
 
 const products = JSON.parse(localStorage.getItem("productList"));

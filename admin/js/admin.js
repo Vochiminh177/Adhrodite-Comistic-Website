@@ -2,13 +2,7 @@ import { createNotificationAdmin, err_input } from "./base/baseFunction.js";
 
 let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
 let userList = JSON.parse(localStorage.getItem("userList"));
-if(indexCurrentUserLogin === -1){
-  document.querySelector("#side-bar").style.display = "none";
-  document.querySelector("#content").style.display = "none";
-  document.querySelector("#container-admin-login").style.display = "flex";
-  loginAdmin();
-}
-else if(userList[indexCurrentUserLogin].type !== "admin"){
+if(indexCurrentUserLogin === -1 || userList[indexCurrentUserLogin].type !== "admin"){
   document.querySelector("#side-bar").style.display = "none";
   document.querySelector("#content").style.display = "none";
   document.querySelector("#container-admin-login").style.display = "flex";
@@ -23,9 +17,11 @@ else{
 
 
 function loginAdmin(){
-    document.querySelector(".login").onclick = (e) => {
+    document.querySelector(".form-login-admin .login").onclick = (e) => {
         e.preventDefault();
+        console.log(e);
         let result = handleLoginAdmin();
+        console.log(result)
         if(result){
               document.querySelector("#side-bar").style.display = "block";
             document.querySelector("#content").style.display = "block";
