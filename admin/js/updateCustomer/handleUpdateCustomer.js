@@ -2,9 +2,70 @@
 import { err_input } from "../base/baseFunction.js";
 
 function checkNumberPhone(value){
-    if(!isNaN(value)){
-        return value == Math.round(value) && value.length == 10;
+    if(value.length !== 10) return false;
+    for(let i=0; i<value.length; i++){
+        if(!(value.charAt(i) >= 0 && value.charAt(i) <= 9)){
+            return false;
+        }
     }
+    return true;
+}
+
+function checkEmail(value){
+    let count = 0;
+    for(const char of value){
+        if(char === '@'){
+        count++;
+        }
+    }
+    if(count !== 1){
+        return false;
+    }
+    let index = value.indexOf('@');
+    let checkBefore = true;
+    for(const char of value.slice(0, index)){
+        if(!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) checkBefore = false;
+    }
+    if(!checkBefore) return false;
+
+    let checkAllNumber = false;
+    for(const char of value.slice(0, index)){
+        if(!(char >= '0' && char <= '9')) checkAllNumber = true;
+    }
+    if(!checkAllNumber) return false;
+
+    let indexPoint;
+    let countPoint = 0;
+    let checkBeforePoint = true;
+    for(let k=value.length-1; k>=0; k--){
+        if(countPoint == 2){
+            indexPoint = k;
+            break;
+        }
+        if(value.charAt(k) === '.'){
+        countPoint += 1;
+        }
+    }
+    if(!(countPoint > 0 && countPoint <= 2)) return false;
+    if(countPoint === 1){
+        let i = value.indexOf(".");
+        for(const char of value.slice((index+1), i)){
+            if(!(char >= 'a' && char <= 'z')) checkBeforePoint = false;
+        }
+        if(!checkBeforePoint) return false;
+        let tmp = value.slice(i, value.length);
+        if(tmp !== ".com") return false;
+    }
+    else{
+        for(const char of value.slice((index+1), indexPoint)){
+            if(!(char >= 'a' && char <= 'z')) checkBeforePoint = false;
+        }
+        if(!checkBeforePoint) return false;
+        let tmp = value.slice(indexPoint, value.length);
+        if(tmp !== ".com.vn") return false;
+    }
+
+    return true;
 }
 
 export function handleDeleteCustomer(index) {
@@ -23,84 +84,42 @@ export function handleEditCustomer(index) {
     let email = document.querySelector(".container-form-user-add-edit .email-customer");
     let address = document.querySelector(".container-form-user-add-edit .address-customer");
 
-    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || address.value === "") {
-        err_input(username);
-        err_input(password);
-        err_input(phone);
-        err_input(firstName);
-        err_input(lastName);
-        err_input(email);
-        err_input(address);
-        return false;
-    }
+   if(!checkErrorAddEdit(username, password, phone, firstName, lastName, email, address)) return false;
 
-    //nếu không đúng số điện thoại
-    let checkPhone = checkNumberPhone(phone.value);
-    if(!checkPhone){
-        err_input(phone, "Cần nhập đúng 10 chữ số!");
-        return false;
-    }
-
-    //nếu bị trùng username hoặc sdt
+    //nếu bị trùng username hoặc sdt hoặc email
     let userList = JSON.parse(localStorage.getItem("userList"));
     let check = {
         status: false,
         messPhone: null,
-        messUsername: null
+        messUsername: null,
+        messEmail: null
     }
     userList.forEach((obj, i) => {
         if (index != i) {
-            if (obj.username == username.value) {
+            if (obj.username === username.value) {
                 check.status = true;
-                check.messUsername = "Tên tài khoản đã tồn tại!";
+                check.messUsername = "Tài khoản đã tồn tại";
             }
-            if (obj.phone == phone.value) {
-                console.log(obj.phone, userList[index].phone)
+            if (obj.phone === phone.value) {
                 check.status = true;
-                check.messPhone = "Số điện thoại đã tồn tại!";
+                check.messPhone = "Số điện thoại đã tồn tại";
+            }
+            if (obj.email === email.value) {
+                check.status = true;
+                check.messEmail = "Email đã tồn tại";
             }
         }
     })
     if (check.status) {
-        if (check.messPhone != null) {
+        if (check.messPhone !== null) {
             err_input(phone, check.messPhone);
         }
-        if (check.messUsername != null) {
+        if (check.messUsername !== null) {
             err_input(username, check.messUsername);
         }
-        return false;
-    }
-
-    //kiểm tra email
-    function checkEmail(email) {
-        if(email.indexOf("@") === -1){
-          return false;
+        if(checkEmail.messEmail !== null){
+            err_input(email, check.messEmail);
         }
-        const parts = email.split("@");
-        
-        // Kiểm tra cấu trúc email
-        if (parts.length !== 2 || parts[1] !== "gmail.com") {
-            return false;
-        }
-      
-        // Kiểm tra từng ký tự trong phần trước "@"
-        for (const char of parts[0]) {
-            if (!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) {
-                return false; // Ký tự không hợp lệ
-            }
-        }
-        
-        return true; // Email hợp lệ
-      }
-    if(!checkEmail(email.value)){
-        err_input(email, "Email cần đúng định dạng");
-        return false;
-    }
-    let checkExistEmail = userList.some((obj, i) => {
-        if(i !== index) return obj.email === email.value;
-    });
-    if(checkExistEmail) {
-        err_input(email, "Email đã tồn tại");
         return false;
     }
 
@@ -132,69 +151,55 @@ export function handleAddCustomer() {
     let email = document.querySelector(".container-form-user-add-edit .email-customer");
     let address = document.querySelector(".container-form-user-add-edit .address-customer");
 
-    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email === "" || address === "") {
-        err_input(username);
-        err_input(password);
-        err_input(phone);
-        err_input(firstName);
-        err_input(lastName);
-        err_input(email);
-        err_input(address);
-        return false;
-    }
+    if(!checkErrorAddEdit(username, password, phone, firstName, lastName, email, address)) return false;
 
-    //nếu không đúng số điện thoại
-    let checkPhone = checkNumberPhone(phone.value);
-    if(!checkPhone){
-        err_input(phone, "Cần nhập đúng 10 chữ số!");
-        return false;
-    }
-
-    //nếu bị trùng username hoặc sdt
+    //nếu bị trùng username hoặc sdt hoặc email
     let userList = JSON.parse(localStorage.getItem("userList"));
     let check = {
         status: false,
         messPhone: null,
-        messUsername: null
+        messUsername: null,
+        checkEmail: null
     }
     userList.forEach((obj) => {
         if (obj.username == username.value) {
             check.status = true;
-            check.messUsername = "Tên tài khoản đã tồn tại!";
+            check.messUsername = "Tài khoản đã tồn tại";
+            console.log(123);
         }
         if (obj.phone == phone.value) {
-            // console.log(obj.phone, userList[index].phone)
             check.status = true;
-            check.messPhone = "Số điện thoại đã tồn tại!";
+            check.messPhone = "Số điện thoại đã tồn tại";
+            console.log(123);
+        }
+        if (obj.email === email.value) {
+            check.status = true;
+            check.messEmail = "Email đã tồn tại";
+            console.log(123);
         }
     });
     if (check.status) {
         if (check.messPhone != null) {
+            console.log(123);
             err_input(phone, check.messPhone);
         }
         if (check.messUsername != null) {
+            console.log(123);
             err_input(username, check.messUsername);
         }
+        if(checkEmail.messEmail !== null){
+            console.log(123);
+            err_input(email, check.messEmail);
+        }
         return false;
-    }
-
-    if(!checkEmail(email)){
-        err_input(email, "Email cần đúng định dạng");
-        return false;
-    }
-    let checkExistEmail = userList.some((obj, i) => {
-        return obj.email === email.value;
-    });
-    if(checkExistEmail) {
-    err_input(email, "Email đã tồn tại");
-    return false;
     }
 
     //nếu tất cả ổn
     let id = userList[0].id;
     while(userList.some((obj) => {
-        return obj.id == id;
+        return obj.id === id;
     })){
+        console.log(123);
         id = Math.floor(Math.random() * userList.length+1) + 1;
     }
 
@@ -230,59 +235,45 @@ export function handleBlockCustomer(index){
     localStorage.setItem("userList", JSON.stringify(userList));
 }
 
-function checkEmail(email) {
-    //kiểm tra số dấu @
-    let point = 0;
-    for(const char of email.value){
-      if(char === "@") point++;
-    }
-    if(point > 1){
-      return false;
-    }
-  
-    if (email.value.indexOf("@") === -1) {
-      return false;
-    }
-    const parts = email.value.split("@");
-  
-    // Kiểm tra 2 bên @
-    if (parts.length !== 2) {
-      return false;
+function checkErrorAddEdit(username, password, phone, firstName, lastName, email, address){
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || address.value === "") {
+        err_input(username);
+        err_input(password);
+        err_input(phone);
+        err_input(firstName);
+        err_input(lastName);
+        err_input(email);
+        err_input(address);
+        return false;
     }
   
-    // Kiểm tra từng ký tự trong phần trước "@"
-    for (const char of parts[0]) {
-      if (
-        !(
-          (char >= "a" && char <= "z") ||
-          (char >= "A" && char <= "Z") ||
-          (char >= "0" && char <= "9")
-        )
-      ) {
-        return false; // Ký tự không hợp lệ
-      }
+    for(let i=0; i<firstName.value.length; i++){
+        if(!(firstName.value.charAt(i) >= 'a' && firstName.value.charAt(i) <= 'z')){
+            err_input(firstName, "Cần nhập chữ");
+            return false;
+        }
     }
-  
-    // kiểm tra nếu trước @ toàn số
-    let checkAllNumberDigital = true;
-    for(const char of parts[0]){
-      if(!(char >=0 && char <= 9)){
-        checkAllNumberDigital = false;
-      }
-    }
-    if(checkAllNumberDigital) return false;
-  
-    //kiểm tra sau @
-    let indexPoint = parts[1].indexOf(".");
-    let index = parts[1].indexOf("@");
-    let veri = parts[1].slice(indexPoint, parts[1].length);
-    let beforePoint = parts[1].slice(index, indexPoint);
-
-    for(const char of beforePoint){
-        if(!(char >= "a" && char <= "z")) return false;
+    for(let i=0; i<lastName.value.length; i++){
+        if(!(lastName.value.charAt(i) >= 'a' && lastName.value.charAt(i) <= 'z')){
+            err_input(firstName, "Cần nhập chữ");
+            return false;
+        }
     }
 
-    if(veri !== ".com" && veri !== ".com.vn") return false;
-  
-    return true; // Email hợp lệ
-  }
+    //nếu không đúng số điện thoại
+    let checkPhone = checkNumberPhone(phone.value);
+    if(!checkPhone){
+        err_input(phone, "Cần nhập đúng 10 chữ số");
+        console.log(123);
+        return false;
+    }
+
+    if(!checkEmail(email.value)){
+        err_input(email, "Email cần đúng định dạng");
+        console.log(123);
+        return false;
+    }
+
+    return true;
+}
+

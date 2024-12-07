@@ -90,7 +90,8 @@ export function editCustomer(currentPage) {
 export function addCustomer(){
     document.querySelector("#main-content-customer .btn-add-customer").onclick = () =>{
         createFormAddEdit();
-        document.querySelector(".container-form-user-add-edit .add-customer").onclick = () => {
+        document.querySelector(".container-form-user-add-edit .add-customer").onclick = (e) => {
+            e.preventDefault();
             let result = handleAddCustomer();
             if(result){
                 document.querySelector(".container-form-user-add-edit").remove();
@@ -200,8 +201,9 @@ function createFormAddEdit(){
     let container = document.createElement("div");
     container.className = "container-form-user-add-edit";
     container.innerHTML = `
-        <div class="form-user-add-edit">
+        <form action="" autocomplete="off" class="form-user-add-edit">
             <a>&times;</a>
+            
             <div class="content-two-input">
                 <input type="text" placeholder="Tên tài khoản" class="username-customer">
                 <input type="text" placeholder="Mật khẩu" class="password-customer">
@@ -220,8 +222,8 @@ function createFormAddEdit(){
             </div>
             <div class="content-one-input"><input type="text" placeholder="Email" class="email-customer"></div>
             <div class="content-one-input"><input type="text" placeholder="Địa chỉ" class="address-customer"></div>
-            <button class="btn add-customer">Lưu khách hàng</button>
-        </div>
+            <button class="btn add-customer" type="submit">Lưu khách hàng</button>
+        </form>
         <div class="form-user-add-edit-delete"></div>
     `;
     document.body.appendChild(container);

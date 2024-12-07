@@ -283,11 +283,6 @@ export function showMain(sectionId) {
 			 <div class="title">
                 <h2 id="title-name">Danh sách sản phẩm</h2>
             </div>
-            <div class="filter-product">
-                <a href="">Bộ lọc</a>
-                <div class="content-filter">
-                </div>
-            </div>
             <div class="content">
                 <div class="content-product-list">
                     <div class="content-product-row">
@@ -297,6 +292,11 @@ export function showMain(sectionId) {
                         </div>
 						<button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
+                      <div class="filter-product">
+                          <a href="">Bộ lọc</a>
+                          <div class="content-filter">
+                          </div>
+                      </div>
                     <table class="product-list-table">
                         <thead>
                           <tr>
@@ -421,6 +421,7 @@ export function showMain(sectionId) {
             <div class="content">
                 <div class="content-product-add">
                     <div id="left-input">
+                    <form action="" autocomplete="off">
                         <div class="content-two-input">
                             <div class="content-two-input-group">
                               <label for="id-add">Mã sản phẩm</label>
@@ -475,8 +476,9 @@ export function showMain(sectionId) {
                           <textarea name="" id="" placeholder="Miêu tả sản phẩm" id="description-add" class="description-add" style="resize: none; height: 200px"></textarea>
                         </div>
                         <div class="content-one-input-group">
-                          <button class="btn btn-add">Lưu sản phẩm</button>
+                          <button type="submit" class="btn btn-add">Lưu sản phẩm</button>
                         </div>
+                        </form>
                       </div>
                     <div id="right-input">
                         <div class="add-photo-button">
@@ -492,7 +494,9 @@ export function showMain(sectionId) {
 		`;
   } else if (sectionId === "main-content-customer") {
     document.querySelector("#main-content-customer").innerHTML = `
-            <h2 id="title-name" class="customer-title">Danh Sách Khách Hàng</h2>
+            <div class="title">
+                <div id="title-name">Danh sách tài khoản</div>
+            </div>
             <div class="content">
 				<div class="customer-row">
 					<div class="search-customer">

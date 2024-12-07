@@ -1,5 +1,4 @@
 import { handleAdmin } from "../home-js/adminClick.js";
-import { checkEmail } from "../menuUser/handleOptionMenu.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
 import { userList } from "../../../database/database.js";
 
@@ -81,7 +80,7 @@ export function errorInput(input, mess, checkSelect) {
 
 // kiểm tra thông tin đăng nhập
 export function handleSignIn() {
-  let userList = JSON.parse(localStorage.getItem("userList")) || [];
+  let userList = JSON.parse(localStorage.getItem("userList"));
 
   let username = document.getElementById("username");
   let password = document.getElementById("password");
@@ -103,8 +102,8 @@ export function handleSignIn() {
 
   // nếu không có ai thì tên đăng nhập không tồn tại
   if (!check) {
-    errorInput(username, "*Lỗi! Tài khoản không tồn tại");
-    password.setAttribute("placeholder", "Nhập mật khẩu");
+    errorInput(username, "Tài khoản không tồn tại");
+    password.value = "";
     return false;
   }
   // kiểm tra  password giống không
@@ -112,7 +111,7 @@ export function handleSignIn() {
   if (check.password === password.value) p = true;
   // nếu không là .....
   if (!p) {
-    errorInput(password, "*Lỗi! Mật không không chính xác");
+    errorInput(password, "Mật không không chính xác");
     return false;
   }
 
@@ -130,12 +129,6 @@ export function handleSignIn() {
     create_notification_user("Tài khoản bị khóa!");
     return false;
   }
-  // if (userList[indexOfUsername].type === "admin") {
-  //   document
-  //     .querySelector(".header__admin-icon")
-  //     .style.setProperty("visibility", "visible");
-  //   handleAdmin();
-  // }
 
   //update vị trí username của người dùng đang đăng nhập lên local
   localStorage.setItem(
@@ -198,7 +191,7 @@ export function handleSignUp() {
     }
 
   if (password.value != second_password.value) {
-    errorInput(second_password, "*Lỗi! Mật khẩu cần giống nhau");
+    errorInput(second_password, "Mật khẩu cần giống nhau");
     return false;
   }
 
@@ -229,82 +222,3 @@ export function handleSignUp() {
 
   return true;
 }
-
-// let username = document.querySelector(".username-signup");
-// let password = document.querySelector(".password-signup");
-// let second_password = document.querySelector("#second-password");
-// let email = document.querySelector(".email-signup");
-// let check_accept_privacy = document.querySelector(".accept-privacy");
-
-// if (
-//   username.value === "" ||
-//   password.value === "" ||
-//   !check_accept_privacy.checked ||
-//   email.value == ""
-// ) {
-//   errorInput(username);
-//   errorInput(password);
-//   errorInput(second_password);
-//   errorInput(email);
-//   errorInput(check_accept_privacy);
-//   return false;
-// }
-
-// //kiểm tra xem tài khoản đã tồn tại chưa
-// let check = {
-//   status: false,
-//   mess_username: null,
-//   mess_email: null,
-// };
-// userList.forEach((obj) => {
-//   if (obj.username === username.value) {
-//     check.mess_username = "*Tên đăng nhập đã tồn tại!";
-//     check.status = true;
-//     return;
-//   }
-// });
-// userList.forEach((obj) => {
-//   if (obj.email === email.value) {
-//     check.mess_email = "*Email đã tồn tại!";
-//     check.status = true;
-//     return;
-//   }
-// });
-// if (check.status) {
-//   console.log(check.mess_username);
-//   errorInput(username, check.mess_username);
-//   errorInput(email, check.mess_email);
-//   return false;
-// }
-
-// if (password.value != second_password.value) {
-//   errorInput(second_password, "*Lỗi! Mật khẩu cần giống nhau");
-//   return false;
-// }
-
-// let userID = userList[0].id;
-// while (
-//   userList.some((obj) => {
-//     return obj.id == userID;
-//   })
-// ) {
-//   userID = Math.floor(Math.random() * userList.length + 1) + 1;
-// }
-// console.log(userID);
-// var data_obj = {
-//   type: "customer",
-//   bloclStatus: false,
-//   id: userID,
-//   username: username.value,
-//   password: password.value,
-//   email: email.value,
-//   first_name: null,
-//   last_name: null,
-//   phone: null,
-//   shoppingCart: [],
-// };
-
-// //thêm vào mảng
-// userList.push(data_obj);
-// localStorage.setItem("userList", JSON.stringify(userList));
-// return true;

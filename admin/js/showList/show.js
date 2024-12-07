@@ -127,6 +127,9 @@ export function pagination(list, currentPage, showList, main) {
         <td colspan="5">Không có tài khoản nào</td>
       `;
     }
+
+    let listPage = main + " .list-page";
+    document.querySelector(listPage).style.display = "none";
   } else{
     createPage(list, currentPage, showList, main);
   }

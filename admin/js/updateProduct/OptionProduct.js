@@ -36,7 +36,8 @@ export function addProduct() {
         }
         handlePicture_admin();
         //ấn nút thêm sản phẩm bên trong
-        let handle_click_btn_add = () => {
+        let handle_click_btn_add = (e) => {
+            e.preventDefault();
             let result = add_product(path_picture_admin);
             //nếu thêm sản phẩm thành công
             if (result) {
@@ -138,7 +139,8 @@ export function editProduct(currentPage) {
 
             handlePicture_admin();
 
-            let handle_click_btn_edit = () => {
+            let handle_click_btn_edit = (e) => {
+                e.preventDefault();
                 let result = edit_product(index, path_picture_admin);
                 if (result) {
                     createNotificationAdmin("Sửa sản phẩm thành công!");
@@ -234,13 +236,13 @@ export function filterProductAdmin() {
             let brand;
             document.querySelectorAll("#select-product-filter-brand option").forEach((obj) => {
                 if(obj.value === brandSelect){
-                    brand = obj.textContent
+                    brand = obj.textContent;
                 };
             });
             let number = document.querySelector("#input-filter-quantity").value;
 
-            if (!checkNumber(number) || number < 0) {
-                createNotificationAdmin("Cần nhập số nguyên dương");
+            if (!checkNumber(number)) {
+                createNotificationAdmin("Cần nhập số nguyên");
                 return;
             }
             let arr = filterData(categoryID, brand, parseInt(number));
@@ -248,20 +250,9 @@ export function filterProductAdmin() {
             pagination(arr, 1, showListProduct, "#main-content-product-list");
             if (arr.length > 0) {
                 createNotificationAdmin("Lọc thành công");
-                if(document.querySelector("#main-content-product-list .content p")){
-                    document.querySelector("#main-content-product-list .content p").remove();
-                }
             }
             else {
                 createNotificationAdmin("Không có sản phẩm");
-                if(!document.querySelector("#main-content-product-list .content p")){
-                    document.querySelector(".list-page").style.display = "none";
-                    let p = document.createElement("p");
-                    p.className = "dont-have-product";
-                    p.textContent = "KHÔNG CÓ SẢN PHẨM NÀO PHÙ HỢP";
-                    document.querySelector("#main-content-product-list .content").appendChild(p);
-                    // document.querySelector("#main-content-product-list .content").style.backgroundColor = "#fff";
-                }
             }
         };
     };
