@@ -69,6 +69,15 @@ export function filterOrders(){
     const orderSort = orderFilterForm["order-district-sort"].value;
     const orderList = JSON.parse(localStorage.getItem("orderList"));
     const orderIDsearchTerm = orderFilterForm["orderID-search"].value;
+    if(startDate && endDate){
+        if(startDate > endDate){
+            orderFilterForm["start-date"].style.borderColor = "red";
+            orderFilterForm["start-date"].onfocus = () => {
+                orderFilterForm["start-date"].style.borderColor = "black";
+            }
+            return;
+        }
+    }
     const filteredOrders = orderList.filter((order) => {
         if(orderIDsearchTerm && orderIDsearchTerm !== (order.orderId + "")) return false;
         if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
