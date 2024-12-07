@@ -34,7 +34,13 @@ export function generateFilter() {
         "none"
       ) {
         filterContentBlock.style.display = "block";
+        document.querySelector(".left-search-filter__content-overlay").style.display = "block";
+        document.querySelector(".left-search-filter__content-overlay").onclick = () => {
+          document.querySelector(".left-search-filter__content-overlay").style.display = "none";
+          filterContentBlock.style.display = "none";
+        }
       } else {
+        document.querySelector(".left-search-filter__content-overlay").style.display = "none";
         filterContentBlock.style.display = "none";
       }
     });

@@ -17,7 +17,34 @@ import {
 } from "../updateOrder/handleOrders.js";
 import { showOrdersListByProductId, filterByDate } from "../base/baseFunction.js";
 function createPage(list, currentPage, showList, main) {
+  if(list.length === 0){
+    if(main === "#main-content-order"){
+      // console.log(document.querySelector(".content-order-table-body"));
+      document.querySelector(".content-order-table-body").innerHTML = `
+        <td colspan="7">Không có đơn hàng nào</td>
+      `;
+    } else
+    if(main === "#main-content-product-list"){
+      document.querySelector(".product-list-table tbody").innerHTML = `
+        <td colspan="8">Không có sản phẩm nào</td>
+      `;
+    } else
+    if(main === "#main-content-dashboard"){
+      document.querySelector(".dashboardTable tbody").innerHTML = `
+        <td colspan="6">Không có sản phẩm nào được bán</td>
+      `;
+    } else
+    if(main === "#main-content-customer"){
+      document.querySelector(".content .content-customer-list table tbody").innerHTML = `
+        <td colspan="5">Không có tài khoản nào</td>
+      `;
+    }
+    document.querySelector(".listPage").style.display = "none";
+    return;
+  }
+  
   let itemPerPage = 7;
+  
   let totalPage = Math.ceil(list.length / itemPerPage);
 
   let pageList = main + " .list-page";
@@ -64,6 +91,11 @@ function createPage(list, currentPage, showList, main) {
   //----- In ra danh sách list
   let start = (currentPage - 1) * itemPerPage;
   let end = start + itemPerPage;
+  if(start >= list.length){
+    currentPage--;
+    start = (currentPage - 1) * itemPerPage;
+    end = start + itemPerPage;
+  }
   showList(start, end, currentPage, list);
   //------------------------------------------
 
@@ -105,39 +137,13 @@ function createPage(list, currentPage, showList, main) {
 }
 
 export function pagination(list, currentPage, showList, main) {
-  if(list.length === 0){
-    if(main === "#main-content-order"){
-      // console.log(document.querySelector(".content-order-table-body"));
-      document.querySelector(".content-order-table-body").innerHTML = `
-        <td colspan="7">Không có đơn hàng nào</td>
-      `;
-    } else
-    if(main === "#main-content-product-list"){
-      document.querySelector(".product-list-table tbody").innerHTML = `
-        <td colspan="8">Không có sản phẩm nào</td>
-      `;
-    } else
-    if(main === "#main-content-dashboard"){
-      document.querySelector(".dashboardTable tbody").innerHTML = `
-        <td colspan="6">Không có sản phẩm nào được bán</td>
-      `;
-    } else
-    if(main === "#main-content-customer"){
-      document.querySelector(".content .content-customer-list table tbody").innerHTML = `
-        <td colspan="5">Không có tài khoản nào</td>
-      `;
-    }
-
-    let listPage = main + " .list-page";
-    document.querySelector(listPage).style.display = "none";
-  } else{
-    createPage(list, currentPage, showList, main);
-  }
+  createPage(list, currentPage, showList, main);
 }
 
 export function showListProduct(start, end, currentPage, productList) {
   //tạo danh sách sản phẩm từ mảng chèn vô bảng table
   let eleTbody = document.querySelector(".content .content-product-list table tbody");
+  eleTbody.innerHTML = "";
   productList.forEach((ele, index) => {
     if (index >= start && index < end) {
       eleTbody.innerHTML += `
@@ -164,6 +170,7 @@ export function showListProduct(start, end, currentPage, productList) {
 
 export function showListCustomer(start, end, currentPage, userList) {
   let eleTbody = document.querySelector(".content .content-customer-list table tbody");
+  eleTbody.innerHTML = "";
   let objType = {
     customer: "Khách hàng",
     employer: "Nhân viên",
@@ -280,7 +287,7 @@ export function generateCustomerStatistics(orderList, userList) {
 // hàm tạo bảng thống kê từ dữ liệu phân tích được 
 export function showProductStatistics(start, end, currentPage, productReport) {
   let eleTbody = document.querySelector(".dashboardTable tbody");
-
+  eleTbody.innerHTML = "";
     productReport.forEach((product, index) => {
         if (index >= start && index < end) {
             eleTbody.innerHTML += `

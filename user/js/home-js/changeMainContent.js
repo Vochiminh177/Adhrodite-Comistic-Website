@@ -173,6 +173,7 @@ export const mainContentMap = {
                   ></i>
                   <span class="filter-criteria-count" id="filter-criteria-count">0</span>
                 </a>
+                <div class="left-search-filter__content-overlay"></div>
                 <div class="left-search-filter__content">
                   <h3 class="left-search-filter__title heading">BỘ LỌC</h3>
                   <form name="left-search-filter__form" autocomple="off" class="left-search-filter__form">

@@ -158,8 +158,8 @@ export function editProduct(currentPage) {
 
 //hàm lọc 
 export function filterProductAdmin() {
-    document.querySelector(".filter-product a").onclick = (e) => {
-        e.preventDefault();
+    // document.querySelector(".filter-product a").onclick = (e) => {
+        // e.preventDefault();
         let productList = JSON.parse(localStorage.getItem("productList"));
         document.querySelector(".filter-product .content-filter").classList.toggle("active");
 
@@ -255,7 +255,7 @@ export function filterProductAdmin() {
                 createNotificationAdmin("Không có sản phẩm");
             }
         };
-    };
+    // };
 }
 
 export function searchProduct() {

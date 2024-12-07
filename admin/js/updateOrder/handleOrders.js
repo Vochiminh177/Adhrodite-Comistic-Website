@@ -1,6 +1,6 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder, pagination} from "../showList/show.js"
-import { getDistrictOfOrder } from "./orderFilter.js";
+import { getDistrictOfOrder, filterOrders } from "./orderFilter.js";
 import { changeOrderStatusQuantity } from "./orderStatistic.js"
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
@@ -110,7 +110,6 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
       orderConfirmConfirmButton.onclick = (event) => {
         event.preventDefault();
         orderConfirmModal.style.display = "none";
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
         if(newStatus === "accepted"){
           updateOrderStatus(orderIndex, "accepted");
         } else
@@ -123,6 +122,10 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
         if(newStatus === "delete"){
           deleteOrder(orderIndex);
         }
+
+        pagination(filterOrders(), curentPage, showListOrder, "#main-content-order");
+        document.getElementById("order-details-modal").style.display = "none";
+        changeOrderStatusQuantity();
       }
     } else{
       //console.error(`#order-confirm-confirm-btn not found`);
@@ -152,13 +155,15 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
     modalStatusLabel.classList.add("status-label");
     modalStatusLabel.classList.add(`${newStatus}`);
     modalStatusLabel.innerHTML = `${translateOrderStatus(newStatus)}`;
+    const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
 
-    orderList[orderIndex].orderStatus = newStatus;
-    localStorage.setItem("orderList", JSON.stringify(orderList));
-    showListOrder(start, end, 0, orderList);
-    createOrderDetails(orderList[orderIndex]);
-    changeOrderStatusQuantity();
-    generateOrderButtonsEvents(orderIndex);
+    const toUpdateStatusIndex = localStorageOrderList.findIndex(
+      (localOrder) => localOrder.orderId === orderList[orderIndex].orderId
+    );
+    if(toUpdateStatusIndex !== -1){
+      localStorageOrderList[toUpdateStatusIndex].orderStatus = newStatus;
+      localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
+    }
   }
   function deleteOrder(orderIndex){
     const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
@@ -169,13 +174,6 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
     if(toDeleteIndex !== -1){
       localStorageOrderList.splice(toDeleteIndex, 1);
       localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
-      document.getElementById("order-details-modal").style.display = "none";
-      changeOrderStatusQuantity();
-        if(toDeleteIndex === localStorageOrderList.length){
-          pagination(localStorageOrderList, 1, showListOrder, "#main-content-order");  
-        } else{
-          pagination(localStorageOrderList, curentPage, showListOrder, "#main-content-order");
-        }
     }
   }
 }

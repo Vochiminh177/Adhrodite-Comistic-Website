@@ -27,17 +27,17 @@
 .filter-product .content-filter {
   display: flex;
   align-items: center;
-  width: 0px;
+  width: 90%;
   background-color: #fff;
   transition: width 0.5s ease;
   overflow: hidden;
   border-radius: 10px;
-  padding: 5px 0px;
-  justify-content: space-evenly;
+  padding: 5px 5px;
+  justify-content: space-between;
 }
-.filter-product .content-filter.active {
+/* .filter-product .content-filter.active {
   width: 90%;
-}
+} */
 .filter-product #select-product-filter-category,
 #select-product-filter-brand,
 #input-filter-quantity {

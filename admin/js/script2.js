@@ -262,7 +262,7 @@ export function showMain(sectionId) {
                 <th>Ngày Đặt</th>
                 <th>Quận</th>
                 <th>Tổng Cộng</th>
-                <th>Tình Trạng</th>
+                <th>trạng thái</th>
                 <th>Chi Tiết</th>
               </tr>
             </thead>
@@ -293,7 +293,6 @@ export function showMain(sectionId) {
 						<button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
                       <div class="filter-product">
-                          <a href="">Bộ lọc</a>
                           <div class="content-filter">
                           </div>
                       </div>
@@ -337,7 +336,7 @@ export function showMain(sectionId) {
               <th>Ngày Đặt</th>
               <th>Quận</th>
               <th>Tổng Cộng</th>
-              <th>Tình Trạng</th>
+              <th>trạng thái</th>
               <th>Chi Tiết</th>
             </tr>
           </thead>
