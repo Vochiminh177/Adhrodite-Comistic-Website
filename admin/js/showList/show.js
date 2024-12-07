@@ -143,6 +143,7 @@ export function pagination(list, currentPage, showList, main) {
 export function showListProduct(start, end, currentPage, productList) {
   //tạo danh sách sản phẩm từ mảng chèn vô bảng table
   let eleTbody = document.querySelector(".content .content-product-list table tbody");
+  eleTbody.innerHTML = "";
   productList.forEach((ele, index) => {
     if (index >= start && index < end) {
       eleTbody.innerHTML += `
@@ -169,6 +170,7 @@ export function showListProduct(start, end, currentPage, productList) {
 
 export function showListCustomer(start, end, currentPage, userList) {
   let eleTbody = document.querySelector(".content .content-customer-list table tbody");
+  eleTbody.innerHTML = "";
   let objType = {
     customer: "Khách hàng",
     employer: "Nhân viên",
@@ -285,7 +287,7 @@ export function generateCustomerStatistics(orderList, userList) {
 // hàm tạo bảng thống kê từ dữ liệu phân tích được 
 export function showProductStatistics(start, end, currentPage, productReport) {
   let eleTbody = document.querySelector(".dashboardTable tbody");
-
+  eleTbody.innerHTML = "";
     productReport.forEach((product, index) => {
         if (index >= start && index < end) {
             eleTbody.innerHTML += `

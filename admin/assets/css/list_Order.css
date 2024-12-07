@@ -349,6 +349,10 @@
 /* ======================= chung cho moble and table */
 
 @media screen and (max-width: 600px) {
+  .order-filter-statistic-container{
+    width: 100%;
+    flex-direction: column;
+  }
   .content.order {
     flex-direction: column;
     margin: 0 auto;
