@@ -25,22 +25,14 @@ export function deleteCustomer(currentPage) {
                 document.querySelector(".container-delete-customer").remove();
             };
             document.querySelector(".container-delete-customer .yes").onclick = () => {
-                handleDeleteCustomer(index);
+                let result = handleDeleteCustomer(index);
+                if(result){
+                    createNotificationAdmin("Xóa thành công");
+                }
+                else createNotificationAdmin("Không thể xóa");
                 document.querySelector(".container-delete-customer").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
-              
-                if(userList.length === 0){
-                    document.querySelector("#main-content-customer .list-page").style.display = "none";
-                    // let p = document.querySelector("p");
-                    // p.textContent = "KHÔNG "
-                    return;
-                } 
-                
-                if(index === (userList.length)){
-                    currentPage = 1;
-                }
-                
                 pagination(userList, currentPage, showListCustomer, "#main-content-customer");
             };
         };
@@ -105,23 +97,23 @@ export function addCustomer(){
     }
 }
 
-export function searchCustomer(curentPage){
+export function searchCustomer(){
     document.querySelector(".search-customer a").onclick = (e) => {
         e.preventDefault();
         let value = document.querySelector(".search-customer input").value;
-        console.log(value);
         let userList = JSON.parse(localStorage.getItem("userList"));
         let i = userList.findIndex((obj) => {
             return obj.username.toLowerCase() === value.toLowerCase();
         });
 
         if(i>=0){
-      
+            let currentPage;
+            if(currentPage === 0) currentPage = 1;
+            else currentPage = Math.ceil((i+1)/7);
 
             createFormAddEdit();
+
             document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
-            console.log(userList[i].username);
-            console.log(i);
             document.querySelector(".container-form-user-add-edit .password-customer").value = userList[i].password;
             document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[i].first_name;
             document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
@@ -143,7 +135,7 @@ export function searchCustomer(curentPage){
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
                     showMain("main-content-customer")
-                    pagination(userList, curentPage, showListCustomer, "#main-content-customer");
+                    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
         }
@@ -163,9 +155,6 @@ export function blockCustomer(currentPage){
             e.preventDefault();
             let userList = JSON.parse(localStorage.getItem("userList"));
             let index = parseInt(obj.getAttribute("index-item"));
-            let currentPage;
-            if(index == 0) currentPage = 1;
-            else currentPage = Math.ceil(index/3);
             let container = document.createElement("div");
             container.className = "container-delete-customer";
             container.innerHTML = `

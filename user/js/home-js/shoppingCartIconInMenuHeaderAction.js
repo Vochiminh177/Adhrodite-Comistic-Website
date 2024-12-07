@@ -39,12 +39,7 @@ export function showShoppingCartFormInMenuHeader() {
     .addEventListener("click", function () {
       deleteAllFormCreatedFromJsUser();
       let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
-      
-      if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
-        indexCurrentUserLogin = -1;
-        localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
-      }
-      
+
       //trạng thái có đăng nhập 
       if(indexCurrentUserLogin > -1){
         updateStyleTags();

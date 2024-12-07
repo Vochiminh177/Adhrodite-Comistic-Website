@@ -200,7 +200,7 @@ export function showListCustomer(start, end, currentPage, userList) {
   });
   deleteCustomer(currentPage);
   editCustomer(currentPage);
-  searchCustomer(currentPage);
+  searchCustomer();
   blockCustomer(currentPage);
 }
 

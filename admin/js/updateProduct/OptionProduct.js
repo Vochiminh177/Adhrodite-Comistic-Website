@@ -19,7 +19,7 @@ function handlePicture_admin() {
         reader.readAsDataURL(inputPicture.files[0]);
         reader.onload = (e) => {
             path_picture_admin.src = e.target.result;
-            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 100%; height: auto;">`;
+            document.querySelector(".image-show").innerHTML = `<img src="${path_picture_admin.src}" alt="Ảnh sản phẩm" style="width: 100%; height: 100%; object-fit: contain;">`;
         }
     };
 }
@@ -117,9 +117,11 @@ export function editProduct(currentPage) {
             let productList = JSON.parse(localStorage.getItem("productList"));
             let index = parseInt(obj.getAttribute("index-item"));
             showMain("main-content-product-add");
+            document.querySelector("#main-content-product-add .title h1").textContent = "Sửa sản phẩm";
             document.querySelector(".comback-product").onclick = (e) => {
                 e.preventDefault();
                 showMain("main-content-product-list");
+                pagination(productList, currentPage, showListProduct, "#main-content-product-list");
             }
             document.querySelector(".name-add").value = productList[index].name;
             document.querySelector(".price-add").value = productList[index].price;
@@ -159,7 +161,6 @@ export function filterProductAdmin() {
     // document.querySelector(".filter-product a").onclick = (e) => {
         // e.preventDefault();
         let productList = JSON.parse(localStorage.getItem("productList"));
-        document.querySelector(".filter-product .content-filter").classList.toggle("active");
 
         //tạo select chứa các danh mục
   
@@ -203,7 +204,7 @@ export function filterProductAdmin() {
         //tạo phần input hàng tồn kho
      
         let inputQuantity = document.createElement("input");
-        inputQuantity.placeholder = "Nhập hàng tồn bé hơn một số";
+        inputQuantity.placeholder = "Nhập số lượng";
         inputQuantity.id = "input-filter-quantity";
         inputQuantity.type = "text";
         
@@ -266,13 +267,16 @@ export function searchProduct() {
         });
         let currentPage;
         if(i==0) currentPage = 1;
-        else currentPage = Math.ceil(i/7);
+        else currentPage = Math.ceil((i+1)/7);
+        console.log(currentPage)
 
         if (i >= 0) {
             showMain("main-content-product-add");
+            document.querySelector("#main-content-product-add .title h1").textContent = "Sửa sản phẩm";
             document.querySelector(".comback-product").onclick = (e) => {
                 e.preventDefault();
                 showMain("main-content-product-list");
+                pagination(productList, currentPage,showListProduct, "#main-content-product-list");
             }
 
             //gán giá trị hiện tại của sản phẩm vào input để admin dễ xử lý

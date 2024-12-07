@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 #main-content-product-list #title-name{
   background-color: #fff;
   padding: 20px;
@@ -5,40 +7,50 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+#main-content-product-add .title{
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#main-content-product-add .title h1{
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 20%;
+  padding: 20px;
+  width: 300px;
+}
 /* css phần bộ lọc */
 #main-content-product-list .filter-product {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.filter-product a {
+#main-content-product-list .filter-product a {
   cursor: pointer;
   background-color: #000;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: background-color 0.2s ease;
-  padding: 10px;
+  padding: 13px;
   border-radius: 5px;
 }
-.filter-product a:hover {
+#main-content-product-list .filter-product a:hover {
   background-color: #a94064;
 }
-.filter-product .content-filter {
+#main-content-product-list .filter-product .content-filter {
   display: flex;
   align-items: center;
-  width: 90%;
   background-color: #fff;
   transition: width 0.5s ease;
-  overflow: hidden;
+  /* overflow: hidden; */
   border-radius: 10px;
-  padding: 5px 5px;
   justify-content: space-between;
 }
-/* .filter-product .content-filter.active {
-  width: 90%;
-} */
-.filter-product #select-product-filter-category,
+#main-content-product-list .filter-product #select-product-filter-category,
 #select-product-filter-brand,
 #input-filter-quantity {
   font-size: 0.8rem;
@@ -47,7 +59,7 @@
   padding: 10px;
   width: 30%;
 }
-#input-filter-quantity {
+#main-content-product-list #input-filter-quantity {
   font-size: 1rem;
   border: none;
   outline: none;
@@ -156,12 +168,13 @@
 .content-product-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 } /* css phần tìm kiếm */
-.search-product {
-  margin: 10px 0px;
-  /* width: 50%; */
-}
 .search-product input {
   padding: 10px;
   font-size: 1rem;
@@ -175,12 +188,12 @@
 }
 .search-product a {
   border-radius: 5px;
-  margin-left: 10px;
   background-color: #000;
   color: #fff;
-  padding: 5px 10px;
-  font-size: 1rem;
+  padding: 10px 12px;
+  font-size: 0.9rem;
   transition: background 0.2s ease;
+  font-family: "Poppins", sans-serif;
 }
 .search-product a:hover {
   background-color: #a94064;
@@ -210,6 +223,9 @@
 } */
 
 @media screen and (min-width: 700px) and (max-width: 1051px) {
+  .container-notification p {
+    font-size: 1.3rem;
+  }
   .content-product-list .product-list-table th:nth-child(8) {
     width: 120px;
   }
@@ -373,6 +389,9 @@
 /* =============================mobile */
 
 @media screen and (max-width: 700px) {
+  .container-notification p {
+    font-size: 1.2rem;
+  }
   .filter-product{
     position: relative;
   }

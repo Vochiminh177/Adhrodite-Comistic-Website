@@ -67,7 +67,7 @@ function handleLoginAdmin(){
 
   // nếu không có ai thì tên đăng nhập không tồn tại
   if (!check) {
-    err_input(account, "*Lỗi! Tài khoản không tồn tại");
+    err_input(account, "Tài khoản không tồn tại");
     // password.setAttribute("placeholder", "Nhập mật khẩu");
     return false;
   }
@@ -76,7 +76,7 @@ function handleLoginAdmin(){
   if (check.password === password.value) p = true;
   // nếu không là .....
   if (!p) {
-    err_input(password, "*Lỗi! Mật không không chính xác");
+    err_input(password, "Mật không không chính xác");
     return false;
   }
 

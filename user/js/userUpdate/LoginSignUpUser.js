@@ -19,11 +19,9 @@ export function signIn() {
           ".header__user-container"
         );
         userContainerDiv.remove();
-
-        // //
-        // document.querySelector("#username").value = "";
-        // document.querySelector("#password").value = "";
+      
       }
+      document.querySelector("#password").value = "";
     };
   }
 }

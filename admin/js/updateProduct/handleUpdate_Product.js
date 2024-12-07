@@ -212,7 +212,7 @@ function checkErrorForAddAndEdit(path_picture_admin){
     let name = document.querySelector(".name-add");
     let price = document.querySelector("#price-add");
     let category = document.querySelector("#category-add");
-    let brand = document.querySelector(".brand-add");
+    let brand = document.querySelector("#brand-add");
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
     let quantity = document.querySelector("#quantity-add");
@@ -238,12 +238,20 @@ function checkErrorForAddAndEdit(path_picture_admin){
 
     //check mã sản phẩm
     if(id.value.slice(0,3) !== "APh"){
-        err_input(id, "Cần định dạng APhXXXX..")
+        err_input(id, "Cần định dạng APhXXXX..");
         return false;
     }
-    for(let k=3; k<id.value.lengh; k++){
-        if(!(id.value.charAt(k) >= '0' && id.value.charAt(k) <= 9)){
-            err_input(id, "Cần định dạng APhXXXX..")
+    for(let k=3; k<id.value.length; k++){
+        if(!(id.value.charAt(k) >= '0' && id.value.charAt(k) <= '9')){
+            err_input(id, "Sau APh là số");
+            return false;
+        }
+    }
+
+    //check thương hiệu
+    for(let k=0; k<brand.value.length; k++){
+        if(!(brand.value.charAt(k) >= 'a' && brand.value.charAt(k) <= 'z')){
+            err_input(brand, "Thương hiệu chỉ chứa chữ");
             return false;
         }
     }

@@ -74,7 +74,7 @@ export function err_input(input, mess) {
     }
     else {
         if (input.value == "") {
-            input.placeholder = "*Lỗi! Thiếu dữ liệu";
+            input.placeholder = "Thiếu dữ liệu";
             input.style.borderColor = "red";
             input.classList.add("err-text");
         }

@@ -70,8 +70,10 @@ function checkEmail(value){
 
 export function handleDeleteCustomer(index) {
     let userList = JSON.parse(localStorage.getItem("userList"));
+    if(userList[index].type === "admin") return false;
     userList.splice(index, 1);
     localStorage.setItem("userList", JSON.stringify(userList));
+    return true;
 }
 
 export function handleEditCustomer(index) {
@@ -248,13 +250,13 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
     }
   
     for(let i=0; i<firstName.value.length; i++){
-        if(!(firstName.value.charAt(i) >= 'a' && firstName.value.charAt(i) <= 'z')){
+        if(!(firstName.value.charAt(i) >= 'a' && firstName.value.charAt(i) <= 'z' || firstName.value.charAt(i) >= 'A' && firstName.value.charAt(i) <= 'Z')){
             err_input(firstName, "Cần nhập chữ");
             return false;
         }
     }
     for(let i=0; i<lastName.value.length; i++){
-        if(!(lastName.value.charAt(i) >= 'a' && lastName.value.charAt(i) <= 'z')){
+        if(!(firstName.value.charAt(i) >= 'a' && firstName.value.charAt(i) <= 'z' || firstName.value.charAt(i) >= 'A' && firstName.value.charAt(i) <= 'Z')){
             err_input(lastName, "Cần nhập chữ");
             return false;
         }
