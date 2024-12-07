@@ -163,7 +163,7 @@ export function showListProduct(start, end, currentPage, productList) {
         `;
     }
   });
-  deleteProduct(currentPage);
+  deleteProduct();
   editProduct(currentPage);
   searchProduct();
 }
@@ -200,7 +200,7 @@ export function showListCustomer(start, end, currentPage, userList) {
   });
   deleteCustomer(currentPage);
   editCustomer(currentPage);
-  searchCustomer();
+  searchCustomer(currentPage);
   blockCustomer(currentPage);
 }
 

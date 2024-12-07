@@ -255,7 +255,7 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
     }
     for(let i=0; i<lastName.value.length; i++){
         if(!(lastName.value.charAt(i) >= 'a' && lastName.value.charAt(i) <= 'z')){
-            err_input(firstName, "Cần nhập chữ");
+            err_input(lastName, "Cần nhập chữ");
             return false;
         }
     }

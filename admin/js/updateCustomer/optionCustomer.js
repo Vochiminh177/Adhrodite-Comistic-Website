@@ -73,7 +73,8 @@ export function editCustomer(currentPage) {
             //     showMain("main-content-customer");
             // }
 
-            document.querySelector(".add-customer").onclick = () => {
+            document.querySelector(".add-customer").onclick = (e) => {
+                e.preventDefault();
                 let result = handleEditCustomer(index);
                 if(result){
                     document.querySelector(".container-form-user-add-edit").remove();
@@ -104,7 +105,7 @@ export function addCustomer(){
     }
 }
 
-export function searchCustomer(){
+export function searchCustomer(curentPage){
     document.querySelector(".search-customer a").onclick = (e) => {
         e.preventDefault();
         let value = document.querySelector(".search-customer input").value;
@@ -116,13 +117,6 @@ export function searchCustomer(){
 
         if(i>=0){
       
-            let currentPage;
-            if(i===0){
-                currentPage = 1;
-            } 
-            else{
-                currentPage = Math.ceil((i+1)/7);
-            }
 
             createFormAddEdit();
             document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
@@ -141,14 +135,15 @@ export function searchCustomer(){
             };
             document.querySelector(".container-form-user-add-edit #type-customer").value = objType[userList[i].type];
 
-            document.querySelector(".add-customer").onclick = () => {
+            document.querySelector(".add-customer").onclick = (e) => {
+                e.preventDefault();
                 let result = handleEditCustomer(i);
                 if(result){
                     document.querySelector(".container-form-user-add-edit").remove();
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
                     showMain("main-content-customer")
-                    pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
+                    pagination(userList, curentPage, showListCustomer, "#main-content-customer");
                 }
             }
         }

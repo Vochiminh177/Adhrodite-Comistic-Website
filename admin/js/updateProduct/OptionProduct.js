@@ -56,7 +56,7 @@ export function addProduct() {
 }
 
 //chức năng xóa sản phẩm của admin -HIỆU
-export function deleteProduct(currentPage) {
+export function deleteProduct() {
     document.querySelectorAll(".delete-product").forEach((obj) => {
         obj.addEventListener("click", (e) => {
             e.preventDefault();
@@ -101,10 +101,8 @@ export function deleteProduct(currentPage) {
                     ele.remove();
                     createNotificationAdmin("Xóa sản phẩm thành công!");
                     let productList = JSON.parse(localStorage.getItem("productList"));
-                    if(index === (productList.length)){
-                        currentPage = 1;
-                    }
-                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
+                  
+                    pagination(productList, 1, showListProduct, "#main-content-product-list");
                 }
             };
         });
@@ -268,7 +266,7 @@ export function searchProduct() {
         });
         let currentPage;
         if(i==0) currentPage = 1;
-        else currentPage = Math.ceil(i/3);
+        else currentPage = Math.ceil(i/7);
 
         if (i >= 0) {
             showMain("main-content-product-add");
@@ -295,7 +293,8 @@ export function searchProduct() {
 
             handlePicture_admin();
 
-            let handle_click_btn_edit = () => {
+            let handle_click_btn_edit = (e) => {
+                e.preventDefault();
                 let result = edit_product(i, path_picture_admin);
                 if (result) {
                     path_picture_admin.src = null;

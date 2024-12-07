@@ -215,7 +215,7 @@ function checkErrorForAddAndEdit(path_picture_admin){
     let brand = document.querySelector(".brand-add");
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
-    let quantity = document.querySelector(".quantity-add");
+    let quantity = document.querySelector("#quantity-add");
     let discountQuantity =  document.querySelector(".quantity-discount-add");
     let discountPercent = document.querySelector(".percent-discount-add");
     let file_picture = document.querySelector(".add-photo-button #file");
