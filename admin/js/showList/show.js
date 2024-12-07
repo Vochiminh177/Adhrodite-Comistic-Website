@@ -53,6 +53,14 @@ function createPage(list, currentPage, showList, main) {
     document.querySelector(pageList).style.display = "none";
   } else document.querySelector(pageList).style.display = "block";
 
+  let start = (currentPage - 1) * itemPerPage;
+  let end = start + itemPerPage;
+  if(start >= list.length){
+    currentPage--;
+    start = (currentPage - 1) * itemPerPage;
+    end = start + itemPerPage;
+  }
+
   let firstPage = currentPage - 2;
   let lastPage = currentPage + 2;
 
@@ -89,13 +97,6 @@ function createPage(list, currentPage, showList, main) {
 
   //------------------------------------------
   //----- In ra danh sách list
-  let start = (currentPage - 1) * itemPerPage;
-  let end = start + itemPerPage;
-  if(start >= list.length){
-    currentPage--;
-    start = (currentPage - 1) * itemPerPage;
-    end = start + itemPerPage;
-  }
   showList(start, end, currentPage, list);
   //------------------------------------------
 
