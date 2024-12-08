@@ -226,6 +226,9 @@
 #order-details-modal p {
   margin-bottom: 9px;
 }
+#order-details-modal .customer-info p {
+  margin-bottom: 19px;
+}
 .order-status {
   display: flex;
   align-items: center;

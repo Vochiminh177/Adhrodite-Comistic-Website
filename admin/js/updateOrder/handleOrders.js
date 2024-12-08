@@ -14,7 +14,7 @@ export function createOrderRow(order) {
         <p>${order.orderDate.split(" ")[0]}</p>
       </td>
       <td>${getDistrictOfOrder(order)}</td>
-      <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
+      <td>${formatVietNamMoney(order.orderTotalPrice)}đ</td>
       <td>
         <div class="status-label ${order.orderStatus}">
           <span>${translateOrderStatus(order.orderStatus)}</span>
@@ -218,13 +218,25 @@ function createOrderDetails(order) {
   // Thông tin giá tiền
   const orderSummary = document.getElementById("order-summary");
   if(orderSummary){
-    orderSummary.innerHTML = `
-      <h3>Tóm Tắt Đơn Hàng</h3>
-      <p>Phương thức thanh toán:&nbsp${order.orderMethod.name}</p>
-      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-      <p>Phí vận chuyển:&nbsp${18000}</p>
-      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
-    `;
+    if(typeof order.orderMethod === "object"){
+      orderSummary.innerHTML = `
+        <h3>Thông tin Đơn Hàng</h3>
+        <p>Phương thức:&nbsp${order.orderMethod.name}</p>
+        <p>Loại thẻ:&nbsp${order.orderMethod.type}</p>
+        <p>Mã thẻ:&nbsp${order.orderMethod.code}</p>
+        <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
+        <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+      `;
+    } else{
+      orderSummary.innerHTML = `
+        <h3>Tóm Tắt Đơn Hàng</h3>
+        <p>Phương thức:&nbsp${order.orderMethod}</p>
+        <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
+        <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+      `;
+    }
   }
 
   // Thông tin sản phẩm đã mua
@@ -238,8 +250,8 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${currentDiscountQuantity}</td>
-        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}</td>
-        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}</td>
+        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}đ</td>
+        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}đ</td>
       </tr>
       `;
 
@@ -248,8 +260,8 @@ function createOrderDetails(order) {
         <tr>
           <td>${product.id}</td>
           <td>${product.quantity - currentDiscountQuantity}</td>
-          <td>${formatVietNamMoney(product.price)}</td>
-          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}</td>
+          <td>${formatVietNamMoney(product.price)}đ</td>
+          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}đ</td>
         </tr>
         `;
       }
@@ -258,8 +270,8 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${product.quantity}</td>
-        <td>${formatVietNamMoney(product.price)}</td>
-        <td>${formatVietNamMoney(product.price * product.quantity)}</td>
+        <td>${formatVietNamMoney(product.price)}đ</td>
+        <td>${formatVietNamMoney(product.price * product.quantity)}đ</td>
       </tr>
       `;
     }
