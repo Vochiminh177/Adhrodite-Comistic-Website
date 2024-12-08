@@ -1,12 +1,13 @@
 import { pagination, showListOrder } from "../showList/show.js";
+import { locationToSelectArray } from "../../../database/database.js";
 export function generateOrderFilter(){
     const orderFilterContainer = document.getElementById('order-filter-container');
     orderFilterContainer.innerHTML = `
-        <h2>Bộ lọc</h2>
-        <form id="order-filter-form" name="order-filter-form">
-            <div class="order-filter-orderID-search-container">
+    <form id="order-filter-form" name="order-filter-form">
+        <div class="order-filter-row">
+            <div class="order-filter-group">
                 <label for="orderID-search">Tìm mã đơn hàng</label>
-                <input type="search" id="orderID-search" placeholder="Mã đơn hàng" name="orderID-search">
+                <input type="text" id="orderID-search" placeholder="Nhập mã đơn hàng" name="orderID-search">
             </div>
             <div class="order-filter-start-end-date-container">
                 <div class="order-filter-start-date-container">
@@ -18,31 +19,49 @@ export function generateOrderFilter(){
                     <input type="date" id="end-date" name="end-date">
                 </div>
             </div>
-        <div class="order-filter-order-status-container">
-            <label for="status">Trạng thái</label>
-            <select id="status" name="order-status">
-                <option value="tat-ca">Tất cả</option>
-                <option value="pending">Chưa xử lý</option>
-                <option value="accepted">Đã xác nhận</option>
-                <option value="shipped">Đã giao</option>
-                <option value="canceled">Đã huỷ</option>
-            </select>
+            <div class="order-filter-buttons">
+                <input type="submit" class="order-btn order-btn-apply order-filter-button" id="order-apply-btn" value="Áp dụng"></input>
+                <input type="reset" class="order-btn order-btn-reset order-filter-button" id="order-reset-btn" value="Đặt lại"></input>
+            </div>
         </div>
-        <div class="order-filter-district-sort-container">
-            <label for="district-sort">Sắp xếp quận</label>
-            <select id="district-sort" name="order-district-sort">
-                <option value="tat-ca">Không xếp</option>
-                <option value="asc">A - Z</option>
-                <option value="desc">Z - A</option>
-            </select>
+        <div class="order-filter-row">
+            <div class="order-filter-group">
+                <label for="city-select">Tỉnh/TP</label>
+                <select id="city-select" name="order-city">
+                </select>
+            </div>
+            <div class="order-filter-group">
+                <label for="district-select">Quận</label>
+                <select id="district-select" name="order-district">
+                </select>
+            </div>
+            <div class="order-filter-group">
+                <label for="district-sort">Sắp xếp quận</label>
+                <select id="district-sort" name="order-district-sort">
+                    <option value="tat-ca">Không xếp</option>
+                    <option value="asc">A - Z</option>
+                    <option value="desc">Z - A</option>
+                </select>
+            </div>
+            <div class="order-filter-group">
+                <label for="status">Trạng thái</label>
+                <select id="status" name="order-status">
+                    <option value="tat-ca">Tất cả</option>
+                    <option value="pending">Chưa xử lý</option>
+                    <option value="accepted">Đã xác nhận</option>
+                    <option value="shipped">Đã giao</option>
+                    <option value="canceled">Đã huỷ</option>
+                </select>
+            </div>
         </div>
-        <div class="order-filter-buttons">
-            <input type="submit" class="order-btn order-btn-apply" id="order-apply-btn" value="Áp dụng"></input>
-            <input type="reset" class="order-btn order-btn-reset" id="order-reset-btn" value="Đặt lại"></input>
-        </div>
-        </form>
+    </form>
     `;
 
+    generateCityAdDistrictSelect();
+    setUpEventListener();
+}
+
+function setUpEventListener(){
     const applyBtn = document.getElementById('order-apply-btn');
     const resetBtn = document.getElementById('order-reset-btn');
 
@@ -52,23 +71,25 @@ export function generateOrderFilter(){
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 
-    resetBtn.addEventListener('click', (event) => {
+    resetBtn.addEventListener('click', () => {
         setTimeout(() => {
             applyBtn.click();
             10;
         })
-        
     });
 }
 
 export function filterOrders(){
     const orderFilterForm = document.forms["order-filter-form"];
+    const orderIDsearchTerm = orderFilterForm["orderID-search"].value;
     const startDate = orderFilterForm["start-date"].value;
     const endDate = orderFilterForm["end-date"].value;
-    const orderStatus = orderFilterForm["order-status"].value;
+    const orderCity = orderFilterForm["order-city"].value;
+    const orderDistrict = orderFilterForm["order-district"].value;
     const orderSort = orderFilterForm["order-district-sort"].value;
+    const orderStatus = orderFilterForm["order-status"].value;
     const orderList = JSON.parse(localStorage.getItem("orderList"));
-    const orderIDsearchTerm = orderFilterForm["orderID-search"].value;
+
     if(startDate && endDate){
         if(startDate > endDate){
             orderFilterForm["start-date"].style.borderColor = "red";
@@ -81,18 +102,20 @@ export function filterOrders(){
     const filteredOrders = orderList.filter((order) => {
         if(orderIDsearchTerm && orderIDsearchTerm !== (order.orderId + "")) return false;
         if(orderStatus !== "tat-ca" && order.orderStatus !== orderStatus) return false;
+        if(orderCity !== "tat-ca" && getCityOfString(orderCity) !== getCityOfString(order.orderAddressToShip)) return false;
+        if(orderDistrict !== "tat-ca" && getDistrictOfString(orderDistrict) !== getDistrictOfString(order.orderAddressToShip)) return false;
         if(!startDate && !endDate){
-            if(!compareDate(order.orderDate, "tat-ca", "tat-ca")){
+            if(!compareDate(order.orderDate, null, null)){
                 return false;
             }
         } else
         if(!startDate){
-            if(!compareDate(order.orderDate, "tat-ca", endDate)){
+            if(!compareDate(order.orderDate, null, endDate)){
                 return false;
             }
         } else
         if(!endDate){
-            if(!compareDate(order.orderDate, startDate, "tat-ca")){
+            if(!compareDate(order.orderDate, startDate, null)){
                 return false;
             }
         } else{
@@ -114,7 +137,7 @@ export function filterOrders(){
 }
 
 function compareDate(orderDate, startDate, endDate){
-    if(startDate === "tat-ca" && endDate === "tat-ca"){
+    if(!startDate && !endDate){
         return true;
     }
     // orderDate hh:mm:ss dd/mm/yyyy
@@ -124,7 +147,7 @@ function compareDate(orderDate, startDate, endDate){
     tmp[1] = tmp[1].padStart(2, "0");
     tmp[0] = tmp[0].padStart(2, "0");
     orderDate = tmp.reverse().join("-");
-    if(startDate !== "tat-ca" && endDate !== "tat-ca"){
+    if(startDate && endDate){
         if(startDate <= orderDate && orderDate <= endDate){
             return true;
         }
@@ -132,7 +155,7 @@ function compareDate(orderDate, startDate, endDate){
         return false;
     }
 
-    if(startDate === "tat-ca"){
+    if(!startDate){
         if(orderDate <= endDate){
             return true;
         }
@@ -140,7 +163,7 @@ function compareDate(orderDate, startDate, endDate){
         return false;
     }
 
-    if(endDate === "tat-ca"){
+    if(!endDate){
         if(startDate <= orderDate){
             return true;
         }
@@ -150,22 +173,50 @@ function compareDate(orderDate, startDate, endDate){
 }
 
 function cmpFuncAsc(first, second){
-    first = getDistrictOfOrder(first);
-    second = getDistrictOfOrder(second);
-    if(first === "Chưa rõ") return 1;
-    if(second === "Chưa rõ") return -1;
+    first = getDistrictOfString(first.orderAddressToShip);
+    second = getDistrictOfString(second.orderAddressToShip);
+    if(!first) return 1;
+    if(!second) return -1;
     return first.localeCompare(second);
 }
 function cmpFuncDesc(first, second){
-    first = getDistrictOfOrder(first);
-    second = getDistrictOfOrder(second);
-    if(first === "Chưa rõ") return 1;
-    if(second === "Chưa rõ") return -1;
+    first = getDistrictOfString(first.orderAddressToShip);
+    second = getDistrictOfString(second.orderAddressToShip);
+    if(!first) return 1;
+    if(!second) return -1;
     return second.localeCompare(first);
 }
 
-export function getDistrictOfOrder(order){
-    const arr  = order.orderAddressToShip.trim().replace(/\s+/g, " ").toLowerCase().split(",");
+function generateCityAdDistrictSelect(){
+    const myMap = {};
+    const districtSelect = document.getElementById("district-select");
+    const citySelect = document.getElementById("city-select");
+    citySelect.innerHTML = `<option value="tat-ca">Tất cả</option>`;
+    districtSelect.innerHTML = `<option value="tat-ca">Tất cả</option>`;
+    const cities = locationToSelectArray;
+    const cityArrLength = cities.length;
+    for(let i = 1; i < cityArrLength; i++){
+        const cityOption = document.createElement("option");
+        cityOption.value = cities[i].name;
+        cityOption.innerHTML = cities[i].name;
+        citySelect.appendChild(cityOption);
+        const districts = cities[i].districts;
+        const districtArrLength = districts.length;
+        for(let j = 1; j < districtArrLength; j++){
+            const key = JSON.stringify(districts[j]);
+            if(!myMap[key]){
+                myMap[key] = true;
+                const districtOption = document.createElement("option");
+                districtOption.value = districts[j].name;
+                districtOption.innerHTML = districts[j].name;
+                districtSelect.appendChild(districtOption);
+            }
+        }
+    }
+}
+
+export function getDistrictOfString(str){
+    const arr = str.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let district = "";
     const arrLength = arr.length;
     for(let i = 0; i < arrLength; i++){
@@ -193,8 +244,8 @@ export function getDistrictOfOrder(order){
     return district;
 }
 
-export function getCityOfOrder(order){
-    const arr = order.orderAddressToShip.trim().replace(/\s+/g, " ").toLowerCase().split(",");
+export function getCityOfString(str){
+    const arr = str.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let city = "";
     let length = arr.length;
     for(let i = 0; i < length; i++){

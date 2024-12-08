@@ -334,7 +334,7 @@
     font-size: 1.1rem;
   }
   .content-product-list .product-list-table td:last-child,
-  th:last-child {
+  .content-product-list .product-list-table th:last-child {
     padding: 0px;
   }
   .list-page li {

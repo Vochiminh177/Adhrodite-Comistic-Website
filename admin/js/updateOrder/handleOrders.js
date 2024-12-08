@@ -1,12 +1,11 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder, pagination} from "../showList/show.js"
-import { getDistrictOfOrder, filterOrders, getCityOfOrder } from "./orderFilter.js";
-import { changeOrderStatusQuantity } from "./orderStatistic.js"
+import { getDistrictOfString, filterOrders, getCityOfString } from "./orderFilter.js";
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
-  let district = getDistrictOfOrder(order);
-  let city = getCityOfOrder(order);
+  let district = getDistrictOfString(order.orderAddressToShip);
+  let city = getCityOfString(order.orderAddressToShip);
   let result = "";
   if(!district && !city){
     result = "Chưa rõ";

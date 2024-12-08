@@ -1,21 +1,3 @@
-.content.order {
-  display: flex;
-}
-
-.content.order #title-name{
-  font-size: 1.7rem;
-}
-.content.order .table-container {
-  width: calc(72% - 16px);
-  margin-right: 16px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
-  background-color: #fff;
-  min-height: 699px;
-  border-radius: 8px;
-}
 .content-order-table th:nth-child(1),
 .content-order-table th:nth-child(2) {
   width: 12%;
@@ -25,49 +7,33 @@
 }
 .content-order-table th:nth-child(4),
 .content-order-table th:nth-child(5){
-  width: 15%;
+  width: 17%;
 }
 .content-order-table th:nth-child(6){
   width: 18%;
 }
 .content-order-table th:nth-child(7){
-  width: 10%;
+  width: 6%;
 }
+.content.order #title-name{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.content.order .table-container {
+  width: 100%;
+  margin-right: 16px;
+  padding: 16px;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  min-height: 699px;
+  border-radius: 8px;
+}
+
 .bx-list-ul {
   color: blue;
   font-size: 1.3rem;
-}
-.order-filter-statistic-container{
-  display: flex;
-  flex-direction: column;
-  width: 28%;
-}
-/* Order Statistic */
-.order-statistic-container{
-  width: 100%;
-  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-.order-statistic-container h2{
-  font-size: 1.7rem;
-  text-align: center;
-  margin-bottom: 16px;
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-}
-.order-statistic-container span{
-  font-size: 1.2rem;
-  color: #555;
-  padding-bottom: 6px;
-}
-.order-statistic-group{
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #d4c7c7;
-  margin-bottom: 16px;
 }
 /*Order filter*/
 .order-filter-container {
@@ -76,6 +42,12 @@
   background-color: #fff;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
+  margin-bottom: 16px;
+}
+#order-filter-form{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 .order-filter-container h2{
   font-size: 1.7rem;
@@ -84,67 +56,100 @@
   border-bottom: 1px solid black;
   padding-bottom: 10px;
 }
-#order-filter-form {
-  /* max-width: 600px; */
-  margin: 0 auto;
-}
-
-/* Các nhóm bộ lọc */
-/* .order-filter-group {
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-} */
 
 #order-filter-form label {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin-bottom: 5px;
   color: #333;
 }
-#order-filter-form input:not(input[type="submit"], input[type="reset"]),
+#order-filter-form input:not(#orderID-search),
 #order-filter-form select {
   width: 100%;
   height: 35px;
   padding: 3px;
   font-size: 1rem;
+  outline: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: border-color 0.3s ease;
   margin-bottom: 0px;
 }
+#orderID-search {
+  width: 100%;
+  height: 35px;
+  padding: 3px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  margin-top: auto;
+  border-bottom: 1px solid #000;
+  transition: border-color 0.3s ease;
+  transition: background-color 0.2s ease;
+}
+#orderID-search:hover{
+  background-color: #ccc;
+}
+.orderID-search-container {
+  display: flex;
+}
 #order-filter-form input:focus,
 #order-filter-form select:focus {
   border-color: #007bff;
-  outline: none;
 }
-.order-filter-orderID-search-container{
-  margin-bottom: 16px;
+.order-filter-row{
+  width: 100%;
 }
-.order-filter-start-end-date-container{
+.order-filter-row:nth-child(1){
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
+}
+.order-filter-row:nth-child(1) .order-filter-group {
+  width: calc(25% - 16px);
+  margin-right: 16px;
+}
+.order-filter-row:nth-child(1) .order-filter-group:last-child {
+  width: 25%;
+  margin-right: 0px;
+}
+.order-filter-start-end-date-container {
+  display: flex;
+}
+.order-filter-buttons {
+  width: 25%;
+  display: flex;
+  align-items: flex-end;
+}
+.order-filter-button:first-child{
+  width: calc(50% - 16px);
+  margin-right: 16px;
+}
+.order-filter-button:last-child{
+  width: 50%;
+  margin-right: 0px;
+}
+.order-filter-row:nth-child(2){
+  display: flex;
+}
+.order-filter-row:nth-child(2) .order-filter-group{
+  width: calc(25% - 16px);
+  margin-right: 16px;
+}
+.order-filter-row:nth-child(2) .order-filter-group:last-child{
+  width: 25%;
+  margin-right: 0px;
+}
+.order-filter-group * {
+  width: 100%;
+}
+.order-filter-start-end-date-container {
+  width: 50%;
 }
 .order-filter-start-end-date-container > *{
-  width: 48%;
+  width: calc(50% - 16px);
+  margin-right: 16px;
 }
-.order-filter-order-status-container{
-  margin-bottom: 16px;
-}
-.order-filter-district-sort-container{
-  margin-bottom: 16px;
-}
-/* Hành động bộ lọc */
-.order-filter-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-.order-filter-buttons > *{
-  width: 45%;
-}
+
 /* Nút áp dụng bộ lọc */
 .order-btn-apply {
   background-color: #007bff;
@@ -185,8 +190,6 @@
   width: 60%;
   max-height: 93%;
   overflow: auto;
-}
-.order-details-modal-content {
 }
 .order-details-modal-content .status-label{
   width: 55%;
@@ -368,10 +371,6 @@
 /* ======================= chung cho moble and table */
 
 @media screen and (max-width: 600px) {
-  .order-filter-statistic-container{
-    width: 100%;
-    flex-direction: column;
-  }
   .content.order {
     flex-direction: column;
     margin: 0 auto;
@@ -423,8 +422,6 @@
 /* ======================= chung cho moble and table */
 
 @media screen and (max-width: 600px) {
-  .content-order-table-body {
-  }
   .content.order .table-container {
     margin-top: 20px;
   }
@@ -492,17 +489,10 @@
 }
 
 /* ======================== table */
-@media screen and (min-width: 600px) and (max-width: 1000px) {
-  .order-filter-statistic-container{
-    flex-direction: row-reverse;
-    width: 100%;
-  }
+@media screen and (min-width: 600px) and (max-width: 900px) {
   .order-filter-container{
     margin-top: 0px;
     margin-right: 16px;
-  }
-  .order-statistic-container{
-    margin-bottom: 0px;
   }
   .content.order .table-container{
     margin-right: 0px;
@@ -568,38 +558,5 @@
   }
   .content.order .table-container {
     margin-top: 20px;
-  }
-}
-@media screen and (min-width: 1000px) and (max-width: 1300px) {
-  .content.order .table-container,
-  .content.order .order-filter-container {
-    width: 100%;
-  }
-  .content.order .table-container{
-    margin-right: 0px;
-  }
-  .content.order {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-  .order-filter-container {
-    margin-top: 20px;
-    justify-content: center;
-    
-  }
-  .order-statistic-container{
-    margin-bottom: 0px;
-  }
-  .content-order-table {
-    margin-top: 24px;
-  }
-  .order-filter-statistic-container{
-    flex-direction: row-reverse;
-    width: 100%;
-    margin-bottom: 32px;
-  }
-  .order-filter-container{
-    margin-top: 0px;
-    margin-right: 16px;
   }
 }

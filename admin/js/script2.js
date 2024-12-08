@@ -20,7 +20,6 @@ import {
 } from "./base/baseFunction.js";
 
 import { searchByProductId, filterByDate } from "./base/baseFunction.js";
-import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 
 function start() {
 	anhMinh();
@@ -257,13 +256,13 @@ export function showMain(sectionId) {
                 <table class="content-order-table">
                     <thead>
                         <tr>
-                            <th>Mã Đơn Hàng</th>
-                            <th>Mã Khách Hàng</th>
-                            <th>Ngày Đặt</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Mã khách hàng</th>
+                            <th>Ngày đặt</th>
                             <th>Quận, Tỉnh/TP</th>
-                            <th>Tổng Cộng</th>
+                            <th>Tổng cộng</th>
                             <th>Trạng thái</th>
-                            <th>Chi Tiết</th>
+                            <th>Chi tiết</th>
                         </tr>
                     </thead>
 
@@ -365,20 +364,21 @@ export function showMain(sectionId) {
   } else if (sectionId === "main-content-order") {
     document.querySelector("#main-content-order").innerHTML = `
 		<div class="content order">
+      <div class="title">
+        <h2 id="title-name">Danh sách đơn hàng</h2>
+      </div>
+      <div class="order-filter-container" id="order-filter-container"></div>
 			<div class="table-container">
-        <div class="title">
-          <div id="title-name">Danh sách đơn hàng</div>
-        </div>
         <table class="content-order-table">
           <thead>
             <tr>
-              <th>Mã Đơn Hàng</th>
-              <th>Mã Khách Hàng</th>
-              <th>Ngày Đặt</th>
+              <th>Mã đơn hàng</th>
+              <th>Mã khách hàng</th>
+              <th>Ngày đặt</th>
               <th>Quận, Tỉnh/TP</th>
-              <th>Tổng Cộng</th>
+              <th>Tổng cộng</th>
               <th>Trạng thái</th>
-              <th>Chi Tiết</th>
+              <th>Chi tiết</th>
             </tr>
           </thead>
 
@@ -388,10 +388,6 @@ export function showMain(sectionId) {
         </table>
         <div class="list-page"></div>
 			</div>
-      <div class="order-filter-statistic-container">
-        <div class="order-statistic-container" id="order-statistic-container"></div>
-        <div class="order-filter-container" id="order-filter-container"></div>
-      </div>
 			<!-- Modal hiện chi tiết đơn hàng -->
 			<div id="order-details-modal" class="order-details-modal">
 				<div class="order-details-modal-content">
@@ -451,7 +447,6 @@ export function showMain(sectionId) {
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
-    generateOrderStatistic();
   } else if (sectionId === "main-content-product-add") {
     document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">
