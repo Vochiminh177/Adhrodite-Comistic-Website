@@ -165,8 +165,7 @@ function cmpFuncDesc(first, second){
 }
 
 export function getDistrictOfOrder(order){
-    const arr  = order.orderAddressToShip.split(",");
-    // console.log(arr);
+    const arr  = order.orderAddressToShip.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let district = "";
     const arrLength = arr.length;
     for(let i = 0; i < arrLength; i++){
@@ -176,19 +175,78 @@ export function getDistrictOfOrder(order){
         }
     }
 
+    district = district.trim();
     if(district !== ""){ 
-        district = district.trim().replace(/\s+/g, " ").toLowerCase();
-        const tmp = district.split(" ");
-
-        const newTmp = tmp.map((word) => {
+        let tmp = district.split(" ");
+        const idx = tmp.findIndex(item => item === "quận");
+        tmp = tmp.slice(idx + 1);
+        tmp = tmp.map((word) => {
             return word[0].toUpperCase() + word.slice(1).toLowerCase();
         });
-        district = newTmp.join(" ");
+        
+        district = tmp.join(" ");
     }
-    if(district.trim() === ""){
-        district = "Chưa rõ";
+    if(district === ""){
+        district = undefined;
     }
+
     return district;
+}
+
+export function getCityOfOrder(order){
+    const arr = order.orderAddressToShip.trim().replace(/\s+/g, " ").toLowerCase().split(",");
+    let city = "";
+    let length = arr.length;
+    for(let i = 0; i < length; i++){
+        if (
+          arr[i].toLowerCase().includes("TP") ||
+          arr[i].toLowerCase().includes("thành phố") ||
+          arr[i].toLowerCase().includes("tỉnh") ||
+          arr[i].toLowerCase().includes("thủ đô")
+        ) {
+            city = arr[i];
+            break;
+        }
+    }
+
+    city = city.trim();
+
+    if(city !== ""){
+        let tmp = city.split(" ");
+        let idx = -1;
+        length = tmp.length;
+        for(let i = 0; i < length - 1; i++){
+            if(tmp[i] === "thành" && tmp[i + 1] === "phố"){
+                idx = i + 2;
+                break;
+            } else
+            if(tmp[i] === "thủ" && tmp[i + 1] === "đô"){
+                idx = i + 2;
+                break;
+            } else
+            if(tmp[i] === "TP"){
+                idx = i + 1;
+                break;
+            } else
+            if(tmp[i] == "tỉnh"){
+                idx = i + 1;
+                break;
+            }
+        }
+        
+        tmp = tmp.slice(idx);
+        tmp = tmp.map((word) => {
+            return word[0].toUpperCase() + word.slice(1).toLowerCase();
+        });
+
+        city = tmp.join(" ");
+    }
+
+    if(city === ""){
+        city = undefined;
+    }
+
+    return city;
 }
 
 

@@ -1,10 +1,26 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder, pagination} from "../showList/show.js"
-import { getDistrictOfOrder, filterOrders } from "./orderFilter.js";
+import { getDistrictOfOrder, filterOrders, getCityOfOrder } from "./orderFilter.js";
 import { changeOrderStatusQuantity } from "./orderStatistic.js"
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
+  let district = getDistrictOfOrder(order);
+  let city = getCityOfOrder(order);
+  let result = "";
+  if(!district && !city){
+    result = "Chưa rõ";
+  } else
+  if(district && city){
+    result = "Quận " + district + ", " + city;
+  } else
+  if(district && !city){
+    result = "Quận " + district + ", " + "chưa rõ tỉnh/thành";
+  } else
+  if(!district && city){
+    result = "Chưa rõ quận, " + city;
+  }
+
   trEle.innerHTML += `
     <tr>
       <td>${order.orderId}</td>
@@ -13,7 +29,7 @@ export function createOrderRow(order) {
         <p>${order.orderDate.split(" ")[1]}</p>
         <p>${order.orderDate.split(" ")[0]}</p>
       </td>
-      <td>${getDistrictOfOrder(order)}</td>
+      <td>${result}</td>
       <td>${formatVietNamMoney(order.orderTotalPrice)}đ</td>
       <td>
         <div class="status-label ${order.orderStatus}">
@@ -230,7 +246,7 @@ function createOrderDetails(order) {
       `;
     } else{
       orderSummary.innerHTML = `
-        <h3>Tóm Tắt Đơn Hàng</h3>
+        <h3>Thông tin Đơn Hàng</h3>
         <p>Phương thức:&nbsp${order.orderMethod}</p>
         <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
         <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>

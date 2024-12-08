@@ -227,11 +227,11 @@ export function showMain(sectionId) {
 
 	} else if (sectionId === "main-content-dashboard-orderList") {
 		document.querySelector("#main-content-dashboard-orderList").innerHTML = `
-<div class="title-dashboard-orderList">
+    <div class="title-dashboard-orderList">
     <div class="dashboard-title">
-		<h1>Danh sách đơn hàng</h1>
-    	<a class="comeback-product">< Quay lại</a>
-	</div>
+        <h1>Danh sách đơn hàng</h1>
+        <a class="comeback-product">< Quay lại</a>
+    </div>
     <div class="dashboard-filter">
         <div class="filter-item">
             <label class="dateLabel">Từ ngày</label>
@@ -249,30 +249,70 @@ export function showMain(sectionId) {
 </div>
 <div class="content">
     <div id="dashboard-main">
-      <div class="content order">
-        <div class="table-container">
-          <div class="title">
-            <div id="title-name">Danh sách đơn hàng</div>
-          </div>
-          <table class="content-order-table">
-            <thead>
-              <tr>
-                <th>Mã Đơn Hàng</th>
-                <th>Mã Khách Hàng</th>
-                <th>Ngày Đặt</th>
-                <th>Quận</th>
-                <th>Tổng Cộng</th>
-                <th>Trạng thái</th>
-                <th>Chi Tiết</th>
-              </tr>
-            </thead>
+        <div class="content order">
+            <div class="table-container">
+                <div class="title">
+                    <div id="title-name">Danh sách đơn hàng</div>
+                </div>
+                <table class="content-order-table">
+                    <thead>
+                        <tr>
+                            <th>Mã Đơn Hàng</th>
+                            <th>Mã Khách Hàng</th>
+                            <th>Ngày Đặt</th>
+                            <th>Quận, Tỉnh/TP</th>
+                            <th>Tổng Cộng</th>
+                            <th>Trạng thái</th>
+                            <th>Chi Tiết</th>
+                        </tr>
+                    </thead>
 
-            <tbody class="content-order-table-body">
+                    <tbody class="content-order-table-body">
 
-            </tbody>
-          </table>
-        <div class="list-page"></div>
-      </div>
+                    </tbody>
+                </table>
+                <div class="list-page"></div>
+            </div>
+            <!-- Modal hiện chi tiết đơn hàng -->
+            <div id="order-details-modal" class="order-details-modal">
+                <div class="order-details-modal-content">
+                    <a href="#" class="close-btn">&times;</a>
+                    <div id="order-details-container">
+                        <!-- Header đơn hàng -->
+                        <header class="order-header" id="order-header">
+                        </header>
+
+                        <div class="order-customer-info-and-cost-wrapper">
+                            <!-- Thông tin khách hàng -->
+                            <section class="customer-info" id="customer-info">
+
+                            </section>
+                            <!-- Chi phí đơn hàng -->
+                            <section class="order-summary" id="order-summary">
+
+                            </section>
+                        </div>
+                        <!-- Các sản phẩm -->
+                        <section class="product-info" id="product-info">
+                            <h3>Chi tiết Sản Phẩm</h3>
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="order-product-info-body">
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 		`;
@@ -335,7 +375,7 @@ export function showMain(sectionId) {
               <th>Mã Đơn Hàng</th>
               <th>Mã Khách Hàng</th>
               <th>Ngày Đặt</th>
-              <th>Quận</th>
+              <th>Quận, Tỉnh/TP</th>
               <th>Tổng Cộng</th>
               <th>Trạng thái</th>
               <th>Chi Tiết</th>

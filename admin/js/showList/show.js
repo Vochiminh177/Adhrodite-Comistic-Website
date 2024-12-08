@@ -39,7 +39,7 @@ function createPage(list, currentPage, showList, main) {
         <td colspan="5">Không có tài khoản nào</td>
       `;
     }
-    document.querySelector(".listPage").style.display = "none";
+    document.querySelector(".list-page").style.display = "none";
     return;
   }
   
@@ -224,7 +224,7 @@ export function generateProductStatistics(orderList) {
   let productReport = {};
 
     orderList.forEach(order => {
-        if (order.orderStatus !== "pending" || order.orderStatus !== "canceled") {
+        if (order.orderStatus !== "pending" && order.orderStatus !== "canceled") {
             order.orderProduct.forEach(product => {
                 let productId = product.id;
 
