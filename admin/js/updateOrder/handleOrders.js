@@ -26,7 +26,7 @@ export function createOrderRow(order) {
 }
 
 // Gán các sự kiện cho đơn hàng
-// Ẩn / hiện chi tiết đơn hàng, đổi tình trạng đơn hàng
+// Ẩn / hiện chi tiết đơn hàng, đổi trạng thái đơn hàng
 export function generateOrderEvents(start, end, curentPage, orderList) {
   // Tạo sự kiện xem chi tiết đơn hàng
   const detailEles = document.querySelectorAll(".details-btn");
@@ -142,9 +142,9 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
     }
   }
 
-  // Cập nhật lại tình trạng đơn hàng
+  // Cập nhật lại Trạng thái đơn hàng
   // Tham số orderIndex để tạo lại chi tiết đơn hàng orderList[orderIndex]
-  // Thâm số newStatus tình trạng mới của đơn hàng
+  // Thâm số newStatus Trạng thái mới của đơn hàng
   function updateOrderStatus(orderIndex, newStatus) {
     const modalStatusLabel = document.querySelector(
       ".order-header .status-label"
@@ -198,7 +198,7 @@ function createOrderDetails(order) {
   orderHeader.innerHTML = `
     <h2>Chi tiết đơn hàng #${order.orderId}</h2>
     <div class="order-status">
-        <span>Tình trạng:</span>
+        <span>Trạng thái:</span>
         <div class="status-label ${order.orderStatus}">
           <span>${translateOrderStatus(order.orderStatus)}</span>
         </div>
@@ -216,10 +216,11 @@ function createOrderDetails(order) {
   `;
 
   // Thông tin giá tiền
-  const orderCost = document.getElementById("order-cost");
-  if(orderCost){
-    orderCost.innerHTML = `
+  const orderSummary = document.getElementById("order-summary");
+  if(orderSummary){
+    orderSummary.innerHTML = `
       <h3>Tóm Tắt Đơn Hàng</h3>
+      <p>Phương thức thanh toán:&nbsp${order.orderMethod.name}</p>
       <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
       <p>Phí vận chuyển:&nbsp${18000}</p>
       <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
@@ -285,7 +286,7 @@ function createOrderDetails(order) {
   }
 }
 
-// Hiện tình trạng đơn hàng bằng tiếng Việt
+// Hiện trạng thái đơn hàng bằng tiếng Việt
 function translateOrderStatus(orderStatus) {
   if (orderStatus === "pending") {
     return "Chưa xử lý";

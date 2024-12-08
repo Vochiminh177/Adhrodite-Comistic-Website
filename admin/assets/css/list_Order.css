@@ -98,8 +98,7 @@
 
 #order-filter-form label {
   display: block;
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 5px;
   color: #333;
 }
@@ -165,7 +164,7 @@
 .order-btn-reset:hover {
   background-color: #c33b29;
 }
-/* Modal styles */
+/* Chi tiết đơn hàng */
 .order-details-modal {
   display: none;
   position: fixed;
@@ -187,6 +186,12 @@
   max-height: 93%;
   overflow: auto;
 }
+.order-details-modal-content {
+}
+.order-details-modal-content .status-label{
+  width: 55%;
+  margin: 0;
+}
 .content.order .close-btn {
   position: absolute;
   top: 9px;
@@ -199,20 +204,23 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
-
+.order-details-modal p,
+.order-details-modal span {
+  font-size: 1.2rem;
+}
 .order-details-modal h2,
 .order-details-modal h3 {
   margin-bottom: 15px;
 }
 .order-details-modal h2 {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 700;
 }
 
 .order-details-modal h3 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 #order-details-modal p {
@@ -221,7 +229,8 @@
 .order-status {
   display: flex;
   align-items: center;
-  gap: 11px;
+  justify-content: space-between;
+  width: 35%;
 }
 .status-label {
   text-align: center;
@@ -258,8 +267,15 @@
 .order-header,
 .customer-info,
 .product-info,
-.order-cost {
+.order-summary {
   margin-top: 25px;
+}
+.customer-info {
+  width: calc(65% - 32px);
+  margin-right: 32px;
+}
+.order-summary {
+  width: 35%;
 }
 .action-bar {
   display: flex;
@@ -528,7 +544,7 @@
     font-weight: 700;
   }
   .content-order-table-body td:nth-of-type(6)::before {
-    content: "Tình Trạng";
+    content: "Trạng thái";
     font-weight: 700;
   }
   .content-order-table-body td:nth-of-type(7)::before {

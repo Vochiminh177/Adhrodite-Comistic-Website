@@ -262,7 +262,7 @@ export function showMain(sectionId) {
                 <th>Ngày Đặt</th>
                 <th>Quận</th>
                 <th>Tổng Cộng</th>
-                <th>trạng thái</th>
+                <th>Trạng thái</th>
                 <th>Chi Tiết</th>
               </tr>
             </thead>
@@ -337,7 +337,7 @@ export function showMain(sectionId) {
               <th>Ngày Đặt</th>
               <th>Quận</th>
               <th>Tổng Cộng</th>
-              <th>trạng thái</th>
+              <th>Trạng thái</th>
               <th>Chi Tiết</th>
             </tr>
           </thead>
@@ -367,7 +367,7 @@ export function showMain(sectionId) {
 
               </section>
               <!-- Chi phí đơn hàng -->
-              <section class="order-cost" id="order-cost">
+              <section class="order-summary" id="order-summary">
         
               </section>
             </div>
