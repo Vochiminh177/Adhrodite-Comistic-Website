@@ -45,7 +45,7 @@ export function generateOrderFilter(){
             </div>
             <div class="order-filter-group">
                 <label for="status">Trạng thái</label>
-                <select id="status" name="order-status">
+                <select id="order-status" name="order-status">
                     <option value="tat-ca">Tất cả</option>
                     <option value="pending">Chưa xử lý</option>
                     <option value="accepted">Đã xác nhận</option>
@@ -64,6 +64,10 @@ export function generateOrderFilter(){
 function setUpEventListener(){
     const applyBtn = document.getElementById('order-apply-btn');
     const resetBtn = document.getElementById('order-reset-btn');
+    const citySelect = document.getElementById("city-select");
+    const districtSelect = document.getElementById("district-select");
+    const districtSortSelect = document.getElementById("district-sort");
+    const orderStatusSelect = document.getElementById("order-status");
 
     applyBtn.addEventListener('click', (event) => {
         event.preventDefault(); 
@@ -76,6 +80,27 @@ function setUpEventListener(){
             applyBtn.click();
             10;
         })
+    });
+
+    citySelect.addEventListener("change", () => {
+        generateDistrictOfCity(citySelect.value);
+        const filteredOrders = filterOrders();
+        pagination(filteredOrders, 1, showListOrder, "#main-content-order");
+    });
+
+    districtSelect.addEventListener("change", () => {
+        const filteredOrders = filterOrders();
+        pagination(filteredOrders, 1, showListOrder, "#main-content-order");
+    });
+
+    districtSortSelect.addEventListener("change", () => {
+        const filteredOrders = filterOrders();
+        pagination(filteredOrders, 1, showListOrder, "#main-content-order");
+    });
+
+    orderStatusSelect.addEventListener("change", () => {
+        const filteredOrders = filterOrders();
+        pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 }
 
@@ -185,6 +210,51 @@ function cmpFuncDesc(first, second){
     if(!first) return 1;
     if(!second) return -1;
     return second.localeCompare(first);
+}
+
+function generateDistrictOfCity(cityName){
+    const districtSelect = document.getElementById("district-select");
+    const selectedDistrict = districtSelect.value;
+    if(cityName === "tat-ca"){
+        const myMap = {};
+        const cities = locationToSelectArray;
+        const cityArrLength = locationToSelectArray.length;
+        for(let i = 1; i < cityArrLength; i++){
+            const districts = cities[i].districts;
+            const districtArrLength = districts.length;
+            for(let j = 1; j < districtArrLength; j++){
+                const key = JSON.stringify(districts[j]);
+                if(!myMap[key]){
+                    myMap[key] = true;
+                    const districtOption = document.createElement("option");
+                    districtOption.value = districts[j].name;
+                    districtOption.innerHTML = districts[j].name;
+                    if(districts[j].name === selectedDistrict){
+                        districtOption.setAttribute("selected", "");
+                    }
+                    districtSelect.appendChild(districtOption);
+                }
+            }
+        }
+    } else{
+        districtSelect.innerHTML = `<option value="tat-ca">Tất cả</option>`;        
+        const toDisplayCity = locationToSelectArray.find((city) => {
+            return city.name === cityName;
+        });
+
+        const districts = toDisplayCity.districts;
+        const districtsLength = districts.length;
+        for(let i = 1; i < districtsLength; i++){
+            const districtOption = document.createElement("option");
+            districtOption.value = districts[i].name;
+            districtOption.innerHTML = districts[i].name;
+            if(districts[i].name === selectedDistrict){
+                districtOption.setAttribute("selected", "");
+            }
+            districtSelect.appendChild(districtOption);
+        }
+
+    }
 }
 
 function generateCityAdDistrictSelect(){

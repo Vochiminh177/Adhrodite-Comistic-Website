@@ -140,7 +140,6 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
 
         pagination(filterOrders(), curentPage, showListOrder, "#main-content-order");
         document.getElementById("order-details-modal").style.display = "none";
-        changeOrderStatusQuantity();
       }
     } else{
       //console.error(`#order-confirm-confirm-btn not found`);
