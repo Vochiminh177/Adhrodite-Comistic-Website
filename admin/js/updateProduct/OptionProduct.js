@@ -163,21 +163,25 @@ export function filterProductAdmin() {
         let productList = JSON.parse(localStorage.getItem("productList"));
 
         //tạo select chứa các danh mục
-  
-            let selectCategory = document.createElement("select");
-            selectCategory.id = "select-product-filter-category";
-            selectCategory.innerHTML = `
+        let pCategory = document.createElement("p");
+        pCategory.textContent = "Danh mục: ";
+        let selectCategory = document.createElement("select");
+        selectCategory.id = "select-product-filter-category";
+        selectCategory.innerHTML = `
 
-                        <option value="-1" selected>Không chọn</option>
-                        <option value="kem-tri-mun">Kem trị mụn</option>
-                        <option value="sua-rua-mat">Sữa rửa mặt</option>
-                        <option value="son">Son</option>
-                        <option value="phan">Phấn</option>
-                        <option value="toner">Toner</option>
-                        <option value="sereum">Sereum</option>
-                        <option value="kem-duong-am">Kem dưỡng ẩm</option>
-                        <option value="tay-trang">Tẩy trang</option>
+            <option value="-1" selected>Tất cả</option>
+            <option value="kem-tri-mun">Kem trị mụn</option>
+            <option value="sua-rua-mat">Sữa rửa mặt</option>
+            <option value="son">Son</option>
+            <option value="phan">Phấn</option>
+            <option value="toner">Toner</option>
+            <option value="sereum">Sereum</option>
+            <option value="kem-duong-am">Kem dưỡng ẩm</option>
+            <option value="tay-trang">Tẩy trang</option>
         `;
+        let divCategory = document.createElement("div");
+        divCategory.innerHTML = pCategory.outerHTML + selectCategory.outerHTML;
+        divCategory.className = "category";
 
         
 
@@ -193,16 +197,19 @@ export function filterProductAdmin() {
         });
 
         //tạo phần thẻ select chứa các hãng
-
+        let pBrand = document.createElement("p");
+        pBrand.textContent = "Thương hiệu: ";
         let selectBrand = document.createElement("select");
         selectBrand.id = "select-product-filter-brand";
-        selectBrand.innerHTML += `<option value="-1">Không chọn</option>`;
+        selectBrand.innerHTML += `<option value="-1">Tất cả</option>`;
         array.forEach((obj, index) => {
             selectBrand.innerHTML += `<option value="${index}">${obj}</option>`;
             })
-
+        let divBrand = document.createElement("div");
+        divBrand.innerHTML = pBrand.outerHTML + selectBrand.outerHTML;
+        divBrand.className = "brand";
         //tạo phần input hàng tồn kho
-     
+            
         let inputQuantity = document.createElement("input");
         inputQuantity.placeholder = "Nhập số lượng";
         inputQuantity.id = "input-filter-quantity";
@@ -215,7 +222,7 @@ export function filterProductAdmin() {
         a.textContent = "Lọc";
         
 
-        document.querySelector(".filter-product .content-filter").innerHTML = selectCategory.outerHTML + selectBrand.outerHTML + inputQuantity.outerHTML + a.outerHTML;
+        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity.outerHTML + a.outerHTML;
 
         //hàm lọc dữ liệu
         function filterData(categoryID, brand, number) {
@@ -258,17 +265,17 @@ export function filterProductAdmin() {
 }
 
 export function searchProduct() {
-    document.querySelector(".search-product a").onclick = (e) => {
+    document.querySelector(".search-id a").onclick = (e) => {
         e.preventDefault();
-        let value = document.querySelector(".search-product input").value;
+        let value = document.querySelector("#search-product-id").value.trim();
         let productList = JSON.parse(localStorage.getItem("productList"));
         let i = productList.findIndex((obj) => {
             return obj.id.toLowerCase() === value.toLowerCase();
         });
+
         let currentPage;
         if(i==0) currentPage = 1;
         else currentPage = Math.ceil((i+1)/7);
-        console.log(currentPage)
 
         if (i >= 0) {
             showMain("main-content-product-add");
@@ -278,7 +285,7 @@ export function searchProduct() {
                 showMain("main-content-product-list");
                 pagination(productList, currentPage,showListProduct, "#main-content-product-list");
             }
-
+    
             //gán giá trị hiện tại của sản phẩm vào input để admin dễ xử lý
             document.querySelector(".name-add").value = productList[i].name;
             document.querySelector(".price-add").value = productList[i].price;
@@ -290,13 +297,13 @@ export function searchProduct() {
             document.querySelector(".percent-discount-add").value = productList[i].discountPercent;
             document.querySelector(".quantity-discount-add").value = productList[i].discountQuantity;
             path_picture_admin.src = productList[i].src;
-
+    
             let picture = document.querySelector(".image-show");
             let src_2 = productList[i].src;
             picture.innerHTML = `<img src="${src_2}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
-
+    
             handlePicture_admin();
-
+    
             let handle_click_btn_edit = (e) => {
                 e.preventDefault();
                 let result = edit_product(i, path_picture_admin);
@@ -314,8 +321,9 @@ export function searchProduct() {
             createNotificationAdmin("Không tìm thấy");
         }
     };
-    document.querySelector(".search-product input").onfocus = () => {
-        document.querySelector(".search-product input").value = "";
-        document.querySelector(".search-product input").placeholder = "Nhập mã sản phẩm";
+    document.querySelector("#search-product-id").onfocus = () => {
+        document.querySelector("#search-product-id").value = "";
+        document.querySelector("#search-product-id").placeholder = "Nhập mã sản phẩm";
     }
+
 }

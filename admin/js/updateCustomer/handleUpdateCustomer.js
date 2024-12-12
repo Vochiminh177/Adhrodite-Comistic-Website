@@ -3,8 +3,9 @@ import { err_input } from "../base/baseFunction.js";
 
 function checkNumberPhone(value){
     if(value.length !== 10) return false;
+    if(value.charAt(0) !== '0') return false;
     for(let i=0; i<value.length; i++){
-        if(!(value.charAt(i) >= 0 && value.charAt(i) <= 9)){
+        if(!(value.charAt(i) >= '0' && value.charAt(i) <= '9')){
             return false;
         }
     }
@@ -22,46 +23,39 @@ function checkEmail(value){
         return false;
     }
     let index = value.indexOf('@');
+    //kí tự trước @
     let checkBefore = true;
     for(const char of value.slice(0, index)){
         if(!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) checkBefore = false;
     }
     if(!checkBefore) return false;
-
     let checkAllNumber = false;
     for(const char of value.slice(0, index)){
         if(!(char >= '0' && char <= '9')) checkAllNumber = true;
     }
     if(!checkAllNumber) return false;
 
-    let indexPoint;
     let countPoint = 0;
     let checkBeforePoint = true;
     for(let k=value.length-1; k>=0; k--){
-        if(countPoint == 2){
-            indexPoint = k;
-            break;
-        }
         if(value.charAt(k) === '.'){
         countPoint += 1;
         }
     }
     if(!(countPoint > 0 && countPoint <= 2)) return false;
+
+    //kiểm tra trước dấu . và sau @
+    let i = value.indexOf(".");
+    for(const char of value.slice((index+1), i)){
+        if(!(char >= 'a' && char <= 'z')) checkBeforePoint = false;
+    }
+    if(!checkBeforePoint) return false;
     if(countPoint === 1){
-        let i = value.indexOf(".");
-        for(const char of value.slice((index+1), i)){
-            if(!(char >= 'a' && char <= 'z')) checkBeforePoint = false;
-        }
-        if(!checkBeforePoint) return false;
         let tmp = value.slice(i, value.length);
         if(tmp !== ".com") return false;
     }
     else{
-        for(const char of value.slice((index+1), indexPoint)){
-            if(!(char >= 'a' && char <= 'z')) checkBeforePoint = false;
-        }
-        if(!checkBeforePoint) return false;
-        let tmp = value.slice(indexPoint, value.length);
+        let tmp = value.slice(i, value.length);
         if(tmp !== ".com.vn") return false;
     }
 
@@ -249,18 +243,18 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
         return false;
     }
   
-    for(let i=0; i<firstName.value.length; i++){
-        if(!(firstName.value.charAt(i) >= 'a' && firstName.value.charAt(i) <= 'z' || firstName.value.charAt(i) >= 'A' && firstName.value.charAt(i) <= 'Z')){
-            err_input(firstName, "Cần nhập chữ");
-            return false;
-        }
+   for(const char of firstName.value){
+    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+      errorInput(firstName, "Cần nhập chữ");
+      return;
     }
-    for(let i=0; i<lastName.value.length; i++){
-        if(!(firstName.value.charAt(i) >= 'a' && firstName.value.charAt(i) <= 'z' || firstName.value.charAt(i) >= 'A' && firstName.value.charAt(i) <= 'Z')){
-            err_input(lastName, "Cần nhập chữ");
-            return false;
-        }
+  }
+  for(const char of lastName.value){
+    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+      errorInput(lastName, "Cần nhập chữ");
+      return;
     }
+  }
 
     //nếu không đúng số điện thoại
     let checkPhone = checkNumberPhone(phone.value);

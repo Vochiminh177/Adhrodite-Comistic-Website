@@ -1,6 +1,6 @@
 import { createNotificationAdmin, err_input } from "./base/baseFunction.js";
 
-let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
 let userList = JSON.parse(localStorage.getItem("userList"));
 if(indexCurrentUserLogin === -1 || userList[indexCurrentUserLogin].type !== "admin"){
   document.querySelector("#side-bar").style.display = "none";

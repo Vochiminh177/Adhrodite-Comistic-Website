@@ -148,7 +148,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-/* css phần tìm kiếm */
+/*-----------------css phần tìm kiếm--------------------*/
 .search-customer input {
   padding: 10px;
   font-size: 1rem;
@@ -169,6 +169,32 @@
   border-radius: 5px;
   font-size: 0.9rem;
 }
+/* -----------css phần lọc--------------- */
+#filter-customer{
+  width: 50%;
+}
+#filter-customer select{
+  padding: 0px;
+  margin: 0px;
+}
+#filter-customer .content-filter{
+  display: flex;
+  justify-content: flex-start;
+}
+#filter-customer .content-filter p{
+  font-size: 0.9rem;
+  margin-right: 10px;
+  text-wrap: nowrap;
+}
+#filter-customer .type, #filter-customer .status-account{
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+#filter-customer select{
+  margin-right: 10px;
+  width: 100%;
+}
 #filter-customer a{
   color: #fff;
   background-color: #000;
@@ -183,14 +209,6 @@
 #filter-type-customer, #filter-status-block{
   margin: 0px;
   width: 40%;
-}
-#filter-customer{
-  width: 30%;
-}
-#filter-customer .content-filter{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
 }
 .customer-row .btn-add-customer{
   padding: 10px;

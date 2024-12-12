@@ -22,51 +22,6 @@
   padding: 20px;
   width: 300px;
 }
-/* css phần bộ lọc */
-#main-content-product-list .filter-product {
-  /* margin-bottom: 10px; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-#main-content-product-list .filter-product a {
-  cursor: pointer;
-  background-color: #000;
-  color: #fff;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
-  padding: 13px;
-  border-radius: 5px;
-}
-#main-content-product-list .filter-product a:hover {
-  background-color: #a94064;
-}
-#main-content-product-list .filter-product .content-filter {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  transition: width 0.5s ease;
-  /* overflow: hidden; */
-  border-radius: 10px;
-  justify-content: space-between;
-}
-#main-content-product-list .filter-product #select-product-filter-category,
-#select-product-filter-brand,
-#input-filter-quantity {
-  font-size: 0.8rem;
-  overflow: auto;
-  margin: 0px;
-  padding: 10px;
-  width: 30%;
-}
-#main-content-product-list #input-filter-quantity {
-  font-size: 1rem;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #000;
-}
-
-/* ------------------------------------ */
 
 /*------ css phần thông báo xác nhận muốn xóa sản phẩm --*/
 .container-delete-confirm {
@@ -165,17 +120,22 @@
   color: #fff;
 }
 /* ----------------------------------------------- */
+
+/* -----------------CSS phần nhập mã, thêm sản phẩm-------------------- */
 .content-product-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   background-color: #fff;
   padding: 10px;
-  width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-} /* css phần tìm kiếm */
+  width: 50%;
+}
+/*---------- css phần tìm kiếm ----------------*/
 .search-product input {
+  /* width: 70%; */
   padding: 10px;
   font-size: 1rem;
   border: none;
@@ -186,41 +146,70 @@
 .search-product input:hover {
   background-color: #ccc;
 }
-.search-product a {
+.search-product a, .search-id button {
   border-radius: 5px;
   background-color: #000;
   color: #fff;
   padding: 10px 12px;
   font-size: 0.9rem;
   transition: background 0.2s ease;
-  font-family: "Poppins", sans-serif;
 }
 .search-product a:hover {
   background-color: #a94064;
 }
-
-.content .dont-have-product {
-  margin-top: 5%;
-  color: rgba(119, 119, 119, 0.2);
-  font-family: "Roboto";
-  font-size: 4.8rem;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.4rem;
-  line-height: 1.2;
-  text-align: center;
+/* --------------css phần bộ lọc -------------------*/
+#main-content-product-list .filter-product {
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
+.filter-product .content-filter{
+  display: flex;
+  justify-content: space-between;
+}
+#main-content-product-list .filter-product a {
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+  padding: 13px;
+  border-radius: 5px;
+}
+#main-content-product-list .filter-product a:hover {
+  background-color: #a94064;
+}
+#main-content-product-list .filter-product .category, .filter-product .brand{
+  display: flex;
+  width: 40%;
+  align-items: center;
+}
+.filter-product .category select, .filter-product .brand select{
+  width: 50%;
+  margin: 0px;
+}
+#main-content-product-list .filter-product p{
+  margin-right: 10px;
+}
+#input-filter-quantity {
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: background-color 0.2s ease;
+  padding: 10px;
+}
+#input-filter-quantity:hover{
+  background-color: #ccc;
+}
+
+/* ------------------------------------ */
 /* ------------------------------------------*/
 
 /* --------------------reponsive-------------------- */
-/* @media only screen and (min-width: 480px) and (max-width: 1040px){
-    .content-product-list .product-list-table th:first-child, td:first-child, th:nth-child(3), td:nth-child(3), th:nth-child(6), td:nth-child(6){
-        display: none;
-    }
-    .content-product-list{
-        font-size: 0.6rem;
-    }
-} */
 
 @media screen and (min-width: 700px) and (max-width: 1051px) {
   .container-notification p {

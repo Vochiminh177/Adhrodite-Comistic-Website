@@ -155,18 +155,20 @@ export function blockCustomer(currentPage){
             e.preventDefault();
             let userList = JSON.parse(localStorage.getItem("userList"));
             let index = parseInt(obj.getAttribute("index-item"));
-            let container = document.createElement("div");
-            container.className = "container-delete-customer";
-            container.innerHTML = `
-                <div class="form-delete-customer">
-                    <div class="content-delete-customer">
-                        <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
-                        <button class="yes">Có</button>
-                        <button class="no">Không</button>
+            if(!document.querySelector(".container-delete-customer")){
+                let container = document.createElement("div");
+                container.className = "container-delete-customer";
+                container.innerHTML = `
+                    <div class="form-delete-customer">
+                        <div class="content-delete-customer">
+                            <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
+                            <button class="yes">Có</button>
+                            <button class="no">Không</button>
+                        </div>
                     </div>
-                </div>
-            `;
-            document.body.appendChild(container);
+                `;
+                document.body.appendChild(container);
+            }
             document.querySelector(".container-delete-customer .no").onclick = () => {
                 document.querySelector(".container-delete-customer").remove();
             };
@@ -218,5 +220,31 @@ function createFormAddEdit(){
     document.querySelector(".form-user-add-edit-delete").onclick = () => {
         document.querySelector(".container-form-user-add-edit").remove();
     }
+}
 
+export function filterCustomer(){
+    let userList = JSON.parse(localStorage.getItem("userList"));
+     //hàm lọc dữ liệu
+     function filterData(type, status) {
+        let arr = [];
+        arr = userList.filter((obj) => {
+            let check;
+            if(status === "unblock"){
+                check = true;
+            }
+            else check = false;
+            console.log(check)
+            return (type === "all" || type === obj.type)
+                && (status === "all" || check === obj.blockStatus)
+        });
+        return arr;
+    }
+    document.querySelector("#filter-a-customer").onclick = (e) => {
+        e.preventDefault();
+        let type = document.querySelector(".type select").value;
+        let status = document.querySelector(".status-account select").value;
+        console.log(status)
+        let arr = filterData(type, status);
+        pagination(arr, 1, showListCustomer, "#main-content-customer");
+    }
 }

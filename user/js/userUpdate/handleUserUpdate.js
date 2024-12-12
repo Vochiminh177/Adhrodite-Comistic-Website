@@ -1,6 +1,6 @@
-import { handleAdmin } from "../home-js/adminClick.js";
+import { checkEmail } from "../menuUser/handleOptionMenu.js";
 import { create_notification_user } from "../menuUser/optionMenu.js";
-import { userList } from "../../../database/database.js";
+
 
 //hàm return về chuỗi placeholder ban đầu
 export function resetDefaultInputForUser(input) {
@@ -20,6 +20,7 @@ export function resetDefaultInputForUser(input) {
   if (input.className === "last-name") return "Nhập tên";
   if (input.className === "phone") return "Nhập số điện thoại";
   if (input.className === "email") return "Nhập email";
+  if (input.className === "address") return "Nhập địa chỉ";
   if (input.id === "username-change") return "Nhập tên tài khoản";
   if (input.id === "old-password-change") return "Nhập mật khẩu cũ";
   if (input.id === "new-password-change") return "Nhập mật khẩu mới";
@@ -162,8 +163,8 @@ export function handleSignUp() {
     return false;
   }
 
-  if (!checkEmail(email)) {
-    errorInput(email, "Cần nhập đúng định dạng email");
+  if (!checkEmail(email.value)) {
+    errorInput(email, "Sai định dạng");
     return false;
   }
     //kiểm tra xem tài khoản và email đã tồn tại chưa
@@ -205,7 +206,7 @@ export function handleSignUp() {
   }
   var data_obj = {
     type: "customer",
-    bloclStatus: false,
+    blockStatus: false,
     id: userID,
     username: username.value,
     password: password.value,

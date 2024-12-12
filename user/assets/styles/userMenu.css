@@ -49,6 +49,7 @@
   margin: 10px;
   font-size: 2rem;
   font-weight: bolder;
+  font-size: 2.5rem;
 }
 .form-user .two-input,
 .one-input {
@@ -69,6 +70,9 @@
   width: 100%;
   border-bottom: 1px solid #000;
 }
+.one-input .address{
+  margin-bottom: 20px;
+}
 .one-input {
   margin-top: 10px;
 }
@@ -76,13 +80,13 @@
   background-color: #000;
   width: 128px;
   height: 36px;
-  margin: 10px;
   color: #fff;
   line-height: 36px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  padding: 10px;
+  padding: 10px 20px;
+  font-size: 2rem;
 }
 .save-information:hover {
   background-color: #fc8eac;

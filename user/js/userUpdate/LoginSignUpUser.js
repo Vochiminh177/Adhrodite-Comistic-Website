@@ -21,7 +21,7 @@ export function signIn() {
         userContainerDiv.remove();
       
       }
-      document.querySelector("#password").value = "";
+      else document.querySelector("#password").value = "";
     };
   }
 }

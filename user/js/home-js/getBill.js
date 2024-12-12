@@ -9,7 +9,7 @@ import {
 } from "../common-js/common.js";
 import { updateMainContent } from "./changeMainContent.js";
 import { errorInput } from "../userUpdate/handleUserUpdate.js";
-import { checkEmail } from "../menuUser/handleOptionMenu.js";
+import { checkAddress, checkEmail, checkNumberPhone } from "../menuUser/handleOptionMenu.js";
 
 // hàm kiểm tra sản phẩm nào không đặt được, tô đỏ sản phẩm đó
 function error_orderProduct(id_product) {
@@ -44,11 +44,6 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   let email = document.querySelector(".payment-information-info__email");
   let phone = document.querySelector(".payment-information-info__phone");
   let address = document.querySelector(".payment-information-info__address");
-  function checkNumberPhone(value){
-    if(!isNaN(value)){
-        return value == Math.round(value) && value.length == 10;
-    }
-  } 
 
   if (
     firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || address.value === ""
@@ -58,23 +53,40 @@ function handle_order_information(userList, indexCurrentUserLogin) {
     errorInput(email);
     errorInput(phone);
     errorInput(address);
+    create_notification_user("Cần bổ sung phần thông tin cá nhân")
     return false;
   }
-  if(!checkNumberPhone(phone.value)){
-    errorInput(phone, "Sai định dạng");
-    return false;
-  }
-  if(!checkEmail(email)){
-    errorInput(email, "Sai định dạng");
-    return false;
-  }
+  // for(const char of firstName.value){
+  //   if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+  //     errorInput(firstName, "Cần nhập chữ");
+  //     return;
+  //   }
+  // }
+  // for(const char of lastName.value){
+  //   if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+  //     errorInput(lastName, "Cần nhập chữ");
+  //     return;
+  //   }
+  // }
+  // if(!checkNumberPhone(phone.value)){
+  //   errorInput(phone, "Sai định dạng");
+  //   return false;
+  // }
+  // if(!checkEmail(email.value)){
+  //   errorInput(email, "Sai định dạng");
+  //   return false;
+  // }
   
-  let index = address.value.indexOf(",");
-  let street = address.value.slice(0, index);
-  if(street.length === 0){
-    errorInput(address, "Cần nhập địa chỉ");
-    return false;
-  }
+  // if(!checkAddress(address.value)){
+  //   errorInput(address, "Sai định dạng")
+  //   return false;
+  // }
+  // let index = address.value.indexOf(",");
+  // let street = address.value.slice(0, index);
+  // if(street.length === 0){
+  //   errorInput(address, "Cần nhập địa chỉ");
+  //   return false;
+  // }
 
   if (document.querySelector("#credit-card").checked) {
     if (document.querySelector("#card-id").value === "") {
@@ -514,6 +526,7 @@ export function getBillInfo(array_orderProduct) {
           userList[indexCurrentUserLogin].email = email.value;
 
           localStorage.setItem("userList", JSON.stringify(userList));
+          document.querySelector(".header__shopping-cart-notification").style.visibility = "hidden";
 
           updateBill(userList, indexCurrentUserLogin, array_orderProduct);
         }

@@ -286,17 +286,16 @@ export function showMain(sectionId) {
             <div class="content">
                 <div class="content-product-list">
                     <div class="content-product-row">
-                        <div class="search-product">
-                        	<input type="text" id="search-product-input" placeholder="Nhập mã sản phẩm">
+                        <div class="search-product search-id">
+                        	<input type="text" id="search-product-id" placeholder="Nhập mã sản phẩm">
 	                        <a href="">Tìm kiếm</a>
                         </div>
-                        <div class="filter-product">
-                          <div class="content-filter">
-                          </div>
-                        </div>
-						          <button class="btn btn-add-product">Thêm sản phẩm</button>
+						            <button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
-                    
+                    <div class="filter-product">
+                        <div class="content-filter">
+                        </div>
+                    </div>
                     <table class="product-list-table">
                         <thead>
                           <tr>
@@ -505,15 +504,23 @@ export function showMain(sectionId) {
 					</div>
           <div id="filter-customer">
               <div class="content-filter">
-                <select id="filter-type-customer">
-                  <option value="employer">Nhân viên</option>
-                  <option value="admin">Admin</option>
-                  <option value="customer">Khách hàng</option>
-                </select>
-                <select id="filter-status-block">
-                  <option value="block">Khóa</option>
-                  <option value="unblock">Mở khóa</option>
-                </select>
+                <div class="type">
+                  <p>Loại:</p>
+                  <select id="filter-type-customer">
+                    <option value="all">Tất cả</option>
+                    <option value="employer">Nhân viên</option>
+                    <option value="admin">Admin</option>
+                    <option value="customer">Khách hàng</option>
+                  </select>
+                </div>
+                <div class="status-account">
+                  <p>Tình trạng:</p>
+                  <select id="filter-status-block">
+                    <option value="all">Tất cả</option>
+                    <option value="block">Khóa</option>
+                    <option value="unblock">Mở khóa</option>
+                  </select>
+                </div>
                 <a href="#" id="filter-a-customer">Lọc</a>
               </div>
           </div>

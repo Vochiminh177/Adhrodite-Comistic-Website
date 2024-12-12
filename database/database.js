@@ -704,7 +704,7 @@ export let userList = [
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 4,
     "username": "NoPaintNoGain",
     "password": "123",
@@ -717,7 +717,7 @@ export let userList = [
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 5,
     "username": "nguoithanhcong",
     "password": "123",
@@ -730,7 +730,7 @@ export let userList = [
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 6,
     "username": "nguoideptrainhat",
     "password": "12345",
@@ -743,7 +743,7 @@ export let userList = [
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 7,
     "username": "theDemonSlayer",
     "password": "123",

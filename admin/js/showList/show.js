@@ -9,6 +9,7 @@ import {
   blockCustomer,
   deleteCustomer,
   editCustomer,
+  filterCustomer,
   searchCustomer,
 } from "../updateCustomer/optionCustomer.js";
 import {
@@ -39,7 +40,7 @@ function createPage(list, currentPage, showList, main) {
         <td colspan="5">Không có tài khoản nào</td>
       `;
     }
-    document.querySelector(".listPage").style.display = "none";
+    if(document.querySelector(".listPage")) document.querySelector(".listPage").style.display = "none";
     return;
   }
   
@@ -202,6 +203,7 @@ export function showListCustomer(start, end, currentPage, userList) {
   editCustomer(currentPage);
   searchCustomer();
   blockCustomer(currentPage);
+  filterCustomer();
 }
 
 export function showListOrder(start, end, curentPage, orderList) {
