@@ -40,7 +40,9 @@ function createPage(list, currentPage, showList, main) {
         <td colspan="5">Không có tài khoản nào</td>
       `;
     }
+    
     if(document.querySelector(".listPage")) document.querySelector(".listPage").style.display = "none";
+
     return;
   }
   
@@ -53,6 +55,14 @@ function createPage(list, currentPage, showList, main) {
   if (totalPage === 1) {
     document.querySelector(pageList).style.display = "none";
   } else document.querySelector(pageList).style.display = "block";
+
+  let start = (currentPage - 1) * itemPerPage;
+  let end = start + itemPerPage;
+  if(start >= list.length){
+    currentPage--;
+    start = (currentPage - 1) * itemPerPage;
+    end = start + itemPerPage;
+  }
 
   let firstPage = currentPage - 2;
   let lastPage = currentPage + 2;
@@ -90,13 +100,6 @@ function createPage(list, currentPage, showList, main) {
 
   //------------------------------------------
   //----- In ra danh sách list
-  let start = (currentPage - 1) * itemPerPage;
-  let end = start + itemPerPage;
-  if(start >= list.length){
-    currentPage--;
-    start = (currentPage - 1) * itemPerPage;
-    end = start + itemPerPage;
-  }
   showList(start, end, currentPage, list);
   //------------------------------------------
 
@@ -225,7 +228,7 @@ export function generateProductStatistics(orderList) {
   let productReport = {};
 
     orderList.forEach(order => {
-        if (order.orderStatus !== "pending" || order.orderStatus !== "canceled") {
+        if (order.orderStatus !== "pending" && order.orderStatus !== "canceled") {
             order.orderProduct.forEach(product => {
                 let productId = product.id;
 

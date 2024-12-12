@@ -1,10 +1,25 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder, pagination} from "../showList/show.js"
-import { getDistrictOfOrder, filterOrders } from "./orderFilter.js";
-import { changeOrderStatusQuantity } from "./orderStatistic.js"
+import { getDistrictOfString, filterOrders, getCityOfString } from "./orderFilter.js";
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
+  let district = getDistrictOfString(order.orderAddressToShip);
+  let city = getCityOfString(order.orderAddressToShip);
+  let result = "";
+  if(!district && !city){
+    result = "Chưa rõ";
+  } else
+  if(district && city){
+    result = "Quận " + district + ", " + city;
+  } else
+  if(district && !city){
+    result = "Quận " + district + ", " + "chưa rõ tỉnh/thành";
+  } else
+  if(!district && city){
+    result = "Chưa rõ quận, " + city;
+  }
+
   trEle.innerHTML += `
     <tr>
       <td>${order.orderId}</td>
@@ -13,8 +28,8 @@ export function createOrderRow(order) {
         <p>${order.orderDate.split(" ")[1]}</p>
         <p>${order.orderDate.split(" ")[0]}</p>
       </td>
-      <td>${getDistrictOfOrder(order)}</td>
-      <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
+      <td>${result}</td>
+      <td>${formatVietNamMoney(order.orderTotalPrice)}đ</td>
       <td>
         <div class="status-label ${order.orderStatus}">
           <span>${translateOrderStatus(order.orderStatus)}</span>
@@ -26,7 +41,7 @@ export function createOrderRow(order) {
 }
 
 // Gán các sự kiện cho đơn hàng
-// Ẩn / hiện chi tiết đơn hàng, đổi tình trạng đơn hàng
+// Ẩn / hiện chi tiết đơn hàng, đổi trạng thái đơn hàng
 export function generateOrderEvents(start, end, curentPage, orderList) {
   // Tạo sự kiện xem chi tiết đơn hàng
   const detailEles = document.querySelectorAll(".details-btn");
@@ -125,7 +140,6 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
 
         pagination(filterOrders(), curentPage, showListOrder, "#main-content-order");
         document.getElementById("order-details-modal").style.display = "none";
-        changeOrderStatusQuantity();
       }
     } else{
       //console.error(`#order-confirm-confirm-btn not found`);
@@ -142,9 +156,9 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
     }
   }
 
-  // Cập nhật lại tình trạng đơn hàng
+  // Cập nhật lại Trạng thái đơn hàng
   // Tham số orderIndex để tạo lại chi tiết đơn hàng orderList[orderIndex]
-  // Thâm số newStatus tình trạng mới của đơn hàng
+  // Thâm số newStatus Trạng thái mới của đơn hàng
   function updateOrderStatus(orderIndex, newStatus) {
     const modalStatusLabel = document.querySelector(
       ".order-header .status-label"
@@ -198,7 +212,7 @@ function createOrderDetails(order) {
   orderHeader.innerHTML = `
     <h2>Chi tiết đơn hàng #${order.orderId}</h2>
     <div class="order-status">
-        <span>Tình trạng:</span>
+        <span>Trạng thái:</span>
         <div class="status-label ${order.orderStatus}">
           <span>${translateOrderStatus(order.orderStatus)}</span>
         </div>
@@ -216,14 +230,27 @@ function createOrderDetails(order) {
   `;
 
   // Thông tin giá tiền
-  const orderCost = document.getElementById("order-cost");
-  if(orderCost){
-    orderCost.innerHTML = `
-      <h3>Tóm Tắt Đơn Hàng</h3>
-      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-      <p>Phí vận chuyển:&nbsp${18000}</p>
-      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
-    `;
+  const orderSummary = document.getElementById("order-summary");
+  if(orderSummary){
+    if(typeof order.orderMethod === "object"){
+      orderSummary.innerHTML = `
+        <h3>Thông tin Đơn Hàng</h3>
+        <p>Phương thức:&nbsp${order.orderMethod.name}</p>
+        <p>Loại thẻ:&nbsp${order.orderMethod.type}</p>
+        <p>Mã thẻ:&nbsp${order.orderMethod.code}</p>
+        <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
+        <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+      `;
+    } else{
+      orderSummary.innerHTML = `
+        <h3>Thông tin Đơn Hàng</h3>
+        <p>Phương thức:&nbsp${order.orderMethod}</p>
+        <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
+        <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+      `;
+    }
   }
 
   // Thông tin sản phẩm đã mua
@@ -237,8 +264,8 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${currentDiscountQuantity}</td>
-        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}</td>
-        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}</td>
+        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}đ</td>
+        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}đ</td>
       </tr>
       `;
 
@@ -247,8 +274,8 @@ function createOrderDetails(order) {
         <tr>
           <td>${product.id}</td>
           <td>${product.quantity - currentDiscountQuantity}</td>
-          <td>${formatVietNamMoney(product.price)}</td>
-          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}</td>
+          <td>${formatVietNamMoney(product.price)}đ</td>
+          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}đ</td>
         </tr>
         `;
       }
@@ -257,8 +284,8 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${product.quantity}</td>
-        <td>${formatVietNamMoney(product.price)}</td>
-        <td>${formatVietNamMoney(product.price * product.quantity)}</td>
+        <td>${formatVietNamMoney(product.price)}đ</td>
+        <td>${formatVietNamMoney(product.price * product.quantity)}đ</td>
       </tr>
       `;
     }
@@ -285,7 +312,7 @@ function createOrderDetails(order) {
   }
 }
 
-// Hiện tình trạng đơn hàng bằng tiếng Việt
+// Hiện trạng thái đơn hàng bằng tiếng Việt
 function translateOrderStatus(orderStatus) {
   if (orderStatus === "pending") {
     return "Chưa xử lý";

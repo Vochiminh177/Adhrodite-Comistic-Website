@@ -188,7 +188,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             }
             return items;
           }
-          //obj để hiển thị tiếng việt tình trạng đơn hàng
+          //obj để hiển thị tiếng việt trạng thái đơn hàng
           let dataOrderStatus = {
             pending: "Đang chờ xử lý",
             shipped: "Đã giao",
@@ -222,7 +222,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             <p class="order-history-info__order-date detail"><b>Thời gian đặt hàng:</b> ${
               ordersHistory[ordersHistory.length - 1 - index].orderDate
             }</p>
-            <p class="order-history-info__order-status detail"><b>Tình trạng:</b> ${
+            <p class="order-history-info__order-status detail"><b>Trạng thái:</b> ${
               dataOrderStatus[
                 ordersHistory[ordersHistory.length - 1 - index].orderStatus
               ]
@@ -516,7 +516,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
 
   // Danh sách sản phẩm đã đặt hàng nằm ở dưới chữ thanh toán
   function createOrderHistoryItems() {
-    //obj để hiển thị tiếng việt tình trạng đơn hàng
+    //obj để hiển thị tiếng việt trạng thái đơn hàng
     let dataOrderStatus = {
       pending: "Đang chờ xử lý",
       shipped: "Đã giao",
