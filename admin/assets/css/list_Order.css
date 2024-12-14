@@ -63,8 +63,8 @@
   margin-bottom: 5px;
   color: #333;
 }
-#order-filter-form input:not(#orderID-search),
-#order-filter-form select {
+.order-filter-form input,
+.order-filter-form select {
   width: 100%;
   height: 35px;
   padding: 3px;
@@ -81,9 +81,9 @@
   padding: 3px;
   font-size: 1rem;
   border: none;
-  outline: none;
   margin-top: auto;
   border-bottom: 1px solid #000;
+  border-radius: 0px;
   transition: border-color 0.3s ease;
   transition: background-color 0.2s ease;
 }
@@ -93,8 +93,8 @@
 .orderID-search-container {
   display: flex;
 }
-#order-filter-form input:focus,
-#order-filter-form select:focus {
+.order-filter-form input:focus,
+.order-filter-form select:focus {
   border-color: #007bff;
 }
 .order-filter-row{
@@ -121,12 +121,11 @@
   align-items: flex-end;
 }
 .order-filter-button:first-child{
-  width: calc(50% - 16px);
-  margin-right: 16px;
+  width: 50%;
 }
 .order-filter-button:last-child{
-  width: 50%;
-  margin-right: 0px;
+  width: calc(50% - 16px);
+  margin-left: 16px;
 }
 .order-filter-row:nth-child(2){
   display: flex;
@@ -359,11 +358,6 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .order-filter-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
   .order-btn {
     width: 100%;
   }
@@ -490,18 +484,6 @@
 
 /* ======================== table */
 @media screen and (min-width: 600px) and (max-width: 900px) {
-  .order-filter-container{
-    margin-top: 0px;
-    margin-right: 16px;
-  }
-  .content.order .table-container{
-    margin-right: 0px;
-  }
-  .content.order {
-    margin: 0 auto;
-    flex-direction: column-reverse;
-    align-items: center;
-  }
   .content-order-table th {
     display: none;
   }
@@ -558,5 +540,33 @@
   }
   .content.order .table-container {
     margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .order-filter-row:nth-of-type(1) {
+    flex-direction: column;
+    margin-bottom: 0px;
+  }
+  .order-filter-row:nth-of-type(2) {
+    flex-direction: column;
+  }
+  .order-filter-row:nth-child(1) .order-filter-group {
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 16px;
+  }
+  .order-filter-row:nth-of-type(2) .order-filter-group {
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 16px;
+  }
+  .order-filter-start-end-date-container {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .order-filter-row:nth-of-type(2) .order-filter-buttons {
+    width: 100%;
+    margin-bottom: 16px;
   }
 }

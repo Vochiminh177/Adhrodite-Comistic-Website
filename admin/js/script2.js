@@ -20,7 +20,7 @@ import {
 } from "./base/baseFunction.js";
 
 import { searchByProductId, filterByDate } from "./base/baseFunction.js";
-
+import { responsiveOrderFilter } from "./responsive.js";
 function start() {
 	anhMinh();
 }
@@ -446,6 +446,7 @@ export function showMain(sectionId) {
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
+    responsiveOrderFilter();
   } else if (sectionId === "main-content-product-add") {
     document.querySelector("#main-content-product-add").innerHTML = `
 			<div class="title">

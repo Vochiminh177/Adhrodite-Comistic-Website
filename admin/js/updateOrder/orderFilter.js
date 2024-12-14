@@ -3,7 +3,7 @@ import { locationToSelectArray } from "../../../database/database.js";
 export function generateOrderFilter(){
     const orderFilterContainer = document.getElementById('order-filter-container');
     orderFilterContainer.innerHTML = `
-    <form id="order-filter-form" name="order-filter-form">
+    <form class="order-filter-form" id="order-filter-form" name="order-filter-form">
         <div class="order-filter-row">
             <div class="order-filter-group">
                 <label for="orderID-search">Tìm mã đơn hàng</label>
