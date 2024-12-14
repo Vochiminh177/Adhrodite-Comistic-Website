@@ -704,7 +704,7 @@ export let userList = [
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 4,
     "username": "NoPaintNoGain",
     "password": "123",
@@ -713,11 +713,11 @@ export let userList = [
     "last_name": "game",
     "phone": "1234567892",
     "shoppingCart": [],
-    "address": "67, Phường Hàng Bạc, Quận Hoàn Kiếm, Hà Nội"
+    "address": "67, Phường Hàng Bạc, Quận Hoàn Kiếm, Thủ đô Hà Nội"
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 5,
     "username": "nguoithanhcong",
     "password": "123",
@@ -726,11 +726,11 @@ export let userList = [
     "last_name": "cong",
     "phone": "1234567888",
     "shoppingCart": [],
-    "address": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh"
+    "address": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh"
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 6,
     "username": "nguoideptrainhat",
     "password": "12345",
@@ -739,11 +739,11 @@ export let userList = [
     "last_name": "Nhật Huy",
     "phone": "0863345626",
     "shoppingCart": [],
-    "address": "952/5, Phường Hòa Hải, Quận Ngũ Hành Sơn, Đà Nẵng"
+    "address": "952/5, Phường Hòa Hải, Quận Ngũ Hành Sơn, Thành phố Đà Nẵng"
   },
   {
     "type": "customer",
-    "bloclStatus": false,
+    "blockStatus": false,
     "id": 7,
     "username": "theDemonSlayer",
     "password": "123",
@@ -752,7 +752,7 @@ export let userList = [
     "last_name": "err",
     "phone": "0863345621",
     "shoppingCart": [],
-    "address": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội"
+    "address": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Thủ đô Hà Nội"
   }
 ];
 
@@ -770,8 +770,8 @@ const orderList = [
       "customerId": 4,
       "orderId": 1,
       "orderDate": "16:10:20 5/12/2024",
-      "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Hà Nội",
-      "orderStatus": "shipped",
+      "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Thủ đô Hà Nội",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1615500,
       "orderProduct": [
@@ -802,8 +802,8 @@ const orderList = [
       "customerId": 4,
       "orderId": 2,
       "orderDate": "16:11:1 5/12/2024",
-      "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Hà Nội",
-      "orderStatus": "pending",
+      "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Thủ đô Hà Nội",
+      "orderStatus": "shipped",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 4032300,
       "orderProduct": [
@@ -844,8 +844,8 @@ const orderList = [
       "customerId": 4,
       "orderId": 3,
       "orderDate": "16:11:26 5/12/2024",
-      "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Hà Nội",
-      "orderStatus": "pending",
+      "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Thủ đô Hà Nội",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 861300,
       "orderProduct": [
@@ -886,7 +886,7 @@ const orderList = [
       "customerId": 4,
       "orderId": 4,
       "orderDate": "16:12:9 5/12/2024",
-      "orderAddressToShip": "251, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng",
+      "orderAddressToShip": "251, Phường Thạch Thang, Quận Hải Châu, Thành phố Đà Nẵng",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 663300,
@@ -908,8 +908,8 @@ const orderList = [
       "customerId": 4,
       "orderId": 5,
       "orderDate": "16:12:22 5/12/2024",
-      "orderAddressToShip": "251, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng",
-      "orderStatus": "pending",
+      "orderAddressToShip": "251, Phường Thạch Thang, Quận Hải Châu, Thành phố Đà Nẵng",
+      "orderStatus": "shipped",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1768500,
       "orderProduct": [
@@ -930,8 +930,8 @@ const orderList = [
       "customerId": 4,
       "orderId": 6,
       "orderDate": "16:12:31 5/12/2024",
-      "orderAddressToShip": "251, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng",
-      "orderStatus": "pending",
+      "orderAddressToShip": "251, Phường Thạch Thang, Quận Hải Châu, Thành phố Đà Nẵng",
+      "orderStatus": "canceled",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1552500,
       "orderProduct": [
@@ -952,7 +952,7 @@ const orderList = [
       "customerId": 4,
       "orderId": 7,
       "orderDate": "16:13:15 5/12/2024",
-      "orderAddressToShip": "269, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng",
+      "orderAddressToShip": "269, Phường Thạch Thang, Quận Hải Châu, Thành phố Đà Nẵng",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 4464200,
@@ -994,7 +994,7 @@ const orderList = [
       "customerId": 4,
       "orderId": 8,
       "orderDate": "16:14:22 5/12/2024",
-      "orderAddressToShip": "67, Phường Hàng Bạc, Quận Hoàn Kiếm, Hà Nội",
+      "orderAddressToShip": "67, Phường Hàng Bạc, Quận Hoàn Kiếm, Thủ đô Hà Nội",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 229500,
@@ -1016,7 +1016,7 @@ const orderList = [
       "customerId": 6,
       "orderId": 9,
       "orderDate": "16:26:28 5/12/2024",
-      "orderAddressToShip": "11, Phường 10, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "11, Phường 10, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 842400,
@@ -1038,8 +1038,8 @@ const orderList = [
       "customerId": 6,
       "orderId": 10,
       "orderDate": "16:27:0 5/12/2024",
-      "orderAddressToShip": "11, Phường 10, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "11, Phường 10, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "canceled",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1174100,
       "orderProduct": [
@@ -1080,7 +1080,7 @@ const orderList = [
       "customerId": 6,
       "orderId": 11,
       "orderDate": "16:28:18 5/12/2024",
-      "orderAddressToShip": "11, Phường 10, Quận 7, TP Hồ Chí Minh",
+      "orderAddressToShip": "11, Phường 10, Quận 7, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1169100,
@@ -1112,8 +1112,8 @@ const orderList = [
       "customerId": 6,
       "orderId": 12,
       "orderDate": "16:30:44 5/12/2024",
-      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 502200,
       "orderProduct": [
@@ -1134,8 +1134,8 @@ const orderList = [
       "customerId": 6,
       "orderId": 13,
       "orderDate": "16:30:53 5/12/2024",
-      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, Thành phố Hồ Chí Minh",
+      "orderStatus": "shipped",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 744300,
       "orderProduct": [
@@ -1156,8 +1156,8 @@ const orderList = [
       "customerId": 6,
       "orderId": 14,
       "orderDate": "16:31:10 5/12/2024",
-      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 224100,
       "orderProduct": [
@@ -1178,7 +1178,7 @@ const orderList = [
       "customerId": 6,
       "orderId": 15,
       "orderDate": "16:31:17 5/12/2024",
-      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, TP Hồ Chí Minh",
+      "orderAddressToShip": "68, đường Huỳnh Tấn Phát, Phường Tân Thuận Tây, Quận 7, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1274400,
@@ -1200,7 +1200,7 @@ const orderList = [
       "customerId": 6,
       "orderId": 16,
       "orderDate": "16:31:43 5/12/2024",
-      "orderAddressToShip": "952/5, Phường Hòa Hải, Quận Ngũ Hành Sơn, Đà Nẵng",
+      "orderAddressToShip": "952/5, Phường Hòa Hải, Quận Ngũ Hành Sơn, Thành phố Đà Nẵng",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1184000,
@@ -1222,8 +1222,8 @@ const orderList = [
       "customerId": 7,
       "orderId": 17,
       "orderDate": "16:34:17 5/12/2024",
-      "orderAddressToShip": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội",
-      "orderStatus": "pending",
+      "orderAddressToShip": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Thủ đô Hà Nội",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1058400,
       "orderProduct": [
@@ -1244,7 +1244,7 @@ const orderList = [
       "customerId": 7,
       "orderId": 18,
       "orderDate": "16:34:25 5/12/2024",
-      "orderAddressToShip": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội",
+      "orderAddressToShip": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Thủ đô Hà Nội",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1277500,
@@ -1266,8 +1266,8 @@ const orderList = [
       "customerId": 7,
       "orderId": 19,
       "orderDate": "16:34:34 5/12/2024",
-      "orderAddressToShip": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội",
-      "orderStatus": "pending",
+      "orderAddressToShip": "23/5, Phường Dịch Vọng, Quận Cầu Giấy, Thủ đô Hà Nội",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 430200,
       "orderProduct": [
@@ -1288,7 +1288,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 20,
       "orderDate": "16:38:2 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 4520300,
@@ -1350,7 +1350,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 21,
       "orderDate": "16:38:26 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 693900,
@@ -1392,8 +1392,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 22,
       "orderDate": "16:38:34 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1134000,
       "orderProduct": [
@@ -1414,7 +1414,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 23,
       "orderDate": "16:38:47 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 2172500,
@@ -1456,7 +1456,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 24,
       "orderDate": "16:39:9 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán qua chuyển khoản",
       "orderTotalPrice": 610200,
@@ -1488,8 +1488,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 25,
       "orderDate": "16:39:45 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 589500,
       "orderProduct": [
@@ -1520,8 +1520,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 26,
       "orderDate": "16:39:53 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 278100,
       "orderProduct": [
@@ -1542,8 +1542,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 27,
       "orderDate": "16:40:4 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1607500,
       "orderProduct": [
@@ -1564,8 +1564,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 28,
       "orderDate": "16:41:48 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "accepted",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 680400,
       "orderProduct": [
@@ -1606,8 +1606,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 29,
       "orderDate": "16:42:14 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "canceled",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 287100,
       "orderProduct": [
@@ -1628,7 +1628,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 30,
       "orderDate": "16:57:46 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 649000,
@@ -1660,7 +1660,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 31,
       "orderDate": "16:59:51 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1099800,
@@ -1712,8 +1712,8 @@ const orderList = [
       "customerId": 5,
       "orderId": 32,
       "orderDate": "17:0:25 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
-      "orderStatus": "pending",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
+      "orderStatus": "canceled",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1222200,
       "orderProduct": [
@@ -1774,7 +1774,7 @@ const orderList = [
       "customerId": 5,
       "orderId": 33,
       "orderDate": "17:0:36 5/12/2024",
-      "orderAddressToShip": "35/5, Phường 15, Quận 10, TP Hồ Chí Minh",
+      "orderAddressToShip": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh",
       "orderStatus": "pending",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 827200,
@@ -1813,7 +1813,7 @@ export const locationToSelectArray = [
     ],
   },
   {
-    name: "Hà Nội",
+    name: "Thủ đô Hà Nội",
     id: "hanoi",
     districts: [
       {
@@ -1856,7 +1856,7 @@ export const locationToSelectArray = [
     ],
   },
   {
-    name: "TP Hồ Chí Minh",
+    name: "Thành phố Hồ Chí Minh",
     id: "tphcm",
     districts: [
       {
@@ -1899,7 +1899,7 @@ export const locationToSelectArray = [
     ],
   },
   {
-    name: "Đà Nẵng",
+    name: "Thành phố Đà Nẵng",
     id: "danang",
     districts: [
       {
@@ -1957,6 +1957,11 @@ window.addEventListener("load", () => {
   tmpList = JSON.parse(localStorage.getItem("productList"));
   if (tmpList === null || tmpList === undefined) {
     localStorage.setItem("productList", JSON.stringify(productItemArray));
+  }
+
+  let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+  if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
+    localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
   }
 });
 

@@ -4,7 +4,7 @@ import { pagination, showListCustomer } from "../showList/show.js";
 import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer, handleBlockCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
 
-export function deleteCustomer() {
+export function deleteCustomer(currentPage) {
     document.querySelectorAll(".delete-customer").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
@@ -25,11 +25,15 @@ export function deleteCustomer() {
                 document.querySelector(".container-delete-customer").remove();
             };
             document.querySelector(".container-delete-customer .yes").onclick = () => {
-                handleDeleteCustomer(index);
+                let result = handleDeleteCustomer(index);
+                if(result){
+                    createNotificationAdmin("Xóa thành công");
+                }
+                else createNotificationAdmin("Không thể xóa");
                 document.querySelector(".container-delete-customer").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
-                pagination(userList, 1, showListCustomer, "#main-content-customer");
+                pagination(userList, currentPage, showListCustomer, "#main-content-customer");
             };
         };
     });
@@ -61,7 +65,8 @@ export function editCustomer(currentPage) {
             //     showMain("main-content-customer");
             // }
 
-            document.querySelector(".add-customer").onclick = () => {
+            document.querySelector(".add-customer").onclick = (e) => {
+                e.preventDefault();
                 let result = handleEditCustomer(index);
                 if(result){
                     document.querySelector(".container-form-user-add-edit").remove();
@@ -78,7 +83,8 @@ export function editCustomer(currentPage) {
 export function addCustomer(){
     document.querySelector("#main-content-customer .btn-add-customer").onclick = () =>{
         createFormAddEdit();
-        document.querySelector(".container-form-user-add-edit .add-customer").onclick = () => {
+        document.querySelector(".container-form-user-add-edit .add-customer").onclick = (e) => {
+            e.preventDefault();
             let result = handleAddCustomer();
             if(result){
                 document.querySelector(".container-form-user-add-edit").remove();
@@ -95,26 +101,19 @@ export function searchCustomer(){
     document.querySelector(".search-customer a").onclick = (e) => {
         e.preventDefault();
         let value = document.querySelector(".search-customer input").value;
-        console.log(value);
         let userList = JSON.parse(localStorage.getItem("userList"));
         let i = userList.findIndex((obj) => {
             return obj.username.toLowerCase() === value.toLowerCase();
         });
 
         if(i>=0){
-      
             let currentPage;
-            if(i===0){
-                currentPage = 1;
-            } 
-            else{
-                currentPage = Math.ceil((i+1)/7);
-            }
+            if(currentPage === 0) currentPage = 1;
+            else currentPage = Math.ceil((i+1)/7);
 
             createFormAddEdit();
+
             document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
-            console.log(userList[i].username);
-            console.log(i);
             document.querySelector(".container-form-user-add-edit .password-customer").value = userList[i].password;
             document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[i].first_name;
             document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
@@ -128,14 +127,15 @@ export function searchCustomer(){
             };
             document.querySelector(".container-form-user-add-edit #type-customer").value = objType[userList[i].type];
 
-            document.querySelector(".add-customer").onclick = () => {
+            document.querySelector(".add-customer").onclick = (e) => {
+                e.preventDefault();
                 let result = handleEditCustomer(i);
                 if(result){
                     document.querySelector(".container-form-user-add-edit").remove();
                     createNotificationAdmin("Sửa thông tin thành công!");
                     userList = JSON.parse(localStorage.getItem("userList"));
                     showMain("main-content-customer")
-                    pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
+                    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 }
             }
         }
@@ -149,27 +149,26 @@ export function searchCustomer(){
     }
 }
 
-export function blockCustomer(){
+export function blockCustomer(currentPage){
     document.querySelectorAll(".block-customer").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
             let userList = JSON.parse(localStorage.getItem("userList"));
             let index = parseInt(obj.getAttribute("index-item"));
-            let currentPage;
-            if(index == 0) currentPage = 1;
-            else currentPage = Math.ceil(index/3);
-            let container = document.createElement("div");
-            container.className = "container-delete-customer";
-            container.innerHTML = `
-                <div class="form-delete-customer">
-                    <div class="content-delete-customer">
-                        <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
-                        <button class="yes">Có</button>
-                        <button class="no">Không</button>
+            if(!document.querySelector(".container-delete-customer")){
+                let container = document.createElement("div");
+                container.className = "container-delete-customer";
+                container.innerHTML = `
+                    <div class="form-delete-customer">
+                        <div class="content-delete-customer">
+                            <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
+                            <button class="yes">Có</button>
+                            <button class="no">Không</button>
+                        </div>
                     </div>
-                </div>
-            `;
-            document.body.appendChild(container);
+                `;
+                document.body.appendChild(container);
+            }
             document.querySelector(".container-delete-customer .no").onclick = () => {
                 document.querySelector(".container-delete-customer").remove();
             };
@@ -177,7 +176,7 @@ export function blockCustomer(){
                 handleBlockCustomer(index);
                 document.querySelector(".container-delete-customer").remove();
                 userList = JSON.parse(localStorage.getItem("userList"));
-                pagination(userList, 1, showListCustomer, "#main-content-customer");
+                pagination(userList, currentPage, showListCustomer, "#main-content-customer");
                 createNotificationAdmin(`${userList[index].blockStatus ? "Khóa" : "Mở khóa"} người dùng thành công`);
             };
         };
@@ -188,8 +187,9 @@ function createFormAddEdit(){
     let container = document.createElement("div");
     container.className = "container-form-user-add-edit";
     container.innerHTML = `
-        <div class="form-user-add-edit">
+        <form action="" autocomplete="off" class="form-user-add-edit">
             <a>&times;</a>
+            
             <div class="content-two-input">
                 <input type="text" placeholder="Tên tài khoản" class="username-customer">
                 <input type="text" placeholder="Mật khẩu" class="password-customer">
@@ -208,8 +208,8 @@ function createFormAddEdit(){
             </div>
             <div class="content-one-input"><input type="text" placeholder="Email" class="email-customer"></div>
             <div class="content-one-input"><input type="text" placeholder="Địa chỉ" class="address-customer"></div>
-            <button class="btn add-customer">Lưu khách hàng</button>
-        </div>
+            <button class="btn add-customer" type="submit">Lưu khách hàng</button>
+        </form>
         <div class="form-user-add-edit-delete"></div>
     `;
     document.body.appendChild(container);
@@ -220,5 +220,31 @@ function createFormAddEdit(){
     document.querySelector(".form-user-add-edit-delete").onclick = () => {
         document.querySelector(".container-form-user-add-edit").remove();
     }
+}
 
+export function filterCustomer(){
+    let userList = JSON.parse(localStorage.getItem("userList"));
+     //hàm lọc dữ liệu
+     function filterData(type, status) {
+        let arr = [];
+        arr = userList.filter((obj) => {
+            let check;
+            if(status === "unblock"){
+                check = true;
+            }
+            else check = false;
+            console.log(check)
+            return (type === "all" || type === obj.type)
+                && (status === "all" || check === obj.blockStatus)
+        });
+        return arr;
+    }
+    document.querySelector("#filter-a-customer").onclick = (e) => {
+        e.preventDefault();
+        let type = document.querySelector(".type select").value;
+        let status = document.querySelector(".status-account select").value;
+        console.log(status)
+        let arr = filterData(type, status);
+        pagination(arr, 1, showListCustomer, "#main-content-customer");
+    }
 }

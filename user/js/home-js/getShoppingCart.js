@@ -22,29 +22,44 @@ function updateShoppingCartAfterActionsFromUser(
       let productsInShoppingCart = product.querySelectorAll(
         "[data-shopping-cart-item-action]"
       );
+      let productList = JSON.parse(localStorage.getItem("productList"));
+      let indexProduct;
+      for(let k=0; k<productList.length; k++){
+        if(productList[k].id === userList[indexCurrentUserLogin].shoppingCart[index].id){
+          indexProduct = k;
+          break;
+        }
+      }
       productsInShoppingCart.forEach((action) => {
         // Nếu nhấn +
         if (
-          action.getAttribute("data-shopping-cart-item-action") == "increment"
+          action.getAttribute("data-shopping-cart-item-action") === "increment"
         ) {
           action.onclick = (e) => {
             e.preventDefault();
             let currentQuantity = parseInt(
               product.querySelector(".shopping-cart__number").value
             );
-            if (currentQuantity >= 1) {
+           
+         
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity + 1;
+                console.log(parseInt(product.querySelector(".shopping-cart__number").value))
+                if(parseInt(product.querySelector(".shopping-cart__number").value) > productList[indexProduct].quantity){
+                  product.querySelector(".shopping-cart__number").value = productList[indexProduct].quantity;
+                  create_notification_user("Hàng tồn không đủ");
+                  return;
+                }
               userList[indexCurrentUserLogin].shoppingCart[index].quantity =
                 product.querySelector(".shopping-cart__number").value;
               localStorage.setItem("userList", JSON.stringify(userList));
               updateShoppingCart(userList, indexCurrentUserLogin);
-            }
+            
           };
         }
         // Nếu nhấn -
         if (
-          action.getAttribute("data-shopping-cart-item-action") == "decrement"
+          action.getAttribute("data-shopping-cart-item-action") === "decrement"
         ) {
           action.onclick = (e) => {
             e.preventDefault();
@@ -72,7 +87,7 @@ function updateShoppingCartAfterActionsFromUser(
         }
         // Nếu điền trực tiếp số lượng input
         if (action.getAttribute("data-shopping-cart-item-action") == "input") {
-          action.onchange = (e) => {
+          action.oninput = (e) => {
             e.preventDefault();
             let currentQuantity = parseInt(
               product.querySelector(".shopping-cart__number").value
@@ -80,6 +95,12 @@ function updateShoppingCartAfterActionsFromUser(
             if (currentQuantity >= 1) {
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity;
+                console.log(parseInt(product.querySelector(".shopping-cart__number").value))
+                if(parseInt(product.querySelector(".shopping-cart__number").value) > productList[indexProduct].quantity){
+                  product.querySelector(".shopping-cart__number").value = productList[indexProduct].quantity;
+                  create_notification_user("Hàng tồn không đủ");
+                  return;
+                }
               userList[indexCurrentUserLogin].shoppingCart[index].quantity =
                 product.querySelector(".shopping-cart__number").value;
               localStorage.setItem("userList", JSON.stringify(userList));
@@ -167,7 +188,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             }
             return items;
           }
-          //obj để hiển thị tiếng việt tình trạng đơn hàng
+          //obj để hiển thị tiếng việt trạng thái đơn hàng
           let dataOrderStatus = {
             pending: "Đang chờ xử lý",
             shipped: "Đã giao",
@@ -201,7 +222,7 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
             <p class="order-history-info__order-date detail"><b>Thời gian đặt hàng:</b> ${
               ordersHistory[ordersHistory.length - 1 - index].orderDate
             }</p>
-            <p class="order-history-info__order-status detail"><b>Tình trạng:</b> ${
+            <p class="order-history-info__order-status detail"><b>Trạng thái:</b> ${
               dataOrderStatus[
                 ordersHistory[ordersHistory.length - 1 - index].orderStatus
               ]
@@ -334,6 +355,13 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
 }
 
 function updateShoppingCart(userList, indexCurrentUserLogin) {
+
+      if(userList[indexCurrentUserLogin].shoppingCart.length > 0){
+        document.querySelector(".header__shopping-cart-notification").style.visibility = "visible";
+      }
+      else{
+        document.querySelector(".header__shopping-cart-notification").style.visibility = "hidden";
+      }
   let totalPriceBottomLeftBody = 0;
   // Các sản phẩm đã được thêm vào Giỏ hàng tạo bởi HTML
   function createShoppingCartItems() {
@@ -488,7 +516,7 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
 
   // Danh sách sản phẩm đã đặt hàng nằm ở dưới chữ thanh toán
   function createOrderHistoryItems() {
-    //obj để hiển thị tiếng việt tình trạng đơn hàng
+    //obj để hiển thị tiếng việt trạng thái đơn hàng
     let dataOrderStatus = {
       pending: "Đang chờ xử lý",
       shipped: "Đã giao",

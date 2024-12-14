@@ -1,55 +1,39 @@
-.content.order {
-  display: flex;
+.content-order-table th:nth-child(1),
+.content-order-table th:nth-child(2) {
+  width: 12%;
+}
+.content-order-table th:nth-child(3){
+  width: 18%;
+}
+.content-order-table th:nth-child(4),
+.content-order-table th:nth-child(5){
+  width: 17%;
+}
+.content-order-table th:nth-child(6){
+  width: 18%;
+}
+.content-order-table th:nth-child(7){
+  width: 6%;
 }
 .content.order #title-name{
-  font-size: 1.7rem;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 .content.order .table-container {
-  width: calc(72% - 16px);
+  width: 100%;
   margin-right: 16px;
   padding: 16px;
-  display: flex;
-  flex-direction: column;
   box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
   background-color: #fff;
   min-height: 699px;
+  border-radius: 8px;
 }
 
-.content-order-table th:last-child {
-  width: 7%;
-}
 .bx-list-ul {
   color: blue;
   font-size: 1.3rem;
-}
-.order-filter-statistic-container{
-  display: flex;
-  flex-direction: column;
-  width: 28%;
-}
-/* Order Statistic */
-.order-statistic-container{
-  width: 100%;
-  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-.order-statistic-container h2{
-  font-size: 1.7rem;
-  text-align: center;
-  margin-bottom: 16px;
-}
-.order-statistic-container span{
-  font-size: 0.9rem;
-  color: #555;
-}
-.order-statistic-group{
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #d4c7c7;
-  margin-bottom: 16px;
 }
 /*Order filter*/
 .order-filter-container {
@@ -58,51 +42,111 @@
   background-color: #fff;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
+  margin-bottom: 16px;
+}
+#order-filter-form{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 .order-filter-container h2{
   font-size: 1.7rem;
   text-align: center;
   margin-bottom: 16px;
-}
-#order-filter-form {
-  /* max-width: 600px; */
-  margin: 0 auto;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
 }
 
-/* Các nhóm bộ lọc */
-.order-filter-group {
-  margin-bottom: 16px;
-}
-
-.order-filter-group label {
+#order-filter-form label {
   display: block;
-  font-weight: bold;
+  font-size: 1rem;
   margin-bottom: 5px;
   color: #333;
 }
-
-.order-filter-group input,
-.order-filter-group select {
+.order-filter-form input,
+.order-filter-form select {
   width: 100%;
+  height: 35px;
   padding: 3px;
   font-size: 1rem;
+  outline: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: border-color 0.3s ease;
+  margin-bottom: 0px;
 }
-
-.order-filter-group input:focus,
-.order-filter-group select:focus {
-  border-color: #007bff;
-  outline: none;
+#orderID-search {
+  width: 100%;
+  height: 35px;
+  padding: 3px;
+  font-size: 1rem;
+  border: none;
+  margin-top: auto;
+  border-bottom: 1px solid #000;
+  border-radius: 0px;
+  transition: border-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
-
-/* Hành động bộ lọc */
-.order-filter-actions {
+#orderID-search:hover{
+  background-color: #ccc;
+}
+.orderID-search-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
+}
+.order-filter-form input:focus,
+.order-filter-form select:focus {
+  border-color: #007bff;
+}
+.order-filter-row{
+  width: 100%;
+}
+.order-filter-row:nth-child(1){
+  display: flex;
+  margin-bottom: 32px;
+}
+.order-filter-row:nth-child(1) .order-filter-group {
+  width: calc(25% - 16px);
+  margin-right: 16px;
+}
+.order-filter-row:nth-child(1) .order-filter-group:last-child {
+  width: 25%;
+  margin-right: 0px;
+}
+.order-filter-start-end-date-container {
+  display: flex;
+}
+.order-filter-buttons {
+  width: 25%;
+  display: flex;
+  align-items: flex-end;
+}
+.order-filter-button:first-child{
+  width: 50%;
+}
+.order-filter-button:last-child{
+  width: calc(50% - 16px);
+  margin-left: 16px;
+}
+.order-filter-row:nth-child(2){
+  display: flex;
+}
+.order-filter-row:nth-child(2) .order-filter-group{
+  width: calc(25% - 16px);
+  margin-right: 16px;
+}
+.order-filter-row:nth-child(2) .order-filter-group:last-child{
+  width: 25%;
+  margin-right: 0px;
+}
+.order-filter-group * {
+  width: 100%;
+}
+.order-filter-start-end-date-container {
+  width: 50%;
+}
+.order-filter-start-end-date-container > *{
+  width: calc(50% - 16px);
+  margin-right: 16px;
 }
 
 /* Nút áp dụng bộ lọc */
@@ -124,20 +168,8 @@
 .order-btn-reset:hover {
   background-color: #c33b29;
 }
-
-/* Responsive */
-@media (max-width: 480px) {
-  .order-filter-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .order-btn {
-    width: 100%;
-  }
-}
-/* Modal styles */
-.modal {
+/* Chi tiết đơn hàng */
+.order-details-modal {
   display: none;
   position: fixed;
   top: 0px;
@@ -145,7 +177,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 9995;
 }
 .order-details-modal-content {
   position: relative;
@@ -158,7 +190,11 @@
   max-height: 93%;
   overflow: auto;
 }
-#order-details-modal .close-btn {
+.order-details-modal-content .status-label{
+  width: 55%;
+  margin: 0;
+}
+.content.order .close-btn {
   position: absolute;
   top: 9px;
   right: 9px;
@@ -170,29 +206,36 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
-
-.modal h2,
-.modal h3 {
+.order-details-modal p,
+.order-details-modal span {
+  font-size: 1.2rem;
+}
+.order-details-modal h2,
+.order-details-modal h3 {
   margin-bottom: 15px;
 }
-.modal h2 {
-  font-size: 1.8rem;
+.order-details-modal h2 {
+  font-size: 2.2rem;
   font-weight: 700;
 }
 
-.modal h3 {
-  font-size: 1.2rem;
+.order-details-modal h3 {
+  font-size: 1.5rem;
   font-weight: 700;
 }
 #order-details-modal p {
   margin-bottom: 9px;
 }
+#order-details-modal .customer-info p {
+  margin-bottom: 19px;
+}
 .order-status {
   display: flex;
   align-items: center;
-  gap: 11px;
+  justify-content: space-between;
+  width: 35%;
 }
 .status-label {
   text-align: center;
@@ -229,8 +272,15 @@
 .order-header,
 .customer-info,
 .product-info,
-.order-cost {
+.order-summary {
   margin-top: 25px;
+}
+.customer-info {
+  width: calc(65% - 32px);
+  margin-right: 32px;
+}
+.order-summary {
+  width: 35%;
 }
 .action-bar {
   display: flex;
@@ -264,6 +314,53 @@
 
 .order-delete-btn {
   background-color: #6c757d;
+}
+.order-confirm-modal{
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.order-confirm-modal-content{
+  position: relative;
+  margin: 0 auto;
+  margin-top: 15%;
+  background-color: white;
+  padding: 26px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+  width: 35%;
+  height: 19%;
+}
+.order-confirm-modal-message{
+  font-size: 1.4rem;
+  text-align: center;
+}
+.order-confirm-modal-buttons{
+  margin: 0 auto;
+  margin-top: 32px;
+  width: 65%;
+  text-align: center;
+  display: flex;
+  gap: 0 12px;
+}
+#order-confirm-confirm-btn{
+  margin: 0px;
+  flex-grow: 0.6;
+}
+#order-confirm-cancel-btn{
+  flex-grow: 1;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .order-btn {
+    width: 100%;
+  }
 }
 /* ======================= chung cho moble and table */
 
@@ -319,8 +416,6 @@
 /* ======================= chung cho moble and table */
 
 @media screen and (max-width: 600px) {
-  .content-order-table-body {
-  }
   .content.order .table-container {
     margin-top: 20px;
   }
@@ -388,12 +483,7 @@
 }
 
 /* ======================== table */
-@media screen and (min-width: 600px) and (max-width: 1000px) {
-  .content.order {
-    margin: 0 auto;
-    flex-direction: column-reverse;
-    align-items: center;
-  }
+@media screen and (min-width: 600px) and (max-width: 900px) {
   .content-order-table th {
     display: none;
   }
@@ -429,7 +519,7 @@
     font-weight: 700;
   }
   .content-order-table-body td:nth-of-type(6)::before {
-    content: "Tình Trạng";
+    content: "Trạng thái";
     font-weight: 700;
   }
   .content-order-table-body td:nth-of-type(7)::before {
@@ -452,36 +542,31 @@
     margin-top: 20px;
   }
 }
-@media screen and (min-width: 1000px) and (max-width: 1300px) {
-  .content.order .table-container,
-  .content.order .order-filter-container {
-    width: 100%;
-  }
-  .content.order .table-container{
-    margin-right: 0px;
-  }
-  .content.order {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-  .order-filter-container {
-    margin-top: 20px;
-    justify-content: center;
-    
-  }
-  .order-statistic-container{
+
+@media screen and (max-width: 699px) {
+  .order-filter-row:nth-of-type(1) {
+    flex-direction: column;
     margin-bottom: 0px;
   }
-  .content-order-table {
-    margin-top: 24px;
+  .order-filter-row:nth-of-type(2) {
+    flex-direction: column;
   }
-  .order-filter-statistic-container{
-    flex-direction: row-reverse;
+  .order-filter-row:nth-child(1) .order-filter-group {
     width: 100%;
-    margin-bottom: 32px;
+    margin-right: 0px;
+    margin-bottom: 16px;
   }
-  .order-filter-container{
-    margin-top: 0px;
-    margin-right: 16px;
+  .order-filter-row:nth-of-type(2) .order-filter-group {
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 16px;
+  }
+  .order-filter-start-end-date-container {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .order-filter-row:nth-of-type(2) .order-filter-buttons {
+    width: 100%;
+    margin-bottom: 16px;
   }
 }

@@ -1,32 +1,34 @@
 
 //hàm tạo thông báo
 export function createNotificationAdmin(mess) {
-    let text = document.createElement("p");
-    text.className = "notification";
-    text.innerText = mess;
-    text.style.backgroundColor = "#ffff";
-    text.style.color = "#000";
-    text.style.position = "fixed";
-    text.style.right = "0px";
-    text.style.top = "0px";
-    text.style.transform = "translate(100%, 10%)";
-    text.style.zIndex = "2001";
-    text.style.padding = "10px 50px";
-    text.style.fontSize = "1.5rem";
-    text.style.boxShadow = "1px 1px 12px rgba(0, 0, 0, 0.3)";
-    text.style.transition = "transform 0.2s ease-in-out, opacity 0.5s ease-in-out";
-    document.body.appendChild(text);
+   // Tạo container nếu chưa có
+  let container = document.querySelector(".container-notification");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "container-notification";
+    document.body.appendChild(container);
+  }
+
+  // Tạo thẻ <p> mới cho thông báo
+  const notification = document.createElement("p");
+  notification.className = "notification";
+  notification.textContent = mess;
+
+  // Thêm thẻ <p> vào container
+  container.appendChild(notification);
+
+  // Thêm class `active` để hiển thị thông báo
+  setTimeout(() => {
+    notification.classList.add("active");
+  }, 10);
+
+  // Xóa thông báo sau 5 giây
+  setTimeout(() => {
+    notification.classList.remove("active");
     setTimeout(() => {
-        document.querySelector(".notification").style.transform = "translate(-5%, 10%)";
-    }, 10);
-    //tắt dần
-    // setTimeout(() => {
-    //     document.querySelector(".notification").style.transform = "translate(100%, 10%)";
-    // }, 2000);
-    //xóa khỏi dom
-    setTimeout(() => {
-        document.querySelector(".notification").remove();
-    }, 1500);
+      notification.remove();
+    }, 200); // Đợi hiệu ứng biến mất trước khi xóa khỏi DOM
+  }, 1000);
 }
 //reset input
 export function reset_style_input(input) {
@@ -71,7 +73,7 @@ export function err_input(input, mess) {
     }
     else {
         if (input.value == "") {
-            input.placeholder = "*Lỗi! Thiếu dữ liệu";
+            input.placeholder = "Thiếu dữ liệu";
             input.style.borderColor = "red";
             input.classList.add("err-text");
         }

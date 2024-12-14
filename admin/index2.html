@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/list_Product.css">
     <link rel="stylesheet" href="assets/css/list_Order.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 
     <!--ICON-->
@@ -23,7 +24,7 @@
 </head>
 
 <body>
-    <section id="side-bar">
+    <section id="side-bar" style="display: none;">
         <a href="#" class="brand">
             <i class='bx bx-home-smile'></i>
             <span class="name-brand">APHRODITE</span>
@@ -73,7 +74,7 @@
 
     </section>
 
-    <section id="content">
+    <section id="content" style="display: none;">
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="profile">
@@ -170,13 +171,13 @@
                     <table class="content-order-table">
                         <thead>
                             <tr>
-                            <th>Mã Đơn Hàng</th>
-                            <th>Mã Khách Hàng</th>
-                            <th>Ngày Đặt</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Mã khách hàng</th>
+                            <th>Ngày đặt</th>
                             <th>Quận</th>
-                            <th>Tổng Cộng</th>
-                            <th>Tình Trạng</th>
-                            <th>Chi Tiết</th>
+                            <th>Tổng cộng</th>
+                            <th>Trạng thái</th>
+                            <th>Chi tiết</th>
                             </tr>
                         </thead>
                 
@@ -187,10 +188,7 @@
                     <div class="list-page"></div>
                 </div>
 
-                <div class="order-filter-statistic-container">
-                    <div class="order-statistic-container" id="order-statistic-container"></div>
-                    <div class="order-filter-container" id="order-filter-container"></div>
-                </div>
+                <div class="order-filter-container" id="order-filter-container"></div>
             
                 <div id="order-details-modal" class="modal">
                     <div class="order-details-modal-content">
@@ -204,7 +202,7 @@
                                 <section class="customer-info" id="customer-info">
                     
                                 </section>
-                                <section class="order-cost" id="order-cost">
+                                <section class="order-summary" id="order-summary">
                             
                                 </section>
                             </div>
@@ -263,6 +261,20 @@
             <h1>Dang xuat</h1>
         </main>
     </section>
+
+    <div id="container-admin-login" style="display: flex;">
+        <form action="" autocomplete="off" class="form-login-admin">
+            <h2>ĐĂNG NHẬP ADMIN</h2>
+            <div class="account-admin">
+            <input type="text" id="account-admin" placeholder="Tài khoản admin">
+            </div>
+            <div class="password-admin">
+            <input type="password" id="password-admin" placeholder="Mật khẩu">
+            </div>
+            <input class="login" type="submit" value="Đăng nhập"> 
+        </form>
+    </div>
+
     <script type="module" src="./js/script2.js"></script>
     <!-- <script type="module" src="js/product.js"></script> -->
 

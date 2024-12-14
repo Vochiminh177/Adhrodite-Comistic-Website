@@ -63,6 +63,8 @@ function activateFilterSearch(){
   document.querySelector(
     ".left-search-filter__content"
   ).style.display = "none";
+  document.querySelector(".left-search-filter__content-overlay").style.display =
+    "none";
 }
 // Đặt lại các tiêu chí lọc
 function resetFilter(){

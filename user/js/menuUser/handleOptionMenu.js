@@ -2,62 +2,74 @@
 
 import { errorInput } from "../userUpdate/handleUserUpdate.js";
 
-function checkNumberPhone(value) {
-  if (!isNaN(value)) {
-    return value == Math.round(value) && value.length == 10;
+export function checkAddress(value){
+  if(value === "") return false;
+  if(!value.toLowerCase().includes("phường")) return false;
+  if(!value.toLowerCase().includes("quận")) return false;
+  if(!value.toLowerCase().includes("thành phố")) return false;
+  return true;
+}
+
+export function checkNumberPhone(value){
+  if(value.length !== 10) return false;
+  if(value.charAt(0) !== '0') return false;
+  for(let i=0; i<value.length; i++){
+      if(!(value.charAt(i) >= '0' && value.charAt(i) <= '9')){
+          return false;
+      }
   }
+  return true;
 }
 
 //hàm kiểm tra định dạng email
-export function checkEmail(email) {
-  //kiểm tra số dấu chấm
-  let point = 0;
-  for(const char of email.value){
-    if(char === ".") point++;
+export function checkEmail(value){
+  let count = 0;
+  for(const char of value){
+      if(char === '@'){
+      count++;
+      }
   }
-  if(point > 2){
-    return false;
+  if(count !== 1){
+      return false;
+  }
+  let index = value.indexOf('@');
+  //kí tự trước @
+  let checkBefore = true;
+  for(const char of value.slice(0, index)){
+      if(!((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9'))) checkBefore = false;
+  }
+  if(!checkBefore) return false;
+  let checkAllNumber = false;
+  for(const char of value.slice(0, index)){
+      if(!(char >= '0' && char <= '9')) checkAllNumber = true;
+  }
+  if(!checkAllNumber) return false;
+
+  let countPoint = 0;
+  let checkBeforePoint = true;
+  for(let k=value.length-1; k>=0; k--){
+      if(value.charAt(k) === '.'){
+      countPoint += 1;
+      }
+  }
+  if(!(countPoint > 0 && countPoint <= 2)) return false;
+
+  //kiểm tra trước dấu . và sau @
+  let i = value.indexOf(".");
+  for(const char of value.slice((index+1), i)){
+      if(!(char >= 'a' && char <= 'z')) checkBeforePoint = false;
+  }
+  if(!checkBeforePoint) return false;
+  if(countPoint === 1){
+      let tmp = value.slice(i, value.length);
+      if(tmp !== ".com") return false;
+  }
+  else{
+      let tmp = value.slice(i, value.length);
+      if(tmp !== ".com.vn") return false;
   }
 
-  if (email.value.indexOf("@") === -1) {
-    return false;
-  }
-  const parts = email.value.split("@");
-
-  // Kiểm tra 2 bên @
-  if (parts.length !== 2) {
-    return false;
-  }
-
-  // Kiểm tra từng ký tự trong phần trước "@"
-  for (const char of parts[0]) {
-    if (
-      !(
-        (char >= "a" && char <= "z") ||
-        (char >= "A" && char <= "Z") ||
-        (char >= "0" && char <= "9")
-      )
-    ) {
-      return false; // Ký tự không hợp lệ
-    }
-  }
-
-  // kiểm tra nếu trước @ toàn số
-  let checkAllNumberDigital = true;
-  for(const char of parts[0]){
-    if(!(char >=0 && char <= 9)){
-      checkAllNumberDigital = false;
-    }
-  }
-  if(checkAllNumberDigital) return false;
-
-  //kiểm tra sau @
-  let index = parts[1].indexOf(".");
-  let veri = parts[1].slice(index, parts[1].length);
-  console.log(veri);
-  if(veri !== ".com" && veri !== ".com.vn") return false;
-
-  return true; // Email hợp lệ
+  return true;
 }
 //hàm đổi mật khẩu
 export function handleChangePassword() {
@@ -111,25 +123,32 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
+  for(const char of firstName.value){
+    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+      errorInput(firstName, "Cần nhập chữ");
+      return;
+    }
+  }
+  for(const char of lastName.value){
+    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+      errorInput(lastName, "Cần nhập chữ");
+      return;
+    }
+  }
+
   if (phone.value < 0 || !checkNumberPhone(phone.value)) {
-    errorInput(phone, "Cần nhập đúng định dạng số điện thoại");
+    errorInput(phone, "Sai định dạng");
     return false;
   }
   let check = userList.some((obj, i) => {
     if (i != indexCurrentUserLogin) return obj.phone === phone.value;
   });
   if (check) {
-    errorInput(phone, "*Lỗi! Đã tồn tại số điện thoại");
+    errorInput(phone, "Số điện thoại đã tồn tại");
     return false;
   }
-
-  if (phone.value < 0 || !checkNumberPhone(phone.value)) {
-    errorInput(phone, "Cần nhập đúng định dạng số điện thoại");
-    return false;
-  }
-
-  if (!checkEmail(email)) {
-    errorInput(email, "Email cần đúng định dạng");
+  if (!checkEmail(email.value)) {
+    errorInput(email, "Sai định dạng");
     return false;
   }
   let checkExistEmail = userList.some((obj, i) => {
@@ -137,6 +156,11 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
   });
   if(checkExistEmail) {
     errorInput(email, "Email đã tồn tại");
+    return false;
+  }
+
+  if(!checkAddress(address.value)){
+    errorInput(address, "Sai định dạng");
     return false;
   }
 

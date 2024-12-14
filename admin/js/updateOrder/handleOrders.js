@@ -1,10 +1,25 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 import { showListOrder, pagination} from "../showList/show.js"
-import { getDistrictOfOrder } from "./orderFilter.js";
-import { changeOrderStatusQuantity } from "./orderStatistic.js"
+import { getDistrictOfString, filterOrders, getCityOfString } from "./orderFilter.js";
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
+  let district = getDistrictOfString(order.orderAddressToShip);
+  let city = getCityOfString(order.orderAddressToShip);
+  let result = "";
+  if(!district && !city){
+    result = "Chưa rõ";
+  } else
+  if(district && city){
+    result = "Quận " + district + ", " + city;
+  } else
+  if(district && !city){
+    result = "Quận " + district + ", " + "chưa rõ tỉnh/thành";
+  } else
+  if(!district && city){
+    result = "Chưa rõ quận, " + city;
+  }
+
   trEle.innerHTML += `
     <tr>
       <td>${order.orderId}</td>
@@ -13,8 +28,8 @@ export function createOrderRow(order) {
         <p>${order.orderDate.split(" ")[1]}</p>
         <p>${order.orderDate.split(" ")[0]}</p>
       </td>
-      <td>${getDistrictOfOrder(order)}</td>
-      <td>${formatVietNamMoney(order.orderTotalPrice)}</td>
+      <td>${result}</td>
+      <td>${formatVietNamMoney(order.orderTotalPrice)}đ</td>
       <td>
         <div class="status-label ${order.orderStatus}">
           <span>${translateOrderStatus(order.orderStatus)}</span>
@@ -26,34 +41,24 @@ export function createOrderRow(order) {
 }
 
 // Gán các sự kiện cho đơn hàng
-// Ẩn / hiện chi tiết đơn hàng, đổi tình trạng đơn hàng
-export function generateOrderEvents(start, end, orderList) {
+// Ẩn / hiện chi tiết đơn hàng, đổi trạng thái đơn hàng
+export function generateOrderEvents(start, end, curentPage, orderList) {
   // Tạo sự kiện xem chi tiết đơn hàng
   const detailEles = document.querySelectorAll(".details-btn");
-  detailEles.forEach((ele, idx) => {
-    ele.addEventListener("click", (event) => {
-      event.preventDefault();
-      const orderIndex = idx + start;
-      showOrderDetails(orderList[orderIndex]);
-      generateOrderButtonsEvents(orderIndex);
+  if(detailEles){
+    detailEles.forEach((ele, idx) => {
+      ele.addEventListener("click", (event) => {
+        event.preventDefault();
+        const orderIndex = idx + start;
+        showOrderDetails(orderList[orderIndex]);
+        generateOrderButtonsEvents(orderIndex);
+      });
     });
-  });
-
-  // Đóng modal khi nhấn vào nút tắt
-  const closeModalBtn = document.querySelector(".close-btn");
-  closeModalBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    closeOrderDetails();
-  });
-
-  // Đóng modal khi nhấn vào bên ngoài modal-content
-  const modal = document.getElementById("order-details-modal");
-  modal.onclick = (event) => {
-    if (event.target.matches(".modal")) {
-      modal.style.display = "none";
-    }
-  };
-
+  } else{
+    //console.error(`".details-btn not found!"`);
+  }
+  
+  closeModalEvents();
   // Tạo sự kiện cho các nút in, xác nhận, huỷ, xác nhận đã giao
   function generateOrderButtonsEvents(orderIndex) {
     const confirmBtn = document.querySelector(".order-confirm-btn");
@@ -63,68 +68,97 @@ export function generateOrderEvents(start, end, orderList) {
     if (confirmBtn) {
       confirmBtn.onclick = (event) => {
         event.preventDefault();
-        updateOrderStatus(orderIndex, "accepted");
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        showOrderConfirmModal(orderIndex, "accepted");
       };
     }
 
     if (cancelBtn) {
       cancelBtn.onclick = (event) => {
         event.preventDefault();
-        updateOrderStatus(orderIndex, "canceled");
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        showOrderConfirmModal(orderIndex, "canceled");
       };
-
-      const productList = JSON.parse(localStorage.getItem("productList"));
-      const orderedProducts = orderList[orderIndex].orderProduct;
-      orderedProducts.forEach((orderedProduct) => {
-        const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
-        if (toRestoreIndex !== -1) {
-          productList[toRestoreIndex].discountQuantity += Math.min(
-            orderedProduct.discountQuantity,
-            orderedProduct.quantity
-          );
-          
-          productList[toRestoreIndex].quantity +=
-            orderedProduct.quantity -
-            Math.min(orderedProduct.discountQuantity, orderedProduct.quantity);
-        }
-      });
-      localStorage.setItem("productList", JSON.stringify(productList));
     }
 
     if (shippedBtn) {
       shippedBtn.onclick = (event) => {
         event.preventDefault();
-        updateOrderStatus(orderIndex, "shipped");
-        document.querySelector(".order-details-modal-content").scrollTo(0, 0);
+        showOrderConfirmModal(orderIndex, "shipped");
       };
     }
 
     if(deleteBtn){
       deleteBtn.onclick = (event) => {
         event.preventDefault();
-        const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
-        const toDeleteIndex = localStorageOrderList.findIndex(
-          (order) => orderList[orderIndex].orderId === order.orderId
-        );
-
-        if(toDeleteIndex !== -1){
-          localStorageOrderList.splice(toDeleteIndex, 1);
-          // orderList.splice(toDeleteIndex, 1);
-          localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
-          pagination(localStorageOrderList, 1, showListOrder, "#main-content-order");
-          document.getElementById("order-details-modal").style.display = "none";
-          changeOrderStatusQuantity();
-        }
+        showOrderConfirmModal(orderIndex, "delete");
       }
-
     }
   }
 
-  // Cập nhật lại tình trạng đơn hàng
+  function showOrderConfirmModal(orderIndex, newStatus){
+    const orderConfirmMessage = document.getElementById("order-confirm-modal-message");
+    if(orderConfirmMessage){
+      if(newStatus === "accepted"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã xác nhận đơn hàng ?`;
+      } else
+      if(newStatus === "canceled"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã huỷ đơn hàng ?`;
+      } else
+      if(newStatus === "shipped"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã giao đơn hàng ?`;
+      } else
+      if(newStatus === "delete"){
+        orderConfirmMessage.innerHTML = `Xác nhận đã xoá đơn hàng ?`;
+      }
+    } else{
+      //console.error(`#order-confirm-message not found!`);
+    }
+    
+    const orderConfirmModal = document.getElementById("order-confirm-modal");
+    if(orderConfirmModal){
+      orderConfirmModal.style.display = "block";
+    } else{
+      //console.error(`#order-confirm-modal not found!`);
+    }
+  
+    const orderConfirmConfirmButton = document.getElementById("order-confirm-confirm-btn");
+    if(orderConfirmConfirmButton){
+      orderConfirmConfirmButton.onclick = (event) => {
+        event.preventDefault();
+        orderConfirmModal.style.display = "none";
+        if(newStatus === "accepted"){
+          updateOrderStatus(orderIndex, "accepted");
+        } else
+        if(newStatus === "canceled"){
+          updateOrderStatus(orderIndex, "canceled");
+        } else
+        if(newStatus === "shipped"){
+          updateOrderStatus(orderIndex, "shipped");
+        } else
+        if(newStatus === "delete"){
+          deleteOrder(orderIndex);
+        }
+
+        pagination(filterOrders(), curentPage, showListOrder, "#main-content-order");
+        document.getElementById("order-details-modal").style.display = "none";
+      }
+    } else{
+      //console.error(`#order-confirm-confirm-btn not found`);
+    }
+  
+    const orderConfirmCancelButton = document.getElementById("order-confirm-cancel-btn");
+    if(orderConfirmCancelButton){
+      orderConfirmCancelButton.onclick = (event) => {
+        event.preventDefault();
+        orderConfirmModal.style.display = "none";
+      }
+    } else{
+      //console.error(`#order-confirm-cancel-btn not found!`);
+    }
+  }
+
+  // Cập nhật lại Trạng thái đơn hàng
   // Tham số orderIndex để tạo lại chi tiết đơn hàng orderList[orderIndex]
-  // Thâm số newStatus tình trạng mới của đơn hàng
+  // Thâm số newStatus Trạng thái mới của đơn hàng
   function updateOrderStatus(orderIndex, newStatus) {
     const modalStatusLabel = document.querySelector(
       ".order-header .status-label"
@@ -135,13 +169,26 @@ export function generateOrderEvents(start, end, orderList) {
     modalStatusLabel.classList.add("status-label");
     modalStatusLabel.classList.add(`${newStatus}`);
     modalStatusLabel.innerHTML = `${translateOrderStatus(newStatus)}`;
+    const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
 
-    orderList[orderIndex].orderStatus = newStatus;
-    localStorage.setItem("orderList", JSON.stringify(orderList));
-    showListOrder(start, end, 0, orderList);
-    createOrderDetails(orderList[orderIndex]);
-    changeOrderStatusQuantity();
-    generateOrderButtonsEvents(orderIndex);
+    const toUpdateStatusIndex = localStorageOrderList.findIndex(
+      (localOrder) => localOrder.orderId === orderList[orderIndex].orderId
+    );
+    if(toUpdateStatusIndex !== -1){
+      localStorageOrderList[toUpdateStatusIndex].orderStatus = newStatus;
+      localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
+    }
+  }
+  function deleteOrder(orderIndex){
+    const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
+    const toDeleteIndex = localStorageOrderList.findIndex(
+      (order) => orderList[orderIndex].orderId === order.orderId
+    );
+
+    if(toDeleteIndex !== -1){
+      localStorageOrderList.splice(toDeleteIndex, 1);
+      localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
+    }
   }
 }
 
@@ -152,11 +199,6 @@ function showOrderDetails(order) {
   modal.style.display = "block";
 }
 
-// Ẩn chi tiết đơn hàng, modal-content
-function closeOrderDetails() {
-  const modal = document.getElementById("order-details-modal");
-  modal.style.display = "none";
-}
 
 // Tạo chi tiết đơn hàng, modal-content
 function createOrderDetails(order) {
@@ -170,7 +212,7 @@ function createOrderDetails(order) {
   orderHeader.innerHTML = `
     <h2>Chi tiết đơn hàng #${order.orderId}</h2>
     <div class="order-status">
-        <span>Tình trạng:</span>
+        <span>Trạng thái:</span>
         <div class="status-label ${order.orderStatus}">
           <span>${translateOrderStatus(order.orderStatus)}</span>
         </div>
@@ -188,14 +230,27 @@ function createOrderDetails(order) {
   `;
 
   // Thông tin giá tiền
-  const orderCost = document.getElementById("order-cost");
-  if(orderCost){
-    orderCost.innerHTML = `
-      <h3>Tóm Tắt Đơn Hàng</h3>
-      <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}</p>
-      <p>Phí vận chuyển:&nbsp${18000}</p>
-      <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}</p>
-    `;
+  const orderSummary = document.getElementById("order-summary");
+  if(orderSummary){
+    if(typeof order.orderMethod === "object"){
+      orderSummary.innerHTML = `
+        <h3>Thông tin Đơn Hàng</h3>
+        <p>Phương thức:&nbsp${order.orderMethod.name}</p>
+        <p>Loại thẻ:&nbsp${order.orderMethod.type}</p>
+        <p>Mã thẻ:&nbsp${order.orderMethod.code}</p>
+        <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
+        <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+      `;
+    } else{
+      orderSummary.innerHTML = `
+        <h3>Thông tin Đơn Hàng</h3>
+        <p>Phương thức:&nbsp${order.orderMethod}</p>
+        <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
+        <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+      `;
+    }
   }
 
   // Thông tin sản phẩm đã mua
@@ -209,8 +264,8 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${currentDiscountQuantity}</td>
-        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}</td>
-        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}</td>
+        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}đ</td>
+        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}đ</td>
       </tr>
       `;
 
@@ -219,8 +274,8 @@ function createOrderDetails(order) {
         <tr>
           <td>${product.id}</td>
           <td>${product.quantity - currentDiscountQuantity}</td>
-          <td>${formatVietNamMoney(product.price)}</td>
-          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}</td>
+          <td>${formatVietNamMoney(product.price)}đ</td>
+          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}đ</td>
         </tr>
         `;
       }
@@ -229,8 +284,8 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${product.quantity}</td>
-        <td>${formatVietNamMoney(product.price)}</td>
-        <td>${formatVietNamMoney(product.price * product.quantity)}</td>
+        <td>${formatVietNamMoney(product.price)}đ</td>
+        <td>${formatVietNamMoney(product.price * product.quantity)}đ</td>
       </tr>
       `;
     }
@@ -257,7 +312,7 @@ function createOrderDetails(order) {
   }
 }
 
-// Hiện tình trạng đơn hàng bằng tiếng Việt
+// Hiện trạng thái đơn hàng bằng tiếng Việt
 function translateOrderStatus(orderStatus) {
   if (orderStatus === "pending") {
     return "Chưa xử lý";
@@ -270,4 +325,59 @@ function translateOrderStatus(orderStatus) {
   }
 
   return "";
+}
+
+function closeModalEvents(){
+  // Đóng modal khi nhấn vào nút tắt
+  const closeOrderDetailsModalBtn = document.querySelector(".order-details-modal .close-btn");
+  if(closeOrderDetailsModalBtn){
+    closeOrderDetailsModalBtn.onclick = (event) => {
+      event.preventDefault();
+      const modal = document.getElementById("order-details-modal");
+      if(modal){
+        modal.style.display = "none";
+      } else{
+        console.log(`#order-details-modal not found!`);
+      }
+    };
+  } else{
+    //console.error(`.order-details-modal .close-btn not found!`);
+  }
+
+  const closeOrderConfirmModalBtn = document.querySelector(".order-confirm-modal .close-btn");
+  if(closeOrderConfirmModalBtn){
+    closeOrderConfirmModalBtn.onclick = (event) => {
+      event.preventDefault();
+      const modal = document.getElementById("order-confirm-modal");
+      if(modal){
+        modal.style.display = "none";
+      } else{
+        //console.error(`order-confirm-modal not found!`);
+      }
+    }
+  } else{
+    //console.error(`order-confirm-modal .close-btn not found!`);
+  }
+  // Đóng modal khi nhấn vào bên ngoài modal-content
+  const orderDetailsmodal = document.getElementById("order-details-modal");
+  if(orderDetailsmodal){
+    orderDetailsmodal.onclick = (event) => {
+      if (event.target.matches(".order-details-modal")) {
+        orderDetailsmodal.style.display = "none";
+      }
+    };
+  } else{
+    //console.error(`#order-details-modal not found!`);
+  }
+
+  const orderConfirmModal = document.getElementById("order-confirm-modal");
+  if(orderConfirmModal){
+    orderConfirmModal.onclick = (event) => {
+      if(event.target.matches(".order-confirm-modal")){
+        orderConfirmModal.style.display = "none";
+      }
+    }
+  } else{
+    //console.error(`#order-confirm-modal not found!`);
+  }
 }

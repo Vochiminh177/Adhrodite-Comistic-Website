@@ -12,6 +12,7 @@ import {
   blockCustomer,
   deleteCustomer,
   editCustomer,
+  filterCustomer,
   searchCustomer,
 } from "../updateCustomer/optionCustomer.js";
 import {
@@ -21,7 +22,36 @@ import {
 import { showOrdersListByProductId, showOrdersListByCustomerId } from "../dashboard.js";
 
 function createPage(list, currentPage, showList, main) {
+  if(list.length === 0){
+    if(main === "#main-content-order"){
+      // console.log(document.querySelector(".content-order-table-body"));
+      document.querySelector(".content-order-table-body").innerHTML = `
+        <td colspan="7">Không có đơn hàng nào</td>
+      `;
+    } else
+    if(main === "#main-content-product-list"){
+      document.querySelector(".product-list-table tbody").innerHTML = `
+        <td colspan="8">Không có sản phẩm nào</td>
+      `;
+    } else
+    if(main === "#main-content-dashboard"){
+      document.querySelector(".dashboardTable tbody").innerHTML = `
+        <td colspan="6">Không có sản phẩm nào được bán</td>
+      `;
+    } else
+    if(main === "#main-content-customer"){
+      document.querySelector(".content .content-customer-list table tbody").innerHTML = `
+        <td colspan="5">Không có tài khoản nào</td>
+      `;
+    }
+    
+    if(document.querySelector(".listPage")) document.querySelector(".listPage").style.display = "none";
+
+    return;
+  }
+  
   let itemPerPage = 7;
+  
   let totalPage = Math.ceil(list.length / itemPerPage);
 
   let pageList = main + " .list-page";
@@ -29,6 +59,14 @@ function createPage(list, currentPage, showList, main) {
   if (totalPage === 1) {
     document.querySelector(pageList).style.display = "none";
   } else document.querySelector(pageList).style.display = "block";
+
+  let start = (currentPage - 1) * itemPerPage;
+  let end = start + itemPerPage;
+  if(start >= list.length){
+    currentPage--;
+    start = (currentPage - 1) * itemPerPage;
+    end = start + itemPerPage;
+  }
 
   let firstPage = currentPage - 2;
   let lastPage = currentPage + 2;
@@ -48,7 +86,7 @@ function createPage(list, currentPage, showList, main) {
 
   // Tạo các số trang
   for (let i = firstPage; i <= lastPage; i++) {
-    if (currentPage == i) {
+    if (currentPage === i) {
       eleUl.innerHTML += `<li><a href="" class="page-number active-page">${i}</a></li>`;
     } else {
       eleUl.innerHTML += `<li><a href="" class="page-number">${i}</a></li>`;
@@ -66,8 +104,6 @@ function createPage(list, currentPage, showList, main) {
 
   //------------------------------------------
   //----- In ra danh sách list
-  let start = (currentPage - 1) * itemPerPage;
-  let end = start + itemPerPage;
   showList(start, end, currentPage, list);
   //------------------------------------------
 
@@ -114,21 +150,8 @@ export function pagination(list, currentPage, showList, main) {
 
 export function showListProduct(start, end, currentPage, productList) {
   //tạo danh sách sản phẩm từ mảng chèn vô bảng table
-  let product = `
-    <thead>
-        <tr>
-            <th class="picture-list">Hình ảnh</th>
-            <th class="id-list">Mã</th>
-            <th class="name-list">Tên</th>
-            <th class="brand-list">Thương hiệu</th>
-            <th class="category-list">Danh mục</th>
-            <th class="price-list">Giá</th>
-            <th class="quantity-list">Số lượng</th>
-            <th class="option-list">Tùy chỉnh</th>
-        </tr>
-    </thead>    
-    `;
-  let eleTbody = document.createElement("tbody");
+  let eleTbody = document.querySelector(".content .content-product-list table tbody");
+  eleTbody.innerHTML = "";
   productList.forEach((ele, index) => {
     if (index >= start && index < end) {
       eleTbody.innerHTML += `
@@ -148,27 +171,14 @@ export function showListProduct(start, end, currentPage, productList) {
         `;
     }
   });
-  product += eleTbody.outerHTML;
-  document.querySelector(".content .content-product-list table").innerHTML =
-    product;
   deleteProduct();
   editProduct(currentPage);
   searchProduct();
 }
 
 export function showListCustomer(start, end, currentPage, userList) {
-  let user = `
-    <thead>
-        <tr>
-            <th class="id-user-list">Id</th>
-            <th class="username-list">Tài khoản</th>
-            <th class="fullname-list">Họ tên</th>
-            <th class="type-user">Loại</th>
-            <th class="edit-user">Chỉnh sửa</th>
-        </tr>
-    </thead>
-    `;
-  let eleTbody = document.createElement("tbody");
+  let eleTbody = document.querySelector(".content .content-customer-list table tbody");
+  eleTbody.innerHTML = "";
   let objType = {
     customer: "Khách hàng",
     employer: "Nhân viên",
@@ -194,13 +204,11 @@ export function showListCustomer(start, end, currentPage, userList) {
             `;
     }
   });
-  user += eleTbody.outerHTML;
-  document.querySelector(".content .content-customer-list table").innerHTML =
-    user;
-  deleteCustomer();
+  deleteCustomer(currentPage);
   editCustomer(currentPage);
   searchCustomer();
-  blockCustomer();
+  blockCustomer(currentPage);
+  filterCustomer();
 }
 
 export function showListOrder(start, end, curentPage, orderList) {
@@ -210,7 +218,7 @@ export function showListOrder(start, end, curentPage, orderList) {
     createOrderRow(orderList[i]);
   }
 
-  generateOrderEvents(start, end, orderList);
+  generateOrderEvents(start, end, curentPage, orderList);
 }
 
 // hàm tạo bảng thống kê từ dữ liệu phân tích được 

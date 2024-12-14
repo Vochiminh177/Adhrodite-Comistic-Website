@@ -273,7 +273,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
 //             orderDate.textContent = "Ngày đặt: " + userList[indexUserStatusLogin].ordersHistory[i].orderDate;
 //             ele.appendChild(orderDate);
 //             let orderStatus = document.createElement("p");
-//             orderStatus.textContent = "Tình trạng: " + userList[indexUserStatusLogin].ordersHistory[i].orderStatus;
+//             orderStatus.textContent = "Trạng thái: " + userList[indexUserStatusLogin].ordersHistory[i].orderStatus;
 //             ele.appendChild(orderStatus);
 //             userList[indexUserStatusLogin].ordersHistory[i].orderProduct.forEach(
 //                 (obj, index) => {

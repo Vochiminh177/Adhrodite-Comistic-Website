@@ -1,12 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
 }
-
-#main-content-customer #title-name {
+/* css nút thêm khách hàng  */
+#main-content-customer button, .form-user-add-edit button{
+  transition: background-color 0.2s ease;
+}
+#main-content-customer button:hover,  .form-user-add-edit button:hover{
+  background-color: #a94064;
+}
+/* ---------------------------------------------- */
+#main-content-customer{
+  font-family: "Poppins", sans-serif;
+}
+#main-content-customer .title{
   width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+#main-content-customer #title-name {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* css phần thông báo có muốn xóa người dùng không */
@@ -37,6 +57,7 @@
   font-weight: 700;
 }
 .form-delete-customer button {
+  border-radius: 10px;
   border: none;
   width: 10rem;
   font-size: 1.2rem;
@@ -121,9 +142,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-/* css phần tìm kiếm */
+/*-----------------css phần tìm kiếm--------------------*/
 .search-customer input {
   padding: 10px;
   font-size: 1rem;
@@ -137,11 +162,56 @@
   background-color: #ccc;
 }
 .search-customer a {
-  margin-left: 10px;
   background-color: #000;
   color: #fff;
-  padding: 5px 10px;
+  padding: 10px;
   transition: background-color 0.2s ease;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+/* -----------css phần lọc--------------- */
+#filter-customer{
+  width: 50%;
+}
+#filter-customer select{
+  padding: 0px;
+  margin: 0px;
+}
+#filter-customer .content-filter{
+  display: flex;
+  justify-content: flex-start;
+}
+#filter-customer .content-filter p{
+  font-size: 0.9rem;
+  margin-right: 10px;
+  text-wrap: nowrap;
+}
+#filter-customer .type, #filter-customer .status-account{
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+#filter-customer select{
+  margin-right: 10px;
+  width: 100%;
+}
+#filter-customer a{
+  color: #fff;
+  background-color: #000;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+#filter-customer a:hover{
+  background-color: #a94064;
+}
+#filter-type-customer, #filter-status-block{
+  margin: 0px;
+  width: 40%;
+}
+.customer-row .btn-add-customer{
+  padding: 10px;
 }
 .search-customer a:hover {
   background-color: #a94064;
@@ -157,6 +227,17 @@
 
 /* ================= chung cho mobile và table */
 @media screen and (max-width: 700px) {
+  .customer-row{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .search-customer{
+    width: 100%;  
+  }
+  .search-customer input{
+    width: calc(100% - 106px);
+    
+  } 
   .content-customer-list table th {
     display: none;
   }

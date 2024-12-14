@@ -20,10 +20,24 @@ if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
     localStorage.setItem("indexCurrentUserLogin", JSON.stringify(indexCurrentUserLogin));
 }
 
-if(indexCurrentUserLogin != -1){
-    if(userList[indexCurrentUserLogin].type === "admin"){
-        document.querySelector(".header__admin-icon").style.visibility = "visible";
-        handleAdmin();
+if(userList.length > 0){
+    if(indexCurrentUserLogin != -1){
+        if(userList[indexCurrentUserLogin].type === "admin"){
+            document.querySelector(".header__admin-icon").style.visibility = "visible";
+            handleAdmin();
+        }
     }
+    // handleAdmin();
+    window.addEventListener("load", () => {
+        if(indexCurrentUserLogin != -1){
+            if(userList[indexCurrentUserLogin].shoppingCart.length>0){
+                document.querySelector(".header__shopping-cart-notification").style.visibility = "visible";
+            }
+            else  document.querySelector(".header__shopping-cart-notification").style.visibility = "hidden";
+        }
+
+    })
 }
-// handleAdmin();
+
+   
+

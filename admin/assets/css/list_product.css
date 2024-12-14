@@ -1,53 +1,27 @@
-/* css phần bộ lọc */
-#main-content-product-list .filter-product {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.filter-product a {
-  cursor: pointer;
-  background-color: #000;
-  color: #fff;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
-  padding: 10px;
-  border-radius: 5px;
-}
-.filter-product a:hover {
-  background-color: #a94064;
-}
-.filter-product .content-filter {
-  display: flex;
-  align-items: center;
-  width: 0px;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+#main-content-product-list #title-name{
   background-color: #fff;
-  transition: width 0.5s ease;
-  overflow: hidden;
+  padding: 20px;
   border-radius: 10px;
-  padding: 10px 0px;
-  justify-content: space-evenly;
-}
-.filter-product .content-filter.active {
-  width: 90%;
-}
-.filter-product #select-product-filter-category,
-#select-product-filter-brand,
-#input-filter-quantity {
-  font-size: 0.8rem;
-  overflow: auto;
-  margin: 0px;
-  padding: 10px;
-  width: 30%;
-}
-#input-filter-quantity {
-  font-size: 1rem;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #a94064;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ------------------------------------ */
+#main-content-product-add .title{
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#main-content-product-add .title h1{
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 20%;
+  padding: 20px;
+  width: 300px;
+}
 
 /*------ css phần thông báo xác nhận muốn xóa sản phẩm --*/
 .container-delete-confirm {
@@ -146,16 +120,22 @@
   color: #fff;
 }
 /* ----------------------------------------------- */
+
+/* -----------------CSS phần nhập mã, thêm sản phẩm-------------------- */
 .content-product-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-} /* css phần tìm kiếm */
-.search-product {
-  margin: 10px 0px;
-  /* width: 50%; */
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 50%;
 }
+/*---------- css phần tìm kiếm ----------------*/
 .search-product input {
+  /* width: 70%; */
   padding: 10px;
   font-size: 1rem;
   border: none;
@@ -166,43 +146,75 @@
 .search-product input:hover {
   background-color: #ccc;
 }
-.search-product a {
+.search-product a, .search-id button {
   border-radius: 5px;
-  margin-left: 10px;
   background-color: #000;
   color: #fff;
-  padding: 5px 10px;
-  font-size: 1rem;
+  padding: 10px 12px;
+  font-size: 0.9rem;
   transition: background 0.2s ease;
 }
 .search-product a:hover {
   background-color: #a94064;
 }
-
-.content .dont-have-product {
-  margin-top: 5%;
-  color: rgba(119, 119, 119, 0.2);
-  font-family: "Roboto";
-  font-size: 4.8rem;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.4rem;
-  line-height: 1.2;
-  text-align: center;
+/* --------------css phần bộ lọc -------------------*/
+#main-content-product-list .filter-product {
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
+.filter-product .content-filter{
+  display: flex;
+  justify-content: space-between;
+}
+#main-content-product-list .filter-product a {
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+  padding: 13px;
+  border-radius: 5px;
+}
+#main-content-product-list .filter-product a:hover {
+  background-color: #a94064;
+}
+#main-content-product-list .filter-product .category, .filter-product .brand{
+  display: flex;
+  width: 40%;
+  align-items: center;
+}
+.filter-product .category select, .filter-product .brand select{
+  width: 50%;
+  margin: 0px;
+}
+#main-content-product-list .filter-product p{
+  margin-right: 10px;
+}
+#input-filter-quantity {
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: background-color 0.2s ease;
+  padding: 10px;
+}
+#input-filter-quantity:hover{
+  background-color: #ccc;
+}
+
+/* ------------------------------------ */
 /* ------------------------------------------*/
 
 /* --------------------reponsive-------------------- */
-/* @media only screen and (min-width: 480px) and (max-width: 1040px){
-    .content-product-list .product-list-table th:first-child, td:first-child, th:nth-child(3), td:nth-child(3), th:nth-child(6), td:nth-child(6){
-        display: none;
-    }
-    .content-product-list{
-        font-size: 0.6rem;
-    }
-} */
 
 @media screen and (min-width: 700px) and (max-width: 1051px) {
+  .container-notification p {
+    font-size: 1.3rem;
+  }
   .content-product-list .product-list-table th:nth-child(8) {
     width: 120px;
   }
@@ -311,7 +323,7 @@
     font-size: 1.1rem;
   }
   .content-product-list .product-list-table td:last-child,
-  th:last-child {
+  .content-product-list .product-list-table th:last-child {
     padding: 0px;
   }
   .list-page li {
@@ -366,6 +378,54 @@
 /* =============================mobile */
 
 @media screen and (max-width: 700px) {
+  .container-notification p {
+    font-size: 1.2rem;
+  }
+  .filter-product{
+    position: relative;
+  }
+  .filter-product .content-filter.active {
+    /* width: 90%; */
+    position: absolute;
+    top: 0px;
+    left: 65px;
+    width: calc(100% - 65px);
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+    background-color: #f8e9ef;
+  }
+  .filter-product #select-product-filter-category,
+  #select-product-filter-brand,
+  #input-filter-quantity {
+    width: calc(100% - 30px);
+    border-radius: 4px;
+  }
+
+
+  /* .content-filter.active{
+  } */
+
+  .search-product  {
+    width: 100%;
+  }
+  .search-product input{
+    width: calc(100% - 110px);
+  }
+
+  .btn.btn-add-product{
+    width: 100%;
+  }
+  .search-product a {
+    width: 30px;
+  }
+  .search-product {
+    width: calc(100% - 28px*2 -50px);
+  }
+  .content-product-row{
+    display: flex;
+    flex-direction: column-reverse;
+  }
   .search-product input {
     width: 50%;
   }

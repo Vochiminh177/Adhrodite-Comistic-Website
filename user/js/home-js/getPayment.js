@@ -215,9 +215,10 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
             .querySelector(".comeback-change-address-list-button")
             .addEventListener("click", function () {
               // Số nhà, tên đường
-              const streetInfo = document.querySelector(".street").value;
+              const streetInfo = document.querySelector(".payment-information-info__change-address-body .street").value;
               if(streetInfo === ""){
-                errorInput(document.querySelector(".street"));
+                errorInput(document.querySelector(".payment-information-info__change-address-body .street"));
+                return;
               }
               // Phường hoặc Xã
               const wardInfo =
@@ -416,17 +417,17 @@ function updatePaymentInformation(
           </h3>
           <form action="" class="payment-information-info__form">
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__firstName" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Họ">
-                  <input type="text" class="payment-information-info__lastName" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Tên">
+                  <input readonly type="text" class="payment-information-info__firstName" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Họ">
+                  <input readonly type="text" class="payment-information-info__lastName" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Tên">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="email" class="payment-information-info__email" 
+                  <input readonly type="email" class="payment-information-info__email" 
                   value="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
                       : ""}"
                   placeholder="Email">
-                  <input type="phone" class="payment-information-info__phone" value="${
+                  <input readonly type="phone" class="payment-information-info__phone" value="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
                       : ""
@@ -594,15 +595,12 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
         // Đưa về đầu trang
         window.scrollTo(0, 0);
 
-        // Ẩn đi header và footer của trang web
-        updateHeaderAndFooter("off");
-
         //mảng chứa những obj đơn hàng gồm id và quantity (giải quyết cho admin)
         let array_orderProduct = [];
         let array_shopping_cart__item = document.querySelectorAll(
           ".shopping-cart__list .shopping-cart__item"
         );
-
+        let checkQuantity = true;
         array_shopping_cart__item.forEach((obj, index) => {
           //lấy id của sản phẩm
           let string_details = obj.querySelector(
@@ -618,6 +616,9 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           let quantity = obj.querySelector(
             ".shopping-cart__quantity .shopping-cart__number"
           ).value; //lấy số lượng đặt hàng của mỗi sản phẩm
+          if(parseInt(quantity) <= 0){
+           checkQuantity = false;
+          }
           let name = obj.querySelector(
             ".shopping-cart__column .shopping-cart__name"
           ).textContent;
@@ -647,7 +648,14 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           };
           array_orderProduct.push(data); //mảng đơn hàng chứa những obj sản phẩm gồm id và quantity,... (giải quyết cho admin)
         });
+        if(!checkQuantity){
+          create_notification_user("Xem lại số lượng");
+          return;
+        }
 
+        // Ẩn đi header và footer của trang web
+        updateHeaderAndFooter("off");
+        
         // Cập nhật thông tin thanh toán
         updatePaymentInformation(
           userList,
@@ -656,7 +664,7 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
         );
       } else {
         create_notification_user(
-          "Hiện tại, trong Giỏ hàng của bạn không có sản phẩm nào. Bạn hãy quay lại trang Sản phẩm và đặt mua một vài thứ nhé."
+          "Cần mua vài thứ"
         );
       }
     });

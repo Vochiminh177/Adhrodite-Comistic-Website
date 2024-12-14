@@ -1,19 +1,14 @@
-//---HIỆU------
+
 
 import { createNotificationAdmin, err_input } from "../base/baseFunction.js";
-
-// function delete_space(str) {
-//     str = str.trim();
-//     str = str.replaceAll(/\s+/g, " ");
-//     return str;
-// }
 
 
 //hàm kiểm tra input số
 export function checkNumber(value){
-    if(!isNaN(value)){
-        return value == Math.round(value);
+    for(let i=0; i<value.length; i++){
+        if(!(value.charAt(i) >= '0' && value.charAt(i) <= '9')) return false;
     }
+    return true;
 }
 
 export function add_product(path_picture_admin){
@@ -38,14 +33,14 @@ export function add_product(path_picture_admin){
     check.check_id = productList.some((obj) => {
         if(obj.id === id.value){
             check.status = false;
-            check.mess_id = "Lỗi! Trùng mã sản phẩm";
+            check.mess_id = "Trùng mã sản phẩm";
             return;
         }    
     });
     check.check_name = productList.some((obj) => {
         if(obj.name === name.value){
             check.status = false;
-            check.mess_name = "Lỗi! Trùng tên sản phẩm";
+            check.mess_name = "Trùng tên sản phẩm";
             return;
         }
     });
@@ -134,6 +129,7 @@ export function delete_product(index) {
 export function edit_product(index, path_picture_admin) {
     let productList = JSON.parse(localStorage.getItem("productList"));
     if(!checkErrorForAddAndEdit(path_picture_admin)) return false;
+
     let name = document.querySelector(".name-add");
     let price = document.querySelector(".price-add");
     let category = document.querySelector("#category-add");
@@ -154,7 +150,7 @@ export function edit_product(index, path_picture_admin) {
         if(index != i){
             if(obj.id === id.value){
                 check.status = false;
-                check.mess_id = "Lỗi! Trùng mã sản phẩm";
+                check.mess_id = "Trùng mã sản phẩm";
                 return;
             }    
         }
@@ -163,7 +159,7 @@ export function edit_product(index, path_picture_admin) {
         if(index != i){
             if(obj.name === name.value){
                 check.status = false;
-                check.mess_name = "Lỗi! Trùng tên sản phẩm";
+                check.mess_name = "Trùng tên sản phẩm";
                 return;
             }
         }
@@ -214,12 +210,12 @@ export function edit_product(index, path_picture_admin) {
 
 function checkErrorForAddAndEdit(path_picture_admin){
     let name = document.querySelector(".name-add");
-    let price = document.querySelector(".price-add");
+    let price = document.querySelector("#price-add");
     let category = document.querySelector("#category-add");
-    let brand = document.querySelector(".brand-add");
+    let brand = document.querySelector("#brand-add");
     let description = document.querySelector(".description-add");
     let id = document.querySelector(".id-add");
-    let quantity = document.querySelector(".quantity-add");
+    let quantity = document.querySelector("#quantity-add");
     let discountQuantity =  document.querySelector(".quantity-discount-add");
     let discountPercent = document.querySelector(".percent-discount-add");
     let file_picture = document.querySelector(".add-photo-button #file");
@@ -240,21 +236,41 @@ function checkErrorForAddAndEdit(path_picture_admin){
         return false;
     }
 
+    //check mã sản phẩm
+    if(id.value.slice(0,3) !== "APh"){
+        err_input(id, "Cần định dạng APhXXXX..");
+        return false;
+    }
+    for(let k=3; k<id.value.length; k++){
+        if(!(id.value.charAt(k) >= '0' && id.value.charAt(k) <= '9')){
+            err_input(id, "Sau APh là số");
+            return false;
+        }
+    }
+
+    //check thương hiệu
+    for(let k=0; k<brand.value.length; k++){
+        if(!(brand.value.charAt(k) >= 'a' && brand.value.charAt(k) <= 'z')){
+            err_input(brand, "Thương hiệu chỉ chứa chữ");
+            return false;
+        }
+    }
+
    //check số input
    let checkNum = true;
-   if(!checkNumber(price.value) || price.value <= 0){
+   if(!checkNumber(price.value)){
        checkNum = false;
-       err_input(price, "Phải nhập số nguyên dương")
+       err_input(price, "Phải nhập số nguyên")
    }
-   if(!checkNumber(quantity.value) || quantity.value < 0){
+   if(!checkNumber(quantity.value)){
        checkNum = false;
-       err_input(price, "Phải nhập số nguyên!");
+       err_input(quantity, "Phải nhập số nguyên!");
    }
-   if(!checkNumber(discountPercent.value) || discountPercent<0){
+   if(!checkNumber(discountPercent.value)){
        checkNum = false;
        err_input(discountPercent, "Phải nhập số nguyên!");
    }
-   if(!checkNumber(discountQuantity.value) || discountQuantity.value<0){
+   if(!checkNumber(discountQuantity.value)){
        checkNum = false;
        err_input(discountQuantity, "Phải nhập số nguyên!");
    }
@@ -267,7 +283,7 @@ function checkErrorForAddAndEdit(path_picture_admin){
     return false;
    }
    if(discountPercent.value >= 100){
-    err_input(discountPercent, "Cần nhỏ hơn 100");
+    err_input(discountPercent, "Cần nhỏ hơn 100%");
     return false;
    }
    return true;

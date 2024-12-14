@@ -1,6 +1,6 @@
  .title {
     display: flex;
-    justify-content:space-between;
+    justify-content: center;
 }
  .title-name {
     text-align: center;
