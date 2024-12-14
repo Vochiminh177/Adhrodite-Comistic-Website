@@ -771,7 +771,7 @@ const orderList = [
       "orderId": 1,
       "orderDate": "16:10:20 5/12/2024",
       "orderAddressToShip": "22, Phường Hàng Bạc, Quận Hoàn Kiếm, Hà Nội",
-      "orderStatus": "pending",
+      "orderStatus": "shipped",
       "orderMethod": "Thanh toán khi giao hàng (COD)",
       "orderTotalPrice": 1615500,
       "orderProduct": [

@@ -27,34 +27,34 @@ html {
   overflow-x: hidden;
 }
 
-.title-dashboard-orderList{
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--poppins);
-    font-size: 27px;
-    margin-bottom: 20px;
+.title-dashboard-orderList {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--poppins);
+  font-size: 27px;
+  margin-bottom: 20px;
 }
 
 .dashboard-title {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .dashboard-title h1 {
-    font-family: var(--poppins);
-    font-size: 27px;
-    margin-right: 20px;
-    font-weight: bold;
+  font-family: var(--poppins);
+  font-size: 27px;
+  margin-right: 20px;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
-    .dashboard-filter {
-        flex-wrap: wrap;
-    }
+  .dashboard-filter {
+    flex-wrap: wrap;
+  }
 
-    .filter-item {
-        width: 100%;
-    }
+  .filter-item {
+    width: 100%;
+  }
 }
 
 /* .title-dashboard-orderList #title-name{
@@ -62,35 +62,6 @@ html {
     align-items: center;
     margin-right: 20px;
 } */
-
-.dashboard-filter {
-  display: flex;
-  gap: 30px;
-  padding: 10px 15px 10px 15px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  width: fit-content;
-  justify-content: center;
-  align-items: center;
-    display: flex;
-    gap: 30px;
-    padding: 10px 15px 10px 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* margin-bottom: 20px; */
-    width: fit-content;
-    /* justify-content: center; */
-    align-items: center;
-}
-
-.filter-item {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
 
 .dateLabel {
   font-family: var(--poppins);
@@ -116,12 +87,10 @@ html {
 
 .custom-date-input:focus {
   border-color: #007bff;
-  /* Đổi màu viền khi focus */
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  /* Thêm hiệu ứng shadow khi focus */
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .dashboard-filter {
     flex-wrap: wrap;
   }
@@ -129,7 +98,7 @@ html {
   .filter-item {
     width: 100%;
   }
-}
+} */
 
 .filter-btn {
   display: flex;
@@ -148,6 +117,7 @@ html {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 #searchBtn:hover,
 #filterBtn:hover,
 #resetBtn:hover {
@@ -156,6 +126,7 @@ html {
   transform: scale(1.05);
   /* Phóng to nhẹ */
 }
+
 #searchBtn:active,
 #filterBtn:active,
 #resetBtn:active {
@@ -166,83 +137,172 @@ html {
 }
 
 .dashboard-highlight {
-    width: 100%;
-    background: var(--pink3);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, auto)); 
+  align-items: center; 
+}
+
+@media (max-width: 1440px) {
+  .dashboard-highlight {
+    display: flex; 
+    gap: 20px;
     flex-wrap: wrap;
-}
-
-.dashboard-highlight-box-customer {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    height: 100px;
-    flex-direction: row;    
-    padding: 15px 20px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: space-between;
-    margin-right: 25px;
-}
-.dashboard-highlight-box #topCustomersList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.customer-item p {
-    font-size: 14px;
-    color: #333;
-}
-
-.dashboard-highlight-box, .dashboard-highlight-box-product {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    height: 100px;
-    flex: 0 0 250px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 25px;
-    margin-bottom: 20px;
-}
-
-.dashboard-highlight .dashboard-highlight-box i {
-    font-size: 30px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    /* background: #4e24d7; */
-    margin-right: 10px;
-}
-
-@media (max-width: 1200px) {
-    .dashboard-highlight-box {
-        width: 250px; /* Cố định chiều rộng của các box */
-    }
+  }
 }
 
 @media (max-width: 768px) {
-    .dashboard-highlight-box {
-        width: 250px; /* Cố định chiều rộng của các box */
-    }
+  .dashboard-highlight {
+    display: flex; 
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 576px) {
-    .dashboard-highlight-box {
-        width: 250px; /* Cố định chiều rộng của các box */
-    }
+  .dashboard-highlight {
+    display: flex; 
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+/* Container chính */
+select {
+  height: 20px; /* Đặt chiều cao */
+  padding: 5px; /* Tùy chỉnh padding */
+  line-height: normal; /* Tránh chiều cao chữ bị lệch */
+  box-sizing: border-box; /* Tính viền và padding vào chiều cao */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; /* Tắt giao diện mặc định */
+}
+
+.dashboard-filter {
+  background: #fff;
+  width: fit-content;
+  min-height: 90px; /* Đặt chiều cao tối thiểu */
+  height: auto;   
+  display: flex;
+  flex-wrap: wrap; 
+  column-gap: 20px;
+  align-items: flex-start;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Nhóm filter */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 180px; /* Đảm bảo các thành phần có kích thước tối thiểu */
+}
+
+.filter-group-button {
+  display: flex;
+  padding-top: 20px;
+  gap: 8px;/* Đảm bảo các thành phần có kích thước tối thiểu */
+}
+
+/* Label và input */
+.filter-group label {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Input và select */
+.custom-sort-input, .custom-date-input, .sort-input {
+  height: 40px;
+  background-color: #fff;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Chiếm toàn bộ chiều ngang của nhóm */
+  box-sizing: border-box;
+}
+
+/* Nút Reset */
+.reset-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .dashboard-filter {
+    width: 100%; /* Chiếm toàn bộ chiều ngang màn hình */
+    padding: 12px; /* Giảm khoảng cách padding */
+    gap: 12px; /* Giảm khoảng cách giữa các phần tử */
+  }
+
+  .filter-group {
+    width: 100%; /* Đảm bảo các thành phần chiếm toàn bộ chiều ngang */
+  }
+
+  .filter-group-button {
+    padding: 0;
+    width: 100%;
+    display: flex;
+  }
+
+  .reset-button {
+      align-self: center; /* Nút Reset ở giữa màn hình */
+      margin-top: 12px;
+  }
+}
+
+
+.dashboard-highlight-box-product {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 120px;
+  flex: 0 0 250px;
+  /* padding: 5px 15px 5px 0px; */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-highlight-box{
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 120px;
+  flex: 0 0 250px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-highlight-box i {
+  font-size: 40px;
+  width: 75px;
+  height: 75px;
+  line-height: 75px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  margin-right: 12px;
 }
 
 .dashboard-highlight .dashboard-highlight-box:nth-child(1) i {
@@ -250,27 +310,24 @@ html {
 }
 
 .dashboard-highlight .dashboard-highlight-box:nth-child(2) i {
-  background: #5e34c0;
-}
-
-.dashboard-highlight .dashboard-highlight-box:nth-child(2) i {
   background: #bb1169;
 }
 
-.dashboard-highlight .dashboard-highlight-box-product i {
-  background: #79a3eb;
+.dashboard-highlight .dashboard-highlight-box:nth-child(3) i {
+  background: #17b1e0;
 }
 
-.dashboard-highlight .dashboard-highlight-box h3,
-.dashboard-highlight-box-product h3 {
+.dashboard-highlight h3 {
+  text-align: center;
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 15px;
 }
 
+
 .dashboard-highlight .dashboard-highlight-box span,
 .dashboard-highlight-box-product span {
-  font-size: 17px;
+  font-size: 15px;
   color: rgb(99, 119, 140);
 }
 
@@ -294,6 +351,7 @@ html {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 .order-list-btn:hover {
   background-color: #a9a9a9;
 }
@@ -306,35 +364,48 @@ html {
   .dashboardTable td {
     display: flex;
   }
+
   .dashboardTable td:before {
     font-weight: 700;
     width: 150px;
     text-align: left;
     margin-left: 15%;
   }
+
   .dashboardTable tr:nth-of-type(2n) {
     background-color: #f9f0f0;
   }
+
   .dashboardTable td:nth-of-type(1)::before {
     content: "Mã";
   }
+
   .dashboardTable td:first-child {
     margin-top: 50px;
   }
+
   .dashboardTable td:nth-of-type(2) img {
     width: 120px;
     margin: 0 auto;
   }
+
   .dashboardTable td:nth-of-type(3)::before {
+    content: "Sản phẩm";
+  }
+
+  .dashboardTable td:nth-of-type(4)::before {
     content: "Giá";
   }
-  .dashboardTable td:nth-of-type(4)::before {
+
+  .dashboardTable td:nth-of-type(5)::before {
     content: "Tổng đơn hàng";
   }
-  .dashboardTable td:nth-of-type(5)::before {
+
+  .dashboardTable td:nth-of-type(6)::before {
     content: "Tổng danh thu";
   }
-  .dashboardTable td:nth-of-type(6)::before {
+
+  .dashboardTable td:nth-of-type(7)::before {
     content: "Tuỳ chỉnh";
   }
 }

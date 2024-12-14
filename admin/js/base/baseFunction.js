@@ -1,5 +1,4 @@
-import { pagination, showListOrder, getNonPendingOrders, generateProductStatistics, showProductStatistics } from "../showList/show.js";
-import { showMain } from "../script2.js";
+
 //hàm tạo thông báo
 export function createNotificationAdmin(mess) {
     let text = document.createElement("p");
