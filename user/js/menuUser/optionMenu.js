@@ -18,7 +18,7 @@ export function create_notification_user(mess) {
   }
 
   if(idTimeout) clearTimeout(idTimeout);
-  idTimeout = setTimeout(removeNoti, 2000);
+  idTimeout = setTimeout(removeNoti, 1100);
 }
 
 //-----------------------------------OPTION USER----------------------------------------
