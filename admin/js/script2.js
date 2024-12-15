@@ -1,4 +1,4 @@
-import { userList, productItemArray } from "../../database/database.js";
+// import { userList, productItemArray } from "../../database/database.js";
 import {
   pagination,
   showListProduct,
@@ -11,8 +11,10 @@ import {
   filterProductAdmin,
 } from "./updateProduct/OptionProduct.js";
 import { generateOrderFilter } from "./updateOrder/orderFilter.js";
-import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
+// import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 import { DashboardEvent } from "./dashboard.js";
+import { createNotificationAdmin } from "./base/baseFunction.js";
+
 function start() {
   anhMinh();
 }
