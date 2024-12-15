@@ -68,6 +68,7 @@
   width: 100%;
   height: 35px;
   padding: 3px;
+  padding-left: 8px;
   font-size: 1rem;
   outline: none;
   border: 1px solid #ccc;
@@ -186,7 +187,7 @@
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
-  width: 60%;
+  width: 80%;
   max-height: 93%;
   overflow: auto;
 }
@@ -210,32 +211,29 @@
 }
 .order-details-modal p,
 .order-details-modal span {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .order-details-modal h2,
 .order-details-modal h3 {
   margin-bottom: 15px;
 }
 .order-details-modal h2 {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
 }
 
 .order-details-modal h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
 }
 #order-details-modal p {
-  margin-bottom: 9px;
-}
-#order-details-modal .customer-info p {
-  margin-bottom: 19px;
+  margin-bottom: 16px;
 }
 .order-status {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 35%;
+  width: 25%;
 }
 .status-label {
   text-align: center;
@@ -334,23 +332,22 @@
   border-radius: 8px;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
   width: 35%;
-  height: 19%;
 }
 .order-confirm-modal-message{
-  font-size: 1.4rem;
+  margin-top: 16px;
+  font-size: 1.3rem;
   text-align: center;
 }
 .order-confirm-modal-buttons{
   margin: 0 auto;
   margin-top: 32px;
-  width: 65%;
-  text-align: center;
+  width: 90%;
   display: flex;
   gap: 0 12px;
 }
 #order-confirm-confirm-btn{
   margin: 0px;
-  flex-grow: 0.6;
+  flex-grow: 1;
 }
 #order-confirm-cancel-btn{
   flex-grow: 1;
@@ -470,7 +467,11 @@
 
   .order-details-modal-content {
     width: 100%;
-    margin-top: 100px;
+    max-height: 100%;
+  }
+  .order-confirm-modal-buttons {
+    flex-direction: column;
+    gap: 12px 0px;
   }
   .table-container,
   .order-filter-container {
@@ -528,11 +529,6 @@
   }
   .content-order-table-body tr:nth-of-type(2n) {
     background-color: #f9f0f0;
-  }
-
-  .order-details-modal-content {
-    top: 50px;
-    width: 80%;
   }
   .table-container,
   .order-filter-container {
