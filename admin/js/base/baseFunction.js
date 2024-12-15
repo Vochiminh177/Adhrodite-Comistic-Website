@@ -13,8 +13,10 @@ export function createNotificationAdmin(mess, status) {
         ele.innerHTML = "";
         ele.classList.remove("notification");
     }
-    if(idTimeout) clearTimeout(createNotifi);
-    else idTimeout = setTimeout(createNotifi, 2000);
+    if(idTimeout){
+        clearTimeout(createNotifi);
+    }
+    idTimeout = setTimeout(createNotifi, 2000);
 
 
    // Tạo container nếu chưa có

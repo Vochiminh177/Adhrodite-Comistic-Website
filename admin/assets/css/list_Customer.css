@@ -61,8 +61,19 @@
   padding: 20px;
   background-color: #fff;
 }
+.form-delete-customer .content-delete-customer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-delete-customer div:first-child{
+  margin-bottom: 10px;
+}
+.form-delete-customer div:last-child{
+  display: flex;
+}
 .form-delete-customer span {
-  font-size: 2rem;
+  font-size: 1.8rem;
   height: 40px;
   line-height: 40px;
   font-weight: 700;
@@ -305,6 +316,9 @@
 
 /* ================= chung cho mobile và table */
 @media screen and (max-width: 700px) {
+  .content-delete-customer span, .content-delete-customer button{
+    font-size: 1.2rem;
+  }
 
  
   .content-customer-list table th {

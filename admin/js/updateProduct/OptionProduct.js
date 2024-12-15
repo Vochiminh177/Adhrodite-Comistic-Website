@@ -42,7 +42,7 @@ export function addProduct() {
             //nếu thêm sản phẩm thành công
             if (result) {
                 showMain("main-content-product-list");
-                createNotificationAdmin("Thêm sản phẩm thành công!");
+                createNotificationAdmin("Thêm sản phẩm thành công!", "success");
                 let productList = JSON.parse(localStorage.getItem("productList"));
                 pagination(productList, Math.ceil(productList.length / 7), showListProduct, "#main-content-product-list");
                 path_picture_admin.src = null;
@@ -60,7 +60,13 @@ export function deleteProduct() {
     document.querySelectorAll(".delete-product").forEach((obj) => {
         obj.addEventListener("click", (e) => {
             e.preventDefault();
-            let index = parseInt(obj.getAttribute("index-item"));
+            let productList = JSON.parse(localStorage.getItem("productList"));
+            let parent = obj.parentElement.parentElement;
+            let id = parent.querySelector("#id");
+            let index = productList.findIndex((obj) => {
+                return obj.id === id.textContent;
+            })
+            // let index = parseInt(obj.getAttribute("index-item"));
             //tạo form xóa sản phẩm
             let ele = document.createElement("div");
             ele.className = "container-delete-confirm";
@@ -99,11 +105,12 @@ export function deleteProduct() {
                 let result = delete_product(index);
                 if (result) {
                     ele.remove();
-                    createNotificationAdmin("Xóa sản phẩm thành công!");
+                    createNotificationAdmin("Xóa sản phẩm thành công!", "success");
                     let productList = JSON.parse(localStorage.getItem("productList"));
 
-                    const currentPage = parseInt(document.querySelector(".page-number.active-page").textContent, 10);
-                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
+                    // const currentPage = parseInt(document.querySelector(".page-number.active-page").textContent, 10);
+                    showMain("main-content-product-list");
+                    pagination(productList, 1, showListProduct, "#main-content-product-list");
                 }
             };
         });
@@ -116,7 +123,12 @@ export function editProduct(currentPage) {
         obj.addEventListener("click", (e) => {
             e.preventDefault();
             let productList = JSON.parse(localStorage.getItem("productList"));
-            let index = parseInt(obj.getAttribute("index-item"));
+            let parent = obj.parentElement.parentElement;
+            let id = parent.querySelector("#id");
+            let index = productList.findIndex((obj) => {
+                return obj.id === id.textContent;
+            })
+            // let index = parseInt(obj.getAttribute("index-item"));
             showMain("main-content-product-add");
             document.querySelector("#main-content-product-add .title h1").textContent = "Sửa sản phẩm";
             document.querySelector(".comback-product").onclick = (e) => {
@@ -144,7 +156,7 @@ export function editProduct(currentPage) {
                 e.preventDefault();
                 let result = edit_product(index, path_picture_admin);
                 if (result) {
-                    createNotificationAdmin("Sửa sản phẩm thành công!");
+                    createNotificationAdmin("Sửa sản phẩm thành công!", "success");
                     showMain("main-content-product-list");
                     productList = JSON.parse(localStorage.getItem("productList"));
                     pagination(productList, currentPage, showListProduct, "#main-content-product-list");
@@ -255,12 +267,12 @@ export function filterProductAdmin() {
             let arr = filterData(categoryID, brand, parseInt(number));
 
             pagination(arr, 1, showListProduct, "#main-content-product-list");
-            if (arr.length > 0) {
-                createNotificationAdmin("Lọc thành công");
-            }
-            else {
-                createNotificationAdmin("Không có sản phẩm");
-            }
+            // if (arr.length > 0) {
+            //     createNotificationAdmin("Lọc thành công");
+            // }
+            // else {
+            //     createNotificationAdmin("Không có sản phẩm");
+            // }
         };
     // };
 }

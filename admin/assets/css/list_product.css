@@ -345,10 +345,10 @@
   .content-product-list .product-list-table th:nth-child(3) {
     font-size: 1.1rem;
   }
-  .content-product-list .product-list-table td:last-child,
+  /* .content-product-list .product-list-table td:last-child,
   .content-product-list .product-list-table th:last-child {
     padding: 0px;
-  }
+  } */
   .list-page li {
     margin: 10px;
   }
@@ -677,9 +677,9 @@
   .content-product-list .product-list-table th:nth-child(3) {
     font-size: 1.1rem;
   }
-  .content-product-list .product-list-table td:last-child {
+  /* .content-product-list .product-list-table td:last-child {
     padding: 0px;
-  }
+  } */
   .list-page li {
     margin: 10px;
   }
