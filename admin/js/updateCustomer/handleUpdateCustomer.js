@@ -245,13 +245,13 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
   
    for(const char of firstName.value){
     if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
-      errorInput(firstName, "Cần nhập chữ");
+      err_input(firstName, "Cần nhập chữ");
       return;
     }
   }
   for(const char of lastName.value){
     if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
-      errorInput(lastName, "Cần nhập chữ");
+      err_input(lastName, "Cần nhập chữ");
       return;
     }
   }
