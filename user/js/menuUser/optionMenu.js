@@ -5,35 +5,21 @@ import {
 import { updateMainContent } from "../home-js/changeMainContent.js";
 
 //hàm tạo thông báo
+let idTimeout = null;
 export function create_notification_user(mess) {
-  // Tạo container nếu chưa có
-  let container = document.querySelector(".container-notification");
-  if (!container) {
-    container = document.createElement("div");
-    container.className = "container-notification";
-    document.body.appendChild(container);
+
+  const notification = document.getElementById("empty-notification");
+  notification.className = "notification active";
+  notification.innerHTML = mess;
+
+  function removeNoti(){
+    notification.innerHTML = "";
+    notification.className = "";
+    idTimeout = null;
   }
 
-  // Tạo thẻ <p> mới cho thông báo
-  const notification = document.createElement("p");
-  notification.className = "notification";
-  notification.textContent = mess;
-
-  // Thêm thẻ <p> vào container
-  container.appendChild(notification);
-
-  // Thêm class `active` để hiển thị thông báo
-  setTimeout(() => {
-    notification.classList.add("active");
-  }, 10);
-
-  // Xóa thông báo sau 5 giây
-  setTimeout(() => {
-    notification.classList.remove("active");
-    setTimeout(() => {
-      notification.remove();
-    }, 200); // Đợi hiệu ứng biến mất trước khi xóa khỏi DOM
-  }, 1000);
+  if(idTimeout) clearTimeout(idTimeout);
+  idTimeout = setTimeout(removeNoti, 2000);
 }
 
 //-----------------------------------OPTION USER----------------------------------------
