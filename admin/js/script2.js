@@ -14,7 +14,7 @@ import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 // import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
-
+import { responsiveOrderFilter } from "./responsive.js";
 function start() {
   anhMinh();
 }
