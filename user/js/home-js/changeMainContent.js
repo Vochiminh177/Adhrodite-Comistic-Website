@@ -9,7 +9,7 @@ import {
   generateBrands
 } from "../products-js/generateFilter.js";
 import { userList } from "../../../database/database.js";
-import { changeLeftMenu } from "./reponsive.js";
+import { changeLeftMenu } from "./responsive.js";
 import { updateSaleProductPaginationWhenChangeToHome } from "./saleProductPagination.js"
 import { updatePopularProductPaginationWhenChangeToHome } from "./popularProductPagination.js"
 export const mainContentMap = {

@@ -101,8 +101,9 @@ export function deleteProduct() {
                     ele.remove();
                     createNotificationAdmin("Xóa sản phẩm thành công!");
                     let productList = JSON.parse(localStorage.getItem("productList"));
-                  
-                    pagination(productList, 1, showListProduct, "#main-content-product-list");
+
+                    const currentPage = parseInt(document.querySelector(".page-number.active-page").textContent, 10);
+                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
                 }
             };
         });
