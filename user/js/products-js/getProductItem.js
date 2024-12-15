@@ -193,10 +193,9 @@ function clickToComebackProductList(currentPage) {
 }
 
 // Thông tin của một sản phẩm cụ thể
-export function updateProductItem(productItemKey) {
+export function updateProductItem(key) {
   let productList = JSON.parse(localStorage.getItem("productList"));
-  // Vị trí của sản phẩm trong mảng là stt (number) - 1
-  productItemKey = productItemKey - 1;
+  const productItemKey = productList.findIndex((product) => product.number === key);
   let newPrice = productList[productItemKey].price;
   if (productList[productItemKey].discountQuantity > 0) {
     newPrice =
@@ -361,11 +360,11 @@ export function getProductItemInfo() {
   let array = document.querySelectorAll(".main-products__item");
   array.forEach((obj) => {
     obj.onclick = (event) => {
-      const productItemKey = parseInt(
+      const key = parseInt(
         event.currentTarget.getAttribute("data-product")
       );
-      if (productItemKey >= 0) {
-        updateProductItem(productItemKey);
+      if (key >= 0) {
+        updateProductItem(key);
       }
     };
   });
