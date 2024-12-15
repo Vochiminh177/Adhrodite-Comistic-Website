@@ -379,21 +379,23 @@ export function showMain(sectionId) {
                         <div class="content-filter">
                         </div>
                     </div>
-                    <table class="product-list-table">
-                        <thead>
-                          <tr>
-                              <th class="picture-list">Hình ảnh</th>
-                              <th class="id-list">Mã</th>
-                              <th class="name-list">Tên</th>
-                              <th class="brand-list">Thương hiệu</th>
-                              <th class="category-list">Danh mục</th>
-                              <th class="price-list">Giá</th>
-                              <th class="quantity-list">Số lượng</th>
-                              <th class="option-list">Tùy chỉnh</th>
-                          </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="product-table">
+                      <table class="product-list-table">
+                          <thead>
+                            <tr>
+                                <th class="picture-list">Hình ảnh</th>
+                                <th class="id-list">Mã</th>
+                                <th class="name-list">Tên</th>
+                                <th class="brand-list">Thương hiệu</th>
+                                <th class="category-list">Danh mục</th>
+                                <th class="price-list">Giá</th>
+                                <th class="quantity-list">Số lượng</th>
+                                <th class="option-list">Tùy chỉnh</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                      </table>
+                    </div>
 					<div class="list-page"></div>
                 </div>
             </div>
@@ -607,6 +609,7 @@ export function showMain(sectionId) {
 					<button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
 				</div>
                 <div class="content-customer-list">
+                  <div class="customer-table">
                     <table class="content-customer-table">
                       <thead>
                         <tr>
@@ -619,6 +622,7 @@ export function showMain(sectionId) {
                       </thead>
                       <tbody></tbody>
                     </table>
+                  </div>
 					<div class="list-page"></div>
                 </div>
             </div>

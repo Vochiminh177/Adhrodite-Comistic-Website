@@ -229,7 +229,7 @@ export function filterProductAdmin() {
             let arr = [];
             arr = productList.filter((obj) => {
                 return (categoryID === '-1' || categoryID === obj.categoryID)
-                    && (brand === "Không chọn" || brand === obj.brand)
+                    && (brand === "Tất cả" || brand === obj.brand)
                     && (isNaN(number) || obj.quantity <= number);
             });
             return arr;
