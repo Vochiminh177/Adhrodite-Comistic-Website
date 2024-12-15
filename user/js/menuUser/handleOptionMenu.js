@@ -136,7 +136,7 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     }
   }
 
-  if (phone.value < 0 || !checkNumberPhone(phone.value)) {
+  if (!checkNumberPhone(phone.value)) {
     errorInput(phone, "Sai định dạng");
     return false;
   }
