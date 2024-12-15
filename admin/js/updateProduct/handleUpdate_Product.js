@@ -250,7 +250,7 @@ function checkErrorForAddAndEdit(path_picture_admin){
 
     //check thương hiệu
     for(let k=0; k<brand.value.length; k++){
-        if(!(brand.value.charAt(k) >= 'a' && brand.value.charAt(k) <= 'z')){
+        if((brand.value.charAt(k) >= '0' && brand.value.charAt(k) <= '9')){
             err_input(brand, "Thương hiệu chỉ chứa chữ");
             return false;
         }
