@@ -232,9 +232,6 @@ export function showMain(sectionId) {
         <button id="resetBtn" class="reset-button">Xóa</button>
     </div>
 </div>
-
-
-
     <div class="dashboard-data">
         <table class="dashboardTable">
         </table>
@@ -246,29 +243,32 @@ export function showMain(sectionId) {
   } else if (sectionId === "main-content-dashboard-orderList") {
     document.querySelector("#main-content-dashboard-orderList").innerHTML = `
 <div class="title-dashboard-orderList">
-  <div class="title">
-		<h1>Danh sách đơn hàng</h1>
-    <a class="comeback-product" id = "">< Quay lại</a>
-	</div>
-  <div class="filter-group">
+    <div class="title">
+        <h1>Danh sách đơn hàng</h1>
+        <a class="comeback-product">
+            < Quay lại</a>
+    </div>
+</div>
+<div class="dashboard-filter">
+    <div class="filter-group">
         <label for="sortType">Sắp xếp:</label>
         <select id="sortType" class="sort-input">
             <option value="desc">Tổng tiền giảm dần</option>
             <option value="asc">Tổng tiền tăng dần</option>
-            <option value="az">Từ A đến Z</option>
-            <option value="za">Từ Z đến A</option>
         </select>
         <label for="row-count">Hiển thị:</label>
         <input type="text" id="row-count" class="custom-date-input" placeholder="Nhập số hàng">
+    </div>
+    <div class="filter-group">
         <label for="from-date">Từ ngày:</label>
         <input type="date" id="from-date" class="custom-date-input">
         <label for="to-date">Đến ngày:</label>
         <input type="date" id="to-date" class="custom-date-input">
-        <div class="filter-btn">
-            <button id="filterBtn" class="reset-button">Lọc</button>
-            <button id="resetBtn" class="reset-button">Xóa</button>
-        </div>
-  </div>
+    </div>
+    <div class="filter-group-button">
+        <button id="filterBtn" class="reset-button">Lọc</button>
+        <button id="resetBtn" class="reset-button">Xóa</button>
+    </div>
 </div>
 <div class="content">
     <div id="dashboard-main">
@@ -339,31 +339,6 @@ export function showMain(sectionId) {
     </div>
 </div>
 		`;
-  } else if (sectionId === "main-content-dashboard-customerList") {
-    const sectionElement = document.querySelector("#main-content-dashboard-customerList");
-
-    sectionElement.innerHTML = `
-        <div class="title-dashboard-orderList">
-            <div class="title">
-                <h1>Danh sách khách hàng</h1>
-                <a class="comeback-product"> < Quay lại</a>
-            </div>
-        </div>
-        <div class="content">
-            <table class="dashboardTable">
-            </table>
-        </div>
-        <div class="list-page"></div>
-    `;
-    let orderList = JSON.parse(localStorage.getItem('orderList')) || [];
-    let doneOrderList = getNonPendingOrders(orderList);
-    let userList = JSON.parse(localStorage.getItem('userList')) || [];
-    let customerStatistics = generateCustomerStatistics(doneOrderList, userList);
-    showCustomerStatistics(customerStatistics);
-    document.querySelector(".comeback-product").onclick = (e) => {
-      e.preventDefault();
-      showMain("main-content-dashboard");
-    };
   } else
     if (sectionId === "main-content-product-list") {
       document.querySelector("#main-content-product-list").innerHTML = `

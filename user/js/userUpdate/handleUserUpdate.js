@@ -162,7 +162,7 @@ export function handleSignUp() {
     return false;
   }
 
-  if (!checkEmail(email.value)) {
+  if (!checkEmail(email.value.trim())) {
     errorInput(email, "Sai định dạng");
     return false;
   }
@@ -173,13 +173,13 @@ export function handleSignUp() {
         mess_email: null
     };
     userList.forEach((obj) => {
-        if(obj.username === username.value){
+        if(obj.username === username.value.toLowerCase().trim()){
             check.mess_username = "*Tên đăng nhập đã tồn tại!"
             check.status = true;
         }
     });
     userList.forEach((obj) => {
-        if(obj.email === email.value){
+        if(obj.email === email.value.toLowerCase().trim()){
             check.mess_email = "*Email đã tồn tại!";
             check.status = true;
         }
@@ -198,21 +198,22 @@ export function handleSignUp() {
   let userID = userList[0].id;
   while (
     userList.some((obj) => {
-      return obj.id == userID;
+      return obj.id === userID;
     })
   ) {
-    userID = Math.floor(Math.random() * userList.length + 1) + 1;
+    userID = Math.floor(Math.random() * (userList.length + 1)) + 1;
   }
   var data_obj = {
     type: "customer",
     blockStatus: false,
     id: userID,
-    username: username.value,
-    password: password.value,
-    email: email.value,
+    username: username.value.trim(),
+    password: password.value.trim(),
+    email: email.value.trim(),
     first_name: null,
     last_name: null,
     phone: null,
+    address: null,
     shoppingCart: [],
   };
 
