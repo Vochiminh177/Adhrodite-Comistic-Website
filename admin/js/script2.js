@@ -314,7 +314,7 @@ export function showMain(sectionId) {
                         <!-- Các sản phẩm -->
                         <section class="product-info" id="product-info">
                             <h3>Chi tiết Sản Phẩm</h3>
-                            <table class="product-table">
+                            <table class="order-product-table">
                                 <thead>
                                     <tr>
                                         <th>Mã sản phẩm</th>
@@ -455,7 +455,7 @@ export function showMain(sectionId) {
 						<!-- Các sản phẩm -->
 						<section class="product-info" id="product-info">
 							<h3>Chi tiết Sản Phẩm</h3>
-							<table class="product-table">
+							<table class="order-product-table">
 								<thead>
 									<tr>
 						 					<th>Mã sản phẩm</th>
