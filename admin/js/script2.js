@@ -14,11 +14,11 @@ import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 // import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
-<<<<<<< HEAD
+
 import { responsiveOrderFilter } from "./responsive.js"
-=======
-import { responsiveOrderFilter } from "./responsive.js";
->>>>>>> 9445b3eded5f3c802f8a241ecc4c298ce4f2f5ef
+
+// import { responsiveOrderFilter } from "./responsive.js";
+
 function start() {
   anhMinh();
 }
