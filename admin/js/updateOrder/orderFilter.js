@@ -121,7 +121,7 @@ export function filterOrders(){
             orderFilterForm["start-date"].onfocus = () => {
                 orderFilterForm["start-date"].style.borderColor = "black";
             }
-            return;
+            return [];
         }
     }
     const filteredOrders = orderList.filter((order) => {
