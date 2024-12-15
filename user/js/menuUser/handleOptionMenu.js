@@ -66,7 +66,7 @@ export function checkEmail(value){
   }
   else{
       let tmp = value.slice(i, value.length);
-      if(tmp !== ".com.vn") return false;
+      if(tmp !== ".com.vn" && tmp !== ".edu.vn") return false;
   }
 
   return true;

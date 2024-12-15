@@ -11,8 +11,10 @@ export function createNotificationAdmin(mess) {
         idTimeout = null;
     }
 
+
     if(idTimeout) clearTimeout(idTimeout);
     idTimeout = setTimeout(removeNoti, 2000);
+
 
 
    // Tạo container nếu chưa có

@@ -8,15 +8,25 @@ export function deleteCustomer(currentPage) {
     document.querySelectorAll(".delete-customer").forEach((obj) => {
         obj.onclick = (e) => {
             e.preventDefault();
-            let index = parseInt(obj.getAttribute("index-item"));
+            // let index = parseInt(obj.getAttribute("index-item"));
+            let userList = JSON.parse(localStorage.getItem("userList"));
+            let parent = obj.parentElement.parentElement;
+            let username = parent.querySelector("#username");
+            let index = userList.findIndex((obj) => {
+                return obj.username === username.textContent;
+            })
             let container = document.createElement("div");
             container.className = "container-delete-customer";
             container.innerHTML = `
                 <div class="form-delete-customer">
                     <div class="content-delete-customer">
-                        <span>Bạn có muốn xóa không ?</span>
-                        <button class="yes">Có</button>
-                        <button class="no">Không</button>
+                        <div>
+                            <span>Bạn có muốn xóa không ?</span>
+                        </div>
+                        <div>
+                            <button class="yes">Có</button>
+                            <button class="no">Không</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -27,13 +37,13 @@ export function deleteCustomer(currentPage) {
             document.querySelector(".container-delete-customer .yes").onclick = () => {
                 let result = handleDeleteCustomer(index);
                 if(result){
-                    createNotificationAdmin("Xóa thành công");
+                    createNotificationAdmin("Xóa thành công", "success");
                 }
                 else createNotificationAdmin("Không thể xóa");
                 document.querySelector(".container-delete-customer").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
-                pagination(userList, currentPage, showListCustomer, "#main-content-customer");
+                pagination(userList, 1, showListCustomer, "#main-content-customer");
             };
         };
     });
@@ -44,7 +54,12 @@ export function editCustomer(currentPage) {
         let userList = JSON.parse(localStorage.getItem("userList"));
         obj.onclick = (e) => {
             e.preventDefault();
-            let index = parseInt(obj.getAttribute("index-item"));
+            // let index = parseInt(obj.getAttribute("index-item"));
+            let parent = obj.parentElement.parentElement;
+            let username = parent.querySelector("#username");
+            let index = userList.findIndex((obj) => {
+                return obj.username === username.textContent;
+            })
             createFormAddEdit();
             document.querySelector(".container-form-user-add-edit .username-customer").value = userList[index].username;
             document.querySelector(".container-form-user-add-edit .password-customer").value = userList[index].password;
@@ -70,7 +85,7 @@ export function editCustomer(currentPage) {
                 let result = handleEditCustomer(index);
                 if(result){
                     document.querySelector(".container-form-user-add-edit").remove();
-                    createNotificationAdmin("Sửa thông tin thành công!");
+                    createNotificationAdmin("Sửa thông tin thành công!", "success");
                     userList = JSON.parse(localStorage.getItem("userList"));
                     showMain("main-content-customer");
 				    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
@@ -88,7 +103,7 @@ export function addCustomer(){
             let result = handleAddCustomer();
             if(result){
                 document.querySelector(".container-form-user-add-edit").remove();
-                createNotificationAdmin("Thêm khách hàng thành công!");
+                createNotificationAdmin("Thêm khách hàng thành công!", "success");
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
 				pagination(userList, Math.ceil(userList.length/7), showListCustomer, "#main-content-customer");
@@ -100,15 +115,15 @@ export function addCustomer(){
 export function searchCustomer(){
     document.querySelector(".search-customer a").onclick = (e) => {
         e.preventDefault();
-        let value = document.querySelector(".search-customer input").value;
+        let value = document.querySelector(".search-customer input").value.trim();
         let userList = JSON.parse(localStorage.getItem("userList"));
         let arr = userList.filter((obj) => {
             return (!value || obj.username.toLowerCase() === value.toLowerCase());
         });
         pagination(arr, 1, showListCustomer, "#main-content-customer");
-        if(arr.length === 0){
-            createNotificationAdmin("Không tìm thấy");
-        }
+        // if(arr.length === 0){
+        //     createNotificationAdmin("Không tìm thấy");
+        // }
         // if(i>=0){
         //     let currentPage;
         //     if(currentPage === 0) currentPage = 1;
@@ -157,16 +172,25 @@ export function blockCustomer(currentPage){
         obj.onclick = (e) => {
             e.preventDefault();
             let userList = JSON.parse(localStorage.getItem("userList"));
-            let index = parseInt(obj.getAttribute("index-item"));
+            // let index = parseInt(obj.getAttribute("index-item"));
+            let parent = obj.parentElement.parentElement;
+            let username = parent.querySelector("#username");
+            let index = userList.findIndex((obj) => {
+                return obj.username === username.textContent;
+            })
             if(!document.querySelector(".container-delete-customer")){
                 let container = document.createElement("div");
                 container.className = "container-delete-customer";
                 container.innerHTML = `
                     <div class="form-delete-customer">
                         <div class="content-delete-customer">
-                            <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
-                            <button class="yes">Có</button>
-                            <button class="no">Không</button>
+                            <div>
+                                <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
+                            </div>
+                            <div>
+                                <button class="yes">Có</button>
+                                <button class="no">Không</button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -180,7 +204,7 @@ export function blockCustomer(currentPage){
                 document.querySelector(".container-delete-customer").remove();
                 userList = JSON.parse(localStorage.getItem("userList"));
                 pagination(userList, currentPage, showListCustomer, "#main-content-customer");
-                createNotificationAdmin(`${userList[index].blockStatus ? "Khóa" : "Mở khóa"} người dùng thành công`);
+                createNotificationAdmin(`${userList[index].blockStatus ? "Khóa" : "Mở khóa"} người dùng thành công`, "success");
             };
         };
     });
@@ -236,7 +260,6 @@ export function filterCustomer(){
                 check = true;
             }
             else check = false;
-            console.log(check)
             return (type === "all" || type === obj.type)
                 && (status === "all" || check === obj.blockStatus)
         });
@@ -246,7 +269,6 @@ export function filterCustomer(){
         e.preventDefault();
         let type = document.querySelector(".type select").value;
         let status = document.querySelector(".status-account select").value;
-        console.log(status)
         let arr = filterData(type, status);
         pagination(arr, 1, showListCustomer, "#main-content-customer");
     }

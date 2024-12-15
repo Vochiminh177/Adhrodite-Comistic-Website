@@ -56,7 +56,7 @@ function checkEmail(value){
     }
     else{
         let tmp = value.slice(i, value.length);
-        if(tmp !== ".com.vn") return false;
+        if(tmp !== ".com.vn" && tmp !== ".edu.vn") return false;
     }
 
     return true;
@@ -92,15 +92,15 @@ export function handleEditCustomer(index) {
     }
     userList.forEach((obj, i) => {
         if (index != i) {
-            if (obj.username === username.value) {
+            if (obj.username === username.value.toLowerCase().trim()) {
                 check.status = true;
                 check.messUsername = "Tài khoản đã tồn tại";
             }
-            if (obj.phone === phone.value) {
+            if (obj.phone === phone.value.trim()) {
                 check.status = true;
                 check.messPhone = "Số điện thoại đã tồn tại";
             }
-            if (obj.email === email.value) {
+            if (obj.email === email.value.toLowerCase().trim()) {
                 check.status = true;
                 check.messEmail = "Email đã tồn tại";
             }
@@ -120,19 +120,19 @@ export function handleEditCustomer(index) {
     }
 
     //nếu tất cả ổn
-    userList[index].username = username.value;
-    userList[index].password = password.value;
-    userList[index].phone = phone.value;
-    userList[index].first_name = firstName.value;
-    userList[index].last_name = lastName.value;
+    userList[index].username = username.value.trim();
+    userList[index].password = password.value.trim();
+    userList[index].phone = phone.value.trim();
+    userList[index].first_name = firstName.value.trim();
+    userList[index].last_name = lastName.value.trim();
     let objType = {
         0: "customer",
         1: "employer",
         2: "admin"
     }
     userList[index].type = objType[type.value];
-    userList[index].email = email.value;
-    userList[index].address = address.value;
+    userList[index].email = email.value.trim();
+    userList[index].address = address.value.trim();
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
@@ -158,33 +158,27 @@ export function handleAddCustomer() {
         checkEmail: null
     }
     userList.forEach((obj) => {
-        if (obj.username == username.value) {
+        if (obj.username == username.value.toLowerCase().trim()) {
             check.status = true;
             check.messUsername = "Tài khoản đã tồn tại";
-            console.log(123);
         }
-        if (obj.phone == phone.value) {
+        if (obj.phone == phone.value.trim()) {
             check.status = true;
             check.messPhone = "Số điện thoại đã tồn tại";
-            console.log(123);
         }
-        if (obj.email === email.value) {
+        if (obj.email === email.value.toLowerCase().trim()) {
             check.status = true;
             check.messEmail = "Email đã tồn tại";
-            console.log(123);
         }
     });
     if (check.status) {
         if (check.messPhone != null) {
-            console.log(123);
             err_input(phone, check.messPhone);
         }
         if (check.messUsername != null) {
-            console.log(123);
             err_input(username, check.messUsername);
         }
         if(checkEmail.messEmail !== null){
-            console.log(123);
             err_input(email, check.messEmail);
         }
         return false;
@@ -195,8 +189,7 @@ export function handleAddCustomer() {
     while(userList.some((obj) => {
         return obj.id === id;
     })){
-        console.log(123);
-        id = Math.floor(Math.random() * userList.length+1) + 1;
+        id = Math.floor(Math.random() * (userList.length+1)) + 1;
     }
 
     let objType = {
@@ -210,14 +203,14 @@ export function handleAddCustomer() {
         blockStatus: false,
         statusLogin: false,
         id: id,
-        username: username.value,
-        password: password.value,
-        email: email.value,
-        address: address.value,
-        first_name: firstName.value,
-        last_name: lastName.value,
-        phone: phone.value,
-        shoppingCart: [],
+        username: username.value.trim(),
+        password: password.value.trim(),
+        email: email.value.trim(),
+        first_name: firstName.value.trim(),
+        last_name: lastName.value.trim(),
+        phone: phone.value.trim(),
+        address: address.value.trim(),
+        shoppingCart: []
     }
     userList.push(data);
     localStorage.setItem("userList", JSON.stringify(userList));
@@ -243,27 +236,27 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
         return false;
     }
   
-   for(const char of firstName.value){
-    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+   for(const char of firstName.value.trim()){
+    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ ]/.test(char)){
       err_input(firstName, "Cần nhập chữ");
       return;
     }
   }
-  for(const char of lastName.value){
-    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/.test(char)){
+  for(const char of lastName.value.trim()){
+    if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ ]/.test(char)){
       err_input(lastName, "Cần nhập chữ");
       return;
     }
   }
 
     //nếu không đúng số điện thoại
-    let checkPhone = checkNumberPhone(phone.value);
+    let checkPhone = checkNumberPhone(phone.value.trim());
     if(!checkPhone){
         err_input(phone, "Sai định dạng");
         return false;
     }
 
-    if(!checkEmail(email.value)){
+    if(!checkEmail(email.value.trim())){
         err_input(email, "Email cần đúng định dạng");
         return false;
     }
