@@ -77,58 +77,67 @@ function Filter() {
         document.getElementById('to-date').value = "";
         objectIdInput.value = '';
     });
-
 }
 
-function filterOrders(orderList, filters) {
-    const { orderId, startDate, endDate, sortByTotalPrice } = filters;
+function filterForOrder(orderList, sortBy, n, startDate, endDate) {
+    // Chuyển startDate và endDate thành đối tượng Date (nếu có) với format MM/dd/yyyy
+    let start = startDate ? new Date(startDate) : null;
+    let end = endDate ? new Date(endDate) : null;
 
-    if (startDate && endDate) {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        if (end < start) {
-            console.error("Ngày kết thúc phải bằng hoặc sau ngày bắt đầu.");
-            return []; // Trả về danh sách rỗng nếu điều kiện không hợp lệ
+    // Kiểm tra nếu ngày kết thúc trước ngày bắt đầu
+    if (start && end && end < start) {
+        createNotificationAdmin("Ngày kết thúc không được trước ngày bắt đầu!");
+    }
+
+    // Lọc danh sách sản phẩm theo khoảng thời gian
+    let filteredList = orderList.filter(order => {
+        let [time, date] = order.orderDate.split(" "); // Tách thời gian và ngày
+        let [day, month, year] = date.split("/");      // Chuyển từ "dd/MM/yyyy" về dạng "MM/dd/yyyy"
+        let orderDate = new Date(`${month}/${day}/${year} ${time}`); // Tạo đối tượng Date hợp lệ
+
+        if (start && end) {
+            return orderDate >= start && orderDate <= end;
+        } else if (start) {
+            return orderDate >= start;
+        } else if (end) {
+            return orderDate <= end;
         }
+        return true; // Không có điều kiện lọc
+    });
+
+    // Sắp xếp danh sách theo tiêu chí được chọn
+    switch (sortBy) {
+        case 'asc':
+            filteredList.sort((a, b) => a.orderTotalPrice - b.orderTotalPrice); // Sắp xếp giá tăng dần
+            break;
+        case 'desc':
+        case '':
+            filteredList.sort((a, b) => b.orderTotalPrice - a.orderTotalPrice); // Sắp xếp giá giảm dần
+            break;
+        case 'az':
+            filteredList.sort((a, b) => a.name.localeCompare(b.name)); // Sắp xếp theo tên từ A-Z
+            break;
+        case 'za':
+            filteredList.sort((a, b) => b.name.localeCompare(a.name)); // Sắp xếp theo tên từ Z-A
+            break;
+        default:
+            filteredList.sort((a, b) => b.orderTotalPrice - a.orderTotalPrice); // Mặc định sắp xếp giá giảm dần
     }
 
-    // Bắt đầu lọc dữ liệu
-    let filteredOrders = orderList;
-
-    // Lọc theo mã đơn (nếu có)
-    if (orderId) {
-        filteredOrders = filteredOrders.filter(order => order.orderId === orderId);
+    // Giới hạn kết quả nếu n > 0
+    if (n && Number.isInteger(n) && n > 0) {
+        return filteredList.slice(0, n);
     }
 
-    // Lọc theo khoảng ngày (nếu có)
-    if (startDate || endDate) {
-        filteredOrders = filteredOrders.filter(order => {
-            const orderDate = new Date(order.orderDate); // Chuyển `orderDate` sang đối tượng Date
-            const start = startDate ? new Date(startDate) : null;
-            const end = endDate ? new Date(endDate) : null;
-
-            return (!start || orderDate >= start) && (!end || orderDate <= end);
-        });
-    }
-
-    // Sắp xếp theo tổng tiền đơn hàng (tăng dần hoặc giảm dần)
-    if (sortByTotalPrice) {
-        filteredOrders = filteredOrders.sort((a, b) => {
-            return sortByTotalPrice === "asc"
-                ? a.orderTotalPrice - b.orderTotalPrice
-                : b.orderTotalPrice - a.orderTotalPrice;
-        });
-    }
-
-    return filteredOrders;
+    return filteredList; // Trả về toàn bộ danh sách
 }
 
-export function getValidOrders() {
+function getValidOrders() {
     let orderList = JSON.parse(localStorage.getItem('orderList'));
     return orderList.filter(order => order.orderStatus !== "pending" && order.orderStatus !== "canceled");
 }
 
-export function generateProductStatistics(productList, sortBy, n, startDate, endDate) {
+function generateProductStatistics(productList, sortBy, n, startDate, endDate) {
     let productReport = {};
 
     // Chuyển startDate và endDate thành đối tượng Date (nếu có) với format MM/dd/yyyy
@@ -208,7 +217,7 @@ export function generateProductStatistics(productList, sortBy, n, startDate, end
     return sortedReport; // Trả về toàn bộ kết quả
 }
 
-export function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate) {
+function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate) {
     let customerReport = {};
 
     // Chuyển startDate và endDate thành đối tượng Date (nếu có)
@@ -337,70 +346,6 @@ function updateDashboardHighlights(orderList, productStatistics) {
     }
 }
 
-function filterByDate() {
-
-    const doneOrder = getNonPendingOrders(JSON.parse(localStorage.getItem('orderList')));
-    const fromDateInput = document.getElementById('from-date');
-    const toDateInput = document.getElementById('to-date');
-
-    // Lắng nghe sự kiện input cho fromDateInput
-    fromDateInput.addEventListener('input', () => {
-        if (fromDateInput.value === '' && toDateInput.value === '') {
-            pagination(doneOrder, 1, showListOrder, "#main-content-dashboard-orderList");
-        }
-    });
-
-    // Lắng nghe sự kiện input cho toDateInput
-    toDateInput.addEventListener('input', () => {
-        if (fromDateInput.value === '' && toDateInput.value === '') {
-            pagination(doneOrder, 1, showListOrder, "#main-content-dashboard-orderList");
-        }
-    });
-
-    // Lắng nghe sự kiện click trên filter button
-    document.querySelectorAll("#filterBtn").forEach((button) => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            // Lấy giá trị từ input và chuyển thành đối tượng Date
-            const fromDate = fromDateInput.value ? new Date(fromDateInput.value) : null;
-            const toDate = toDateInput.value ? new Date(toDateInput.value) : null;
-
-            // Kiểm tra nếu cả hai ngày đều trống
-            if (!fromDate && !toDate) {
-                createNotificationAdmin("Vui lòng chọn ít nhất một ngày!");
-                return;
-            }
-
-            // Kiểm tra nếu khoảng ngày không hợp lệ
-            if (fromDate && toDate && fromDate > toDate) {
-                createNotificationAdmin("Ngày bắt đầu không được lớn hơn ngày kết thúc!");
-                return;
-            }
-
-            // Lọc danh sách đơn hàng theo ngày
-            const filteredOrders = doneOrder.filter((order) => {
-                const orderDate = new Date(order.date); // Chuyển đổi ngày của đơn hàng
-                if (fromDate && !toDate) {
-                    return orderDate >= fromDate;
-                } else if (!fromDate && toDate) {
-                    return orderDate <= toDate;
-                } else if (fromDate && toDate) {
-                    return orderDate >= fromDate && orderDate <= toDate;
-                }
-                return false;
-            });
-
-            // Hiển thị kết quả
-            if (filteredOrders.length === 0) {
-                createNotificationAdmin("Không có đơn hàng thỏa điều kiện!");
-            } else {
-                pagination(filteredOrders, 1, showListOrder, "#main-content-dashboard-orderList");
-            }
-        });
-    });
-}
-
 function search() {
     document.getElementById('object-id').addEventListener('keydown', function (event) {
         if (event.key === "Enter") {
@@ -485,9 +430,9 @@ export function showOrdersListByProductId() {
             const productId = button.getAttribute("data-product-id");
 
             // Lọc các đơn hàng theo mã sản phẩm
-            const ordersForProduct = validOrderList.filter(order =>
-                order.orderProduct.some(product => product.id === productId)
-            );
+            const ordersForProduct = filterForOrder(validOrderList.filter(order =>
+                order.orderProduct.some(product => product.id === productId)));
+
             showMain("main-content-dashboard-orderList");
 
             // Quay lại trang trướctrước
@@ -496,6 +441,32 @@ export function showOrdersListByProductId() {
                 pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
             };
             pagination(ordersForProduct, 1, showListOrder, "#main-content-dashboard-orderList");
+
+            document.getElementById('filterBtn').addEventListener('click', () => {
+                // Lấy các giá trị từ giao diện
+                const sortType = document.getElementById('sortType').value || null;
+                const rowCount = parseInt(document.getElementById('row-count').value) || null;
+                const startDate = document.getElementById('from-date').value || null;
+                const endDate = document.getElementById('to-date').value || null;
+
+                // Sao chép danh sách để không thay đổi dữ liệu gốc
+                let filteredOrders = [];
+
+                // Lọc theo input
+                filteredOrders = filterForOrder(ordersForProduct, sortType, rowCount, startDate, endDate);
+                pagination(filteredOrders, 1, showListOrder, "#main-content-dashboard-orderList");
+            });
+
+            document.getElementById('resetBtn').addEventListener('click', () => {
+
+                pagination(ordersForProduct, 1, showListOrder, "#main-content-dashboard-orderList");
+
+                // Reset các input khác về trạng thái mặc định
+                document.getElementById('sortType').value = 'desc';
+                document.getElementById('row-count').value = '';
+                document.getElementById('from-date').value = "";
+                document.getElementById('to-date').value = "";
+            });
         });
     });
 }
@@ -506,7 +477,7 @@ export function showOrdersListByCustomerId() {
             e.preventDefault();
             let doneOrder = getValidOrders();
             const customerId = button.getAttribute("data-customer-id");
-            const ordersForCustomer = doneOrder.filter(order => String(order.customerId) === customerId);
+            const ordersForCustomer = filterForOrder(doneOrder.filter(order => String(order.customerId) === customerId));
 
             showMain("main-content-dashboard-orderList");
 
@@ -516,6 +487,32 @@ export function showOrdersListByCustomerId() {
                 pagination(customerStatistics, 1, showCustomerStatistics, "#main-content-dashboard");
             };
             pagination(ordersForCustomer, 1, showListOrder, "#main-content-dashboard-orderList");
+
+            document.getElementById('filterBtn').addEventListener('click', () => {
+                // Lấy các giá trị từ giao diện
+                const sortType = document.getElementById('sortType').value || null;
+                const rowCount = parseInt(document.getElementById('row-count').value) || null;
+                const startDate = document.getElementById('from-date').value || null;
+                const endDate = document.getElementById('to-date').value || null;
+
+                // Sao chép danh sách để không thay đổi dữ liệu gốc
+                let filteredOrders = [];
+
+                // Lọc theo input
+                filteredOrders = filterForOrder(ordersForCustomer, sortType, rowCount, startDate, endDate);
+                pagination(filteredOrders, 1, showListOrder, "#main-content-dashboard-orderList");
+            });
+
+            document.getElementById('resetBtn').addEventListener('click', () => {
+
+                pagination(ordersForCustomer, 1, showListOrder, "#main-content-dashboard-orderList");
+
+                // Reset các input khác về trạng thái mặc định
+                document.getElementById('sortType').value = 'desc';
+                document.getElementById('row-count').value = '';
+                document.getElementById('from-date').value = "";
+                document.getElementById('to-date').value = "";
+            });
         });
     });
 }
