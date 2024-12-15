@@ -43,7 +43,7 @@ export function deleteCustomer(currentPage) {
                 document.querySelector(".container-delete-customer").remove();
                 let userList = JSON.parse(localStorage.getItem("userList"));
                 showMain("main-content-customer");
-                pagination(userList, 1, showListCustomer, "#main-content-customer");
+                pagination(userList, currentPage, showListCustomer, "#main-content-customer");
             };
         };
     });

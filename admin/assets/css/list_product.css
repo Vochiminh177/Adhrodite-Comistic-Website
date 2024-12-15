@@ -231,7 +231,7 @@
 /* ------------------------------------------*/
 
 /* --------------------responsive-------------------- */
-.product-list-table tbody tr td{
+.product-list-table tbody tr td:first-child{
   justify-content: center;
 }
 
