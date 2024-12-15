@@ -98,16 +98,16 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
     const orderConfirmMessage = document.getElementById("order-confirm-modal-message");
     if(orderConfirmMessage){
       if(newStatus === "accepted"){
-        orderConfirmMessage.innerHTML = `Xác nhận đã xác nhận đơn hàng ?`;
+        orderConfirmMessage.innerHTML = `Xác nhận đơn hàng ?`;
       } else
       if(newStatus === "canceled"){
-        orderConfirmMessage.innerHTML = `Xác nhận đã huỷ đơn hàng ?`;
+        orderConfirmMessage.innerHTML = `Xác nhận huỷ đơn hàng ?`;
       } else
       if(newStatus === "shipped"){
         orderConfirmMessage.innerHTML = `Xác nhận đã giao đơn hàng ?`;
       } else
       if(newStatus === "delete"){
-        orderConfirmMessage.innerHTML = `Xác nhận đã xoá đơn hàng ?`;
+        orderConfirmMessage.innerHTML = `Xác nhận xoá đơn hàng ?`;
       }
     } else{
       //console.error(`#order-confirm-message not found!`);

@@ -14,7 +14,11 @@ import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 // import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
+<<<<<<< HEAD
 import { responsiveOrderFilter } from "./responsive.js"
+=======
+import { responsiveOrderFilter } from "./responsive.js";
+>>>>>>> 9445b3eded5f3c802f8a241ecc4c298ce4f2f5ef
 function start() {
   anhMinh();
 }
@@ -314,7 +318,7 @@ export function showMain(sectionId) {
                         <!-- Các sản phẩm -->
                         <section class="product-info" id="product-info">
                             <h3>Chi tiết Sản Phẩm</h3>
-                            <table class="product-table">
+                            <table class="order-product-table">
                                 <thead>
                                     <tr>
                                         <th>Mã sản phẩm</th>
@@ -379,21 +383,23 @@ export function showMain(sectionId) {
                         <div class="content-filter">
                         </div>
                     </div>
-                    <table class="product-list-table">
-                        <thead>
-                          <tr>
-                              <th class="picture-list">Hình ảnh</th>
-                              <th class="id-list">Mã</th>
-                              <th class="name-list">Tên</th>
-                              <th class="brand-list">Thương hiệu</th>
-                              <th class="category-list">Danh mục</th>
-                              <th class="price-list">Giá</th>
-                              <th class="quantity-list">Số lượng</th>
-                              <th class="option-list">Tùy chỉnh</th>
-                          </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="product-table">
+                      <table class="product-list-table">
+                          <thead>
+                            <tr>
+                                <th class="picture-list">Hình ảnh</th>
+                                <th class="id-list">Mã</th>
+                                <th class="name-list">Tên</th>
+                                <th class="brand-list">Thương hiệu</th>
+                                <th class="category-list">Danh mục</th>
+                                <th class="price-list">Giá</th>
+                                <th class="quantity-list">Số lượng</th>
+                                <th class="option-list">Tùy chỉnh</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                      </table>
+                    </div>
 					<div class="list-page"></div>
                 </div>
             </div>
@@ -453,7 +459,7 @@ export function showMain(sectionId) {
 						<!-- Các sản phẩm -->
 						<section class="product-info" id="product-info">
 							<h3>Chi tiết Sản Phẩm</h3>
-							<table class="product-table">
+							<table class="order-product-table">
 								<thead>
 									<tr>
 						 					<th>Mã sản phẩm</th>
@@ -607,6 +613,7 @@ export function showMain(sectionId) {
           </div>
 				</div>
                 <div class="content-customer-list">
+                  <div class="customer-table">
                     <table class="content-customer-table">
                       <thead>
                         <tr>
@@ -619,6 +626,7 @@ export function showMain(sectionId) {
                       </thead>
                       <tbody></tbody>
                     </table>
+                  </div>
 					<div class="list-page"></div>
                 </div>
             </div>

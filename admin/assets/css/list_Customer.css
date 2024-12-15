@@ -5,6 +5,17 @@
   margin: 0px;
   padding: 0px;
 }
+
+/* --------------------------css phần div bảng danh sách tài khoản-------------------------- */
+.customer-table{
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  min-height: 450px;
+  border-radius: 8px;
+}
+/* -------------------------- */
 /* css nút thêm khách hàng  */
 #main-content-customer button, .form-user-add-edit button{
   transition: background-color 0.2s ease;
@@ -182,6 +193,8 @@
   border-radius: 5px;
   font-size: 0.9rem;
 }
+
+
 /* -----------css phần lọc--------------- */
 #filter-customer{
   gap: 10px;
