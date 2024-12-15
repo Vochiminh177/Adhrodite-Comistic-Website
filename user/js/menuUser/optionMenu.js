@@ -7,9 +7,8 @@ import { updateMainContent } from "../home-js/changeMainContent.js";
 //hàm tạo thông báo
 let idTimeout = null;
 export function create_notification_user(mess) {
-
   const notification = document.getElementById("empty-notification");
-  notification.className = "notification active";
+  notification.className = "active";
   notification.innerHTML = mess;
 
   function removeNoti(){
@@ -19,7 +18,7 @@ export function create_notification_user(mess) {
   }
 
   if(idTimeout) clearTimeout(idTimeout);
-  idTimeout = setTimeout(removeNoti, 2000);
+  idTimeout = setTimeout(removeNoti, 1100);
 }
 
 //-----------------------------------OPTION USER----------------------------------------

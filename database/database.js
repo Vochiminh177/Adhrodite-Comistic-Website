@@ -684,7 +684,7 @@ export let userList = [
     remember_password: false,
     first_name: "Andrew",
     last_name: "Huy",
-    phone: "1234567891",
+    phone: "0965625229",
     address: "TPHCM",
     shoppingCart: [],
   },
@@ -711,7 +711,7 @@ export let userList = [
     "email": "No@gmail.com",
     "first_name": "No",
     "last_name": "game",
-    "phone": "1234567892",
+    "phone": "0965625222",
     "shoppingCart": [],
     "address": "67, Phường Hàng Bạc, Quận Hoàn Kiếm, Thủ đô Hà Nội"
   },
@@ -724,7 +724,7 @@ export let userList = [
     "email": "a@gmail.com",
     "first_name": "thanh",
     "last_name": "cong",
-    "phone": "1234567888",
+    "phone": "0965625999",
     "shoppingCart": [],
     "address": "35/5, Phường 15, Quận 10, Thành phố Hồ Chí Minh"
   },
