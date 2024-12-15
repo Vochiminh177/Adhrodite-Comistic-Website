@@ -271,13 +271,12 @@ export function searchProduct() {
         let value = document.querySelector("#search-product-id").value.trim();
         let productList = JSON.parse(localStorage.getItem("productList"));
         let arr = productList.filter((obj) => {
-            return obj.id.toLowerCase() === value.toLowerCase();
+            return (!value || obj.id.toLowerCase() === value.toLowerCase());
         });
         pagination(arr, 1, showListProduct, "#main-content-product-list");
         if(arr.length === 0){
-            createNotificationAdmin("Không tìm thấy", "error");
+            createNotificationAdmin("Không tìm thấy");
         }     
-
         // let currentPage;
         // if(i==0) currentPage = 1;
         // else currentPage = Math.ceil((i+1)/7);

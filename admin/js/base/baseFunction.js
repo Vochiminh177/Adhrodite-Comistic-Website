@@ -1,20 +1,18 @@
-let idTimeout;
+let idTimeout = null;
 //hàm tạo thông báo
-export function createNotificationAdmin(mess, status) {
+export function createNotificationAdmin(mess) {
     let ele = document.querySelector("#empty-notification");
-    if(status === "success"){
-        ele.style.backgroundColor = "rgb(83, 194, 83)";
-    }
-    else ele.style.backgroundColor = "#e27373";
     ele.innerHTML = mess;
     ele.className = "notification";
 
-    function createNotifi(){
+    function removeNoti(){
         ele.innerHTML = "";
         ele.classList.remove("notification");
+        idTimeout = null;
     }
-    if(idTimeout) clearTimeout(createNotifi);
-    else idTimeout = setTimeout(createNotifi, 2000);
+
+    if(idTimeout) clearTimeout(idTimeout);
+    idTimeout = setTimeout(removeNoti, 2000);
 
 
    // Tạo container nếu chưa có

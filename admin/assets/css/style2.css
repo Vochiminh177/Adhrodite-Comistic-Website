@@ -281,9 +281,8 @@ body {
 
 /* ----------Hiệu---- */
 .notification{
-  /* background-color: #e27373;
-  background-color: rgb(83, 194, 83); */
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   position: fixed;
   right: 30px;
   top: 30px;

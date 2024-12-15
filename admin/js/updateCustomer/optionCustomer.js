@@ -103,10 +103,12 @@ export function searchCustomer(){
         let value = document.querySelector(".search-customer input").value;
         let userList = JSON.parse(localStorage.getItem("userList"));
         let arr = userList.filter((obj) => {
-            return obj.username.toLowerCase() === value.toLowerCase();
+            return (!value || obj.username.toLowerCase() === value.toLowerCase());
         });
         pagination(arr, 1, showListCustomer, "#main-content-customer");
-
+        if(arr.length === 0){
+            createNotificationAdmin("Không tìm thấy");
+        }
         // if(i>=0){
         //     let currentPage;
         //     if(currentPage === 0) currentPage = 1;
