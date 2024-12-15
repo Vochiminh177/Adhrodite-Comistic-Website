@@ -131,11 +131,15 @@
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  width: 50%;
+  width: 100%;
+  min-width: 500px;
 }
 /*---------- css phần tìm kiếm ----------------*/
+.search-product.search-id{
+  width: 50%;
+}
 .search-product input {
-  /* width: 70%; */
+  width: calc(100% - 100px);
   padding: 10px;
   font-size: 1rem;
   border: none;
@@ -170,6 +174,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.content-filter input{
+  width: 20%;
+}
 #main-content-product-list .filter-product a {
   cursor: pointer;
   background-color: #000;
@@ -186,8 +194,10 @@
   display: flex;
   width: 40%;
   align-items: center;
+  margin-right: 10px;
 }
 .filter-product .category select, .filter-product .brand select{
+  flex-grow: 1;
   width: 50%;
   margin: 0px;
 }
@@ -210,6 +220,9 @@
 /* ------------------------------------------*/
 
 /* --------------------reponsive-------------------- */
+.product-list-table tbody tr td{
+  justify-content: center;
+}
 
 @media screen and (min-width: 700px) and (max-width: 1051px) {
   .container-notification p {
@@ -377,6 +390,39 @@
 
 /* =============================mobile */
 
+@media screen and (max-width: 500px) {
+  .content-product-row{
+    flex-direction: column-reverse;
+  }
+  .content-product-row .search-product.search-id{
+    width: 100%;
+    margin-top: 10px;
+  }
+  .content-product-row .search-product.search-id input{
+    width: calc(100% - 100px);
+  }
+
+  .content-filter{
+    flex-wrap: wrap;
+  }
+
+  #main-content-product-list .filter-product .category, .filter-product .brand{ 
+    width: 45%;
+    margin-right: 0;
+  }
+  .filter-product .content-filter a,
+  .filter-product .content-filter input{
+    width: 45%;
+  }
+  .content-filter .brand {
+    width: 45%;
+    margin-right: 0;
+  }
+
+ 
+}
+
+
 @media screen and (max-width: 700px) {
   .container-notification p {
     font-size: 1.2rem;
@@ -398,43 +444,63 @@
   .filter-product #select-product-filter-category,
   #select-product-filter-brand,
   #input-filter-quantity {
-    width: calc(100% - 30px);
     border-radius: 4px;
+    text-align: center;
   }
 
-
-  /* .content-filter.active{
-  } */
-
-  .search-product  {
+  #select-product-filter-category,
+  #select-product-filter-brand{
     width: 100%;
-  }
-  .search-product input{
-    width: calc(100% - 110px);
+    margin-top: 5px;
+  
   }
 
-  .btn.btn-add-product{
-    width: 100%;
+  .filter-product a{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .search-product a {
-    width: 30px;
+  
+  .filter-product input{
+    margin-top: 20px;
+    width: 20%;
+    height: 40px;
+    display: flex;
+    
   }
-  .search-product {
-    width: calc(100% - 28px*2 -50px);
-  }
+
+
+ 
+
+
+  
   .content-product-row{
     display: flex;
-    flex-direction: column-reverse;
+    width: 100%;
+    min-width: 0;
   }
-  .search-product input {
-    width: 50%;
+  .btn.btn-add-product{
+    width: 30%;
+    min-width: 140px;
   }
-  .search-product a {
-    width: 20%;
+  .search-product.search-id{
+    width: calc(100% - 140px);
   }
-  .search-product {
-    width: calc(100% - 28px * 2 -50px);
+  .search-product.search-id input{
+    width: 60%;
+    flex-grow: 1;
   }
+  /* .search-product.search-id a{
+    width: 50px;
+  } */
+ 
+  .category,
+  .brand{
+    flex-direction: column;
+  }
+
+
   .main-content-product-list {
     padding: 0;
   }

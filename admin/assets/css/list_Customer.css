@@ -137,8 +137,13 @@
 #main-content-customer-add .title a:hover {
   color: #000;
 }
+
+.btn.btn-add-product.btn-add-customer{
+  min-width: 150px;
+}
 /* ------------------------------------------ */
 .customer-row {
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -148,11 +153,16 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
+.search-customer{
+  display: flex;
+  width: 100%;
+}
+
 /*-----------------css phần tìm kiếm--------------------*/
 .search-customer input {
   padding: 10px;
   font-size: 1rem;
-  /* width: 100%; */
+  width: calc(50% - 100px);
   border: none;
   outline: none;
   border-bottom: 1px solid #000;
@@ -160,6 +170,9 @@
 }
 .search-customer input:hover {
   background-color: #ccc;
+}
+.search-customer button {
+  margin-left: auto;
 }
 .search-customer a {
   background-color: #000;
@@ -171,7 +184,8 @@
 }
 /* -----------css phần lọc--------------- */
 #filter-customer{
-  width: 50%;
+  gap: 10px;
+  width: 100%;
 }
 #filter-customer select{
   padding: 0px;
@@ -180,19 +194,25 @@
 #filter-customer .content-filter{
   display: flex;
   justify-content: flex-start;
+  margin-top: 20px;
 }
 #filter-customer .content-filter p{
   font-size: 0.9rem;
   margin-right: 10px;
   text-wrap: nowrap;
 }
-#filter-customer .type, #filter-customer .status-account{
+.type{
+  margin-right: 5px;
+}
+.status-account p, .type p{
   display: flex;
   align-items: center;
+}
+#filter-customer .type, #filter-customer .status-account{
+  display: flex;
   width: 40%;
 }
 #filter-customer select{
-  margin-right: 10px;
   width: 100%;
 }
 #filter-customer a{
@@ -202,13 +222,15 @@
   border-radius: 5px;
   font-size: 1rem;
   transition: background-color 0.2s ease;
+  margin-left: auto;
 }
 #filter-customer a:hover{
   background-color: #a94064;
 }
 #filter-type-customer, #filter-status-block{
-  margin: 0px;
+  margin : 0;
   width: 40%;
+  text-align: center;
 }
 .customer-row .btn-add-customer{
   padding: 10px;
@@ -225,19 +247,53 @@
 }
 /* ------------------------------------------ */
 
-/* ================= chung cho mobile và table */
-@media screen and (max-width: 700px) {
-  .customer-row{
-    display: flex;
-    flex-direction: column-reverse;
-  }
+@media screen and (max-width: 500px) {
   .search-customer{
-    width: 100%;  
+    display: flex;
+    flex-wrap: wrap-reverse;
+  }
+  .search-customer button{
+    margin: 0 auto;
+    margin-bottom: 10px;
+
   }
   .search-customer input{
-    width: calc(100% - 106px);
-    
-  } 
+    width: calc(100% - 90px);
+  }
+  .status-account,
+  .type{
+    flex-direction: column;
+  }
+  
+  .status-account p,
+  .type p{
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+  .content-filter{
+    flex-wrap: wrap;
+  }
+  .type{
+    margin-right: 4%;
+  }
+  .filter-status-block{
+    margin-right: 0;
+  }
+  #filter-a-customer{
+    width: 48%;
+    margin-top: 10px;
+    text-align: center;
+  }
+ 
+  #filter-customer .type, #filter-customer .status-account{
+    width: 48%;
+  }
+}
+
+/* ================= chung cho mobile và table */
+@media screen and (max-width: 700px) {
+
+ 
   .content-customer-list table th {
     display: none;
   }

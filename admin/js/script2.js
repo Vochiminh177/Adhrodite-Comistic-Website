@@ -14,7 +14,7 @@ import { generateOrderFilter } from "./updateOrder/orderFilter.js";
 // import { generateOrderStatistic } from "./updateOrder/orderStatistic.js"
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
-
+import { responsiveOrderFilter } from "./responsive.js"
 function start() {
   anhMinh();
 }
@@ -581,6 +581,7 @@ export function showMain(sectionId) {
 					<div class="search-customer">
 						<input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
 						<a href="">Tìm kiếm</a>
+            <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
 					</div>
           <div id="filter-customer">
               <div class="content-filter">
@@ -604,7 +605,6 @@ export function showMain(sectionId) {
                 <a href="#" id="filter-a-customer">Lọc</a>
               </div>
           </div>
-					<button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
 				</div>
                 <div class="content-customer-list">
                     <table class="content-customer-table">
