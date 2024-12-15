@@ -269,57 +269,61 @@ export function searchProduct() {
         e.preventDefault();
         let value = document.querySelector("#search-product-id").value.trim();
         let productList = JSON.parse(localStorage.getItem("productList"));
-        let i = productList.findIndex((obj) => {
+        let arr = productList.filter((obj) => {
             return obj.id.toLowerCase() === value.toLowerCase();
         });
+        pagination(arr, 1, showListProduct, "#main-content-product-list");
+        if(arr.length === 0){
+            createNotificationAdmin("Không tìm thấy", "error");
+        }     
 
-        let currentPage;
-        if(i==0) currentPage = 1;
-        else currentPage = Math.ceil((i+1)/7);
+        // let currentPage;
+        // if(i==0) currentPage = 1;
+        // else currentPage = Math.ceil((i+1)/7);
 
-        if (i >= 0) {
-            showMain("main-content-product-add");
-            document.querySelector("#main-content-product-add .title h1").textContent = "Sửa sản phẩm";
-            document.querySelector(".comback-product").onclick = (e) => {
-                e.preventDefault();
-                showMain("main-content-product-list");
-                pagination(productList, currentPage,showListProduct, "#main-content-product-list");
-            }
+        // if (i >= 0) {
+        //     showMain("main-content-product-add");
+        //     document.querySelector("#main-content-product-add .title h1").textContent = "Sửa sản phẩm";
+        //     document.querySelector(".comback-product").onclick = (e) => {
+        //         e.preventDefault();
+        //         showMain("main-content-product-list");
+        //         pagination(productList, currentPage,showListProduct, "#main-content-product-list");
+        //     }
     
-            //gán giá trị hiện tại của sản phẩm vào input để admin dễ xử lý
-            document.querySelector(".name-add").value = productList[i].name;
-            document.querySelector(".price-add").value = productList[i].price;
-            document.querySelector("#category-add").value = productList[i].categoryID;
-            document.querySelector(".brand-add").value = productList[i].brand;
-            document.querySelector(".description-add").value = productList[i].desc;
-            document.querySelector(".id-add").value = productList[i].id;
-            document.querySelector(".quantity-add").value = productList[i].quantity;
-            document.querySelector(".percent-discount-add").value = productList[i].discountPercent;
-            document.querySelector(".quantity-discount-add").value = productList[i].discountQuantity;
-            path_picture_admin.src = productList[i].src;
+        //     //gán giá trị hiện tại của sản phẩm vào input để admin dễ xử lý
+        //     document.querySelector(".name-add").value = productList[i].name;
+        //     document.querySelector(".price-add").value = productList[i].price;
+        //     document.querySelector("#category-add").value = productList[i].categoryID;
+        //     document.querySelector(".brand-add").value = productList[i].brand;
+        //     document.querySelector(".description-add").value = productList[i].desc;
+        //     document.querySelector(".id-add").value = productList[i].id;
+        //     document.querySelector(".quantity-add").value = productList[i].quantity;
+        //     document.querySelector(".percent-discount-add").value = productList[i].discountPercent;
+        //     document.querySelector(".quantity-discount-add").value = productList[i].discountQuantity;
+        //     path_picture_admin.src = productList[i].src;
     
-            let picture = document.querySelector(".image-show");
-            let src_2 = productList[i].src;
-            picture.innerHTML = `<img src="${src_2}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
+        //     let picture = document.querySelector(".image-show");
+        //     let src_2 = productList[i].src;
+        //     picture.innerHTML = `<img src="${src_2}" alt="Ảnh sản phẩm" style="width: 60%; height: auto;">`;
     
-            handlePicture_admin();
+        //     handlePicture_admin();
     
-            let handle_click_btn_edit = (e) => {
-                e.preventDefault();
-                let result = edit_product(i, path_picture_admin);
-                if (result) {
-                    path_picture_admin.src = null;
-                    createNotificationAdmin("Sửa sản phẩm thành công!");
-                    showMain("main-content-product-list");
-                    productList = JSON.parse(localStorage.getItem("productList"));
-                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
-                }
-            };
-            document.querySelector(".btn-add").onclick = handle_click_btn_edit;
-        }
-        else {
-            createNotificationAdmin("Không tìm thấy");
-        }
+        //     let handle_click_btn_edit = (e) => {
+        //         e.preventDefault();
+        //         let result = edit_product(i, path_picture_admin);
+        //         if (result) {
+        //             path_picture_admin.src = null;
+        //             createNotificationAdmin("Sửa sản phẩm thành công!");
+        //             showMain("main-content-product-list");
+        //             productList = JSON.parse(localStorage.getItem("productList"));
+        //             pagination(productList, currentPage, showListProduct, "#main-content-product-list");
+        //         }
+        //     };
+        //     document.querySelector(".btn-add").onclick = handle_click_btn_edit;
+        // }
+        // else {
+        //     createNotificationAdmin("Không tìm thấy");
+        // }
     };
     document.querySelector("#search-product-id").onfocus = () => {
         document.querySelector("#search-product-id").value = "";

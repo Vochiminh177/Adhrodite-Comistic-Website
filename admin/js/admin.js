@@ -1,6 +1,6 @@
 import { createNotificationAdmin, err_input } from "./base/baseFunction.js";
 
-let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
+let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
 let userList = JSON.parse(localStorage.getItem("userList"));
 if(indexCurrentUserLogin === -1 || userList[indexCurrentUserLogin].type !== "admin"){
   document.querySelector("#side-bar").style.display = "none";
@@ -19,9 +19,7 @@ else{
 function loginAdmin(){
     document.querySelector(".form-login-admin .login").onclick = (e) => {
         e.preventDefault();
-        console.log(e);
         let result = handleLoginAdmin();
-        console.log(result)
         if(result){
               document.querySelector("#side-bar").style.display = "block";
             document.querySelector("#content").style.display = "block";
@@ -35,7 +33,7 @@ function loginAdmin(){
           document.querySelector("#password-admin").value = "";
           let userList = JSON.parse(localStorage.getItem("userList"));
           if(userList.length === 0){
-            createNotificationAdmin("Lỗi rồi bạn ơi");
+            createNotificationAdmin("Lỗi");
           }
         }
     }
@@ -94,7 +92,6 @@ function handleLoginAdmin(){
    createNotificationAdmin("Tài khoản bị khóa!");
     return false;
   }
-
   //update vị trí account của người dùng đang đăng nhập lên local
   localStorage.setItem(
     "indexCurrentUserLogin",

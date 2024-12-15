@@ -434,8 +434,11 @@
 
 
 @media screen and (max-width: 700px) {
-  .container-notification p {
-    font-size: 1.2rem;
+  #main-content-product-add .title a{
+    font-size: 1rem;
+  }
+  .notification {
+    font-size: 1.1rem;
   }
   .filter-product{
     position: relative;

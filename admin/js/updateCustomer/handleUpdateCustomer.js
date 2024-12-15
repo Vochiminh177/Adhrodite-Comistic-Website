@@ -259,14 +259,12 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
     //nếu không đúng số điện thoại
     let checkPhone = checkNumberPhone(phone.value);
     if(!checkPhone){
-        err_input(phone, "Cần nhập đúng 10 chữ số");
-        console.log(123);
+        err_input(phone, "Sai định dạng");
         return false;
     }
 
     if(!checkEmail(email.value)){
         err_input(email, "Email cần đúng định dạng");
-        console.log(123);
         return false;
     }
 

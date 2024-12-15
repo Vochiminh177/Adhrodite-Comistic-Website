@@ -1,34 +1,50 @@
-
+let idTimeout;
 //hàm tạo thông báo
-export function createNotificationAdmin(mess) {
+export function createNotificationAdmin(mess, status) {
+    let ele = document.querySelector("#empty-notification");
+    if(status === "success"){
+        ele.style.backgroundColor = "rgb(83, 194, 83)";
+    }
+    else ele.style.backgroundColor = "#e27373";
+    ele.innerHTML = mess;
+    ele.className = "notification";
+
+    function createNotifi(){
+        ele.innerHTML = "";
+        ele.classList.remove("notification");
+    }
+    if(idTimeout) clearTimeout(createNotifi);
+    else idTimeout = setTimeout(createNotifi, 2000);
+
+
    // Tạo container nếu chưa có
-  let container = document.querySelector(".container-notification");
-  if (!container) {
-    container = document.createElement("div");
-    container.className = "container-notification";
-    document.body.appendChild(container);
-  }
+//   let container = document.querySelector(".container-notification");
+//   if (!container) {
+//     container = document.createElement("div");
+//     container.className = "container-notification";
+//     document.body.appendChild(container);
+//   }
 
-  // Tạo thẻ <p> mới cho thông báo
-  const notification = document.createElement("p");
-  notification.className = "notification";
-  notification.textContent = mess;
+//   // Tạo thẻ <p> mới cho thông báo
+//   const notification = document.createElement("p");
+//   notification.className = "notification";
+//   notification.textContent = mess;
 
-  // Thêm thẻ <p> vào container
-  container.appendChild(notification);
+//   // Thêm thẻ <p> vào container
+//   container.appendChild(notification);
 
-  // Thêm class `active` để hiển thị thông báo
-  setTimeout(() => {
-    notification.classList.add("active");
-  }, 10);
+//   // Thêm class `active` để hiển thị thông báo
+//   setTimeout(() => {
+//     notification.classList.add("active");
+//   }, 10);
 
-  // Xóa thông báo sau 5 giây
-  setTimeout(() => {
-    notification.classList.remove("active");
-    setTimeout(() => {
-      notification.remove();
-    }, 200); // Đợi hiệu ứng biến mất trước khi xóa khỏi DOM
-  }, 1000);
+//   // Xóa thông báo sau 5 giây
+//   setTimeout(() => {
+//     notification.classList.remove("active");
+//     setTimeout(() => {
+//       notification.remove();
+//     }, 200); // Đợi hiệu ứng biến mất trước khi xóa khỏi DOM
+//   }, 1500);
 }
 //reset input
 export function reset_style_input(input) {

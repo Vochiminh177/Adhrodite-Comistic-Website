@@ -102,46 +102,47 @@ export function searchCustomer(){
         e.preventDefault();
         let value = document.querySelector(".search-customer input").value;
         let userList = JSON.parse(localStorage.getItem("userList"));
-        let i = userList.findIndex((obj) => {
+        let arr = userList.filter((obj) => {
             return obj.username.toLowerCase() === value.toLowerCase();
         });
+        pagination(arr, 1, showListCustomer, "#main-content-customer");
 
-        if(i>=0){
-            let currentPage;
-            if(currentPage === 0) currentPage = 1;
-            else currentPage = Math.ceil((i+1)/7);
+        // if(i>=0){
+        //     let currentPage;
+        //     if(currentPage === 0) currentPage = 1;
+        //     else currentPage = Math.ceil((i+1)/7);
 
-            createFormAddEdit();
+        //     createFormAddEdit();
 
-            document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
-            document.querySelector(".container-form-user-add-edit .password-customer").value = userList[i].password;
-            document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[i].first_name;
-            document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
-            document.querySelector(".container-form-user-add-edit .phone-customer").value =  userList[i].phone;
-            document.querySelector(".container-form-user-add-edit .email-customer").value =  userList[i].email;
-            document.querySelector(".container-form-user-add-edit .address-customer").value =  userList[i].address;
-            let objType = {
-                customer: 0,
-                employer: 1,
-                admin: 2
-            };
-            document.querySelector(".container-form-user-add-edit #type-customer").value = objType[userList[i].type];
+        //     document.querySelector(".container-form-user-add-edit .username-customer").value = userList[i].username;
+        //     document.querySelector(".container-form-user-add-edit .password-customer").value = userList[i].password;
+        //     document.querySelector(".container-form-user-add-edit .firstname-customer").value =  userList[i].first_name;
+        //     document.querySelector(".container-form-user-add-edit .lastname-customer").value =  userList[i].last_name;
+        //     document.querySelector(".container-form-user-add-edit .phone-customer").value =  userList[i].phone;
+        //     document.querySelector(".container-form-user-add-edit .email-customer").value =  userList[i].email;
+        //     document.querySelector(".container-form-user-add-edit .address-customer").value =  userList[i].address;
+        //     let objType = {
+        //         customer: 0,
+        //         employer: 1,
+        //         admin: 2
+        //     };
+        //     document.querySelector(".container-form-user-add-edit #type-customer").value = objType[userList[i].type];
 
-            document.querySelector(".add-customer").onclick = (e) => {
-                e.preventDefault();
-                let result = handleEditCustomer(i);
-                if(result){
-                    document.querySelector(".container-form-user-add-edit").remove();
-                    createNotificationAdmin("Sửa thông tin thành công!");
-                    userList = JSON.parse(localStorage.getItem("userList"));
-                    showMain("main-content-customer")
-                    pagination(userList, currentPage, showListCustomer, "#main-content-customer");
-                }
-            }
-        }
-        else{
-            createNotificationAdmin("Không tìm thấy");
-        }
+        //     document.querySelector(".add-customer").onclick = (e) => {
+        //         e.preventDefault();
+        //         let result = handleEditCustomer(i);
+        //         if(result){
+        //             document.querySelector(".container-form-user-add-edit").remove();
+        //             createNotificationAdmin("Sửa thông tin thành công!");
+        //             userList = JSON.parse(localStorage.getItem("userList"));
+        //             showMain("main-content-customer")
+        //             pagination(userList, currentPage, showListCustomer, "#main-content-customer");
+        //         }
+        //     }
+        // }
+        // else{
+        //     createNotificationAdmin("Không tìm thấy");
+        // }
     };
     document.querySelector(".search-customer input").onfocus = () => {
         document.querySelector(".search-customer input").value = "";
