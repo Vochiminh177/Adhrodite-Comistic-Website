@@ -889,7 +889,7 @@
   }
 }
 
-/* =================reponsive mobile===================== */
+/* =================responsive mobile===================== */
 
 @media screen and (max-width: 500px) {
   .container-notification p{
@@ -954,7 +954,7 @@
   }
 }
 
-/*================== reponsive  cho ipad====================== */
+/*================== responsive  cho ipad====================== */
 
 @media screen and (min-width: 501px) and (max-width: 1000px) {
   /* <=== Popular List ===> */
