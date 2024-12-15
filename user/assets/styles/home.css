@@ -808,21 +808,22 @@
 .header__menu-toggle {
   display: none;
 }
-.container-notification {
+/* .container-notification {
   position: fixed;
   height: 50%;
-  overflow: hidden;
   top: 20px;
   right: 1%;
   z-index: 10;
-  pointer-events: none;
-  display: flex; /* Bật Flexbox */
-  flex-direction: column;
-  gap: 10px; /* Khoảng cách giữa các thẻ <p> */
-  /* width: 20%; */
-}
+  overflow: hidden;
 
-#empty-notification {
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 20%;
+} */
+
+#empty-notification.active {
   border-radius: 5px;
   font-size: 1.8rem;
   height: 70px;
@@ -836,6 +837,10 @@
   margin-bottom: 20px;
   transform: translate(110%, 0);
   transition: transform 0.2s ease;
+  position: fixed;
+  top: 20px;
+  right: 1%;
+  z-index: 10;
 }
 
 #empty-notification.active {
