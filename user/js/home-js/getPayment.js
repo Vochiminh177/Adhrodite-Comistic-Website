@@ -144,10 +144,10 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     list: `
       <ul class="payment-information-info__change-address-list">
         <li class="payment-information-info__change-address-item from-user-info">
-          Nhập địa chỉ từ lần đặt trước
+          Nhập thông tin từ tài khoản
         </li>
         <li class="payment-information-info__change-address-item from-user-input">
-          Nhập từ bàn phím
+          Nhập địa chỉ mới
         </li>
       </ul>
     `,
@@ -190,13 +190,11 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
         )
         .addEventListener("click", function () {
           // Cập nhật lại thông tin địa chỉ
-          const addressInput = document.querySelector(
-            ".payment-information-info__address"
-          );
-          addressInput.value = userList[indexCurrentUserLogin].address;
-          if(addressInput.value === ""){
-            create_notification_user("Bạn chưa đặt hàng lần nào");
-          }
+          document.querySelector(".payment-information-info__firstName").value =
+            userList[indexCurrentUserLogin].first_name;
+
+          document.querySelector(".payment-information-info__address").value =
+            userList[indexCurrentUserLogin].address;
         });
 
       // Sự kiện khi nhập từ bàn phím
@@ -215,9 +213,15 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
             .querySelector(".comeback-change-address-list-button")
             .addEventListener("click", function () {
               // Số nhà, tên đường
-              const streetInfo = document.querySelector(".payment-information-info__change-address-body .street").value;
-              if(streetInfo === ""){
-                errorInput(document.querySelector(".payment-information-info__change-address-body .street"));
+              const streetInfo = document.querySelector(
+                ".payment-information-info__change-address-body .street"
+              ).value;
+              if (streetInfo === "") {
+                errorInput(
+                  document.querySelector(
+                    ".payment-information-info__change-address-body .street"
+                  )
+                );
                 return;
               }
               // Phường hoặc Xã
@@ -231,9 +235,14 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
                 document.querySelector(".city :checked").innerText;
               // Biến tổng hợp lại các thông tin trên
 
-              if(wardInfo !== "Chọn Phường / Xã" && districtInfo !== "Chọn Quận / Huyện" && cityInfo !== "Chọn Tỉnh thành"){
+              if (
+                wardInfo !== "Chọn Phường / Xã" &&
+                districtInfo !== "Chọn Quận / Huyện" &&
+                cityInfo !== "Chọn Tỉnh thành"
+              ) {
                 let newAddress =
-                streetInfo + ", " +
+                  streetInfo +
+                  ", " +
                   wardInfo +
                   ", " +
                   districtInfo +
@@ -244,18 +253,27 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
                 document.querySelector(
                   ".payment-information-info__address"
                 ).value = newAddress;
-              }
-              else{
-                if(cityInfo === "Chọn Tỉnh thành"){
-                  errorInput(document.querySelector(".city :checked"), null, true);
-                }
-                else if(districtInfo === "Chọn Quận / Huyện"){
-                  errorInput(document.querySelector(".district :checked"), null, true);
-                }
-                else  errorInput(document.querySelector(".ward :checked"), null, true);
+              } else {
+                if (cityInfo === "Chọn Tỉnh thành") {
+                  errorInput(
+                    document.querySelector(".city :checked"),
+                    null,
+                    true
+                  );
+                } else if (districtInfo === "Chọn Quận / Huyện") {
+                  errorInput(
+                    document.querySelector(".district :checked"),
+                    null,
+                    true
+                  );
+                } else
+                  errorInput(
+                    document.querySelector(".ward :checked"),
+                    null,
+                    true
+                  );
                 return;
               }
-    
 
               // Cập nhật style cho thẻ a có nội dung "Tuỳ chọn"
               changeAddressAction.style.color = "#ccc";
@@ -395,9 +413,6 @@ function updatePaymentInformation(
     totalPriceTamTinh += obj.totalPrice;
   });
 
-
-
-
   const paymentInformationForm = `
   <div class="body__payment-information">
     <div class="payment-information__header">
@@ -417,17 +432,26 @@ function updatePaymentInformation(
           </h3>
           <form action="" class="payment-information-info__form">
               <div class="payment-information-info__form-group">
-                  <input readonly type="text" class="payment-information-info__firstName" value="${userList[indexCurrentUserLogin].first_name ? userList[indexCurrentUserLogin].first_name : ""}" placeholder="Họ">
-                  <input readonly type="text" class="payment-information-info__lastName" value="${userList[indexCurrentUserLogin].last_name ? userList[indexCurrentUserLogin].last_name : ""}" placeholder="Tên">
+                  <input type="text" class="payment-information-info__firstName" value="${
+                    userList[indexCurrentUserLogin].first_name
+                      ? userList[indexCurrentUserLogin].first_name
+                      : ""
+                  }" placeholder="Họ">
+                  <input type="text" class="payment-information-info__lastName" value="${
+                    userList[indexCurrentUserLogin].last_name
+                      ? userList[indexCurrentUserLogin].last_name
+                      : ""
+                  }" placeholder="Tên">
               </div>
               <div class="payment-information-info__form-group">
-                  <input readonly type="email" class="payment-information-info__email" 
+                  <input type="email" class="payment-information-info__email" 
                   value="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
-                      : ""}"
+                      : ""
+                  }"
                   placeholder="Email">
-                  <input readonly type="phone" class="payment-information-info__phone" value="${
+                  <input type="phone" class="payment-information-info__phone" value="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
                       : ""
@@ -435,10 +459,11 @@ function updatePaymentInformation(
                   placeholder="Số điện thoại">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__address" value="${
+                  <input readonly type="text" class="payment-information-info__address" value="${
                     userList[indexCurrentUserLogin].address
                       ? userList[indexCurrentUserLogin].address
-                      : ""}" 
+                      : ""
+                  }" 
                     placeholder="Địa chỉ">
               </div>
             </form>
@@ -447,7 +472,7 @@ function updatePaymentInformation(
               href="#!"
               class="payment-information-info__change-address-action"
             >
-              Tuỳ chọn địa điểm giao hàng
+              Tuỳ chọn thông tin giao hàng
               <i class="fa-solid fa-chevron-down"></i>
             </a>
             <div
@@ -616,8 +641,8 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           let quantity = obj.querySelector(
             ".shopping-cart__quantity .shopping-cart__number"
           ).value; //lấy số lượng đặt hàng của mỗi sản phẩm
-          if(parseInt(quantity) <= 0){
-           checkQuantity = false;
+          if (parseInt(quantity) <= 0) {
+            checkQuantity = false;
           }
           let name = obj.querySelector(
             ".shopping-cart__column .shopping-cart__name"
@@ -648,14 +673,14 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           };
           array_orderProduct.push(data); //mảng đơn hàng chứa những obj sản phẩm gồm id và quantity,... (giải quyết cho admin)
         });
-        if(!checkQuantity){
+        if (!checkQuantity) {
           create_notification_user("Xem lại số lượng");
           return;
         }
 
         // Ẩn đi header và footer của trang web
         updateHeaderAndFooter("off");
-        
+
         // Cập nhật thông tin thanh toán
         updatePaymentInformation(
           userList,
@@ -663,9 +688,7 @@ export function getPaymentInformationInfo(userList, indexCurrentUserLogin) {
           array_orderProduct
         );
       } else {
-        create_notification_user(
-          "Cần mua vài thứ"
-        );
+        create_notification_user("Cần mua vài thứ");
       }
     });
 }

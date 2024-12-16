@@ -2,11 +2,13 @@ import { showProductStatistics, showCustomerStatistics, pagination, showListOrde
 import { createNotificationAdmin } from "./base/baseFunction.js"
 import { showMain } from "./script2.js";
 
-const validOrderList = getValidOrders() || [];
-const userList = JSON.parse(localStorage.getItem('userList')) || [];
-const productStatistics = generateProductStatistics(validOrderList);
+let validOrderList = [];
+let productStatistics = [];
 
 export function DashboardEvent() {
+    const userList = JSON.parse(localStorage.getItem('userList')) || [];
+    validOrderList = getValidOrders() || [];
+    productStatistics = generateProductStatistics(validOrderList);
     updateDashboardHighlights(validOrderList, productStatistics);
     pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
     chooseTypeStatistic();
@@ -231,6 +233,7 @@ function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate)
     }
 
     // Tạo bản đồ userList để tăng hiệu suất tìm kiếm
+    const userList = JSON.parse(localStorage.getItem("userList"));
     const userMap = new Map(userList.map(user => [String(user.id), user.username]));
 
     // Lọc các đơn hàng theo khoảng thời gian
