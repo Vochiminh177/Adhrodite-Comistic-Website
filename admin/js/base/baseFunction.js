@@ -69,6 +69,7 @@ export function reset_style_input(input) {
     else if(input.className === "address-customer") input.placeholder = "Địa chỉ";
     else if(input.id === "account-admin") input.placeholder = "Tài khoản admin";
     else if(input.id === "password-admin") input.placeholder = "Mật khẩu";
+    else if(input.className ==="street") input.placeholder = "Nhập số nhà và đường";
     else input.placeholder = "Số lượng sản phẩm";
     input.style.borderColor = "#000";
 }
