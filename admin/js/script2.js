@@ -247,13 +247,12 @@ export function showMain(sectionId) {
     DashboardEvent();
   } else if (sectionId === "main-content-dashboard-orderList") {
     document.querySelector("#main-content-dashboard-orderList").innerHTML = `
-<div class="title-dashboard-orderList">
-    <div class="title">
-        <h1>Danh sách đơn hàng</h1>
-        <a class="comeback-product">
+<a class="comeback-product">
             < Quay lại</a>
-    </div>
-</div>
+      <div class="title">
+          <div id="title-name">Danh sách đơn hàng</div>
+      </div>
+    
 <div class="dashboard-filter">
     <div class="filter-group">
         <label for="sortType">Sắp xếp:</label>
@@ -279,9 +278,6 @@ export function showMain(sectionId) {
     <div id="dashboard-main">
         <div class="content order">
             <div class="table-container">
-                <div class="title">
-                    <div id="title-name">Danh sách đơn hàng</div>
-                </div>
                 <table class="content-order-table">
                     <thead>
                         <tr>
