@@ -144,7 +144,7 @@ function updateChangeAddress(userList, indexCurrentUserLogin) {
     list: `
       <ul class="payment-information-info__change-address-list">
         <li class="payment-information-info__change-address-item from-user-info">
-          Nhập thông tin từ tài khoản
+          Nhập địa chỉ từ tài khoản
         </li>
         <li class="payment-information-info__change-address-item from-user-input">
           Nhập địa chỉ mới

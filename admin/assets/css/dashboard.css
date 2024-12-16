@@ -89,18 +89,10 @@ html {
   font-size: 1.3rem;
 }
 #main-content-dashboard #title-name{
-  background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
 }
 #main-content-dashboard-orderList #title-name{
-  background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
 }
 .custom-date-input:focus {
   border-color: #007bff;

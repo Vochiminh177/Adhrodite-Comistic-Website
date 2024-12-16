@@ -16,10 +16,7 @@
   width: 6%;
 }
 .content.order #title-name{
-  background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 .content.order .table-container {
   width: 100%;
@@ -68,13 +65,15 @@
   width: 100%;
   height: 35px;
   padding: 3px;
-  padding-left: 8px;
   font-size: 1rem;
   outline: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: border-color 0.3s ease;
   margin-bottom: 0px;
+}
+.order-filter-form select {
+  text-align: center;
 }
 #orderID-search {
   width: 100%;
@@ -93,10 +92,6 @@
 }
 .orderID-search-container {
   display: flex;
-}
-.order-filter-form input:focus,
-.order-filter-form select:focus {
-  border-color: #007bff;
 }
 .order-filter-row{
   width: 100%;
@@ -121,7 +116,27 @@
   display: flex;
   align-items: flex-end;
 }
-.order-filter-button:first-child{
+.order-filter-buttons > * {
+  background-color: rgb(237, 171, 203);
+  color: black;
+  border: none;
+  padding: 10px 0px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.order-filter-buttons > *:hover {
+  background-color: #a9a9a9;
+  /* Màu sáng hơn */
+  transform: scale(1.05);
+  /* Phóng to nhẹ */
+}
+.order-filter-buttons > *:active {
+  background-color: #808080;
+  /* Màu tối hơn */
+  transform: scale(0.95);
+  /* Nhỏ lại nhẹ */
+}
+.order-filter-button:first-child {
   width: 50%;
 }
 .order-filter-button:last-child{
