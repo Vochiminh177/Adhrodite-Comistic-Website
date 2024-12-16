@@ -161,9 +161,10 @@ export function handleSignUp() {
     errorInput(check_accept_privacy);
     return false;
   }
-  console.log(username.value)
+ 
+  let tmp = username.value.trim().toLowerCase();
   for(let k=0; k<username.value.trim().length; k++){
-    if(!(username.value.trim().charAt(k) >= 'a' && username.value.trim().charAt(k) <= 'z')){
+    if(!( tmp.charAt(k) >= 'a' && tmp.charAt(k)  <= 'z' || tmp.charAt(k)  >= '0' && tmp.charAt(k)  <= '9')){
       errorInput(username, "Cần chữ thường");
       return false;
     }
