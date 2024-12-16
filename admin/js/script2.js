@@ -351,7 +351,7 @@ export function showMain(sectionId) {
                     <div class="content-product-row">
                         <div class="search-product search-id">
                         	<input type="text" id="search-product-id" placeholder="Nhập mã sản phẩm">
-	                        <a href="">Tìm kiếm</a>
+	                        <button>Tìm kiếm</button>
                         </div>
 						            <button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
