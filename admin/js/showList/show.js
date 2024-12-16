@@ -247,9 +247,9 @@ export function showProductStatistics(start, end, currentPage, productReport) {
                 <td>${product.id}</td>
                 <td><img src="${product.src}" style="width: 70px; height:70px;"></td>
                 <td>${product.name}</td>
-                <td>${product.price.toLocaleString()}đ</td>
+                <td>${formatVietNamMoney(product.price)}đ</td>
                 <td>${product.orderCount}</td>
-                <td>${product.totalRevenue.toLocaleString()}đ</td>
+                <td>${formatVietNamMoney(product.totalRevenue)}đ</td>
                 <td>
                   <button class="order-list-btn" data-product-id="${product.id}">Đơn hàng</button>
                 </td>
@@ -284,7 +284,7 @@ export function showCustomerStatistics(start, end, currentPage, customerReport) 
         <tr>
           <td>${customer.customerId}</td>
           <td>${customer.username}</td>
-          <td>${customer.totalSpent.toLocaleString()}</td>
+          <td>${formatVietNamMoney(customer.totalSpent)}đ</td>
           <td>${customer.orderCount}</td>
           <td>
             <button class="order-list-btn" data-customer-id="${customer.customerId}">Đơn hàng</button>

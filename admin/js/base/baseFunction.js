@@ -1,3 +1,4 @@
+import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 let idTimeout = null;
 //hàm tạo thông báo
 export function createNotificationAdmin(mess) {
@@ -136,7 +137,7 @@ export function updateDashboardHighlights(orderList, productStatistics) {
         .slice(0, 3); // Lấy 3 khách hàng đầu tiên
 
     // Cập nhật DOM cho các phần tử highlight
-    document.querySelectorAll(".dashboard-highlight-box")[0].querySelector("h3").textContent = `${totalRevenue.toLocaleString()} đ`;
+    document.querySelectorAll(".dashboard-highlight-box")[0].querySelector("h3").textContent = `${formatVietNamMoney(totalRevenue)}đ`;
     document.querySelectorAll(".dashboard-highlight-box")[1].querySelector("h3").textContent = totalOrders;
 
     // Hiển thị Top 3 Khách Hàng
