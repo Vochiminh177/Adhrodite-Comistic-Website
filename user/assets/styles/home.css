@@ -902,6 +902,16 @@
     font-size: 1.5rem;
     padding: 0 5px;
   }
+  .useful__media{
+    display: none;
+  }
+  .home__useful .useful__content{
+    padding: 0;
+  }
+  .home__useful .useful__content,
+  .useful__title.heading-lv2{
+    width: 100%;
+  }
   /* <=== Popular Menu List ===> */
   .body__home .popular-menu__list {
     --columns: 1;
