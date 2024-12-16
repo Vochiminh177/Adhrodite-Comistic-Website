@@ -79,7 +79,7 @@ export function changePassword() {
 export function showFormInformation(userList, indexCurrentUserLogin) {
   let formInformationUser = `
         <form action="" autocomplete="off" class="form-user">
-          <button class="exit-form-information-user">&times;</button>
+          <button class="exit-form-information-user" type="button">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
 
@@ -127,7 +127,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
             </div>
           </div>
           
-          <input type="button" class="save-information" value="Lưu thông tin"/>
+          <input type="submit" class="save-information" value="Lưu thông tin"/>
     
         </form>
         <div class="overlay-user"></div>

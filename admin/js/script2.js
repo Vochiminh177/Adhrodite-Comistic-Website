@@ -566,7 +566,7 @@ export function showMain(sectionId) {
               <input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
               <a href="">Tìm kiếm</a>
             </div>
-            <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
+            <button class="btn btn-add-product btn-add-customer">Thêm tài khoản</button>
 					</div>
           <div id="filter-customer">
               <div class="content-filter">
