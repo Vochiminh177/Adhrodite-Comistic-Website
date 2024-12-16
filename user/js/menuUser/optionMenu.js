@@ -3,6 +3,7 @@ import {
   handleSaveDateInformation,
 } from "./handleOptionMenu.js";
 import { updateMainContent } from "../home-js/changeMainContent.js";
+import { locationToSelectArray } from "../../../database/database.js";
 
 //hàm tạo thông báo
 let idTimeout = null;
@@ -77,7 +78,7 @@ export function changePassword() {
 // Hàm hiện form khi ấn thông tin cá nhân trong menu-user
 export function showFormInformation(userList, indexCurrentUserLogin) {
   let formInformationUser = `
-        <div class="form-user">
+        <form class="form-user">
           <button class="exit-form-information-user">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
@@ -109,16 +110,26 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
             }" placeholder="Nhập email">
           </div>
           <div class="one-input">
-            <input type="text" class="address" value="${
+            <input readonly type="text" class="address" value="${
               userList[indexCurrentUserLogin].address
                 ? userList[indexCurrentUserLogin].address
                 : ""
             }" placeholder="Nhập địa chỉ">
           </div>
-          <div class="one-input-btn">
-            <a class="save-information">Lưu thông tin</a>
+          <div class="form-group-address">
+            <div class="form-group">
+                <input type="text" class="street" placeholder="Nhập số nhà và đường"/>
+            </div>
+            <div class="form-group choice-address">
+                <select class="city"><option></option></select>
+                <select class="district"><option></option></select>
+                <select class="ward"><option></option></select>
+            </div>
           </div>
-        </div>
+          <div class="one-input-btn">
+            <input type="submit" class="save-information" value="Lưu thông tin">
+          </div>
+        </form>
         <div class="overlay-user"></div>
     `;
   let ele = document.createElement("div");
@@ -140,6 +151,75 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
       create_notification_user("Lưu thành công!");
     }
   };
+
+  //địa chỉ select
+  const citySelect = document.querySelector(".city");
+  const districtSelect = document.querySelector(".district");
+  const wardSelect = document.querySelector(".ward");
+   // Hàm đặt lại các lựa chọn
+   function resetAllSelect(condition) {
+    if (condition === 1) {
+      citySelect.innerHTML = `<option>Chọn Tỉnh thành</option>`;
+      districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+    }
+    if (condition === 2) {
+      districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+    }
+    wardSelect.innerHTML = `<option>Chọn Phường / Xã</option>`;
+  }
+   // Đặt lại các lựa chọn
+    resetAllSelect(1);
+    // Cập nhật dữ liệu Thành phố
+    let cityItems = "";
+    for (let i = 0; i < locationToSelectArray.length; i++) {
+      const city = locationToSelectArray[i];
+      cityItems += `<option value="${city.id}">${city.name}</option>`;
+    }
+    citySelect.innerHTML = cityItems;
+  
+    //Khi người dùng lựa chọn Thành phố
+    citySelect.addEventListener("change", function () {
+      const cityIDSelected = citySelect.value;
+      let districtsFromCitySelected;
+      for (let i = 0; i < locationToSelectArray.length; i++) {
+        if (locationToSelectArray[i].id == cityIDSelected) {
+          districtsFromCitySelected = locationToSelectArray[i].districts;
+          break;
+        }
+      }
+  
+      // Đặt lại các lựa chọn
+      resetAllSelect(2);
+      // Cập nhật dữ liệu Quận / Huyện khi đã biết tên Thành phố
+      let districtItems = "";
+      for (let i = 0; i < districtsFromCitySelected.length; i++) {
+        const district = districtsFromCitySelected[i];
+        districtItems += `<option value="${district.id}">${district.name}</option>`;
+      }
+      districtSelect.innerHTML = districtItems;
+  
+      //Khi người dùng lựa chọn Quận / Huyện
+      districtSelect.addEventListener("change", function () {
+        const districtIDSelected = districtSelect.value;
+        let wardsFromDistrictSelected;
+        for (let i = 0; i < districtsFromCitySelected.length; i++) {
+          if (districtsFromCitySelected[i].id == districtIDSelected) {
+            wardsFromDistrictSelected = districtsFromCitySelected[i].wards;
+            break;
+          }
+        }
+  
+        // Đặt lại các lựa chọn
+        resetAllSelect(0);
+        // Cập nhật dữ liệu Phường / Xã khi đã biết tên Quận / Huyện
+        let wardItems = "";
+        for (let i = 0; i < wardsFromDistrictSelected.length; i++) {
+          const ward = wardsFromDistrictSelected[i];
+          wardItems += `<option value="${ward.id}">${ward.name}</option>`;
+        }
+        wardSelect.innerHTML = wardItems;
+      });
+    });
 }
 
 // //hàm lịch sử mua hàng

@@ -74,7 +74,6 @@ export function deleteProduct() {
             <div class="form-delete-confirm">
                 <a class="exit-confirm-delete">&times;</a>
                 <div class="content-delete-confirm">
-                    
                     <div class="content-delete">
                         <label for="number-delete-confirm">Số lượng:</label>
                         <input type="number" name="number-delete" id="number-delete-confirm" placeholder="Nhập số lượng">
@@ -83,12 +82,16 @@ export function deleteProduct() {
                     <button class="btndelete confirm-delete">Xóa</button>
                 </div>
             </div>
+            <div class="delete-form"></div>
             `;
-            document.body.appendChild(ele);
+            if(!document.querySelector(".container-delete-confirm")) document.body.appendChild(ele);
             setTimeout(() => {
                 document.querySelector(".form-delete-confirm").style.opacity = "1";
             }, 10);
-
+            //gán sự kiện xóa ấn ngoài để tắt
+            document.querySelector(".delete-form").onclick = () => {
+                document.querySelector(".container-delete-confirm").remove();
+            }
             //gán sự kiện click để xóa form
             document.querySelector(".exit-confirm-delete").onclick = (e) => {
                 e.preventDefault();
@@ -223,10 +226,17 @@ export function filterProductAdmin() {
         divBrand.className = "brand";
         //tạo phần input hàng tồn kho
             
+        let pQuantity = document.createElement("p");
+        pQuantity.textContent = "Số lượng: ";
+
         let inputQuantity = document.createElement("input");
         inputQuantity.placeholder = "Nhập số lượng";
         inputQuantity.id = "input-filter-quantity";
         inputQuantity.type = "text";
+        
+        let inputQuantity_container = document.createElement("div");
+        inputQuantity_container.className = "quantity";
+        inputQuantity_container.innerHTML = pQuantity.outerHTML + inputQuantity.outerHTML;
         
 
         //tạo thẻ lọc 
@@ -235,7 +245,7 @@ export function filterProductAdmin() {
         a.textContent = "Lọc";
         
 
-        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity.outerHTML + a.outerHTML;
+        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity_container.outerHTML + a.outerHTML;
 
         //hàm lọc dữ liệu
         function filterData(categoryID, brand, number) {
