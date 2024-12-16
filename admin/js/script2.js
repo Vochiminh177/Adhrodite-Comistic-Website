@@ -587,6 +587,7 @@ export function showMain(sectionId) {
                   </select>
                 </div>
                 <a href="#" id="filter-a-customer">Lọc</a>
+                <a href="#" id="delete-filter-a-customer">Xóa</a>
               </div>
           </div>
 				</div>

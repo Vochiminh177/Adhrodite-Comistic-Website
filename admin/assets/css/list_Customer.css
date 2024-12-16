@@ -16,6 +16,22 @@
   border-radius: 8px;
 }
 /* -------------------------- */
+/* ------------------------------css address của form add, edit tài khoản------------------------------ */
+.form-group-address{
+  width: 100%;
+}
+.form-group-address .street{
+  width: 100%;
+}
+.form-group.choice-address{
+  display: flex;
+  justify-content: space-between;
+}
+.form-group.choice-address select{
+  text-align: center;
+  width: 30%;
+}
+/* ------------------------------ */
 /* css nút thêm khách hàng  */
 #main-content-customer button, .form-user-add-edit button{
   transition: background-color 0.2s ease;

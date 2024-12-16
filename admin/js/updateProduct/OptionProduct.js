@@ -242,10 +242,15 @@ export function filterProductAdmin() {
         //tạo thẻ lọc 
 
         let a = document.createElement("a");
+        a.className = "filter-option"
         a.textContent = "Lọc";
+
+        let b = document.createElement("a");
+        b.className = "delete-filter-option";
+        b.textContent = "Xóa";
         
 
-        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity_container.outerHTML + a.outerHTML;
+        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity_container.outerHTML + a.outerHTML + b.outerHTML;
 
         //hàm lọc dữ liệu
         function filterData(categoryID, brand, number) {
@@ -258,7 +263,12 @@ export function filterProductAdmin() {
             return arr;
         }
 
-        document.querySelector(".filter-product .content-filter a").onclick = (e) => {
+        document.querySelector(".filter-product .content-filter .delete-filter-option").onclick = (e) => {
+            e.preventDefault();
+            showMain("main-content-product-list");
+            pagination(productList, 1, showListProduct, "#main-content-product-list");
+        }
+        document.querySelector(".filter-product .content-filter .filter-option").onclick = (e) => {
             e.preventDefault();
             let categoryID = document.querySelector("#select-product-filter-category").value;
             let brandSelect = document.querySelector("#select-product-filter-brand").value;

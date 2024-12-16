@@ -111,14 +111,16 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
   const citySelect = document.querySelector(".city");
   const districtSelect = document.querySelector(".district");
   const wardSelect = document.querySelector(".ward");
-  const street = document.querySelector(".street");
+  let street = document.querySelector(".street");
 
   if (
     firstName.value === "" ||
     lastName.value === "" ||
     email.value === "" ||
-    phone.value === "" 
+    phone.value === "" || 
+    street.value === ""
   ) {
+    errorInput(street);
     errorInput(firstName);
     errorInput(lastName);
     errorInput(email);
@@ -172,6 +174,7 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
   const districtInfo = document.querySelector(".district :checked").innerText;
   // Tỉnh thành
   const cityInfo = document.querySelector(".city :checked").innerText;
+
   if(cityInfo === "Chọn Tỉnh thành"){
     errorInput(document.querySelector(".city :checked"), null, true);
     return false;

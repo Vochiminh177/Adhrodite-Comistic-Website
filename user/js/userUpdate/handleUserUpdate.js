@@ -29,8 +29,8 @@ export function resetDefaultInputForUser(input) {
   if(input.className === "payment-information-info__email") return "Email";
   if(input.className === "payment-information-info__address") return "Địa chỉ";
   if(input.className === "payment-information-info__phone") return "Số điện thoại";
-  if(input.id === "card-id") return "Mã thẻ"
-  if(input.className === "street") return "Số nhà và đường"
+  if(input.id === "card-id") return "Mã thẻ";
+  if(input.className === "street") return "Nhập số nhà và đường";
 }
 //hàm báo lỗi input
 export function errorInput(input, mess, checkSelect) {

@@ -78,7 +78,7 @@ export function changePassword() {
 // Hàm hiện form khi ấn thông tin cá nhân trong menu-user
 export function showFormInformation(userList, indexCurrentUserLogin) {
   let formInformationUser = `
-        <form class="form-user">
+        <form action="" autocomplete="off" class="form-user">
           <button class="exit-form-information-user">&times;</button>
           <h2>Thông Tin Cá Nhân</h2>
           <div class="two-input">
@@ -126,9 +126,9 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
                 <select class="ward"><option></option></select>
             </div>
           </div>
-          <div class="one-input-btn">
-            <input type="submit" class="save-information" value="Lưu thông tin">
-          </div>
+          
+          <input type="button" class="save-information" value="Lưu thông tin"/>
+    
         </form>
         <div class="overlay-user"></div>
     `;

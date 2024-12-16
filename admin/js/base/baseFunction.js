@@ -72,7 +72,14 @@ export function reset_style_input(input) {
     input.style.borderColor = "#000";
 }
 
-export function err_input(input, mess) {
+export function err_input(input, mess, checkSelect) {
+    if(checkSelect){
+        input.parentElement.style.border = "2px solid red";
+        input.parentElement.onfocus = () => {
+          input.parentElement.style.border = "2px solid #000";
+        }
+        return;
+      }
     if (input.type == "file") {
         let parent = input.parentElement;
         if (!parent.querySelector("p")) {
