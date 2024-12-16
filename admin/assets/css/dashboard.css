@@ -239,11 +239,13 @@ select {
 }
 
 .filter-group-button {
+  align-self: flex-end;
+  margin-bottom: 20px;
   justify-content: center;
   width: calc(33.33% - 20px*(2 / 3));
   margin-left: auto;
   display: flex;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   gap: 8px;/* Đảm bảo các thành phần có kích thước tối thiểu */
 }
 
