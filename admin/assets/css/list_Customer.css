@@ -330,6 +330,73 @@
 }
 /* ------------------------------------------ */
 
+
+
+/* ================= chung cho mobile và table */
+@media screen and (max-width: 700px) {
+
+  
+  #filter-customer a,
+  #filter-customer .type, #filter-customer .status-account{
+    width: calc(50% - 20px*(1/2));
+  }
+
+
+  #filter-customer .content-filter a:last-child{
+    margin-left: auto;
+  }
+  .content-delete-customer span, .content-delete-customer button{
+    font-size: 1.2rem;
+  }
+ 
+  .content-customer-list table th {
+    display: none;
+  }
+  .content-customer-list table td {
+    display: flex;
+  }
+  .content-customer-list table tr {
+  }
+  .content-customer-list table tr {
+    padding-top: 18px;
+    display: block;
+  }
+
+  .content-customer-list table tr:nth-of-type(2n) {
+    background-color: #f9f4f6;
+  }
+
+  .content-customer-list td::before {
+    font-weight: 600;
+    width: 40%;
+    text-align: left;
+  }
+
+  .content-order-table .content-order-table-body td:first-child {
+    margin-top: 50px;
+  }
+  .content-customer-list table td:nth-of-type(1)::before {
+    content: "Id khách hàng";
+  }
+  .content-customer-list table td:nth-of-type(2)::before {
+    content: "Tài Khoản";
+  }
+  .content-customer-list table td:nth-of-type(3)::before {
+    content: "Họ tên";
+  }
+  .content-customer-list table td:nth-of-type(4)::before {
+    content: "Loại";
+  }
+
+  .content-customer-list table td:nth-of-type(5)::before {
+    content: "Chỉnh sửa";
+  }
+  .delete-customer,
+  .block-customer {
+    margin-left: 20px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .form-group.choice-address{
     flex-direction: column;
@@ -383,63 +450,6 @@
  
   #filter-customer .type, #filter-customer .status-account{
     width: 100%;
-  }
-}
-
-/* ================= chung cho mobile và table */
-@media screen and (max-width: 700px) {
-  #filter-customer .content-filter a:last-child{
-    margin-left: auto;
-  }
-  .content-delete-customer span, .content-delete-customer button{
-    font-size: 1.2rem;
-  }
- 
-  .content-customer-list table th {
-    display: none;
-  }
-  .content-customer-list table td {
-    display: flex;
-  }
-  .content-customer-list table tr {
-  }
-  .content-customer-list table tr {
-    padding-top: 18px;
-    display: block;
-  }
-
-  .content-customer-list table tr:nth-of-type(2n) {
-    background-color: #f9f4f6;
-  }
-
-  .content-customer-list td::before {
-    font-weight: 600;
-    width: 40%;
-    text-align: left;
-  }
-
-  .content-order-table .content-order-table-body td:first-child {
-    margin-top: 50px;
-  }
-  .content-customer-list table td:nth-of-type(1)::before {
-    content: "Id khách hàng";
-  }
-  .content-customer-list table td:nth-of-type(2)::before {
-    content: "Tài Khoản";
-  }
-  .content-customer-list table td:nth-of-type(3)::before {
-    content: "Họ tên";
-  }
-  .content-customer-list table td:nth-of-type(4)::before {
-    content: "Loại";
-  }
-
-  .content-customer-list table td:nth-of-type(5)::before {
-    content: "Chỉnh sửa";
-  }
-  .delete-customer,
-  .block-customer {
-    margin-left: 20px;
   }
 }
 
