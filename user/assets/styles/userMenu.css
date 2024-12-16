@@ -30,19 +30,17 @@
 }
 .form-group.choice-address {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 .form-group-address .form-group.choice-address{
-  margin-top: 15px;
+  width: 100%;
+  margin: 16px 0px;
 }
 .form-group-address select{
   padding: 10px;
   text-align: center;
-  width: auto;
-  margin-right: 5px;
-}
-.form-group-address select:last-child{
-  margin: 0px;
+  width: calc(97% / 3);
+  appearance: none;
 }
 /* ------------------------ */
 /* Css ấn thông tin cá nhân */
@@ -53,13 +51,13 @@
   position: fixed;
   top: 0px;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .overlay-user,
 .overlay-change-password {
   position: absolute;
+  top: 0px;
+  left: 0px;
+  position: fixed;
   width: 100vw;
   height: 100vh;
 }
@@ -76,8 +74,26 @@
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  padding: 16px 25px;
+  padding: 16px 19px;
   border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 64px;
+  width: 69%;
+  transition: height 0.3s ease;
+}
+.form-user #modify-user-address-btn {
+  align-self: flex-start;
+  padding: 0px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+.form-user .form-group-address {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.form-user .form-group-address.active {
+  max-height: 255px;
 }
 .form-user .exit-form-information-user {
   font-size: 2.5rem;
@@ -109,9 +125,6 @@
 .one-input input {
   width: 100%;
   border-bottom: 1px solid #000;
-}
-.one-input .address{
-  margin-bottom: 20px;
 }
 .one-input {
   margin-top: 10px;
@@ -269,20 +282,24 @@
   .save-information{
     font-size: 1.5rem;
   }
+  
+}
+
+@media screen and (max-width: 645px) {
   .form-group-address div:last-child{
     flex-direction: column;
   }
   .form-group-address select{
+    width: 100%;
     margin: 0px;
     margin-bottom: 5px;
   }
   .form-group-address select:last-child{
     margin: 0px;
   }
-  
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 515px) {
   .two-input input {
     width: 100%;
   }
