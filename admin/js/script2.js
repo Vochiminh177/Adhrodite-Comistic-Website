@@ -348,15 +348,15 @@ export function showMain(sectionId) {
             </div>
             <div class="content">
                 <div class="content-product-list">
+                <div class="filter-product">
                     <div class="content-product-row">
                         <div class="search-product search-id">
-                        	<input type="text" id="search-product-id" placeholder="Nhập mã sản phẩm">
-	                        <a href="">Tìm kiếm</a>
+                          <input type="text" id="search-product-id" placeholder="Nhập mã sản phẩm">
+                          <a href="">Tìm kiếm</a>
                         </div>
-						            <button class="btn btn-add-product">Thêm sản phẩm</button>
+                        <button class="btn btn-add-product">Thêm sản phẩm</button>
                     </div>
-                    <div class="filter-product">
-                        <div class="content-filter">
+                    <div class="content-filter">
                         </div>
                     </div>
                     <div class="product-table">
@@ -561,8 +561,10 @@ export function showMain(sectionId) {
             <div class="content">
 				<div class="customer-row">
 					<div class="search-customer">
-						<input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
-						<a href="">Tìm kiếm</a>
+            <div class="search-customer-bar">
+              <input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
+              <a href="">Tìm kiếm</a>
+            </div>
             <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
 					</div>
           <div id="filter-customer">

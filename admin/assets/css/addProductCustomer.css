@@ -65,8 +65,9 @@ select {
   background-color: whitesmoke;
 }
 .btn {
+  width: calc(25% - 20px*(3/4));
   padding: 10px 12px;
-  background-color: rgb(28, 9, 17);
+  background-color: #f44336;
   color: whitesmoke;
   border: none;
   border-radius: var(--main-border-radius);
