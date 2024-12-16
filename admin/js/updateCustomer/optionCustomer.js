@@ -19,6 +19,7 @@ export function deleteCustomer(currentPage) {
             container.className = "container-delete-customer";
             container.innerHTML = `
                 <div class="form-delete-customer">
+                    <a>&times;</a>
                     <div class="content-delete-customer">
                         <div>
                             <span>Bạn có muốn xóa không ?</span>
@@ -30,7 +31,12 @@ export function deleteCustomer(currentPage) {
                     </div>
                 </div>
             `;
-            document.body.appendChild(container);
+            if(!document.querySelector(".container-delete-customer")) document.body.appendChild(container);
+
+            document.querySelector(".container-delete-customer a").onclick = (e) => {
+                e.preventDefault();
+                document.querySelector(".container-delete-customer").remove();
+            };
             document.querySelector(".container-delete-customer .no").onclick = () => {
                 document.querySelector(".container-delete-customer").remove();
             };
@@ -183,6 +189,7 @@ export function blockCustomer(currentPage){
                 container.className = "container-delete-customer";
                 container.innerHTML = `
                     <div class="form-delete-customer">
+                      <a>&times;</a>
                         <div class="content-delete-customer">
                             <div>
                                 <span>Bạn có muốn ${userList[index].blockStatus ? "mở khóa" : "khóa"} người dùng này không ?</span>
@@ -195,6 +202,10 @@ export function blockCustomer(currentPage){
                     </div>
                 `;
                 document.body.appendChild(container);
+            }
+            document.querySelector(".container-delete-customer a").onclick = (e) => {
+                e.preventDefault();
+                document.querySelector(".container-delete-customer").remove();
             }
             document.querySelector(".container-delete-customer .no").onclick = () => {
                 document.querySelector(".container-delete-customer").remove();
@@ -239,7 +250,7 @@ function createFormAddEdit(){
         </form>
         <div class="form-user-add-edit-delete"></div>
     `;
-    document.body.appendChild(container);
+    if(!document.querySelector(".container-form-user-add-edit")) document.body.appendChild(container);
     document.querySelector(".form-user-add-edit a").onclick = (e) => {
         e.preventDefault();
         document.querySelector(".container-form-user-add-edit").remove();
