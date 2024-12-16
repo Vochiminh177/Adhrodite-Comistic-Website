@@ -2,11 +2,13 @@ import { showProductStatistics, showCustomerStatistics, pagination, showListOrde
 import { createNotificationAdmin } from "./base/baseFunction.js"
 import { showMain } from "./script2.js";
 
-const validOrderList = getValidOrders() || [];
-const userList = JSON.parse(localStorage.getItem('userList')) || [];
-const productStatistics = generateProductStatistics(validOrderList);
+let validOrderList = [];
+let productStatistics = [];
 
 export function DashboardEvent() {
+    const userList = JSON.parse(localStorage.getItem('userList')) || [];
+    validOrderList = getValidOrders() || [];
+    productStatistics = generateProductStatistics(validOrderList);
     updateDashboardHighlights(validOrderList, productStatistics);
     pagination(productStatistics, 1, showProductStatistics, "#main-content-dashboard");
     chooseTypeStatistic();
