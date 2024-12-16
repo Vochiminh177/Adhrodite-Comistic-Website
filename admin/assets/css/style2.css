@@ -45,9 +45,9 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
 }
-#side-bar::--webkit-scrollbar {
+/* #side-bar::--webkit-scrollbar {
   display: none;
-}
+} */
 #side-bar.hide {
   width: 60px;
 }
