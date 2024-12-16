@@ -74,7 +74,6 @@ export function deleteProduct() {
             <div class="form-delete-confirm">
                 <a class="exit-confirm-delete">&times;</a>
                 <div class="content-delete-confirm">
-                    
                     <div class="content-delete">
                         <label for="number-delete-confirm">Số lượng:</label>
                         <input type="number" name="number-delete" id="number-delete-confirm" placeholder="Nhập số lượng">
@@ -83,12 +82,16 @@ export function deleteProduct() {
                     <button class="btndelete confirm-delete">Xóa</button>
                 </div>
             </div>
+            <div class="delete-form"></div>
             `;
-            document.body.appendChild(ele);
+            if(!document.querySelector(".container-delete-confirm")) document.body.appendChild(ele);
             setTimeout(() => {
                 document.querySelector(".form-delete-confirm").style.opacity = "1";
             }, 10);
-
+            //gán sự kiện xóa ấn ngoài để tắt
+            document.querySelector(".delete-form").onclick = () => {
+                document.querySelector(".container-delete-confirm").remove();
+            }
             //gán sự kiện click để xóa form
             document.querySelector(".exit-confirm-delete").onclick = (e) => {
                 e.preventDefault();

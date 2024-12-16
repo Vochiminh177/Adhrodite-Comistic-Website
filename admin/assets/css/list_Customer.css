@@ -54,9 +54,18 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.container-delete-customer a{
+  position: absolute;
+  cursor: pointer;
+  top: -2%;
+  right: 5px;
+  font-size: 2rem;
+  color: #ccc;
+}
 .form-delete-customer {
   padding: 20px;
   background-color: #fff;
+  position: relative;
 }
 .form-delete-customer .content-delete-customer{
   display: flex;
@@ -76,9 +85,11 @@
   font-weight: 700;
 }
 .form-delete-customer button {
+  outline: none;
+  border: none;
   border-radius: 10px;
   border: none;
-  width: 10rem;
+  width: 7rem;
   font-size: 1.2rem;
   margin: 0px 20px;
   padding: 10px 0px;
@@ -339,7 +350,6 @@
   .content-delete-customer span, .content-delete-customer button{
     font-size: 1.2rem;
   }
-
  
   .content-customer-list table th {
     display: none;

@@ -43,25 +43,30 @@
   justify-content: center;
   align-items: center;
 }
-
+.delete-form{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1999;
+}
 .form-delete-confirm {
+  z-index: 2000;
   width: 524px;
   background-color: #fff;
-  padding: 30px 10px;
+  padding: 25px 10px;
   border-radius: 10px;
   /* opacity: 1; */
   transition: opacity 0.2s ease-in-out;
   position: relative;
 }
 .exit-confirm-delete {
+  right: 5px;
+  top: 0px;
   position: absolute;
-  top: 0%;
-  right: 1%;
   font-size: 2rem;
   color: #ccc;
-  background-color: #fff;
+  /* background-color: #fff; */
   cursor: pointer;
-  border-radius: 10px;
 }
 .content-delete-confirm {
   display: flex;
@@ -389,7 +394,7 @@
   /* css phần hỏi trước khi xóa sản phẩm */
   .form-delete-confirm {
     width: 90%;
-    padding: 10px;
+    padding: 25px 10px;
   }
   .form-delete-confirm .content-delete {
     margin: 0px;
@@ -744,6 +749,13 @@
     td:nth-child(6) {
       /* display: block; */
     }
+  }
+
+  /* -----------------------------------------*/
+  /* css phần hỏi trước khi xóa sản phẩm */
+  .form-delete-confirm {
+    width: 90%;
+    padding: 25px 10px;
   }
   
   @media screen and (max-width: 500px) {
