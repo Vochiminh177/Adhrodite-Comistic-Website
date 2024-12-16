@@ -331,6 +331,12 @@
 /* ------------------------------------------ */
 
 @media screen and (max-width: 500px) {
+  .form-group.choice-address{
+    flex-direction: column;
+  }
+.form-group.choice-address select{
+  width: 100%;
+}
   .search-customer-bar {
     width: 100%;
   }
