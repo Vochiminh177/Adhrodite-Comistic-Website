@@ -16,10 +16,7 @@
   width: 6%;
 }
 .content.order #title-name{
-  background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 .content.order .table-container {
   width: 100%;
