@@ -82,7 +82,7 @@
   font-size: 1.8rem;
   height: 40px;
   line-height: 40px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .form-delete-customer button {
   outline: none;
@@ -369,7 +369,7 @@
   }
 
   .content-customer-list td::before {
-    font-weight: 700;
+    font-weight: 600;
     width: 40%;
     text-align: left;
   }

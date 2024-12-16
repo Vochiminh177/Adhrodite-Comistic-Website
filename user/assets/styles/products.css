@@ -23,7 +23,7 @@
   position: relative;
   padding-bottom: 7px;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .body__products .heading::after {
   position: absolute;
@@ -415,7 +415,7 @@
   margin-top: 15px;
   color: #6a253c;
   font-size: 1.9rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .body__products .main-products__pagination,
 .body__products .main-products__numbers {
@@ -484,7 +484,7 @@
 .body__products .main-order__product-title {
   height: 96px;
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.17;
 }
 .body__products .main-order__details {
@@ -573,7 +573,7 @@
   margin-top: 24px;
   color: #ffcc00;
   font-size: 5.4rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 }
 .body__products .info-rate__stars {
