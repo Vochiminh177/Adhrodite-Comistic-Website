@@ -235,6 +235,14 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
         err_input(address);
         return false;
     }
+
+      let tmp = username.value.trim().toLowerCase();
+      for(let k=0; k<username.value.trim().length; k++){
+        if(!( tmp.charAt(k) >= 'a' && tmp.charAt(k)  <= 'z' || tmp.charAt(k)  >= '0' && tmp.charAt(k)  <= '9')){
+          errorInput(username, "Cần chữ thường");
+          return false;
+        }
+      }
   
    for(const char of firstName.value.trim()){
     if(!/[a-zA-ZàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ ]/.test(char)){
