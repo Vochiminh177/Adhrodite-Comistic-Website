@@ -195,35 +195,37 @@ export function showMain(sectionId) {
 
  <div class="dashboard-filter">
     <!-- Cột Thống kê và Tìm kiếm -->
-    <div class="filter-group">
-        <label for="sortTypeStatistic">Thống kê:</label>
-        <select id="sortTypeStatistic" class="sort-input">
-            <option value="product">Theo sản phẩm</option>
-            <option value="customer">Theo khách hàng</option>
-        </select>
-        <label for="product-id" id="object-id-label">Tìm kiếm:</label>
-        <input type="search" id="object-id" class="custom-date-input" placeholder="Nhập mã sản phẩm">
-    </div>
+    <div class="filter-group-container">
+      <div class="filter-group">
+          <label for="sortTypeStatistic">Thống kê:</label>
+          <select id="sortTypeStatistic" class="sort-input">
+              <option value="product">Theo sản phẩm</option>
+              <option value="customer">Theo khách hàng</option>
+          </select>
+          <label for="product-id" id="object-id-label">Tìm kiếm:</label>
+          <input type="search" id="object-id" class="custom-date-input" placeholder="Nhập mã sản phẩm">
+      </div>
 
-    <!-- Cột Sắp xếp và Hiển thị -->
-    <div class="filter-group">
-        <label for="sortType">Sắp xếp:</label>
-        <select id="sortType" class="sort-input">
-            <option value="desc">Tổng tiền giảm dần</option>
-            <option value="asc">Tổng tiền tăng dần</option>
-            <option value="az">Từ A đến Z</option>
-            <option value="za">Từ Z đến A</option>
-        </select>
-        <label for="row-count">Hiển thị:</label>
-        <input type="text" id="row-count" class="custom-date-input" placeholder="Nhập số hàng">
-    </div>
+      <!-- Cột Sắp xếp và Hiển thị -->
+      <div class="filter-group">
+          <label for="sortType">Sắp xếp:</label>
+          <select id="sortType" class="sort-input">
+              <option value="desc">Tổng tiền giảm dần</option>
+              <option value="asc">Tổng tiền tăng dần</option>
+              <option value="az">Từ A đến Z</option>
+              <option value="za">Từ Z đến A</option>
+          </select>
+          <label for="row-count">Hiển thị:</label>
+          <input type="text" id="row-count" class="custom-date-input" placeholder="Nhập số hàng">
+      </div>
 
-    <!-- Cột Ngày bắt đầu và Ngày kết thúc -->
-    <div class="filter-group">
-        <label for="from-date">Từ ngày:</label>
-        <input type="date" id="from-date" class="custom-date-input">
-        <label for="to-date">Đến ngày:</label>
-        <input type="date" id="to-date" class="custom-date-input">
+      <!-- Cột Ngày bắt đầu và Ngày kết thúc -->
+      <div class="filter-group">
+          <label for="from-date">Từ ngày:</label>
+          <input type="date" id="from-date" class="custom-date-input">
+          <label for="to-date">Đến ngày:</label>
+          <input type="date" id="to-date" class="custom-date-input">
+      </div>
     </div>
 
     <!-- Cột Nút Lọc và Xóa -->
@@ -232,6 +234,9 @@ export function showMain(sectionId) {
         <button id="resetBtn" class="reset-button">Xóa</button>
     </div>
 </div>
+
+
+
     <div class="dashboard-data">
         <table class="dashboardTable">
         </table>
