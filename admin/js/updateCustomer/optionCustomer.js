@@ -287,6 +287,10 @@ function createFormAddEdit(){
           err_input(document.querySelector(".district :checked"), null, true);
           return;
         }
+        if(wardInfo === "Chọn Phường / Xã"){
+            err_input(document.querySelector(".ward :checked"), null, true);
+            return;
+        }
     
         let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
         document.querySelector(".address-customer").value = tmpAddress;

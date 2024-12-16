@@ -178,7 +178,10 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
       errorInput(document.querySelector(".district :checked"), null, true);
       return;
     }
-
+    if(wardInfo === "Chọn Phường / Xã"){
+      errorInput(document.querySelector(".ward :checked"), null, true);
+      return;
+    }
     let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
     document.querySelector(".address").value = tmpAddress;
   }
