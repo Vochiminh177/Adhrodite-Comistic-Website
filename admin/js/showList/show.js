@@ -20,6 +20,7 @@ import {
   generateOrderEvents,
 } from "../updateOrder/handleOrders.js";
 import { showOrdersListByProductId, showOrdersListByCustomerId } from "../dashboard.js";
+import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 
 function createPage(list, currentPage, showList, main) {
   if(list.length === 0){
@@ -161,7 +162,7 @@ export function showListProduct(start, end, currentPage, productList) {
                 <td id="name">${ele.name}</td>
                 <td id="brand">${ele.brand}</td>
                 <td id="category">${ele.category}</td>
-                <td id="price">${ele.price}</td>
+                <td id="price">${formatVietNamMoney(ele.price)}đ</td>
                 <td id="quantity">${ele.quantity}</td>
                 <td>
                     <a href="" class="edit-product" index-item=${index}>Sửa</a>
@@ -230,9 +231,9 @@ export function showProductStatistics(start, end, currentPage, productReport) {
             <th>Mã</th>
             <th>Hình ảnh</th>
             <th>Sản phẩm</th>
-            <th>Giá (VND)</th>
+            <th>Đơn giá</th>
             <th>Tổng đơn hàng</th>
-            <th>Tổng doanh thu (VND)</th>
+            <th>Tổng doanh thu</th>
             <th>Chi tiết</th>
         </tr>
     </thead>`;
@@ -246,9 +247,9 @@ export function showProductStatistics(start, end, currentPage, productReport) {
                 <td>${product.id}</td>
                 <td><img src="${product.src}" style="width: 70px; height:70px;"></td>
                 <td>${product.name}</td>
-                <td>${product.price.toLocaleString()}</td>
+                <td>${product.price.toLocaleString()}đ</td>
                 <td>${product.orderCount}</td>
-                <td>${product.totalRevenue.toLocaleString()}</td>
+                <td>${product.totalRevenue.toLocaleString()}đ</td>
                 <td>
                   <button class="order-list-btn" data-product-id="${product.id}">Đơn hàng</button>
                 </td>
