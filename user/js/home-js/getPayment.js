@@ -432,26 +432,26 @@ function updatePaymentInformation(
           </h3>
           <form action="" class="payment-information-info__form">
               <div class="payment-information-info__form-group">
-                  <input type="text" class="payment-information-info__firstName" value="${
+                  <input readonly type="text" class="payment-information-info__firstName" value="${
                     userList[indexCurrentUserLogin].first_name
                       ? userList[indexCurrentUserLogin].first_name
                       : ""
                   }" placeholder="Họ">
-                  <input type="text" class="payment-information-info__lastName" value="${
+                  <input readonly type="text" class="payment-information-info__lastName" value="${
                     userList[indexCurrentUserLogin].last_name
                       ? userList[indexCurrentUserLogin].last_name
                       : ""
                   }" placeholder="Tên">
               </div>
               <div class="payment-information-info__form-group">
-                  <input type="email" class="payment-information-info__email" 
+                  <input readonly type="email" class="payment-information-info__email" 
                   value="${
                     userList[indexCurrentUserLogin].email
                       ? userList[indexCurrentUserLogin].email
                       : ""
                   }"
                   placeholder="Email">
-                  <input type="phone" class="payment-information-info__phone" value="${
+                  <input readonly type="phone" class="payment-information-info__phone" value="${
                     userList[indexCurrentUserLogin].phone
                       ? userList[indexCurrentUserLogin].phone
                       : ""

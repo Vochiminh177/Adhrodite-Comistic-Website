@@ -135,14 +135,9 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
           orderedProducts.forEach((orderedProduct) => {
             const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
             if (toRestoreIndex !== -1) {
-              productList[toRestoreIndex].discountQuantity += Math.min(
-                orderedProduct.discountQuantity,
-                orderedProduct.quantity
-              );
+              productList[toRestoreIndex].discountQuantity += orderedProduct.discountQuantity;
               
-              productList[toRestoreIndex].quantity +=
-                orderedProduct.quantity -
-                Math.min(orderedProduct.discountQuantity, orderedProduct.quantity);
+              productList[toRestoreIndex].quantity += orderedProduct.quantity;
             }
           });
           localStorage.setItem("productList", JSON.stringify(productList));

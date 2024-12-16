@@ -48,11 +48,11 @@ function handle_order_information(userList, indexCurrentUserLogin) {
   if (
     firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || address.value === ""
   ) {
-    errorInput(firstName);
-    errorInput(lastName);
-    errorInput(email);
-    errorInput(phone);
-    errorInput(address);
+    // errorInput(firstName);
+    // errorInput(lastName);
+    // errorInput(email);
+    // errorInput(phone);
+    // errorInput(address);
     create_notification_user("Cần bổ sung phần thông tin cá nhân")
     return false;
   }
@@ -517,6 +517,7 @@ export function getBillInfo(array_orderProduct) {
           document.querySelector(".header__shopping-cart-notification").style.visibility = "hidden";
 
           updateBill(userList, indexCurrentUserLogin, array_orderProduct);
+
         }
       }
     });
