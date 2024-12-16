@@ -233,6 +233,7 @@ function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate)
     }
 
     // Tạo bản đồ userList để tăng hiệu suất tìm kiếm
+    const userList = JSON.parse(localStorage.getItem("userList"));
     const userMap = new Map(userList.map(user => [String(user.id), user.username]));
 
     // Lọc các đơn hàng theo khoảng thời gian
