@@ -7,17 +7,19 @@ export function createOrderRow(order) {
   let district = getDistrictOfString(order.orderAddressToShip);
   let city = getCityOfString(order.orderAddressToShip);
   let result = "";
+  //district có giá trị "Quận/Huyện ${name}"
+  //city có giá trị "${name}"
   if(!district && !city){
     result = "Chưa rõ";
   } else
   if(district && city){
-    result = "Quận " + district + ", " + city;
+    result = district + ", " + city;
   } else
   if(district && !city){
-    result = "Quận " + district + ", " + "chưa rõ tỉnh/thành";
+    result = district + ", " + "chưa rõ tỉnh/thành";
   } else
   if(!district && city){
-    result = "Chưa rõ quận, " + city;
+    result = "Chưa rõ quận/huyện, " + city;
   }
 
   trEle.innerHTML += `

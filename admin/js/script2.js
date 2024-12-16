@@ -284,7 +284,7 @@ export function showMain(sectionId) {
                             <th>Mã đơn hàng</th>
                             <th>Mã khách hàng</th>
                             <th>Ngày đặt</th>
-                            <th>Quận, Tỉnh/TP</th>
+                            <th>Quận/Huyện, Tỉnh/TP</th>
                             <th>Tổng cộng</th>
                             <th>Trạng thái</th>
                             <th>Chi tiết</th>
@@ -400,7 +400,7 @@ export function showMain(sectionId) {
               <th>Mã đơn hàng</th>
               <th>Mã khách hàng</th>
               <th>Ngày đặt</th>
-              <th>Quận, Tỉnh/TP</th>
+              <th>Quận/Huyện, Tỉnh/TP</th>
               <th>Tổng cộng</th>
               <th>Trạng thái</th>
               <th>Chi tiết</th>

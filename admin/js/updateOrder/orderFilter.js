@@ -26,12 +26,12 @@ export function generateOrderFilter(){
         </div>
         <div class="order-filter-row">
             <div class="order-filter-group">
-                <label for="city-select">Tỉnh/TP</label>
+                <label for="city-select">Tỉnh/Thành phố</label>
                 <select id="city-select" name="order-city">
                 </select>
             </div>
             <div class="order-filter-group">
-                <label for="district-select">Quận</label>
+                <label for="district-select">Quận/Huyện</label>
                 <select id="district-select" name="order-district">
                 </select>
             </div>
@@ -371,12 +371,13 @@ function generateCityAdDistrictSelect(){
     }
 }
 
+// Hàm trả về Quận/Huyện ${name} of district
 export function getDistrictOfString(str){
     const arr = str.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let district = "";
     const arrLength = arr.length;
     for(let i = 0; i < arrLength; i++){
-        if(arr[i].toLowerCase().includes("quận")){
+        if(arr[i].toLowerCase().includes("quận") || arr[i].toLowerCase().includes("huyện")){
             district = arr[i];
             break;
         }
@@ -385,8 +386,8 @@ export function getDistrictOfString(str){
     district = district.trim();
     if(district !== ""){ 
         let tmp = district.split(" ");
-        const idx = tmp.findIndex(item => item === "quận");
-        tmp = tmp.slice(idx + 1);
+        const idx = tmp.findIndex(item => item === "quận" || item === "huyện");
+        tmp = tmp.slice(idx);
         tmp = tmp.map((word) => {
             return word[0].toUpperCase() + word.slice(1).toLowerCase();
         });
@@ -399,7 +400,7 @@ export function getDistrictOfString(str){
 
     return district;
 }
-
+// Hàm trả về ${name} of city
 export function getCityOfString(str){
     const arr = str.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let city = "";

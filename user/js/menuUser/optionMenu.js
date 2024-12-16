@@ -136,6 +136,13 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
   ele.className = "container-formInformation-user";
   ele.innerHTML = formInformationUser;
   document.body.appendChild(ele);
+  if(userList[indexCurrentUserLogin].address){
+    document.querySelector("form.form-user input.address").style.display = "block";
+    document.querySelector("form.form-user input.street").setAttribute("placeholder", "Nhập số nhà và đường mới");
+  } else{
+    document.querySelector("form.form-user input.address").style.display = "none";
+    document.querySelector("form.form-user input.street").setAttribute("placeholder", "Nhập số nhà và đường");
+  }
 
   document.querySelector(".exit-form-information-user").onclick = () => {
     ele.remove();
@@ -149,25 +156,27 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
     let result = handleSaveDateInformation(indexCurrentUserLogin);
     if (result) {
       create_notification_user("Lưu thành công!");
+      resetSelects();
     }
   };
-
-  //địa chỉ select
-  const citySelect = document.querySelector(".city");
-  const districtSelect = document.querySelector(".district");
-  const wardSelect = document.querySelector(".ward");
-   // Hàm đặt lại các lựa chọn
-   function resetAllSelect(condition) {
-    if (condition === 1) {
-      citySelect.innerHTML = `<option>Chọn Tỉnh thành</option>`;
-      districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+  resetSelects();
+  function resetSelects(){
+    //địa chỉ select
+    const citySelect = document.querySelector(".city");
+    const districtSelect = document.querySelector(".district");
+    const wardSelect = document.querySelector(".ward");
+    // Hàm đặt lại các lựa chọn
+    function resetAllSelect(condition) {
+      if (condition === 1) {
+        citySelect.innerHTML = `<option>Chọn Tỉnh thành</option>`;
+        districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+      }
+      if (condition === 2) {
+        districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+      }
+      wardSelect.innerHTML = `<option>Chọn Phường / Xã</option>`;
     }
-    if (condition === 2) {
-      districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
-    }
-    wardSelect.innerHTML = `<option>Chọn Phường / Xã</option>`;
-  }
-   // Đặt lại các lựa chọn
+    // Đặt lại các lựa chọn
     resetAllSelect(1);
     // Cập nhật dữ liệu Thành phố
     let cityItems = "";
@@ -220,6 +229,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
         wardSelect.innerHTML = wardItems;
       });
     });
+  }
 }
 
 // //hàm lịch sử mua hàng
