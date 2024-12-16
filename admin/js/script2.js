@@ -10,7 +10,7 @@ import {
   addProduct,
   filterProductAdmin,
 } from "./updateProduct/OptionProduct.js";
-import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+import { generateOrderFilter, orderStatusAndOrderdateSortAsc } from "./updateOrder/orderFilter.js";
 
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
@@ -470,6 +470,7 @@ export function showMain(sectionId) {
 		</div>
 		`;
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+    orderList.sort(orderStatusAndOrderdateSortAsc);
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
     responsiveOrderFilter();

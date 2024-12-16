@@ -158,17 +158,17 @@ function handle_order_product(
   // getMonth bắt đầu từ [0, 11]
   let date_order = new Date();
   date_order =
-    date_order.getHours().toString() +
+    (date_order.getHours().toString()).padStart(2, "0") +
     ":" +
-    date_order.getMinutes().toString() +
+    (date_order.getMinutes().toString()).padStart(2, "0") +
     ":" +
-    date_order.getSeconds().toString() +
+    (date_order.getSeconds().toString()).padStart(2, "0") +
     " " +
-    date_order.getDate().toString() +
+    (date_order.getDate().toString()).padStart(2, "0") +
     "/" +
-    (date_order.getMonth() + 1).toString() +
+    ((date_order.getMonth() + 1).toString()).padStart(2, "0") +
     "/" +
-    date_order.getFullYear().toString();
+    (date_order.getFullYear().toString()).padStart(4, "0");
 
   //phương thức thanh toán
   let purchase_method;
