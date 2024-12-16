@@ -62,6 +62,14 @@ function checkEmail(value){
     return true;
 }
 
+export function checkAddress(value){
+    if(value === "") return false;
+    if(!value.toLowerCase().includes("phường")) return false;
+    if(!value.toLowerCase().includes("quận")) return false;
+    if(!value.toLowerCase().includes("thành phố")) return false;
+    return true;
+  }
+
 export function handleDeleteCustomer(index) {
     let userList = JSON.parse(localStorage.getItem("userList"));
     if(userList[index].type === "admin") return false;
@@ -239,7 +247,7 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
       let tmp = username.value.trim().toLowerCase();
       for(let k=0; k<username.value.trim().length; k++){
         if(!( tmp.charAt(k) >= 'a' && tmp.charAt(k)  <= 'z' || tmp.charAt(k)  >= '0' && tmp.charAt(k)  <= '9')){
-          errorInput(username, "Cần chữ thường");
+          err_input(username, "Cần chữ thường");
           return false;
         }
       }
@@ -266,6 +274,11 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
 
     if(!checkEmail(email.value.trim())){
         err_input(email, "Email cần đúng định dạng");
+        return false;
+    }
+
+    if(!checkAddress(address.value)){
+        err_input(address, "Cần thông tin cụ thể");
         return false;
     }
 
