@@ -161,6 +161,13 @@ export function handleSignUp() {
     errorInput(check_accept_privacy);
     return false;
   }
+  console.log(username.value)
+  for(let k=0; k<username.value.trim().length; k++){
+    if(!(username.value.trim().charAt(k) >= 'a' && username.value.trim().charAt(k) <= 'z')){
+      errorInput(username, "Cần chữ thường");
+      return false;
+    }
+  }
 
   if (!checkEmail(email.value.trim())) {
     errorInput(email, "Sai định dạng");
@@ -174,13 +181,13 @@ export function handleSignUp() {
     };
     userList.forEach((obj) => {
         if(obj.username === username.value.toLowerCase().trim()){
-            check.mess_username = "*Tên đăng nhập đã tồn tại!"
+            check.mess_username = "Tên đăng nhập đã tồn tại!"
             check.status = true;
         }
     });
     userList.forEach((obj) => {
         if(obj.email === email.value.toLowerCase().trim()){
-            check.mess_email = "*Email đã tồn tại!";
+            check.mess_email = "Email đã tồn tại!";
             check.status = true;
         }
     });

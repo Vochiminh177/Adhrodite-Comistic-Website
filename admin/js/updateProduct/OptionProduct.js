@@ -108,9 +108,9 @@ export function deleteProduct() {
                     createNotificationAdmin("Xóa sản phẩm thành công!", "success");
                     let productList = JSON.parse(localStorage.getItem("productList"));
 
-                    // const currentPage = parseInt(document.querySelector(".page-number.active-page").textContent, 10);
+                    const currentPage = parseInt(document.querySelector(".page-number.active-page").textContent, 10);
                     showMain("main-content-product-list");
-                    pagination(productList, 1, showListProduct, "#main-content-product-list");
+                    pagination(productList, currentPage, showListProduct, "#main-content-product-list");
                 }
             };
         });
