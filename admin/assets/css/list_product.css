@@ -203,7 +203,7 @@
 .content-filter input{
   width: 20%;
 }
-#main-content-product-list .content-filter button {
+#main-content-product-list .content-filter a {
   width: calc(25% - 20px*(3/4));
   cursor: pointer;
   background-color:rgb(237, 171, 203);
@@ -252,7 +252,7 @@
 #input-filter-quantity:hover{
   background-color: #ccc;
 }
-.content-filter button, 
+.content-filter a, 
 .content-filter input{
   height: 40px;
   margin-top: auto;
