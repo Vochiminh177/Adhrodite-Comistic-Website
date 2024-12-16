@@ -10,7 +10,7 @@
 }
 .payment-information__icon {
   font-size: 3.2rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.2rem;
   text-align: center;
 }
@@ -43,7 +43,7 @@
   position: relative;
   padding-bottom: 7px;
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 }
 .payment-information-info__title::after {
@@ -402,7 +402,7 @@ figure:has(.payment-information-products__image) {
   right: 0;
   color: #000;
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* <=*/

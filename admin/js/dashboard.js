@@ -1,7 +1,7 @@
 import { showProductStatistics, showCustomerStatistics, pagination, showListOrder } from "./showList/show.js";
 import { createNotificationAdmin } from "./base/baseFunction.js"
 import { showMain } from "./script2.js";
-
+import { formatVietNamMoney } from "../../user/js/common-js/common.js";
 let validOrderList = [];
 let productStatistics = [];
 
@@ -332,7 +332,7 @@ function updateDashboardHighlights(orderList, productStatistics) {
     const totalCustomer = uniqueCustomers.size;
 
     // Cập nhật DOM cho các phần tử highlight
-    document.querySelectorAll(".dashboard-highlight-box")[0].querySelector("h3").textContent = `${totalRevenue.toLocaleString()} đ`;
+    document.querySelectorAll(".dashboard-highlight-box")[0].querySelector("h3").textContent = `${formatVietNamMoney(totalRevenue)}đ`;
     document.querySelectorAll(".dashboard-highlight-box")[1].querySelector("h3").textContent = totalOrders;
     document.querySelectorAll(".dashboard-highlight-box")[2].querySelector("h3").textContent = totalCustomer;
 

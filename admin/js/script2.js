@@ -10,7 +10,7 @@ import {
   addProduct,
   filterProductAdmin,
 } from "./updateProduct/OptionProduct.js";
-import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+import { generateOrderFilter, orderStatusAndOrderdateSortAsc } from "./updateOrder/orderFilter.js";
 
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
@@ -284,7 +284,7 @@ export function showMain(sectionId) {
                             <th>Mã đơn hàng</th>
                             <th>Mã khách hàng</th>
                             <th>Ngày đặt</th>
-                            <th>Quận, Tỉnh/TP</th>
+                            <th>Quận/Huyện, Tỉnh/TP</th>
                             <th>Tổng cộng</th>
                             <th>Trạng thái</th>
                             <th>Chi tiết</th>
@@ -400,7 +400,7 @@ export function showMain(sectionId) {
               <th>Mã đơn hàng</th>
               <th>Mã khách hàng</th>
               <th>Ngày đặt</th>
-              <th>Quận, Tỉnh/TP</th>
+              <th>Quận/Huyện, Tỉnh/TP</th>
               <th>Tổng cộng</th>
               <th>Trạng thái</th>
               <th>Chi tiết</th>
@@ -470,6 +470,7 @@ export function showMain(sectionId) {
 		</div>
 		`;
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+    orderList.sort(orderStatusAndOrderdateSortAsc);
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
     responsiveOrderFilter();

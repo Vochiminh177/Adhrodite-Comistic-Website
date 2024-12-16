@@ -190,7 +190,12 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
   userList[indexCurrentUserLogin].email = email.value;
   userList[indexCurrentUserLogin].phone = phone.value;
   userList[indexCurrentUserLogin].address = tmpAddress;
-
+  document.querySelector("form.form-user input.address").setAttribute("value", tmpAddress);
+  document.querySelector("form.form-user input.address").style.display = "block";
+  document.querySelector("form.form-user input.street").setAttribute("placeholder", "Nhập số nhà và đường mới");
+  document.querySelector("form.form-user input.street").setAttribute("value", "");
+  document.querySelector("form.form-user input.street").value = "";
+  
   localStorage.setItem("userList", JSON.stringify(userList));
   return true;
 }
