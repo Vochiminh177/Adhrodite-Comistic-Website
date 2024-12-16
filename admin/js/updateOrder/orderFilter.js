@@ -266,9 +266,9 @@ function sortOrderByDateDesc(first, second){
 export function orderStatusAndOrderdateSortAsc(first, second){
     const orderStatusValueMap = {
         "pending": 0,
-        "accepted": 1,
-        "canceled": 2,
-        "shipped": 3
+        "accepted": 0,
+        "canceled": 1,
+        "shipped": 1
       };
 
     if(orderStatusValueMap[first.orderStatus] < orderStatusValueMap[second.orderStatus]){
