@@ -130,6 +130,22 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
         } else
         if(newStatus === "canceled"){
           updateOrderStatus(orderIndex, "canceled");
+          const productList = JSON.parse(localStorage.getItem("productList"));
+          const orderedProducts = orderList[orderIndex].orderProduct;
+          orderedProducts.forEach((orderedProduct) => {
+            const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
+            if (toRestoreIndex !== -1) {
+              productList[toRestoreIndex].discountQuantity += Math.min(
+                orderedProduct.discountQuantity,
+                orderedProduct.quantity
+              );
+              
+              productList[toRestoreIndex].quantity +=
+                orderedProduct.quantity -
+                Math.min(orderedProduct.discountQuantity, orderedProduct.quantity);
+            }
+          });
+          localStorage.setItem("productList", JSON.stringify(productList));
         } else
         if(newStatus === "shipped"){
           updateOrderStatus(orderIndex, "shipped");
