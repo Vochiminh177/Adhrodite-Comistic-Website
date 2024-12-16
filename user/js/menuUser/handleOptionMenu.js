@@ -117,14 +117,14 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     firstName.value === "" ||
     lastName.value === "" ||
     email.value === "" ||
-    phone.value === "" || 
-    street.value === ""
+    phone.value === "" ||
+    address.value === ""
   ) {
-    errorInput(street);
     errorInput(firstName);
     errorInput(lastName);
     errorInput(email);
     errorInput(phone);
+    errorInput(address);
     return false;
   }
 
@@ -168,29 +168,35 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
   //   errorInput(address, "Sai định dạng");
   //   return false;
   // }
-  // Phường hoặc Xã
-  const wardInfo = document.querySelector(".ward :checked").innerText;
-  // Quận hoặc Huyện
-  const districtInfo = document.querySelector(".district :checked").innerText;
-  // Tỉnh thành
-  const cityInfo = document.querySelector(".city :checked").innerText;
+  // // Phường hoặc Xã
+  // const wardInfo = document.querySelector(".ward :checked").innerText;
+  // // Quận hoặc Huyện
+  // const districtInfo = document.querySelector(".district :checked").innerText;
+  // // Tỉnh thành
+  // const cityInfo = document.querySelector(".city :checked").innerText;
 
-  if(cityInfo === "Chọn Tỉnh thành"){
-    errorInput(document.querySelector(".city :checked"), null, true);
-    return false;
-  }
-  if(districtInfo === "Chọn Quận / Huyện"){
-    errorInput(document.querySelector(".district :checked"), null, true);
-    return false;
-  }
-  let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+  // if(address.value===""){
+  //   if(street.value === ""){
+  //     errorInput(street);
+  //     return false;
+  //   }
+  //   if(cityInfo === "Chọn Tỉnh thành"){
+  //     errorInput(document.querySelector(".city :checked"), null, true);
+  //     return false;
+  //   }
+  //   if(districtInfo === "Chọn Quận / Huyện"){
+  //     errorInput(document.querySelector(".district :checked"), null, true);
+  //     return false;
+  //   }
+  // }
+  // let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
   
   userList[indexCurrentUserLogin].first_name = firstName.value;
   userList[indexCurrentUserLogin].last_name = lastName.value;
   userList[indexCurrentUserLogin].email = email.value;
   userList[indexCurrentUserLogin].phone = phone.value;
-  userList[indexCurrentUserLogin].address = tmpAddress;
-  document.querySelector("form.form-user input.address").setAttribute("value", tmpAddress);
+  userList[indexCurrentUserLogin].address = address.value;
+  // document.querySelector("form.form-user input.address").setAttribute("value", tmpAddress);
   document.querySelector("form.form-user input.address").style.display = "block";
   document.querySelector("form.form-user input.street").setAttribute("placeholder", "Nhập số nhà và đường mới");
   document.querySelector("form.form-user input.street").setAttribute("value", "");

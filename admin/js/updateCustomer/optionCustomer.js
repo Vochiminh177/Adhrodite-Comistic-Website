@@ -1,5 +1,5 @@
 
-import { createNotificationAdmin } from "../base/baseFunction.js";
+import { createNotificationAdmin, err_input } from "../base/baseFunction.js";
 import { pagination, showListCustomer } from "../showList/show.js";
 import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer, handleBlockCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
@@ -256,12 +256,46 @@ function createFormAddEdit(){
                     <select class="district"><option></option></select>
                     <select class="ward"><option></option></select>
                 </div>
+                <button class="apply-address">Áp dụng</button>
             </div>
-            <button class="btn add-customer" type="submit">Lưu khách hàng</button>
+            <button class="btn add-customer" type="submit">Lưu tài khoản</button>
         </form>
         <div class="form-user-add-edit-delete"></div>
     `;
     if(!document.querySelector(".container-form-user-add-edit")) document.body.appendChild(container);
+
+     //ấn áp dụng địa chỉ
+      document.querySelector(".apply-address").onclick = (e) => {
+        e.preventDefault();
+        let street = document.querySelector(".street");
+        // Phường hoặc Xã
+        const wardInfo = document.querySelector(".ward :checked").innerText;
+        // Quận hoặc Huyện
+        const districtInfo = document.querySelector(".district :checked").innerText;
+        // Tỉnh thành
+        const cityInfo = document.querySelector(".city :checked").innerText;
+    
+        if(street.value.trim() === ""){
+          err_input(street);
+          return;
+        }
+        if(cityInfo === "Chọn Tỉnh thành"){
+          err_input(document.querySelector(".city :checked"), null, true);
+          return;
+        }
+        if(districtInfo === "Chọn Quận / Huyện"){
+          err_input(document.querySelector(".district :checked"), null, true);
+          return;
+        }
+        if(wardInfo === "Chọn Phường / Xã"){
+            err_input(document.querySelector(".ward :checked"), null, true);
+            return;
+        }
+    
+        let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+        document.querySelector(".address-customer").value = tmpAddress;
+      }
+
     document.querySelector(".form-user-add-edit a").onclick = (e) => {
         e.preventDefault();
         document.querySelector(".container-form-user-add-edit").remove();

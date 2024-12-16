@@ -4,6 +4,7 @@ import {
 } from "./handleOptionMenu.js";
 import { updateMainContent } from "../home-js/changeMainContent.js";
 import { locationToSelectArray } from "../../../database/database.js";
+import { errorInput } from "../userUpdate/handleUserUpdate.js";
 
 //hàm tạo thông báo
 let idTimeout = null;
@@ -125,6 +126,8 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
                 <select class="district"><option></option></select>
                 <select class="ward"><option></option></select>
             </div>
+            <button class="apply-address">Áp dụng</button>
+            
           </div>
           
           <input type="submit" class="save-information" value="Lưu thông tin"/>
@@ -151,6 +154,38 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
     ele.remove();
   };
 
+
+  //ấn áp dụng địa chỉ
+  document.querySelector(".apply-address").onclick = (e) => {
+    e.preventDefault();
+    let street = document.querySelector(".street");
+    // Phường hoặc Xã
+    const wardInfo = document.querySelector(".ward :checked").innerText;
+    // Quận hoặc Huyện
+    const districtInfo = document.querySelector(".district :checked").innerText;
+    // Tỉnh thành
+    const cityInfo = document.querySelector(".city :checked").innerText;
+
+    if(street.value === ""){
+      errorInput(street);
+      return;
+    }
+    if(cityInfo === "Chọn Tỉnh thành"){
+      errorInput(document.querySelector(".city :checked"), null, true);
+      return;
+    }
+    if(districtInfo === "Chọn Quận / Huyện"){
+      errorInput(document.querySelector(".district :checked"), null, true);
+      return;
+    }
+    if(wardInfo === "Chọn Phường / Xã"){
+      errorInput(document.querySelector(".ward :checked"), null, true);
+      return;
+    }
+    let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+    document.querySelector(".address").value = tmpAddress;
+  }
+  //ấn lưu thông tin
   document.querySelector(".form-user .save-information").onclick = (e) => {
     e.preventDefault();
     let result = handleSaveDateInformation(indexCurrentUserLogin);
