@@ -36,7 +36,7 @@ export function generateOrderFilter(){
                 </select>
             </div>
             <div class="order-filter-group">
-                <label for="order-date-sort">Thời gian đặt</label>
+                <label for="order-date-sort">Thời gian đặt hàng</label>
                 <select id="order-date-sort" name="order-date-sort">
                     <option value="asc">Cũ nhất</option>
                     <option value="desc">Mới nhất</option>
