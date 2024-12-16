@@ -388,7 +388,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
           class="fa-solid fa-chevron-left"
           style="pointer-events: none"
         ></i>
-        Quay trở lại Trang chủ
+        Quay trở lại trang chủ
       </button>
       <!-- Info Bill -->
       <div class="bill__info">
