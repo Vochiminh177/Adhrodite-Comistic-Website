@@ -223,10 +223,17 @@ export function filterProductAdmin() {
         divBrand.className = "brand";
         //tạo phần input hàng tồn kho
             
+        let pQuantity = document.createElement("p");
+        pQuantity.textContent = "Số lượng: ";
+
         let inputQuantity = document.createElement("input");
         inputQuantity.placeholder = "Nhập số lượng";
         inputQuantity.id = "input-filter-quantity";
         inputQuantity.type = "text";
+        
+        let inputQuantity_container = document.createElement("div");
+        inputQuantity_container.className = "quantity";
+        inputQuantity_container.innerHTML = pQuantity.outerHTML + inputQuantity.outerHTML;
         
 
         //tạo thẻ lọc 
@@ -235,7 +242,7 @@ export function filterProductAdmin() {
         a.textContent = "Lọc";
         
 
-        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity.outerHTML + a.outerHTML;
+        document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity_container.outerHTML + a.outerHTML;
 
         //hàm lọc dữ liệu
         function filterData(categoryID, brand, number) {
