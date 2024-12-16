@@ -1,3 +1,4 @@
+import { updateNavbarStyle } from "../common-js/common.js";
 import { updateMainContent } from "../home-js/changeMainContent.js"
 import { create_notification_user } from "../menuUser/optionMenu.js";
 // Hàm tạo sự kiện khi người dùng nhấn vào "Danh mục nổi bậc"
@@ -23,6 +24,7 @@ export function clickToProductItem() {
   );
   array.forEach((obj) => {
     obj.addEventListener("click", function (event) {
+      updateNavbarStyle("products");
       
       // Chuyển sang trang "Sản phẩm"
       updateMainContent("products");
