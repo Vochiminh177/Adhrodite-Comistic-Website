@@ -1,5 +1,6 @@
 //-----------------------------------HANDLE DATA USER----------------------------------------
 
+import { locationToSelectArray } from "../../../database/database.js";
 import { errorInput } from "../userUpdate/handleUserUpdate.js";
 
 export function checkAddress(value){
@@ -107,19 +108,21 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
   let email = document.querySelector(".form-user .email");
   let phone = document.querySelector(".form-user .phone");
   let address = document.querySelector(".form-user .address");
+  const citySelect = document.querySelector(".city");
+  const districtSelect = document.querySelector(".district");
+  const wardSelect = document.querySelector(".ward");
+  const street = document.querySelector(".street");
 
   if (
     firstName.value === "" ||
     lastName.value === "" ||
     email.value === "" ||
-    phone.value === "" ||
-    address.value === ""
+    phone.value === "" 
   ) {
     errorInput(firstName);
     errorInput(lastName);
     errorInput(email);
     errorInput(phone);
-    errorInput(address);
     return false;
   }
 
@@ -159,16 +162,31 @@ export function handleSaveDateInformation(indexCurrentUserLogin) {
     return false;
   }
 
-  if(!checkAddress(address.value)){
-    errorInput(address, "Sai định dạng");
+  // if(!checkAddress(address.value)){
+  //   errorInput(address, "Sai định dạng");
+  //   return false;
+  // }
+  // Phường hoặc Xã
+  const wardInfo = document.querySelector(".ward :checked").innerText;
+  // Quận hoặc Huyện
+  const districtInfo = document.querySelector(".district :checked").innerText;
+  // Tỉnh thành
+  const cityInfo = document.querySelector(".city :checked").innerText;
+  if(cityInfo === "Chọn Tỉnh thành"){
+    errorInput(document.querySelector(".city :checked"), null, true);
     return false;
   }
-
+  if(districtInfo === "Chọn Quận / Huyện"){
+    errorInput(document.querySelector(".district :checked"), null, true);
+    return false;
+  }
+  let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+  
   userList[indexCurrentUserLogin].first_name = firstName.value;
   userList[indexCurrentUserLogin].last_name = lastName.value;
   userList[indexCurrentUserLogin].email = email.value;
   userList[indexCurrentUserLogin].phone = phone.value;
-  userList[indexCurrentUserLogin].address = address.value;
+  userList[indexCurrentUserLogin].address = tmpAddress;
 
   localStorage.setItem("userList", JSON.stringify(userList));
   return true;

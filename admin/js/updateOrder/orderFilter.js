@@ -20,8 +20,8 @@ export function generateOrderFilter(){
                 </div>
             </div>
             <div class="order-filter-buttons">
-                <input type="submit" class="order-btn order-btn-apply order-filter-button" id="order-apply-btn" value="Áp dụng"></input>
-                <input type="reset" class="order-btn order-btn-reset order-filter-button" id="order-reset-btn" value="Đặt lại"></input>
+                <input type="submit" class="order-filter-button" id="order-apply-btn" value="Lọc"></input>
+                <input type="reset" class="order-filter-button" id="order-reset-btn" value="Xoá"></input>
             </div>
         </div>
         <div class="order-filter-row">

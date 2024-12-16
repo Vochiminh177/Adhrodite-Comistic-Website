@@ -3,7 +3,31 @@
   color: red;
 }
 /* //////////////// */
-
+/*------------------------ css phần địa chỉ------------------------ */
+.form-group-address {
+  width: 100%;
+}
+.form-group .street{
+  width: 100%;
+  border-bottom: 1px solid #000;
+}
+.form-group.choice-address {
+  display: flex;
+  justify-content: center;
+}
+.form-group-address div:last-child{
+  margin-top: 15px;
+}
+.form-group-address select{
+  padding: 10px;
+  text-align: center;
+  width: auto;
+  margin-right: 5px;
+}
+.form-group-address select:last-child{
+  margin: 0px;
+}
+/* ------------------------ */
 /* Css ấn thông tin cá nhân */
 .container-formInformation-user {
   z-index: 3;
@@ -35,7 +59,6 @@
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  width: 520px;
   padding: 16px 18px;
   border-radius: 10px;
 }
@@ -76,12 +99,12 @@
 .one-input {
   margin-top: 10px;
 }
+.one-input-btn {
+  margin-top: 24px;
+}
 .save-information {
   background-color: #000;
-  width: 128px;
-  height: 36px;
   color: #fff;
-  line-height: 36px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -223,6 +246,23 @@
   .form-user {
     width: 90%;
   }
+  .form-user h2{
+    font-size: 2rem;
+  }
+  .save-information{
+    font-size: 1.5rem;
+  }
+  .form-group-address div:last-child{
+    flex-direction: column;
+  }
+  .form-group-address select{
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+  .form-group-address select:last-child{
+    margin: 0px;
+  }
+  
 }
 
 @media screen and (max-width: 450px) {

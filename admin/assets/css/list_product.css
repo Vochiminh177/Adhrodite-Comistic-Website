@@ -167,14 +167,22 @@
 }
  .search-id button {
   border-radius: 5px;
-  background-color: #000;
-  color: #fff;
   padding: 10px 12px;
   font-size: 0.9rem;
-  transition: background 0.2s ease;
+  /* transition: background 0.2s ease; */
+  background-color: rgb(237, 171, 203);
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.search-product a:hover {
-  background-color: #a94064;
+.search-product button:hover {
+  background-color: #a9a9a9;
+  transform: scale(1.05);
+}
+.search-product button:active {
+  background-color: #808080;
+  transform: scale(0.95);
 }
 
 /* --------------css phần bộ lọc -------------------*/
@@ -195,13 +203,12 @@
 .content-filter input{
   width: 20%;
 }
-#main-content-product-list .content-filter a {
+#main-content-product-list .content-filter button {
   width: calc(25% - 20px*(3/4));
   cursor: pointer;
   background-color:rgb(237, 171, 203);
   color: #fff;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease;
   padding: 13px;
   border-radius: 5px;
   display: flex;
@@ -245,7 +252,7 @@
 #input-filter-quantity:hover{
   background-color: #ccc;
 }
-.content-filter a, 
+.content-filter button, 
 .content-filter input{
   height: 40px;
   margin-top: auto;

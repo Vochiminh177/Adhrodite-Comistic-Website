@@ -238,8 +238,8 @@ export function filterProductAdmin() {
 
         //tạo thẻ lọc 
 
-        let a = document.createElement("a");
-        a.textContent = "Lọc";
+        let button = document.createElement("button");
+        button.textContent = "Lọc";
         
 
         document.querySelector(".filter-product .content-filter").innerHTML = divCategory.outerHTML + divBrand.outerHTML + inputQuantity_container.outerHTML + a.outerHTML;
@@ -255,7 +255,7 @@ export function filterProductAdmin() {
             return arr;
         }
 
-        document.querySelector(".filter-product .content-filter a").onclick = (e) => {
+        document.querySelector(".filter-product .content-filter button").onclick = (e) => {
             e.preventDefault();
             let categoryID = document.querySelector("#select-product-filter-category").value;
             let brandSelect = document.querySelector("#select-product-filter-brand").value;
@@ -285,7 +285,7 @@ export function filterProductAdmin() {
 }
 
 export function searchProduct() {
-    document.querySelector(".search-id a").onclick = (e) => {
+    document.querySelector(".search-id button").onclick = (e) => {
         e.preventDefault();
         let value = document.querySelector("#search-product-id").value.trim();
         let productList = JSON.parse(localStorage.getItem("productList"));
