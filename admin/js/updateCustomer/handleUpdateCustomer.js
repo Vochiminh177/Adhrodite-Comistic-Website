@@ -128,13 +128,13 @@ export function handleEditCustomer(index) {
         return false;
     }
 
-     // Phường hoặc Xã
-     const wardInfo = document.querySelector(".ward :checked").innerText;
-     // Quận hoặc Huyện
-     const districtInfo = document.querySelector(".district :checked").innerText;
-     // Tỉnh thành
-     const cityInfo = document.querySelector(".city :checked").innerText;
-    let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+    //  // Phường hoặc Xã
+    //  const wardInfo = document.querySelector(".ward :checked").innerText;
+    //  // Quận hoặc Huyện
+    //  const districtInfo = document.querySelector(".district :checked").innerText;
+    //  // Tỉnh thành
+    //  const cityInfo = document.querySelector(".city :checked").innerText;
+    // let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
 
     //nếu tất cả ổn
     userList[index].username = username.value.trim();
@@ -149,7 +149,7 @@ export function handleEditCustomer(index) {
     }
     userList[index].type = objType[type.value];
     userList[index].email = email.value.trim();
-    userList[index].address = tmpAddress;
+    userList[index].address = address.value;
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
@@ -216,13 +216,13 @@ export function handleAddCustomer() {
         2: "admin"
     }
 
-    // Phường hoặc Xã
-    const wardInfo = document.querySelector(".ward :checked").innerText;
-    // Quận hoặc Huyện
-    const districtInfo = document.querySelector(".district :checked").innerText;
-    // Tỉnh thành
-    const cityInfo = document.querySelector(".city :checked").innerText;
-   let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+//     // Phường hoặc Xã
+//     const wardInfo = document.querySelector(".ward :checked").innerText;
+//     // Quận hoặc Huyện
+//     const districtInfo = document.querySelector(".district :checked").innerText;
+//     // Tỉnh thành
+//     const cityInfo = document.querySelector(".city :checked").innerText;
+//    let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
 
     let data = {
         type: objType[type.value],
@@ -235,7 +235,7 @@ export function handleAddCustomer() {
         first_name: firstName.value.trim(),
         last_name: lastName.value.trim(),
         phone: phone.value.trim(),
-        address: tmpAddress,
+        address: address.value,
         shoppingCart: []
     }
     userList.push(data);
@@ -251,13 +251,14 @@ export function handleBlockCustomer(index){
 }
 
 function checkErrorAddEdit(username, password, phone, firstName, lastName, email, address, street){
-    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "") {
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || address.value==="") {
         err_input(username);
         err_input(password);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);
         err_input(email);
+        err_input(address)
         return false;
     }
 
@@ -299,27 +300,27 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
     //     return false;
     // }
 
-    // Phường hoặc Xã
-    const wardInfo = document.querySelector(".ward :checked").innerText;
-    // Quận hoặc Huyện
-    const districtInfo = document.querySelector(".district :checked").innerText;
-    // Tỉnh thành
-    const cityInfo = document.querySelector(".city :checked").innerText;
+    // // Phường hoặc Xã
+    // const wardInfo = document.querySelector(".ward :checked").innerText;
+    // // Quận hoặc Huyện
+    // const districtInfo = document.querySelector(".district :checked").innerText;
+    // // Tỉnh thành
+    // const cityInfo = document.querySelector(".city :checked").innerText;
 
-    if(address.value === ""){
-        if(street.value===""){
-            err_input(street);
-            return false;
-        }
-        if(cityInfo === "Chọn Tỉnh thành"){
-        err_input(document.querySelector(".city :checked"), null, true);
-        return false;
-        }
-        if(districtInfo === "Chọn Quận / Huyện"){
-        err_input(document.querySelector(".district :checked"), null, true);
-        return false;
-        }
-    }
+   
+    //     if(street.value===""){
+    //         err_input(street);
+    //         return false;
+    //     }
+    //     if(cityInfo === "Chọn Tỉnh thành"){
+    //     err_input(document.querySelector(".city :checked"), null, true);
+    //     return false;
+    //     }
+    //     if(districtInfo === "Chọn Quận / Huyện"){
+    //     err_input(document.querySelector(".district :checked"), null, true);
+    //     return false;
+    //     }
+    
 
     return true;
 }

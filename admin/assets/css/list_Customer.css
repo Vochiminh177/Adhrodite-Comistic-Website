@@ -19,6 +19,13 @@
 /* ------------------------------css address của form add, edit tài khoản------------------------------ */
 .form-group-address{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.form-group-address div{
+  width: 100%;
 }
 .form-group-address .street{
   width: 100%;
@@ -30,6 +37,18 @@
 .form-group.choice-address select{
   text-align: center;
   width: 30%;
+}
+.form-group-address .apply-address{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 8px;
+  background-color: #000;
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+.form-group-address .apply-address:hover{
+  background-color: #a94064;
 }
 /* ------------------------------ */
 /* css nút thêm khách hàng  */
@@ -363,6 +382,9 @@
 
 /* ================= chung cho mobile và table */
 @media screen and (max-width: 700px) {
+  #filter-customer .content-filter a:last-child{
+    margin-left: auto;
+  }
   .content-delete-customer span, .content-delete-customer button{
     font-size: 1.2rem;
   }

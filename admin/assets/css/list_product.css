@@ -453,6 +453,9 @@
   .content-filter{
     flex-wrap: wrap;
   }
+  .filter-product .content-filter a:last-child{
+    margin-left: auto;
+  }
   
   
   #main-content-product-list .filter-product .category, .content-filter .brand, .filter-product .quantity { 
