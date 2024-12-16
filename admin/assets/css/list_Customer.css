@@ -161,6 +161,7 @@
 }
 
 .btn.btn-add-product.btn-add-customer{
+  width: calc(20% - 20px*(2/3));
   min-width: 150px;
 }
 /* ------------------------------------------ */
@@ -171,7 +172,7 @@
   align-items: center;
   margin-bottom: 20px;
   background-color: #fff;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
@@ -184,7 +185,7 @@
 .search-customer input {
   padding: 10px;
   font-size: 1rem;
-  width: calc(50% - 100px);
+  width: 50%;
   border: none;
   outline: none;
   border-bottom: 1px solid #000;
@@ -219,22 +220,24 @@
   display: flex;
   justify-content: flex-start;
   margin-top: 20px;
+  gap: 20px;
 }
 #filter-customer .content-filter p{
   font-size: 0.9rem;
   margin-right: 10px;
   text-wrap: nowrap;
 }
-.type{
-  margin-right: 5px;
-}
+
 .status-account p, .type p{
+  margin-bottom: 5px;
+  justify-content: center;
   display: flex;
   align-items: center;
 }
 #filter-customer .type, #filter-customer .status-account{
+  flex-direction: column;
   display: flex;
-  width: 40%;
+  width: calc(40% - 20px*(2/3));
 }
 #filter-customer select{
   width: 100%;
@@ -246,13 +249,15 @@
   border-radius: 5px;
   font-size: 1rem;
   transition: background-color 0.2s ease;
-  margin-left: auto;
+  width: calc(20% - 20px*(2/3));
+  text-align: center;
+  height: 40px;
+  margin-top: auto;
 }
 #filter-customer a:hover{
   background-color: #a94064;
 }
 #filter-type-customer, #filter-status-block{
-  margin : 0;
   width: 40%;
   text-align: center;
 }
@@ -297,20 +302,23 @@
   .content-filter{
     flex-wrap: wrap;
   }
+  #filter-customer a{
+    width: 100%;
+  }
   .type{
-    margin-right: 4%;
+    width: 100%;
   }
   .filter-status-block{
     margin-right: 0;
   }
   #filter-a-customer{
-    width: 48%;
+    width: 100%;
     margin-top: 10px;
     text-align: center;
   }
  
   #filter-customer .type, #filter-customer .status-account{
-    width: 48%;
+    width: 100%;
   }
 }
 
