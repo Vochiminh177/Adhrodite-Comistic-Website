@@ -35,7 +35,10 @@ function deleteMainCreatedFromJs() {
 }
 
 function anhMinh() {
-	showMain("main-content-dashboard");
+  setTimeout(() => {
+    showMain("main-content-dashboard");
+  }, 100);
+
 
   //click option của thanh bên
   const allSideMenu = document.querySelectorAll('#side-bar .side-menu li a');

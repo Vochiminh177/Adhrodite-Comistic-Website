@@ -1,6 +1,6 @@
 import { createNotificationAdmin, err_input } from "./base/baseFunction.js";
 
-let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
 let userList = JSON.parse(localStorage.getItem("userList"));
 if(indexCurrentUserLogin === -1 || userList[indexCurrentUserLogin].type !== "admin"){
   document.querySelector("#side-bar").style.display = "none";
@@ -27,7 +27,10 @@ function loginAdmin(){
             createNotificationAdmin("Đăng nhập thành công");
             document.querySelector("#account-admin").value = "";
             document.querySelector("#password-admin").value = "";
-            document.querySelector(".dashboard_sidebar").click();
+            setTimeout(() => {
+              document.querySelector(".dashboard_sidebar").click();
+            }, 10);
+          
         }
         else{
           document.querySelector("#password-admin").value = "";
