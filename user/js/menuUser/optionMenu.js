@@ -126,7 +126,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
                 <select class="district"><option></option></select>
                 <select class="ward"><option></option></select>
             </div>
-            <button class="apply-address">Áp dụng</button>
+            <button class="apply-address" type="button">Áp dụng</button>
             
           </div>
           
