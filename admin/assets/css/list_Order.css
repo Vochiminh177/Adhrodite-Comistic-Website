@@ -118,7 +118,7 @@
 }
 .order-filter-buttons > input {
   background-color: rgb(237, 171, 203);
-  color: black;
+  color:  #fff;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;

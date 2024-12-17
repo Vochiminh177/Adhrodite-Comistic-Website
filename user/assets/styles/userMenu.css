@@ -133,6 +133,9 @@
 .one-input-btn {
   margin-top: 24px;
 }
+form.form-user .address {
+  cursor: not-allowed;
+}
 .save-information {
   background-color: #000;
   color: #fff;
