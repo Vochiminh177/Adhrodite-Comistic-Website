@@ -142,7 +142,7 @@
 }
 /*---------- css phần tìm kiếm ----------------*/
 .search-product.search-id{
-  width: calc(75% - 20px*(1/4));
+  width: calc(80% - 20px*(2/5));
   display: flex;
 }
 .search-product a{

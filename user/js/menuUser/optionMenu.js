@@ -117,6 +117,7 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
                 : ""
             }" placeholder="Nhập địa chỉ">
           </div>
+          <button type="button" id="modify-user-address-btn"><i class='bx bxs-down-arrow'></i>Sửa địa chỉ</button>
           <div class="form-group-address">
             <div class="form-group">
                 <input type="text" class="street" placeholder="Nhập số nhà và đường"/>
@@ -126,7 +127,9 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
                 <select class="district"><option></option></select>
                 <select class="ward"><option></option></select>
             </div>
+
             <button class="apply-address" type="button">Áp dụng</button>
+
             
           </div>
           
@@ -139,13 +142,33 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
   ele.className = "container-formInformation-user";
   ele.innerHTML = formInformationUser;
   document.body.appendChild(ele);
-  if(userList[indexCurrentUserLogin].address){
-    document.querySelector("form.form-user input.address").style.display = "block";
-    document.querySelector("form.form-user input.street").setAttribute("placeholder", "Nhập số nhà và đường mới");
-  } else{
-    document.querySelector("form.form-user input.address").style.display = "none";
-    document.querySelector("form.form-user input.street").setAttribute("placeholder", "Nhập số nhà và đường");
+  const formGroupAddress = document.querySelector("form.form-user .form-group-address");
+  const modifyUserAddressBtn = document.getElementById("modify-user-address-btn");
+  const address = document.querySelector("form.form-user .address");
+  let firstSignUp = false;
+  if(!address.value){
+    firstSignUp = true;
   }
+  if(firstSignUp){
+    modifyUserAddressBtn.style.display = "none";
+    address.style.display = "none";
+    if(!formGroupAddress.classList.contains("active")){
+      formGroupAddress.classList.add("active");
+    }
+  }
+  modifyUserAddressBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    if(firstSignUp){
+      formGroupAddress.style.display = "block";
+    }
+    if(formGroupAddress.classList.contains("active")){
+      formGroupAddress.classList.remove("active");
+      modifyUserAddressBtn.innerHTML = `<i class='bx bxs-down-arrow'></i>Sửa địa chỉ`;
+    } else{
+      formGroupAddress.classList.add("active");
+      modifyUserAddressBtn.innerHTML = `<i class='bx bxs-up-arrow'></i>Huỷ sửa địa chỉ`;
+    }
+  })
 
   document.querySelector(".exit-form-information-user").onclick = () => {
     ele.remove();
@@ -156,35 +179,35 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
 
 
   //ấn áp dụng địa chỉ
-  document.querySelector(".apply-address").onclick = (e) => {
-    e.preventDefault();
-    let street = document.querySelector(".street");
-    // Phường hoặc Xã
-    const wardInfo = document.querySelector(".ward :checked").innerText;
-    // Quận hoặc Huyện
-    const districtInfo = document.querySelector(".district :checked").innerText;
-    // Tỉnh thành
-    const cityInfo = document.querySelector(".city :checked").innerText;
+  // document.querySelector(".apply-address").onclick = (e) => {
+  //   e.preventDefault();
+  //   let street = document.querySelector(".street");
+  //   // Phường hoặc Xã
+  //   const wardInfo = document.querySelector(".ward :checked").innerText;
+  //   // Quận hoặc Huyện
+  //   const districtInfo = document.querySelector(".district :checked").innerText;
+  //   // Tỉnh thành
+  //   const cityInfo = document.querySelector(".city :checked").innerText;
 
-    if(street.value === ""){
-      errorInput(street);
-      return;
-    }
-    if(cityInfo === "Chọn Tỉnh thành"){
-      errorInput(document.querySelector(".city :checked"), null, true);
-      return;
-    }
-    if(districtInfo === "Chọn Quận / Huyện"){
-      errorInput(document.querySelector(".district :checked"), null, true);
-      return;
-    }
-    if(wardInfo === "Chọn Phường / Xã"){
-      errorInput(document.querySelector(".ward :checked"), null, true);
-      return;
-    }
-    let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
-    document.querySelector(".address").value = tmpAddress;
-  }
+  //   if(street.value === ""){
+  //     errorInput(street);
+  //     return;
+  //   }
+  //   if(cityInfo === "Chọn Tỉnh thành"){
+  //     errorInput(document.querySelector(".city :checked"), null, true);
+  //     return;
+  //   }
+  //   if(districtInfo === "Chọn Quận / Huyện"){
+  //     errorInput(document.querySelector(".district :checked"), null, true);
+  //     return;
+  //   }
+  //   if(wardInfo === "Chọn Phường / Xã"){
+  //     errorInput(document.querySelector(".ward :checked"), null, true);
+  //     return;
+  //   }
+  //   let tmpAddress = street.value + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+  //   document.querySelector(".address").value = tmpAddress;
+  // }
   //ấn lưu thông tin
   document.querySelector(".form-user .save-information").onclick = (e) => {
     e.preventDefault();
@@ -192,6 +215,16 @@ export function showFormInformation(userList, indexCurrentUserLogin) {
     if (result) {
       create_notification_user("Lưu thành công!");
       resetSelects();
+      if(firstSignUp){
+        modifyUserAddressBtn.style.display = "block";
+        address.style.display = "block";
+        formGroupAddress.style.display = "none";
+      }
+
+      if(formGroupAddress.classList.contains("active")){
+        formGroupAddress.classList.remove("active");
+        modifyUserAddressBtn.innerHTML = `<i class='bx bxs-down-arrow'></i>Sửa địa chỉ`;
+      }
     }
   };
   resetSelects();

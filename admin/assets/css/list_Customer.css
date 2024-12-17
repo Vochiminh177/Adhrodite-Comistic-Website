@@ -204,13 +204,13 @@
 }
 
 .btn.btn-add-product.btn-add-customer{
-  width: calc(33.33% - 20px*(2/3));
+  width: calc(25% - 20px*(3/4));
   min-width: 150px;
 }
 
 .search-customer-bar{
   display: flex;
-  width: calc(66.66% - 20px*(1/3));
+  width: calc(75% - 20px*(1/4));
 }
 /* ------------------------------------------ */
 .customer-row {
@@ -330,58 +330,18 @@
 }
 /* ------------------------------------------ */
 
-@media screen and (max-width: 500px) {
-  .search-customer-bar {
-    width: 100%;
-  }
-  .search-customer{
-    display: flex;
-    flex-wrap: wrap-reverse;
-  }
-  .search-customer button{
-    margin: 0 auto;
-    margin-bottom: 10px;
 
-  }
-  .search-customer input{
-    width: calc(100% - 90px);
-  }
-  .status-account,
-  .type{
-    flex-direction: column;
-  }
-  
-  .status-account p,
-  .type p{
-    flex-direction: column;
-    margin-bottom: 5px;
-  }
-  .content-filter{
-    flex-wrap: wrap;
-  }
-  #filter-customer a{
-    width: 100%;
-  }
-  .type{
-    width: 100%;
-  }
-  .filter-status-block{
-    margin-right: 0;
-  }
-  #filter-a-customer{
-    width: 100%;
-    margin-top: 10px;
-    text-align: center;
-    flex-grow: 1;
-  }
- 
-  #filter-customer .type, #filter-customer .status-account{
-    width: 100%;
-  }
-}
 
 /* ================= chung cho mobile và table */
 @media screen and (max-width: 700px) {
+
+  
+  #filter-customer a,
+  #filter-customer .type, #filter-customer .status-account{
+    width: calc(50% - 20px*(1/2));
+  }
+
+
   #filter-customer .content-filter a:last-child{
     margin-left: auto;
   }
@@ -434,6 +394,62 @@
   .delete-customer,
   .block-customer {
     margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form-group.choice-address{
+    flex-direction: column;
+  }
+.form-group.choice-address select{
+  width: 100%;
+}
+  .search-customer-bar {
+    width: 100%;
+  }
+  .search-customer{
+    display: flex;
+    flex-wrap: wrap-reverse;
+  }
+  .search-customer button{
+    margin: 0 auto;
+    margin-bottom: 10px;
+
+  }
+  .search-customer input{
+    width: calc(100% - 90px);
+  }
+  .status-account,
+  .type{
+    flex-direction: column;
+  }
+  
+  .status-account p,
+  .type p{
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+  .content-filter{
+    flex-wrap: wrap;
+  }
+  #filter-customer a{
+    width: 100%;
+  }
+  .type{
+    width: 100%;
+  }
+  .filter-status-block{
+    margin-right: 0;
+  }
+  #filter-a-customer{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    flex-grow: 1;
+  }
+ 
+  #filter-customer .type, #filter-customer .status-account{
+    width: 100%;
   }
 }
 

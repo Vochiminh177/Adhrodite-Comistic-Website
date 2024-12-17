@@ -2,6 +2,13 @@
 .payment-information-info__form .payment-information-info__firstName {
   margin-bottom: 10px;
 }
+.payment-information-info__form .payment-information-info__firstName,
+.payment-information-info__form .payment-information-info__lastName,
+.payment-information-info__form .payment-information-info__email, 
+.payment-information-info__form .payment-information-info__phone,
+.payment-information-info__form .payment-information-info__address {
+  cursor: not-allowed;
+}
 .payment-information-info__form .err-text {
   border: 1px solid red;
 }

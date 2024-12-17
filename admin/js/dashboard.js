@@ -50,7 +50,7 @@ function Filter() {
             filteredOrders = generateProductStatistics(validOrderList, sortType, rowCount, startDate, endDate);
             pagination(filteredOrders, 1, showProductStatistics, "#main-content-dashboard");
         } else {
-            filteredOrders = generateCustomerStatistics(validOrderList, sortType, rowCount);
+            filteredOrders = generateCustomerStatistics(validOrderList, sortType, rowCount, startDate, endDate);
             pagination(filteredOrders, 1, showCustomerStatistics, "#main-content-dashboard");
         }
     });
@@ -229,7 +229,6 @@ function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate)
     // Kiểm tra nếu ngày kết thúc trước ngày bắt đầu
     if (start && end && end < start) {
         createNotificationAdmin("Ngày kết thúc không được trước ngày bắt đầu!");
-        return [];
     }
 
     // Tạo bản đồ userList để tăng hiệu suất tìm kiếm
@@ -251,6 +250,7 @@ function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate)
         }
         return true; // Không có điều kiện lọc
     });
+    console.log(filteredCustomerList);
 
     // Lặp qua danh sách đã lọc và tổng hợp dữ liệu
     filteredCustomerList.forEach(order => {
