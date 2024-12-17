@@ -393,7 +393,7 @@ select {
   flex-grow: 1;
   font-family: var(--poppins);
   background-color: rgb(237, 171, 203);
-  color: black;
+  color: #fff;
   border: none;
   padding: 10px 0px;
   cursor: pointer;
@@ -403,7 +403,7 @@ select {
 .order-list-btn {
   font-family: var(--poppins);
   background-color: rgb(237, 171, 203);
-  color: black;
+  color:  #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;

@@ -196,6 +196,9 @@ select {
 .form-user-add-edit .content-one-input input {
   width: 100%;
 }
+.form-user-add-edit .address-customer {
+  cursor: not-allowed;
+}
 .form-user-add-edit .content-two-input,
 .content-one-input {
   width: 100%;
