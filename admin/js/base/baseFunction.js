@@ -69,11 +69,19 @@ export function reset_style_input(input) {
     else if(input.className === "address-customer") input.placeholder = "Địa chỉ";
     else if(input.id === "account-admin") input.placeholder = "Tài khoản admin";
     else if(input.id === "password-admin") input.placeholder = "Mật khẩu";
+    else if(input.className ==="street") input.placeholder = "Nhập số nhà và đường";
     else input.placeholder = "Số lượng sản phẩm";
     input.style.borderColor = "#000";
 }
 
-export function err_input(input, mess) {
+export function err_input(input, mess, checkSelect) {
+    if(checkSelect){
+        input.parentElement.style.border = "2px solid red";
+        input.parentElement.onfocus = () => {
+          input.parentElement.style.border = "2px solid #000";
+        }
+        return;
+      }
     if (input.type == "file") {
         let parent = input.parentElement;
         if (!parent.querySelector("p")) {

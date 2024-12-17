@@ -87,8 +87,9 @@ export function handleEditCustomer(index) {
     let type = document.querySelector(".container-form-user-add-edit #type-customer");
     let email = document.querySelector(".container-form-user-add-edit .email-customer");
     let address = document.querySelector(".container-form-user-add-edit .address-customer");
+    let street = document.querySelector(".container-form-user-add-edit .street");
 
-   if(!checkErrorAddEdit(username, password, phone, firstName, lastName, email, address)) return false;
+   if(!checkErrorAddEdit(username, password, phone, firstName, lastName, email, address, street)) return false;
 
     //nếu bị trùng username hoặc sdt hoặc email
     let userList = JSON.parse(localStorage.getItem("userList"));
@@ -127,6 +128,14 @@ export function handleEditCustomer(index) {
         return false;
     }
 
+    //  // Phường hoặc Xã
+    //  const wardInfo = document.querySelector(".ward :checked").innerText;
+    //  // Quận hoặc Huyện
+    //  const districtInfo = document.querySelector(".district :checked").innerText;
+    //  // Tỉnh thành
+    //  const cityInfo = document.querySelector(".city :checked").innerText;
+    // let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+
     //nếu tất cả ổn
     userList[index].username = username.value.trim();
     userList[index].password = password.value.trim();
@@ -140,7 +149,7 @@ export function handleEditCustomer(index) {
     }
     userList[index].type = objType[type.value];
     userList[index].email = email.value.trim();
-    userList[index].address = address.value.trim();
+    userList[index].address = address.value;
     localStorage.setItem("userList", JSON.stringify(userList));
     return true;
 }
@@ -154,8 +163,9 @@ export function handleAddCustomer() {
     let type = document.querySelector(".container-form-user-add-edit #type-customer");
     let email = document.querySelector(".container-form-user-add-edit .email-customer");
     let address = document.querySelector(".container-form-user-add-edit .address-customer");
+    let street = document.querySelector(".container-form-user-add-edit .street");
 
-    if(!checkErrorAddEdit(username, password, phone, firstName, lastName, email, address)) return false;
+    if(!checkErrorAddEdit(username, password, phone, firstName, lastName, email, address, street)) return false;
 
     //nếu bị trùng username hoặc sdt hoặc email
     let userList = JSON.parse(localStorage.getItem("userList"));
@@ -206,6 +216,14 @@ export function handleAddCustomer() {
         2: "admin"
     }
 
+//     // Phường hoặc Xã
+//     const wardInfo = document.querySelector(".ward :checked").innerText;
+//     // Quận hoặc Huyện
+//     const districtInfo = document.querySelector(".district :checked").innerText;
+//     // Tỉnh thành
+//     const cityInfo = document.querySelector(".city :checked").innerText;
+//    let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+
     let data = {
         type: objType[type.value],
         blockStatus: false,
@@ -217,7 +235,7 @@ export function handleAddCustomer() {
         first_name: firstName.value.trim(),
         last_name: lastName.value.trim(),
         phone: phone.value.trim(),
-        address: address.value.trim(),
+        address: address.value,
         shoppingCart: []
     }
     userList.push(data);
@@ -232,15 +250,15 @@ export function handleBlockCustomer(index){
     localStorage.setItem("userList", JSON.stringify(userList));
 }
 
-function checkErrorAddEdit(username, password, phone, firstName, lastName, email, address){
-    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || address.value === "") {
+function checkErrorAddEdit(username, password, phone, firstName, lastName, email, address, street){
+    if (username.value === "" || password.value === "" || phone.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || address.value==="") {
         err_input(username);
         err_input(password);
         err_input(phone);
         err_input(firstName);
         err_input(lastName);
         err_input(email);
-        err_input(address);
+        err_input(address)
         return false;
     }
 
@@ -277,10 +295,32 @@ function checkErrorAddEdit(username, password, phone, firstName, lastName, email
         return false;
     }
 
-    if(!checkAddress(address.value)){
-        err_input(address, "Cần thông tin cụ thể");
-        return false;
-    }
+    // if(!checkAddress(address.value)){
+    //     err_input(address, "Cần thông tin cụ thể");
+    //     return false;
+    // }
+
+    // // Phường hoặc Xã
+    // const wardInfo = document.querySelector(".ward :checked").innerText;
+    // // Quận hoặc Huyện
+    // const districtInfo = document.querySelector(".district :checked").innerText;
+    // // Tỉnh thành
+    // const cityInfo = document.querySelector(".city :checked").innerText;
+
+   
+    //     if(street.value===""){
+    //         err_input(street);
+    //         return false;
+    //     }
+    //     if(cityInfo === "Chọn Tỉnh thành"){
+    //     err_input(document.querySelector(".city :checked"), null, true);
+    //     return false;
+    //     }
+    //     if(districtInfo === "Chọn Quận / Huyện"){
+    //     err_input(document.querySelector(".district :checked"), null, true);
+    //     return false;
+    //     }
+    
 
     return true;
 }

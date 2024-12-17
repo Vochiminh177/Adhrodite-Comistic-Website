@@ -118,7 +118,7 @@
 }
 .order-filter-buttons > input {
   background-color: rgb(237, 171, 203);
-  color: black;
+  color:  #fff;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -229,12 +229,12 @@
 }
 .order-details-modal h2 {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .order-details-modal h3 {
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 #order-details-modal p {
   margin-bottom: 16px;
@@ -390,24 +390,24 @@
     text-align: left;
   }
   .content-order-table td::before {
-    font-weight: 700;
+    font-weight: 600;
     width: 150px;
   }
   .content-order-table td:nth-of-type(1)::before {
     content: "Mã đơn hàng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(2)::before {
     content: "Mã khách hang";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(3)::before {
     content: "Ngày đặt hàng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(4)::before {
     content: "Giá bán";
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .order-details-modal-content {
@@ -442,37 +442,37 @@
     text-align: left;
   }
   .content-order-table td::before {
-    font-weight: 700;
+    font-weight: 600;
     width: 150px;
   }
 
   .content-order-table td:nth-of-type(1)::before {
     content: "Mã đơn hàng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(2)::before {
     content: "Mã khách hang";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(3)::before {
     content: "Ngày đặt hàng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(4)::before {
     content: "Giá bán";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(5)::before {
     content: "Tổng cộng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(6)::before {
     content: "Trạng thái";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table td:nth-of-type(7)::before {
     content: "Chi tiết";
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .order-details-modal-content {
@@ -503,7 +503,7 @@
     text-align: left;
   }
   .content-order-table td::before {
-    font-weight: 700;
+    font-weight: 600;
     width: 150px;
   }
   .content-order-table .content-order-table-body td:first-child {
@@ -511,31 +511,31 @@
   }
   .content-order-table-body td:nth-of-type(1)::before {
     content: "Mã đơn hàng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body td:nth-of-type(2)::before {
     content: "Mã khách hang";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body td:nth-of-type(3)::before {
     content: "Ngày đặt hàng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body td:nth-of-type(4)::before {
     content: "Giá bán";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body td:nth-of-type(5)::before {
     content: "Tổng cộng";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body td:nth-of-type(6)::before {
     content: "Trạng thái";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body td:nth-of-type(7)::before {
     content: "Chi tiết";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-order-table-body tr:nth-of-type(2n) {
     background-color: #f9f0f0;

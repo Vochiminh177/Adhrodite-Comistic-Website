@@ -45,15 +45,15 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
 }
-#side-bar::--webkit-scrollbar {
+/* #side-bar::--webkit-scrollbar {
   display: none;
-}
+} */
 #side-bar.hide {
   width: 60px;
 }
 #side-bar .brand {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   height: 56px;
   display: flex;
   align-items: center;
@@ -315,7 +315,7 @@ body {
     text-align: left;
   }
   .content-product-list table td::before {
-    font-weight: 700;
+    font-weight: 600;
     width: 100px;
   }
   .content-product-list table td:first-child {
@@ -326,33 +326,33 @@ body {
   }
   .content-product-list table td:nth-of-type(2)::before {
     content: "Mã";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list table td:nth-of-type(3)::before {
     content: "Tên";
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .content-product-list table td:nth-of-type(4)::before {
     content: "Thương hiệu";
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .content-product-list table td:nth-of-type(5)::before {
     content: "Loại";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list table td:nth-of-type(6)::before {
     content: "Giá";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list table td:nth-of-type(7)::before {
     content: "Số Lượng";
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .content-product-list table td:nth-of-type(8)::before {
     content: "Tuỳ chỉnh";
-    font-weight: 700;
+    font-weight: 600;
   }
 }

@@ -1,8 +1,9 @@
 
-import { createNotificationAdmin } from "../base/baseFunction.js";
+import { createNotificationAdmin, err_input } from "../base/baseFunction.js";
 import { pagination, showListCustomer } from "../showList/show.js";
 import { handleAddCustomer, handleDeleteCustomer, handleEditCustomer, handleBlockCustomer } from "./handleUpdateCustomer.js";
 import { showMain } from "../script2.js";
+import { locationToSelectArray } from "../../../database/database.js";
 
 export function deleteCustomer(currentPage) {
     document.querySelectorAll(".delete-customer").forEach((obj) => {
@@ -245,12 +246,56 @@ function createFormAddEdit(){
                 </select>
             </div>
             <div class="content-one-input"><input type="text" placeholder="Email" class="email-customer"></div>
-            <div class="content-one-input"><input type="text" placeholder="Địa chỉ" class="address-customer"></div>
-            <button class="btn add-customer" type="submit">Lưu khách hàng</button>
+            <div class="content-one-input"><input readonly type="text" placeholder="Địa chỉ" class="address-customer"></div>
+            <div class="form-group-address">
+                <div class="form-group">
+                    <input type="text" class="street" placeholder="Nhập số nhà và đường"/>
+                </div>
+                <div class="form-group choice-address">
+                    <select class="city"><option></option></select>
+                    <select class="district"><option></option></select>
+                    <select class="ward"><option></option></select>
+                </div>
+                <button class="apply-address">Áp dụng</button>
+            </div>
+            <button class="btn add-customer" type="submit">Lưu tài khoản</button>
         </form>
         <div class="form-user-add-edit-delete"></div>
     `;
     if(!document.querySelector(".container-form-user-add-edit")) document.body.appendChild(container);
+
+     //ấn áp dụng địa chỉ
+      document.querySelector(".apply-address").onclick = (e) => {
+        e.preventDefault();
+        let street = document.querySelector(".street");
+        // Phường hoặc Xã
+        const wardInfo = document.querySelector(".ward :checked").innerText;
+        // Quận hoặc Huyện
+        const districtInfo = document.querySelector(".district :checked").innerText;
+        // Tỉnh thành
+        const cityInfo = document.querySelector(".city :checked").innerText;
+    
+        if(street.value.trim() === ""){
+          err_input(street);
+          return;
+        }
+        if(cityInfo === "Chọn Tỉnh thành"){
+          err_input(document.querySelector(".city :checked"), null, true);
+          return;
+        }
+        if(districtInfo === "Chọn Quận / Huyện"){
+          err_input(document.querySelector(".district :checked"), null, true);
+          return;
+        }
+        if(wardInfo === "Chọn Phường / Xã"){
+            err_input(document.querySelector(".ward :checked"), null, true);
+            return;
+        }
+    
+        let tmpAddress = street.value.trim() + ", " + wardInfo + ", " + districtInfo + ", " + cityInfo;
+        document.querySelector(".address-customer").value = tmpAddress;
+      }
+
     document.querySelector(".form-user-add-edit a").onclick = (e) => {
         e.preventDefault();
         document.querySelector(".container-form-user-add-edit").remove();
@@ -258,6 +303,75 @@ function createFormAddEdit(){
     document.querySelector(".form-user-add-edit-delete").onclick = () => {
         document.querySelector(".container-form-user-add-edit").remove();
     }
+     //địa chỉ select
+      const citySelect = document.querySelector(".city");
+      const districtSelect = document.querySelector(".district");
+      const wardSelect = document.querySelector(".ward");
+       // Hàm đặt lại các lựa chọn
+       function resetAllSelect(condition) {
+        if (condition === 1) {
+          citySelect.innerHTML = `<option>Chọn Tỉnh thành</option>`;
+          districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+        }
+        if (condition === 2) {
+          districtSelect.innerHTML = `<option>Chọn Quận / Huyện</option>`;
+        }
+        wardSelect.innerHTML = `<option>Chọn Phường / Xã</option>`;
+      }
+       // Đặt lại các lựa chọn
+        resetAllSelect(1);
+        // Cập nhật dữ liệu Thành phố
+        let cityItems = "";
+        for (let i = 0; i < locationToSelectArray.length; i++) {
+          const city = locationToSelectArray[i];
+          cityItems += `<option value="${city.id}">${city.name}</option>`;
+        }
+        citySelect.innerHTML = cityItems;
+      
+        //Khi người dùng lựa chọn Thành phố
+        citySelect.addEventListener("change", function () {
+          const cityIDSelected = citySelect.value;
+          let districtsFromCitySelected;
+          for (let i = 0; i < locationToSelectArray.length; i++) {
+            if (locationToSelectArray[i].id == cityIDSelected) {
+              districtsFromCitySelected = locationToSelectArray[i].districts;
+              break;
+            }
+          }
+      
+          // Đặt lại các lựa chọn
+          resetAllSelect(2);
+          // Cập nhật dữ liệu Quận / Huyện khi đã biết tên Thành phố
+          let districtItems = "";
+          for (let i = 0; i < districtsFromCitySelected.length; i++) {
+            const district = districtsFromCitySelected[i];
+            districtItems += `<option value="${district.id}">${district.name}</option>`;
+          }
+          districtSelect.innerHTML = districtItems;
+      
+          //Khi người dùng lựa chọn Quận / Huyện
+          districtSelect.addEventListener("change", function () {
+            const districtIDSelected = districtSelect.value;
+            let wardsFromDistrictSelected;
+            for (let i = 0; i < districtsFromCitySelected.length; i++) {
+              if (districtsFromCitySelected[i].id == districtIDSelected) {
+                wardsFromDistrictSelected = districtsFromCitySelected[i].wards;
+                break;
+              }
+            }
+      
+            // Đặt lại các lựa chọn
+            resetAllSelect(0);
+            // Cập nhật dữ liệu Phường / Xã khi đã biết tên Quận / Huyện
+            let wardItems = "";
+            for (let i = 0; i < wardsFromDistrictSelected.length; i++) {
+              const ward = wardsFromDistrictSelected[i];
+              wardItems += `<option value="${ward.id}">${ward.name}</option>`;
+            }
+            wardSelect.innerHTML = wardItems;
+          });
+        });
+
 }
 
 export function filterCustomer(){
@@ -275,6 +389,11 @@ export function filterCustomer(){
                 && (status === "all" || check === obj.blockStatus)
         });
         return arr;
+    }
+    document.querySelector("#delete-filter-a-customer").onclick = (e) => {
+        e.preventDefault();
+        showMain("main-content-customer");
+        pagination(userList, 1, showListCustomer, "#main-content-customer");
     }
     document.querySelector("#filter-a-customer").onclick = (e) => {
         e.preventDefault();

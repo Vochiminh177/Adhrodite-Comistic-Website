@@ -10,7 +10,7 @@ import {
   addProduct,
   filterProductAdmin,
 } from "./updateProduct/OptionProduct.js";
-import { generateOrderFilter } from "./updateOrder/orderFilter.js";
+import { generateOrderFilter, orderStatusAndOrderdateSortAsc } from "./updateOrder/orderFilter.js";
 
 import { DashboardEvent } from "./dashboard.js";
 import { createNotificationAdmin } from "./base/baseFunction.js";
@@ -284,7 +284,7 @@ export function showMain(sectionId) {
                             <th>Mã đơn hàng</th>
                             <th>Mã khách hàng</th>
                             <th>Ngày đặt</th>
-                            <th>Quận, Tỉnh/TP</th>
+                            <th>Quận/Huyện, Tỉnh/TP</th>
                             <th>Tổng cộng</th>
                             <th>Trạng thái</th>
                             <th>Chi tiết</th>
@@ -400,7 +400,7 @@ export function showMain(sectionId) {
               <th>Mã đơn hàng</th>
               <th>Mã khách hàng</th>
               <th>Ngày đặt</th>
-              <th>Quận, Tỉnh/TP</th>
+              <th>Quận/Huyện, Tỉnh/TP</th>
               <th>Tổng cộng</th>
               <th>Trạng thái</th>
               <th>Chi tiết</th>
@@ -470,6 +470,7 @@ export function showMain(sectionId) {
 		</div>
 		`;
     const orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+    orderList.sort(orderStatusAndOrderdateSortAsc);
     pagination(orderList, 1, showListOrder, "#main-content-order");
     generateOrderFilter();
     responsiveOrderFilter();
@@ -565,7 +566,7 @@ export function showMain(sectionId) {
               <input type="text" id="search-customer-input" placeholder="Nhập tên tài khoản">
               <a href="">Tìm kiếm</a>
             </div>
-            <button class="btn btn-add-product btn-add-customer">Thêm khách hàng</button>
+            <button class="btn btn-add-product btn-add-customer">Thêm tài khoản</button>
 					</div>
           <div id="filter-customer">
               <div class="content-filter">
@@ -587,6 +588,7 @@ export function showMain(sectionId) {
                   </select>
                 </div>
                 <a href="#" id="filter-a-customer">Lọc</a>
+                <a href="#" id="delete-filter-a-customer">Xóa</a>
               </div>
           </div>
 				</div>

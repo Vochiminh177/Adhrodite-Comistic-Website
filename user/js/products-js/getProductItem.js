@@ -334,15 +334,38 @@ export function updateProductItem(key) {
     //   hr.style.width = "50%";
     // }
     //css phần giá giảm
-    if (productList[productItemKey].discountQuantity <= 0) {
-      document.querySelector(".discountPrice").style.display = "none";
-    } else {
-      const originPrice = document.querySelector(".originPrice");
-      originPrice.style.color = "#ccc";
-      originPrice.style.fontSize = "1.8rem";
-      originPrice.style.textDecoration = "line-through";
-    }
+//     if (productList[productItemKey].discountQuantity <= 0) {
+//       document.querySelector(".discountPrice").style.display = "none";
+//     } else {
+//       const originPrice = document.querySelector(".originPrice");
+//       originPrice.style.color = "#ccc";
+//       originPrice.style.fontSize = "1.8rem";
+//       originPrice.style.textDecoration = "line-through";
+//     }
+// //
 
+if (productList[productItemKey].discountPercent <= 0) {
+  const originPrice = document.querySelector(".originPrice");
+  originPrice.style.color = "black";
+  originPrice.style.fontSize = "2.2rem";
+  originPrice.style.textDecoration = "none";
+
+  const discountPrice = document.querySelector(".discountPrice");
+  // discountPrice.style.color = "#ccc";
+  // discountPrice.style.fontSize = "1.8rem";
+  // discountPrice.style.textDecoration = "line-through";
+  discountPrice.style.display = "none";
+} else {
+  const discountPrice = document.querySelector(".discountPrice");
+  discountPrice.style.color = "black";
+  discountPrice.style.fontSize = "2.2rem";
+  discountPrice.style.textDecoration = "none";
+
+  const originPrice = document.querySelector(".originPrice");
+  originPrice.style.color = "#ccc";
+  originPrice.style.fontSize = "1.8rem";
+  originPrice.style.textDecoration = "line-through";
+}
     // Khi người dùng nhấn các nút tăng/giảm số lượng sản phẩm
     productItemQuantity = 1;
     changeProductItemQuantity(productList, productItemKey);

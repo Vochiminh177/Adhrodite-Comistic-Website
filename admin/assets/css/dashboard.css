@@ -44,7 +44,7 @@ html {
   font-family: var(--poppins);
   font-size: 27px;
   margin-right: 20px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
@@ -185,6 +185,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; /* Tắt giao diện mặc định */
+  font-size: 1rem;
 }
 
 .content .dashboard-filter {
@@ -392,7 +393,7 @@ select {
   flex-grow: 1;
   font-family: var(--poppins);
   background-color: rgb(237, 171, 203);
-  color: black;
+  color: #fff;
   border: none;
   padding: 10px 0px;
   cursor: pointer;
@@ -402,7 +403,7 @@ select {
 .order-list-btn {
   font-family: var(--poppins);
   background-color: rgb(237, 171, 203);
-  color: black;
+  color:  #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -429,7 +430,7 @@ select {
   }
 
   .dashboardTable td:before {
-    font-weight: 700;
+    font-weight: 600;
     width: 150px;
     text-align: left;
     margin-left: 15%;

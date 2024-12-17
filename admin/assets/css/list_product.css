@@ -12,9 +12,6 @@
 }
 #main-content-product-add .title h1{
   text-align: center;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
   width: 20%;
   padding: 20px;
   width: 300px;
@@ -83,7 +80,7 @@
 }
 .content-delete label {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #a94064;
 }
 .content-delete input {
@@ -97,7 +94,7 @@
 .content-delete-confirm .btndelete {
   font-size: 1rem;
   padding: 10px 20px;
-  font-weight: 700;
+  font-weight: 600;
   background-color: #db7699;
   color: #fff;
   border: none;
@@ -145,7 +142,7 @@
 }
 /*---------- css phần tìm kiếm ----------------*/
 .search-product.search-id{
-  width: calc(75% - 20px*(1/4));
+  width: calc(80% - 20px*(2/5));
   display: flex;
 }
 .search-product a{
@@ -456,6 +453,9 @@
   .content-filter{
     flex-wrap: wrap;
   }
+  .filter-product .content-filter a:last-child{
+    margin-left: auto;
+  }
   
   
   #main-content-product-list .filter-product .category, .content-filter .brand, .filter-product .quantity { 
@@ -555,7 +555,7 @@
     text-align: left;
   }
   .content-product-list .product-list-table td::before {
-    font-weight: 700;
+    font-weight: 600;
     width: 100px;
   }
   .content-product-list .product-list-table td:first-child {
@@ -567,32 +567,32 @@
   }
   .content-product-list .product-list-table td:nth-of-type(2)::before {
     content: "Mã";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list .product-list-table td:nth-of-type(3)::before {
     content: "Tên";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list .product-list-table td:nth-of-type(4)::before {
     content: "Thương hiệu";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list .product-list-table td:nth-of-type(5)::before {
     content: "Loại";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list .product-list-table td:nth-of-type(6)::before {
     content: "Giá";
-    font-weight: 700;
+    font-weight: 600;
   }
   .content-product-list .product-list-table td:nth-of-type(7)::before {
     content: "Số Lượng";
-    font-weight: 700;
+    font-weight: 600;
   }
   
   .content-product-list .product-list-table td:nth-of-type(8)::before {
     content: "Tuỳ chỉnh";
-    font-weight: 700;
+    font-weight: 600;
     padding: 15px;
   }
   

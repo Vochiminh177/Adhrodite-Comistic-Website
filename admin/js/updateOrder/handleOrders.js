@@ -1,23 +1,26 @@
 import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
-import { showListOrder, pagination} from "../showList/show.js"
-import { getDistrictOfString, filterOrders, getCityOfString } from "./orderFilter.js";
+import { showListOrder, pagination } from "../showList/show.js";
+import {
+  getDistrictOfString,
+  filterOrders,
+  getCityOfString,
+} from "./orderFilter.js";
 // Tạo ra các đơn hàng tóm tắt, chưa chi tiết
 export function createOrderRow(order) {
   const trEle = document.querySelector(".content-order-table-body");
   let district = getDistrictOfString(order.orderAddressToShip);
   let city = getCityOfString(order.orderAddressToShip);
   let result = "";
-  if(!district && !city){
+  //district có giá trị "Quận/Huyện ${name}"
+  //city có giá trị "${name}"
+  if (!district && !city) {
     result = "Chưa rõ";
-  } else
-  if(district && city){
-    result = "Quận " + district + ", " + city;
-  } else
-  if(district && !city){
-    result = "Quận " + district + ", " + "chưa rõ tỉnh/thành";
-  } else
-  if(!district && city){
-    result = "Chưa rõ quận, " + city;
+  } else if (district && city) {
+    result = district + ", " + city;
+  } else if (district && !city) {
+    result = district + ", " + "chưa rõ tỉnh/thành";
+  } else if (!district && city) {
+    result = "Chưa rõ quận/huyện, " + city;
   }
 
   trEle.innerHTML += `
@@ -45,7 +48,7 @@ export function createOrderRow(order) {
 export function generateOrderEvents(start, end, curentPage, orderList) {
   // Tạo sự kiện xem chi tiết đơn hàng
   const detailEles = document.querySelectorAll(".details-btn");
-  if(detailEles){
+  if (detailEles) {
     detailEles.forEach((ele, idx) => {
       ele.addEventListener("click", (event) => {
         event.preventDefault();
@@ -54,10 +57,10 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
         generateOrderButtonsEvents(orderIndex);
       });
     });
-  } else{
+  } else {
     //console.error(`".details-btn not found!"`);
   }
-  
+
   closeModalEvents();
   // Tạo sự kiện cho các nút in, xác nhận, huỷ, xác nhận đã giao
   function generateOrderButtonsEvents(orderIndex) {
@@ -86,83 +89,94 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
       };
     }
 
-    if(deleteBtn){
+    if (deleteBtn) {
       deleteBtn.onclick = (event) => {
         event.preventDefault();
         showOrderConfirmModal(orderIndex, "delete");
-      }
+      };
     }
   }
 
-  function showOrderConfirmModal(orderIndex, newStatus){
-    const orderConfirmMessage = document.getElementById("order-confirm-modal-message");
-    if(orderConfirmMessage){
-      if(newStatus === "accepted"){
+  function showOrderConfirmModal(orderIndex, newStatus) {
+    const orderConfirmMessage = document.getElementById(
+      "order-confirm-modal-message"
+    );
+    if (orderConfirmMessage) {
+      if (newStatus === "accepted") {
         orderConfirmMessage.innerHTML = `Xác nhận đơn hàng ?`;
-      } else
-      if(newStatus === "canceled"){
+      } else if (newStatus === "canceled") {
         orderConfirmMessage.innerHTML = `Xác nhận huỷ đơn hàng ?`;
-      } else
-      if(newStatus === "shipped"){
+      } else if (newStatus === "shipped") {
         orderConfirmMessage.innerHTML = `Xác nhận đã giao đơn hàng ?`;
-      } else
-      if(newStatus === "delete"){
+      } else if (newStatus === "delete") {
         orderConfirmMessage.innerHTML = `Xác nhận xoá đơn hàng ?`;
       }
-    } else{
+    } else {
       //console.error(`#order-confirm-message not found!`);
     }
-    
+
     const orderConfirmModal = document.getElementById("order-confirm-modal");
-    if(orderConfirmModal){
+    if (orderConfirmModal) {
       orderConfirmModal.style.display = "block";
-    } else{
+    } else {
       //console.error(`#order-confirm-modal not found!`);
     }
-  
-    const orderConfirmConfirmButton = document.getElementById("order-confirm-confirm-btn");
-    if(orderConfirmConfirmButton){
+
+    const orderConfirmConfirmButton = document.getElementById(
+      "order-confirm-confirm-btn"
+    );
+    if (orderConfirmConfirmButton) {
       orderConfirmConfirmButton.onclick = (event) => {
         event.preventDefault();
         orderConfirmModal.style.display = "none";
-        if(newStatus === "accepted"){
+        if (newStatus === "accepted") {
           updateOrderStatus(orderIndex, "accepted");
-        } else
-        if(newStatus === "canceled"){
+        } else if (newStatus === "canceled") {
           updateOrderStatus(orderIndex, "canceled");
           const productList = JSON.parse(localStorage.getItem("productList"));
           const orderedProducts = orderList[orderIndex].orderProduct;
           orderedProducts.forEach((orderedProduct) => {
-            const toRestoreIndex = productList.findIndex((product) => orderedProduct.id === product.id);
+            const toRestoreIndex = productList.findIndex(
+              (product) => orderedProduct.id === product.id
+            );
             if (toRestoreIndex !== -1) {
-              productList[toRestoreIndex].discountQuantity += orderedProduct.discountQuantity;
-              
+              const tmp = Math.min(
+                orderedProduct.discountQuantity, 
+                orderedProduct.quantity
+              );
+              productList[toRestoreIndex].discountQuantity += tmp;
+
               productList[toRestoreIndex].quantity += orderedProduct.quantity;
             }
           });
           localStorage.setItem("productList", JSON.stringify(productList));
-        } else
-        if(newStatus === "shipped"){
+        } else if (newStatus === "shipped") {
           updateOrderStatus(orderIndex, "shipped");
-        } else
-        if(newStatus === "delete"){
+        } else if (newStatus === "delete") {
           deleteOrder(orderIndex);
         }
 
-        pagination(filterOrders(), curentPage, showListOrder, "#main-content-order");
+        pagination(
+          filterOrders(),
+          curentPage,
+          showListOrder,
+          "#main-content-order"
+        );
         document.getElementById("order-details-modal").style.display = "none";
-      }
-    } else{
+      };
+    } else {
       //console.error(`#order-confirm-confirm-btn not found`);
     }
-  
-    const orderConfirmCancelButton = document.getElementById("order-confirm-cancel-btn");
-    if(orderConfirmCancelButton){
+
+    const orderConfirmCancelButton = document.getElementById(
+      "order-confirm-cancel-btn"
+    );
+    if (orderConfirmCancelButton) {
       orderConfirmCancelButton.onclick = (event) => {
         event.preventDefault();
         orderConfirmModal.style.display = "none";
-      }
-    } else{
+      };
+    } else {
       //console.error(`#order-confirm-cancel-btn not found!`);
     }
   }
@@ -185,18 +199,18 @@ export function generateOrderEvents(start, end, curentPage, orderList) {
     const toUpdateStatusIndex = localStorageOrderList.findIndex(
       (localOrder) => localOrder.orderId === orderList[orderIndex].orderId
     );
-    if(toUpdateStatusIndex !== -1){
+    if (toUpdateStatusIndex !== -1) {
       localStorageOrderList[toUpdateStatusIndex].orderStatus = newStatus;
       localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
     }
   }
-  function deleteOrder(orderIndex){
+  function deleteOrder(orderIndex) {
     const localStorageOrderList = JSON.parse(localStorage.getItem("orderList"));
     const toDeleteIndex = localStorageOrderList.findIndex(
       (order) => orderList[orderIndex].orderId === order.orderId
     );
 
-    if(toDeleteIndex !== -1){
+    if (toDeleteIndex !== -1) {
       localStorageOrderList.splice(toDeleteIndex, 1);
       localStorage.setItem("orderList", JSON.stringify(localStorageOrderList));
     }
@@ -209,7 +223,6 @@ function showOrderDetails(order) {
   const modal = document.getElementById("order-details-modal");
   modal.style.display = "block";
 }
-
 
 // Tạo chi tiết đơn hàng, modal-content
 function createOrderDetails(order) {
@@ -242,8 +255,8 @@ function createOrderDetails(order) {
 
   // Thông tin giá tiền
   const orderSummary = document.getElementById("order-summary");
-  if(orderSummary){
-    if(typeof order.orderMethod === "object"){
+  if (orderSummary) {
+    if (typeof order.orderMethod === "object") {
       orderSummary.innerHTML = `
         <h3>Thông tin Đơn Hàng</h3>
         <p>Phương thức:&nbsp${order.orderMethod.name}</p>
@@ -251,15 +264,19 @@ function createOrderDetails(order) {
         <p>Mã thẻ:&nbsp${order.orderMethod.code}</p>
         <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
         <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
-        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(
+          order.orderTotalPrice + 18000
+        )}đ</p>
       `;
-    } else{
+    } else {
       orderSummary.innerHTML = `
         <h3>Thông tin Đơn Hàng</h3>
         <p>Phương thức:&nbsp${order.orderMethod}</p>
         <p>Tổng tiền hàng:&nbsp${formatVietNamMoney(order.orderTotalPrice)}đ</p>
         <p>Phí vận chuyển:&nbsp${formatVietNamMoney(18000)}đ</p>
-        <p>Tổng cộng:&nbsp${formatVietNamMoney(order.orderTotalPrice + 18000)}đ</p>
+        <p>Tổng cộng:&nbsp${formatVietNamMoney(
+          order.orderTotalPrice + 18000
+        )}đ</p>
       `;
     }
   }
@@ -268,29 +285,38 @@ function createOrderDetails(order) {
   const productInfoBody = document.getElementById("order-product-info-body");
   productInfoBody.innerHTML = "";
   order.orderProduct.forEach((product) => {
-    if(product.discountQuantity > 0){
-      const currentDiscountQuantity = Math.min(product.discountQuantity, product.quantity);
-      const currentDiscountPercent = ((100 - product.discountPercent) / 100);
+    if (product.discountQuantity > 0) {
+      const currentDiscountQuantity = Math.min(
+        product.discountQuantity,
+        product.quantity
+      );
+      const currentDiscountPercent = (100 - product.discountPercent) / 100;
       productInfoBody.innerHTML += `
       <tr>
         <td>${product.id}</td>
         <td>${currentDiscountQuantity}</td>
         <td>${formatVietNamMoney(product.price * currentDiscountPercent)}đ</td>
-        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent * currentDiscountQuantity))}đ</td>
+        <td>${formatVietNamMoney(
+          Math.round(
+            product.price * currentDiscountPercent * currentDiscountQuantity
+          )
+        )}đ</td>
       </tr>
       `;
 
-      if(product.quantity > currentDiscountQuantity){
+      if (product.quantity > currentDiscountQuantity) {
         productInfoBody.innerHTML += `
         <tr>
           <td>${product.id}</td>
           <td>${product.quantity - currentDiscountQuantity}</td>
           <td>${formatVietNamMoney(product.price)}đ</td>
-          <td>${formatVietNamMoney(product.price * (product.quantity - currentDiscountQuantity))}đ</td>
+          <td>${formatVietNamMoney(
+            product.price * (product.quantity - currentDiscountQuantity)
+          )}đ</td>
         </tr>
         `;
       }
-    } else{
+    } else {
       productInfoBody.innerHTML += `
       <tr>
         <td>${product.id}</td>
@@ -300,12 +326,11 @@ function createOrderDetails(order) {
       </tr>
       `;
     }
-
   });
-  
+
   // Các nút xác nhận, huỷ, xác nhận đã giao
   const actionBar = document.getElementById("action-bar");
-  if(actionBar){
+  if (actionBar) {
     if (order.orderStatus === "pending") {
       actionBar.innerHTML = `
         <button class="order-btn order-confirm-btn">Xác nhận đơn hàng</button>
@@ -317,7 +342,7 @@ function createOrderDetails(order) {
       `;
     } else if (order.orderStatus === "shipped") {
       actionBar.innerHTML = "";
-    } else if (order.orderStatus === "canceled"){
+    } else if (order.orderStatus === "canceled") {
       actionBar.innerHTML = `<button class="order-btn order-delete-btn">Xoá đơn hàng</button>`;
     }
   }
@@ -338,57 +363,61 @@ function translateOrderStatus(orderStatus) {
   return "";
 }
 
-function closeModalEvents(){
+function closeModalEvents() {
   // Đóng modal khi nhấn vào nút tắt
-  const closeOrderDetailsModalBtn = document.querySelector(".order-details-modal .close-btn");
-  if(closeOrderDetailsModalBtn){
+  const closeOrderDetailsModalBtn = document.querySelector(
+    ".order-details-modal .close-btn"
+  );
+  if (closeOrderDetailsModalBtn) {
     closeOrderDetailsModalBtn.onclick = (event) => {
       event.preventDefault();
       const modal = document.getElementById("order-details-modal");
-      if(modal){
+      if (modal) {
         modal.style.display = "none";
-      } else{
+      } else {
         console.log(`#order-details-modal not found!`);
       }
     };
-  } else{
+  } else {
     //console.error(`.order-details-modal .close-btn not found!`);
   }
 
-  const closeOrderConfirmModalBtn = document.querySelector(".order-confirm-modal .close-btn");
-  if(closeOrderConfirmModalBtn){
+  const closeOrderConfirmModalBtn = document.querySelector(
+    ".order-confirm-modal .close-btn"
+  );
+  if (closeOrderConfirmModalBtn) {
     closeOrderConfirmModalBtn.onclick = (event) => {
       event.preventDefault();
       const modal = document.getElementById("order-confirm-modal");
-      if(modal){
+      if (modal) {
         modal.style.display = "none";
-      } else{
+      } else {
         //console.error(`order-confirm-modal not found!`);
       }
-    }
-  } else{
+    };
+  } else {
     //console.error(`order-confirm-modal .close-btn not found!`);
   }
   // Đóng modal khi nhấn vào bên ngoài modal-content
   const orderDetailsmodal = document.getElementById("order-details-modal");
-  if(orderDetailsmodal){
+  if (orderDetailsmodal) {
     orderDetailsmodal.onclick = (event) => {
       if (event.target.matches(".order-details-modal")) {
         orderDetailsmodal.style.display = "none";
       }
     };
-  } else{
+  } else {
     //console.error(`#order-details-modal not found!`);
   }
 
   const orderConfirmModal = document.getElementById("order-confirm-modal");
-  if(orderConfirmModal){
+  if (orderConfirmModal) {
     orderConfirmModal.onclick = (event) => {
-      if(event.target.matches(".order-confirm-modal")){
+      if (event.target.matches(".order-confirm-modal")) {
         orderConfirmModal.style.display = "none";
       }
-    }
-  } else{
+    };
+  } else {
     //console.error(`#order-confirm-modal not found!`);
   }
 }

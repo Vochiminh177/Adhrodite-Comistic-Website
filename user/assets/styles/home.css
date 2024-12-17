@@ -22,7 +22,7 @@
 .header__main-icon strong.main-icon {
   font-family: "Roboto";
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .header__navbar {
   display: flex;
@@ -98,7 +98,7 @@
   position: relative;
   padding-bottom: 7px;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .header__find-title::after {
   position: absolute;
@@ -265,7 +265,7 @@
   width: 50%;
   height: 48px;
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 48px;
   text-align: center;
   transition: color 0.3s;
@@ -349,7 +349,7 @@
   border-radius: 999px;
   color: #fff;
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
   transition: background-color 0.2s;
 }
 .header__form-group [type="submit"]:hover {
@@ -472,7 +472,7 @@
   transform: translate3d(-50%, -50%, 0);
   color: transparent;
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 600;
   text-shadow: 1px 0 0 rgba(169, 64, 100, 0.3);
   transition: color 0.4s;
 }
@@ -572,7 +572,7 @@
   margin-top: 5px;
   color: rgb(199, 11, 11);
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 600;
   display: inline-block;
 }
 .body__home .popular-product__detail-bottle {
@@ -588,7 +588,7 @@
 }
 .body__home .sale-product__title {
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .body__home .sale-product__header button {
   font-size: 2.4rem;
@@ -660,7 +660,7 @@
 .body__home .sale-product__price .new {
   color: rgb(199, 11, 11);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-top: 50px;
 }
 .body__home .sale-product__add-to-shopping-cart {
@@ -736,7 +736,7 @@
 .footer__icon--strong {
   font-family: "Roboto";
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .footer__desc {
   width: 348px;
@@ -761,7 +761,7 @@
 .media__title {
   color: #fff;
   font-size: 1.7rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 18px;
 }
 .help__action,
@@ -898,6 +898,9 @@
 /* =================responsive mobile===================== */
 
 @media screen and (max-width: 500px) {
+  .footer__contacts{
+    margin-top: 0;
+  }
   .container-notification p{
     font-size: 1.5rem;
     padding: 0 5px;
@@ -931,6 +934,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .body {
+    margin-top: -65px;
+    padding-top: 36px;
+  }
   .container-notification p{
     font-size: 1.5rem;
     padding: 0 5px;

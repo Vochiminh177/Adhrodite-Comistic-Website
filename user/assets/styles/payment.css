@@ -2,6 +2,13 @@
 .payment-information-info__form .payment-information-info__firstName {
   margin-bottom: 10px;
 }
+.payment-information-info__form .payment-information-info__firstName,
+.payment-information-info__form .payment-information-info__lastName,
+.payment-information-info__form .payment-information-info__email, 
+.payment-information-info__form .payment-information-info__phone,
+.payment-information-info__form .payment-information-info__address {
+  cursor: not-allowed;
+}
 .payment-information-info__form .err-text {
   border: 1px solid red;
 }
@@ -10,7 +17,7 @@
 }
 .payment-information__icon {
   font-size: 3.2rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.2rem;
   text-align: center;
 }
@@ -43,7 +50,7 @@
   position: relative;
   padding-bottom: 7px;
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 }
 .payment-information-info__title::after {
@@ -402,7 +409,7 @@ figure:has(.payment-information-products__image) {
   right: 0;
   color: #000;
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* <=*/

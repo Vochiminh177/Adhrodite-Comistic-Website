@@ -6,7 +6,7 @@ export function generateOrderFilter(){
     <form class="order-filter-form" id="order-filter-form" name="order-filter-form">
         <div class="order-filter-row">
             <div class="order-filter-group">
-                <label for="orderID-search">Tìm mã đơn hàng</label>
+                <label for="orderID-search">Tìm kiếm</label>
                 <input type="text" id="orderID-search" placeholder="Nhập mã đơn hàng" name="orderID-search">
             </div>
             <div class="order-filter-start-end-date-container">
@@ -26,21 +26,20 @@ export function generateOrderFilter(){
         </div>
         <div class="order-filter-row">
             <div class="order-filter-group">
-                <label for="city-select">Tỉnh/TP</label>
+                <label for="city-select">Tỉnh/Thành phố</label>
                 <select id="city-select" name="order-city">
                 </select>
             </div>
             <div class="order-filter-group">
-                <label for="district-select">Quận</label>
+                <label for="district-select">Quận/Huyện</label>
                 <select id="district-select" name="order-district">
                 </select>
             </div>
             <div class="order-filter-group">
-                <label for="district-sort">Sắp xếp quận</label>
-                <select id="district-sort" name="order-district-sort">
-                    <option value="tat-ca">Không xếp</option>
-                    <option value="asc">A - Z</option>
-                    <option value="desc">Z - A</option>
+                <label for="order-date-sort">Thời gian đặt hàng</label>
+                <select id="order-date-sort" name="order-date-sort">
+                    <option value="asc">Cũ nhất</option>
+                    <option value="desc">Mới nhất</option>
                 </select>
             </div>
             <div class="order-filter-group">
@@ -66,7 +65,7 @@ function setUpEventListener(){
     const resetBtn = document.getElementById('order-reset-btn');
     const citySelect = document.getElementById("city-select");
     const districtSelect = document.getElementById("district-select");
-    const districtSortSelect = document.getElementById("district-sort");
+    const orderDateSortSelect = document.getElementById("order-date-sort");
     const orderStatusSelect = document.getElementById("order-status");
 
     applyBtn.addEventListener('click', (event) => {
@@ -93,7 +92,7 @@ function setUpEventListener(){
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
 
-    districtSortSelect.addEventListener("change", () => {
+    orderDateSortSelect.addEventListener("change", () => {
         const filteredOrders = filterOrders();
         pagination(filteredOrders, 1, showListOrder, "#main-content-order");
     });
@@ -111,7 +110,7 @@ export function filterOrders(){
     const endDate = orderFilterForm["end-date"].value;
     const orderCity = orderFilterForm["order-city"].value;
     const orderDistrict = orderFilterForm["order-district"].value;
-    const orderSort = orderFilterForm["order-district-sort"].value;
+    const orderDateSort = orderFilterForm["order-date-sort"].value;
     const orderStatus = orderFilterForm["order-status"].value;
     const orderList = JSON.parse(localStorage.getItem("orderList"));
 
@@ -151,27 +150,49 @@ export function filterOrders(){
         return true;
     });
 
-    if(orderSort === "asc"){
-        filteredOrders.sort(cmpFuncAsc);
+    if(orderStatus === "tat-ca"){
+        if(orderDateSort === "asc"){
+            filteredOrders.sort(orderStatusAndOrderdateSortAsc);
+        } else
+        if(orderDateSort === "desc"){
+            filteredOrders.sort(orderStatusAndOrderdateSortDesc);
+        }
     } else
-    if(orderSort === "desc"){
-        filteredOrders.sort(cmpFuncDesc);
+    if(orderDateSort === "asc"){
+        filteredOrders.sort(sortOrderByDateAsc);
+    } else
+    if(orderDateSort === "desc"){
+        filteredOrders.sort(sortOrderByDateDesc);
     }
-
     return filteredOrders;
 }
 
-function compareDate(orderDate, startDate, endDate){
-    if(!startDate && !endDate){
-        return true;
-    }
+function getDate(orderDate){
     // orderDate hh:mm:ss dd/mm/yyyy
-    // startDate, endDate yyyy-mm-dd
     let tmp = orderDate.split(" ")[1].split("/");
     tmp[2] = tmp[2].padStart(4, "0");
     tmp[1] = tmp[1].padStart(2, "0");
     tmp[0] = tmp[0].padStart(2, "0");
     orderDate = tmp.reverse().join("-");
+    return orderDate;
+}
+
+function getTime(orderDate){
+    // orderDate hh:mm:ss dd/mm/yyyy
+    let tmp = orderDate.split(" ")[0].split(":");
+    tmp[0] = tmp[0].padStart(2, "0");
+    tmp[1] = tmp[1].padStart(2, "0");
+    tmp[2] = tmp[2].padStart(2, "0");
+    orderDate = tmp.join(":");
+    return orderDate;
+}
+function compareDate(orderDate, startDate, endDate){
+    if(!startDate && !endDate){
+        return true;
+    }
+
+    orderDate = getDate(orderDate);
+    // startDate, endDate yyyy-mm-dd
     if(startDate && endDate){
         if(startDate <= orderDate && orderDate <= endDate){
             return true;
@@ -197,19 +218,85 @@ function compareDate(orderDate, startDate, endDate){
     }
 }
 
-function cmpFuncAsc(first, second){
-    first = getDistrictOfString(first.orderAddressToShip);
-    second = getDistrictOfString(second.orderAddressToShip);
-    if(!first) return 1;
-    if(!second) return -1;
-    return first.localeCompare(second);
+// function cmpFuncAsc(first, second){
+//     first = getDistrictOfString(first.orderAddressToShip);
+//     second = getDistrictOfString(second.orderAddressToShip);
+//     if(!first) return 1;
+//     if(!second) return -1;
+//     return first.localeCompare(second);
+// }
+// function cmpFuncDesc(first, second){
+//     first = getDistrictOfString(first.orderAddressToShip);
+//     second = getDistrictOfString(second.orderAddressToShip);
+//     if(!first) return 1;
+//     if(!second) return -1;
+//     return second.localeCompare(first);
+// }
+
+function sortOrderByDateAsc(first, second){
+    if(getDate(first.orderDate) < getDate(second.orderDate)){
+        return -1;
+    }
+
+    if(getDate(first.orderDate) > getDate(second.orderDate)){
+        return 1;
+    }
+
+    if(getTime(first.orderDate) < getTime(second.orderDate)){
+        return -1;
+    }
+
+    return 1;
 }
-function cmpFuncDesc(first, second){
-    first = getDistrictOfString(first.orderAddressToShip);
-    second = getDistrictOfString(second.orderAddressToShip);
-    if(!first) return 1;
-    if(!second) return -1;
-    return second.localeCompare(first);
+function sortOrderByDateDesc(first, second){
+    if(getDate(first.orderDate) < getDate(second.orderDate)){
+        return 1;
+    }
+
+    if(getDate(first.orderDate) > getDate(second.orderDate)){
+        return -1;
+    }
+
+    if(getTime(first.orderDate) < getTime(second.orderDate)){
+        return 1;
+    }
+
+    return -1;
+}
+export function orderStatusAndOrderdateSortAsc(first, second){
+    const orderStatusValueMap = {
+        "pending": 0,
+        "accepted": 0,
+        "canceled": 1,
+        "shipped": 1
+      };
+
+    if(orderStatusValueMap[first.orderStatus] < orderStatusValueMap[second.orderStatus]){
+        return -1;
+    } else
+    if(orderStatusValueMap[first.orderStatus] > orderStatusValueMap[second.orderStatus]){
+        return 1;
+    }
+
+    return sortOrderByDateAsc(first, second);
+}
+function orderStatusAndOrderdateSortDesc(first, second){
+    console.log("Hiii");
+    const orderStatusValueMap = {
+        "pending": 0,
+        "accepted": 0,
+        "canceled": 1,
+        "shipped": 1
+      };
+
+    if(orderStatusValueMap[first.orderStatus] < orderStatusValueMap[second.orderStatus]){
+        return -1;
+    } else
+    if(orderStatusValueMap[first.orderStatus] > orderStatusValueMap[second.orderStatus]){
+        return 1;
+    }
+
+    return sortOrderByDateDesc(first, second);
 }
 
 function generateDistrictOfCity(cityName){
@@ -285,12 +372,13 @@ function generateCityAdDistrictSelect(){
     }
 }
 
+// Hàm trả về Quận/Huyện ${name} of district
 export function getDistrictOfString(str){
     const arr = str.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let district = "";
     const arrLength = arr.length;
     for(let i = 0; i < arrLength; i++){
-        if(arr[i].toLowerCase().includes("quận")){
+        if(arr[i].toLowerCase().includes("quận") || arr[i].toLowerCase().includes("huyện")){
             district = arr[i];
             break;
         }
@@ -299,8 +387,8 @@ export function getDistrictOfString(str){
     district = district.trim();
     if(district !== ""){ 
         let tmp = district.split(" ");
-        const idx = tmp.findIndex(item => item === "quận");
-        tmp = tmp.slice(idx + 1);
+        const idx = tmp.findIndex(item => item === "quận" || item === "huyện");
+        tmp = tmp.slice(idx);
         tmp = tmp.map((word) => {
             return word[0].toUpperCase() + word.slice(1).toLowerCase();
         });
@@ -313,7 +401,7 @@ export function getDistrictOfString(str){
 
     return district;
 }
-
+// Hàm trả về ${name} of city
 export function getCityOfString(str){
     const arr = str.trim().replace(/\s+/g, " ").toLowerCase().split(",");
     let city = "";
