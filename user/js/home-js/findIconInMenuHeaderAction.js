@@ -140,6 +140,9 @@ function headerSearch() {
   headerHasProductSuggestion = false;
   headerSearchTerm = searchInput.value.trim().toLowerCase();
   const filteredProducts = filterProducts(headerSearchTerm);
+  if(filteredProducts.length !== 0){
+    headerHasProductSuggestion = true;
+  }
   showProductSuggestions(filteredProducts, headerSearchTerm);
 }
 
