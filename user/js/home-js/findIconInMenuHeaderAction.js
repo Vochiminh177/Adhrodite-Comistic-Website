@@ -140,9 +140,6 @@ function headerSearch() {
   headerHasProductSuggestion = false;
   headerSearchTerm = searchInput.value.trim().toLowerCase();
   const filteredProducts = filterProducts(headerSearchTerm);
-  if(filteredProducts.length !== 0){
-    headerHasProductSuggestion = true;
-  }
   showProductSuggestions(filteredProducts, headerSearchTerm);
 }
 
@@ -166,6 +163,7 @@ function showProductSuggestions(filteredProducts, headerSearchTerm) {
   
   // Tìm thấy sản phẩm
   if(filteredProductsLength > 0){
+    headerHasProductSuggestion = true;
     // Giới hạn hiện thị sản phẩm
     for(let i = 0; i < Math.min(5, filteredProductsLength); i++){
       const li = createSuggestionLi(filteredProducts[i]);

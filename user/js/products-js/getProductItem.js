@@ -198,11 +198,12 @@ export function updateProductItem(key) {
   const productItemKey = productList.findIndex((product) => product.number === key);
   let newPrice = productList[productItemKey].price;
   if (productList[productItemKey].discountQuantity > 0) {
-    newPrice =
+    newPrice = Math.round(
       productList[productItemKey].price -
-      (productList[productItemKey].price *
-        productList[productItemKey].discountPercent) /
-        100;
+        (productList[productItemKey].price *
+          productList[productItemKey].discountPercent) /
+          100
+    );
   }
   if (productList[productItemKey]) {
     // Đưa về đầu trang

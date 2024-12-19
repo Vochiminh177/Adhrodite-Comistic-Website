@@ -36,7 +36,7 @@ export function updateProductsPagination(
   const numbersDiv = document.getElementById("main-products-numbers");
 
   // Số sản phẩm mỗi trang
-  const productsPerPage = 4;
+  const productsPerPage = 12;
 
   // Tổng số trang
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
