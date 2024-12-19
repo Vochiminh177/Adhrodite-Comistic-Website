@@ -243,8 +243,8 @@ function comebackHomePage() {
       // Hiển thị lại header và footer
       updateHeaderAndFooter("on");
 
-      // Cập nhật lại style cho navbar header
-      updateNavbarStyle();
+      // Cập nhật lại st''yle cho navbar header
+      updateNavbarStyle("home");
 
       // Trở về Trang chủ
       updateMainContent("home");
@@ -388,7 +388,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
           class="fa-solid fa-chevron-left"
           style="pointer-events: none"
         ></i>
-        Quay trở lại trang chủ
+        Quay trở lại Trang chủ
       </button>
       <!-- Info Bill -->
       <div class="bill__info">

@@ -1,9 +1,9 @@
 import { formatVietNamMoney } from "../common-js/common.js";
 import { brands } from "../../../database/database.js"
 // Bước nhảy
-const step = 50000;
+const step = 10000;
 // Chênh lệch nhỏ nhất
-const gap = 50000;
+const gap = 10000;
 let minLimit = 100000;
 let maxLimit = 900000;
 // Giá trị để sử dụng
