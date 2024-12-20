@@ -1,4 +1,5 @@
 import { createNotificationAdmin, err_input } from "./base/baseFunction.js";
+import { showMain } from "./script2.js";
 
 let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin")) || -1;
 let userList = JSON.parse(localStorage.getItem("userList"));
@@ -9,6 +10,7 @@ if(indexCurrentUserLogin === -1 || userList[indexCurrentUserLogin].type !== "adm
   loginAdmin();
 }
 else{
+  showMain("main-content-dashboard");
   document.querySelector("#side-bar").style.display = "block";
   document.querySelector("#content").style.display = "block";
   document.querySelector("#container-admin-login").style.display = "none";
