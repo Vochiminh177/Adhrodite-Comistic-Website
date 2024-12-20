@@ -39,7 +39,6 @@ export function clickToProductItem() {
       let saleProductItemName = obj
         .querySelector(".sale-product__name")
         ?.textContent.trim();
-      // console.log(productItemName, saleProductItemName);
       let productList = document.querySelectorAll(".main-products__name");
       productList.forEach((name) => {
         if (

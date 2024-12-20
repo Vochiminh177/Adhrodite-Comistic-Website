@@ -250,7 +250,6 @@ function generateCustomerStatistics(customerList, sortBy, n, startDate, endDate)
         }
         return true; // Không có điều kiện lọc
     });
-    console.log(filteredCustomerList);
 
     // Lặp qua danh sách đã lọc và tổng hợp dữ liệu
     filteredCustomerList.forEach(order => {

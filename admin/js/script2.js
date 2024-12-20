@@ -146,7 +146,7 @@ function anhMinh() {
 }
 
 export function showMain(sectionId) {
-  // console.log(document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
+  // (document.querySelector(".dashboardTable")); // Kiểm tra phần tử có tồn tại trong DOM
   // Ẩn tất cả các phần tử main
   const sections = document.querySelectorAll("main");
   sections.forEach((section) => {

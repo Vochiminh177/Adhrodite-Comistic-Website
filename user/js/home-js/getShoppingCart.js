@@ -44,7 +44,6 @@ function updateShoppingCartAfterActionsFromUser(
          
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity + 1;
-                console.log(parseInt(product.querySelector(".shopping-cart__number").value))
                 if(parseInt(product.querySelector(".shopping-cart__number").value) > productList[indexProduct].quantity){
                   product.querySelector(".shopping-cart__number").value = productList[indexProduct].quantity;
                   create_notification_user("Hàng tồn không đủ");
@@ -95,7 +94,6 @@ function updateShoppingCartAfterActionsFromUser(
             if (currentQuantity >= 1) {
               product.querySelector(".shopping-cart__number").value =
                 currentQuantity;
-                console.log(parseInt(product.querySelector(".shopping-cart__number").value))
                 if(parseInt(product.querySelector(".shopping-cart__number").value) > productList[indexProduct].quantity){
                   product.querySelector(".shopping-cart__number").value = productList[indexProduct].quantity;
                   create_notification_user("Hàng tồn không đủ");
@@ -145,7 +143,6 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
           function createProductItemInOrderHistoryItem() {
             const orderProduct =
               ordersHistory[ordersHistory.length - 1 - index].orderProduct; //ordersHistory.length - 1 - index là vị trí thực tế của sản phẩm trong ls với mảng ordersHistory
-            console.log(orderProduct);
             let items = "</br>";
             for (let i = 0; i < orderProduct.length; i++) {
               let discountNumbers = 0,

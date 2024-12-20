@@ -25,7 +25,6 @@ import { formatVietNamMoney } from "../../../user/js/common-js/common.js";
 function createPage(list, currentPage, showList, main) {
   if(list.length === 0){
     if(main === "#main-content-order"){
-      // console.log(document.querySelector(".content-order-table-body"));
       document.querySelector(".content-order-table-body").innerHTML = `
         <td colspan="7">Không có đơn hàng nào</td>
       `;

@@ -187,7 +187,6 @@ function handle_order_product(
             )
             .forEach((obj) => {
               if (obj.checked) {
-                console.log(obj);
                 type = obj.id;
               }
             });
@@ -270,65 +269,7 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
         stringPrice[3] = stringPrice[3].replaceAll("%", "");
         stringPrice[3] = stringPrice[3].replaceAll(")", "");
       }
-      // if(array_orderProduct[i].discountQuantity < array_orderProduct[i].quantity && array_orderProduct[i].discountQuantity !== 0){
-      //   console.log(123);
-      //   //nếu không có giảm giá từ ban đầu
-      //   if(array_orderProduct[i].discountQuantity === 0){
-      //     items += `
-      //     <tr>
-      //       <td>${array_orderProduct[i].id}</td>
-      //       <td align="left">${array_orderProduct[i].name}</td>
-      //       <td>${array_orderProduct[i].quantity}</td>
-      //       <td>${stringPrice[0]}đ</td>
-      //     </tr>
-      //   `;
-      //   }
-      //   else{
-      //     for(let j=0; j<array_orderProduct[i].discountQuantity; j++){
-      //       console.log(parseInt(stringPrice[0]))
-      //       items += `
-      //       <tr>
-      //         <td>${array_orderProduct[i].id}</td>
-      //         <td align="left">${array_orderProduct[i].name}</td>
-      //         <td>${array_orderProduct[i].quantity}</td>
-      //         <td>${parseInt(stringPrice[0])*(100-array_orderProduct[i].discountPercent)/100} (${array_orderProduct[i].discountPercent}%)</td>
-      //       </tr>
-      //       `;
-      //     }
-      //     for(let k=j; k<array_orderProduct[i].quantity - array_orderProduct[i].discountQuantity; k++){
-      //       items += `
-      //       <tr>
-      //         <td>${array_orderProduct[i].id}</td>
-      //         <td align="left">${array_orderProduct[i].name}</td>
-      //         <td>${array_orderProduct[i].quantity}</td>
-      //         <td>${stringPrice[0]}đ</td>
-      //       </tr>
-      //       `;
-      //     }
-      //   }
-      // }
-      // else{
-      //   if(array_orderProduct[i].discountPercent !== 0){
-      //     items += `
-      //       <tr>
-      //         <td>${array_orderProduct[i].id}</td>
-      //         <td align="left">${array_orderProduct[i].name}</td>
-      //         <td>${array_orderProduct[i].quantity}</td>
-      //         <td>${formatVietNamMoney(stringPrice[0])}đ ${stringPrice[1]}</td>
-      //       </tr>
-      //     `;
-      //   }
-      //   else{
-      //     items += `
-      //     <tr>
-      //       <td>${array_orderProduct[i].id}</td>
-      //       <td align="left">${array_orderProduct[i].name}</td>
-      //       <td>${array_orderProduct[i].quantity}</td>
-      //       <td>${formatVietNamMoney(stringPrice[0])}đ</td>
-      //     </tr>
-      //   `;
-      //   }
-      // }
+
       if (
         array_orderProduct[i].discountQuantity <
           array_orderProduct[i].quantity &&
@@ -376,7 +317,6 @@ function updateBill(userList, indexCurrentUserLogin, array_orderProduct) {
   //lấy phương thức nếu mã thẻ
   let method = orderList[orderList.length - 1].orderMethod;
   let checkMethod = false; //phục vụ cho dòng 328
-  console.log(typeof method);
   if (typeof method === "object") {
     checkMethod = true;
   }

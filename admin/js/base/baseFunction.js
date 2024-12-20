@@ -252,7 +252,6 @@ export function searchByProductId(productStatistic) {
     // Xử lý khi người dùng xóa nội dung input
     inputField.addEventListener('input', () => {
         if (inputField.value.trim() === '') {
-            console.log('Đã xóa nội dung bằng nút clear!');
             pagination(productStatistic, 1, showProductStatistics, "#main-content-dashboard");
         }
     });

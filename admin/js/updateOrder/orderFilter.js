@@ -281,7 +281,6 @@ export function orderStatusAndOrderdateSortAsc(first, second){
     return sortOrderByDateAsc(first, second);
 }
 function orderStatusAndOrderdateSortDesc(first, second){
-    console.log("Hiii");
     const orderStatusValueMap = {
         "pending": 0,
         "accepted": 0,

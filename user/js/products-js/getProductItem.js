@@ -136,7 +136,6 @@ function addProductItemToShoppingCart(productItemKey) {
           }
         }
 
-        // console.log(userList[indexCurrentUserLogin].shoppingCart[indexProductItem]);
         if (isExistingProductItem) {
           if((userList[indexCurrentUserLogin].shoppingCart[indexProductItem].quantity + parseInt(document.querySelector(".main-order__number").value, 10)) > productList[productItemKey].quantity){
               create_notification_user("Xem lại giỏ hàng và số lượng đặt");
