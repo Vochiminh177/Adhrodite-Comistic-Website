@@ -295,7 +295,7 @@ function createOrderDetails(order) {
       <tr>
         <td>${product.id}</td>
         <td>${currentDiscountQuantity}</td>
-        <td>${formatVietNamMoney(product.price * currentDiscountPercent)}đ</td>
+        <td>${formatVietNamMoney(Math.round(product.price * currentDiscountPercent))}đ</td>
         <td>${formatVietNamMoney(
           Math.round(
             product.price * currentDiscountPercent * currentDiscountQuantity

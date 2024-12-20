@@ -23,7 +23,7 @@ function createProductItemWithHtml(product) {
   const p2 = document.createElement("p");
   let newPrice = product.price;
   if(product.discountQuantity > 0){
-    newPrice = product.price - (product.price * product.discountPercent / 100);
+    newPrice = Math.round(product.price - (product.price * product.discountPercent / 100));
   }
   p2.className = "main-products__price";
   p2.innerHTML = `${formatVietNamMoney(newPrice)}đ`;

@@ -156,11 +156,11 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
                 if (discountNumbers > 0) {
                   items += `+ ${orderProduct[i].id} - ${
                     orderProduct[i].name
-                  } - ${discountNumbers} - ${formatVietNamMoney(
+                  } - ${discountNumbers} - ${formatVietNamMoney(Math.round(
                     orderProduct[i].price -
                       (orderProduct[i].price *
                         orderProduct[i].discountPercent) /
-                        100
+                        100)
                   )}đ (${orderProduct[i].discountPercent}%)</br>`;
                 }
                 if (noDiscountNumbers > 0) {
@@ -177,11 +177,11 @@ function showOrderItemInfo(userList, indexCurrentUserLoginrsHistory) {
                 if (discountNumbers > 0) {
                   items += `+ ${orderProduct[i].id} - ${
                     orderProduct[i].name
-                  } - ${discountNumbers} - ${formatVietNamMoney(
+                  } - ${discountNumbers} - ${formatVietNamMoney(Math.round(
                     orderProduct[i].price -
                       (orderProduct[i].price *
                         orderProduct[i].discountPercent) /
-                        100
+                        100)
                   )}đ (${orderProduct[i].discountPercent}%)</br>`;
                 }
               }
@@ -412,9 +412,9 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
           productShoppingCartList[i].discountQuantity -= 1;
           if (productShoppingCartList[i].discountQuantity >= 0) {
             price +=
-              (productShoppingCartList[i].price *
+              Math.round((productShoppingCartList[i].price *
                 (100 - productShoppingCartList[i].discountPercent)) /
-              100;
+              100);
             discountOfProduct++;
           } else {
             price += productShoppingCartList[i].price;
@@ -424,10 +424,11 @@ function updateShoppingCart(userList, indexCurrentUserLogin) {
         let newPrice = productShoppingCartList[i].price; //giá trị của một sản phẩm
 
         if (productShoppingCartList[i].discountQuantity >= 0) {
-          newPrice =
+          newPrice = Math.round(
             (productShoppingCartList[i].price *
               (100 - productShoppingCartList[i].discountPercent)) /
-            100;
+              100
+          );
           checkDiscountQuantity = true;
         }
 

@@ -129,6 +129,7 @@ function getLeftMenuInfo() {
 
 // Hàm lấy ra các sản phẩm sau khi lọc từ 3 mục Tìm kiếm, Bộ lọc và Danh mục
 function filterProducts() {
+  productItemName = document.getElementById("left-search-input").value.trim().toLowerCase();
   const chosenBrandsLength = chosenBrands.length;
   if (chosenPrice) {
     const tmpString = chosenPrice.split("-");
@@ -154,10 +155,11 @@ function filterProducts() {
   document.getElementById("filter-criteria-count").innerHTML = `${filterCriteriaCount}`;
   const productList = JSON.parse(localStorage.getItem("productList"));
   const filteredProducts = productList.filter((product) => {
+    const productPriceWithDiscount = Math.round(product.price - (product.price * product.discountPercent / 100));
     if(chosenStatus && !checkStatus(product, chosenStatus)) return false;
     
     if (productListKey !== "tat-ca" && productListKey !== product.categoryID) return false;
-    if (product.price < minPrice || product.price > maxPrice) return false;
+    if (productPriceWithDiscount < minPrice || productPriceWithDiscount > maxPrice) return false;
     if (
       chosenBrandsLength > 0 &&
       !chosenBrands.includes((product.brand.toLowerCase()))
@@ -212,6 +214,7 @@ function customSort(attribute, sortType){
 
 // Hàm trở về danh sách sản phẩm trước đó khi nhấn "Quay lại" ở trang Chi tiết
 export function comebackProductList(currentPage) {
+  const filteredProducts = filterProducts();
   updateProductList(filteredProducts, currentPage);
   generateFilter();
 }

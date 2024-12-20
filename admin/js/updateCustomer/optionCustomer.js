@@ -256,7 +256,7 @@ function createFormAddEdit(){
                     <select class="district"><option></option></select>
                     <select class="ward"><option></option></select>
                 </div>
-                <button class="apply-address">Áp dụng</button>
+                <button type="button" class="apply-address">Áp dụng</button>
             </div>
             <button class="btn add-customer" type="submit">Lưu tài khoản</button>
         </form>

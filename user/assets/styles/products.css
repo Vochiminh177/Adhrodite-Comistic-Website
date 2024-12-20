@@ -442,7 +442,7 @@
   transition: background-color 0.3s, color 0.3s;
 }
 .body__products .main-products__number.active {
-  background: #fc8eac;
+  background-color: #fc8eac;
   width: 28px;
   height: 28px;
   border-radius: 50%;
