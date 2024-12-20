@@ -3123,27 +3123,25 @@ export const locationToSelectArray = [
   },
 ];
 
-window.addEventListener("load", () => {
-  let tmpList = JSON.parse(localStorage.getItem("orderList"));
-  if (tmpList === null || tmpList === undefined) {
-    localStorage.setItem("orderList", JSON.stringify(orderList));
-  }
+let tmpList = JSON.parse(localStorage.getItem("orderList"));
+if (tmpList === null || tmpList === undefined) {
+  localStorage.setItem("orderList", JSON.stringify(orderList));
+}
 
-  tmpList = JSON.parse(localStorage.getItem("userList"));
-  if (tmpList === null || tmpList === undefined) {
-    localStorage.setItem("userList", JSON.stringify(userList));
-  }
+tmpList = JSON.parse(localStorage.getItem("userList"));
+if (tmpList === null || tmpList === undefined) {
+  localStorage.setItem("userList", JSON.stringify(userList));
+}
 
-  tmpList = JSON.parse(localStorage.getItem("productList"));
-  if (tmpList === null || tmpList === undefined) {
-    localStorage.setItem("productList", JSON.stringify(productItemArray));
-  }
+tmpList = JSON.parse(localStorage.getItem("productList"));
+if (tmpList === null || tmpList === undefined) {
+  localStorage.setItem("productList", JSON.stringify(productItemArray));
+}
 
-  let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
-  if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
-    localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
-  }
-});
+let indexCurrentUserLogin = JSON.parse(localStorage.getItem("indexCurrentUserLogin"));
+if(indexCurrentUserLogin === null || indexCurrentUserLogin === undefined){
+  localStorage.setItem("indexCurrentUserLogin", JSON.stringify(-1));
+}
 
 const products = JSON.parse(localStorage.getItem("productList"));
 export const brands = [

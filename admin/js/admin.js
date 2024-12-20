@@ -29,9 +29,7 @@ function loginAdmin(){
             createNotificationAdmin("Đăng nhập thành công");
             document.querySelector("#account-admin").value = "";
             document.querySelector("#password-admin").value = "";
-            setTimeout(() => {
-              document.querySelector(".dashboard_sidebar").click();
-            }, 10);
+            document.querySelector(".dashboard_sidebar").click();
           
         }
         else{
