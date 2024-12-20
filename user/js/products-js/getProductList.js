@@ -1,7 +1,7 @@
 import { getProductItemInfo } from "./getProductItem.js";
 import { updateLeftMenuStyle } from "./productsPageStyles.js";
 import { updateProductsPagination } from "./productsPagination.js";
-import { resetDoubleSlider , generateFilter } from "./generateFilter.js";
+import { resetDoubleSlider , generateFilter, minLimit, maxLimit } from "./generateFilter.js";
 
 // Từ khoá chỉ tên sản phẩm cần tìm kiếm hiện tại
 let productItemName = "";
@@ -32,7 +32,7 @@ let chosenSort = "";
 // Giá thấp nhất
 let minPrice = 0;
 // Giá cao nhất
-let maxPrice = 900000;
+let maxPrice = maxLimit;
 // Trạng thái đã chọn
 let chosenStatus = "";
 // Danh sách sản phẩm đã lọc
@@ -135,7 +135,7 @@ function filterProducts() {
     const tmpString = chosenPrice.split("-");
     minPrice = parseInt(tmpString[0], 10);
     if (tmpString[1] === "INF") {
-      maxPrice = 900000;
+      maxPrice = maxLimit;
     } else {
       maxPrice = parseInt(tmpString[1], 10);
     }
@@ -150,7 +150,7 @@ function filterProducts() {
   if(chosenSort) filterCriteriaCount++;
   if(chosenStatus) filterCriteriaCount++;
   if(chosenPrice) filterCriteriaCount++;
-  else if(minPrice > 100000 || maxPrice < 900000) filterCriteriaCount++;
+  else if(minPrice > minLimit || maxPrice < maxLimit) filterCriteriaCount++;
   filterCriteriaCount += chosenBrandsLength;
   document.getElementById("filter-criteria-count").innerHTML = `${filterCriteriaCount}`;
   const productList = JSON.parse(localStorage.getItem("productList"));
@@ -307,7 +307,7 @@ export function getProductListInfo() {
   chosenSort = "";
   chosenStatus = "";
   minPrice = 0;
-  maxPrice = 900000;
+  maxPrice = maxLimit;
   
   // Gọi các sự kiện để cập nhật Danh sách sản phẩm
   getLeftSearchInfo();

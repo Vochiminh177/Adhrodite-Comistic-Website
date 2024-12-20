@@ -375,7 +375,7 @@ function closeModalEvents() {
       if (modal) {
         modal.style.display = "none";
       } else {
-        console.log(`#order-details-modal not found!`);
+        // console.error(`#order-details-modal not found!`);
       }
     };
   } else {
